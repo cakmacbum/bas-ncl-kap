@@ -46,6 +46,25 @@ Aşağıdaki özellikler planlanan "Later" kapsamından çıkarılmış ve V1'e 
 - **CAD — torisferik bombeler:** Görsel amaçlı yaklaşık elipsoidal profil revolve edilir; gerçek torisferik geometri (crown + knuckle) henüz yok.
 - **CAD — düz flanş:** Union-tabanlı mimari (plaka + skirt); diğer bombelerden farklı strateji, daha kırılgan.
 
+### Bağımsız doğrulama turu 1'de ortaya çıkanlar (2026-07-26)
+
+Kaynak: [`validation/asme-worked-examples.md`](validation/asme-worked-examples.md).
+
+- **B-02 — Eliptik bombede yalnızca 2:1 destekleniyor.** `head_elliptical_thickness`
+  `K = 1.0`'ı sabit alıyor; `Head` modelinde bombe derinliği / en-boy oranı alanı yok.
+  2:1 dışında bir elipsoidal bombe (ör. `K = 0.99`, karşılaştırma kaynağında görüldü)
+  girilirse sessizce 2:1 gibi hesaplanır. UG-32(d) zaten yalnız 2:1'i kapsar; genel oran
+  **Appendix 1-4(c)** ister ve o da yok. Kullanıcı 2:1 dışı bombe giremediği için bugün
+  yanlış sonuç riski yok — ama bombe oranı girdisi eklenirse **önce** bu kapatılmalı.
+- **B-03 — Dış çap alternatifleri (App 1-1(a)(1), 1-4(c)) implement edilmemiş.**
+  Karşılaştırılan iki ticari yazılım da varsayılan olarak bu formları kullanıyor. Suite'in
+  iç çap formları %0.4-0.9 **daha ince** kalınlık üretiyor. Küçük ama sistematik ve
+  emniyetsiz yönde; imalatçı çıktıyı ticari yazılımla karşılaştırırsa fark görecektir.
+- **B-04 — UG-34(c)(3) (dairesel olmayan düz kapak, `Z` faktörü) yok.** Yalnız
+  UG-34(c)(2) dairesel kapak var.
+- **B-05 — UG-32(e) torisferik ve UG-32(f) yarım küre bağımsız teyit almadı.** Uygun
+  yayınlanmış hesap seti bulunamadı; bu iki formül `sembolik` doğrulama seviyesinde kaldı.
+
 ---
 
-*Oluşturma tarihi: 2026-07-19 · Revizyon: 2.0 — Faz 4/5 tamamlanmasına göre güncellendi (2026-07-24)*
+*Oluşturma tarihi: 2026-07-19 · Revizyon: 2.1 — bağımsız doğrulama turu 1 bulguları (2026-07-26)*

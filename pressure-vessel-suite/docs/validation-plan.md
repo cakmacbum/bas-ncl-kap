@@ -80,21 +80,37 @@ tarafından kapsam ve örnek hesaplar incelenmelidir.
 
 ## Formül Doğrulama Kayıtları
 
-Aşağıdaki formüller ASME BPVC Section VIII Division 1 (2025 Edition) ile karşılaştırılarak doğrulanmıştır.
+**Doğrulama tipi** sütununun anlamı:
 
-| Formül | Madde | Durum | Tarih | Kaynak |
-|---|---|---|---|---|
-| Çevresel gerilme: t = PR/(SE - 0.6P) | UG-27(c)(1) Eq. (1) | Doğrulandı | 2026-07-23 | ASME BPVC VIII-1 (2025) |
-| Boyuna gerilme: t = PR/(2SE + 0.4P) | UG-27(c)(1) Eq. (2) | Doğrulandı | 2026-07-23 | ASME BPVC VIII-1 (2025) |
-| 2:1 Elipsoidal: t = PD/(2SE - 0.2P) | UG-32(d) | Doğrulandı | 2026-07-23 | ASME BPVC VIII-1 (2025) |
-| Torisferik: M = (3+sqrt(L/r))/4, t = PLM/(2SE - 0.2P) | UG-32(e) | Doğrulandı | 2026-07-23 | ASME BPVC VIII-1 (2025) |
-| Yarım küresel: t = PR/(2SE - 0.2P) | UG-32(f) | Doğrulandı | 2026-07-23 | ASME BPVC VIII-1 (2025) |
-| Hidrotest: P_test = 1.3 × P_design × (S_test/S_design) | UG-99(b) | Doğrulandı | 2026-07-23 | ASME BPVC VIII-1 (2025) |
+- `sembolik` — formülün matematiksel ifadesi ASME metniyle karşılaştırıldı. Beklenen sayısal
+  değerleri suite'i yazan kişi üretti; formül baştan yanlışsa testler yine yeşil kalır.
+- `sayısal-bağımsız` — sonuç, **başkasının yayımladığı** hesapla karşılaştırıldı. Ayrıntı:
+  [`validation/asme-worked-examples.md`](validation/asme-worked-examples.md).
 
-Doğrulama yöntemi: Her formülün matematiksel ifadesi ASME metniyle birebir karşılaştırılmış, ardından bağımsız web kaynaklarıyla teyit edilmiştir. Golden-case testleri (`tests/golden_cases/test_asme_golden.py`) her formül için sayısal sonuç doğrulaması içerir.
+| Formül | Madde | Doğrulama tipi | Kaynak | Durum | Tarih |
+|---|---|---|---|---|---|
+| Çevresel gerilme: t = PR/(SE - 0.6P) | UG-27(c)(1) Eq. (1) | **sayısal-bağımsız** | 2 | Doğrulandı | 2026-07-26 |
+| Boyuna gerilme: t = PR/(2SE + 0.4P) | UG-27(c)(1) Eq. (2) | **sayısal-bağımsız** | 2 | Doğrulandı | 2026-07-26 |
+| 2:1 Elipsoidal: t = PD/(2SE - 0.2P) | UG-32(d) | **sayısal-bağımsız** | 2 | Doğrulandı — App 1-4(c) dış-çap alternatifinden %0.4-0.9 ince (limitations B-03) | 2026-07-26 |
+| MAWP, silindirik gövde | UG-27 | **sayısal-bağımsız** | 1 | Doğrulandı | 2026-07-26 |
+| MAWP, 2:1 elipsoidal bombe | UG-32(d) | **sayısal-bağımsız** | 1 | Doğrulandı | 2026-07-26 |
+| Hidrotest: P_test = 1.3 × **MAWP** × (S_test/S_design) | UG-99(b) | **sayısal-bağımsız** | 2 | 🔴 **SAPMA bulundu ve düzeltildi** — taban tasarım basıncıydı, %42.9 düşük test basıncı üretiyordu | 2026-07-26 |
+| Pnömatik: P_test = 1.1 × **MAWP** × (S_test/S_design) | UG-100 | **sayısal-bağımsız** | 1 | 🔴 Aynı sapma, aynı düzeltme | 2026-07-26 |
+| Torisferik: M = (3+sqrt(L/r))/4, t = PLM/(2SE - 0.2P) | UG-32(e) | `sembolik` | 0 | Bağımsız teyit **yok** | 2026-07-23 |
+| Yarım küresel: t = PR/(2SE - 0.2P) | UG-32(f) | `sembolik` | 0 | Bağımsız teyit **yok** | 2026-07-23 |
+
+**Sayısal-bağımsız yöntem:** İki ayrı ticari yazılımın (PV Elite 2017 · Advanced Pressure
+Vessel 10.1.5) yayımlanmış hesap setlerinden girdi ve sonuçlar alındı, suite aynı girdilerle
+çalıştırıldı, %1 toleransla karşılaştırıldı. Çalıştırılabilir hâli:
+`tests/golden_cases/test_published_examples.py`.
+
+**Sembolik yöntem:** Formülün matematiksel ifadesi ASME metniyle birebir karşılaştırılmış,
+bağımsız web kaynaklarıyla teyit edilmiştir. `tests/golden_cases/test_asme_golden.py` sayısal
+sonuç içerir ama beklenen değerler suite yazarına aittir.
 
 Bağımsız gözden geçiren: Henüz atanmadı — üretim öncesi uzman incelemesi gerekir.
+Sayısal-bağımsız doğrulama bunun **yerine geçmez**, hazırlar.
 
 ---
 
-*Oluşturma tarihi: 2026-07-19 · Revizyon: 1.1 (formül doğrulama kayıtları eklendi: 2026-07-23)*
+*Oluşturma tarihi: 2026-07-19 · Revizyon: 1.2 (sayısal-bağımsız doğrulama, tur 1: 2026-07-26)*

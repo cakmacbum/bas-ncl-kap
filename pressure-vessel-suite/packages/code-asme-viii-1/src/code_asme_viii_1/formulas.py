@@ -255,21 +255,29 @@ def head_hemispherical_thickness(
 # ── UG-99: Hidrostatik test basıncı ──────────────────────────────────────────
 
 def hydrotest_pressure_asme(
-    design_pressure: float,
+    pressure_basis: float,
     allowable_stress_test: float,
     allowable_stress_design: float,
     temperature_ratio_factor: float = 1.0,
 ) -> float:
     """UG-99(b) — Hidrostatik test basıncı.
 
-    P_test = 1.3 × P_design × (S_test / S_design)
+    P_test = 1.3 × MAWP × (S_test / S_design)
 
     Burada:
     S_test = test sıcaklığındaki izin verilen gerilme
     S_design = tasarım sıcaklığındaki izin verilen gerilme
 
+    **Basınç tabanı MAWP'dir, tasarım basıncı DEĞİL.** UG-99(b) endnote'u tasarım
+    basıncının yalnızca **MAWP hesaplanmadığında** yerine konabileceğini söyler.
+    Bu suite MAWP'yi hesapladığı için muafiyet geçerli değildir; taban MAWP olmalıdır.
+    MAWP ≥ P_tasarım olduğundan, tasarım basıncı kullanmak Kod'un istediğinden
+    **düşük** test basıncı üretir (emniyetsiz yönde). Tabanı çağıran seçer;
+    `design_code.calculate_hydrotest_pressure` MAWP yoksa geri düşer ve varsayımı
+    açıkça kaydeder (K4).
+
     Args:
-        design_pressure: Tasarım basıncı (MPa).
+        pressure_basis: Test basıncı tabanı (MPa) — MAWP; yoksa tasarım basıncı.
         allowable_stress_test: Test sıcaklığındaki izin verilen gerilme (MPa).
         allowable_stress_design: Tasarım sıcaklığındaki izin verilen gerilme (MPa).
         temperature_ratio_factor: Sıcaklık oranı düzeltme faktörü.
@@ -278,14 +286,14 @@ def hydrotest_pressure_asme(
         Hidrostatik test basıncı (MPa).
 
     Referans: UG-99(b)
-    Doğrulandı: ASME BPVC VIII-1 (2025), UG-99(b)
-    Bağımsız gözden geçiren: Formül matematiği web aramasıyla teyit edildi (2026-07-23)
+    Doğrulandı (sayısal-bağımsız): PV Elite 2017 çıktısı — 1.3 × 218.80 psig MAWP
+        × 1.0 = 284.44 psig. Bkz. docs/validation/asme-worked-examples.md V-07.
     """
     if allowable_stress_design <= 0:
         raise ValueError("Tasarım sıcaklığındaki izin verilen gerilme sıfırdan büyük olmalı")
 
     ratio = allowable_stress_test / allowable_stress_design
-    p_test = 1.3 * design_pressure * ratio
+    p_test = 1.3 * pressure_basis * ratio
 
     return p_test
 
@@ -513,16 +521,19 @@ def flat_head_mawp(
 # ── UG-100: Pnömatik test basıncı ────────────────────────────────────────────
 
 def pneumatic_test_pressure(
-    design_pressure: float,
+    pressure_basis: float,
     allowable_stress_test: float,
     allowable_stress_design: float,
 ) -> float:
     """UG-100 — Pnömatik test basıncı.
 
-    P_test = 1.1 × P_design × (S_test / S_design)
+    P_test = 1.1 × MAWP × (S_test / S_design)
+
+    UG-99(b) ile aynı kural: taban **MAWP**'dir. Ayrıntı ve gerekçe için
+    `hydrotest_pressure_asme` docstring'ine bakınız.
 
     Args:
-        design_pressure: Tasarım basıncı (MPa).
+        pressure_basis: Test basıncı tabanı (MPa) — MAWP; yoksa tasarım basıncı.
         allowable_stress_test: Test sıcaklığındaki izin verilen gerilme (MPa).
         allowable_stress_design: Tasarım sıcaklığındaki izin verilen gerilme (MPa).
 
@@ -530,12 +541,14 @@ def pneumatic_test_pressure(
         Pnömatik test basıncı (MPa).
 
     Referans: UG-100
+    Doğrulandı (sayısal-bağımsız): PV Elite 2017 çıktısı — 1.1 × 218.80 psig MAWP
+        × 1.0 = 240.68 psig. Bkz. docs/validation/asme-worked-examples.md V-07.
     """
     if allowable_stress_design <= 0:
         raise ValueError("Tasarım sıcaklığındaki izin verilen gerilme sıfırdan büyük olmalı")
 
     ratio = allowable_stress_test / allowable_stress_design
-    p_test = 1.1 * design_pressure * ratio
+    p_test = 1.1 * pressure_basis * ratio
 
     return p_test
 

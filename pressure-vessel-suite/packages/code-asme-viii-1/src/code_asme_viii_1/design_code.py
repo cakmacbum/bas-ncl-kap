@@ -515,16 +515,44 @@ class ASMEVIII1DesignCode(DesignCode):
             f"({S_design} MPa). Ratio = 1.0 (conservative)."
         )
 
+        # UG-99(b) tabanı MAWP'dir. Endnote yalnızca MAWP hesaplanmadığında tasarım
+        # basıncına izin verir; bu suite MAWP'yi hesapladığı için taban MAWP olmalı.
+        # MAWP ≥ P_tasarım olduğundan, tasarım basıncına düşmek Kod'un istediğinden
+        # DÜŞÜK test basıncı üretir (emniyetsiz yön) — bu yüzden K4 varsayımı yazılır.
         P_design = dc.design_pressure
-        p_test = formulas.hydrotest_pressure_asme(P_design, S_test, S_design)
+        global_mawp = input_data.get("global_mawp")
+        if global_mawp is not None and global_mawp > 0:
+            pressure_basis = global_mawp
+            basis_label = "MAWP"
+        else:
+            pressure_basis = P_design
+            basis_label = "P_design"
+            result.add_assumption(
+                "K4: MAWP hesaplanamadığı için UG-99(b) tabanı olarak tasarım basıncı "
+                f"({P_design} MPa) kullanıldı (UG-99(b) endnote muafiyeti). MAWP "
+                "hesaplanabilseydi test basıncı daha yüksek çıkardı — bu değer "
+                "Kod'un asgarisinin altında kalabilir."
+            )
+            result.add_warning(
+                "Test basıncı MAWP yerine tasarım basıncından türetildi; MAWP "
+                "hesaplanabilir hale geldiğinde yeniden hesaplanmalıdır."
+            )
+
+        p_test = formulas.hydrotest_pressure_asme(pressure_basis, S_test, S_design)
 
         result.input_snapshot = {
+            "pressure_basis_MPa": pressure_basis,
+            "pressure_basis_type": basis_label,
             "P_design_MPa": P_design,
             "S_test_MPa": S_test,
             "S_design_MPa": S_design,
             "hydrotest_temperature_C": dc.hydrotest_temperature,
         }
 
+        result.add_intermediate(
+            "pressure_basis", pressure_basis, "MPa",
+            f"UG-99(b) pressure basis ({basis_label})",
+        )
         result.add_intermediate("P_design", P_design, "MPa", "Design pressure")
         result.add_intermediate("S_test", S_test, "MPa", "Allowable stress at test temperature")
         result.add_intermediate("S_design", S_design, "MPa", "Allowable stress at design temperature")
@@ -575,16 +603,35 @@ class ASMEVIII1DesignCode(DesignCode):
             f"({S_design} MPa). Ratio = 1.0 (conservative)."
         )
 
+        # UG-100 tabanı da MAWP'dir — UG-99(b) ile aynı gerekçe.
         P_design = dc.design_pressure
-        p_test = formulas.pneumatic_test_pressure(P_design, S_test, S_design)
+        global_mawp = input_data.get("global_mawp")
+        if global_mawp is not None and global_mawp > 0:
+            pressure_basis = global_mawp
+            basis_label = "MAWP"
+        else:
+            pressure_basis = P_design
+            basis_label = "P_design"
+            result.add_assumption(
+                "K4: MAWP hesaplanamadığı için UG-100 tabanı olarak tasarım basıncı "
+                f"({P_design} MPa) kullanıldı. Kod'un asgarisinin altında kalabilir."
+            )
+
+        p_test = formulas.pneumatic_test_pressure(pressure_basis, S_test, S_design)
 
         result.input_snapshot = {
+            "pressure_basis_MPa": pressure_basis,
+            "pressure_basis_type": basis_label,
             "P_design_MPa": P_design,
             "S_test_MPa": S_test,
             "S_design_MPa": S_design,
             "test_temperature_C": dc.hydrotest_temperature,
         }
 
+        result.add_intermediate(
+            "pressure_basis", pressure_basis, "MPa",
+            f"UG-100 pressure basis ({basis_label})",
+        )
         result.add_intermediate("P_design", P_design, "MPa", "Design pressure")
         result.add_intermediate("S_test", S_test, "MPa", "Allowable stress at test temperature")
         result.add_intermediate("S_design", S_design, "MPa", "Allowable stress at design temperature")

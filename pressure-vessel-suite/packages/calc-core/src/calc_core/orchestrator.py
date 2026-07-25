@@ -232,13 +232,20 @@ class CalculationOrchestrator:
             except Exception as e:
                 result.add_error(f"Head {head.head_id} MAWP calc error: {e}")
 
-        # F) Test basıncı
+        # E2) Statik kafa düzeltmesi (§19) — test basınçlarından ÖNCE çalışmalı:
+        # UG-99(b)/UG-100 tabanı **nihai** MAWP'dir, düzeltme öncesi ham değer değil.
+        self._apply_static_head_correction(project, result)
+
+        # F) Test basıncı — taban global MAWP (UG-99(b)); MAWP yoksa design_code
+        # endnote muafiyetine düşer ve varsayımı kaydeder.
+        global_mawp = result.get_global_mawp()
         try:
             r = self.design_code.calculate_hydrotest_pressure({
                 "project": project,
                 "design_conditions": project.design_conditions,
                 "materials": project.materials,
                 "code_edition": project.code_edition,
+                "global_mawp": global_mawp,
             })
             result.add(r)
         except Exception as e:
@@ -251,6 +258,7 @@ class CalculationOrchestrator:
                 "design_conditions": project.design_conditions,
                 "materials": project.materials,
                 "code_edition": project.code_edition,
+                "global_mawp": global_mawp,
             })
             result.add(r)
         except Exception as e:
@@ -263,8 +271,9 @@ class CalculationOrchestrator:
         except Exception as e:
             result.add_error(f"External pressure check error: {e}")
 
-        # G) Statik kafa düzeltmesi (§19)
-        self._apply_static_head_correction(project, result)
+        # (Statik kafa düzeltmesi E2'ye alındı — test basınçları nihai MAWP'yi
+        #  kullanabilsin diye. Burada tekrar çağrılmaz: idempotent değildir,
+        #  ikinci çağrı düzeltmeyi MAWP'den bir kez daha düşerdi.)
 
         return result
 

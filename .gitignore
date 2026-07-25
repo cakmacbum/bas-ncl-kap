@@ -29,6 +29,8 @@ docs/validation/fea/runs/
 
 # --- Lisanslı / üçüncü taraf malzeme (K6: telifli içerik depoya girmez) ---
 Hesaplama vs/
+# Doğrulama kaynağı PDF'leri: künye + sayısal sonuç depoda, dosyanın kendisi değil.
+pressure-vessel-suite/docs/validation/sources/
 
 # --- Yerel araç ayarları ---
 .claude/settings.local.json
