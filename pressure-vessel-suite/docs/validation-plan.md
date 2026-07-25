@@ -91,13 +91,14 @@ tarafından kapsam ve örnek hesaplar incelenmelidir.
 |---|---|---|---|---|---|
 | Çevresel gerilme: t = PR/(SE - 0.6P) | UG-27(c)(1) Eq. (1) | **sayısal-bağımsız** | 2 | Doğrulandı | 2026-07-26 |
 | Boyuna gerilme: t = PR/(2SE + 0.4P) | UG-27(c)(1) Eq. (2) | **sayısal-bağımsız** | 2 | Doğrulandı | 2026-07-26 |
-| 2:1 Elipsoidal: t = PD/(2SE - 0.2P) | UG-32(d) | **sayısal-bağımsız** | 2 | Doğrulandı — App 1-4(c) dış-çap alternatifinden %0.4-0.9 ince (limitations B-03) | 2026-07-26 |
+| 2:1 Elipsoidal: t = PD/(2SE - 0.2P) | UG-32(d) | **sayısal-bağımsız** | 3 | Doğrulandı — iç çap formunu kullanan kaynakla birebir (%0.03); dış çap alternatifini kullanan kaynaklardan %0.4-0.9 ince (limitations B-03) | 2026-07-26 |
 | MAWP, silindirik gövde | UG-27 | **sayısal-bağımsız** | 1 | Doğrulandı | 2026-07-26 |
 | MAWP, 2:1 elipsoidal bombe | UG-32(d) | **sayısal-bağımsız** | 1 | Doğrulandı | 2026-07-26 |
 | Hidrotest: P_test = 1.3 × **MAWP** × (S_test/S_design) | UG-99(b) | **sayısal-bağımsız** | 2 | 🔴 **SAPMA bulundu ve düzeltildi** — taban tasarım basıncıydı, %42.9 düşük test basıncı üretiyordu | 2026-07-26 |
 | Pnömatik: P_test = 1.1 × **MAWP** × (S_test/S_design) | UG-100 | **sayısal-bağımsız** | 1 | 🔴 Aynı sapma, aynı düzeltme | 2026-07-26 |
-| Torisferik: M = (3+sqrt(L/r))/4, t = PLM/(2SE - 0.2P) | UG-32(e) | `sembolik` | 0 | Bağımsız teyit **yok** | 2026-07-23 |
-| Yarım küresel: t = PR/(2SE - 0.2P) | UG-32(f) | `sembolik` | 0 | Bağımsız teyit **yok** | 2026-07-23 |
+| Torisferik: M = (3+sqrt(L/r))/4, t = PLM/(2SE - 0.2P) | UG-32(e) | **sayısal-bağımsız** | 1 (90 nokta) | Doğrulandı — anma tablosunun tamamı, tipik %0.03-0.05 | 2026-07-26 |
+| Torisferik varsayılan büküm yarıçapı | UG-32(e) | **sayısal-bağımsız** | 1 | 🔴 **SAPMA bulundu ve düzeltildi** — varsayılan D/10 idi, standart ASME F&D %6; %13 ince bombe üretiyordu | 2026-07-26 |
+| Yarım küresel: t = PR/(2SE - 0.2P) | UG-32(f) | **sayısal-bağımsız** | 1 | Doğrulandı | 2026-07-26 |
 
 **Sayısal-bağımsız yöntem:** İki ayrı ticari yazılımın (PV Elite 2017 · Advanced Pressure
 Vessel 10.1.5) yayımlanmış hesap setlerinden girdi ve sonuçlar alındı, suite aynı girdilerle

@@ -62,9 +62,15 @@ Kaynak: [`validation/asme-worked-examples.md`](validation/asme-worked-examples.m
   emniyetsiz yönde; imalatçı çıktıyı ticari yazılımla karşılaştırırsa fark görecektir.
 - **B-04 — UG-34(c)(3) (dairesel olmayan düz kapak, `Z` faktörü) yok.** Yalnız
   UG-34(c)(2) dairesel kapak var.
-- **B-05 — UG-32(e) torisferik ve UG-32(f) yarım küre bağımsız teyit almadı.** Uygun
-  yayınlanmış hesap seti bulunamadı; bu iki formül `sembolik` doğrulama seviyesinde kaldı.
+- ~~**B-05 — UG-32(e) torisferik ve UG-32(f) yarım küre bağımsız teyit almadı.**~~
+  **Kapatıldı (tur 2, 2026-07-26):** torisferik anma tablosuyla 90 nokta üzerinden,
+  yarım küre bombe tipi karşılaştırmasıyla doğrulandı.
+- **B-06 — Torisferik taç yarıçapı varsayılanı iç çaptır, standart ASME F&D dış çap kullanır.**
+  Kullanıcı taç yarıçapını girmezse `L = D` (iç çap) varsayılıyor; yayınlanmış karşılaştırma
+  taç yarıçapının **dış çapa** eşit olduğunu gösteriyor (tur 2, V-14). Fark %0.5 mertebesinde
+  ve emniyetsiz tarafta. `Head` modelinde dış çap alanı olmadığı için bu turda değiştirilmedi;
+  varsayım kullanıldığında uyarı veriliyor. Taç yarıçapı girildiğinde sorun yok.
 
 ---
 
-*Oluşturma tarihi: 2026-07-19 · Revizyon: 2.1 — bağımsız doğrulama turu 1 bulguları (2026-07-26)*
+*Oluşturma tarihi: 2026-07-19 · Revizyon: 2.2 — bağımsız doğrulama turu 2 (2026-07-26)*

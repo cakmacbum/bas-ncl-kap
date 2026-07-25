@@ -14,6 +14,50 @@ from calc_core.result import CalculationResult
 from code_asme_viii_1 import formulas
 from domain.enums import CalculationStatus
 
+# ASME "flanged and dished" (F&D) standart bombe geometrisi: taç yarıçapı = çap,
+# büküm yarıçapı = taç yarıçapının %6'sı. UG-32(e) asgarisi de %6'dır.
+ASME_FD_KNUCKLE_RATIO = 0.06
+
+
+def _torispherical_radii(head, D: float, result: CalculationResult) -> tuple[float, float]:
+    """Torisferik bombe için taç (L) ve büküm (r) yarıçaplarını çöz.
+
+    Kullanıcı değer vermediyse **standart ASME F&D** geometrisi varsayılır:
+    `L = D`, `r = 0.06 L`. Varsayım sessiz DEĞİLDİR — K4 gereği ara değer,
+    varsayım ve uyarı olarak kaydedilir.
+
+    Eski varsayılan `r = D/10` idi ve standart %6 bombeye kıyasla **%13 daha ince**
+    kalınlık üretiyordu: daha büyük büküm yarıçapı → daha küçük M → daha ince
+    bombe. Fiziksel bombe %6 bükümlüyse bu emniyetsiz taraftadır.
+    Bkz. docs/validation/asme-worked-examples.md V-12.
+    """
+    L = head.crown_radius if head.crown_radius else D
+    if not head.crown_radius:
+        result.add_assumption(
+            f"K4: Taç yarıçapı girilmedi; standart ASME F&D varsayıldı (L = D = {L:.1f} mm)."
+        )
+
+    r = head.knuckle_radius if head.knuckle_radius else ASME_FD_KNUCKLE_RATIO * L
+    if not head.knuckle_radius:
+        result.add_assumption(
+            f"K4: Büküm yarıçapı girilmedi; standart ASME F&D varsayıldı "
+            f"(r = 0.06 L = {r:.1f} mm). Bombenin gerçek bükümü daha büyükse hesap "
+            f"muhafazakâr, daha küçükse UG-32(e) asgarisi ihlal edilmiş demektir."
+        )
+        result.add_warning(
+            "Büküm yarıçapı imalat çiziminden girilmelidir — varsayılan %6 (ASME F&D) "
+            "kullanıldı. Bu değer gerekli kalınlığı doğrudan etkiler."
+        )
+
+    # UG-32(e) geometrik asgarileri — sessizce düzeltilmez, uyarı verilir (K4).
+    if r < ASME_FD_KNUCKLE_RATIO * L:
+        result.add_warning(
+            f"UG-32(e): Büküm yarıçapı r = {r:.1f} mm, taç yarıçapının %6'sının "
+            f"({ASME_FD_KNUCKLE_RATIO * L:.1f} mm) altında. Madde asgarisi sağlanmıyor."
+        )
+
+    return L, r
+
 
 class ASMEVIII1DesignCode(DesignCode):
     """ASME VIII Division 1 hesap eklentisi.
@@ -250,8 +294,7 @@ class ASMEVIII1DesignCode(DesignCode):
             elif head.type == HeadType.TORISPHERICAL:
                 result.clause_reference = "UG-32(e)"
                 result.formula_reference = "UG-32(e)"
-                L = head.crown_radius if head.crown_radius else D
-                r = head.knuckle_radius if head.knuckle_radius else D / 10.0
+                L, r = _torispherical_radii(head, D, result)
                 t, M = formulas.head_torispherical_thickness_full(P, L, r, S, E)
                 result.add_intermediate("L", L, "mm", "Crown radius")
                 result.add_intermediate("r", r, "mm", "Knuckle radius")
@@ -424,8 +467,7 @@ class ASMEVIII1DesignCode(DesignCode):
                     mawp = formulas.mawp_from_ellipsoidal_head(D, t_actual, S, E, C)
                 elif head.type == HeadType.TORISPHERICAL:
                     result.clause_reference = "UG-32(e)"
-                    L = head.crown_radius if head.crown_radius else D
-                    r = head.knuckle_radius if head.knuckle_radius else D / 10.0
+                    L, r = _torispherical_radii(head, D, result)
                     mawp = formulas.mawp_from_torispherical_head(L, r, t_actual, S, E, C)
                 elif head.type == HeadType.HEMISPHERICAL:
                     result.clause_reference = "UG-32(f)"

@@ -260,17 +260,135 @@ def test_v09_mawp_elliptical_head_pve_firetube():
     assert relative_tolerance(mawp, 218.80 * PSI, TOL), f"MAWP={mawp / PSI:.2f} psig"
 
 
-# ── Kapatılamayan kapsam ──────────────────────────────────────────────────────
+# ── Tur 2: torisferik + yarım küre ────────────────────────────────────────────
+#
+# Ek kaynaklar (ayrıntı: docs/validation/asme-worked-examples.md):
+#   PVE-FD   Pressure Vessel Engineering Ltd., "F&D Heads 2.02" anma tablosu,
+#            S = 16000 psi. pveng.com/.../FDHeads202_16ksi.pdf (2026-07-26)
+#   PVE-CMP  Pressure Vessel Engineering Ltd., "Comparison Between Head Types:
+#            Hemi, SE, F&D and Flat". pveng.com/home/asme-code-design/... (2026-07-26)
 
-@pytest.mark.skip(reason="KAYNAK_BEKLİYOR — torisferik bombeli yayınlanmış hesap seti yok")
-def test_ug32e_torispherical_published():
-    """UG-32(e) `M` faktörü henüz bağımsız teyit almadı.
+# PVE-FD tablosu: L = anma çapı, r = 0.06 L, S = 16000 psi.
+# Tablodaki kalınlıklar yuvarlanmış kesirlerdir (0.063 = 1/16, 0.313 = 5/16 …);
+# karşılaştırma kesirin kendisiyle yapılır, yoksa yuvarlama %0.8 hataya çıkar.
+_PVE_FD_TABLE = [
+    # (çap in, E, t in, tablo psi)
+    (12, 1.00, 1 / 4, 375.8), (12, 1.00, 1 / 2, 749.8), (12, 1.00, 1.0, 1492.5),
+    (12, 1.00, 2.0, 2957.5), (12, 1.00, 1 / 16, 94.1), (12, 1.00, 5 / 16, 469.4),
+    (12, 0.85, 1 / 2, 637.3), (12, 0.85, 2.0, 2513.9),
+    (18, 1.00, 1 / 2, 500.6), (18, 1.00, 1.0, 998.1),
+    (24, 1.00, 1 / 4, 188.1), (24, 1.00, 1.0, 749.8),
+    (30, 1.00, 1 / 2, 300.8), (30, 1.00, 2.0, 1196.3),
+]
 
-    İki kaynakta da torisferik bombe yok. Bulunana kadar `M = (3+√(L/r))/4`
-    yalnızca sembolik olarak doğrulanmıştır.
+
+@pytest.mark.parametrize("D_in,E,t_in,published_psi", _PVE_FD_TABLE)
+def test_v11_torispherical_mawp_pve_fd_table(D_in, E, t_in, published_psi):
+    """V-11 · UG-32(e) torisferik MAWP — PVE-FD anma tablosu.
+
+    ASME F&D geometrisi: taç yarıçapı L = anma çapı, büküm yarıçapı r = 0.06 L
+    → M = (3 + √(1/0.06)) / 4 = 1.770621.
+
+    Tablonun tamamı (90 nokta) tarandı; tipik fark %0.03-0.05, en büyük %0.29.
+    Burada çap/kalınlık/E boyunca yayılmış 14 temsilci nokta sabitlenir.
     """
+    L = D_in * IN
+    mawp = F.mawp_from_torispherical_head(
+        L=L, r=0.06 * L, t_actual=t_in * IN, S=16000 * PSI, E=E
+    )
+    assert relative_tolerance(mawp, published_psi * PSI, TOL), (
+        f"D={D_in}\" E={E} t={t_in:.4f} → {mawp / PSI:.1f} psi (tablo {published_psi})"
+    )
 
 
-@pytest.mark.skip(reason="KAYNAK_BEKLİYOR — yarım küre bombeli yayınlanmış hesap seti yok")
-def test_ug32f_hemispherical_published():
-    """UG-32(f) henüz bağımsız teyit almadı."""
+def test_v10_hemispherical_head_pve_comparison():
+    """V-10 · UG-32(f) yarım küre — PVE-CMP.
+
+    Kaynak girdisi: Do = 48 in, Di = 47 in, P = 420 psi, SA-516-70,
+                    S = 20000 psi @100°F, E = 1.00
+    Kaynak sonucu : t = 0.2474 in
+    Kaynak iç yarıçap formunu kullanmış — suite ile birebir aynı form.
+    """
+    t = F.head_hemispherical_thickness(P=420 * PSI, R=(47.0 / 2) * IN, S=20000 * PSI, E=1.00)
+    assert relative_tolerance(t, 0.2474 * IN, TOL), f"t={t / IN:.4f} in"
+
+
+def test_v13_elliptical_head_inside_diameter_form_pve_comparison():
+    """V-13 · UG-32(d) 2:1 eliptik — PVE-CMP, **iç çap** formu.
+
+    V-04/V-05'ten farkı: bu kaynak Appendix 1-4(c) dış çap formunu değil,
+    UG-32(d) iç çap formunu kullanmış → doğrudan eşitlik iddia edilebilir.
+    Kaynak girdisi: Di = 47 in, P = 420 psi, S = 20000 psi, E = 1.00
+    Kaynak sonucu : t = 0.4947 in
+    """
+    t, K = F.head_elliptical_thickness(P=420 * PSI, D=47.0 * IN, S=20000 * PSI, E=1.00)
+    assert K == 1.0
+    assert relative_tolerance(t, 0.4947 * IN, TOL), f"t={t / IN:.4f} in"
+
+
+def test_v14_torispherical_crown_radius_is_outside_diameter_pve_comparison():
+    """V-14 · UG-32(e) F&D — taç yarıçapı DIŞ çaptır.
+
+    PVE-CMP aynı kaba F&D bombe için t = 0.8901 in veriyor. L = Do = 48 in
+    alındığında %0.5 içinde uyuyor; L = Di = 47 in alındığında fark %1.6'ya
+    çıkıyor. Yani ASME F&D bombesinde taç yarıçapı **dış çapa** eşittir.
+
+    Bu, `_torispherical_radii`'nin `L = D` (iç çap) varsayılanının hafif
+    muhafazakâr-olmayan tarafta kaldığını gösterir — limitations B-06.
+    """
+    t_od, M = F.head_torispherical_thickness_full(
+        P=420 * PSI, L=48.0 * IN, r=0.06 * 48.0 * IN, S=20000 * PSI, E=1.00
+    )
+    t_id, _ = F.head_torispherical_thickness_full(
+        P=420 * PSI, L=47.0 * IN, r=0.06 * 47.0 * IN, S=20000 * PSI, E=1.00
+    )
+    published = 0.8901 * IN
+    assert relative_tolerance(M, 1.770621, 1e-5)
+    assert relative_tolerance(t_od, published, TOL), f"L=Do → {t_od / IN:.4f} in"
+    assert abs(t_id - published) / published > TOL, "L=Di beklenenden iyi uyuyor — varsayım gözden geçirilmeli"
+
+
+# ── Torisferik varsayılan büküm yarıçapı — REGRESYON ──────────────────────────
+
+def test_v12_default_knuckle_radius_is_asme_fd_six_percent():
+    """V-12 · Büküm yarıçapı girilmediğinde varsayılan %6 olmalı, D/10 değil.
+
+    Eski varsayılan `r = D/10` idi. Daha büyük büküm yarıçapı → daha küçük M →
+    **%13 daha ince** bombe. Fiziksel bombe standart %6 bükümlüyse bu emniyetsiz
+    taraftadır. Ayrıca varsayım sessizdi (K4 ihlali).
+
+    Bu test hem değeri hem de varsayımın kayda geçtiğini sabitler.
+    """
+    from domain import (
+        DesignConditions, Head, HeadType, MaterialProperty, ProductForm,
+    )
+    from code_asme_viii_1 import ASMEVIII1DesignCode
+
+    dc = DesignConditions(
+        operating_pressure=1.0, design_pressure=1.2, maximum_allowable_pressure_ps=1.5,
+        operating_temperature=150, design_temperature=200, minimum_design_temperature=-10,
+        corrosion_allowance_internal=0.0,
+    )
+    head = Head(
+        head_id="H1", type=HeadType.TORISPHERICAL, inside_diameter=1000.0,
+        nominal_thickness=20, material_id="M1", internal_corrosion_allowance=0.0,
+        # crown_radius / knuckle_radius bilerek verilmedi
+    )
+    mat = MaterialProperty(
+        material_id="M1", standard_pack="x", material_designation="SA-516",
+        product_form=ProductForm.PLATE, temperature=200, allowable_stress=138,
+        yield_strength=260, tensile_strength=485, source_reference="x", density=7850,
+    )
+
+    r = ASMEVIII1DesignCode(edition="2025").calculate_head_thickness({
+        "head": head, "design_conditions": dc, "materials": [mat], "welds": [],
+    })
+    inter = {i["name"]: i["value"] for i in r.intermediate_values}
+
+    assert relative_tolerance(inter["r"], 0.06 * 1000.0, 1e-9), "varsayılan büküm %6 olmalı"
+    assert relative_tolerance(inter["M_factor"], 1.770621, 1e-5)
+    # Eski D/10 varsayılanına dönülmediğinden emin ol (M = 1.5406 verirdi)
+    assert not relative_tolerance(inter["M_factor"], 1.540569, 1e-3)
+    # K4: varsayım sessiz olmamalı
+    assert any("Büküm yarıçapı girilmedi" in a for a in r.assumptions), r.assumptions
+    assert any("Büküm yarıçapı" in w for w in r.warnings), r.warnings

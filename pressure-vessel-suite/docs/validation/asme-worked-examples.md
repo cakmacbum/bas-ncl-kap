@@ -143,14 +143,105 @@ tarafındaki %0.4–0.9 fark burada görülmüyor.
 
 ---
 
-## Bu turda kapatılamayanlar
+---
 
-| No | Madde | Durum | Gerekli |
-|---|---|---|---|
-| — | UG-32(e) torisferik (`M` faktörü) | `KAYNAK_BEKLİYOR` | Torisferik bombeli yayınlanmış hesap seti |
-| — | UG-32(f) yarım küre | `KAYNAK_BEKLİYOR` | Yarım küre bombeli yayınlanmış hesap seti |
-| — | UG-27 kalın cidar (`t > R/2`) | `KAYNAK_BEKLİYOR` | Kalın cidarlı vaka; iki kaynak da ince cidarlı |
-| — | UG-37/40 nozul takviyesi | Tur 2 | PVE-FT s.6'da tam veri var (Ar=7.160, A1=5.320, A2=0.779, A3=0.820, A4=0.250 in²) — bu tura alınmadı |
+# Tur 2 · 2026-07-26 — torisferik ve yarım küre
 
-`M` faktörü ve yarım küre doğrulanmadan **torisferik ve yarım küre bombeli projeler
-bağımsız teyit almamış sayılır**; `validation-plan.md` tablosunda `sembolik` kalır.
+Tur 1'in iki açık maddesi (`UG-32(e)`, `UG-32(f)`) için kaynak arandı ve bulundu.
+
+## Ek kaynaklar
+
+| Kod | Kademe | Künye |
+|---|---|---|
+| **PVE-FD** | K-A | Pressure Vessel Engineering Ltd., *F&D Heads 2.02* anma tablosu, S = 16000 psi. `pveng.com/wp-content/uploads/2016/06/FDHeads202_16ksi.pdf` — erişim 2026-07-26 |
+| **PVE-CMP** | K-A | Pressure Vessel Engineering Ltd., *Comparison Between Head Types: Hemi, SE, F&D and Flat*. `pveng.com/home/asme-code-design/comparison-between-head-types-hemi-se-fd-and-flat/` — erişim 2026-07-26 |
+
+Değerlendirilip **kullanılmayan** kaynak: `cis-inspector.com` torisferik/yarım küre
+sayfaları — interaktif hesaplayıcı, sabit yayınlanmış sayı içermiyor.
+
+## Özet
+
+| No | Madde | Kaynak | Yayın | Suite | Fark | Karar |
+|---|---|---|---|---|---|---|
+| V-10 | UG-32(f) yarım küre | PVE-CMP | 0.2474 in | 0.2473 in | −0.053% | ✅ DOĞRULANDI |
+| V-11 | UG-32(e) torisferik MAWP | PVE-FD (90 nokta) | tablo | — | tipik %0.03-0.05, en büyük %0.29 | ✅ DOĞRULANDI |
+| V-13 | UG-32(d) eliptik, **iç çap formu** | PVE-CMP | 0.4947 in | 0.4945 in | −0.033% | ✅ DOĞRULANDI |
+| V-14 | UG-32(e) taç yarıçapı = dış çap | PVE-CMP | 0.8901 in | 0.8943 in (L=Do) | +0.469% | ⚠️ Varsayılan gözden geçirilmeli |
+| V-12 | Varsayılan büküm yarıçapı | — | — | — | **%13** | 🔴 **SAPMA → düzeltildi** |
+
+## V-11 · UG-32(e) torisferik — anma tablosunun tamamı
+
+```
+Geometri  ASME F&D: taç yarıçapı L = anma çapı, büküm yarıçapı r = 0.06 L
+          → M = (3 + √(1/0.06)) / 4 = 1.770621
+Kaynak    PVE-FD, S = 16000 psi, 5 çap (12/18/24/30…") × 18 kalınlık × E = 1.00 ve 0.85
+Tarama    90 nokta karşılaştırıldı
+Sonuç     tipik fark %0.03-0.05 · en büyük mutlak fark %0.29
+```
+
+**Tablodaki kalınlıklar yuvarlanmış kesirlerdir.** `0.063` aslında `1/16`, `0.313` aslında
+`5/16`. Yazılı değerle karşılaştırıldığında en büyük fark %0.771'e çıkıyor; kesrin kendisi
+kullanılınca %0.29'a düşüyor. Yani sapmanın kaynağı suite değil, tablonun basım hassasiyeti.
+
+Testte çap/kalınlık/E boyunca yayılmış 14 temsilci nokta sabitlendi.
+
+## V-10 · UG-32(f) yarım küre · V-13 · UG-32(d) iç çap formu
+
+```
+Ortak girdi  Do = 48 in · Di = 47 in · P = 420 psi · SA-516-70 · S = 20000 psi @100°F · E = 1.00
+V-10  yarım küre  UG-32(f), R = 23.5 in   yayın 0.2474 in   suite 0.2473 in   −0.053 %
+V-13  2:1 eliptik UG-32(d), D = 47 in     yayın 0.4947 in   suite 0.4945 in   −0.033 %
+```
+
+V-13 önemli: Tur 1'deki V-04/V-05 kaynakları **dış çap** alternatifini kullanıyordu, bu yüzden
+`FORMÜLASYON_FARKI` olarak kaydedilmişti. PVE-CMP **iç çap** formunu kullanıyor — yani
+UG-32(d) artık doğrudan, formülasyon belirsizliği olmadan doğrulanmış durumda.
+
+## V-14 · Taç yarıçapı dış çaptır
+
+```
+Aynı kap için F&D bombe   yayın 0.8901 in
+  L = Do = 48 in  →  suite 0.8943 in   +0.469 %   ✔ uyuyor
+  L = Di = 47 in  →  suite 0.8756 in   −1.625 %   ✘ uymuyor
+```
+
+ASME F&D bombesinde taç yarıçapı **dış çapa** eşittir. Suite'in `L = D` (iç çap) varsayılanı
+bu yüzden hafif emniyetsiz tarafta kalıyor — kayıt: [`limitations.md`](../limitations.md) B-06.
+Bu turda değiştirilmedi: `Head` modelinde dış çap alanı yok, iç çaptan türetmek `nominal_thickness`
+bağımlılığı getirir. Kullanıcı taç yarıçapını girdiğinde sorun yok; varsayılan durumda uyarı var.
+
+## V-12 · Varsayılan büküm yarıçapı 🔴
+
+```
+Girdi     Di = 1000 mm, kullanıcı büküm yarıçapı GİRMEDİ
+Eski      r = D/10 (%10)  →  M = 1.540569  →  t = 0.7619 in eşdeğeri
+Doğru     r = 0.06 D (%6) →  M = 1.770621  →  t = 0.8756 in eşdeğeri
+Fark      Eski varsayılan standart ASME F&D bombeye göre %13.0 DAHA İNCE
+```
+
+**Kök neden:** `design_code.py` iki yerde (kalınlık ve MAWP) `r = D/10` varsayıyordu.
+Daha büyük büküm yarıçapı → daha küçük `M` → daha ince bombe. UG-32(e)'nin geometrik
+asgarisi %6'dır ve standart ASME F&D bombesi tam olarak %6 bükümlüdür. Fiziksel bombe
+%6 bükümlüyken %10 varsayarak hesaplamak **emniyetsiz taraftadır**.
+
+Üstelik varsayım **sessizdi** — sonucu %13 değiştiren bir varsayım hiçbir yere kaydedilmiyordu
+(K4 ihlali).
+
+**Düzeltme (2026-07-26):** İki kopya `_torispherical_radii()` yardımcısında birleştirildi.
+Varsayılan `r = 0.06 L` (standart ASME F&D). Varsayım kullanıldığında `add_assumption` +
+`add_warning` yazılıyor. Ayrıca `r < 0.06 L` girilirse UG-32(e) asgarisi ihlali uyarısı
+veriliyor — sessizce düzeltilmiyor (K4).
+
+**Not:** Bu davranışı da hiçbir mevcut test kapsamıyordu; 495 test düzeltmeden önce de sonra
+da yeşildi. Tur 1'deki UG-99(b) bulgusuyla aynı desen.
+
+---
+
+## Hâlâ kapatılamayanlar
+
+| Madde | Durum | Gerekli |
+|---|---|---|
+| UG-27 kalın cidar (`t > R/2`) | `KAYNAK_BEKLİYOR` | Kalın cidarlı yayınlanmış vaka; üç kaynak da ince cidarlı |
+| UG-37/40 nozul takviyesi | Tur 3 | PVE-FT s.6'da tam veri hazır: Ar = 7.160, A1 = 5.320, A2 = 0.779, A3 = 0.820, A4 = 0.250 in² |
+| UG-34(c)(3) `Z` faktörlü düz kapak | Kapsam dışı | Suite'te bu madde yok (limitations B-04) |
+| App 1-1(a)(1) / 1-4(c) dış çap alternatifleri | Kapsam dışı | Suite'te yok (limitations B-03) |
