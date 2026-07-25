@@ -7,7 +7,7 @@ name = "pv-fea"
 version = "0.1.0"
 description = "FEA iskelet + adapter — Parametrik CAD → mesh → solver → stress linearization → code acceptance (iskelet)"
 requires-python = ">=3.11"
-dependencies = ["pv-calc-core", "pv-domain", "pv-units"]
+dependencies = ["pv-calc-core", "pv-domain", "pv-units", "pv-cad-engine"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/fea"]

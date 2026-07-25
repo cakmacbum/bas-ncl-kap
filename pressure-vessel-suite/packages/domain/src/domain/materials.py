@@ -1,6 +1,12 @@
 """Malzeme modeli — MaterialProperty (iskelet, kaynak §12).
 
 V1'de kullanıcı allowable/yield/tensile değerlerini manuel girer (K4).
+
+Faz 2 (FEA doğrulama laboratuvarı): elastic_modulus / poisson_ratio opsiyonel
+alanları eklendi. Bu değerler yalnızca FEA lab'ının lineer-elastik malzeme
+modeli için kullanılır; kapalı-form ASME/EN hesaplarının hiçbiri bu alanlara
+dokunmaz (K1 — mühendislik formülleri code-* paketlerinde, burada değil).
+Boş bırakılırsa FEA lab BLOCKED_CODE_DATA ile durur; varsayılan ATANMAZ (K4).
 """
 
 from __future__ import annotations
@@ -59,6 +65,22 @@ class MaterialProperty(BaseModel):
     )
     notes: Optional[str] = Field(
         default=None, description="Ek notlar."
+    )
+
+    # ── Faz 2: FEA doğrulama laboratuvarı — lineer-elastik özellikler ─────────
+    # Opsiyonel; kullanıcı girer, tablo gömülmez (K3/K6). Yalnızca FEA lab
+    # tüketir — kapalı-form ASME/EN hesap motorları bu alanları OKUMAZ.
+    elastic_modulus: Optional[float] = Field(
+        default=None, gt=0,
+        description="Elastisite modülü E (MPa), tasarım sıcaklığında. Yalnızca "
+                    "FEA doğrulama laboratuvarı için; boşsa lab BLOCKED_CODE_DATA "
+                    "döner (varsayım atanmaz, K4).",
+    )
+    poisson_ratio: Optional[float] = Field(
+        default=None, gt=0, lt=0.5,
+        description="Poisson oranı ν (birimsiz, 0 < ν < 0.5). Yalnızca FEA "
+                    "doğrulama laboratuvarı için; boşsa lab BLOCKED_CODE_DATA "
+                    "döner (varsayım atanmaz, K4).",
     )
 
     model_config = {"frozen": True}
