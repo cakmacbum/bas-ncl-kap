@@ -118,7 +118,9 @@ class TestReinforcementCalculation:
 
         assert result.effective_diameter > 0
         assert result.required_area > 0
-        assert len(result.available_areas) == 4  # A1, A2, A3, A4
+        # UG-37(c) adlandırması: A1 gövde fazlası, A2 nozul dışa, A3 nozul içe,
+        # A4 kaynak, A5 takviye pedi.
+        assert len(result.available_areas) == 5
 
     def test_effective_diameter(self, basic_input):
         """Etkin çap = iç çap + 2×korozyon payı."""
@@ -140,10 +142,11 @@ class TestReinforcementCalculation:
         result = calculate_reinforcement(basic_input)
 
         names = [a.name for a in result.available_areas]
-        assert "A1" in names  # Gövde fazlası
-        assert "A2" in names  # Nozul boynu
-        assert "A3" in names  # Takviye pedi
+        assert "A1" in names  # Gövde/bombe fazlası
+        assert "A2" in names  # Nozul boynu — dışa
+        assert "A3" in names  # Nozul boynu — içe
         assert "A4" in names  # Kaynak metali
+        assert "A5" in names  # Takviye pedi
 
     def test_total_area_positive(self, basic_input):
         """Toplam alan pozitif olmalı."""

@@ -71,6 +71,12 @@ Kaynak: [`validation/asme-worked-examples.md`](validation/asme-worked-examples.m
   ve emniyetsiz tarafta. `Head` modelinde dış çap alanı olmadığı için bu turda değiştirilmedi;
   varsayım kullanıldığında uyarı veriliyor. Taç yarıçapı girildiğinde sorun yok.
 
+- **B-07 — Nozul takviyesi yalnız radyal nozul içindir.** UG-37'nin eğik nozul `F`
+  faktörü uygulanmıyor (`F = 1.0` alınıyor); eğik nozul girilirse uyarı veriliyor.
+- **B-08 — Appendix 1-7 büyük açıklık kontrolü yok.** Karşılaştırma kaynağı aynı nozul
+  için App 1-7'yi de uyguluyor; suite yalnız UG-37/UG-40 alan değiştirme yöntemini yapıyor.
+  Büyük açıklıklarda (yaklaşık `d > D/2` veya `d > 40 in`) bu ek kontrol gerekir.
+
 ---
 
-*Oluşturma tarihi: 2026-07-19 · Revizyon: 2.2 — bağımsız doğrulama turu 2 (2026-07-26)*
+*Oluşturma tarihi: 2026-07-19 · Revizyon: 2.3 — bağımsız doğrulama turu 3 (2026-07-26)*

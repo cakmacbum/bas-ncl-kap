@@ -103,6 +103,9 @@ class NozzleReinforcementResult:
     # Limit kontrolleri
     limits: Dict[str, bool] = field(default_factory=dict)
 
+    # UG-40 boyutsal limitleri (mm) — K5: raporda görünsün
+    dimension_limits: Dict[str, float] = field(default_factory=dict)
+
     # Uyarılar
     warnings: List[str] = field(default_factory=list)
 
@@ -121,6 +124,7 @@ class NozzleReinforcementResult:
             "total_available_area": round(self.total_available_area, 2),
             "utilization_ratio": round(self.utilization_ratio, 4),
             "limits": self.limits,
+            "dimension_limits": {k: round(v, 3) for k, v in self.dimension_limits.items()},
             "warnings": self.warnings,
             "clause_reference": self.clause_reference,
         }
@@ -222,15 +226,43 @@ def calculate_reinforcement(inp: NozzleReinforcementInput) -> NozzleReinforcemen
         result.warnings.append(eligibility_msg)
         return result
 
-    # ── 1. Etkin çap (d) — UG-37(a) ──────────────────────────────────────────
-    # d = nozul iç çapı + 2 × korozyon payı
+    # Bütün alanlar nozul eksenine paralel bir **kesit düzleminde** hesaplanır ve
+    # açıklığın iki yanını birden kapsar — bu yüzden A2/A3/A4'te 2 çarpanı vardır.
+    # (A1 zaten `2L - d` genişliğiyle iki yanı içerir.)
+
+    # ── 1. Etkin çap (d) ve korozyonlu kalınlıklar — UG-37 ───────────────────
     d = inp.nozzle_inside_diameter + 2 * inp.nozzle_corrosion_allowance
+    Rn = d / 2.0
     result.effective_diameter = d
 
-    # ── 2. Gerekli takviye alanı — UG-37(a) ──────────────────────────────────
-    # A_required = d × t_required (gövde/bombe korozyonsuz gerekli kalınlığı)
-    t_req = inp.component_required_thickness
-    A_required = d * t_req
+    t = inp.component_nominal_thickness - inp.component_corrosion_allowance  # gövde/bombe
+    tn = inp.nozzle_neck_thickness - inp.nozzle_corrosion_allowance          # nozul boynu
+    te = inp.reinforcement_pad_thickness if inp.has_reinforcement_pad else 0.0
+    tr = inp.component_required_thickness
+
+    # ── 2. Dayanım azaltma faktörleri (fr) — UG-37(a) ────────────────────────
+    # fr = malzeme izin verilen gerilme oranı, 1.0'ı aşamaz.
+    Sv = inp.component_allowable_stress
+    Sn = inp.nozzle_allowable_stress or Sv
+    Sp = inp.reinforcement_pad_allowable_stress or Sv
+    fr1 = fr2 = min(1.0, Sn / Sv) if Sv > 0 else 1.0
+    fr4 = min(1.0, Sp / Sv) if Sv > 0 else 1.0
+
+    # F = 1.0 — yalnız radyal nozul. Eğik nozulda UG-37 Şekil UG-37 F faktörü
+    # gerekir; suite eğik nozul takviyesini kapsamıyor (K4: varsayım açık).
+    F = 1.0
+    if getattr(inp, "nozzle_inclination_angle", 0.0):
+        result.warnings.append(
+            "Eğik nozul: UG-37 F faktörü uygulanmadı (F = 1.0 alındı). "
+            "Takviye hesabı yalnız radyal nozul için geçerlidir."
+        )
+
+    # E1 = 1.0: açıklık kaynak dikişinden geçmiyor varsayımı.
+    E1 = 1.0
+
+    # ── 3. Gerekli takviye alanı — UG-37(c) ──────────────────────────────────
+    # A = d·tr·F + 2·tn·tr·F·(1 - fr1)
+    A_required = d * tr * F + 2 * tn * tr * F * (1 - fr1)
     result.required_area = A_required
 
     if A_required <= 0:
@@ -238,122 +270,117 @@ def calculate_reinforcement(inp: NozzleReinforcementInput) -> NozzleReinforcemen
         result.warnings.append("Gerekli takviye alanı sıfır veya negatif.")
         return result
 
-    # ── 3. Mevcut alanlar ──────────────────────────────────────────────────────
+    # ── 4. UG-40 takviye sınırları ────────────────────────────────────────────
+    # Duvara paralel (eksenden): d veya Rn + tn + t — büyük olan.
+    L_par = max(d, Rn + tn + t)
+    # Duvara dik: 2.5·t veya 2.5·tn (+ ped varsa te) — küçük olan.
+    L_norm = min(2.5 * t, 2.5 * tn + te)
+    # İçe doğru: h, 2.5·t, 2.5·tn — en küçüğü.
+    L_in = min(inp.nozzle_projection_inside, 2.5 * t, 2.5 * tn)
 
-    # 3a. Gövde/Bombe fazlası (A1) — UG-37(b)(1)
-    # A1 = (min(B, d + 2×t_n + t_h) - d) × (t_n - t_required - C)
-    # B = d veya d + 2×t_n + 2×t_h (büyük olan) — takviye sınırı
-    t_n = inp.component_nominal_thickness
-    C_comp = inp.component_corrosion_allowance
-    t_n_corroded = t_n - C_comp
+    result.dimension_limits.update({
+        "d": d,
+        "limit_parallel_from_centerline": L_par,
+        "limit_parallel_total_width": 2 * L_par,
+        "limit_normal": L_norm,
+        "limit_inward": L_in,
+    })
 
-    # Takviye sınırı B
-    B = max(d, d + 2 * t_n + 2 * inp.nozzle_neck_thickness)
+    # ── 5. Mevcut alanlar ─────────────────────────────────────────────────────
 
-    # Etkin genişlik
-    effective_width = min(B, d + 2 * t_n + inp.nozzle_neck_thickness)
-
-    # A1: Gövde fazlası
-    t_excess = t_n_corroded - t_req
-    A1 = max(0, (effective_width - d) * t_excess)
-
+    # A1 — gövde/bombe fazla kalınlığı, UG-37(c)
+    t_excess = E1 * t - F * tr
+    A1 = max(
+        (2 * L_par - d) * t_excess - 2 * tn * t_excess * (1 - fr1),
+        2 * (t + tn) * t_excess - 2 * tn * t_excess * (1 - fr1),
+    )
+    A1 = max(0.0, A1)
     result.available_areas.append(AreaItem(
         name="A1",
-        description=f"Gövde/bombe fazlası: ({effective_width:.1f} - {d:.1f}) × ({t_n_corroded:.1f} - {t_req:.1f})",
+        description=(
+            f"Gövde/bombe fazlası: (2×{L_par:.1f} − {d:.1f}) × ({E1:.2f}×{t:.2f} − {tr:.2f})"
+        ),
         area_mm2=A1,
-        clause_reference="UG-37(b)(1)",
+        clause_reference="UG-37(c)",
     ))
 
-    # 3b. Nozul boynu katkısı (A2) — UG-37(b)(2)
-    # A2 = min(2.5×t_n, 2.5×t_h + t_e) × (t_h - t_required_nozzle - C_nozzle)
-    t_h = inp.nozzle_neck_thickness
-    C_noz = inp.nozzle_corrosion_allowance
-    t_h_corroded = t_h - C_noz
-
-    # Nozul boynu gerekli kalınlığı (iç basınç formülü — basitleştirilmiş)
-    # P×r / (S×E - 0.6×P) — burada r = d/2
-    if inp.nozzle_allowable_stress > 0 and inp.design_pressure > 0:
-        r_noz = d / 2.0
-        denom = inp.nozzle_allowable_stress * 1.0 - 0.6 * inp.design_pressure
-        if denom > 0:
-            t_req_nozzle = inp.design_pressure * r_noz / denom
-        else:
-            t_req_nozzle = t_h_corroded  # Konservatif
-    else:
-        t_req_nozzle = 0.0
-
-    # Etkin nozul boynu yüksekliği (dış çıkıntı)
-    h_out = min(
-        2.5 * t_n,
-        2.5 * t_h + inp.nozzle_projection_outside,
-    ) if inp.nozzle_projection_outside > 0 else 2.5 * t_n
-
-    # Dış çıkıntı katkısı
-    t_noz_excess_out = t_h_corroded - t_req_nozzle
-    A2_out = max(0, h_out * t_noz_excess_out)
-
-    # İç çıkıntı katkısı
-    h_in = inp.nozzle_projection_inside
-    A2_in = max(0, h_in * t_noz_excess_out) if h_in > 0 else 0.0
-
-    A2 = A2_out + A2_in
-
+    # A2 — nozul boynunun dışa çıkan kısmı, UG-37(c)
+    # Nozul boynu gerekli kalınlığı trn — UG-27(c)(1), nozul kendi yarıçapıyla.
+    trn = 0.0
+    if Sn > 0 and inp.design_pressure > 0:
+        denom = Sn - 0.6 * inp.design_pressure
+        trn = inp.design_pressure * Rn / denom if denom > 0 else tn
+    h_out_eff = min(L_norm, inp.nozzle_projection_outside) if inp.nozzle_projection_outside > 0 else L_norm
+    A2 = max(0.0, 2 * h_out_eff * (tn - trn) * fr2)
     result.available_areas.append(AreaItem(
         name="A2",
-        description=f"Nozul boynu: dış={A2_out:.1f}, iç={A2_in:.1f} mm²",
+        description=f"Nozul boynu (dışa): 2 × {h_out_eff:.1f} × ({tn:.2f} − {trn:.2f}) × {fr2:.2f}",
         area_mm2=A2,
-        clause_reference="UG-37(b)(2)",
+        clause_reference="UG-37(c)",
     ))
 
-    # 3c. Takviye pedi katkısı (A3) — UG-37(b)(3)
-    A3 = 0.0
-    if inp.has_reinforcement_pad and inp.reinforcement_pad_od > 0 and inp.reinforcement_pad_thickness > 0:
-        # Ped etkin alanı: (OD - d) × t_pad (basitleştirilmiş)
-        ped_effective = inp.reinforcement_pad_od - d
-        if ped_effective > 0:
-            A3 = ped_effective * inp.reinforcement_pad_thickness
-
+    # A3 — nozul boynunun içe çıkan kısmı, UG-37(c)
+    # İçeri giren boru tümüyle takviyedir: fazla kalınlık değil, TAM kalınlık sayılır.
+    A3 = max(0.0, 2 * L_in * tn * fr2)
     result.available_areas.append(AreaItem(
         name="A3",
-        description=f"Takviye pedi: {A3:.1f} mm²",
+        description=f"Nozul boynu (içe): 2 × {L_in:.1f} × {tn:.2f} × {fr2:.2f}",
         area_mm2=A3,
-        clause_reference="UG-37(b)(3)" if A3 > 0 else "—",
+        clause_reference="UG-37(c)",
     ))
 
-    # 3d. Kaynak metali katkısı (A4) — UG-37(b)(4)
+    # A4 — kaynak metali, UG-37(c)
+    # Kesitin iki yanında birer köşe kaynağı: 2 × (w²/2) = w².
     A4 = 0.0
+    a4_parts = []
     if inp.weld_leg_size_nozzle_to_shell > 0:
-        # Nozul-gövde kaynak metali: ½ × w² (üçgen kesit)
         w = inp.weld_leg_size_nozzle_to_shell
-        A4 += 0.5 * w * w
-
-    if inp.weld_leg_size_pad_to_shell > 0 and inp.has_reinforcement_pad:
+        A4 += w * w * fr2
+        a4_parts.append(f"nozul-gövde {w:.1f}²")
+    if inp.has_reinforcement_pad and inp.weld_leg_size_pad_to_shell > 0:
         w = inp.weld_leg_size_pad_to_shell
-        A4 += 0.5 * w * w * 2  # 2 kaynak dikişi (her iki taraf)
-
+        A4 += w * w * fr4
+        a4_parts.append(f"ped-gövde {w:.1f}²")
     result.available_areas.append(AreaItem(
         name="A4",
-        description=f"Kaynak metali: {A4:.1f} mm²",
+        description="Kaynak metali: " + (" + ".join(a4_parts) if a4_parts else "yok"),
         area_mm2=A4,
-        clause_reference="UG-37(b)(4)" if A4 > 0 else "—",
+        clause_reference="UG-37(c)" if A4 > 0 else "—",
     ))
 
-    # ── 4. Toplam ve değerlendirme ─────────────────────────────────────────────
-    total = A1 + A2 + A3 + A4
+    # A5 — takviye pedi, UG-37(c)
+    # Pedin yalnız UG-40 sınırı içinde kalan kısmı sayılır (dışı işe yaramaz).
+    A5 = 0.0
+    pad_width_used = 0.0
+    if inp.has_reinforcement_pad and inp.reinforcement_pad_od > 0 and te > 0:
+        pad_od_eff = min(inp.reinforcement_pad_od, 2 * L_par)
+        pad_width_used = max(0.0, pad_od_eff - d - 2 * tn)
+        A5 = pad_width_used * te * fr4
+        if inp.reinforcement_pad_od > 2 * L_par:
+            result.warnings.append(
+                f"Takviye pedi dış çapı ({inp.reinforcement_pad_od:.1f} mm) UG-40 sınırını "
+                f"({2 * L_par:.1f} mm) aşıyor; sınır dışı kalan kısım takviye sayılmadı."
+            )
+    result.available_areas.append(AreaItem(
+        name="A5",
+        description=f"Takviye pedi: {pad_width_used:.1f} × {te:.2f} × {fr4:.2f}",
+        area_mm2=A5,
+        clause_reference="UG-37(c)" if A5 > 0 else "—",
+    ))
+
+    # ── 6. Toplam ve değerlendirme ────────────────────────────────────────────
+    total = A1 + A2 + A3 + A4 + A5
     result.total_available_area = total
     result.utilization_ratio = total / A_required if A_required > 0 else 0.0
 
-    # ── 5. Limit kontrolleri — UG-40 ──────────────────────────────────────────
-    # Takviye sınırı: nozul merkezinden her iki tarafta d kadar
-    result.limits["ug40_radial_limit"] = True  # Basitleştirilmiş
-
-    # Nozul boynu minimum kalınlığı kontrolü
-    # t_h ≥ max(t_req_nozzle, 0.5×t_n) — pratik kural
-    min_neck = max(t_req_nozzle, 0.5 * t_n) if t_req_nozzle > 0 else 0.5 * t_n
-    result.limits["neck_minimum_thickness"] = t_h_corroded >= min_neck
-    if not result.limits["neck_minimum_thickness"]:
+    # ── 7. Limit kontrolleri ──────────────────────────────────────────────────
+    result.limits["ug40_pad_within_limit"] = (
+        not inp.has_reinforcement_pad or inp.reinforcement_pad_od <= 2 * L_par
+    )
+    result.limits["neck_thickness_adequate"] = tn >= trn
+    if tn < trn:
         result.warnings.append(
-            f"Nozul boynu kalınlığı ({t_h_corroded:.1f} mm) minimum ({min_neck:.1f} mm) altında."
+            f"Nozul boynu kalınlığı ({tn:.2f} mm), iç basınç gereği ({trn:.2f} mm) altında."
         )
 
     # ── 6. Durum ──────────────────────────────────────────────────────────────

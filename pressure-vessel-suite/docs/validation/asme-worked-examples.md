@@ -237,11 +237,89 @@ da yeşildi. Tur 1'deki UG-99(b) bulgusuyla aynı desen.
 
 ---
 
+---
+
+# Tur 3 · 2026-07-26 — UG-37/UG-40 nozul takviyesi
+
+Kaynak: **PVE-FT s.5-6**, nozul "Neck". Tam alan dökümü yayınlanmış — bu yüzden tek vaka
+beş ayrı ara değeri birden sınıyor.
+
+```
+Girdi   Ana bileşen : 2:1 eliptik bombe, Do = 72.000 in, t = 0.3900 in, CAS = 0
+        Nozul       : ID 32.000 in, tn = 0.5000 in, CAN = 0, insert tipi
+        Çıkıntılar  : dışa HO = 2.881 in, içe H = 0.8200 in
+        Kaynak      : Wo = 0.5000 in, Wi = 0
+        Malzeme     : gövde ve nozul SA-516 70, S = SN = 20000 psi → fr = 1.00
+        P = 125 psig, ES = EN = 1.00, ped YOK
+```
+
+## V-15 · Sonuç
+
+| Alan | PV Elite | Suite (önce) | Suite (sonra) | Not |
+|---|---|---|---|---|
+| Ar | 7.160 in² | 7.158 | 7.158 | ✅ zaten doğruydu |
+| A1 | 5.320 in² | **0.213** | 5.322 | 🔴 **−%96** |
+| A2 | 0.779 in² | 0.717 | 0.779 | 🔴 −%8 |
+| A3 | 0.820 in² | **0.000** | 0.820 | 🔴 **−%100** |
+| A4 | 0.250 in² | 0.125 | 0.250 | 🔴 −%50 |
+| **Toplam** | **7.170 in²** | **1.055** | **7.171** | 🔴 **−%85** |
+| **Karar** | **YETERLİ** | **YETERSİZ** | **YETERLİ** | 🔴 karar ters çıkıyordu |
+
+UG-40 sınırları da doğrudan yayınlanmış ve artık birebir tutuyor:
+`DL = 64.000 in` (etkin malzeme çap sınırı), `TLNP = 0.975 in` (pedsiz dik yön sınırı).
+
+## Kök nedenler — beş ayrı hata
+
+**1. UG-40 paralel sınırı yanlıştı (A1, −%96).** Kod, açıklık ekseninden itibaren
+`max(d, Rn + tn + t)` kadar uzanır; toplam genişlik bunun iki katıdır. Suite
+`d + 2t + tn` hesaplıyordu — yani `d`'nin üstüne yalnızca birkaç milimetre ekliyordu.
+Bu vakada 64.000 in yerine 33.28 in kullanılmış oluyordu.
+
+**2. Kesit iki yanı kapsar — 2 çarpanı eksikti (A2, A4).** Takviye alanları nozul
+eksenine paralel bir **kesit düzleminde** hesaplanır ve açıklığın iki yanını birden
+sayar. A2'de yükseklik bir kez, A4'te köşe kaynağı yarım üçgen olarak alınmıştı.
+
+**3. İçe giren nozul hiç sayılmıyordu (A3).** Suite A3'ü **takviye pedi** için
+kullanıyordu; içe çıkıntıyı A2'ye katıyor, üstelik **fazla kalınlıkla** (`tn − trn`)
+çarpıyordu. Kod'a göre içeri giren boru tümüyle takviyedir: **tam kalınlık** (`tn`)
+sayılır ve `min(h, 2.5t, 2.5tn)` ile sınırlanır.
+
+**4. Alan adları Kod'la uyuşmuyordu (K5).** UG-37(c) sırası: A1 gövde fazlası,
+A2 nozul dışa, A3 nozul içe, A4 kaynak, A5 ped. Suite A3'ü pede vermişti — raporu
+Kod'la karşılaştıran bir denetçi yanlış kalemle eşleştirirdi.
+
+**5. 🔴 Ped, UG-40 sınırıyla kırpılmıyordu — bu yön EMNİYETSİZ.** Ped alanı
+`(pad_OD − d) × te` ile hesaplanıyordu; sınır kontrolü yoktu. Sınırı aşan geniş bir ped,
+işe yaramayan kısmıyla birlikte takviye sayılıyordu. Diğer dört hata mevcut alanı
+**eksik** gösterip fazladan ped taktırıyordu (pahalı ama güvenli); bu beşincisi ise
+gerçekte yetersiz bir takviyeyi yeterli gösterebilirdi.
+
+**Düzeltme (2026-07-26):** `calculate_reinforcement` UG-37(c)/UG-40'a göre yeniden yazıldı —
+dayanım azaltma faktörleri (`fr1`, `fr2`, `fr4`) izin verilen gerilme oranından hesaplanıyor,
+UG-40 sınırları (`L_par`, `L_norm`, `L_in`) ayrı ayrı çıkarılıp `dimension_limits` alanına
+yazılıyor (K5), beş alan Kod'un kendi adlandırmasıyla üretiliyor, ped sınırı aşarsa kırpılıp
+uyarı veriliyor (K4). Eğik nozul için F faktörü yok — uyarı düşülüyor.
+
+---
+
 ## Hâlâ kapatılamayanlar
 
 | Madde | Durum | Gerekli |
 |---|---|---|
-| UG-27 kalın cidar (`t > R/2`) | `KAYNAK_BEKLİYOR` | Kalın cidarlı yayınlanmış vaka; üç kaynak da ince cidarlı |
-| UG-37/40 nozul takviyesi | Tur 3 | PVE-FT s.6'da tam veri hazır: Ar = 7.160, A1 = 5.320, A2 = 0.779, A3 = 0.820, A4 = 0.250 in² |
+| UG-27 kalın cidar (`t > R/2`) | `KAYNAK_BEKLİYOR` | Kalın cidarlı yayınlanmış vaka; kaynakların tümü ince cidarlı |
+| UG-37 eğik nozul `F` faktörü | Kapsam dışı | Suite yalnız radyal nozul takviyesi yapıyor (uyarı veriyor) |
+| App 1-7 büyük açıklık kontrolü | Kapsam dışı | PVE-FT bu vakada App 1-7 de uygulamış; suite'te yok |
 | UG-34(c)(3) `Z` faktörlü düz kapak | Kapsam dışı | Suite'te bu madde yok (limitations B-04) |
 | App 1-1(a)(1) / 1-4(c) dış çap alternatifleri | Kapsam dışı | Suite'te yok (limitations B-03) |
+
+## Üç turun özeti
+
+| Tur | Vaka | Doğrulandı | Sapma |
+|---|---|---|---|
+| 1 | 9 | 4 (+3 formülasyon farkı) | UG-99(b)/UG-100 test basıncı tabanı |
+| 2 | 4 | 3 | Torisferik varsayılan büküm yarıçapı |
+| 3 | 1 (5 ara değer) | — | UG-37/40 takviye: beş ayrı hata |
+
+**Üç sapmanın üçü de aynı desende:** formül doğru yazılmıştı, formülün *çevresi* yanlıştı —
+yanlış taban, yanlış varsayılan geometri, yanlış sınır. Ve üçünü de mevcut testler
+kapsamıyordu: her düzeltmeden önce ve sonra test sayısı değişmedi.

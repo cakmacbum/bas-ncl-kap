@@ -348,6 +348,124 @@ def test_v14_torispherical_crown_radius_is_outside_diameter_pve_comparison():
     assert abs(t_id - published) / published > TOL, "L=Di beklenenden iyi uyuyor — varsayım gözden geçirilmeli"
 
 
+# ── Tur 3: UG-37/UG-40 nozul takviyesi ────────────────────────────────────────
+#
+# Kaynak: PVE-FT s.5-6 (nozul "Neck"). Tam alan dökümü yayınlanmış:
+#   Ar = 7.160 · A1 = 5.320 · A2 = 0.779 · A3 = 0.820 · A4 = 0.250 · Atot = 7.170 in²
+# Bu vaka suite'in takviye hesabında beş ayrı sapma ortaya çıkardı; ayrıntı ve
+# kök nedenler: docs/validation/asme-worked-examples.md V-15.
+
+IN2 = IN * IN  # mm² / in²
+
+
+@pytest.fixture
+def pve_ft_nozzle_case():
+    """PVE-FT s.5 girdileri — 32" ID nozul, 72" OD 2:1 eliptik bombede, pedsiz."""
+    from nozzles.reinforcement import NozzleReinforcementInput
+
+    return NozzleReinforcementInput(
+        nozzle_tag="Neck",
+        nozzle_inside_diameter=32.000 * IN,
+        nozzle_outside_diameter=(32.000 + 2 * 0.5) * IN,
+        nozzle_neck_thickness=0.5000 * IN,
+        nozzle_corrosion_allowance=0.0,
+        nozzle_projection_outside=2.881 * IN,
+        nozzle_projection_inside=0.8200 * IN,
+        nozzle_allowable_stress=20000 * PSI,
+        component_type="head",
+        component_inside_diameter=(72.000 - 2 * 0.39) * IN,
+        component_nominal_thickness=0.3900 * IN,
+        component_corrosion_allowance=0.0,
+        component_required_thickness=0.2237 * IN,
+        component_allowable_stress=20000 * PSI,
+        weld_leg_size_nozzle_to_shell=0.5000 * IN,
+        design_pressure=125 * PSI,
+    )
+
+
+@pytest.mark.parametrize("area,published_in2", [
+    ("A1", 5.320),   # gövde/bombe fazlası — UG-40 sınırı 2·max(d, Rn+tn+t) = 64"
+    ("A2", 0.779),   # nozul boynu dışa — 2 × min(2.5t, 2.5tn) × (tn − trn)
+    ("A3", 0.820),   # nozul boynu içe — 2 × min(h, 2.5t, 2.5tn) × tn (TAM kalınlık)
+    ("A4", 0.250),   # kaynak — wo² (kesitin iki yanında birer köşe kaynağı)
+])
+def test_v15_nozzle_reinforcement_areas_pve_firetube(pve_ft_nozzle_case, area, published_in2):
+    """V-15 · UG-37(c) takviye alanları — PVE-FT s.6.
+
+    Düzeltme öncesi bu alanların dördü de yanlıştı (A1 −%96, A2 −%8, A3 −%100,
+    A4 −%50) ve toplam −%85 sapıyordu; karar bile ters çıkıyordu (YETERSİZ,
+    oysa lisanslı yazılım YETERLİ diyor).
+    """
+    from nozzles.reinforcement import calculate_reinforcement
+
+    res = calculate_reinforcement(pve_ft_nozzle_case)
+    got = {a.name: a.area_mm2 for a in res.available_areas}
+    assert relative_tolerance(got[area], published_in2 * IN2, TOL), (
+        f"{area} = {got[area] / IN2:.4f} in² (yayın {published_in2})"
+    )
+
+
+def test_v15_nozzle_reinforcement_required_area_and_verdict(pve_ft_nozzle_case):
+    """V-15 · Gerekli alan, toplam ve karar — PVE-FT s.6.
+
+    Kaynak: Ar = 7.160 in², Atot = 7.170 in² → "pedsiz mevcut alan yeterli".
+    """
+    from calc_core.result import CalculationStatus
+    from nozzles.reinforcement import calculate_reinforcement
+
+    res = calculate_reinforcement(pve_ft_nozzle_case)
+    assert relative_tolerance(res.required_area, 7.160 * IN2, TOL)
+    assert relative_tolerance(res.total_available_area, 7.170 * IN2, TOL)
+    assert res.status == CalculationStatus.PASS, "lisanslı yazılım 'yeterli' diyor"
+
+
+def test_v15_ug40_reinforcement_limits(pve_ft_nozzle_case):
+    """V-15 · UG-40 sınırları — PVE-FT s.6 doğrudan yayımlamış.
+
+    DL   (etkin malzeme çap sınırı)      = 64.000 in
+    TLNP (pedsiz dik yönde kalınlık sınırı) = 0.975 in
+    """
+    from nozzles.reinforcement import calculate_reinforcement
+
+    res = calculate_reinforcement(pve_ft_nozzle_case)
+    lim = res.dimension_limits
+    assert relative_tolerance(lim["limit_parallel_total_width"], 64.000 * IN, TOL)
+    assert relative_tolerance(lim["limit_normal"], 0.975 * IN, TOL)
+
+
+def test_v15_pad_outside_ug40_limit_is_not_counted():
+    """V-15 · UG-40 sınırı dışındaki ped takviye sayılmamalı (K4: uyarı verir).
+
+    Eski kod pedin tamamını `(pad_OD − d) × te` ile sayıyordu; sınır kontrolü yoktu.
+    Bu, sınırı aşan geniş pedlerde **emniyetsiz** taraftaydı — diğer dört sapmanın
+    aksine bu yön tehlikeliydi.
+    """
+    from nozzles.reinforcement import NozzleReinforcementInput, calculate_reinforcement
+
+    base = dict(
+        nozzle_tag="N-PAD", nozzle_inside_diameter=100.0, nozzle_outside_diameter=120.0,
+        nozzle_neck_thickness=10.0, nozzle_projection_outside=150.0,
+        nozzle_projection_inside=0.0, nozzle_allowable_stress=138.0,
+        component_type="shell", component_inside_diameter=1000.0,
+        component_nominal_thickness=12.0, component_corrosion_allowance=0.0,
+        component_required_thickness=5.0, component_allowable_stress=138.0,
+        weld_leg_size_nozzle_to_shell=8.0, design_pressure=1.2,
+        has_reinforcement_pad=True, reinforcement_pad_thickness=10.0,
+        reinforcement_pad_allowable_stress=138.0,
+    )
+    res = calculate_reinforcement(NozzleReinforcementInput(
+        **base, reinforcement_pad_od=2000.0,  # UG-40 sınırının çok ötesinde
+    ))
+    limit = res.dimension_limits["limit_parallel_total_width"]
+    assert 2000.0 > limit, "test kurgusu: ped sınırı aşmalı"
+    a5 = next(a.area_mm2 for a in res.available_areas if a.name == "A5")
+    # Sınıra kırpılmış genişlik üzerinden hesaplanmalı
+    expected = (limit - 100.0 - 2 * 10.0) * 10.0
+    assert relative_tolerance(a5, expected, 1e-6)
+    assert res.limits["ug40_pad_within_limit"] is False
+    assert any("UG-40 sınırını" in w for w in res.warnings), res.warnings
+
+
 # ── Torisferik varsayılan büküm yarıçapı — REGRESYON ──────────────────────────
 
 def test_v12_default_knuckle_radius_is_asme_fd_six_percent():

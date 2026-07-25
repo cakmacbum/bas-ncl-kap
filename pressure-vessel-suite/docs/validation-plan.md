@@ -99,6 +99,7 @@ tarafından kapsam ve örnek hesaplar incelenmelidir.
 | Torisferik: M = (3+sqrt(L/r))/4, t = PLM/(2SE - 0.2P) | UG-32(e) | **sayısal-bağımsız** | 1 (90 nokta) | Doğrulandı — anma tablosunun tamamı, tipik %0.03-0.05 | 2026-07-26 |
 | Torisferik varsayılan büküm yarıçapı | UG-32(e) | **sayısal-bağımsız** | 1 | 🔴 **SAPMA bulundu ve düzeltildi** — varsayılan D/10 idi, standart ASME F&D %6; %13 ince bombe üretiyordu | 2026-07-26 |
 | Yarım küresel: t = PR/(2SE - 0.2P) | UG-32(f) | **sayısal-bağımsız** | 1 | Doğrulandı | 2026-07-26 |
+| Nozul takviye alanları A1-A5 + UG-40 sınırları | UG-37(c) / UG-40 | **sayısal-bağımsız** | 1 (5 ara değer) | 🔴 **5 SAPMA bulundu ve düzeltildi** — toplam alan %85 eksikti, karar ters çıkıyordu; ped UG-40 sınırıyla kırpılmıyordu (emniyetsiz) | 2026-07-26 |
 
 **Sayısal-bağımsız yöntem:** İki ayrı ticari yazılımın (PV Elite 2017 · Advanced Pressure
 Vessel 10.1.5) yayımlanmış hesap setlerinden girdi ve sonuçlar alındı, suite aynı girdilerle
