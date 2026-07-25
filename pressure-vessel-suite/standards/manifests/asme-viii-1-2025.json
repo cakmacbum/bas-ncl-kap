@@ -1,0 +1,15 @@
+{
+  "pack_id": "asme-viii-1-2025",
+  "code_family": "ASME VIII-1",
+  "base_edition": "2025",
+  "amendments": [],
+  "ped_directive": "2014/68/EU",
+  "harmonised_list_date": null,
+  "material_standard": "ASME II-D",
+  "material_edition": "2025",
+  "welding_standard": "ASME IX",
+  "welding_edition": "2025",
+  "nde_standard": "ASME V",
+  "nde_edition": "2025",
+  "notes": "ASME BPVC Section VIII Division 1, 2025 Edition"
+}

@@ -1,0 +1,15 @@
+{
+  "pack_id": "en-13445-2021",
+  "code_family": "EN 13445",
+  "base_edition": "2021",
+  "amendments": ["A1:2023"],
+  "ped_directive": "2014/68/EU",
+  "harmonised_list_date": "2024-01-15",
+  "material_standard": "EN 10028",
+  "material_edition": "2017",
+  "welding_standard": "EN ISO 15614",
+  "welding_edition": "2017",
+  "nde_standard": "EN ISO 17637",
+  "nde_edition": "2016",
+  "notes": "EN 13445 Unfired pressure vessels, 2021+A1:2023"
+}

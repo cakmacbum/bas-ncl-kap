@@ -1,0 +1,13 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pv-flanges"
+version = "0.1.0"
+description = "Flanş hesabı (ASME VIII-1 Appendix 2 mantığı) — Pressure Vessel Suite"
+requires-python = ">=3.11"
+dependencies = ["pv-calc-core", "pv-domain", "pv-units"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/flanges"]

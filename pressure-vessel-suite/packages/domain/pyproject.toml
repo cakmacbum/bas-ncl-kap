@@ -1,0 +1,13 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pv-domain"
+version = "0.1.0"
+description = "Standarttan bağımsız veri modelleri — Pressure Vessel Suite"
+requires-python = ">=3.11"
+dependencies = ["pydantic>=2.0,<3"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/domain"]

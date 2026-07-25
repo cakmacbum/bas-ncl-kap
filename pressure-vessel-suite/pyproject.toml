@@ -1,0 +1,16 @@
+[project]
+name = "pressure-vessel-suite"
+version = "0.1.0"
+description = "Açık kaynak basınçlı kap tasarım sistemi — PV Elite / COMPRESS alternatifi"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]

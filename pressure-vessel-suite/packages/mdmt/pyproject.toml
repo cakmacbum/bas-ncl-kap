@@ -1,0 +1,16 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mdmt"
+version = "0.1.0"
+description = "MDMT (Minimum Design Metal Temperature) calculations — UCS-66"
+requires-python = ">=3.12"
+dependencies = [
+    "calc-core",
+    "domain",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mdmt"]

@@ -1,0 +1,12 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pv-units"
+version = "0.1.0"
+description = "Birim sistemi ve dönüşümler — Pressure Vessel Suite"
+requires-python = ">=3.11"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/units"]

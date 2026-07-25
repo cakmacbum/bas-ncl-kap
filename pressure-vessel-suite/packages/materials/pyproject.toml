@@ -1,0 +1,13 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pv-materials"
+version = "0.1.0"
+description = "Sürümlü malzeme veri sağlayıcısı — Pressure Vessel Suite"
+requires-python = ">=3.11"
+dependencies = ["pv-domain", "numpy>=1.24"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/materials"]

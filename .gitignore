@@ -1,0 +1,39 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# --- Node / web-ui ---
+node_modules/
+dist/
+.vite/
+*.local
+
+# --- Üretilen çıktılar (kaynak değil, türetilmiş) ---
+output/
+pressure-vessel-suite/output/
+
+# --- FEA laboratuvarı ara dosyaları ---
+# Girdi (cases/) ve sonuç (results/) git'e girer; ham çözücü dosyaları girmez.
+docs/validation/fea/runs/
+*.frd
+*.msh
+*.sta
+*.cvg
+*.dat
+
+# --- Lisanslı / üçüncü taraf malzeme (K6: telifli içerik depoya girmez) ---
+Hesaplama vs/
+
+# --- Yerel araç ayarları ---
+.claude/settings.local.json
+
+# --- İşletim sistemi ---
+Thumbs.db
+desktop.ini
+.DS_Store

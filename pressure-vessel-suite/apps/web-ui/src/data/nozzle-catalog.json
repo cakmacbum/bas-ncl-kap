@@ -1,0 +1,27 @@
+{
+  "source": "Kullanıcı girişi",
+  "verified": false,
+  "revision": "2026-07-25",
+  "note": "K6: Lisanslı standart tablo metni kopyalanmamıştır. Aşağıdaki dış çap ve et kalınlıkları yaygın ticari boru ölçüleridir ve KULLANICI TARAFINDAN girilmiştir; imalat öncesi tedarikçi/çizim verisiyle doğrulanmalıdır. Doğrulandıktan sonra `verified` alanı true yapılır ve arayüzdeki uyarı rozeti kalkar.",
+  "wallSeries": ["SCH10", "SCH40", "SCH80"],
+  "sizes": [
+    { "label": "1/2\"",  "dn": 15,  "od": 21.3,  "walls": { "SCH10": 2.11, "SCH40": 2.77, "SCH80": 3.73 } },
+    { "label": "3/4\"",  "dn": 20,  "od": 26.7,  "walls": { "SCH10": 2.11, "SCH40": 2.87, "SCH80": 3.91 } },
+    { "label": "1\"",    "dn": 25,  "od": 33.4,  "walls": { "SCH10": 2.77, "SCH40": 3.38, "SCH80": 4.55 } },
+    { "label": "1¼\"",   "dn": 32,  "od": 42.2,  "walls": { "SCH10": 2.77, "SCH40": 3.56, "SCH80": 4.85 } },
+    { "label": "1½\"",   "dn": 40,  "od": 48.3,  "walls": { "SCH10": 2.77, "SCH40": 3.68, "SCH80": 5.08 } },
+    { "label": "2\"",    "dn": 50,  "od": 60.3,  "walls": { "SCH10": 2.77, "SCH40": 3.91, "SCH80": 5.54 } },
+    { "label": "2½\"",   "dn": 65,  "od": 73.0,  "walls": { "SCH10": 3.05, "SCH40": 5.16, "SCH80": 7.01 } },
+    { "label": "3\"",    "dn": 80,  "od": 88.9,  "walls": { "SCH10": 3.05, "SCH40": 5.49, "SCH80": 7.62 } },
+    { "label": "4\"",    "dn": 100, "od": 114.3, "walls": { "SCH10": 3.05, "SCH40": 6.02, "SCH80": 8.56 } },
+    { "label": "6\"",    "dn": 150, "od": 168.3, "walls": { "SCH10": 3.40, "SCH40": 7.11, "SCH80": 10.97 } },
+    { "label": "8\"",    "dn": 200, "od": 219.1, "walls": { "SCH10": 3.76, "SCH40": 8.18, "SCH80": 12.70 } },
+    { "label": "10\"",   "dn": 250, "od": 273.0, "walls": { "SCH10": 4.19, "SCH40": 9.27, "SCH80": 15.09 } },
+    { "label": "12\"",   "dn": 300, "od": 323.9, "walls": { "SCH10": 4.57, "SCH40": 10.31, "SCH80": 17.48 } },
+    { "label": "14\"",   "dn": 350, "od": 355.6, "walls": { "SCH10": 6.35, "SCH40": 11.13, "SCH80": 19.05 } },
+    { "label": "16\"",   "dn": 400, "od": 406.4, "walls": { "SCH10": 6.35, "SCH40": 12.70, "SCH80": 21.44 } },
+    { "label": "18\"",   "dn": 450, "od": 457.0, "walls": { "SCH10": 6.35, "SCH40": 14.27, "SCH80": 23.83 } },
+    { "label": "20\"",   "dn": 500, "od": 508.0, "walls": { "SCH10": 6.35, "SCH40": 15.09, "SCH80": 26.19 } },
+    { "label": "24\"",   "dn": 600, "od": 610.0, "walls": { "SCH10": 6.35, "SCH40": 17.48, "SCH80": 30.96 } }
+  ]
+}

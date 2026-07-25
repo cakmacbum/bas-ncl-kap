@@ -1,0 +1,13 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pv-welds"
+version = "0.1.0"
+description = "Kaynak ve NDT modeli — Pressure Vessel Suite"
+requires-python = ">=3.11"
+dependencies = ["pv-domain"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/welds"]
