@@ -20,7 +20,6 @@ def shell_thickness_internal_pressure(
     R: float,
     S: float,
     E: float,
-    C: float = 0.0,
 ) -> Tuple[float, float, float]:
     """UG-27(c)(1) — Silindirik gövde iç basınç et kalınlığı.
 
@@ -37,7 +36,6 @@ def shell_thickness_internal_pressure(
            (iç yarıçap BÜYÜR). Çağıran taraf bu dönüşümü yapar.
         S: İzin verilen gerilme (MPa).
         E: Kaynak verimi (joint efficiency).
-        C: Korozyon payı (mm).
 
     Returns:
         (t_circ, t_long, t_required) — çevresel, boyuna ve kritik (max) kalınlık (mm).
@@ -98,7 +96,6 @@ def head_elliptical_thickness(
     D: float,
     S: float,
     E: float,
-    C: float = 0.0,
 ) -> Tuple[float, float]:
     """UG-32(d) — 2:1 Elipsoidal bombe et kalınlığı.
 
@@ -114,7 +111,6 @@ def head_elliptical_thickness(
         D: **Korozyonlu** iç çap (mm) — D_korozyonlu = D_yeni + 2C (iç çap BÜYÜR).
         S: İzin verilen gerilme (MPa).
         E: Kaynak verimi.
-        C: Korozyon payı (mm).
 
     Returns:
         (t_required, K_factor) — gerekli kalınlık ve K faktörü.
@@ -163,7 +159,6 @@ def head_torispherical_thickness(
         L: Taç yarıçapı (mm).
         S: İzin verilen gerilme (MPa).
         E: Kaynak verimi.
-        C: Korozyon payı (mm).
 
     Returns:
         (t_required, M_factor)
@@ -228,7 +223,6 @@ def head_hemispherical_thickness(
     R: float,
     S: float,
     E: float,
-    C: float = 0.0,
 ) -> float:
     """UG-32(f) — Yarım küresel bombe et kalınlığı.
 
@@ -322,7 +316,6 @@ def mawp_from_shell(
         t_actual: Nominal et kalınlığı (mm).
         S: İzin verilen gerilme (MPa).
         E: Kaynak verimi.
-        C: Korozyon payı (mm).
 
     Returns:
         MAWP (MPa).
@@ -353,7 +346,6 @@ def mawp_from_ellipsoidal_head(
         t_actual: Nominal et kalınlığı (mm).
         S: İzin verilen gerilme (MPa).
         E: Kaynak verimi.
-        C: Korozyon payı (mm).
 
     Returns:
         MAWP (MPa).
@@ -384,7 +376,6 @@ def mawp_from_hemispherical_head(
         t_actual: Nominal et kalınlığı (mm).
         S: İzin verilen gerilme (MPa).
         E: Kaynak verimi.
-        C: Korozyon payı (mm).
 
     Returns:
         MAWP (MPa).
@@ -418,7 +409,6 @@ def mawp_from_torispherical_head(
         t_actual: Nominal et kalınlığı (mm).
         S: İzin verilen gerilme (MPa).
         E: Kaynak verimi.
-        C: Korozyon payı (mm).
 
     Returns:
         MAWP (MPa).

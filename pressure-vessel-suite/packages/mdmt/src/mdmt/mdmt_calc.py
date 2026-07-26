@@ -120,12 +120,25 @@ class MDMTCalculator:
         # UCS-66 Tablo UCS-66.1 — Eğri grubuna göre MDMT limiti
         mdmt_limit = UCS66_MDMT_LIMITS.get(curve_group, -29.0)
 
-        # Kalınlık düzeltmesi (basitleştirilmiş)
-        # Gerçek hesapta Tablo UCS-66.1'den kalınlığa göre okunur
+        # Kalınlık düzeltmesi — BASİTLEŞTİRİLMİŞ doğrusal yaklaşım.
+        # Gerçek UCS-66 eğrileri doğrusal değildir ve eğri grubuna göre farklı
+        # şekiller alır; değer Şekil UCS-66'dan okunur. Bu yaklaşım yalnız bir
+        # mertebe tahminidir. K4: yaklaşım kaynak kodu yorumunda kalmaz,
+        # kullanıcının gördüğü sonuca uyarı olarak yazılır.
+        result.add_assumption(
+            "K4: UCS-66 kalınlık düzeltmesi basitleştirilmiş doğrusal yaklaşımla "
+            "hesaplanıyor ((t − 38 mm) × 0.5). Gerçek UCS-66 eğrileri doğrusal "
+            "değildir; sonuç Şekil UCS-66'dan okunan değerle doğrulanmalıdır."
+        )
         if t_nominal > 38.0:
             # Kalın malzeme → daha yüksek MDMT
             thickness_penalty = (t_nominal - 38.0) * 0.5
             mdmt_limit = mdmt_limit + thickness_penalty
+            result.add_warning(
+                f"Kalınlık düzeltmesi uygulandı (+{thickness_penalty:.1f}°C, "
+                f"t = {t_nominal:.1f} mm > 38 mm). Bu düzeltme basitleştirilmiş "
+                "doğrusal yaklaşımdır — imalat öncesi Şekil UCS-66'dan doğrulanmalı."
+            )
 
         result.add_intermediate("curve_group", curve_group.value, "-", "UCS-66 curve group")
         result.add_intermediate("t_nominal", t_nominal, "mm", "Nominal thickness")

@@ -148,7 +148,7 @@ class TestEN13445Formulas:
                = 597.6 / 162.4 = 3.679 mm
         """
         e_circ, e_long, e_req = formulas.shell_thickness_internal_pressure(
-            P=1.2, R=498.0, f=163.0, z=1.0, e=12.0
+            P=1.2, R=498.0, f=163.0, z=1.0
         )
         assert relative_tolerance(e_circ, 3.679, 0.005), f"e_circ={e_circ}"
         assert e_req == e_circ  # Çevresel kritik
@@ -160,7 +160,7 @@ class TestEN13445Formulas:
                = 597.6 / 327.2 = 1.826 mm
         """
         e_circ, e_long, e_req = formulas.shell_thickness_internal_pressure(
-            P=1.2, R=498.0, f=163.0, z=1.0, e=12.0
+            P=1.2, R=498.0, f=163.0, z=1.0
         )
         assert relative_tolerance(e_long, 1.826, 0.005), f"e_long={e_long}"
 
@@ -201,7 +201,7 @@ class TestEN13445Formulas:
         e = P×L×W / (2×f×z + 0.5×P) = 1.2×1000×1.943 / (326 + 0.6)
           = 2331.6 / 326.6 = 7.139 mm
         """
-        e, W = formulas.head_torispherical_thickness(1.2, 1000.0, 1000.0, 60.0, 163.0, 1.0)
+        e, W = formulas.head_torispherical_thickness(1.2, 1000.0, 60.0, 163.0, 1.0)
         assert relative_tolerance(e, 7.139, 0.01), f"e={e}, W={W}"
 
     def test_mawp_shell_en(self):

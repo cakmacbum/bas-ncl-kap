@@ -83,6 +83,19 @@ export interface MaterialProperty {
   source_reference: string;
   source_revision: string;
   density: number;
+  /** UCS-66 eğri grubu (A/B/C/D). Boşsa MDMT kontrolü bloke olur — tahmin edilmez. */
+  ucs66_curve_group: string | null;
+}
+
+export interface Support {
+  support_id: string;
+  type: "saddle" | "skirt" | "leg";
+  location_mm: number;
+  width_mm: number;
+  height_mm: number;
+  material_id: string;
+  contact_angle_deg: number | null;
+  leg_count: number | null;
 }
 
 export interface WeldJoint {
@@ -113,6 +126,7 @@ export interface VesselProject {
   heads: Head[];
   nozzles: Nozzle[];
   materials: MaterialProperty[];
+  supports: Support[];
   welds: WeldJoint[];
 }
 

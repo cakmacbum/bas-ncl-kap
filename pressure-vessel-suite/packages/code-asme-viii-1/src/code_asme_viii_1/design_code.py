@@ -161,7 +161,7 @@ class ASMEVIII1DesignCode(DesignCode):
         # Hesap
         try:
             t_circ, t_long, t_required = formulas.shell_thickness_internal_pressure(
-                P=P, R=R_corroded, S=S, E=E, C=C
+                P=P, R=R_corroded, S=S, E=E
             )
         except ValueError as e:
             result.set_not_calculated(str(e))
@@ -179,7 +179,16 @@ class ASMEVIII1DesignCode(DesignCode):
         result.add_intermediate("t_required", t_required, "mm", "Required thickness (governing)")
 
         # Mill tolerans + şekillendirme incelmesi
-        mt_factor = 1.0 - shell.mill_tolerance / 100.0 if shell.mill_tolerance > 0 else 0.875
+        # K4: Negatif sac toleransı girilmediyse sektör tipiği varsayılır.
+        # Değer makul ama sonucu ~%12.5 etkiler — sessiz kalmaz.
+        if shell.mill_tolerance > 0:
+            mt_factor = 1.0 - shell.mill_tolerance / 100.0
+        else:
+            mt_factor = 0.875
+            result.add_assumption(
+                "K4: Negatif sac toleransı girilmedi; "
+                f"varsayılan {(1 - 0.875) * 100:.1f}% kullanıldı."
+            )
         t_nominal = formulas.shell_required_nominal_thickness(
             t_required=t_required,
             C=C,
@@ -296,7 +305,7 @@ class ASMEVIII1DesignCode(DesignCode):
             if head.type == HeadType.ELLIPTICAL:
                 result.clause_reference = "UG-32(d)"
                 result.formula_reference = "UG-32(d)"
-                t, K = formulas.head_elliptical_thickness(P, D, S, E, C)
+                t, K = formulas.head_elliptical_thickness(P, D, S, E)
                 result.add_intermediate("K_factor", K, "-", "2:1 elliptical head factor")
                 result.add_intermediate("t_required", t, "mm", "Required thickness")
 
@@ -313,7 +322,7 @@ class ASMEVIII1DesignCode(DesignCode):
             elif head.type == HeadType.HEMISPHERICAL:
                 result.clause_reference = "UG-32(f)"
                 result.formula_reference = "UG-32(f)"
-                t = formulas.head_hemispherical_thickness(P, R, S, E, C)
+                t = formulas.head_hemispherical_thickness(P, R, S, E)
                 result.add_intermediate("R", R, "mm", "Inside radius")
                 result.add_intermediate("t_required", t, "mm", "Required thickness")
 
@@ -345,7 +354,16 @@ class ASMEVIII1DesignCode(DesignCode):
             return result
 
         # Nominal kalınlık
-        mt_factor = 1.0 - head.mill_tolerance / 100.0 if head.mill_tolerance > 0 else 0.875
+        # K4: Negatif sac toleransı girilmediyse sektör tipiği varsayılır.
+        # Değer makul ama sonucu ~%12.5 etkiler — sessiz kalmaz.
+        if head.mill_tolerance > 0:
+            mt_factor = 1.0 - head.mill_tolerance / 100.0
+        else:
+            mt_factor = 0.875
+            result.add_assumption(
+                "K4: Negatif sac toleransı girilmedi; "
+                f"varsayılan {(1 - 0.875) * 100:.1f}% kullanıldı."
+            )
         t_nominal = formulas.shell_required_nominal_thickness(
             t_required=t,
             C=C,
@@ -869,6 +887,108 @@ class ASMEVIII1DesignCode(DesignCode):
 
         return [build_clash_check_result(nozzle, project) for nozzle in project.nozzles]
 
+    def check_mdmt(self, project) -> list:
+        """MDMT/UCS-66 kontrolü (mdmt paketine delege eder).
+
+        Her basınç taşıyan bileşen için ayrı kontrol. Malzemede UCS-66 eğri grubu
+        girilmemişse `MDMTCalculator` `BLOCKED_MISSING_INPUT` döndürür — eğri
+        grubu **tahmin edilmez** (K4). Eğri ataması malzeme belgesinden okunur.
+        """
+        try:
+            from mdmt import MDMTCalculator, UCS66CurveGroup
+        except ImportError:
+            return []
+
+        calc = MDMTCalculator(code=self.code_name, edition=self.code_edition)
+        materials = project.materials
+        results = []
+
+        components = list(project.shell_sections) + list(project.heads)
+        for comp in components:
+            group = None
+            for m in materials:
+                if m.material_id == comp.material_id:
+                    raw = getattr(m, "ucs66_curve_group", None)
+                    if raw:
+                        group = UCS66CurveGroup(raw)
+                    break
+            results.append(calc.check_mdmt({
+                "component": comp,
+                "design_conditions": project.design_conditions,
+                "materials": materials,
+                "curve_group": group,
+                "nominal_thickness_mm": comp.nominal_thickness,
+            }))
+
+        return results
+
+    def check_supports(self, project) -> list:
+        """Destek kontrolü (supports paketine delege eder).
+
+        Ağırlık `calc_core.volume_mass` üzerinden hesaplanır — ayrı bir ağırlık
+        girdisi istenmez (tek kaynak). Varsayılan **boş kap**; sıvı ağırlığı
+        dahil edilmez ve bu varsayım sonuca yazılır (K4).
+        """
+        supports = getattr(project, "supports", None)
+        if not supports:
+            return []
+
+        try:
+            from supports import SupportCalculator
+        except ImportError:
+            return []
+        from calc_core.volume_mass import calculate_vessel_volume_mass
+
+        vm = calculate_vessel_volume_mass(project)
+        weight_N = vm.total_metal_mass_kg * 9.80665
+
+        calc = SupportCalculator(code=self.code_name, edition=self.code_edition)
+        shell = project.shell_sections[0] if project.shell_sections else None
+        if shell is None:
+            return []
+
+        saddles = [s for s in supports if s.type == "saddle"]
+        results = []
+        for sup in supports:
+            payload = {
+                "support": {
+                    "tag": sup.support_id,
+                    "type": sup.type,
+                    "location_mm": sup.location_mm,
+                    "width_mm": sup.width_mm,
+                    "height_mm": sup.height_mm,
+                },
+                "shell": shell,
+                "vessel_length": shell.tangent_length,
+                "total_weight_N": weight_N,
+                "materials": project.materials,
+                "design_conditions": project.design_conditions,
+            }
+            if sup.type == "saddle":
+                # İki eyer arası mesafe konumlardan türetilir; tek eyer varsa
+                # Zick geçersizdir — hesap paketi bunu kendi raporlar.
+                if len(saddles) >= 2:
+                    locs = sorted(s.location_mm for s in saddles)
+                    payload["saddle_distance"] = locs[-1] - locs[0]
+                    payload["saddle_from_end"] = locs[0]
+                r = calc.check_saddle(payload)
+            elif sup.type == "skirt":
+                r = calc.check_skirt(payload)
+            elif sup.type == "leg":
+                payload["leg_count"] = getattr(sup, "leg_count", 0) or 0
+                r = calc.check_leg_support(payload)
+            else:
+                continue
+
+            r.add_assumption(
+                f"K4: Destek yükü boş kap ağırlığından türetildi "
+                f"({vm.total_metal_mass_kg:.0f} kg metal). Sıvı, izolasyon ve iç "
+                f"ekipman ağırlıkları dahil DEĞİL."
+            )
+            results.append(r)
+
+        return results
+
     def check_external_pressure(self, project) -> list:
         """Dış basınç/vakum stabilite kontrolü (external-pressure paketine delege eder).
 
@@ -1037,7 +1157,16 @@ class ASMEVIII1DesignCode(DesignCode):
         result.add_intermediate("t_required", t, "mm", "Required thickness")
 
         # Nominal kalınlık
-        mt_factor = 1.0 - cone.mill_tolerance / 100.0 if cone.mill_tolerance > 0 else 0.875
+        # K4: Negatif sac toleransı girilmediyse sektör tipiği varsayılır.
+        # Değer makul ama sonucu ~%12.5 etkiler — sessiz kalmaz.
+        if cone.mill_tolerance > 0:
+            mt_factor = 1.0 - cone.mill_tolerance / 100.0
+        else:
+            mt_factor = 0.875
+            result.add_assumption(
+                "K4: Negatif sac toleransı girilmedi; "
+                f"varsayılan {(1 - 0.875) * 100:.1f}% kullanıldı."
+            )
         t_nominal = formulas.shell_required_nominal_thickness(
             t_required=t,
             C=C,

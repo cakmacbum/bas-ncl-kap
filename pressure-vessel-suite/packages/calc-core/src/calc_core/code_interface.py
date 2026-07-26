@@ -96,6 +96,22 @@ class DesignCode(ABC):
         """
         return []
 
+    def check_mdmt(self, project: "VesselProject") -> List[CalculationResult]:
+        """MDMT kontrolü (opsiyonel — varsayılan boş liste).
+
+        Standart eklentisi bunu, kendi `mdmt` bağımlılığıyla uygular.
+        MDMT eğri grubu standarda özgüdür (ASME'de UCS-66), bu yüzden
+        orkestratör değil standart eklentisi sahiplenir.
+        """
+        return []
+
+    def check_supports(self, project: "VesselProject") -> List[CalculationResult]:
+        """Destek (saddle/skirt/leg) kontrolü (opsiyonel — varsayılan boş liste).
+
+        Standart eklentisi bunu, kendi `supports` bağımlılığıyla uygular.
+        """
+        return []
+
     def calculate_pneumatic_test_pressure(self, input_data: dict) -> CalculationResult:
         """Pnömatik test basıncı hesabı (opsiyonel — varsayılan NOT_CALCULATED)."""
         result = CalculationResult(

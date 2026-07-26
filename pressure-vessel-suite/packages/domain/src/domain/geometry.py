@@ -217,4 +217,38 @@ class Cone(BaseModel):
     )
 
 
-__all__ = ["ShellSection", "Head", "Nozzle", "Cone"]
+class Support(BaseModel):
+    """Kap desteği — eyer (saddle), etek (skirt) veya ayak (leg).
+
+    `supports` paketi bugüne dek hesap hattına bağlı değildi çünkü projede
+    destek tanımı yoktu; bu model o boşluğu kapatır. Ağırlık burada İSTENMEZ —
+    `calc_core.volume_mass` üzerinden hesaplanır (tek kaynak, K5).
+    """
+
+    support_id: str = Field(..., description="Destek tanımı (ör. 'SAD-01').")
+    type: str = Field(
+        ..., pattern="^(saddle|skirt|leg)$",
+        description="Destek tipi: saddle | skirt | leg.",
+    )
+    location_mm: float = Field(
+        default=0.0, ge=0,
+        description="Kap ekseni boyunca konum (mm). Etek için taban kotu.",
+    )
+    width_mm: float = Field(
+        ..., gt=0, description="Destek genişliği (mm). Eyerde temas genişliği."
+    )
+    height_mm: float = Field(
+        ..., gt=0, description="Destek yüksekliği (mm)."
+    )
+    material_id: str = Field(..., description="Malzeme tanımı.")
+    contact_angle_deg: Optional[float] = Field(
+        default=None, ge=0, le=180,
+        description="Eyer sarma açısı (derece). Zick analizi için; yalnız saddle.",
+    )
+    leg_count: Optional[int] = Field(
+        default=None, gt=0,
+        description="Ayak sayısı. Yalnız leg tipinde geçerli.",
+    )
+
+
+__all__ = ["ShellSection", "Head", "Nozzle", "Cone", "Support"]

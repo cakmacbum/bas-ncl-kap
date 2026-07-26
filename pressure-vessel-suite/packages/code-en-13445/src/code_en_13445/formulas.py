@@ -20,8 +20,6 @@ def shell_thickness_internal_pressure(
     R: float,
     f: float,
     z: float,
-    e: float,
-    C: float = 0.0,
 ) -> Tuple[float, float, float]:
     """EN 13445-3, 5.4.2 — Silindirik gövde iç basınç et kalınlığı.
 
@@ -100,7 +98,6 @@ def head_elliptical_thickness(
     D: float,
     f: float,
     z: float,
-    C: float = 0.0,
 ) -> Tuple[float, float]:
     """EN 13445-3, 5.5.2 — Elipsoidal bombe et kalınlığı.
 
@@ -133,12 +130,10 @@ def head_elliptical_thickness(
 
 def head_torispherical_thickness(
     P: float,
-    D: float,
     L: float,
     r: float,
     f: float,
     z: float,
-    C: float = 0.0,
 ) -> Tuple[float, float]:
     """EN 13445-3, 5.5.3 — Torisferik bombe et kalınlığı (Korbbogen tipi).
 
@@ -191,7 +186,6 @@ def head_hemispherical_thickness(
     R: float,
     f: float,
     z: float,
-    C: float = 0.0,
 ) -> float:
     """EN 13445-3, 5.5.4 — Yarım küresel bombe et kalınlığı.
 

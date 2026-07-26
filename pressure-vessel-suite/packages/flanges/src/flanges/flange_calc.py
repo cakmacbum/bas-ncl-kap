@@ -61,7 +61,10 @@ class FlangeCalculator:
         materials = input_data.get("materials", [])
         W = input_data.get("bolt_load_W", 0.0)
         M = input_data.get("moment_M", 0.0)
-        Y = input_data.get("flange_factor_Y", 5.0)  # Varsayılan değer
+        # Y, Appendix 2 Şekil 2-7.1'den K = A/B oranına göre okunur ve geniş bir
+        # aralıkta değişir. Eskiden sessizce 5.0 varsayılıyordu; bu modül hesap
+        # hattına bağlandığı gün sessizce yanlış sonuç üretirdi. K4: varsayılan yok.
+        Y = input_data.get("flange_factor_Y")
         f = input_data.get("flange_factor_f", 1.0)
 
         tag = flange.get("tag", "FLANGE-01")
@@ -87,6 +90,14 @@ class FlangeCalculator:
             result.set_not_calculated(
                 f"Flange material '{mat_id}' not found. "
                 "Flange stress calculation requires material properties."
+            )
+            return result
+
+        if Y is None or Y <= 0:
+            result.set_blocked_missing_input(
+                "Appendix 2 flanş faktörü Y girilmemiş. Y, K = A/B oranına göre "
+                "Şekil 2-7.1'den okunur ve geniş aralıkta değişir — varsayılan "
+                "atanmaz (K4). Flanş dış çapı A ve iç çapı B ile birlikte girilmeli."
             )
             return result
 

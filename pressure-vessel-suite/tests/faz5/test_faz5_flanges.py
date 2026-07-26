@@ -213,9 +213,42 @@ class TestFlangeCalculator:
             "materials": [mat],
             "bolt_load_W": 300000.0,
             "moment_M": 5000000.0,
+            "flange_factor_Y": 9.0,
         })
         assert len(r.intermediate_values) > 0
         assert r.material_properties_used != {}
+
+    def test_y_faktoru_yoksa_bloke_olur(self, calc, mat):
+        """K4: Appendix 2 Y faktörü verilmezse hesap yapılmaz, varsayılan atanmaz.
+
+        Eskiden sessizce `Y = 5.0` varsayılıyordu. Y, K = A/B oranına göre
+        Şekil 2-7.1'den okunur ve geniş aralıkta değişir; sessiz varsayılan,
+        modül hesap hattına bağlandığı gün sessizce yanlış sonuç üretirdi.
+        """
+        from domain.enums import CalculationStatus
+
+        dc = DesignConditions(
+            operating_pressure=1.0,
+            design_pressure=1.2,
+            maximum_allowable_pressure_ps=1.5,
+            operating_temperature=200.0,
+            design_temperature=200.0,
+            minimum_design_temperature=-10.0,
+        )
+        r = calc.check_flange_stress({
+            "flange": {
+                "tag": "FL-NOY", "type": "integral", "B": 500.0, "A": 700.0,
+                "t": 50.0, "g0": 20.0, "g1": 25.0, "h0": 50.0,
+                "material_id": "MAT-FLANGE",
+            },
+            "design_conditions": dc,
+            "materials": [mat],
+            "bolt_load_W": 300000.0,
+            "moment_M": 5000000.0,
+            # flange_factor_Y bilerek verilmedi
+        })
+        assert r.status == CalculationStatus.BLOCKED_MISSING_INPUT
+        assert any("Y" in w for w in r.warnings), r.warnings
 
     def test_moment_calculation(self, calc):
         """Moment hesaplama."""

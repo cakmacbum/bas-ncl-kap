@@ -454,6 +454,19 @@ export function GeometryPage() {
                 onChange={(v) => setMat({ tensile_strength: v })} />
               <NumField label="Yoğunluk" unit="kg/m³" value={mat.density}
                 onChange={(v) => setMat({ density: v })} help="Ağırlık hesabı için kullanılır." />
+              <SelectField
+                label="UCS-66 Eğri Grubu"
+                value={mat.ucs66_curve_group ?? ""}
+                onChange={(v) => setMat({ ucs66_curve_group: v || null })}
+                options={[
+                  { value: "", label: "— girilmedi —" },
+                  { value: "A", label: "A" },
+                  { value: "B", label: "B" },
+                  { value: "C", label: "C" },
+                  { value: "D", label: "D" },
+                ]}
+                help="Malzeme belgesinden okunur (Şekil UCS-66). Girilmezse MDMT kontrolü yapılmaz — varsayılan atanmaz."
+              />
             </div>
           </AccordionSection>
 
@@ -580,8 +593,26 @@ async function ensureCalculated(): Promise<void> {
 }
 
 // ============================================================ 4. Sonuçlar
-function ResultGroup({ title, rows }: { title: string; rows: CalcResult[] }) {
-  if (rows.length === 0) return null;
+// `emptyNote` verilirse, grup boşken sessizce gizlenmez — K4: eksiklik gizlenmez.
+// Kullanıcı "bu kontrol yapıldı ve geçti" ile "bu kontrol hiç yapılmadı"yı ayırt
+// edebilmeli. Boş bir bölümün görünmemesi ikincisini birincisi gibi gösterir.
+function ResultGroup({
+  title,
+  rows,
+  emptyNote,
+}: {
+  title: string;
+  rows: CalcResult[];
+  emptyNote?: string;
+}) {
+  if (rows.length === 0) {
+    if (!emptyNote) return null;
+    return (
+      <Panel title={title} meta="üretilmedi">
+        <p className="muted" style={{ margin: 0 }}>{emptyNote}</p>
+      </Panel>
+    );
+  }
   return (
     <Panel title={title} meta={`${rows.length} kayıt`}>
       <table className="table">
@@ -707,8 +738,31 @@ export function ResultsPage() {
           <ResultGroup title="MAWP — Bileşen Bazında" rows={byType("mawp")} />
           <ResultGroup title="Hidrostatik Test" rows={byType("hydrotest")} />
           <ResultGroup title="Pnömatik Test — UG-100" rows={byType("pneumatic_test")} />
-          <ResultGroup title="Dış Basınç / Vakum — UG-28" rows={byType("external_pressure")} />
-          <ResultGroup title="MDMT — UCS-66" rows={byType("mdmt")} />
+          {/* Dış basınç üç ayrı tip üretebiliyor: normal yolda `external_pressure`,
+              vakum kontrolünde `vacuum_stability`, modül yüklenemezse
+              `external_pressure_check`. Üçü de aynı bölümde gösterilmeli —
+              yoksa vakum sonucu ve modül-yok durumu kullanıcıya hiç ulaşmaz. */}
+          <ResultGroup
+            title="Dış Basınç / Vakum — UG-28"
+            rows={[
+              ...byType("external_pressure"),
+              ...byType("vacuum_stability"),
+              ...byType("external_pressure_check"),
+            ]}
+          />
+          <ResultGroup
+            title="MDMT — UCS-66"
+            rows={byType("mdmt_check")}
+            emptyNote="Malzemeye UCS-66 eğri grubu (A/B/C/D) girilmediği için MDMT kontrolü yapılmadı. Eğri grubunu Malzeme adımından girin."
+          />
+          <ResultGroup
+            title="Destekler — Zick / Skirt / Leg"
+            rows={[
+              ...byType("saddle_stress"),
+              ...byType("skirt_stress"),
+              ...byType("leg_stress"),
+            ]}
+          />
           <ResultGroup title="Kaynak Doğrulama" rows={byType("weld_validation")} />
           <ResultGroup title="Çakışma / Geometri" rows={byType("clash_check")} />
 

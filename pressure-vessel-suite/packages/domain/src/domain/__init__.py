@@ -15,7 +15,7 @@ from domain.enums import (
     Orientation,
     ProductForm,
 )
-from domain.geometry import Cone, Head, Nozzle, ShellSection
+from domain.geometry import Cone, Head, Nozzle, ShellSection, Support
 from domain.load_cases import (
     ExternalLoad,
     LoadCase,
@@ -53,6 +53,7 @@ __all__ = [
     "FluidInfo",
     "Head",
     "Cone",
+    "Support",
     "LoadCase",
     "LoadCombination",
     "MaterialProperty",

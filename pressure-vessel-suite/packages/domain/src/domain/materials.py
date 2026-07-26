@@ -67,6 +67,18 @@ class MaterialProperty(BaseModel):
         default=None, description="Ek notlar."
     )
 
+    # ── MDMT / UCS-66 ─────────────────────────────────────────────────────────
+    # UCS-66 eğri grubu malzemeye bağlıdır (Şekil UCS-66'da A/B/C/D eğrileri).
+    # K3/K6: eğri ataması standart tablosundan gelir, buraya gömülmez —
+    # kullanıcı malzeme belgesine bakıp girer. Girilmezse MDMT kontrolü
+    # BLOCKED_MISSING_INPUT verir, tahmin edilmez (K4).
+    ucs66_curve_group: Optional[str] = Field(
+        default=None,
+        pattern="^[ABCD]$",
+        description="UCS-66 eğri grubu (A/B/C/D). Malzeme belgesinden girilir; "
+                    "girilmezse MDMT kontrolü bloke olur, varsayılan atanmaz.",
+    )
+
     # ── Faz 2: FEA doğrulama laboratuvarı — lineer-elastik özellikler ─────────
     # Opsiyonel; kullanıcı girer, tablo gömülmez (K3/K6). Yalnızca FEA lab
     # tüketir — kapalı-form ASME/EN hesap motorları bu alanları OKUMAZ.

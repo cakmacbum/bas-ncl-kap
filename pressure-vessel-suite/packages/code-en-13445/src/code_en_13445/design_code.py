@@ -19,6 +19,41 @@ from calc_core.code_interface import DesignCode
 from calc_core.result import CalculationResult
 from code_en_13445 import formulas
 
+# EN 13445'te yaygın torisferik bombe (Korbbogen / DIN 28011) için büküm yarıçapı
+# oranı. ASME F&D'nin %6'sından farklıdır — bu yüzden ASME'deki sabit BURAYA
+# kopyalanmaz. Değerin kendisi bağımsız olarak doğrulanmadı; yalnızca varsayım
+# olarak kaydedilir. Bkz. docs/limitations.md B-09.
+EN_KNUCKLE_RATIO = 0.10
+
+
+def _torispherical_radii_en(head, D: float, result: CalculationResult) -> tuple[float, float]:
+    """EN torisferik bombe için taç (L) ve büküm (r) yarıçapları.
+
+    Kullanıcı vermezse varsayılan kullanılır — ama **sessizce değil**. ASME
+    tarafında aynı sessiz varsayılan %13'lük emniyetsiz bir sapmaya yol açmıştı
+    (V-12); aynı desen burada tekrarlanmasın diye varsayım kayda geçer (K4).
+    """
+    L = head.crown_radius if head.crown_radius else D
+    if not head.crown_radius:
+        result.add_assumption(
+            f"K4: Taç yarıçapı girilmedi; L = D = {L:.1f} mm varsayıldı."
+        )
+
+    r = head.knuckle_radius if head.knuckle_radius else EN_KNUCKLE_RATIO * D
+    if not head.knuckle_radius:
+        result.add_assumption(
+            f"K4: Büküm yarıçapı girilmedi; Korbbogen (DIN 28011) tipi varsayılarak "
+            f"r = 0.10 D = {r:.1f} mm alındı. Bombenin gerçek bükümü farklıysa "
+            f"gerekli kalınlık değişir."
+        )
+        result.add_warning(
+            "Büküm yarıçapı imalat çiziminden girilmelidir — varsayılan %10 "
+            "(Korbbogen) kullanıldı. Bu değer gerekli kalınlığı doğrudan etkiler "
+            "ve bağımsız olarak doğrulanmamıştır (limitations.md B-09)."
+        )
+
+    return L, r
+
 
 class EN13445DesignCode(DesignCode):
     """EN 13445 hesap eklentisi.
@@ -119,7 +154,7 @@ class EN13445DesignCode(DesignCode):
         # Hesap
         try:
             e_circ, e_long, e_required = formulas.shell_thickness_internal_pressure(
-                P=P, R=R_corroded, f=f, z=z, e=shell.nominal_thickness, C=C
+                P=P, R=R_corroded, f=f, z=z
             )
         except ValueError as e:
             result.set_not_calculated(str(e))
@@ -137,7 +172,16 @@ class EN13445DesignCode(DesignCode):
         result.add_intermediate("e_required", e_required, "mm", "Required thickness (governing)")
 
         # Mill tolerans + şekillendirme incelmesi
-        mt_factor = 1.0 - shell.mill_tolerance / 100.0 if shell.mill_tolerance > 0 else 0.90
+        # K4: Negatif sac toleransı girilmediyse sektör tipiği varsayılır.
+        # Değer makul ama sonucu ~%10 etkiler — sessiz kalmaz.
+        if shell.mill_tolerance > 0:
+            mt_factor = 1.0 - shell.mill_tolerance / 100.0
+        else:
+            mt_factor = 0.90
+            result.add_assumption(
+                "K4: Negatif sac toleransı girilmedi; "
+                f"varsayılan {(1 - 0.90) * 100:.1f}% kullanıldı."
+            )
         e_nominal = formulas.shell_required_nominal_thickness(
             e_required=e_required,
             C=C,
@@ -245,16 +289,15 @@ class EN13445DesignCode(DesignCode):
             if head.type == HeadType.ELLIPTICAL:
                 result.clause_reference = "EN 13445-3, 5.5.2"
                 result.formula_reference = "5.5.2-1"
-                e, shape_factor = formulas.head_elliptical_thickness(P, D, f, z, C)
+                e, shape_factor = formulas.head_elliptical_thickness(P, D, f, z)
                 result.add_intermediate("shape_factor", shape_factor, "-", "Elliptical shape factor")
                 result.add_intermediate("e_required", e, "mm", "Required thickness")
 
             elif head.type == HeadType.TORISPHERICAL:
                 result.clause_reference = "EN 13445-3, 5.5.3"
                 result.formula_reference = "5.5.3-1"
-                L = head.crown_radius if head.crown_radius else D
-                r = head.knuckle_radius if head.knuckle_radius else D / 10.0
-                e, W = formulas.head_torispherical_thickness(P, D, L, r, f, z, C)
+                L, r = _torispherical_radii_en(head, D, result)
+                e, W = formulas.head_torispherical_thickness(P, L, r, f, z)
                 result.add_intermediate("L", L, "mm", "Crown radius")
                 result.add_intermediate("r", r, "mm", "Knuckle radius")
                 result.add_intermediate("W_factor", W, "-", "Shape factor W")
@@ -263,7 +306,7 @@ class EN13445DesignCode(DesignCode):
             elif head.type == HeadType.HEMISPHERICAL:
                 result.clause_reference = "EN 13445-3, 5.5.4"
                 result.formula_reference = "5.5.4-1"
-                e = formulas.head_hemispherical_thickness(P, R, f, z, C)
+                e = formulas.head_hemispherical_thickness(P, R, f, z)
                 result.add_intermediate("R", R, "mm", "Inside radius")
                 result.add_intermediate("e_required", e, "mm", "Required thickness")
 
@@ -282,7 +325,16 @@ class EN13445DesignCode(DesignCode):
             return result
 
         # Nominal kalınlık
-        mt_factor = 1.0 - head.mill_tolerance / 100.0 if head.mill_tolerance > 0 else 0.90
+        # K4: Negatif sac toleransı girilmediyse sektör tipiği varsayılır.
+        # Değer makul ama sonucu ~%10 etkiler — sessiz kalmaz.
+        if head.mill_tolerance > 0:
+            mt_factor = 1.0 - head.mill_tolerance / 100.0
+        else:
+            mt_factor = 0.90
+            result.add_assumption(
+                "K4: Negatif sac toleransı girilmedi; "
+                f"varsayılan {(1 - 0.90) * 100:.1f}% kullanıldı."
+            )
         e_nominal = formulas.shell_required_nominal_thickness(
             e_required=e,
             C=C,
@@ -413,8 +465,7 @@ class EN13445DesignCode(DesignCode):
                     mawp = formulas.mawp_from_head("elliptical", D, t_actual, f, z, C=C)
                 elif head.type == HeadType.TORISPHERICAL:
                     result.clause_reference = "EN 13445-3, 5.5.3"
-                    L = head.crown_radius if head.crown_radius else D
-                    r = head.knuckle_radius if head.knuckle_radius else D / 10.0
+                    L, r = _torispherical_radii_en(head, D, result)
                     mawp = formulas.mawp_from_head("torispherical", D, t_actual, f, z, L, r, C)
                 elif head.type == HeadType.HEMISPHERICAL:
                     result.clause_reference = "EN 13445-3, 5.5.4"

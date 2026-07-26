@@ -39,8 +39,12 @@ export function defaultProject(): VesselProject {
         source_reference: "ASME II-D Table 1A",
         source_revision: "2025",
         density: 7850,
+        // K4: UCS-66 eğri grubu tahmin edilmez — kullanıcı malzeme
+        // belgesinden girer. Boşken MDMT kontrolü bloke olur.
+        ucs66_curve_group: null,
       },
     ],
+    supports: [],
     welds: [
       {
         joint_id: "WJ-01",

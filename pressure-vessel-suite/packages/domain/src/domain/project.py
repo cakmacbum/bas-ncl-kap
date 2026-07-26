@@ -12,7 +12,7 @@ from pydantic import BaseModel, Field
 
 from domain.conditions import DesignConditions
 from domain.enums import CalculationCode, Orientation
-from domain.geometry import Cone, Head, Nozzle, ShellSection
+from domain.geometry import Cone, Head, Nozzle, ShellSection, Support
 from domain.load_cases import LoadCase, LoadCombination
 from domain.materials import MaterialProperty
 from domain.welds import WeldJoint
@@ -90,6 +90,10 @@ class VesselProject(BaseModel):
     )
     nozzles: List[Nozzle] = Field(
         default_factory=list, description="Nozullar."
+    )
+    supports: List[Support] = Field(
+        default_factory=list,
+        description="Kap destekleri (eyer/etek/ayak). Boşsa destek kontrolü yapılmaz.",
     )
     welds: List[WeldJoint] = Field(
         default_factory=list, description="Kaynak dikişleri."

@@ -286,6 +286,22 @@ class CalculationOrchestrator:
         except Exception as e:
             result.add_error(f"External pressure check error: {e}")
 
+        # H) MDMT (ASME'de UCS-66). Eğri grubu girilmemişse standart eklentisi
+        #    BLOCKED_MISSING_INPUT döndürür — burada tahmin yapılmaz.
+        try:
+            for r in self.design_code.check_mdmt(project):
+                result.add(r)
+        except Exception as e:
+            result.add_error(f"MDMT check error: {e}")
+
+        # I) Destekler (eyer/etek/ayak). `project.supports` boşsa hiçbir şey
+        #    üretilmez — destek tanımlamamak geçerli bir durumdur.
+        try:
+            for r in self.design_code.check_supports(project):
+                result.add(r)
+        except Exception as e:
+            result.add_error(f"Support check error: {e}")
+
         # (Statik kafa düzeltmesi E2'ye alındı — test basınçları nihai MAWP'yi
         #  kullanabilsin diye. Burada tekrar çağrılmaz: idempotent değildir,
         #  ikinci çağrı düzeltmeyi MAWP'den bir kez daha düşerdi.)
