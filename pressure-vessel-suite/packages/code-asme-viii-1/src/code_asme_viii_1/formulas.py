@@ -32,7 +32,9 @@ def shell_thickness_internal_pressure(
 
     Args:
         P: Tasarım basıncı (MPa).
-        R: İç yarıçap (korozyon payı düşülmüş) (mm).
+        R: **Korozyonlu** iç yarıçap (mm) — UG-27'nin istediği budur.
+           İç korozyon iç yüzeyden metal yediği için R_korozyonlu = R_yeni + C
+           (iç yarıçap BÜYÜR). Çağıran taraf bu dönüşümü yapar.
         S: İzin verilen gerilme (MPa).
         E: Kaynak verimi (joint efficiency).
         C: Korozyon payı (mm).
@@ -109,7 +111,7 @@ def head_elliptical_thickness(
 
     Args:
         P: Tasarım basıncı (MPa).
-        D: İç çap (korozyon payı düşülmüş) (mm).
+        D: **Korozyonlu** iç çap (mm) — D_korozyonlu = D_yeni + 2C (iç çap BÜYÜR).
         S: İzin verilen gerilme (MPa).
         E: Kaynak verimi.
         C: Korozyon payı (mm).

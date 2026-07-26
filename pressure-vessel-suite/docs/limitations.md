@@ -77,6 +77,29 @@ Kaynak: [`validation/asme-worked-examples.md`](validation/asme-worked-examples.m
   için App 1-7'yi de uyguluyor; suite yalnız UG-37/UG-40 alan değiştirme yöntemini yapıyor.
   Büyük açıklıklarda (yaklaşık `d > D/2` veya `d > 40 in`) bu ek kontrol gerekir.
 
+### Doğrulama turu 4 — kod denetimi (2026-07-26), kapatılmayanlar
+
+Dört sapma bulunup düzeltildi (V-16…V-19). Düzeltilmeyen, bilinçli bırakılanlar:
+
+- **B-09 — EN 13445 torisferik bombede sessiz varsayılan sürüyor.** ASME tarafında V-12'de
+  düzeltilen desen (`r = D/10` sessizce varsayılıyor) EN paketinde duruyor. EN'in Korbbogen
+  (DIN 28011) standardında `r = 0.1D` **doğru** olabilir — ama doğrulanmadı ve her hâlükârda
+  varsayımın kayda geçmesi gerekir (K4). Kapatmak için yayınlanmış bir EN 13445 vakası şart.
+- **B-10 — Mill tolerans varsayılanı (%12.5 ASME / %10 EN) 5 yerde sessiz.** Değer sektörde
+  tipik; risk sayısal değil, izlenebilirlik. `add_assumption` eklenmeli.
+- **B-11 — Flanş `Y` faktörü sessizce 5.0 varsayılıyor** (`flange_calc.py`). Appendix 2
+  tablosundan `K = A/B` ile okunan bu faktör geniş bir aralıkta değişir. Paket henüz
+  orkestratöre bağlı olmadığı için üretilen hiçbir sonucu etkilemiyor; bağlanmadan
+  önce düzeltilmeli.
+- **B-12 — MDMT basitleştirilmiş doğrusal düzeltme kullanıyor** (`mdmt_calc.py`:
+  `(t − 38)×0.5`). Gerçek UCS-66 eğrileri doğrusal değil. Basitleştirme yalnız kaynak kodu
+  yorumunda yazıyor, `CalculationResult`'a uyarı olarak yansımıyor. Paket henüz orkestratöre
+  bağlı değil.
+- **B-13 — Bazı formüllerde `C` parametresi ölü.** `head_elliptical_thickness`,
+  `head_hemispherical_thickness`, `cone_thickness` imzalarında `C` var ama gövdede
+  kullanılmıyor. Sayısal etkisi yok, ama V-16/V-17'deki kafa karışıklığının kök
+  nedenlerinden biri: okuyan "korozyon burada işleniyor" sanıyor.
+
 ---
 
-*Oluşturma tarihi: 2026-07-19 · Revizyon: 2.3 — bağımsız doğrulama turu 3 (2026-07-26)*
+*Oluşturma tarihi: 2026-07-19 · Revizyon: 2.4 — doğrulama turu 4, kod denetimi (2026-07-26)*

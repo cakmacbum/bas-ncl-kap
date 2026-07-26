@@ -133,8 +133,12 @@ class ASMEVIII1DesignCode(DesignCode):
         S = mat.allowable_stress
         C = shell.internal_corrosion_allowance
 
-        # Korozyon payı düşülmüş yarıçap
-        R_corroded = R - C
+        # Korozyonlu iç yarıçap — UG-27'nin R'si "korozyonlu durumdaki iç yarıçap"tır.
+        # İç korozyon metali İÇ yüzeyden yer, yani iç yarıçap BÜYÜR: R_c = R + C.
+        # (Dış ölçüler değişmez.) Doğrulama: yayınlanmış vakada Do=86", t=1.000",
+        # C=0.125" için referans yazılım R = 42.125" = 42.000" + C kullanıyor —
+        # bkz. docs/validation/asme-worked-examples.md V-16.
+        R_corroded = R + C
 
         # Girdi anlık görüntüsü (K5)
         result.input_snapshot = {
@@ -264,14 +268,19 @@ class ASMEVIII1DesignCode(DesignCode):
                     break
 
         P = dc.design_pressure
-        D = head.inside_diameter
-        R = D / 2.0
         S = mat.allowable_stress
         C = head.internal_corrosion_allowance
 
+        # Korozyonlu iç ölçüler — UG-32 formülleri korozyonlu durumu ister.
+        # İç korozyon iç yüzeyden metal yediği için iç çap BÜYÜR: D_c = D + 2C.
+        # Bkz. gövde hesabındaki aynı gerekçe ve V-16.
+        D = head.inside_diameter + 2 * C
+        R = D / 2.0
+
         result.input_snapshot = {
             "P_MPa": P,
-            "D_mm": D,
+            "D_new_mm": head.inside_diameter,
+            "D_corroded_mm": D,
             "S_MPa": S,
             "E": E,
             "C_mm": C,
@@ -318,10 +327,14 @@ class ASMEVIII1DesignCode(DesignCode):
                         "Şekil UG-34'e göre bağlantı tipine uygun C değeri girilmeli."
                     )
                     return result
-                d = head.inside_diameter - 2 * C  # korozyona uğramış çap
-                t = formulas.flat_head_thickness(P, d, S, E, C_attach, CA=C)
+                # `D` yukarıda zaten korozyonlu çapa çevrildi (D_new + 2C).
+                # CA=0.0 geçiliyor: korozyon payı aşağıdaki ortak
+                # `shell_required_nominal_thickness` adımında BİR KEZ ekleniyor —
+                # diğer bombe tipleriyle aynı desen. Eskiden hem burada hem orada
+                # eklendiği için kalınlık %5-25 fazla çıkıyordu (V-17).
+                t = formulas.flat_head_thickness(P, D, S, E, C_attach, CA=0.0)
                 result.add_intermediate("C_attach", C_attach, "-", "UG-34 attachment factor")
-                result.add_intermediate("d_corroded", d, "mm", "Corroded diameter")
+                result.add_intermediate("d_corroded", D, "mm", "Corroded diameter")
                 result.add_intermediate("t_required", t, "mm", "Required thickness")
             else:
                 result.set_not_calculated(f"Unknown head type: {head.type}")
@@ -385,8 +398,8 @@ class ASMEVIII1DesignCode(DesignCode):
 
         Args:
             input_data: {
-                "component_type": "shell" | "head",
-                "component": ShellSection | Head,
+                "component_type": "shell" | "head" | "cone",
+                "component": ShellSection | Head | Cone,
                 "design_conditions": DesignConditions,
                 "materials": List[MaterialProperty],
                 "welds": List[WeldJoint],
@@ -401,8 +414,14 @@ class ASMEVIII1DesignCode(DesignCode):
         welds = input_data.get("welds", [])
         t_actual = input_data.get("nominal_thickness", component.nominal_thickness)
 
+        # Bileşen kimliği — gövde/bombe/koni farklı alan adları kullanıyor.
+        component_id = next(
+            (getattr(component, attr) for attr in ("section_id", "head_id", "cone_id")
+             if hasattr(component, attr)),
+            "",
+        )
         result = CalculationResult(
-            component_id=component.section_id if hasattr(component, 'section_id') else component.head_id,
+            component_id=component_id,
             component_type=comp_type,
             calculation_type="mawp",
             code=self.code_name,
@@ -451,17 +470,33 @@ class ASMEVIII1DesignCode(DesignCode):
                     R = component.inside_diameter / 2.0
                 else:
                     R = component.outside_diameter / 2.0 - t_actual
+                # Korozyonlu iç yarıçap (bkz. calculate_shell_thickness, V-16).
+                R = R + C
                 result.clause_reference = "UG-27(c)(1)"
                 mawp = formulas.mawp_from_shell(R, t_actual, S, E, C)
-                result.add_intermediate("R", R, "mm", "Inside radius")
+                result.add_intermediate("R", R, "mm", "Corroded inside radius")
                 result.add_intermediate("t_actual", t_actual, "mm", "Actual thickness")
                 result.add_intermediate("C", C, "mm", "Corrosion allowance")
                 result.add_intermediate("t_corroded", t_actual - C, "mm", "Corroded thickness")
 
+            elif comp_type == "cone":
+                # Koni MAWP'i eskiden HİÇ hesaplanmıyordu: `cone_mawp` yazılmıştı
+                # ama hiçbir yerden çağrılmıyordu. Global MAWP = min(tüm MAWP'ler)
+                # olduğu için sınırlayıcı bir konik geçiş sessizce görünmüyordu —
+                # hem MAWP hem de ona dayanan test basıncı yüksek çıkıyordu. V-19.
+                cone = component
+                D = cone.large_diameter + 2 * C  # korozyonlu iç çap (V-16)
+                result.clause_reference = "UG-32(g)"
+                mawp = formulas.cone_mawp(D, t_actual, S, E, cone.half_apex_angle, C)
+                result.add_intermediate("D_large_corroded", D, "mm", "Corroded large diameter")
+                result.add_intermediate("alpha_deg", cone.half_apex_angle, "deg", "Half apex angle")
+                result.add_intermediate("t_actual", t_actual, "mm", "Actual thickness")
+
             elif comp_type == "head":
                 from domain.enums import HeadType
                 head = component
-                D = head.inside_diameter
+                # Korozyonlu iç çap (bkz. calculate_head_thickness, V-16).
+                D = head.inside_diameter + 2 * C
                 if head.type == HeadType.ELLIPTICAL:
                     result.clause_reference = "UG-32(d)"
                     mawp = formulas.mawp_from_ellipsoidal_head(D, t_actual, S, E, C)
@@ -959,9 +994,10 @@ class ASMEVIII1DesignCode(DesignCode):
                     break
 
         P = dc.design_pressure
-        D = cone.large_diameter
         S = mat.allowable_stress
         C = cone.internal_corrosion_allowance
+        # Korozyonlu iç çap (bkz. calculate_shell_thickness, V-16).
+        D = cone.large_diameter + 2 * C
         alpha = cone.half_apex_angle
 
         result.input_snapshot = {

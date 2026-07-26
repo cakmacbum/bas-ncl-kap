@@ -312,14 +312,127 @@ uyarı veriliyor (K4). Eğik nozul için F faktörü yok — uyarı düşülüyo
 | UG-34(c)(3) `Z` faktörlü düz kapak | Kapsam dışı | Suite'te bu madde yok (limitations B-04) |
 | App 1-1(a)(1) / 1-4(c) dış çap alternatifleri | Kapsam dışı | Suite'te yok (limitations B-03) |
 
-## Üç turun özeti
+---
 
-| Tur | Vaka | Doğrulandı | Sapma |
+# Tur 4 · 2026-07-26 — kod denetimi (yayınlanmış vaka + iç tutarlılık)
+
+Tur 1-3 formülleri **doğrudan** çağırıyordu; yani `design_code`'un formüle hangi değeri
+geçtiğini hiç sınamıyordu. Bu tur o boşluğa baktı: bağımsız bir kod denetimi yapıldı,
+şüpheler yayınlanmış vaka ve iç tutarlılıkla ölçüldü.
+
+## V-16 · Korozyonlu iç ölçü — YÖN TERS 🔴
+
+```
+Kaynak    PVE-S13 s.4 — Do = 86.000 in, t = 1.0000 in, C = 0.1250 in
+          Kaynak hesapta kullandığı yarıçapı açıkça yazıyor: R = 42.1250 in
+          Korozyonsuz iç yarıçap = 86/2 − 1.000 = 42.0000 in
+          Fark = +0.1250 in = tam olarak +C
+```
+
+| Yaklaşım | t_long | Fark |
+|---|---|---|
+| `R − C` (suite'in eski hâli) | 0.35391 in | −%0.588 |
+| `R` (düzeltmesiz) | 0.35496 in | −%0.292 |
+| **`R + C`** | **0.35602 in** | **+%0.005** ✅ |
+
+**Kök neden:** İç korozyon metali **iç yüzeyden** yer → iç yarıçap **büyür**. UG-27'nin
+`R`'si "korozyonlu durumdaki iç yarıçap"tır, yani `R_yeni + C`. Suite tam tersini yapıyor,
+yarıçabı küçültüyordu → gerekli kalınlığı **olduğundan düşük** gösteriyordu (emniyetsiz).
+
+**Yayılım:** Aynı hata bombede ve konide *hiç düzeltme yapılmayarak*, EN 13445 tarafında da
+`R − C` olarak tekrarlanıyordu. Yani tek bir kavram (korozyonlu iç ölçü) kod tabanında
+**üç farklı şekilde** yorumlanmıştı: gövde çıkarıyor, bombe/koni dokunmuyor, MAWP dokunmuyor.
+
+**İç tutarlılık kanıtı (en güçlü sinyal):** Suite'in ürettiği nominal kalınlık, yine suite'in
+(yayınla doğrulanmış) MAWP fonksiyonuna geri verildiğinde tasarım basıncının **altında**
+kalıyordu:
+
+```
+P = 10 MPa, R = 25 mm, C = 6 mm  →  üretilen t = 7.645 mm
+                                 →  bu kalınlığın MAWP'i = 8.74 MPa  <  10 MPa
+```
+
+Yani suite "bu kalınlık yeterli" derken, aynı suite "bu kalınlık tasarım basıncını taşımaz"
+diyordu. Hata büyük çaplı/düşük korozyon paylı kaplarda mill toleransı marjına gizleniyor;
+**küçük çaplı, yüksek korozyon paylı, yüksek basınçlı** bileşenlerde açığa çıkıyor.
+
+**Düzeltme:** Gövde, bombe, koni ve MAWP yollarının tamamı — ASME ve EN 13445 — korozyonlu
+iç ölçüyü kullanacak şekilde tekilleştirildi (`R + C`, `D + 2C`). `formulas.py`'deki
+yanıltıcı *"korozyon payı düşülmüş"* docstring'leri düzeltildi.
+
+## V-17 · UG-34 düz kapak — korozyon payı iki kez
+
+`flat_head_thickness(..., CA=C)` formülün içinde `+C` yapıyor, dönen değer sonra ortak
+`shell_required_nominal_thickness(t_required=t, C=C, ...)` adımından geçip **ikinci kez**
+`+C` alıyordu; üstelik ilk eklenen `C` mill tolerans faktörüne (÷0.875) de giriyordu.
+
+| Vaka | Fazla kalınlık |
+|---|---|
+| D=1000, C=3 | +%5.5 |
+| D=1000, C=6 | +%10.5 |
+| D=500, C=6 | +%24.8 |
+
+Yön **emniyetli** (fazla kalın) ama gerçek hata: gereksiz maliyet, yanlış kullanım oranı,
+ve denetçinin "neden bu kadar kalın" diye soracağı bir tutarsızlık.
+**Düzeltme:** FLAT dalında `CA=0.0` geçiliyor; korozyon payı diğer bombe tipleriyle aynı
+şekilde yalnız ortak adımda bir kez ekleniyor.
+
+## V-18 · UG-33 bombe dış basınç — iç çap kullanılıyordu 🔴
+
+Aynı dosyada gövde için dış çap doğru türetilirken (`inside_diameter + 2×t`), bombe için ham
+`inside_diameter` kullanılıyordu. `P_allow = 4B/(3·Do/t)` formülünde çap küçülünce izin
+verilen basınç **büyür**:
+
+| D_iç | t | Şişme |
+|---|---|---|
+| 1000 | 10 | +%2.0 |
+| 500 | 20 | +%8.0 |
+| 300 | 20 | +%13.3 |
+| 200 | 30 | **+%30.0** |
+
+Yön **emniyetsiz**. **Düzeltme:** bombe tarafı da gövdeyle aynı mantıkla dış çap türetiyor.
+
+## V-19 · Koni MAWP'i hiç hesaplanmıyordu 🔴
+
+`cone_mawp()` yazılmış ve dışa açılmıştı ama **hiçbir yerden çağrılmıyordu** — tek referansı
+`__all__` listesiydi. Orkestratörde koniler için kalınlık döngüsü vardı, MAWP döngüsü yoktu.
+
+Global MAWP `min(tüm MAWP sonuçları)` olduğundan, sınırlayıcı bir konik geçiş **sessizce
+görünmüyordu**: hem MAWP hem de ona dayanan UG-99(b)/UG-100 test basıncı olduğundan yüksek
+raporlanıyordu.
+
+**Düzeltme:** `calculate_mawp`'e `cone` dalı, orkestratöre koni MAWP döngüsü eklendi. Bu
+sırada ikinci bir kusur çıktı: `calculate_mawp` bileşen kimliğini yalnız `section_id`/`head_id`
+üzerinden çözüyordu, koni ikisine de sahip olmadığı için `AttributeError` fırlatıyor ve
+orkestratör bunu sessizce hata listesine yazıyordu — sonuç hiç üretilmiyordu. Kimlik çözümü
+`cone_id`'yi de kapsayacak şekilde düzeltildi.
+
+Regresyon testi kasten ince bir koni kuruyor ve global MAWP'i koninin yönettiğini doğruluyor.
+
+---
+
+## Dört turun özeti
+
+| Tur | Yöntem | Sapma | Yön |
 |---|---|---|---|
-| 1 | 9 | 4 (+3 formülasyon farkı) | UG-99(b)/UG-100 test basıncı tabanı |
-| 2 | 4 | 3 | Torisferik varsayılan büküm yarıçapı |
-| 3 | 1 (5 ara değer) | — | UG-37/40 takviye: beş ayrı hata |
+| 1 | 9 yayınlanmış vaka | UG-99(b)/UG-100 test basıncı tabanı (%42.9) | emniyetsiz |
+| 2 | 4 vaka + 90 noktalı tablo | Torisferik varsayılan büküm yarıçapı (%13) | emniyetsiz |
+| 3 | 1 vaka, 5 ara değer | UG-37/40 takviye: beş ayrı hata (%85, karar ters) | 4 emniyetli + 1 emniyetsiz |
+| 4 | Kod denetimi + iç tutarlılık | Korozyonlu iç ölçü yönü ters (V-16) | **emniyetsiz** |
+| 4 | " | UG-34 düz kapakta çifte korozyon payı (V-17, %5-25) | emniyetli |
+| 4 | " | UG-33 bombe dış basıncında iç çap (V-18, %2-30) | **emniyetsiz** |
+| 4 | " | Koni MAWP'i hiç hesaplanmıyor (V-19) | **emniyetsiz** |
 
-**Üç sapmanın üçü de aynı desende:** formül doğru yazılmıştı, formülün *çevresi* yanlıştı —
-yanlış taban, yanlış varsayılan geometri, yanlış sınır. Ve üçünü de mevcut testler
-kapsamıyordu: her düzeltmeden önce ve sonra test sayısı değişmedi.
+**Yedi sapmanın yedisi de aynı desende:** formül doğru yazılmıştı, formülün *çevresi* yanlıştı —
+yanlış taban, yanlış varsayılan geometri, yanlış sınır, yanlış korozyon yönü, hiç çağrılmayan
+fonksiyon. Ve **yedisini de mevcut testler kapsamıyordu**: her düzeltmede test sayısı öncesi
+ve sonrası aynı kaldı.
+
+**Turların yöntem farkı önemli.** Tur 1-3 formülleri doğrudan çağırıyordu; `design_code`'un
+formüle *hangi değeri geçtiğini* hiç sınamıyordu. Tur 4 tam o boşluğa baktı ve dört sapma
+daha çıkardı. Ders: yayınlanmış vakayla karşılaştırma formülü doğrular, **boru hattını
+doğrulamaz** — bunun için uçtan uca test ve iç tutarlılık kontrolü gerekir.
+
+**En güçlü tek teknik:** iç tutarlılık. "Bu kalınlık yeterli" diyen hesabın ürettiği sonucu,
+"bu kalınlık ne kadar taşır" diyen hesaba geri vermek. İki hesap çelişiyorsa dış referans
+gerekmeden hata kanıtlanmış olur (V-16 böyle yakalandı).

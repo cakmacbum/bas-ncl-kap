@@ -232,6 +232,21 @@ class CalculationOrchestrator:
             except Exception as e:
                 result.add_error(f"Head {head.head_id} MAWP calc error: {e}")
 
+        for cone in project.cones:
+            try:
+                r = self.design_code.calculate_mawp({
+                    "component_type": "cone",
+                    "component": cone,
+                    "design_conditions": project.design_conditions,
+                    "materials": project.materials,
+                    "welds": project.welds,
+                    "nominal_thickness": cone.nominal_thickness,
+                    "code_edition": project.code_edition,
+                })
+                result.add(r)
+            except Exception as e:
+                result.add_error(f"Cone {cone.cone_id} MAWP calc error: {e}")
+
         # E2) Statik kafa düzeltmesi (§19) — test basınçlarından ÖNCE çalışmalı:
         # UG-99(b)/UG-100 tabanı **nihai** MAWP'dir, düzeltme öncesi ham değer değil.
         self._apply_static_head_correction(project, result)

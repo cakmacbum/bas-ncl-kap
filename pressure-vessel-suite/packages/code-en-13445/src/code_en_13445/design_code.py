@@ -94,8 +94,9 @@ class EN13445DesignCode(DesignCode):
         f = mat.allowable_stress  # EN'de "f" = tasarım gerilmesi
         C = shell.internal_corrosion_allowance
 
-        # Korozyon payı düşülmüş yarıçap
-        R_corroded = R - C
+        # Korozyonlu iç yarıçap — iç korozyon iç yüzeyden metal yer, iç yarıçap BÜYÜR.
+        # ASME tarafındaki aynı düzeltme: docs/validation/asme-worked-examples.md V-16.
+        R_corroded = R + C
 
         # Girdi anlık görüntüsü (K5)
         result.input_snapshot = {
@@ -220,10 +221,11 @@ class EN13445DesignCode(DesignCode):
                     break
 
         P = dc.design_pressure
-        D = head.inside_diameter
-        R = D / 2.0
         f = mat.allowable_stress
         C = head.internal_corrosion_allowance
+        # Korozyonlu iç ölçüler (bkz. V-16).
+        D = head.inside_diameter + 2 * C
+        R = D / 2.0
 
         result.input_snapshot = {
             "P_MPa": P,
@@ -394,9 +396,10 @@ class EN13445DesignCode(DesignCode):
                     R = component.inside_diameter / 2.0
                 else:
                     R = component.outside_diameter / 2.0 - t_actual
+                R = R + C  # korozyonlu iç yarıçap (V-16)
                 result.clause_reference = "EN 13445-3, 5.4.2"
                 mawp = formulas.mawp_from_shell(R, t_actual, f, z, C)
-                result.add_intermediate("R", R, "mm", "Inside radius")
+                result.add_intermediate("R", R, "mm", "Corroded inside radius")
                 result.add_intermediate("e_actual", t_actual, "mm", "Actual thickness")
                 result.add_intermediate("C", C, "mm", "Corrosion allowance")
                 result.add_intermediate("e_corroded", t_actual - C, "mm", "Corroded thickness")
@@ -404,7 +407,7 @@ class EN13445DesignCode(DesignCode):
             elif comp_type == "head":
                 from domain.enums import HeadType
                 head = component
-                D = head.inside_diameter
+                D = head.inside_diameter + 2 * C  # korozyonlu iç çap (V-16)
                 if head.type == HeadType.ELLIPTICAL:
                     result.clause_reference = "EN 13445-3, 5.5.2"
                     mawp = formulas.mawp_from_head("elliptical", D, t_actual, f, z, C=C)

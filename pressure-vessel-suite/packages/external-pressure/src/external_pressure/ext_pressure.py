@@ -218,11 +218,19 @@ class ExternalPressureCalculator:
             )
             return result
 
-        D = head.inside_diameter
+        # UG-33/UG-28 dış basınç formülleri **dış** çapı ister (`P = 4B/(3·Do/t)`).
+        # Gövde tarafı (check_shell_external_pressure) dış çapı doğru türetiyordu;
+        # bombe tarafı ham iç çapı kullanıyordu. İç çap küçük olduğu için
+        # P_allow olduğundan **büyük** çıkıyordu — emniyetsiz. Kalın/küçük
+        # bombelerde fark %20'ye kadar çıkar. Bkz. V-18.
         t = head.nominal_thickness
+        D = head.outside_diameter if getattr(head, "outside_diameter", None) else (
+            head.inside_diameter + 2 * t
+        )
 
         result.input_snapshot = {
-            "D_mm": D,
+            "D_outside_mm": D,
+            "D_inside_mm": head.inside_diameter,
             "t_mm": t,
             "P_external_MPa": P_ext,
             "A": A,

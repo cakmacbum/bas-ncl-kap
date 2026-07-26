@@ -466,6 +466,242 @@ def test_v15_pad_outside_ug40_limit_is_not_counted():
     assert any("UG-40 sınırını" in w for w in res.warnings), res.warnings
 
 
+# ── Tur 4: korozyonlu iç ölçü — UÇTAN UCA REGRESYON ───────────────────────────
+#
+# V-01..V-15 formülleri DOĞRUDAN çağırıyordu, yani `design_code`'un formüle hangi
+# yarıçapı geçtiğini hiç sınamıyordu. Bu testler o boşluğu kapatır: girdi
+# `ShellSection`/`Head`, çıktı `CalculationResult` — arada design_code var.
+
+def _sample13_shell_project():
+    """PVE-S13 Shell 1 — Do = 86.000 in, t = 1.0000 in, CA = 0.1250 in.
+
+    PV Elite hesapta R = 42.1250 in kullanıyor ve bunu çıktısında açıkça yazıyor.
+    Korozyonsuz iç yarıçap 42.0000 in → aradaki fark tam olarak +C.
+    """
+    from domain import (
+        CalculationCode, DesignConditions, MaterialProperty, ProductForm,
+        ShellSection, VesselProject, WeldJoint,
+    )
+
+    Do, t_nom, CA = 86.0, 1.0000, 0.1250
+    Di_new = Do - 2 * t_nom  # 84.000 in
+
+    dc = DesignConditions(
+        operating_pressure=200 * PSI,
+        design_pressure=284.0 * PSI,          # 250 tasarım + 34 statik kafa (kaynakta böyle)
+        maximum_allowable_pressure_ps=300 * PSI,
+        operating_temperature=250, design_temperature=288,   # 550°F
+        minimum_design_temperature=-29,
+        corrosion_allowance_internal=CA * IN,
+    )
+    shell = ShellSection(
+        section_id="S1", inside_diameter=Di_new * IN, tangent_length=98.0 * IN,
+        nominal_thickness=t_nom * IN, material_id="M1", weld_joint_id="WJ1",
+        internal_corrosion_allowance=CA * IN,
+    )
+    weld = WeldJoint(joint_id="WJ1", joint_type="longitudinal",
+                     weld_category="A", joint_efficiency=0.85)
+    mat = MaterialProperty(
+        material_id="M1", standard_pack="x", material_designation="SA-516 Gr.70",
+        product_form=ProductForm.PLATE, temperature=288, allowable_stress=19700 * PSI,
+        yield_strength=31000 * PSI, tensile_strength=70000 * PSI,
+        source_reference="x", density=7850,
+    )
+    return VesselProject(
+        project_number="PVE-3602", project_name="Sample 13",
+        calculation_code=CalculationCode.ASME_VIII_1, code_edition="2025",
+        design_conditions=dc, shell_sections=[shell], heads=[], materials=[mat],
+        welds=[weld],
+    )
+
+
+def test_v16_corroded_inside_radius_grows_not_shrinks():
+    """V-16 · Korozyonlu iç yarıçap R + C olmalı, R − C değil — PVE-S13 s.4.
+
+    İç korozyon metali **iç yüzeyden** yer → iç yarıçap BÜYÜR. UG-27'nin R'si
+    "korozyonlu durumdaki iç yarıçap"tır.
+
+    Eski kod `R − C` yapıyordu; bu, gerekli kalınlığı olduğundan DÜŞÜK gösteriyordu
+    (emniyetsiz). Bu vakada yayınlanan yarıçap 42.1250 in, korozyonsuz 42.0000 in.
+    """
+    from code_asme_viii_1 import ASMEVIII1DesignCode
+
+    project = _sample13_shell_project()
+    code = ASMEVIII1DesignCode(edition="2025")
+    r = code.calculate_shell_thickness({
+        "shell": project.shell_sections[0],
+        "design_conditions": project.design_conditions,
+        "materials": project.materials,
+        "welds": project.welds,
+    })
+    inter = {i["name"]: i["value"] for i in r.intermediate_values}
+
+    # Yayınlanan yarıçap birebir
+    assert relative_tolerance(inter["R_corroded"], 42.1250 * IN, 1e-6), (
+        f"R_corroded = {inter['R_corroded'] / IN:.4f} in (yayın 42.1250)"
+    )
+    # Eski (yanlış) davranışa dönülmediğinden emin ol
+    assert not relative_tolerance(inter["R_corroded"], 41.8750 * IN, 1e-3)
+
+    # Boyuna gerilme kalınlığı yayınla uyuşmalı
+    assert relative_tolerance(inter["t_long"], 0.3560 * IN, TOL), (
+        f"t_long = {inter['t_long'] / IN:.5f} in (yayın 0.3560)"
+    )
+
+
+def test_v16_head_corroded_inside_diameter_grows():
+    """V-16 · Bombede de korozyonlu iç çap D + 2C olmalı.
+
+    Eski kod bombede korozyon düzeltmesi HİÇ yapmıyordu (ham iç çap) — gövdedeki
+    `R − C` ile de tutarsızdı. Aynı fiziksel kural her ikisine de uygulanır.
+    """
+    from domain import (
+        DesignConditions, Head, HeadType, MaterialProperty, ProductForm,
+    )
+    from code_asme_viii_1 import ASMEVIII1DesignCode
+
+    C_mm = 3.0
+    D_new = 1000.0
+    dc = DesignConditions(
+        operating_pressure=1.0, design_pressure=1.2, maximum_allowable_pressure_ps=1.5,
+        operating_temperature=150, design_temperature=200, minimum_design_temperature=-10,
+        corrosion_allowance_internal=C_mm,
+    )
+    head = Head(
+        head_id="H1", type=HeadType.ELLIPTICAL, inside_diameter=D_new,
+        nominal_thickness=14, material_id="M1", internal_corrosion_allowance=C_mm,
+    )
+    mat = MaterialProperty(
+        material_id="M1", standard_pack="x", material_designation="SA-516",
+        product_form=ProductForm.PLATE, temperature=200, allowable_stress=138,
+        yield_strength=260, tensile_strength=485, source_reference="x", density=7850,
+    )
+    r = ASMEVIII1DesignCode(edition="2025").calculate_head_thickness({
+        "head": head, "design_conditions": dc, "materials": [mat], "welds": [],
+    })
+    assert relative_tolerance(r.input_snapshot["D_corroded_mm"], D_new + 2 * C_mm, 1e-9)
+    assert r.input_snapshot["D_new_mm"] == D_new
+
+
+def test_v16_self_consistency_thickness_vs_mawp():
+    """V-16 · İç tutarlılık: üretilen kalınlık kendi MAWP'sini karşılamalı.
+
+    Suite'in verdiği nominal kalınlığı, yine suite'in (yayınla doğrulanmış) MAWP
+    fonksiyonuna geri veriyoruz. "Bu kalınlık P_tasarım'ı taşır" diyen hesap ile
+    "bu kalınlık şu kadar taşır" diyen hesap çelişmemeli.
+
+    Eski `R − C` davranışında küçük çaplı / yüksek korozyon paylı kaplarda MAWP,
+    tasarım basıncının ALTINDA kalıyordu — yani kap kendi tasarım basıncını
+    taşımıyordu.
+    """
+    from domain import (
+        DesignConditions, MaterialProperty, ProductForm, ShellSection, WeldJoint,
+    )
+    from code_asme_viii_1 import ASMEVIII1DesignCode
+
+    # Hatanın en görünür olduğu bölge: küçük yarıçap + yüksek korozyon payı
+    for R_mm, C_mm, P_MPa in ((25.0, 6.0, 10.0), (40.0, 6.0, 8.0), (500.0, 3.0, 2.0)):
+        dc = DesignConditions(
+            operating_pressure=P_MPa * 0.8, design_pressure=P_MPa,
+            maximum_allowable_pressure_ps=P_MPa * 1.2,
+            operating_temperature=150, design_temperature=200,
+            minimum_design_temperature=-10, corrosion_allowance_internal=C_mm,
+        )
+        mat = MaterialProperty(
+            material_id="M1", standard_pack="x", material_designation="SA-516",
+            product_form=ProductForm.PLATE, temperature=200, allowable_stress=138,
+            yield_strength=260, tensile_strength=485, source_reference="x", density=7850,
+        )
+        code = ASMEVIII1DesignCode(edition="2025")
+        shell = ShellSection(
+            section_id="S1", inside_diameter=2 * R_mm, tangent_length=1000,
+            nominal_thickness=10, material_id="M1", weld_joint_id="WJ1",
+            internal_corrosion_allowance=C_mm, mill_tolerance=0.0,
+        )
+        weld = WeldJoint(joint_id="WJ1", joint_type="longitudinal",
+                         weld_category="A", joint_efficiency=1.0)
+
+        r_t = code.calculate_shell_thickness({
+            "shell": shell, "design_conditions": dc, "materials": [mat], "welds": [weld],
+        })
+        t_nom = next(
+            i["value"] for i in r_t.intermediate_values if i["name"] == "t_nominal_required"
+        )
+
+        # Bu kalınlıkla kabı yeniden kur ve MAWP'sini sor
+        shell_built = shell.model_copy(update={"nominal_thickness": t_nom})
+        r_m = code.calculate_mawp({
+            "component_type": "shell", "component": shell_built,
+            "design_conditions": dc, "materials": [mat], "welds": [weld],
+            "nominal_thickness": t_nom, "code_edition": "2025",
+        })
+        assert r_m.final_result >= P_MPa * 0.999, (
+            f"R={R_mm} C={C_mm} P={P_MPa}: üretilen t={t_nom:.3f} mm için "
+            f"MAWP={r_m.final_result:.3f} MPa < P_tasarım={P_MPa} MPa — iç çelişki"
+        )
+
+
+def test_v19_cone_mawp_participates_in_global_mawp():
+    """V-19 · Koni MAWP'i global MAWP'e katılmalı.
+
+    `cone_mawp()` yazılmıştı ama **hiçbir yerden çağrılmıyordu**. Global MAWP
+    `min(tüm MAWP sonuçları)` olduğu için, sınırlayıcı bir konik geçiş sessizce
+    görünmüyordu — hem MAWP hem de ona dayanan UG-99(b) test basıncı olduğundan
+    yüksek raporlanıyordu.
+
+    Bu testte koni bilerek gövde/bombeden **ince** seçildi: global MAWP'i koni
+    yönetmeli.
+    """
+    from domain import (
+        CalculationCode, Cone, DesignConditions, Head, HeadType, MaterialProperty,
+        ProductForm, ShellSection, VesselProject,
+    )
+    from code_asme_viii_1 import ASMEVIII1DesignCode
+    from calc_core.orchestrator import CalculationOrchestrator
+
+    dc = DesignConditions(
+        operating_pressure=1.0, design_pressure=1.2, maximum_allowable_pressure_ps=1.5,
+        operating_temperature=150, design_temperature=200, minimum_design_temperature=-10,
+        corrosion_allowance_internal=2.0, hydrotest_temperature=20.0,
+    )
+    shell = ShellSection(
+        section_id="S1", inside_diameter=1000, tangent_length=2000, nominal_thickness=20,
+        material_id="M1", internal_corrosion_allowance=2.0,
+    )
+    heads = [
+        Head(head_id=f"H{i}", type=HeadType.ELLIPTICAL, inside_diameter=1000,
+             nominal_thickness=20, material_id="M1", internal_corrosion_allowance=2.0)
+        for i in (1, 2)
+    ]
+    cone = Cone(
+        cone_id="C1", large_diameter=1000.0, small_diameter=500.0,
+        half_apex_angle=25.0, length=536.0, nominal_thickness=8.0,   # kasten ince
+        material_id="M1", internal_corrosion_allowance=2.0,
+    )
+    mat = MaterialProperty(
+        material_id="M1", standard_pack="x", material_designation="SA-516",
+        product_form=ProductForm.PLATE, temperature=200, allowable_stress=138,
+        yield_strength=260, tensile_strength=485, source_reference="x", density=7850,
+    )
+    project = VesselProject(
+        project_number="P", project_name="koni", calculation_code=CalculationCode.ASME_VIII_1,
+        code_edition="2025", design_conditions=dc, shell_sections=[shell], heads=heads,
+        cones=[cone], materials=[mat],
+    )
+
+    res = CalculationOrchestrator(ASMEVIII1DesignCode(edition="2025")).run(project)
+
+    mawps = {r.component_id: r for r in res.results if r.calculation_type == "mawp"}
+    assert "C1" in mawps, "koni için MAWP sonucu hiç üretilmedi"
+
+    governing = [r for r in mawps.values() if r.governing]
+    assert len(governing) == 1
+    assert governing[0].component_id == "C1", (
+        "ince koni global MAWP'i yönetmeli; yöneten: " + governing[0].component_id
+    )
+    assert res.get_global_mawp() == mawps["C1"].final_result
+
+
 # ── Torisferik varsayılan büküm yarıçapı — REGRESYON ──────────────────────────
 
 def test_v12_default_knuckle_radius_is_asme_fd_six_percent():
