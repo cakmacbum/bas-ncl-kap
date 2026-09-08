@@ -47,8 +47,6 @@ def _ui_expected_types() -> set[str]:
 # Bilinçli olarak arayüzde gösterilmeyen tipler ve sebepleri.
 # Buraya bir tip eklemek bir KARARDIR — gerekçesiz eklenmemeli.
 UI_DE_GOSTERILMEYENLER = {
-    "material_check": "ön kontrol; hata varsa zaten diğer sonuçlar bloke olur",
-    "pressure_consistency": "ön kontrol; aynı gerekçe",
     "fea_analysis": "FEA laboratuvarı offline araçtır, arayüzde gösterilmez (Faz 2 kararı)",
     "fea_material_data_check": "aynı gerekçe",
     "flange_stress": "flanş modülü hesap hattına bağlı değil — limitations.md B-11",

@@ -1410,3 +1410,5 @@ text.sch-tag.sch-active { fill: var(--accent); font-weight: 600; }
   margin-top: 4px;
   align-self: flex-start;
 }
+.err-list { margin: 0; padding-left: 18px; color: var(--fail); }
+.err-list li { margin-bottom: 6px; }

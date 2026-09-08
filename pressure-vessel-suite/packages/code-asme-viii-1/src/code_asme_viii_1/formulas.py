@@ -13,6 +13,13 @@ import math
 from typing import Tuple
 
 
+# ── UG-16(b): Mutlak minimum kalınlık ────────────────────────────────────────
+# Korozyon payı hariç, herhangi bir malzeme için 1.5 mm (1/16 in). Basınçtan
+# gelen gerekli kalınlık bunun altında çıksa bile seçilen (nominal) kalınlık
+# bu tabanın altına düşemez.
+UG16B_MINIMUM_THICKNESS_MM = 1.5
+
+
 # ── UG-27: Silindirik gövde, iç basınç ───────────────────────────────────────
 
 def shell_thickness_internal_pressure(

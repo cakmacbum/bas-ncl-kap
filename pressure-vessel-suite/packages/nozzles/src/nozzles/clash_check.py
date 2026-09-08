@@ -34,6 +34,13 @@ MIN_NOZZLE_TO_NOZZLE_DISTANCE_mm = 50.0  # İki nozul arası minimum mesafe
 MIN_NOZZLE_TO_WELD_DISTANCE_mm = 25.0  # Nozul ile kaynak dikişi arası minimum
 MIN_EDGE_DISTANCE_FACTOR = 1.0  # Kenar mesafesi = nozzle OD × factor
 
+# UG-46 — muayene açıklığı. Tam ASME Tablo UG-46 kabın basıncı/hizmeti/çapına
+# göre karmaşık bir gereksinim matrisidir ve telifli veridir (K6) — burada
+# GÖMÜLMEZ. Bunun yerine yaygın mühendislik eşiği kullanılır (aynı eşik
+# TS 1203 Çizelge 2'de de muayene deliği zorunluluğunun en üst basamağı
+# olarak geçer — bkz. basincli-kap-ts-karsilastirma kasa sayfası).
+INSPECTION_OPENING_THRESHOLD_MM = 610.0
+
 
 @dataclass
 class ClashCheckResult:
@@ -698,6 +705,64 @@ def build_clash_check_result(
     return result
 
 
+def check_inspection_opening(project: VesselProject) -> CalculationResult:
+    """UG-46 — Muayene açıklığı gereksinimi (basitleştirilmiş proje kontrolü).
+
+    Nozul-nozul çakışmasından farklı olarak bu bir PROJE-seviyesi kontroldür:
+    kap yeterince büyükse en az bir adam deliği (manway) tanımlı mı? Tam
+    UG-46/Tablo UG-46 karmaşıktır ve telifli veridir (K6) — burada yalnız
+    `INSPECTION_OPENING_THRESHOLD_MM` eşiği uygulanır. Eşik aşılıp muayene
+    açıklığı yoksa kesin FAIL değil REVIEW_REQUIRED döner — tam tablo
+    kontrolü yapılmadığı için kesin hüküm verilmez (K4).
+
+    Aynı `calculation_type="clash_check"` grubuna düşer ki arayüzde ayrı bir
+    bölüm açmaya gerek kalmasın (mevcut "Çakışma / Geometri" grubu gösterir).
+    """
+    result = CalculationResult(
+        component_type="system",
+        calculation_type="clash_check",
+        code="ASME VIII-1",
+        edition="2025",
+        clause_reference="UG-46",
+        formula_reference="Basitleştirilmiş eşik kontrolü (Tablo UG-46 gömülmez, K6)",
+    )
+
+    max_id = 0.0
+    for shell in project.shell_sections:
+        if shell.inside_diameter:
+            max_id = max(max_id, shell.inside_diameter)
+    for head in project.heads:
+        if head.inside_diameter:
+            max_id = max(max_id, head.inside_diameter)
+
+    has_manway = any(nz.nozzle_type == "manway" for nz in project.nozzles)
+
+    result.input_snapshot = {
+        "max_inside_diameter_mm": max_id,
+        "threshold_mm": INSPECTION_OPENING_THRESHOLD_MM,
+        "has_manway": has_manway,
+    }
+    result.add_intermediate(
+        "max_inside_diameter", max_id, "mm", "En büyük iç çap (gövde/bombe)"
+    )
+
+    if max_id <= INSPECTION_OPENING_THRESHOLD_MM:
+        result.set_pass()
+        return result
+
+    if has_manway:
+        result.set_pass()
+        return result
+
+    result.set_review_required(
+        f"UG-46: iç çap {max_id:.0f} mm > {INSPECTION_OPENING_THRESHOLD_MM:.0f} mm "
+        f"eşiğinin üstünde ve tanımlı bir adam deliği (manway) yok. Not: tam Tablo "
+        f"UG-46 kontrolü (basınç/hizmete göre) burada yapılmadı (K6) — muayene "
+        f"açıklığı gereksinimini ayrıca doğrulayın."
+    )
+    return result
+
+
 __all__ = [
     "ClashCheckResult",
     "ClashCheckReport",
@@ -708,7 +773,9 @@ __all__ = [
     "check_minimum_edge_distance",
     "validate_nozzle_clash",
     "build_clash_check_result",
+    "check_inspection_opening",
     "MIN_NOZZLE_TO_NOZZLE_DISTANCE_mm",
     "MIN_NOZZLE_TO_WELD_DISTANCE_mm",
     "MIN_EDGE_DISTANCE_FACTOR",
+    "INSPECTION_OPENING_THRESHOLD_MM",
 ]

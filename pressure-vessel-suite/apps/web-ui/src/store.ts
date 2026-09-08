@@ -23,6 +23,8 @@ export function defaultProject(): VesselProject {
       hydrotest_temperature: 20,
       corrosion_allowance_internal: 2.0,
       corrosion_allowance_external: 0,
+      fluid_density_kg_m3: 0,
+      impact_test_temperature_C: null,
     },
     materials: [
       {
@@ -73,6 +75,8 @@ export function defaultProject(): VesselProject {
         external_corrosion_allowance: 0,
         mill_tolerance: 12.5,
         forming_thinning: 0,
+        ug28_strain_factor_a: null,
+        ug28_allowable_stress_b: null,
       },
     ],
     heads: [
@@ -119,6 +123,8 @@ function makeHead(id: string) {
     mill_tolerance: 12.5,
     forming_thinning: 0,
     flat_attachment_factor: null,
+    ug28_strain_factor_a: null,
+    ug28_allowable_stress_b: null,
   };
 }
 
@@ -143,6 +149,9 @@ interface AppState {
   addNozzle: () => void;
   removeNozzle: (index: number) => void;
   updateNozzle: (index: number, patch: Partial<VesselProject["nozzles"][0]>) => void;
+  addSupport: () => void;
+  removeSupport: (index: number) => void;
+  updateSupport: (index: number, patch: Partial<VesselProject["supports"][0]>) => void;
 }
 
 export const useStore = create<AppState>((set) => ({
@@ -223,6 +232,47 @@ export const useStore = create<AppState>((set) => ({
       );
       return {
         project: { ...s.project, nozzles },
+        dirty: true,
+        calc: null,
+      };
+    }),
+  addSupport: () =>
+    set((s) => {
+      const n = s.project.supports.length + 1;
+      const shell = s.project.shell_sections[0];
+      const newSupport = {
+        support_id: `SUP-${n}`,
+        type: "saddle" as const,
+        location_mm: Math.round((shell.tangent_length ?? 2000) * 0.2),
+        width_mm: 200,
+        height_mm: 500,
+        material_id: "MAT-01",
+        contact_angle_deg: 120,
+        leg_count: null,
+        overturning_moment_Nmm: 0,
+      };
+      return {
+        project: { ...s.project, supports: [...s.project.supports, newSupport] },
+        dirty: true,
+        calc: null,
+      };
+    }),
+  removeSupport: (index) =>
+    set((s) => {
+      const supports = s.project.supports.filter((_, i) => i !== index);
+      return {
+        project: { ...s.project, supports },
+        dirty: true,
+        calc: null,
+      };
+    }),
+  updateSupport: (index, patch) =>
+    set((s) => {
+      const supports = s.project.supports.map((sup, i) =>
+        i === index ? { ...sup, ...patch } : sup
+      );
+      return {
+        project: { ...s.project, supports },
         dirty: true,
         calc: null,
       };

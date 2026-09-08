@@ -71,6 +71,31 @@ class ASMEVIII1DesignCode(DesignCode):
     def __init__(self, edition: str = "2025"):
         self._edition = edition
 
+    def _apply_ug16b_minimum(
+        self, result: CalculationResult, nominal_thickness: float, corrosion_allowance: float
+    ) -> None:
+        """UG-16(b) — mutlak minimum kalınlık kontrolü (korozyon payı hariç).
+
+        Basınçtan gelen gerekli kalınlık hesabı bağımsız bir kontroldür; bu
+        onun yerine geçmez, üstüne eklenir. Seçilen (nominal) kalınlıktan
+        korozyon payı düşüldüğünde kalan net kalınlık, malzeme veya basınçtan
+        bağımsız olarak 1.5 mm'nin altına düşemez (ASME VIII-1 UG-16(b)).
+        Ana kalınlık kontrolü PASS olsa bile bu ihlal sonucu FAIL'e çevirir —
+        sessizce görmezden gelinmez (K4).
+        """
+        if not nominal_thickness or nominal_thickness <= 0:
+            return  # Zaten NOT_CALCULATED — burada tekrar değerlendirmeye gerek yok.
+        net_thickness = nominal_thickness - corrosion_allowance
+        if net_thickness >= formulas.UG16B_MINIMUM_THICKNESS_MM:
+            return
+        result.add_warning(
+            f"UG-16(b): Seçilen kalınlık, korozyon payı düşüldükten sonra "
+            f"{net_thickness:.2f} mm — ASME VIII-1 mutlak minimum "
+            f"{formulas.UG16B_MINIMUM_THICKNESS_MM} mm'nin altında."
+        )
+        if result.status == CalculationStatus.PASS:
+            result.set_fail(result.utilization_ratio or 1.0)
+
     @property
     def code_name(self) -> str:
         return "ASME VIII-1"
@@ -223,6 +248,7 @@ class ASMEVIII1DesignCode(DesignCode):
                 f"Required nominal thickness {t_nominal:.2f} mm exceeds "
                 f"selected thickness {shell.nominal_thickness:.2f} mm"
             )
+        self._apply_ug16b_minimum(result, shell.nominal_thickness, C)
 
         result.rounding_rule = "shell_required_nominal_thickness"
 
@@ -399,6 +425,7 @@ class ASMEVIII1DesignCode(DesignCode):
                 f"Required nominal thickness {t_nominal:.2f} mm exceeds "
                 f"selected thickness {head.nominal_thickness:.2f} mm"
             )
+        self._apply_ug16b_minimum(result, head.nominal_thickness, C)
 
         result.material_properties_used = {
             "designation": mat.material_designation,
@@ -879,13 +906,19 @@ class ASMEVIII1DesignCode(DesignCode):
         return results
 
     def check_nozzle_clashes(self, project) -> list:
-        """Nozul çakışma/geometri kontrolleri (nozzles paketine delege eder)."""
+        """Nozul çakışma/geometri kontrolleri (nozzles paketine delege eder).
+
+        Nozul-bazlı kontrollere ek olarak, proje-seviyesi UG-46 muayene
+        açıklığı kontrolünü de aynı gruba ekler (bkz. `check_inspection_opening`).
+        """
         try:
-            from nozzles import build_clash_check_result
+            from nozzles import build_clash_check_result, check_inspection_opening
         except ImportError:
             return []
 
-        return [build_clash_check_result(nozzle, project) for nozzle in project.nozzles]
+        results = [build_clash_check_result(nozzle, project) for nozzle in project.nozzles]
+        results.append(check_inspection_opening(project))
+        return results
 
     def check_mdmt(self, project) -> list:
         """MDMT/UCS-66 kontrolü (mdmt paketine delege eder).
@@ -918,6 +951,9 @@ class ASMEVIII1DesignCode(DesignCode):
                 "materials": materials,
                 "curve_group": group,
                 "nominal_thickness_mm": comp.nominal_thickness,
+                "impact_test_temperature_C": getattr(
+                    project.design_conditions, "impact_test_temperature_C", None
+                ),
             }))
 
         return results
@@ -950,6 +986,7 @@ class ASMEVIII1DesignCode(DesignCode):
         saddles = [s for s in supports if s.type == "saddle"]
         results = []
         for sup in supports:
+            overturning_moment = getattr(sup, "overturning_moment_Nmm", 0.0) or 0.0
             payload = {
                 "support": {
                     "tag": sup.support_id,
@@ -957,12 +994,14 @@ class ASMEVIII1DesignCode(DesignCode):
                     "location_mm": sup.location_mm,
                     "width_mm": sup.width_mm,
                     "height_mm": sup.height_mm,
+                    "contact_angle_deg": getattr(sup, "contact_angle_deg", None),
                 },
                 "shell": shell,
                 "vessel_length": shell.tangent_length,
                 "total_weight_N": weight_N,
                 "materials": project.materials,
                 "design_conditions": project.design_conditions,
+                "overturning_moment_Nmm": overturning_moment,
             }
             if sup.type == "saddle":
                 # İki eyer arası mesafe konumlardan türetilir; tek eyer varsa
@@ -985,6 +1024,11 @@ class ASMEVIII1DesignCode(DesignCode):
                 f"({vm.total_metal_mass_kg:.0f} kg metal). Sıvı, izolasyon ve iç "
                 f"ekipman ağırlıkları dahil DEĞİL."
             )
+            if sup.type in ("skirt", "leg") and overturning_moment <= 0:
+                r.add_assumption(
+                    "Devirme momenti girilmedi (0 N·mm) — rüzgâr ve deprem yükleri "
+                    "destek gerilmesine YANSITILMADI."
+                )
             results.append(r)
 
         return results
@@ -1018,51 +1062,64 @@ class ASMEVIII1DesignCode(DesignCode):
         results = []
 
         # Chart verisi yoksa BLOCKED_CODE_DATA (K6)
-        # A/B değerleri kullanıcıdan alınır — eğer girilmemişse blokaj
+        # A/B değerleri kullanıcıdan bileşen bazında alınır (gövde/bombe farklı
+        # L/Do ve Do/t oranlarına sahip olduğu için tek bir proje-seviyesi çift
+        # yanlış olurdu) — girilmemişse blokaj. Blokaj kararı artık uyarı
+        # metnindeki "chart" kelimesine değil, doğrudan A/B değerine bakar;
+        # metin değişse bile kilit davranışı bozulmaz.
         for shell in project.shell_sections:
+            a_val = getattr(shell, "ug28_strain_factor_a", None) or 0.0
+            b_val = getattr(shell, "ug28_allowable_stress_b", None) or 0.0
             r = calc.check_shell_external_pressure({
                 "shell": shell,
                 "design_conditions": dc,
                 "materials": project.materials,
-                "strain_factor_A": 0.0,  # Kullanıcı girecek
-                "allowable_stress_B": 0.0,  # Kullanıcı girecek
+                "strain_factor_A": a_val,
+                "allowable_stress_B": b_val,
             })
-            # A/B girilmemişse NOT_CALCULATED döner → BLOCKED_CODE_DATA'ya çevir
-            if r.status == CalculationStatus.NOT_CALCULATED and "chart" in (r.warnings[0].lower() if r.warnings else ""):
+            if r.status == CalculationStatus.NOT_CALCULATED and (a_val <= 0 or b_val <= 0):
                 r.set_blocked_code_data(
-                    "UG-28 chart verisi (A/B faktörleri) girilmemiş. "
-                    "Kullanıcıdan lisanslı chart verisi gerekli (K6)."
+                    "UG-28 A/B faktörleri girilmedi. Geometri adımında gövde için "
+                    "Şekil G ve malzeme çizelgesinden okunan değerleri girin "
+                    "(K6: çizelge repoda tutulmaz)."
                 )
             results.append(r)
 
         for head in project.heads:
+            a_val = getattr(head, "ug28_strain_factor_a", None) or 0.0
+            b_val = getattr(head, "ug28_allowable_stress_b", None) or 0.0
             r = calc.check_head_external_pressure({
                 "head": head,
                 "design_conditions": dc,
                 "materials": project.materials,
-                "strain_factor_A": 0.0,
-                "allowable_stress_B": 0.0,
+                "strain_factor_A": a_val,
+                "allowable_stress_B": b_val,
             })
-            if r.status == CalculationStatus.NOT_CALCULATED and "chart" in (r.warnings[0].lower() if r.warnings else ""):
+            if r.status == CalculationStatus.NOT_CALCULATED and (a_val <= 0 or b_val <= 0):
                 r.set_blocked_code_data(
-                    "UG-33 chart verisi (A/B faktörleri) girilmemiş. "
-                    "Kullanıcıdan lisanslı chart verisi gerekli (K6)."
+                    "UG-33 A/B faktörleri girilmedi. Geometri adımında bombe için "
+                    "Şekil G ve malzeme çizelgesinden okunan değerleri girin "
+                    "(K6: çizelge repoda tutulmaz)."
                 )
             results.append(r)
 
         # Vakum kontrolü
         if dc.vacuum_condition:
             if project.shell_sections:
+                vshell = project.shell_sections[0]
+                a_val = getattr(vshell, "ug28_strain_factor_a", None) or 0.0
+                b_val = getattr(vshell, "ug28_allowable_stress_b", None) or 0.0
                 r = calc.check_vacuum_stability({
-                    "shell": project.shell_sections[0],
+                    "shell": vshell,
                     "design_conditions": dc,
                     "materials": project.materials,
-                    "strain_factor_A": 0.0,
-                    "allowable_stress_B": 0.0,
+                    "strain_factor_A": a_val,
+                    "allowable_stress_B": b_val,
                 })
-                if r.status == CalculationStatus.NOT_CALCULATED and "chart" in (r.warnings[0].lower() if r.warnings else ""):
+                if r.status == CalculationStatus.NOT_CALCULATED and (a_val <= 0 or b_val <= 0):
                     r.set_blocked_code_data(
-                        "Vakum stabilite kontrolü için UG-28 chart verisi gerekli (K6)."
+                        "Vakum stabilite kontrolü için UG-28 A/B faktörleri girilmedi "
+                        "(K6: çizelge repoda tutulmaz)."
                     )
                 results.append(r)
 
@@ -1197,6 +1254,7 @@ class ASMEVIII1DesignCode(DesignCode):
                 f"Required nominal thickness {t_nominal:.2f} mm exceeds "
                 f"selected thickness {cone.nominal_thickness:.2f} mm"
             )
+        self._apply_ug16b_minimum(result, cone.nominal_thickness, C)
 
         result.material_properties_used = {
             "designation": mat.material_designation,

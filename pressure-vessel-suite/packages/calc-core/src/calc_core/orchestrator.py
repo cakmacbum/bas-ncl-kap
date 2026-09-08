@@ -320,7 +320,15 @@ class CalculationOrchestrator:
         fluid_density = dc.fluid_density_kg_m3
 
         if fluid_density <= 0:
-            return  # Sıvı yoğunluğu girilmemiş → düzelleme yok
+            # K4: atlama sessiz olamaz — hangi sonucu etkilediği yazılır.
+            for r in result.results:
+                if r.calculation_type == "mawp":
+                    r.add_assumption(
+                        "Akışkan yoğunluğu girilmedi (0 kg/m³) — statik sıvı sütunu "
+                        "basıncı MAWP'ye YANSITILMADI. Sıvı dolu işletmede alt "
+                        "bileşenler bu değerden daha yüksek basınç görür."
+                    )
+            return
 
         mawp_results = [r for r in result.results if r.calculation_type == "mawp"]
 

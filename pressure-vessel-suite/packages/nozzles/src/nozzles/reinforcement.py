@@ -310,6 +310,20 @@ def calculate_reinforcement(inp: NozzleReinforcementInput) -> NozzleReinforcemen
     if Sn > 0 and inp.design_pressure > 0:
         denom = Sn - 0.6 * inp.design_pressure
         trn = inp.design_pressure * Rn / denom if denom > 0 else tn
+
+    # UG-45(a) — nozul boynu minimum kalınlığı (basitleştirilmiş).
+    # Tam UG-45 iki kriterin BÜYÜĞÜNÜ ister: (a) nozulun kendi iç basınç
+    # tasarım kalınlığı — trn yukarıda zaten hesaplanıyor — ve (b) Tablo
+    # UG-45'teki standart boru schedule minimumu. Tablo UG-45 telifli ASME
+    # verisi olduğu için burada GÖMÜLMEZ (K6); yalnız (a) bacağı kontrol
+    # edilir ve bu eksiklik açıkça yazılır — sessizce "geçti" denmez.
+    if trn > 0 and tn < trn:
+        result.warnings.append(
+            f"UG-45(a) basitleştirilmiş kontrol: nozul boyun kalınlığı "
+            f"{tn:.2f} mm, kendi iç basınç tasarım kalınlığı {trn:.2f} mm'nin "
+            f"altında. Not: Tablo UG-45 (standart boru schedule minimumu) bu "
+            f"kontrole dahil DEĞİL (K6) — imalat öncesi ayrıca doğrulanmalı."
+        )
     h_out_eff = min(L_norm, inp.nozzle_projection_outside) if inp.nozzle_projection_outside > 0 else L_norm
     A2 = max(0.0, 2 * h_out_eff * (tn - trn) * fr2)
     result.available_areas.append(AreaItem(

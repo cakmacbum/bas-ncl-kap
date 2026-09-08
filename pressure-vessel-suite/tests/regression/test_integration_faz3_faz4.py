@@ -89,10 +89,20 @@ def test_orchestrator_produces_weld_validation(calc_result):
 
 
 def test_orchestrator_produces_clash_check(calc_result):
-    """Nozul çakışma kontrolü sonucu pipeline'a girer."""
+    """Nozul çakışma kontrolü sonucu pipeline'a girer.
+
+    Nozul-bazlı sonuca ek olarak, her hesapta bir de proje-seviyesi UG-46
+    muayene açıklığı kontrolü üretilir (component_type="system") — bkz.
+    `check_inspection_opening` / B-17 (docs/limitations.md).
+    """
     clash = [r for r in calc_result.results if r.calculation_type == "clash_check"]
-    assert len(clash) == 1
-    assert clash[0].component_id == "N1"
+    assert len(clash) == 2
+    nozzle_results = [r for r in clash if r.component_type == "nozzle"]
+    system_results = [r for r in clash if r.component_type == "system"]
+    assert len(nozzle_results) == 1
+    assert nozzle_results[0].component_id == "N1"
+    assert len(system_results) == 1
+    assert system_results[0].clause_reference == "UG-46"
 
 
 # ── C) Report entegrasyonu ────────────────────────────────────────────────────

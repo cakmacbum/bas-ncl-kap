@@ -207,6 +207,10 @@ export function ResultRow({ r }: { r: CalcResult }) {
     r.utilization_ratio != null ? `${(r.utilization_ratio * 100).toFixed(1)}%` : "—";
   const result =
     r.final_result != null ? `${r.final_result.toFixed(2)} ${r.final_result_unit}` : "—";
+  const limit =
+    r.allowable_limit != null
+      ? `${r.allowable_limit.toFixed(2)} ${r.allowable_limit_unit}`
+      : "—";
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" || e.key === " ") {
@@ -238,9 +242,22 @@ export function ResultRow({ r }: { r: CalcResult }) {
               Yöneten
             </span>
           )}
+          {r.warnings.length > 0 && (
+            <span className="badge badge--review" title="uyarı"
+                  style={{ marginLeft: 6, fontSize: "var(--fs-2xs)" }}>
+              ⚠ {r.warnings.length}
+            </span>
+          )}
+          {r.assumptions.length > 0 && (
+            <span className="badge badge--nc" title="varsayım"
+                  style={{ marginLeft: 6, fontSize: "var(--fs-2xs)" }}>
+              • {r.assumptions.length}
+            </span>
+          )}
         </td>
         <td className="mono dim">{r.clause_reference || "—"}</td>
         <td className="num">{result}</td>
+        <td className="num">{limit}</td>
         <td className="num">{util}</td>
         <td>
           <StatusBadge status={r.status} />
@@ -252,7 +269,7 @@ export function ResultRow({ r }: { r: CalcResult }) {
             <td colSpan={2} className="k">
               {iv.name} — {iv.description}
             </td>
-            <td colSpan={3} className="v">
+            <td colSpan={4} className="v">
               {typeof iv.value === "number" ? iv.value.toFixed(3) : iv.value}{" "}
               {iv.unit}
             </td>

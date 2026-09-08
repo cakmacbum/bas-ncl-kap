@@ -12,6 +12,8 @@ export interface DesignConditions {
   hydrotest_temperature: number;
   corrosion_allowance_internal: number;
   corrosion_allowance_external: number;
+  fluid_density_kg_m3: number;
+  impact_test_temperature_C: number | null;
 }
 
 export interface ShellSection {
@@ -26,6 +28,8 @@ export interface ShellSection {
   external_corrosion_allowance: number;
   mill_tolerance: number;
   forming_thinning: number;
+  ug28_strain_factor_a: number | null;
+  ug28_allowable_stress_b: number | null;
 }
 
 export type HeadTypeT = "elliptical" | "torispherical" | "hemispherical" | "flat";
@@ -44,6 +48,8 @@ export interface Head {
   mill_tolerance: number;
   forming_thinning: number;
   flat_attachment_factor: number | null;
+  ug28_strain_factor_a: number | null;
+  ug28_allowable_stress_b: number | null;
 }
 
 export interface Nozzle {
@@ -96,6 +102,7 @@ export interface Support {
   material_id: string;
   contact_angle_deg: number | null;
   leg_count: number | null;
+  overturning_moment_Nmm: number;
 }
 
 export interface WeldJoint {

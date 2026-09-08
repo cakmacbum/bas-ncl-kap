@@ -5,6 +5,8 @@ K4 kuralı: Çalışma basıncı ≠ Tasarım basıncı ≠ PS (ayrı alanlar).
 
 from __future__ import annotations
 
+from typing import Optional
+
 from pydantic import BaseModel, Field
 
 
@@ -43,11 +45,13 @@ class DesignConditions(BaseModel):
     # ── Dış basınç / vakum ────────────────────────────────────────────────────
     external_pressure: float = Field(
         default=0.0, ge=0,
-        description="Dış basınç (MPa). V1'de desteklenmez — girilirse NOT_CALCULATED döner.",
+        description="Dış basınç (MPa). UG-28/UG-33 kontrolü çalışır; gövde/bombe için "
+                    "UG-28 A/B çizelge faktörleri girilmemişse BLOCKED_CODE_DATA döner (K6).",
     )
     vacuum_condition: bool = Field(
         default=False,
-        description="Vakum koşulu var mı? V1'de desteklenmez.",
+        description="Vakum koşulu var mı? UG-28 kontrolü çalışır; aynı K6 gerekçesiyle "
+                    "A/B faktörleri girilmemişse BLOCKED_CODE_DATA döner.",
     )
 
     # ── Test ──────────────────────────────────────────────────────────────────
@@ -70,6 +74,13 @@ class DesignConditions(BaseModel):
     fluid_density_kg_m3: float = Field(
         default=0.0, ge=0,
         description="Akışkan yoğunluğu (kg/m³). Statik kafa düzeltmesi için. 0 = düzelleme yok.",
+    )
+
+    # ── Darbe testi ────────────────────────────────────────────────────────
+    impact_test_temperature_C: Optional[float] = Field(
+        default=None,
+        description="Darbe (Charpy) testinin yapıldığı sıcaklık (°C). Girilirse "
+                    "UCS-66 muafiyet değerlendirmesinde kullanılır. Boş = test yok.",
     )
 
     model_config = {"frozen": True}

@@ -10,7 +10,14 @@
 | Yük | Nozula gelen harici boru yükleri | Sonraki sürüm |
 | Yük | Yorulma analizi | Sonraki sürüm |
 | Yapı | Düz kapak / kör flanş | Sonraki sürüm |
-| Yapı | Konik bölüm | Sonraki sürüm |
+| Yapı | Konik bölüm | Domain + hesap var (`orchestrator.py` kalınlık ve MAWP hesaplıyor), arayüzde form yok (Faz 4) |
+| Yapı | Çoklu gövde kesiti / 2'den fazla bombe / çoklu malzeme-kaynak | Arayüz `shell_sections[0]`, tam 2 bombe, `materials[0]`, `welds[0]` ile sınırlı (Faz 4) |
+| Yük | Yük durumları (15 zorunlu şablon) | `domain/load_cases.py` var, arayüz yok (Faz 4) |
+| Uyumluluk | PED / uyumluluk ekranı, DoC, isim plakası | `apps/api/services.py` rapor üreticisine `traceability`/`ped_result`/`compliance` vermiyor → rapor §6 ve §19 boş kalıyor (Faz 4) |
+| Hesap rotası | EN 13445 arayüzden seçilemiyor | `apps/api/services.py` `ASMEVIII1DesignCode`'u sabitliyor, `project.calculation_code` yok sayılıyor (Faz 4) |
+| Kalıcılık | Proje kalıcılığı | `apps/api/store.py` bellek-içi; sunucu yeniden başlayınca projeler kaybolur (Faz 4) |
+| Çıktı | PDF raporu | WeasyPrint bağlı değil (Faz 4) |
+| Arayüz | Sihirbaz adım validasyonu | `App.tsx` her adıma serbest atlıyor; `defaultProject()` tüm alanları geçerli doldurduğu için çökme riski düşük — ertelendi (Faz 4) |
 | Yapı | Ceketli kaplar | Kapsam dışı |
 | Yapı | Çok odalı kaplar | Kapsam dışı |
 | Yapı | Eşanjör tüp demetleri | Kapsam dışı |
@@ -32,7 +39,7 @@ makine olarak doğrulanır.
 
 | Özellik | Paket | Yazıldı | Hesap hattına bağlı |
 |---|---|---|---|
-| Dış basınç / vakum (UG-28) | `external-pressure/` | ✅ Faz 5 | ✅ |
+| Dış basınç / vakum (UG-28) | `external-pressure/` | ✅ Faz 5 | ✅ — **ve erişilebilir (Faz 4):** arayüzde dış basınç/vakum/A-B faktör alanları var. A/B girilmezse `BLOCKED_CODE_DATA` görünür (K6) |
 | Destek / saddle (Zick) | `supports/` | ✅ Faz 5 | ✅ (2026-07-26) |
 | MDMT / UCS-66 | `mdmt/` | ✅ | ✅ (2026-07-26) |
 | Nozul takviye + çakışma | `nozzles/` | ✅ | ✅ |
@@ -126,6 +133,89 @@ B-09'da yalnız varsayımın kaydı sağlandı, değerin doğrulaması hâlâ a�
   kullanılmıyor. Sayısal etkisi yok, ama V-16/V-17'deki kafa karışıklığının kök
   nedenlerinden biri: okuyan "korozyon burada işleniyor" sanıyor.
 
+### Faz 4 — Arayüz / gerçek uyumu (2026-09-08)
+
+Faz 3, hesap hattına **bağlı olmayan** paketleri kapattı. Bu turun sorusu bir
+katman yukarıdaydı: hesap hattına bağlı bir paketin arayüzde **kullanıcı
+tarafından tetiklenebilir** olup olmadığı. İki paket bu yüzden "yazıldı, bağlı,
+ama erişilemez" durumundaydı:
+
+- **Dış basınç/vakum (`external-pressure`):** `check_external_pressure`
+  orkestratörden çağrılıyordu (bu yüzden `test_no_ghost_features.py`'yi
+  geçiyordu), ama `external_pressure`/`vacuum_condition` için arayüzde form
+  yoktu ve `strain_factor_A`/`allowable_stress_B` kodda `0.0` sabitti. **Bu
+  turda kapatıldı:** Tasarım Koşulları adımına dış basınç/vakum/akışkan
+  yoğunluğu alanları, Geometri adımına gövde/bombe bazında UG-28 A/B faktör
+  alanları eklendi.
+- **Destekler (`supports`):** aynı durum — `check_supports` bağlıydı, form
+  yoktu, `supports: []` sabitti. **Bu turda kapatıldı:** Geometri adımına
+  eyer/etek/ayak editörü eklendi.
+
+Ayrıca dört ayrı **K4 ihlali** (backend uyarı/hata üretiyor, arayüz hiç
+göstermiyor) kapatıldı: `CalcPayload.errors` hiç render edilmiyordu; 9/10 sonuç
+grubu boşken sessizce kayboluyordu (`emptyNote` artık zorunlu); `pressure_consistency`
+ve `material_check` üretiliyor ama gösterilmiyordu; akışkan yoğunluğu
+girilmediğinde statik kafa düzeltmesi sessizce atlanıyordu.
+
+Yeni koruyucu test: [`tests/wiring/test_ui_parity.py`](../tests/wiring/test_ui_parity.py).
+`test_no_ghost_features.py`'nin sormadığı soruyu sorar — *"kullanıcı
+tetikleyebiliyor mu?"* Üç kontrol: her `ResultGroup` çağrısında `emptyNote` var
+mı, domain'in hesabı etkileyen her alanı arayüzde var mı (yoksa gerekçeli
+`ARAYUZDE_YOK`'ta mı), `CalcPayload`'ın her alanı render ediliyor mu.
+
+Bu turda bilinçli olarak **yapılmadı** (yukarıdaki "V1 kapsam dışı" tablosuna
+eklendi): koni formu, çoklu gövde kesiti/bombe/malzeme/kaynak, yük durumları,
+PED/uyumluluk ekranı, EN 13445 rotası, kalıcılık, PDF çıktısı, sihirbaz adım
+validasyonu. Ayrıca `Head.external_corrosion_allowance` alanının forma
+eklenmediği bu turda ortaya çıktı (`test_ui_parity.py` ARAYUZDE_YOK) — küçük,
+bilinçli bir dışta bırakma.
+
+### Kapsam denetimi — TS/MMO kaynağıyla karşılaştırma (2026-09-08)
+
+Kaynak: TMMOB MMO *Periyodik Kontrol Mühendis El Kitabı-II — Basınçlı Kaplar*
+(Kasım 2001, MMO/2001/272-2). Suite'in `clause_reference` envanteri bu kaynaktaki
+kurallarla karşılaştırıldı. **Hiçbir mevcut hesap yanlış çıkmadı** — kitap gerçek
+kalınlık formülü vermiyor (TS 3362 yalnız güvenlik katsayısı seçimini veriyor).
+Bulunan altı kalem, ASME VIII-1'de karşılığı olup suite'te henüz olmayan kontroller:
+
+- **B-14 — UG-125…UG-136 (basınç tahliye) hiç yok.** Kap MAWP'si hesaplanıyor, tahliye
+  cihazı (emniyet vanası/patlama diski) set basıncı, accumulation (≤%10, UG-125(c)),
+  blowdown hiç kontrol edilmiyor. En büyük eksik; yeni bir paket (`pressure-relief`)
+  gerektirir. Faz 4 dersi geçerli: paketi bağlamak yetmez, aynı turda arayüz formu ve
+  `ResultGroup` de yapılmalı, yoksa `test_ui_parity.py` düşürür.
+- ~~**B-15 — UG-16(b) mutlak minimum kalınlık kontrolü yok.**~~ **Kapatıldı
+  (2026-09-08):** `ASMEVIII1DesignCode._apply_ug16b_minimum` — gövde, bombe ve koni
+  kalınlık hesaplarının hepsinde, seçilen nominal kalınlıktan korozyon payı
+  düşüldükten sonra kalan net kalınlık 1,5 mm'nin altındaysa sonuç FAIL'e çevrilir
+  ve uyarı yazılır. Eski açıklama: yalnız basınçtan gelen gerekli kalınlık
+  hesaplanıyordu, taban değer ayrıca kontrol edilmiyordu.
+- ~~**B-16 — UG-45 nozul boyun minimum kalınlığı yok.**~~ **Kapatıldı (basitleştirilmiş,
+  2026-09-08):** `nozzles.reinforcement.calculate_reinforcement` — nozulun kendi
+  UG-27(c)(1) tipi iç basınç kalınlığı (`trn`, zaten A2 alanı için hesaplanıyordu)
+  ile karşılaştırılıp boyun kalınlığı bunun altındaysa uyarı ekleniyor. **Tam UG-45
+  değil** — Tablo UG-45 (standart boru schedule minimumu) telifli veri olduğu için
+  gömülmedi (K6); yalnız (a) bacağı kontrol ediliyor ve bu açıkça sonuca yazılıyor.
+- ~~**B-17 — UG-46 muayene açıklığı gereksinimi yok.**~~ **Kapatıldı (basitleştirilmiş,
+  2026-09-08):** `nozzles.clash_check.check_inspection_opening` — proje-seviyesi
+  kontrol, `clash_check` grubuna ekleniyor. **Tam Tablo UG-46 değil** (telifli, K6) —
+  yaygın eşik (iç çap > 610 mm → adam deliği gerekir) aşılıp manway tanımlı değilse
+  kesin FAIL değil REVIEW_REQUIRED döner.
+- **B-18 — UG-80/UG-81 imalat toleransları kontrol edilmiyor.** Yuvarlaklık, bombe
+  biçim toleransı — tasarım hesabından çok imalat/QC alanı; düşük öncelik.
+- **B-19 — UW-13 bombe-gövde bağlantı detayı doğrulanmıyor.** UW-11/UW-12 var,
+  bağlantı biçimi (çift köşe kaynağı sınırı vb.) ayrı kontrol değil.
+
+Ayrıca **kaynağın kendi sorunları** not edildi: kitap içi çelişki (min kalınlık için
+iki farklı değer), B kısmının 34. sayfasında bir güvenlik kuralını tersine çeviren
+dizgi/OCR hatası, mülga mevzuat referansları (İSİG Tüzüğü, RG 2000/24226). Bu
+kaynak normatif referans olarak değil, kapsam denetimi girdisi olarak kullanıldı.
+Detaylı karşılaştırma matrisi (K6 gereği kodda değil) kasada:
+`vault/wiki/projeler/basincli-kap/basincli-kap-ts-karsilastirma.md`.
+
+**Bilinçli olarak yapılmayacak:** TS 3362'yi üçüncü hesap rotası yapmak — kitap
+formül vermiyor (implement edilecek bir şey yok), EN 13445 rotası zaten arayüzden
+seçilemezken üçüncü bir kod eklemek Faz 3/4'te kapatılan hayalet özellik desenidir.
+
 ---
 
-*Oluşturma tarihi: 2026-07-19 · Revizyon: 2.5 — Faz 3: hayalet özellikler kapatıldı, B-09…B-13 ele alındı (2026-07-26)*
+*Oluşturma tarihi: 2026-07-19 · Revizyon: 2.8 — TS/MMO kaynağıyla kapsam denetimi: 6 gerçek eksik tespit edildi (B-14…B-19); üç ucuz olanı (B-15/16/17) basitleştirilmiş şekilde kapatıldı, basınç tahliye (B-14) ve imalat toleransları (B-18/19) açık (2026-09-08)*

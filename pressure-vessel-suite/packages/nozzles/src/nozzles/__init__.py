@@ -23,6 +23,7 @@ from .clash_check import (
     check_minimum_edge_distance,
     validate_nozzle_clash,
     build_clash_check_result,
+    check_inspection_opening,
 )
 from .position import (
     NozzlePosition,
@@ -52,6 +53,7 @@ __all__ = [
     "check_minimum_edge_distance",
     "validate_nozzle_clash",
     "build_clash_check_result",
+    "check_inspection_opening",
     # position
     "NozzlePosition",
     "calculate_nozzle_position",

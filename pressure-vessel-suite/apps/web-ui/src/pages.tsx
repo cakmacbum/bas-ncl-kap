@@ -11,7 +11,7 @@ import {
   AccordionSection,
   SegmentTabs,
 } from "./components";
-import { CALC_TYPE_TR, HEAD_TYPE_TR, NOZZLE_TYPE_TR, ORIENTATION_TR, tr } from "./i18n";
+import { CALC_TYPE_TR, HEAD_TYPE_TR, NOZZLE_TYPE_TR, ORIENTATION_TR, SUPPORT_TYPE_TR, tr } from "./i18n";
 import type { CalcResult } from "./types";
 import { VesselViewer, type ModelDims } from "./viewer";
 import { VesselSchematic, type DimKey } from "./schematic";
@@ -138,6 +138,33 @@ export function ConditionsPage() {
             onChange={(v) => patchConditions({ minimum_design_temperature: v })} />
           <NumField label="Hidrotest Sıcaklığı" unit="°C" value={dc.hydrotest_temperature}
             onChange={(v) => patchConditions({ hydrotest_temperature: v })} />
+          <NumField label="Darbe Testi Sıcaklığı" unit="°C"
+            value={dc.impact_test_temperature_C ?? 0}
+            onChange={(v) => patchConditions({ impact_test_temperature_C: v !== 0 ? v : null })}
+            hint="0 = darbe testi yapılmadı"
+            help="Charpy darbe testinin yapıldığı sıcaklık. Girilirse UCS-66 muafiyet değerlendirmesinde kullanılır." />
+        </div>
+      </Panel>
+      <Panel title="Dış Basınç / Vakum" meta="UG-28 / UG-33"
+        desc="Dış basınç veya vakum koşulu girilmezse UG-28/UG-33 stabilite kontrolü hiç çalışmaz.">
+        <div className="grid">
+          <NumField label="Dış Basınç" unit="MPa" value={dc.external_pressure}
+            onChange={(v) => patchConditions({ external_pressure: v })}
+            help="Kabın dışından etki eden basınç. 0 bırakılırsa UG-28 kontrolü yapılmaz." />
+          <SelectField label="Vakum Koşulu"
+            value={dc.vacuum_condition ? "1" : "0"}
+            options={[{ value: "0", label: "Yok" }, { value: "1", label: "Var" }]}
+            onChange={(v) => patchConditions({ vacuum_condition: v === "1" })}
+            help="Kap tam vakuma maruz kalabiliyorsa 'Var' seçin — 0.1013 MPa dış basınç olarak değerlendirilir." />
+        </div>
+      </Panel>
+      <Panel title="Akışkan" meta="statik kafa"
+        desc="Sıvı sütununun MAWP'ye etkisi bu değerden hesaplanır.">
+        <div className="grid">
+          <NumField label="Akışkan Yoğunluğu" unit="kg/m³" value={dc.fluid_density_kg_m3}
+            onChange={(v) => patchConditions({ fluid_density_kg_m3: v })}
+            hint="0 = statik kafa düzeltmesi uygulanmaz"
+            help="Su için 1000. 0 bırakılırsa sıvı sütunu basıncı MAWP'den düşülmez ve bu varsayım sonuçlara yazılır." />
         </div>
       </Panel>
       <Panel title="Korozyon Payı" meta="mm"
@@ -222,6 +249,13 @@ export function GeometryPage() {
   const removeNozzle = useStore((s) => s.removeNozzle);
   const updateNozzle = useStore((s) => s.updateNozzle);
 
+  // Destek yardımcıları (store'dan)
+  const addSupport = useStore((s) => s.addSupport);
+  const removeSupport = useStore((s) => s.removeSupport);
+  const updateSupport = useStore((s) => s.updateSupport);
+  const [activeSupport, setActiveSupport] = useState<number>(0);
+  const saddleCount = project.supports.filter((s) => s.type === "saddle").length;
+
   // Şemaya geçirilecek nozul listesi
   const schematicNozzles = project.nozzles.map((nz, i) => ({
     tag: nz.tag,
@@ -260,6 +294,14 @@ export function GeometryPage() {
               <NumField label="Sac Toleransı" unit="%" value={shell.mill_tolerance}
                 onChange={(v) => setShell({ mill_tolerance: v })}
                 help="Sac üreticisinin negatif kalınlık toleransı (ör. %12.5). Gerekli kalınlığa pay olarak eklenir." />
+              <NumField label="UG-28 A Faktörü" value={shell.ug28_strain_factor_a ?? 0}
+                onChange={(v) => setShell({ ug28_strain_factor_a: v > 0 ? v : null })}
+                hint="0 = girilmedi (dış basınç bloke)"
+                help="ASME VIII-1 Şekil G'den L/Do ve Do/t ile okunan birim şekil değiştirme faktörü. Lisanslı standart baskısından okunur; program bu çizelgeyi içermez (K6)." />
+              <NumField label="UG-28 B Faktörü" unit="MPa" value={shell.ug28_allowable_stress_b ?? 0}
+                onChange={(v) => setShell({ ug28_allowable_stress_b: v > 0 ? v : null })}
+                hint="0 = girilmedi"
+                help="A faktörü ve tasarım sıcaklığıyla malzeme çizelgesinden okunan B değeri." />
             </div>
           </AccordionSection>
 
@@ -284,6 +326,14 @@ export function GeometryPage() {
                 <NumField label="Düz Flanş Boyu" unit="mm" value={h.straight_flange_length}
                   onChange={(v) => setHead(i, { straight_flange_length: v })} {...dim("sf")}
                   help="Bombenin gövdeye kaynaklandığı düz silindirik etek boyu." />
+                <NumField label="UG-33 A Faktörü" value={h.ug28_strain_factor_a ?? 0}
+                  onChange={(v) => setHead(i, { ug28_strain_factor_a: v > 0 ? v : null })}
+                  hint="0 = girilmedi (dış basınç bloke)"
+                  help="ASME VIII-1 Şekil G'den okunan birim şekil değiştirme faktörü. Lisanslı standart baskısından okunur (K6)." />
+                <NumField label="UG-33 B Faktörü" unit="MPa" value={h.ug28_allowable_stress_b ?? 0}
+                  onChange={(v) => setHead(i, { ug28_allowable_stress_b: v > 0 ? v : null })}
+                  hint="0 = girilmedi"
+                  help="A faktörü ve tasarım sıcaklığıyla malzeme çizelgesinden okunan B değeri." />
 
                 {/* Düz kapak için UG-34 C katsayısı */}
                 {h.type === "flat" && (
@@ -434,6 +484,75 @@ export function GeometryPage() {
                   <NumField label="Pedi Kalınlığı" unit="mm" value={nz.reinforcement_pad_thickness ?? 0}
                     onChange={(v) => setNoz({ reinforcement_pad_thickness: v })}
                     help="Takviye pedi sac kalınlığı." />
+                </div>
+              );
+            })()}
+          </AccordionSection>
+
+          {/* ---- Destekler (çoklu) ---- */}
+          <AccordionSection {...sec("supports")} title="Destekler"
+            meta={`${project.supports.length} adet`}
+            desc="Kabı taşıyan eyer (saddle), etek (skirt) veya ayak (leg). Tanımlanmazsa destek gerilme kontrolü hiç yapılmaz.">
+            <div className="nozzle-list">
+              {project.supports.map((sup, i) => (
+                <div key={i}
+                  className={`nozzle-card${activeSupport === i ? " nozzle-card--active" : ""}`}
+                  onClick={() => setActiveSupport(i)}>
+                  <div className="nozzle-card__head">
+                    <span className="nozzle-card__tag">{sup.support_id}</span>
+                    <span className="nozzle-card__type">{SUPPORT_TYPE_TR[sup.type] ?? sup.type}</span>
+                    {project.supports.length > 0 && (
+                      <button className="nozzle-card__del" title="Desteği sil"
+                        onClick={(e) => { e.stopPropagation(); removeSupport(i); }}>
+                        ✕
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ))}
+              <button className="btn btn--ghost btn--sm nozzle-add" onClick={addSupport}>
+                + Destek Ekle
+              </button>
+            </div>
+
+            {project.supports.length > 0 && activeSupport < project.supports.length && (() => {
+              const sup = project.supports[activeSupport];
+              const setSup = (patch: Partial<typeof sup>) => updateSupport(activeSupport, patch);
+              return (
+                <div className="grid" style={{ marginTop: 12 }}>
+                  <SelectField label="Destek Tipi"
+                    value={sup.type}
+                    options={[
+                      { value: "saddle", label: "Eyer (saddle)" },
+                      { value: "skirt", label: "Etek (skirt)" },
+                      { value: "leg", label: "Ayak (leg)" },
+                    ]}
+                    onChange={(v) => setSup({ type: v as typeof sup.type })} />
+                  <NumField label="Konum" unit="mm" value={sup.location_mm}
+                    onChange={(v) => setSup({ location_mm: v })}
+                    help="Kap ekseni boyunca konum. Etek için taban kotu." />
+                  <NumField label="Genişlik" unit="mm" value={sup.width_mm}
+                    onChange={(v) => setSup({ width_mm: v })}
+                    help="Destek genişliği — eyerde temas genişliği." />
+                  <NumField label="Yükseklik" unit="mm" value={sup.height_mm}
+                    onChange={(v) => setSup({ height_mm: v })} />
+                  {sup.type === "saddle" && (
+                    <NumField label="Sarma Açısı" unit="°" value={sup.contact_angle_deg ?? 0}
+                      onChange={(v) => setSup({ contact_angle_deg: v })}
+                      hint={saddleCount < 2 ? "Zick analizi iki eyer gerektirir; tek eyerle sonuç sınırlı olur." : undefined}
+                      help="Eyer sarma açısı — Zick analizi için. Genelde 120°." />
+                  )}
+                  {sup.type === "leg" && (
+                    <NumField label="Ayak Sayısı" value={sup.leg_count ?? 0}
+                      onChange={(v) => setSup({ leg_count: v > 0 ? v : null })} />
+                  )}
+                  {(sup.type === "skirt" || sup.type === "leg") && (
+                    <NumField label="Devirme Momenti" unit="N·mm"
+                      value={sup.overturning_moment_Nmm}
+                      onChange={(v) => setSup({ overturning_moment_Nmm: v })}
+                      hint="0 = moment yok (varsayım sonuçlara yazılır)"
+                      help="Rüzgâr/deprem kaynaklı devirme momenti. 0 bırakılırsa bu yükler destek gerilmesine yansıtılmaz." />
+                  )}
                 </div>
               );
             })()}
@@ -603,10 +722,9 @@ function ResultGroup({
 }: {
   title: string;
   rows: CalcResult[];
-  emptyNote?: string;
+  emptyNote: string;
 }) {
   if (rows.length === 0) {
-    if (!emptyNote) return null;
     return (
       <Panel title={title} meta="üretilmedi">
         <p className="muted" style={{ margin: 0 }}>{emptyNote}</p>
@@ -621,6 +739,7 @@ function ResultGroup({
             <th>Bileşen</th>
             <th>Madde Ref.</th>
             <th style={{ textAlign: "right" }}>Sonuç</th>
+            <th style={{ textAlign: "right" }}>Limit</th>
             <th style={{ textAlign: "right" }}>Kullanım</th>
             <th>Durum</th>
           </tr>
@@ -684,6 +803,19 @@ export function ResultsPage() {
 
       {calc && !loading && (
         <>
+          {calc.errors.length > 0 && (
+            <Panel
+              title="Hesap Hataları"
+              meta={`${calc.errors.length} hata`}
+              desc="Aşağıdaki bölümler bu hatalar yüzünden üretilemedi. Boş görünen bölüm, kontrolün geçtiği anlamına gelmez."
+            >
+              <ul className="err-list">
+                {calc.errors.map((e, i) => (
+                  <li key={i} className="mono">{e}</li>
+                ))}
+              </ul>
+            </Panel>
+          )}
           <div className="kpi-row">
             <div className="kpi">
               <div className="kpi__label">Global MAWP</div>
@@ -733,11 +865,17 @@ export function ResultsPage() {
             <button className="btn" onClick={run}>↻ Yeniden Hesapla</button>
           </div>
 
-          <ResultGroup title="Et Kalınlığı — Gövde & Bombe" rows={byType("thickness")} />
-          <ResultGroup title="Nozul Takviyesi (UG-37/UG-40)" rows={byType("nozzle_reinforcement")} />
-          <ResultGroup title="MAWP — Bileşen Bazında" rows={byType("mawp")} />
-          <ResultGroup title="Hidrostatik Test" rows={byType("hydrotest")} />
-          <ResultGroup title="Pnömatik Test — UG-100" rows={byType("pneumatic_test")} />
+          <ResultGroup
+            title="Ön Kontroller — Girdi Tutarlılığı"
+            rows={[...byType("pressure_consistency"), ...byType("material_check")]}
+            emptyNote="Girdi tutarlılık kontrolleri uyarı üretmedi: çalışma basıncı tasarım basıncını aşmıyor ve tüm bileşenlerin malzemesi listede bulundu."
+          />
+
+          <ResultGroup title="Et Kalınlığı — Gövde & Bombe" rows={byType("thickness")} emptyNote="Gövde/bombe kalınlık hesabı üretilmedi. Geometri adımında en az bir gövde kesiti ve bombe tanımlı olmalı; hata varsa yukarıdaki Hesap Hataları panelinde görünür." />
+          <ResultGroup title="Nozul Takviyesi (UG-37/UG-40)" rows={byType("nozzle_reinforcement")} emptyNote="Nozul tanımlanmadığı için UG-37/UG-40 takviye kontrolü yapılmadı." />
+          <ResultGroup title="MAWP — Bileşen Bazında" rows={byType("mawp")} emptyNote="Bileşen MAWP değeri üretilmedi — kalınlık hesabı başarısızsa MAWP de üretilmez." />
+          <ResultGroup title="Hidrostatik Test" rows={byType("hydrotest")} emptyNote="UG-99(b) test basıncı üretilmedi; MAWP hesaplanamadığında test basıncı da hesaplanamaz." />
+          <ResultGroup title="Pnömatik Test — UG-100" rows={byType("pneumatic_test")} emptyNote="UG-100 pnömatik test basıncı üretilmedi." />
           {/* Dış basınç üç ayrı tip üretebiliyor: normal yolda `external_pressure`,
               vakum kontrolünde `vacuum_stability`, modül yüklenemezse
               `external_pressure_check`. Üçü de aynı bölümde gösterilmeli —
@@ -749,6 +887,7 @@ export function ResultsPage() {
               ...byType("vacuum_stability"),
               ...byType("external_pressure_check"),
             ]}
+            emptyNote="Dış basınç veya vakum koşulu girilmedi — UG-28/UG-33 stabilite kontrolü YAPILMADI. Tasarım Koşulları adımından dış basıncı veya vakum kutusunu işaretleyin."
           />
           <ResultGroup
             title="MDMT — UCS-66"
@@ -762,9 +901,10 @@ export function ResultsPage() {
               ...byType("skirt_stress"),
               ...byType("leg_stress"),
             ]}
+            emptyNote="Destek tanımlanmadığı için Zick (eyer) / etek / ayak kontrolü YAPILMADI. Kap desteklenmiyor anlamına gelmez — kontrol hiç çalışmadı."
           />
-          <ResultGroup title="Kaynak Doğrulama" rows={byType("weld_validation")} />
-          <ResultGroup title="Çakışma / Geometri" rows={byType("clash_check")} />
+          <ResultGroup title="Kaynak Doğrulama" rows={byType("weld_validation")} emptyNote="Kaynak birleşimi tanımlanmadığı için kaynak doğrulaması yapılmadı." />
+          <ResultGroup title="Çakışma / Geometri" rows={byType("clash_check")} emptyNote="Çakışma kontrolü üretilmedi — en az iki nozul veya nozul+destek gerekir." />
 
           <NextButtons onNext={() => setStep(4)} nextLabel="3D Modele Geç →" />
         </>

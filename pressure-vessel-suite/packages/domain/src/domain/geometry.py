@@ -51,6 +51,15 @@ class ShellSection(BaseModel):
         default=0.0, ge=0,
         description="Şekillendirme incelmesi (mm). Bomba formundan kaynaklanan.",
     )
+    ug28_strain_factor_a: Optional[float] = Field(
+        default=None, gt=0,
+        description="UG-28 Şekil G'den okunan A faktörü. K6: çizelge repoda tutulmaz, "
+                    "kullanıcı lisanslı baskıdan okur. Boşsa dış basınç kontrolü bloke olur.",
+    )
+    ug28_allowable_stress_b: Optional[float] = Field(
+        default=None, gt=0,
+        description="UG-28 malzeme çizelgesinden okunan B faktörü (MPa). Aynı K6 gerekçesi.",
+    )
 
     @model_validator(mode="after")
     def _check_diameter(self) -> "ShellSection":
@@ -107,6 +116,14 @@ class Head(BaseModel):
         default=None, gt=0,
         description="UG-34 C katsayısı — bağlantı tipi çizimine göre (ör. 0.13, 0.20, 0.33). "
                     "Kullanıcı girer (K4/K6). Yalnızca düz kapak (FLAT) tipi için.",
+    )
+    ug28_strain_factor_a: Optional[float] = Field(
+        default=None, gt=0,
+        description="UG-33 için Şekil G'den okunan A faktörü. K6: çizelge repoda tutulmaz.",
+    )
+    ug28_allowable_stress_b: Optional[float] = Field(
+        default=None, gt=0,
+        description="UG-33 malzeme çizelgesinden okunan B faktörü (MPa). Aynı K6 gerekçesi.",
     )
 
 
@@ -248,6 +265,11 @@ class Support(BaseModel):
     leg_count: Optional[int] = Field(
         default=None, gt=0,
         description="Ayak sayısı. Yalnız leg tipinde geçerli.",
+    )
+    overturning_moment_Nmm: float = Field(
+        default=0.0, ge=0,
+        description="Devirme momenti (N·mm) — rüzgâr/deprem. Yalnız skirt ve leg. "
+                    "0 = moment yok; bu varsayım sonuca yazılır.",
     )
 
 

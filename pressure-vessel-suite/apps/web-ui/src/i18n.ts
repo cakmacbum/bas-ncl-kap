@@ -28,9 +28,19 @@ export const CALC_TYPE_TR: Record<string, string> = {
   weld_validation: "Kaynak doğrulama",
   clash_check: "Çakışma kontrolü",
   external_pressure_check: "Dış basınç kontrolü",
-  vacuum_check: "Vakum kontrolü",
+  external_pressure: "Dış basınç",
+  vacuum_stability: "Vakum stabilitesi",
   pressure_consistency: "Basınç tutarlılığı",
   material_check: "Malzeme kontrolü",
+  saddle_stress: "Eyer gerilmesi (Zick)",
+  skirt_stress: "Etek gerilmesi",
+  leg_stress: "Ayak gerilmesi",
+};
+
+export const SUPPORT_TYPE_TR: Record<string, string> = {
+  saddle: "Eyer (saddle)",
+  skirt: "Etek (skirt)",
+  leg: "Ayak (leg)",
 };
 
 export const COMPONENT_TR: Record<string, string> = {
