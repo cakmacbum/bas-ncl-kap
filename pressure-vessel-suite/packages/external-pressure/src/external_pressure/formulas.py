@@ -41,7 +41,8 @@ def shell_external_pressure_allowable(
     2. UG-28.1 Şekil G (geometrik) grafiği → A (strain factor)
     3. Malzeme sıcaklık grafiği → B (izin verilen gerilme, MPa)
     4. P_allow = 4B / (3 × D/t)
-    5. P_external ≤ P_allow → PASS
+    5. P_external ≤ P_allow → preliminary numerical estimate only. This helper
+       does not establish UG-28 compliance and must not be used to issue PASS.
 
     Args:
         D: Dış çap (mm).
@@ -144,8 +145,12 @@ def head_external_pressure_allowable(
     2:1 elipsoidal ve torispherical için basitleştirilmiş kontrol:
         P_allow = B × t / (0.5 × D)
 
+    This intentionally simplified calculation is not a complete UG-33 method.
+    It does not select/validate geometry-specific code charts and its numeric
+    result must remain subject to engineering review.
+
     Args:
-        D: İç çap (mm).
+        D: Reference outside diameter (mm), supplied by the caller.
         t: Et kalınlığı (mm).
         A: Strain factor.
         B: Allowable stress (MPa).
@@ -166,8 +171,9 @@ def head_external_pressure_allowable(
     detail.A = A
     detail.B = B
 
-    # UG-33 basitleştirilmiş: P_allow = 4Bt / (3×0.5D) = 8Bt / (3D)
-    P_allow = 8.0 * B * t / (3.0 * D)
+    # UG-33/UG-28(d) bombe yaklaşımı: P_allow = B / (Ro/t) = 2Bt/D.
+    # D, bu fonksiyona verilen referans çaptır; çağıran katman dış çapı sağlar.
+    P_allow = 2.0 * B * t / D
     detail.P_allow = P_allow
 
     return P_allow, detail

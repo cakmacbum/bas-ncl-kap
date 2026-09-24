@@ -13,6 +13,7 @@ from enum import Enum
 from typing import List, Optional
 
 from pydantic import BaseModel, Field
+from compliance.declaration import CalculationRevisionBinding
 
 
 class TechnicalFileItemType(str, Enum):
@@ -72,6 +73,17 @@ class TechnicalFileIndex(BaseModel):
         default_factory=list,
         description="Teknik dosya kalemleri.",
     )
+    calculation_revision: Optional[str] = Field(default=None, description="Bağlı hesap revizyonu.")
+    input_snapshot_hash: Optional[str] = Field(default=None, description="Hesap girdisi hash'i.")
+    calculation_result_hash: Optional[str] = Field(default=None, description="Hesap sonucu hash'i.")
+
+    def bind_calculation_revision(self, binding: CalculationRevisionBinding) -> "TechnicalFileIndex":
+        """Teknik dosya indeksini immutable hesap revizyonuna bağla."""
+        return self.model_copy(update={
+            "calculation_revision": binding.revision,
+            "input_snapshot_hash": binding.input_snapshot_hash,
+            "calculation_result_hash": binding.calculation_result_hash,
+        })
 
     @classmethod
     def default_for_vessel(cls) -> "TechnicalFileIndex":

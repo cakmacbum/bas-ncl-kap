@@ -90,7 +90,7 @@ export function SegmentTabs<T extends string>(props: {
 // ---------- Yardım ipucu (?) ----------
 function HelpDot({ text }: { text: string }) {
   return (
-    <span className="help-dot" tabIndex={0}>
+    <span className="help-dot" tabIndex={0} role="button" aria-label="Parametre açıklamasını göster">
       ?<span className="help-pop">{text}</span>
     </span>
   );
@@ -144,16 +144,24 @@ export function TextField(props: {
   value: string;
   onChange: (v: string) => void;
   hint?: string;
+  help?: string;
+  onFocus?: () => void;
 }) {
   return (
-    <label className="field">
-      <span className="field__label">{props.label}</span>
+    <label className="field" onMouseEnter={props.onFocus}>
+      <span className="field__label">
+        <span>
+          {props.label}
+          {props.help && <HelpDot text={props.help} />}
+        </span>
+      </span>
       <input
         className="input"
         style={{ fontFamily: "var(--font-sans)" }}
         type="text"
         value={props.value}
         onChange={(e) => props.onChange(e.target.value)}
+        onFocus={props.onFocus}
       />
       {props.hint && <span className="field__hint">{props.hint}</span>}
     </label>

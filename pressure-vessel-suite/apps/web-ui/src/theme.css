@@ -1,12 +1,13 @@
 /* ============================================================
    Basınçlı Kap Suite — Tasarım Sistemi
    Estetik yön: "enstrüman paneli / mavi baskı (blueprint)"
-   Teknik, hassas, yoğun veri. IBM Plex Sans + Mono.
+   Teknik, hassas, yoğun veri. Inter + JetBrains Mono.
+   2026-09-22: siyah/beyaz "teknik çizim" paleti — nötr gri, keskin köşe, net çizgi.
    ============================================================ */
 
 :root {
-  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   /* ---------- Tipografi ölçeği — modüler 8 kademe ---------- */
   --fs-2xs: 11px;     /* rozet, meta, alt-bilgi */
@@ -24,80 +25,97 @@
   --lh-mono: 1.45;     /* mono / teknik metin */
 
   /* Harf aralığı — bağlama göre */
-  --ls-heading: -0.01em;  /* başlıklar — hafif sikitleştirme */
+  --ls-heading: -0.022em;  /* başlıklar — hafif sikitleştirme */
   --ls-body: 0;           /* gövde — doğal */
-  --ls-mono: -0.015em;    /* mono — hafif negatif tracking */
+  --ls-mono: -0.01em;    /* mono — hafif negatif tracking */
 
   /* Sayı hizalama */
   --font-variant-numeric: tabular-nums;
 
-  /* Koyu tema (varsayılan) */
-  --bg: #0d1219;
-  --bg-grid: rgba(120, 150, 190, 0.04);
-  --panel: #131b26;
-  --panel-2: #182231;
-  --panel-raised: #1c2836;
-  --line: #263548;
-  --line-strong: #34475e;
-  --text: #e6edf5;
-  --text-dim: #93a4b8;
-  --text-faint: #5f7189;
-  --accent: #f2a13d;          /* signal amber — birincil/aktif */
-  --accent-dim: #6b4d24;
-  --accent-glow: rgba(242, 161, 61, 0.14);
+  /* Koyu tema (varsayılan) — saf siyah, nötr gri */
+  --bg: #000000;
+  --bg-grid: transparent;
+  --panel: #0a0a0a;
+  --panel-2: #141414;
+  --panel-raised: #111111;
+  --line: #2a2a2a;
+  --line-strong: #d4d4d4;
+  --text: #fafafa;
+  --text-dim: #b5b5b5;
+  --text-faint: #8a8a8a;
+  --accent: #4d8bff;          /* mühendislik mavisi */
+  --accent-dim: #1a3a7a;
+  --accent-glow: rgba(77, 139, 255, 0.22);
+  --accent-contrast: #000000;
 
-  --pass: #37c98b;
-  --fail: #ef5a63;
-  --review: #f2a13d;
-  --nc: #7d8ea3;
-  --scope: #4aa8e0;
-  --blocked: #8b5cf6;
+  --pass: #2fd48a;
+  --fail: #ff4d5e;
+  --review: #ffb020;
+  --nc: #9a9a9a;
+  --scope: #4db8ff;
+  --blocked: #b48cff;
 
-  --radius: 6px;
-  --radius-sm: 4px;
+  /* Yan menü (her iki temada siyah blok) */
+  --nav-bg: #0a0a0a;
+  --nav-line: #2a2a2a;
+  --nav-text: #fafafa;
+  --nav-dim: #a3a3a3;
+  --nav-hover: #1a1a1a;
+  --nav-active: #1f1f1f;
 
-  /* İki katmanlı gölge sistemi — üst highlight + yumuşak drop */
-  --shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 8px 30px rgba(0, 0, 0, 0.45);
-  --shadow-sm: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 2px 10px rgba(0, 0, 0, 0.3);
-  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 4px 16px rgba(0, 0, 0, 0.35);
+  --radius: 2px;
+  --radius-sm: 2px;
+
+  /* Gölge yerine net çizgi — gölgeler minimuma indi */
+  --shadow: 0 0 0 1px var(--line);
+  --shadow-sm: none;
+  --shadow-card: none;
 
   /* Mikro-etkileşim tokenları */
   --dur: 0.18s;
   --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
   /* Izgara varyasyonları — amaçlı blueprint katmanları */
-  --grid-topbar: rgba(120, 150, 190, 0.06);
-  --grid-main: rgba(120, 150, 190, 0.025);
+  --grid-topbar: transparent;
+  --grid-main: transparent;
 }
 
 :root[data-theme="light"] {
-  --bg: #eef1f5;
-  --bg-grid: rgba(40, 70, 110, 0.05);
+  --bg: #ffffff;
+  --bg-grid: transparent;
   --panel: #ffffff;
-  --panel-2: #f5f7fa;
+  --panel-2: #f5f5f5;
   --panel-raised: #ffffff;
-  --line: #d5dce5;
-  --line-strong: #b9c4d1;
-  --text: #16202c;
-  --text-dim: #3a4a5c;       /* koyulaştırıldı: AA 4.5:1 */
-  --text-faint: #5a6a7a;     /* koyulaştırıldı: AA 4.5:1 */
-  --accent: #b56815;         /* koyulaştırıldı: AA kontrast */
-  --accent-dim: #e6c496;
-  --accent-glow: rgba(181, 104, 21, 0.12);
+  --line: #d4d4d4;
+  --line-strong: #171717;
+  --text: #0a0a0a;
+  --text-dim: #404040;       /* 10.4:1 */
+  --text-faint: #6b6b6b;     /* 5.3:1 — AA */
+  --accent: #0047ff;         /* mühendislik mavisi — 6.9:1 */
+  --accent-dim: #b8ccff;
+  --accent-glow: rgba(0, 71, 255, 0.14);
+  --accent-contrast: #ffffff;
 
-  --pass: #0f7a4a;           /* koyulaştırıldı: AA 4.5:1 */
-  --fail: #b82e36;           /* koyulaştırıldı: AA 4.5:1 */
-  --review: #b56815;         /* koyulaştırıldı: AA 4.5:1 */
-  --nc: #4a5a6a;             /* koyulaştırıldı: AA 4.5:1 */
-  --scope: #1a6a9e;          /* koyulaştırıldı: AA 4.5:1 */
-  --blocked: #6d28d9;        /* koyulaştırıldı: AA 4.5:1 */
+  --pass: #00875a;
+  --fail: #d70015;
+  --review: #b25e00;
+  --nc: #525252;
+  --scope: #0062a3;
+  --blocked: #6b21d9;
 
-  --shadow: 0 1px 0 rgba(255, 255, 255, 0.7) inset, 0 10px 30px rgba(40, 60, 90, 0.12);
-  --shadow-sm: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 2px 8px rgba(40, 60, 90, 0.08);
-  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 4px 16px rgba(40, 60, 90, 0.1);
+  --nav-bg: #0a0a0a;
+  --nav-line: #262626;
+  --nav-text: #ffffff;
+  --nav-dim: #a3a3a3;
+  --nav-hover: #1a1a1a;
+  --nav-active: #1f1f1f;
 
-  --grid-topbar: rgba(40, 70, 110, 0.06);
-  --grid-main: rgba(40, 70, 110, 0.025);
+  --shadow: 0 0 0 1px var(--line);
+  --shadow-sm: none;
+  --shadow-card: none;
+
+  --grid-topbar: transparent;
+  --grid-main: transparent;
 }
 
 * {
@@ -157,6 +175,9 @@ body {
   letter-spacing: var(--ls-body);
   font-variant-numeric: var(--font-variant-numeric);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "cv11", "ss01", "tnum";
 }
 
 /* ---------- Uygulama iskeleti ---------- */
@@ -639,12 +660,12 @@ body {
 .badge {
   font-family: var(--font-mono);
   font-size: 10px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.06em;
   font-variant-numeric: var(--font-variant-numeric);
   padding: 3px 9px;
-  border-radius: 100px;
-  border: 1px solid;
+  border-radius: 0;
+  border: 0;
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
@@ -657,19 +678,12 @@ body {
   border-radius: 50%;
   background: currentColor;
 }
-.badge--pass { color: var(--pass); border-color: color-mix(in srgb, var(--pass) 50%, transparent); background: color-mix(in srgb, var(--pass) 15%, transparent); }
-.badge--fail { color: var(--fail); border-color: color-mix(in srgb, var(--fail) 50%, transparent); background: color-mix(in srgb, var(--fail) 15%, transparent); }
-.badge--review { color: var(--review); border-color: color-mix(in srgb, var(--review) 50%, transparent); background: color-mix(in srgb, var(--review) 15%, transparent); }
-.badge--nc { color: var(--nc); border-color: color-mix(in srgb, var(--nc) 50%, transparent); background: color-mix(in srgb, var(--nc) 15%, transparent); }
-.badge--scope { color: var(--scope); border-color: color-mix(in srgb, var(--scope) 50%, transparent); background: color-mix(in srgb, var(--scope) 15%, transparent); }
-.badge--blocked { color: var(--blocked); border-color: color-mix(in srgb, var(--blocked) 50%, transparent); background: color-mix(in srgb, var(--blocked) 15%, transparent); }
-
-:root[data-theme="light"] .badge--pass { background: color-mix(in srgb, var(--pass) 20%, transparent); border-color: color-mix(in srgb, var(--pass) 60%, transparent); }
-:root[data-theme="light"] .badge--fail { background: color-mix(in srgb, var(--fail) 20%, transparent); border-color: color-mix(in srgb, var(--fail) 60%, transparent); }
-:root[data-theme="light"] .badge--review { background: color-mix(in srgb, var(--review) 20%, transparent); border-color: color-mix(in srgb, var(--review) 60%, transparent); }
-:root[data-theme="light"] .badge--nc { background: color-mix(in srgb, var(--nc) 18%, transparent); border-color: color-mix(in srgb, var(--nc) 55%, transparent); }
-:root[data-theme="light"] .badge--scope { background: color-mix(in srgb, var(--scope) 18%, transparent); border-color: color-mix(in srgb, var(--scope) 55%, transparent); }
-:root[data-theme="light"] .badge--blocked { background: color-mix(in srgb, var(--blocked) 18%, transparent); border-color: color-mix(in srgb, var(--blocked) 55%, transparent); }
+.badge--pass { color: var(--accent-contrast); background: var(--pass); }
+.badge--fail { color: var(--accent-contrast); background: var(--fail); }
+.badge--review { color: var(--accent-contrast); background: var(--review); }
+.badge--nc { color: var(--accent-contrast); background: var(--nc); }
+.badge--scope { color: var(--accent-contrast); background: var(--scope); }
+.badge--blocked { color: var(--accent-contrast); background: var(--blocked); }
 
 /* ---------- KPI kartları ---------- */
 .kpi-row {
@@ -813,7 +827,7 @@ body {
   height: 640px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: #fff;
+  background: var(--panel);
 }
 
 /* ---------- 3D görüntüleyici ---------- */
@@ -827,6 +841,38 @@ body {
   border: 1px solid var(--line);
   box-shadow: var(--shadow-card);
 }
+.viewer-frame { position: absolute; inset: 0; }
+.camera-toolbar {
+  position: absolute;
+  z-index: 5;
+  top: 10px;
+  left: 10px;
+  max-width: calc(100% - 20px);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--panel) 94%, transparent);
+}
+.camera-toolbar__views { display: flex; flex-wrap: wrap; gap: 4px; }
+.camera-toolbar .btn { min-height: 34px; padding: 5px 10px; }
+.camera-toolbar:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.camera-help {
+  position: absolute;
+  z-index: 4;
+  left: 10px;
+  bottom: 10px;
+  max-width: min(620px, calc(100% - 20px));
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--panel) 94%, transparent);
+  color: var(--text-dim);
+  font-size: 11px;
+  line-height: 1.45;
+}
+.camera-help strong { color: var(--text); }
 .viewer-shell canvas {
   display: block;
   touch-action: none;
@@ -913,6 +959,17 @@ body {
   flex: 1;
   min-height: 0;
 }
+.live-preview > .camera-toolbar,
+.live-preview > .camera-help {
+  position: relative;
+  inset: auto;
+  z-index: 1;
+  max-width: 100%;
+  border-left: 0;
+  border-right: 0;
+}
+.live-preview > .camera-toolbar { justify-content: space-between; }
+.live-preview > .camera-help { border-top: 0; }
 .live-preview__stage > * {
   position: absolute;
   inset: 0;
@@ -937,12 +994,12 @@ body {
   line-height: 1.45;
   color: var(--text-faint);
   border-top: 1px solid var(--line);
-  background: var(--bg-sunken, rgba(0, 0, 0, 0.14));
+  background: var(--panel-2);
 }
 .preview-note svg {
   flex: none;
   margin-top: 1px;
-  color: var(--review, #d9a441);
+  color: var(--review);
 }
 
 /* ---------- Segment sekmeleri ---------- */
@@ -951,8 +1008,8 @@ body {
   padding: 3px;
   gap: 2px;
   border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--bg-sunken, rgba(0, 0, 0, 0.14));
+  border-radius: var(--radius);
+  background: var(--panel-2);
 }
 .seg-tabs__btn {
   padding: 5px 12px;
@@ -961,7 +1018,7 @@ body {
   color: var(--text-dim);
   background: transparent;
   border: 0;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   transition: color 160ms ease, background-color 160ms ease;
 }
@@ -970,8 +1027,8 @@ body {
 }
 .seg-tabs__btn.is-active {
   color: var(--text);
-  background: var(--panel-2, rgba(255, 255, 255, 0.07));
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  background: var(--panel-2);
+  box-shadow: none;
 }
 .seg-tabs__btn:focus-visible {
   outline: 2px solid var(--accent);
@@ -981,7 +1038,7 @@ body {
 /* ---------- Akordeon (dar form) ---------- */
 .accordion {
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: var(--radius);
   background: var(--panel);
   margin-bottom: 10px;
   overflow: hidden;
@@ -1004,7 +1061,7 @@ body {
   transition: background-color 160ms ease;
 }
 .accordion__head:hover {
-  background: var(--panel-2, rgba(255, 255, 255, 0.04));
+  background: var(--panel-2);
 }
 .accordion__head:focus-visible {
   outline: 2px solid var(--accent);
@@ -1293,7 +1350,7 @@ text.sch-tag.sch-active { fill: var(--accent); font-weight: 600; }
   color: var(--text);
   background: color-mix(in srgb, var(--panel-raised) 90%, transparent);
   border: 1px solid var(--line-strong);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   padding: 2px 7px;
   white-space: nowrap;
   pointer-events: none;
@@ -1390,7 +1447,7 @@ text.sch-tag.sch-active { fill: var(--accent); font-weight: 600; }
   color: var(--text-faint);
   background: var(--bg);
   padding: 2px 6px;
-  border-radius: 3px;
+  border-radius: var(--radius-sm);
 }
 .nozzle-card__del {
   background: none;
@@ -1399,7 +1456,7 @@ text.sch-tag.sch-active { fill: var(--accent); font-weight: 600; }
   cursor: pointer;
   font-size: 12px;
   padding: 2px 4px;
-  border-radius: 3px;
+  border-radius: var(--radius-sm);
   transition: color var(--dur) var(--ease), background var(--dur) var(--ease);
 }
 .nozzle-card__del:hover {

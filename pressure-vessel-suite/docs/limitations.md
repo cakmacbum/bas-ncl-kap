@@ -1,5 +1,11 @@
 # Limitations and Out-of-Scope Items
 
+## Phase C â€” Global load and support baseline (2026-09-20)
+
+- **B-23:** `calc_core.load_engine` transfers six-component loads to the base, validates combination factors, and records a governing envelope. It is not a code-specific stability check; orchestrator results remain `REVIEW_REQUIRED`.
+- **B-24:** `domain.global_loads` provides transparent preliminary equivalent-static wind and seismic models. Site spectra, modal/torsional response, vortex shedding and edition-specific factors remain out of scope.
+- **B-25:** Support leg distribution radius and anchor tension/shear demand are recorded; missing anchor data cannot produce final `PASS`. Full skirt buckling, base ring, concrete bearing, detailed Zick and lifting-lug checks remain open.
+
 > Bu doküman, V1 sürümünün kapsam dışı bıraktığı özellikleri ve bilinen sınırlamaları listeler.
 
 ## V1 kapsam dışı (Later)
@@ -205,6 +211,41 @@ Bulunan altı kalem, ASME VIII-1'de karşılığı olup suite'te henüz olmayan 
 - **B-19 — UW-13 bombe-gövde bağlantı detayı doğrulanmıyor.** UW-11/UW-12 var,
   bağlantı biçimi (çift köşe kaynağı sınırı vb.) ayrı kontrol değil.
 
+### Bağımsız denetim doğrulaması (2026-09-20)
+
+Ana kıyas raporu [`../../eksikler.md`](../../eksikler.md), dosya:satır okuması ve iki ampirik
+çalıştırmayla yeniden doğrulandı. İki önceki ifade düzeltildi: UI bugün EN 13445 seçtirmiyor;
+destek skirt/leg yolları da yanlış `PASS` değil, üretim payload’ı eksik olduğu için sürekli
+`NOT_CALCULATED`. Aşağıdaki üç yeni kusur sonraki kod turu için kayda alındı:
+
+- **B-20 — Skirt/leg destek sonuçları üretimde daima `NOT_CALCULATED`.**
+  `design_code.check_supports` payload’ı `skirt_material_id`, `support.diameter_mm` ve
+  `support.thickness_mm` göndermiyor; üretimde `leg_count` yazılırken calculator `n_legs` okuyor.
+  UI’daki `sup.material_id` bu hatta ulaşmıyor. `tests/faz5/test_faz5_supports.py` elle
+  `skirt_material_id` içeren payload kullandığı için yeşil; üretim wiring testi ve
+  `check_leg_support` entegrasyon testi yok. Saddle yolu bu bulgudan ayrıdır.
+- **B-21 — UG-33 bombe dış basıncı silindir katsayısını kullanıyor.**
+  `external-pressure/src/external_pressure/formulas.py:169-170` `8Bt/(3D)` uygular.
+  Aynı dosyanın bombe docstring’indeki `B×t/(0.5D)` yaklaşımına göre sonuç `4/3` yani
+  **%33,3 daha yüksek ve emniyetsiz** allowable verir. Bu kayıt ASME metnini kopyalamaz;
+  UG-28(d)/UG-33 atıflarıyla yapılan katsayı analizidir (K6). Ek olarak `head.type` formüle
+  girmiyor ve `ext_pressure.py:254` dış çap ara değerini “Inside diameter” etiketliyor.
+- **B-22 — `project.calculation_code` backend’de sessizce yok sayılıyor.**
+  `apps/api/services.py:48-51` koşulsuz `ASMEVIII1DesignCode` kuruyor; EN paketinin design
+  code’u mevcut olsa da çağrılmıyor. API’ye EN 13445 isteği geldiğinde hata/uyarı olmadan ASME
+  sonucu dönüyor. `docs/calculation-coverage.md:65` içindeki “her ikisi de aktif” ifadesiyle
+  bu üretim durumu çelişiyor; satırın düzeltilmesi sonraki doküman turundadır.
+
+#### 2026-09-20 kod turu kapanış durumu
+
+- B-20 payload wiring, destek ölçüleri ve gerçek orkestratör entegrasyon testleriyle kapatıldı.
+- B-21 bombe katsayısı `2Bt/D` olarak düzeltildi; dış çap etiketi ve golden test güncellendi.
+- B-22 API standarda göre ASME veya EN motorunu seçiyor; EN API regresyon testi eklendi.
+- Tam normatif dış basınç, destek, ankraj ve EN kapsamı hâlâ ayrı doğrulama işidir.
+
+K6: Telifli çizelge veya madde metni kopyalanmadı; B-21 yalnızca atıf ve bizim katsayı/etki
+analizimizi kaydeder.
+
 Ayrıca **kaynağın kendi sorunları** not edildi: kitap içi çelişki (min kalınlık için
 iki farklı değer), B kısmının 34. sayfasında bir güvenlik kuralını tersine çeviren
 dizgi/OCR hatası, mülga mevzuat referansları (İSİG Tüzüğü, RG 2000/24226). Bu
@@ -216,6 +257,37 @@ Detaylı karşılaştırma matrisi (K6 gereği kodda değil) kasada:
 formül vermiyor (implement edilecek bir şey yok), EN 13445 rotası zaten arayüzden
 seçilemezken üçüncü bir kod eklemek Faz 3/4'te kapatılan hayalet özellik desenidir.
 
+### Canlı arayüz denetimi (2026-09-22)
+
+- ~~**B-26 — Mill (sac) negatif toleransı korozyon payına uygulanmıyordu; emniyetsiz
+  yönde.**~~ **Kapatıldı (2026-09-22):** `shell_required_nominal_thickness`
+  `t_required / factor + C` hesaplıyordu; korozyon payı ve şekillendirme incelmesi
+  bölmenin dışında kalıyordu. Mill negatif toleransı **sipariş edilen nominal
+  kalınlığın tamamına** uygulandığı için doğru biçim
+  `(t_required + C + forming_thinning) / factor`'dır. Düzeltildi:
+  `code-asme-viii-1/formulas.py` ve `code-en-13445/formulas.py`.
+
+  **Etki (varsayılan proje: t_req=4,388 mm, C=2,0 mm, factor=0,875):** üretilen
+  nominal kalınlık 7,015 mm → **7,301 mm** (%3,9 artış, emniyetli yöne). Eski
+  değerle 7,015 mm sipariş edilseydi en kötü teslim 6,138 mm, korozyon sonrası
+  4,138 mm kalır ve basınç için gereken 4,388 mm'yi **0,25 mm karşılamazdı**.
+  EN 13445 tarafında aynı düzeltme: 6,088 mm → 6,310 mm.
+
+  **Neden testler yakalamamıştı:** `test_asme_golden.py` içindeki golden test,
+  yanlış formülü docstring'inde açıkça yazıp değeri sabitlemişti (implementasyona
+  göre yazılmış test). Düzeltmeyle birlikte formülden bağımsız bir kabul testi
+  eklendi: `factor × t_nominal − C >= t_required` (ömür sonu kalınlık kontrolü).
+  `mill_tolerance_factor = 1.0` durumunda sonuç değişmez (geriye dönük uyumlu).
+
+- **Canlı arayüz denetimi temiz.** Altı adımın tamamı (proje → koşullar → geometri →
+  hesap → 3B → rapor) çalıştırıldı: konsol hatası yok, tüm ağ istekleri başarılı,
+  sunucu logunda hata yok, HTML rapor ve STEP çıktısı üretildi.
+
+- **Not (hata değil, asimetri):** MAWP hesabı mill toleransını kullanmaz
+  (`t = nominal − C`). Derecelendirme için standart pratiktir, ancak tasarım
+  yönünde sacın ince gelebileceği varsayılırken MAWP'de tam nominal varsayılması
+  bilinçli bir tercih olarak belgelenmelidir.
+
 ---
 
-*Oluşturma tarihi: 2026-07-19 · Revizyon: 2.8 — TS/MMO kaynağıyla kapsam denetimi: 6 gerçek eksik tespit edildi (B-14…B-19); üç ucuz olanı (B-15/16/17) basitleştirilmiş şekilde kapatıldı, basınç tahliye (B-14) ve imalat toleransları (B-18/19) açık (2026-09-08)*
+*Oluşturma tarihi: 2026-07-19 · Revizyon: 3.1 — 2026-09-22 canlı arayüz denetimi: mill toleransının korozyon payına uygulanmaması (B-26) düzeltildi, ömür sonu kalınlık kabul testi eklendi; arayüzde hata bulunmadı.*

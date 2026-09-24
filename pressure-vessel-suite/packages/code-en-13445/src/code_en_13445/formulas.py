@@ -73,9 +73,20 @@ def shell_required_nominal_thickness(
 ) -> float:
     """Gerekli nominal et kalınlığı (EN 13445).
 
-    e_nominal = e_required / mill_tolerance_factor + C + forming_thinning
+    e_nominal = (e_required + C + forming_thinning) / mill_tolerance_factor
 
     EN 13445'de tipik mill toleransı %10 → factor = 0.90.
+
+    Mill (sac) negatif toleransı **sipariş edilen nominal kalınlığın tamamına**
+    uygulanır: sac en kötü durumda `factor × e_nominal` kalınlığında teslim
+    edilebilir. Ömür sonunda basınca dayanması gereken kalınlık, teslim edilen
+    kalınlıktan korozyon payı ve şekillendirme incelmesi düşüldükten sonra
+    kalandır:
+
+        factor × e_nominal - C - forming_thinning >= e_required
+
+    Bu nedenle C ve forming_thinning bölmenin **içinde** kalmalıdır. Payı bölme
+    dışında toplamak (e_required/factor + C) ömür sonunda eksik kalınlık verir.
 
     Args:
         e_required: Korozyonsuz gerekli kalınlık (mm).
@@ -88,7 +99,7 @@ def shell_required_nominal_thickness(
     """
     if mill_tolerance_factor <= 0 or mill_tolerance_factor > 1.0:
         raise ValueError(f"mill_tolerance_factor 0-1 aralığında olmalı: {mill_tolerance_factor}")
-    return e_required / mill_tolerance_factor + C + forming_thinning
+    return (e_required + C + forming_thinning) / mill_tolerance_factor
 
 
 # ── EN 13445-3, 5.5.2: Elipsoidal bombe ──────────────────────────────────────

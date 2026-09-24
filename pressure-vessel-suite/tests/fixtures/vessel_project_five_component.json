@@ -1,0 +1,46 @@
+{
+  "project_number": "FIXTURE-CHAIN-001",
+  "project_name": "Five Component Persistence Fixture",
+  "customer": "Basincli QA",
+  "revision": "A",
+  "calculation_code": "ASME VIII-1",
+  "code_edition": "2025",
+  "unit_system": "SI",
+  "orientation": "horizontal",
+  "diameter_relation": "independent",
+  "design_conditions": {
+    "operating_pressure": 1.0,
+    "design_pressure": 1.2,
+    "maximum_allowable_pressure_ps": 1.5,
+    "operating_temperature": 150,
+    "design_temperature": 200,
+    "minimum_design_temperature": -10,
+    "corrosion_allowance_internal": 2.0
+  },
+  "shell_sections": [
+    {"section_id": "SHELL-01", "inside_diameter": 1000, "tangent_length": 2000, "nominal_thickness": 12, "material_id": "M1", "weld_joint_id": "WJ-01", "internal_corrosion_allowance": 2, "mill_tolerance": 12.5},
+    {"section_id": "SHELL-02", "inside_diameter": 800, "tangent_length": 1500, "nominal_thickness": 10, "material_id": "M2", "weld_joint_id": "WJ-02", "internal_corrosion_allowance": 2, "mill_tolerance": 12.5}
+  ],
+  "heads": [
+    {"head_id": "HEAD-L", "type": "elliptical", "inside_diameter": 1000, "straight_flange_length": 40, "nominal_thickness": 12, "material_id": "M1", "weld_joint_id": "WJ-01", "internal_corrosion_allowance": 2, "mill_tolerance": 12.5},
+    {"head_id": "HEAD-R", "type": "elliptical", "inside_diameter": 800, "straight_flange_length": 40, "nominal_thickness": 10, "material_id": "M2", "weld_joint_id": "WJ-02", "internal_corrosion_allowance": 2, "mill_tolerance": 12.5}
+  ],
+  "cones": [
+    {"cone_id": "CONE-01", "large_diameter": 1000, "small_diameter": 800, "half_apex_angle": 15, "length": 500, "nominal_thickness": 10, "material_id": "M2", "weld_joint_id": "WJ-02", "internal_corrosion_allowance": 2}
+  ],
+  "component_sequence": [
+    {"component_type": "head", "component_id": "HEAD-L"},
+    {"component_type": "shell", "component_id": "SHELL-01"},
+    {"component_type": "cone", "component_id": "CONE-01"},
+    {"component_type": "shell", "component_id": "SHELL-02"},
+    {"component_type": "head", "component_id": "HEAD-R"}
+  ],
+  "materials": [
+    {"material_id": "M1", "standard_pack": "ASME II-D 2025", "material_designation": "SA-516 Gr.70", "product_form": "plate", "temperature": 200, "allowable_stress": 138, "yield_strength": 260, "tensile_strength": 485, "source_reference": "ASME II-D Table 1A", "source_revision": "2025", "density": 7850},
+    {"material_id": "M2", "standard_pack": "ASME II-D 2025", "material_designation": "SA-516 Gr.60", "product_form": "plate", "temperature": 200, "allowable_stress": 120, "yield_strength": 220, "tensile_strength": 415, "source_reference": "ASME II-D Table 1A", "source_revision": "2025", "density": 7850}
+  ],
+  "welds": [
+    {"joint_id": "WJ-01", "joint_type": "longitudinal", "weld_category": "A", "joint_efficiency": 1.0, "nde_method": "RT-1", "nde_extent": "100%"},
+    {"joint_id": "WJ-02", "joint_type": "circumferential", "weld_category": "B", "joint_efficiency": 0.85, "nde_method": "RT-2", "nde_extent": "spot"}
+  ]
+}

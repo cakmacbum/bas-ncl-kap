@@ -8,5 +8,6 @@ K5 kuralı: Her hesap denetlenebilir (CalculationResult).
 """
 
 from external_pressure.ext_pressure import ExternalPressureCalculator
+from external_pressure.chart_lookup import ChartLookupResult, lookup_chart
 
-__all__ = ["ExternalPressureCalculator"]
+__all__ = ["ExternalPressureCalculator", "ChartLookupResult", "lookup_chart"]

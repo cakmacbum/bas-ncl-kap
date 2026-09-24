@@ -203,13 +203,34 @@ class TestASMEFormulas:
     def test_shell_nominal_thickness(self):
         """Nominal kalınlık hesabı.
 
+        Mill negatif toleransı sipariş edilen nominal kalınlığın tamamına
+        uygulanır; korozyon payı bölmenin içinde kalmalıdır.
+
         t_required = 4.353 mm, C = 2.0 mm, mill = 0.875
-        t_nominal = 4.353 / 0.875 + 2.0 = 4.975 + 2.0 = 6.975 mm
+        t_nominal = (4.353 + 2.0) / 0.875 = 6.353 / 0.875 = 7.261 mm
         """
         from code_asme_viii_1.formulas import shell_required_nominal_thickness
 
         t_nom = shell_required_nominal_thickness(4.353, 2.0, 0.875)
-        assert relative_tolerance(t_nom, 6.975, 0.01), f"t_nom={t_nom}"
+        assert relative_tolerance(t_nom, 7.261, 0.01), f"t_nom={t_nom}"
+
+    def test_shell_nominal_thickness_survives_mill_and_corrosion(self):
+        """Üretilen nominal kalınlık ömür sonunda gerekli kalınlığı karşılamalı.
+
+        En kötü teslim (factor × t_nominal) eksi korozyon payı, basınç için
+        gerekli kalınlıktan az olamaz. Bu, mill toleransının nereye uygulandığını
+        formülden bağımsız olarak sabitler.
+        """
+        from code_asme_viii_1.formulas import shell_required_nominal_thickness
+
+        t_required, C, factor = 4.353, 2.0, 0.875
+        t_nom = shell_required_nominal_thickness(t_required, C, factor)
+        kalan = factor * t_nom - C
+        assert kalan >= t_required - 1e-9, (
+            f"t_nom={t_nom:.3f} mm siparis edilirse en kotu teslim "
+            f"{factor * t_nom:.3f} mm, korozyon sonrasi {kalan:.3f} mm kaliyor; "
+            f"gerekli {t_required} mm"
+        )
 
     def test_elliptical_head_thickness(self):
         """UG-32(d) — 2:1 elipsoidal bombe.
@@ -420,7 +441,7 @@ class TestASMEFormulas:
         from code_asme_viii_1.formulas import shell_required_nominal_thickness
 
         t_nom = shell_required_nominal_thickness(4.353, 2.0, mill_tolerance_factor=1.0)
-        # = 4.353 / 1.0 + 2.0 + 0 = 6.353 mm
+        # = (4.353 + 2.0 + 0) / 1.0 = 6.353 mm
         assert relative_tolerance(t_nom, 6.353, 0.01), f"t_nom={t_nom}"
 
 
@@ -692,6 +713,24 @@ class TestLoadCases:
         # Hydrotest + Wind eşzamanlı olmamalı
         assert (LoadType.HYDROTEST, LoadType.WIND) in NON_CONCURRENT_LOAD_PAIRS
 
+    def test_validate_load_combination_rejects_invalid_references_and_pairs(self):
+        from domain import LoadCase, LoadCombination, LoadType, validate_load_combination
+
+        cases = [
+            LoadCase(load_case_id="HYDRO", name="Hydrotest", load_type=LoadType.HYDROTEST),
+            LoadCase(load_case_id="WIND", name="Wind", load_type=LoadType.WIND),
+        ]
+        invalid = LoadCombination(
+            combination_id="BAD-01",
+            name="Hydro + Wind",
+            load_case_ids=["HYDRO", "WIND", "MISSING"],
+            load_factors={"OTHER": 1.0},
+        )
+        errors = validate_load_combination(cases, invalid)
+        assert any("Unknown load case" in error for error in errors)
+        assert any("non-member" in error for error in errors)
+        assert any("Non-concurrent" in error for error in errors)
+
     def test_generate_wind_load_cases(self):
         """Rüzgâr yük durumları oluşturma."""
         from domain import generate_wind_load_cases, LoadType
@@ -791,8 +830,8 @@ class TestMDMT:
             "curve_group": UCS66CurveGroup.B,
             "nominal_thickness_mm": 12.0,
         })
-        # -40°C < -29°C → muafiyet
-        assert r.status.value == "PASS"
+        # Yaklaşık limit nihai muafiyet PASS'ı üretemez.
+        assert r.status.value == "REVIEW REQUIRED"
 
     def test_mdmt_blocked_missing_curve(self):
         """MDMT — eğri grubu eksikse BLOCKED_MISSING_INPUT."""

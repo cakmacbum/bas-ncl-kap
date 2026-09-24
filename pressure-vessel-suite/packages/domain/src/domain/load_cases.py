@@ -347,6 +347,35 @@ def generate_structural_load_cases(
     return cases
 
 
+def validate_load_combination(
+    load_cases: List[LoadCase], combination: LoadCombination
+) -> List[str]:
+    """Bir kombinasyonun referans ve eşzamanlılık kurallarını doğrula.
+
+    Bu yordam hesap yapmaz; bir kombinasyonun sessizce boş/yanlış yüklerle
+    çalıştırılmasını önlemek için deterministik hata listesi döndürür.
+    Boş liste geçerli olduğunu belirtir.
+    """
+    by_id = {case.load_case_id: case for case in load_cases}
+    errors: List[str] = []
+    if not combination.load_case_ids:
+        errors.append("Combination must reference at least one load case.")
+        return errors
+    missing = [case_id for case_id in combination.load_case_ids if case_id not in by_id]
+    if missing:
+        errors.append(f"Unknown load case id(s): {', '.join(missing)}")
+    factors = combination.load_factors
+    unknown_factor_ids = [case_id for case_id in factors if case_id not in combination.load_case_ids]
+    if unknown_factor_ids:
+        errors.append(f"Load factors reference non-member case(s): {', '.join(unknown_factor_ids)}")
+    if combination.is_concurrent:
+        selected = [by_id[case_id].load_type for case_id in combination.load_case_ids if case_id in by_id]
+        for left, right in NON_CONCURRENT_LOAD_PAIRS:
+            if left in selected and right in selected:
+                errors.append(f"Non-concurrent load types combined: {left.value} + {right.value}")
+    return errors
+
+
 __all__ = [
     "LoadType",
     "LoadDirection",
@@ -360,4 +389,5 @@ __all__ = [
     "generate_transport_load_cases",
     "generate_lifting_load_cases",
     "generate_structural_load_cases",
+    "validate_load_combination",
 ]

@@ -7,7 +7,7 @@ name = "pv-supports"
 version = "0.1.0"
 description = "Yatay kap eyer (saddle) ve dikey kap etek (skirt) destek hesapları — Pressure Vessel Suite"
 requires-python = ">=3.11"
-dependencies = ["pv-calc-core", "pv-domain", "pv-units"]
+dependencies = ["pv-calc-core", "pv-domain", "pv-units", "pv-welds"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/supports"]

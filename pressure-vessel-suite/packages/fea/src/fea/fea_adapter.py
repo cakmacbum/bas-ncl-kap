@@ -95,8 +95,41 @@ class FEAdapter:
             CalculationResult — REVIEW_REQUIRED / NOT_CALCULATED.
             Sahte "PASS" ÜRETMEZ.
         """
-        shell = input_data["shell"]
         project = input_data.get("project")
+
+        # Çok elemanlı zincirde bu adaptör henüz yalnızca tek gövde kesitli
+        # 1/8 simetri modeli kurabildiği için kısmi model üretmek güvenli
+        # değildir. Kapsam sonucu açıkça yüzeye çıkarılır.
+        if project is not None and (
+            len(project.shell_sections) != 1
+            or len(getattr(project, "cones", [])) > 0
+            or len(project.heads) != 2
+        ):
+            result = CalculationResult(
+                component_id=None,
+                component_type="system",
+                calculation_type="fea_analysis",
+                code="FEA",
+                edition="Iskelet v0.1",
+                clause_reference="ASME VIII-2 Part 5",
+                formula_reference="Stress Linearization",
+            )
+            section_count = len(project.shell_sections)
+            cone_count = len(getattr(project, "cones", []))
+            head_count = len(project.heads)
+            result.input_snapshot = {
+                "scope": "OUT_OF_SCOPE",
+                "shell_section_count": section_count,
+                "cone_count": cone_count,
+                "head_count": head_count,
+            }
+            result.set_out_of_scope(
+                "FEA 1/8 simetri ön koşulu sağlanmadı: çok elemanlı zincir "
+                f"desteklenmiyor (gövde={section_count}, koni={cone_count}, bombe={head_count})."
+            )
+            return result
+
+        shell = input_data["shell"]
 
         result = CalculationResult(
             component_id=shell.section_id,

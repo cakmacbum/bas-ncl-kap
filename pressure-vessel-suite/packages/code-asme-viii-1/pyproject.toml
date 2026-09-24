@@ -7,7 +7,7 @@ name = "pv-code-asme-viii-1"
 version = "0.1.0"
 description = "ASME VIII Division 1 hesap eklentisi — Pressure Vessel Suite"
 requires-python = ">=3.11"
-dependencies = ["pv-calc-core", "pv-domain", "pv-units", "pv-materials", "pv-mdmt", "pv-supports"]
+dependencies = ["pv-calc-core", "pv-domain", "pv-units", "pv-materials", "pv-mdmt", "pv-supports", "pv-pressure-relief"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/code_asme_viii_1"]

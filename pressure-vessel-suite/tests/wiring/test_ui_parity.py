@@ -51,10 +51,34 @@ def test_her_resultgroup_emptynote_tasiyor():
     )
 
 
+def test_calculation_code_dropdown_exposes_asme_and_en():
+    """Kullanıcı desteklenen iki hesap motorunu UI'dan seçebilir."""
+    text = _read(PAGES_TSX)
+    assert '{ value: "ASME VIII-1", label: "ASME VIII Division 1" }' in text
+    assert '{ value: "EN 13445", label: "EN 13445" }' in text
+
+
 # Domain alanları arayüzde bilinçli olarak yok. Buraya bir alan eklemek bir
 # KARARDIR — gerekçesiz eklenmemeli. (Aynı desen: test_no_ghost_features.py
 # içindeki UI_DE_GOSTERILMEYENLER.)
 ARAYUZDE_YOK = {
+    "Flange.flange_id": "Flange domain UI deferred until complete Appendix 2 wiring",
+    "Flange.rating_standard": "Flange domain UI deferred until complete Appendix 2 wiring",
+    "Flange.thickness": "Flange domain UI deferred until complete Appendix 2 wiring",
+    "Flange.hub_length": "Flange domain UI deferred until complete Appendix 2 wiring",
+    "Flange.hub_small_thickness": "Flange domain UI deferred until complete Appendix 2 wiring",
+    "Flange.bolt_count": "Flange domain UI deferred until complete Appendix 2 wiring",
+    "Flange.bolt_area": "Flange domain UI deferred until complete Appendix 2 wiring",
+    "Flange.bolt_allowable_stress": "Flange domain UI deferred until complete Appendix 2 wiring",
+    "Flange.gasket_m": "Flange domain UI deferred until complete Appendix 2 wiring",
+    "Flange.gasket_y": "Flange domain UI deferred until complete Appendix 2 wiring",
+    "Head.crown_depth": "Head geometry UI field deferred to B-06 geometry completion",
+    "Head.flat_z_factor": "Head geometry UI field deferred to B-06 geometry completion",
+    "Support.anchor_bolt_count": "Phase C anchor input UI deferred",
+    "Support.anchor_bolt_diameter_mm": "Phase C anchor input UI deferred",
+    "Support.anchor_shear_allowable_N": "Phase C anchor input UI deferred",
+    "Support.anchor_tension_allowable_N": "Phase C anchor input UI deferred",
+    "Support.lateral_load_N": "Phase C anchor input UI deferred",
     # Koni: domain + hesap var (orchestrator.py kalınlık ve MAWP hesaplıyor),
     # arayüzde form yok. Kapsam genişletmesi — Faz 4'ün "kapsam dışı" listesi.
     "Cone.cone_id": "koni formu yok — Faz 4 kapsamı dışında, docs/limitations.md",

@@ -6,6 +6,8 @@ import pytest
 
 from domain import (
     CalculationCode,
+    ComponentReference,
+    Cone,
     DesignConditions,
     Head,
     HeadType,
@@ -20,10 +22,23 @@ from calc_core.volume_mass import (
     VolumeResult,
     calculate_mass,
     calculate_vessel_volume_mass,
+    cone_volume,
     head_volume,
     shell_volume,
 )
 from units import relative_tolerance
+
+
+def test_cone_volume_is_reported_in_component_chain():
+    cone = Cone(
+        cone_id="C1", large_diameter=1000.0, small_diameter=500.0,
+        half_apex_angle=20.0, length=1000.0, nominal_thickness=10.0,
+        material_id="M1",
+    )
+    vr = cone_volume(cone)
+    assert vr.component_type == "cone"
+    assert vr.inner_volume_mm3 > 0
+    assert vr.metal_volume_mm3 > 0
 
 
 # ── Gövde hacmi ───────────────────────────────────────────────────────────────
@@ -311,3 +326,23 @@ class TestVesselVolumeMassReport:
         # + 2 bombe ≈ 130 litre
         # Toplam ≈ 1688 litre
         assert 1000 < report.total_inner_volume_liters < 2500
+
+    def test_volume_mass_follows_explicit_component_sequence(self, sample_project):
+        cone = Cone(
+            cone_id="C1", large_diameter=1000.0, small_diameter=800.0,
+            half_apex_angle=10.0, length=500.0, nominal_thickness=10.0,
+            material_id=sample_project.shell_sections[0].material_id,
+        )
+        project = sample_project.model_copy(update={
+            "cones": [cone],
+            "component_sequence": [
+                ComponentReference(component_type="head", component_id="HEAD-L"),
+                ComponentReference(component_type="shell", component_id="SHELL-01"),
+                ComponentReference(component_type="cone", component_id="C1"),
+                ComponentReference(component_type="head", component_id="HEAD-R"),
+            ],
+        })
+        report = calculate_vessel_volume_mass(project)
+        assert [item.component_id for item in report.volume_results] == [
+            "HEAD-L", "SHELL-01", "C1", "HEAD-R"
+        ]

@@ -17,6 +17,8 @@ from external_pressure.ext_pressure import ExternalPressureCalculator
 
 from domain import (
     CalculationCode,
+    Cone,
+    ComponentReference,
     DesignConditions,
     Head,
     HeadType,
@@ -25,6 +27,7 @@ from domain import (
     ShellSection,
     VesselProject,
 )
+from code_asme_viii_1.design_code import ASMEVIII1DesignCode
 
 
 # ── Formül testleri ────────────────────────────────────────────────────────────
@@ -65,12 +68,12 @@ class TestExternalPressureFormulas:
         """UG-33 — Bombe dış basınç.
 
         D = 1000 mm, t = 12 mm, A = 0.0003, B = 80 MPa
-        P_allow = 8×80×12 / (3×1000) = 7680/3000 = 2.56 MPa
+        P_allow = 2×80×12 / 1000 = 1.92 MPa
         """
         P_allow, detail = head_external_pressure_allowable(
             D=1000.0, t=12.0, A=0.0003, B=80.0,
         )
-        assert relative_tolerance(P_allow, 2.56, 0.01), f"P_allow={P_allow}"
+        assert relative_tolerance(P_allow, 1.92, 0.01), f"P_allow={P_allow}"
 
     def test_shell_required_thickness(self):
         """Dış basınç için gerekli kalınlık."""
@@ -149,7 +152,7 @@ class TestExternalPressureCalculator:
         })
         assert r.code == "ASME VIII-1"
         assert r.clause_reference == "UG-28"
-        assert r.status.value == "PASS"
+        assert r.status.value == "REVIEW REQUIRED"
         assert r.final_result is not None
         assert r.final_result > 0
 
@@ -234,4 +237,22 @@ class TestExternalPressureCalculator:
             "allowable_stress_B": 80.0,
         })
         assert r.clause_reference == "UG-33"
-        assert r.status.value == "PASS"
+        assert r.status.value == "REVIEW REQUIRED"
+
+    def test_project_external_pressure_reports_cone_as_out_of_scope(self, ext_dc, mat):
+        project = VesselProject(
+            project_number="EXT-CONE-01", project_name="Cone applicability",
+            calculation_code=CalculationCode.ASME_VIII_1, code_edition="2025",
+            design_conditions=ext_dc,
+            materials=[mat],
+            cones=[Cone(cone_id="C1", large_diameter=1000.0, small_diameter=500.0,
+                        half_apex_angle=20.0, length=800.0, nominal_thickness=12.0,
+                        material_id="MAT-01")],
+        )
+
+        result = ASMEVIII1DesignCode().check_external_pressure(project)
+
+        cone_result = next(r for r in result if r.component_id == "C1")
+        assert cone_result.component_type == "cone"
+        assert cone_result.status.value == "OUT OF SCOPE"
+        assert cone_result.final_result is None

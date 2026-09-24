@@ -49,6 +49,7 @@ class VesselCADResult:
     metal_volume_mm3: float = 0.0  # Metal hacmi
     validation: Optional[CADValidationReport] = None
     error: Optional[str] = None
+    scope_status: str = "SUPPORTED"
     nozzle_count: int = 0  # Modele eklenen nozul sayısı
     warnings: List[str] = None  # type: ignore
     # Sorun değil, bilgi: modelin görsel temsil sınırları (ör. flanş ölçüsü
@@ -485,6 +486,28 @@ def build_vessel(project: VesselProject) -> VesselCADResult:
     Returns:
         VesselCADResult (shape, hacim, doğrulama).
     """
+    sequence = getattr(project, "component_sequence", None) or []
+    canonical = len(project.shell_sections) == 1 and len(project.heads) == 2 and not project.cones
+    if sequence:
+        expected = (
+            ("head", project.heads[0].head_id),
+            ("shell", project.shell_sections[0].section_id),
+            ("head", project.heads[1].head_id),
+        ) if canonical else ()
+        canonical = canonical and tuple(
+            (ref.component_type, ref.component_id) for ref in sequence
+        ) == expected
+    if not canonical:
+        return VesselCADResult(
+            shape=None,
+            scope_status="OUT_OF_SCOPE",
+            error=(
+                "OUT_OF_SCOPE: Kesin CAD modeli şu anda yalnızca tek silindir + "
+                "iki terminal bombe zinciri için destekleniyor. Çok elemanlı "
+                "silindir/koni zinciri için yaklaşık STEP/STL üretilmedi."
+            ),
+        )
+
     _check_cadquery()
 
     if not project.shell_sections:

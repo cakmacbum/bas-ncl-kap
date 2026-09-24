@@ -6,16 +6,17 @@ Tüm hesaplar bu nesneyi girdi alır.
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import List, Optional, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 from domain.conditions import DesignConditions
 from domain.enums import CalculationCode, Orientation
-from domain.geometry import Cone, Head, Nozzle, ShellSection, Support
+from domain.geometry import Cone, Flange, Head, Junction, Nozzle, ShellSection, Support
 from domain.load_cases import LoadCase, LoadCombination
 from domain.materials import MaterialProperty
 from domain.welds import WeldJoint
+from pressure_relief.models import PressureReliefSystem
 
 
 class FluidInfo(BaseModel):
@@ -34,6 +35,13 @@ class FluidInfo(BaseModel):
         default_factory=list,
         description="CLP tehlike sınıfları (PED sınıflandırması için).",
     )
+
+
+class ComponentReference(BaseModel):
+    """Zincirdeki basınç taşıyan bileşenin kalıcı kimlikli referansı."""
+
+    component_type: Literal["head", "shell", "cone"]
+    component_id: str
 
 
 class VesselProject(BaseModel):
@@ -67,6 +75,13 @@ class VesselProject(BaseModel):
     orientation: Orientation = Field(
         default=Orientation.VERTICAL, description="Kap yönü."
     )
+    diameter_relation: Literal["linked", "independent"] = Field(
+        default="linked",
+        description=(
+            "Gövde ve bombe iç çaplarının ilişkisi. linked: gövde çapı bombelere "
+            "yansır; independent: ayrı değerler kullanıcı tarafından korunur."
+        ),
+    )
 
     # ── Koşullar ──────────────────────────────────────────────────────────────
     design_conditions: DesignConditions = Field(
@@ -88,6 +103,14 @@ class VesselProject(BaseModel):
     cones: List[Cone] = Field(
         default_factory=list, description="Konik bölümler / reducer."
     )
+    junctions: List[Junction] = Field(
+        default_factory=list, description="Komşu basınç taşıyan bileşen birleşimleri."
+    )
+    component_sequence: List[ComponentReference] = Field(
+        default_factory=list,
+        description="Doğrusal basınç taşıyan bileşen zinciri.",
+    )
+    flanges: List[Flange] = Field(default_factory=list, description="Appendix 2 flanşlar.")
     nozzles: List[Nozzle] = Field(
         default_factory=list, description="Nozullar."
     )
@@ -112,10 +135,36 @@ class VesselProject(BaseModel):
         default_factory=list, description="Yük kombinasyonları."
     )
 
+    pressure_relief: Optional[PressureReliefSystem] = Field(
+        default=None, description="UG-125--136 basınç tahliye sistemi tanımı."
+    )
+
     # ── Metadata ──────────────────────────────────────────────────────────────
     input_file_hash: Optional[str] = Field(
         default=None, description="Girdi dosyası hash'i (JSON kaydetme sırasında üretilir)."
     )
+
+    @model_validator(mode="after")
+    def validate_component_sequence(self) -> "VesselProject":
+        """Açık zincir varsa kimlik ve terminal bütünlüğünü doğrula."""
+        if not self.component_sequence:
+            return self
+        available = {
+            "head": {item.head_id for item in self.heads},
+            "shell": {item.section_id for item in self.shell_sections},
+            "cone": {item.cone_id for item in self.cones},
+        }
+        seen: set[tuple[str, str]] = set()
+        for ref in self.component_sequence:
+            key = (ref.component_type, ref.component_id)
+            if key in seen:
+                raise ValueError(f"component_sequence içinde yinelenen bileşen: {key[0]}:{key[1]}")
+            seen.add(key)
+            if ref.component_id not in available[ref.component_type]:
+                raise ValueError(f"component_sequence bileşeni bulunamadı: {key[0]}:{key[1]}")
+        if len(self.component_sequence) < 2 or self.component_sequence[0].component_type != "head" or self.component_sequence[-1].component_type != "head":
+            raise ValueError("component_sequence iki terminal bombe ile başlamalı ve bitmelidir")
+        return self
 
     def get_material(self, material_id: str) -> Optional[MaterialProperty]:
         """ID ile malzeme getir."""
@@ -132,4 +181,4 @@ class VesselProject(BaseModel):
         return None
 
 
-__all__ = ["VesselProject", "FluidInfo"]
+__all__ = ["VesselProject", "FluidInfo", "ComponentReference"]

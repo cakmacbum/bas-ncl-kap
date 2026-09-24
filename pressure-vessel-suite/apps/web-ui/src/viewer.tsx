@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Bounds, Html, GizmoHelper, GizmoViewport } from "@react-three/drei";
+import { Bounds, Html, GizmoHelper, GizmoViewport } from "@react-three/drei";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader.js";
 import * as THREE from "three";
+import { CameraHelpNote, CameraRigLayer, CameraToolbar, type CameraApi } from "./cameraToolbar";
 
 // 3D model için ölçü/konum bilgisi (project data'dan; K2 — mesh'ten ölçülmez).
 export interface NozzleDims {
@@ -40,7 +41,7 @@ function VesselMesh({ geometry, dims, clippingPlanes }: { geometry: THREE.Buffer
   return (
     <group>
       <mesh geometry={geometry} castShadow receiveShadow>
-        <meshStandardMaterial color="#aeb8c4" metalness={0.6} roughness={0.38} side={THREE.DoubleSide} clippingPlanes={clippingPlanes} />
+        <meshStandardMaterial color="#b8b8b8" metalness={0.6} roughness={0.38} side={THREE.DoubleSide} clippingPlanes={clippingPlanes} />
       </mesh>
 
       {/* Ölçü etiketleri (project data) */}
@@ -68,12 +69,15 @@ interface ViewerProps {
   autoRotate: boolean;
   dims: ModelDims;
   section: boolean;
+  orientation?: "horizontal" | "vertical";
+  onManual?: () => void;
 }
 
-export function VesselViewer({ url, autoRotate, dims, section }: ViewerProps) {
+export function VesselViewer({ url, autoRotate, dims, section, onManual }: ViewerProps) {
   const [geometry, setGeometry] = useState<THREE.BufferGeometry | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const cameraApi = useRef<CameraApi | null>(null);
 
   // Kesit düzlemi — Y ekseninde üst yarıyı keser (normal aşağı, sabit=0)
   const clipPlane = useMemo(() => new THREE.Plane(new THREE.Vector3(0, -1, 0), 0), []);
@@ -127,6 +131,7 @@ export function VesselViewer({ url, autoRotate, dims, section }: ViewerProps) {
   const isVertical = dims.orientation === "vertical";
 
   return (
+    <div className="viewer-frame">
     <Canvas
       camera={{ position: [2600, 1700, 2900], near: 1, far: 60000, fov: 42 }}
       gl={{ alpha: true, antialias: true, localClippingEnabled: true }}
@@ -135,7 +140,7 @@ export function VesselViewer({ url, autoRotate, dims, section }: ViewerProps) {
       <ambientLight intensity={0.55} />
       <directionalLight position={[1500, 3000, 2000]} intensity={1.3} />
       <directionalLight position={[-2000, -1000, -1500]} intensity={0.35} />
-      <hemisphereLight args={["#dfe7f0", "#1a2230", 0.4]} />
+      <hemisphereLight args={["#eeeeee", "#1a1a1a", 0.4]} />
 
       <Bounds fit clip observe margin={1.35}>
         <group rotation={isVertical ? [-Math.PI / 2, 0, 0] : [0, 0, 0]}>
@@ -143,16 +148,14 @@ export function VesselViewer({ url, autoRotate, dims, section }: ViewerProps) {
         </group>
       </Bounds>
 
-      <OrbitControls
-        makeDefault
-        autoRotate={autoRotate && !section}
-        autoRotateSpeed={0.8}
-        enableDamping
-        dampingFactor={0.08}
-      />
+      <CameraRigLayer apiRef={cameraApi} orientation={dims.orientation} onManual={onManual}
+        autoRotate={autoRotate && !section} />
       <GizmoHelper alignment="bottom-right" margin={[70, 70]}>
-        <GizmoViewport axisColors={["#ef5a63", "#37c98b", "#4aa8e0"]} labelColor="#e6edf5" />
+        <GizmoViewport axisColors={["#ef5a63", "#37c98b", "#4aa8e0"]} labelColor="#fafafa" />
       </GizmoHelper>
     </Canvas>
+    <CameraToolbar apiRef={cameraApi} onManual={onManual} autoRotate={autoRotate} />
+    <CameraHelpNote />
+    </div>
   );
 }

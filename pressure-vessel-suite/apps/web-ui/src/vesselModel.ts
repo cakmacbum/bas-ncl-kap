@@ -5,7 +5,7 @@
 // K1: Burada mühendislik formülü yoktur — yalnızca görselleştirme geometrisi.
 //     Kalınlık/MAWP gibi kod hesapları backend'deki `code-*` paketlerine aittir.
 
-import type { Head, Nozzle, ShellSection } from "./types";
+import type { ComponentReference, Cone, Head, Nozzle, ShellSection } from "./types";
 
 /** Bombe derinliği (düz flanş dahil, mm). */
 export function headDepth(di: number, type: string, sf: number): number {
@@ -82,8 +82,12 @@ export function vesselProfile(
   const sfR = Math.max(rightHead.straight_flange_length ?? 0, 0);
 
   // Dış yüzey: sol kutup → sol ekvator → gövde → sağ ekvator → sağ kutup
-  const leftOuter = domeProfile(ro, leftHead.type, -1).reverse(); // kutuptan ekvatora
-  const rightOuter = domeProfile(ro, rightHead.type, 1);
+  const leftRi = Math.max(leftHead.inside_diameter / 2, 0.5);
+  const rightRi = Math.max(rightHead.inside_diameter / 2, 0.5);
+  const leftRo = leftRi + Math.max(leftHead.nominal_thickness, 0.5);
+  const rightRo = rightRi + Math.max(rightHead.nominal_thickness, 0.5);
+  const leftOuter = domeProfile(leftRo, leftHead.type, -1).reverse(); // kutuptan ekvatora
+  const rightOuter = domeProfile(rightRo, rightHead.type, 1);
 
   const outer: Pt2[] = [
     ...leftOuter.map((p) => ({ r: p.r, z: p.z - sfL })),
@@ -93,17 +97,90 @@ export function vesselProfile(
   ];
 
   // İç yüzey: aynı yol, kalınlık kadar içeride, ters yönde
-  const leftInner = domeProfile(ri, leftHead.type, -1).reverse();
-  const rightInner = domeProfile(ri, rightHead.type, 1);
+  const leftInner = domeProfile(leftRi, leftHead.type, -1).reverse();
+  const rightInner = domeProfile(rightRi, rightHead.type, 1);
 
   const inner: Pt2[] = [
-    ...leftInner.map((p) => ({ r: p.r, z: p.z - sfL + t })),
+    ...leftInner.map((p) => ({ r: p.r, z: p.z - sfL + Math.max(leftHead.nominal_thickness, 0.5) })),
     { r: ri, z: 0 },
     { r: ri, z: L },
-    ...rightInner.map((p) => ({ r: p.r, z: p.z + L + sfR - t })),
+    ...rightInner.map((p) => ({ r: p.r, z: p.z + L + sfR - Math.max(rightHead.nominal_thickness, 0.5) })),
   ];
 
   // Kapalı kesit: dış ileri + iç geri
+  return [...outer, ...inner.reverse()];
+}
+
+/** Zincirdeki tüm basınç taşıyan elemanların görsel yarı profilini üretir. */
+export function vesselProfileChain(
+  shells: ShellSection[],
+  heads: Head[],
+  cones: Cone[],
+  sequence: ComponentReference[],
+): Pt2[] {
+  const byId = {
+    shell: new Map(shells.map((x) => [x.section_id, x])),
+    head: new Map(heads.map((x) => [x.head_id, x])),
+    cone: new Map(cones.map((x) => [x.cone_id, x])),
+  };
+  const outer: Pt2[] = [];
+  const inner: Pt2[] = [];
+  let z = 0;
+  sequence.forEach((ref, index) => {
+    const first = index === 0;
+    const last = index === sequence.length - 1;
+    if (ref.component_type === "shell") {
+      const item = byId.shell.get(ref.component_id);
+      if (!item) return;
+      const ri = Math.max(item.inside_diameter ?? 1, 1) / 2;
+      const t = Math.max(item.nominal_thickness, 0.5);
+      const L = Math.max(item.tangent_length, 1);
+      outer.push({ r: ri + t, z }, { r: ri + t, z: z + L });
+      inner.push({ r: ri, z }, { r: ri, z: z + L });
+      z += L;
+    } else if (ref.component_type === "cone") {
+      const item = byId.cone.get(ref.component_id);
+      if (!item) return;
+      const t = Math.max(item.nominal_thickness, 0.5);
+      const rLarge = item.large_diameter / 2 + t;
+      const rSmall = item.small_diameter / 2 + t;
+      outer.push({ r: rLarge, z }, { r: rSmall, z: z + item.length });
+      inner.push({ r: item.large_diameter / 2, z }, { r: item.small_diameter / 2, z: z + item.length });
+      z += item.length;
+    } else {
+      const item = byId.head.get(ref.component_id);
+      if (!item) return;
+      const ri = Math.max(item.inside_diameter / 2, 0.5);
+      const t = Math.max(item.nominal_thickness, 0.5);
+      const sf = Math.max(item.straight_flange_length ?? 0, 0);
+      const h = headDomeHeight(item.inside_diameter, item.type);
+      const dome = domeProfile(ri + t, item.type, first ? -1 : 1);
+      const domeInner = domeProfile(ri, item.type, first ? -1 : 1);
+      // Each sequence item occupies [z, z + headDepth]. The left head runs
+      // pole-to-equator and then its straight flange; the right head runs
+      // flange-to-equator and then pole. This keeps the following component
+      // attached at the shared tangent plane instead of leaving an axial gap.
+      const domeOffset = first ? h : sf;
+      const shifted = dome.map((p) => ({ r: p.r, z: z + p.z + domeOffset }));
+      const shiftedInner = domeInner.map((p) => ({ r: p.r, z: z + p.z + domeOffset }));
+      if (first) {
+        outer.push(...shifted.reverse());
+        inner.push(...shiftedInner.reverse());
+        if (sf > 0) {
+          outer.push({ r: ri + t, z: z + h + sf });
+          inner.push({ r: ri, z: z + h + sf });
+        }
+      } else if (last) {
+        if (sf > 0) {
+          outer.push({ r: ri + t, z }, { r: ri + t, z: z + sf });
+          inner.push({ r: ri, z }, { r: ri, z: z + sf });
+        }
+        outer.push(...shifted);
+        inner.push(...shiftedInner);
+      }
+      z += headDepth(item.inside_diameter, item.type, sf);
+    }
+  });
   return [...outer, ...inner.reverse()];
 }
 
@@ -113,11 +190,10 @@ export function overallLength(
   leftHead: Head,
   rightHead: Head,
 ): number {
-  const di = shell.inside_diameter ?? 0;
   return (
     shell.tangent_length +
-    headDepth(di, leftHead.type, leftHead.straight_flange_length ?? 0) +
-    headDepth(di, rightHead.type, rightHead.straight_flange_length ?? 0)
+    headDepth(leftHead.inside_diameter, leftHead.type, leftHead.straight_flange_length ?? 0) +
+    headDepth(rightHead.inside_diameter, rightHead.type, rightHead.straight_flange_length ?? 0)
   );
 }
 

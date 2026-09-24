@@ -11,6 +11,13 @@ export function defaultProject(): VesselProject {
     code_edition: "2025",
     unit_system: "SI",
     orientation: "horizontal",
+    diameter_relation: "linked",
+    pressure_relief: {
+      enabled: false,
+      protected_mawp_mpa: null,
+      accumulation_limit_percent: 10,
+      devices: [],
+    },
     design_conditions: {
       operating_pressure: 1.0,
       design_pressure: 1.2,
@@ -83,6 +90,13 @@ export function defaultProject(): VesselProject {
       makeHead("HEAD-L"),
       makeHead("HEAD-R"),
     ],
+    cones: [],
+    junctions: [],
+    component_sequence: [
+      { component_type: "head", component_id: "HEAD-L" },
+      { component_type: "shell", component_id: "SHELL-01" },
+      { component_type: "head", component_id: "HEAD-R" },
+    ],
     nozzles: [
       {
         tag: "N1",
@@ -128,6 +142,25 @@ function makeHead(id: string) {
   };
 }
 
+/** Eski tek silindirli JSON'larını güncel zincir sözleşmesine taşır. */
+export function normalizeProject(project: VesselProject): VesselProject {
+  const cones = project.cones ?? [];
+  const sequence = project.component_sequence ?? [];
+  if (sequence.length > 0) return { ...project, cones };
+  if (project.shell_sections.length === 1 && project.heads.length === 2 && cones.length === 0) {
+    return {
+      ...project,
+      cones,
+      component_sequence: [
+        { component_type: "head", component_id: project.heads[0].head_id },
+        { component_type: "shell", component_id: project.shell_sections[0].section_id },
+        { component_type: "head", component_id: project.heads[1].head_id },
+      ],
+    };
+  }
+  return { ...project, cones, component_sequence: sequence };
+}
+
 type Theme = "dark" | "light";
 
 interface AppState {
@@ -142,6 +175,7 @@ interface AppState {
   setProject: (updater: (p: VesselProject) => VesselProject) => void;
   patchConditions: (patch: Partial<VesselProject["design_conditions"]>) => void;
   setProjectId: (id: string, hash: string) => void;
+  loadProject: (id: string, project: VesselProject) => void;
   setCalc: (c: CalcPayload | null) => void;
   setStep: (s: number) => void;
   setDirty: (d: boolean) => void;
@@ -152,6 +186,18 @@ interface AppState {
   addSupport: () => void;
   removeSupport: (index: number) => void;
   updateSupport: (index: number, patch: Partial<VesselProject["supports"][0]>) => void;
+  updateShell: (sectionId: string, patch: Partial<VesselProject["shell_sections"][0]>) => void;
+  updateHead: (headId: string, patch: Partial<VesselProject["heads"][0]>) => void;
+  updateCone: (coneId: string, patch: Partial<VesselProject["cones"][0]>) => void;
+  updateMaterial: (materialId: string, patch: Partial<VesselProject["materials"][0]>) => void;
+  updateWeld: (jointId: string, patch: Partial<VesselProject["welds"][0]>) => void;
+  addMaterial: () => void;
+  removeMaterial: (materialId: string) => void;
+  addWeld: () => void;
+  removeWeld: (jointId: string) => void;
+  duplicateComponent: (ref: VesselProject["component_sequence"][0]) => void;
+  removeComponent: (ref: VesselProject["component_sequence"][0]) => void;
+  moveComponent: (index: number, direction: -1 | 1) => void;
 }
 
 export const useStore = create<AppState>((set) => ({
@@ -160,7 +206,7 @@ export const useStore = create<AppState>((set) => ({
   inputHash: null,
   calc: null,
   step: 0,
-  theme: "dark",
+  theme: "light",
   dirty: true,
 
   setProject: (updater) =>
@@ -175,6 +221,10 @@ export const useStore = create<AppState>((set) => ({
       calc: null,
     })),
   setProjectId: (id, hash) => set({ projectId: id, inputHash: hash, dirty: false }),
+  loadProject: (id, project) => set({
+    project: normalizeProject(project), projectId: id, inputHash: null,
+    calc: null, dirty: false, step: 0,
+  }),
   setCalc: (c) => set({ calc: c }),
   setStep: (step) => set({ step }),
   setDirty: (dirty) => set({ dirty }),
@@ -246,9 +296,20 @@ export const useStore = create<AppState>((set) => ({
         location_mm: Math.round((shell.tangent_length ?? 2000) * 0.2),
         width_mm: 200,
         height_mm: 500,
+        diameter_mm: null,
+        thickness_mm: null,
         material_id: "MAT-01",
         contact_angle_deg: 120,
         leg_count: null,
+        leg_diameter_mm: null,
+        leg_thickness_mm: null,
+        support_radius_mm: null,
+        base_plate_area_mm2: null,
+        anchor_bolt_count: null,
+        anchor_bolt_diameter_mm: null,
+        anchor_tension_allowable_N: null,
+        anchor_shear_allowable_N: null,
+        lateral_load_N: 0,
         overturning_moment_Nmm: 0,
       };
       return {
@@ -277,4 +338,132 @@ export const useStore = create<AppState>((set) => ({
         calc: null,
       };
     }),
+  updateShell: (sectionId, patch) =>
+    set((s) => ({
+      project: {
+        ...s.project,
+        shell_sections: s.project.shell_sections.map((section) =>
+          section.section_id === sectionId ? { ...section, ...patch } : section
+        ),
+      },
+      dirty: true,
+      calc: null,
+    })),
+  updateHead: (headId, patch) =>
+    set((s) => ({
+      project: {
+        ...s.project,
+        heads: s.project.heads.map((head) =>
+          head.head_id === headId ? { ...head, ...patch } : head
+        ),
+      },
+      dirty: true,
+      calc: null,
+    })),
+  updateCone: (coneId, patch) =>
+    set((s) => ({
+      project: {
+        ...s.project,
+        cones: s.project.cones.map((cone) =>
+          cone.cone_id === coneId ? { ...cone, ...patch } : cone
+        ),
+      },
+      dirty: true,
+      calc: null,
+    })),
+  updateMaterial: (materialId, patch) =>
+    set((s) => ({
+      project: {
+        ...s.project,
+        materials: s.project.materials.map((material) =>
+          material.material_id === materialId ? { ...material, ...patch } : material
+        ),
+      },
+      dirty: true,
+      calc: null,
+    })),
+  updateWeld: (jointId, patch) =>
+    set((s) => ({
+      project: {
+        ...s.project,
+        welds: s.project.welds.map((weld) =>
+          weld.joint_id === jointId ? { ...weld, ...patch } : weld
+        ),
+      },
+      dirty: true,
+      calc: null,
+    })),
+  addMaterial: () => set((s) => {
+    const n = s.project.materials.length + 1;
+    const source = s.project.materials[0];
+    const material = { ...source, material_id: `MAT-${String(n).padStart(2, "0")}`, material_designation: `${source.material_designation} (kopya)` };
+    return { project: { ...s.project, materials: [...s.project.materials, material] }, dirty: true, calc: null };
+  }),
+  removeMaterial: (materialId) => set((s) => {
+    if (s.project.materials.length <= 1) return s;
+    const remaining = s.project.materials.filter((m) => m.material_id !== materialId);
+    const fallback = remaining[0].material_id;
+    const replace = (id: string) => id === materialId ? fallback : id;
+    return { project: { ...s.project,
+      materials: remaining,
+      shell_sections: s.project.shell_sections.map((x) => ({ ...x, material_id: replace(x.material_id) })),
+      heads: s.project.heads.map((x) => ({ ...x, material_id: replace(x.material_id) })),
+      cones: s.project.cones.map((x) => ({ ...x, material_id: replace(x.material_id) })),
+      nozzles: s.project.nozzles.map((x) => ({ ...x, material_id: replace(x.material_id) })),
+      supports: s.project.supports.map((x) => ({ ...x, material_id: replace(x.material_id) })),
+    }, dirty: true, calc: null };
+  }),
+  addWeld: () => set((s) => {
+    const n = s.project.welds.length + 1;
+    const source = s.project.welds[0];
+    const weld = { ...source, joint_id: `WJ-${String(n).padStart(2, "0")}`, joint_type: "circumferential" };
+    return { project: { ...s.project, welds: [...s.project.welds, weld] }, dirty: true, calc: null };
+  }),
+  removeWeld: (jointId) => set((s) => {
+    if (s.project.welds.length <= 1) return s;
+    const remaining = s.project.welds.filter((w) => w.joint_id !== jointId);
+    const fallback = remaining[0].joint_id;
+    const replace = (id: string | null) => id === jointId ? fallback : id;
+    return { project: { ...s.project,
+      welds: remaining,
+      shell_sections: s.project.shell_sections.map((x) => ({ ...x, weld_joint_id: replace(x.weld_joint_id) })),
+      heads: s.project.heads.map((x) => ({ ...x, weld_joint_id: replace(x.weld_joint_id) })),
+      cones: s.project.cones.map((x) => ({ ...x, weld_joint_id: replace(x.weld_joint_id) })),
+    }, dirty: true, calc: null };
+  }),
+  duplicateComponent: (ref) => set((s) => {
+    const suffix = Date.now().toString(36).slice(-4).toUpperCase();
+    const nextId = `${ref.component_type === "shell" ? "SHELL" : ref.component_type === "head" ? "HEAD" : "CONE"}-${suffix}`;
+    let project = s.project;
+    if (ref.component_type === "shell") {
+      const item = s.project.shell_sections.find((x) => x.section_id === ref.component_id);
+      if (item) project = { ...project, shell_sections: [...project.shell_sections, { ...item, section_id: nextId }] };
+    } else if (ref.component_type === "head") {
+      const item = s.project.heads.find((x) => x.head_id === ref.component_id);
+      if (item) project = { ...project, heads: [...project.heads, { ...item, head_id: nextId }] };
+    } else {
+      const item = s.project.cones.find((x) => x.cone_id === ref.component_id);
+      if (item) project = { ...project, cones: [...project.cones, { ...item, cone_id: nextId }] };
+    }
+    const index = s.project.component_sequence.findIndex((x) => x.component_id === ref.component_id);
+    const sequence = [...s.project.component_sequence];
+    sequence.splice(index + 1, 0, { component_type: ref.component_type, component_id: nextId });
+    return { project: { ...project, component_sequence: sequence }, dirty: true, calc: null };
+  }),
+  removeComponent: (ref) => set((s) => {
+    const sequence = s.project.component_sequence.filter((x) => x.component_id !== ref.component_id);
+    const project = ref.component_type === "shell"
+      ? { ...s.project, shell_sections: s.project.shell_sections.filter((x) => x.section_id !== ref.component_id) }
+      : ref.component_type === "head"
+        ? { ...s.project, heads: s.project.heads.filter((x) => x.head_id !== ref.component_id) }
+        : { ...s.project, cones: s.project.cones.filter((x) => x.cone_id !== ref.component_id) };
+    return { project: { ...project, component_sequence: sequence, nozzles: project.nozzles.filter((x) => x.host_component_id !== ref.component_id) }, dirty: true, calc: null };
+  }),
+  moveComponent: (index, direction) => set((s) => {
+    const next = index + direction;
+    if (next < 0 || next >= s.project.component_sequence.length) return s;
+    const sequence = [...s.project.component_sequence];
+    [sequence[index], sequence[next]] = [sequence[next], sequence[index]];
+    return { project: { ...s.project, component_sequence: sequence }, dirty: true, calc: null };
+  }),
 }));

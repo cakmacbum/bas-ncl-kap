@@ -11,6 +11,7 @@ from __future__ import annotations
 from typing import Any, Dict, List, Optional
 
 from calc_core.result import CalculationResult
+from domain.enums import CalculationStatus
 from external_pressure import formulas
 
 
@@ -31,6 +32,17 @@ class ExternalPressureCalculator:
     def __init__(self, code: str = "ASME VIII-1", edition: str = "2025"):
         self._code = code
         self._edition = edition
+
+    @staticmethod
+    def _guard_preliminary_estimate(result: CalculationResult) -> CalculationResult:
+        """Never expose an estimated external-pressure check as a final PASS."""
+        if result.status == CalculationStatus.PASS:
+            result.set_review_required(
+                "External-pressure methods in this module are preliminary estimates; "
+                "verified code charts and the complete applicable UG-28/UG-33 method "
+                "are required before acceptance."
+            )
+        return result
 
     def check_shell_external_pressure(self, input_data: dict) -> CalculationResult:
         """Silindirik gövde dış basınç stabilite kontrolü.
@@ -150,7 +162,14 @@ class ExternalPressureCalculator:
         result.utilization_ratio = utilization
 
         if P_ext <= P_allow:
-            result.set_pass(utilization)
+            result.set_review_required(
+                "External-pressure allowable is based on manually supplied A/B factors "
+                "and a simplified UG-28 method; independent code-chart verification is required."
+            )
+            result.add_warning(
+                "Preliminary external-pressure check is within the estimated allowable; "
+                "this is not a final PASS."
+            )
         else:
             result.set_fail(utilization)
             result.add_warning(
@@ -167,7 +186,7 @@ class ExternalPressureCalculator:
             "source_reference": mat.source_reference,
         }
 
-        return result
+        return self._guard_preliminary_estimate(result)
 
     def check_head_external_pressure(self, input_data: dict) -> CalculationResult:
         """Bombe dış basınç stabilite kontrolü.
@@ -251,7 +270,7 @@ class ExternalPressureCalculator:
             result.set_not_calculated(str(e))
             return result
 
-        result.add_intermediate("D", D, "mm", "Inside diameter")
+        result.add_intermediate("D", D, "mm", "Outside diameter")
         result.add_intermediate("t", t, "mm", "Nominal thickness")
         result.add_intermediate("D/t", detail.D_over_t, "-", "Diameter-to-thickness ratio")
         result.add_intermediate("A", A, "-", "Strain factor")
@@ -267,7 +286,14 @@ class ExternalPressureCalculator:
         result.utilization_ratio = utilization
 
         if P_ext <= P_allow:
-            result.set_pass(utilization)
+            result.set_review_required(
+                "Head external-pressure allowable uses a simplified UG-33/UG-28(d) "
+                "approach; geometry and code-chart verification are required."
+            )
+            result.add_warning(
+                "Preliminary head external-pressure check is within the estimated allowable; "
+                "this is not a final PASS."
+            )
         else:
             result.set_fail(utilization)
             result.add_warning(
@@ -281,7 +307,7 @@ class ExternalPressureCalculator:
             "source_reference": mat.source_reference,
         }
 
-        return result
+        return self._guard_preliminary_estimate(result)
 
     def check_vacuum_stability(self, input_data: dict) -> CalculationResult:
         """Vakum stabilite kontrolü (tam vakum = ~0.101 MPa dış basınç).

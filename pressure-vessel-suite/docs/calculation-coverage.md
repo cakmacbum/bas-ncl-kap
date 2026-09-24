@@ -62,7 +62,9 @@
 
 ## V1 kapsam notları
 
-- **Tasarım rotası:** ASME VIII-1 veya EN 13445 + PED seçilir (her ikisi de aktif).
+- **Tasarım rotası:** Backend ASME VIII-1 veya EN 13445 motorunu seçebilir. EN rotası aktif
+  olmakla birlikte bazı modüller henüz kapsam dışıdır ve `REVIEW_REQUIRED`/`NOT_CALCULATED`
+  dönebilir; UI’da EN seçimi uyarı ile sunulur.
 - **Malzeme:** Manuel giriş (allowable stress, yield, tensile). Otomatik malzeme veritabanı yok.
 - **Nozul:** Radyal nozullar, area-replacement yöntemi. Manşon, muf, manway ve flanşlı nozul tipleri.
 - **Kap tipi:** Sabit, metalik, ateşle temas etmeyen, tek basınç odası.

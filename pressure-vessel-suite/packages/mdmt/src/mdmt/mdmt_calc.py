@@ -73,12 +73,20 @@ class MDMTCalculator:
         impact_test_temp = input_data.get("impact_test_temperature_C")
 
         comp_id = ""
+        comp_type = "system"
         if component:
-            comp_id = getattr(component, "section_id", None) or getattr(component, "head_id", "")
+            comp_id = (
+                getattr(component, "section_id", None)
+                or getattr(component, "head_id", None)
+                or getattr(component, "cone_id", "")
+            )
+            comp_type = "shell" if hasattr(component, "section_id") else (
+                "head" if hasattr(component, "head_id") else "cone"
+            )
 
         result = CalculationResult(
             component_id=comp_id,
-            component_type="system",
+            component_type=comp_type,
             calculation_type="mdmt_check",
             code=self._code,
             edition=self._edition,
@@ -163,7 +171,10 @@ class MDMTCalculator:
                     "Impact test temperature"
                 )
                 if impact_test_temp <= dc.minimum_design_temperature:
-                    result.set_pass()
+                    result.set_review_required(
+                        "Impact test covers the design temperature, but the MDMT limit "
+                        "uses a simplified UCS-66 approximation and requires chart verification."
+                    )
                     result.add_assumption(
                         f"K4: Impact test at {impact_test_temp}°C covers "
                         f"minimum design temperature {dc.minimum_design_temperature}°C."
@@ -182,10 +193,23 @@ class MDMTCalculator:
                 )
         else:
             # MDMT limiti altında → muafiyet
-            result.set_pass()
+            result.set_review_required(
+                "Temperature is below the estimated UCS-66 limit; exemption is not final "
+                "until the actual UCS-66 curve/table is verified."
+            )
             result.add_assumption(
                 f"K4: Minimum design temperature ({dc.minimum_design_temperature}°C) "
-                f"< MDMT limit ({mdmt_limit}°C). Impact test exemption per UCS-66(a)."
+                f"< estimated MDMT limit ({mdmt_limit}°C); preliminary exemption only."
+            )
+
+        # This package uses an approximate limit/linear thickness adjustment, not
+        # the licensed UCS-66 curves and all applicable exemptions. Keep that
+        # evidence boundary explicit even if a future branch sets PASS above.
+        # A FAIL based on an impact test that does not cover the design temperature
+        # remains a FAIL; every other calculated UCS-66 estimate needs review.
+        if result.status.value != "FAIL":
+            result.set_review_required(
+                "Approximate UCS-66 result; verify against the applicable code curve and rules."
             )
 
         result.final_result = mdmt_limit

@@ -1,5 +1,27 @@
 # UI Design Notes — Basınçlı Kap Suite
 
+## 2026-09-16 — Mühendislik çalışma alanı yenilemesi
+
+Güncel sunum katmanı `apps/web-ui/src/workspace.css` dosyasındadır ve temel
+`theme.css` dosyasından sonra yüklenir. Aşağıdaki eski palet notları önceki
+tasarımın kaydıdır; güncel vurgu açık temada #126d67, koyu temada #66c5bc'dir.
+
+- Lacivert gezinme alanı, açık çalışma yüzeyi ve IBM Plex Sans/Mono tipografisi.
+- Varsayılan açık tema; mevcut tema düğmesiyle koyu görünüm korunur.
+- Proje girişinde mevcut VesselSchematic bileşeni ve gerçek proje girdileriyle
+  teknik önizleme. Önizleme bir hesap onayı veya imalat çizimi olarak sunulmaz.
+- Altı adımlı hesap akışı korunur. Gezilen adımlar başarı işareti almaz;
+  etkin adım `aria-current` ile belirtilir.
+- Hesap hataları, eksik veri durumları, boş sonuç açıklamaları ve madde
+  referansları mevcut bileşenlerden gösterilmeye devam eder.
+- 1200 px altında proje özeti tek sütuna, 760 px altında gezinme yatay şeride
+  geçer. Klavye için içeriğe geç bağlantısı ve azaltılmış hareket desteği vardır.
+- Hesap motoru, API, proje veri modeli ve CAD geometri fonksiyonları değişmedi.
+
+Doğrulama: TypeScript ve Vite üretim derlemesi başarılı; tam Python test
+koşusunda 567 test geçti, 1 test atlandı. Bağlı tarayıcı
+bulunmadığı için gerçek ekran boyutlarında görsel kontrol yapılmadı.
+
 ## Tasarım Yönü: Refined Minimalism / Precision
 
 Basınçlı Kap Suite, bir mühendislik/teknik SaaS aracıdır (PV Elite/COMPRESS muadili). Kullanıcılar mühendisler, teknik ressamlar ve basınçlı kap tasarımcılarıdır. Arayüz, veri-yoğun, hassas ve profesyonel olmalıdır.

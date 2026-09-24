@@ -167,11 +167,14 @@ class TestEN13445Formulas:
     def test_shell_nominal_thickness_en(self):
         """EN 13445 nominal kalınlık hesabı.
 
+        Mill negatif toleransı sipariş edilen nominal kalınlığın tamamına
+        uygulanır; korozyon payı bölmenin içinde kalmalıdır.
+
         e_required = 3.679 mm, C = 2.0 mm, mill = 0.90 (%10)
-        e_nominal = 3.679 / 0.90 + 2.0 = 4.088 + 2.0 = 6.088 mm
+        e_nominal = (3.679 + 2.0) / 0.90 = 5.679 / 0.90 = 6.310 mm
         """
         e_nom = formulas.shell_required_nominal_thickness(3.679, 2.0, 0.90)
-        assert relative_tolerance(e_nom, 6.088, 0.01), f"e_nom={e_nom}"
+        assert relative_tolerance(e_nom, 6.310, 0.01), f"e_nom={e_nom}"
 
     def test_elliptical_head_thickness_en(self):
         """EN 13445-3, 5.5.2 — Elipsoidal bombe.

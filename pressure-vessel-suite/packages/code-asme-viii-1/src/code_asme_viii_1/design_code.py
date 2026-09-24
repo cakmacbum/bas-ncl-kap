@@ -31,10 +31,23 @@ def _torispherical_radii(head, D: float, result: CalculationResult) -> tuple[flo
     bombe. Fiziksel bombe %6 bükümlüyse bu emniyetsiz taraftadır.
     Bkz. docs/validation/asme-worked-examples.md V-12.
     """
-    L = head.crown_radius if head.crown_radius else D
+    if getattr(head, "torispherical_geometry", "standard_asme_fd") == "custom":
+        if not head.crown_radius or not head.knuckle_radius:
+            raise ValueError("Özel torisferik geometri için crown_radius ve knuckle_radius zorunludur")
+        return head.crown_radius, head.knuckle_radius
+
+    # F&D taç yarıçapı dış geometriye göre tanımlanır. `D` çağıran tarafta
+    # korozyonlu iç çap olduğundan onu kullanmak geometriyi ve gerekli et
+    # kalınlığını emniyetsiz yönde az miktarda saptırabilir. Dış çap açıkça
+    # verilmişse onu kullan; yoksa nominal etten as-built dış çapı türet.
+    outside_diameter = head.outside_diameter or (
+        head.inside_diameter + 2.0 * head.nominal_thickness
+    )
+    L = head.crown_radius if head.crown_radius else outside_diameter
     if not head.crown_radius:
         result.add_assumption(
-            f"K4: Taç yarıçapı girilmedi; standart ASME F&D varsayıldı (L = D = {L:.1f} mm)."
+            f"K4: Taç yarıçapı girilmedi; standart ASME F&D varsayıldı "
+            f"(L = dış çap = {L:.1f} mm)."
         )
 
     r = head.knuckle_radius if head.knuckle_radius else ASME_FD_KNUCKLE_RATIO * L
@@ -331,7 +344,10 @@ class ASMEVIII1DesignCode(DesignCode):
             if head.type == HeadType.ELLIPTICAL:
                 result.clause_reference = "UG-32(d)"
                 result.formula_reference = "UG-32(d)"
-                t, K = formulas.head_elliptical_thickness(P, D, S, E)
+                if head.crown_depth:
+                    t, K = formulas.head_elliptical_thickness_general(P, D, head.crown_depth, S, E)
+                else:
+                    t, K = formulas.head_elliptical_thickness(P, D, S, E)
                 result.add_intermediate("K_factor", K, "-", "2:1 elliptical head factor")
                 result.add_intermediate("t_required", t, "mm", "Required thickness")
 
@@ -367,7 +383,14 @@ class ASMEVIII1DesignCode(DesignCode):
                 # `shell_required_nominal_thickness` adımında BİR KEZ ekleniyor —
                 # diğer bombe tipleriyle aynı desen. Eskiden hem burada hem orada
                 # eklendiği için kalınlık %5-25 fazla çıkıyordu (V-17).
-                t = formulas.flat_head_thickness(P, D, S, E, C_attach, CA=0.0)
+                if head.flat_z_factor is not None:
+                    t = formulas.flat_head_thickness_non_circular(
+                        P, D, S, E, C_attach, head.flat_z_factor, CA=0.0
+                    )
+                    result.clause_reference = "UG-34(c)(3)"
+                    result.formula_reference = "UG-34(c)(3)"
+                else:
+                    t = formulas.flat_head_thickness(P, D, S, E, C_attach, CA=0.0)
                 result.add_intermediate("C_attach", C_attach, "-", "UG-34 attachment factor")
                 result.add_intermediate("d_corroded", D, "mm", "Corroded diameter")
                 result.add_intermediate("t_required", t, "mm", "Required thickness")
@@ -592,6 +615,23 @@ class ASMEVIII1DesignCode(DesignCode):
 
         return result
 
+    @staticmethod
+    def _governing_test_material(input_data: dict, materials: list):
+        """Liste sırası yerine bağlı basınç taşıyan malzemeyi belirle."""
+        project = input_data.get("project")
+        if project is None:
+            candidates = list(materials)
+        else:
+            material_ids = {
+                component.material_id
+                for collection in (project.shell_sections, project.heads, project.cones)
+                for component in collection
+            }
+            candidates = [material for material in materials if material.material_id in material_ids]
+            if not candidates:
+                candidates = list(materials)
+        return min(candidates, key=lambda material: material.allowable_stress)
+
     def calculate_hydrotest_pressure(self, input_data: dict) -> CalculationResult:
         """UG-99 — Hidrostatik test basıncı.
 
@@ -625,7 +665,7 @@ class ASMEVIII1DesignCode(DesignCode):
             return result
 
         # İlk malzemeyi kullan (V1'de basitleştirme)
-        mat = materials[0]
+        mat = self._governing_test_material(input_data, materials)
         S_design = mat.allowable_stress
 
         # V1'de test sıcaklığındaki gerilme = tasarım sıcaklığındaki gerilme varsayımı
@@ -634,7 +674,7 @@ class ASMEVIII1DesignCode(DesignCode):
 
         result.add_assumption(
             f"K4: Test temperature allowable stress = design temperature allowable stress "
-            f"({S_design} MPa). Ratio = 1.0 (conservative)."
+            f"({S_design} MPa). Ratio = 1.0 (conservative). Governing material: {mat.material_id}."
         )
 
         # UG-99(b) tabanı MAWP'dir. Endnote yalnızca MAWP hesaplanmadığında tasarım
@@ -716,13 +756,13 @@ class ASMEVIII1DesignCode(DesignCode):
             result.set_not_calculated("No materials defined for pneumatic test calculation")
             return result
 
-        mat = materials[0]
+        mat = self._governing_test_material(input_data, materials)
         S_design = mat.allowable_stress
         S_test = S_design  # Konservatif varsayım (hidrotest ile aynı)
 
         result.add_assumption(
             f"K4: Test temperature allowable stress = design temperature allowable stress "
-            f"({S_design} MPa). Ratio = 1.0 (conservative)."
+            f"({S_design} MPa). Ratio = 1.0 (conservative). Governing material: {mat.material_id}."
         )
 
         # UG-100 tabanı da MAWP'dir — UG-99(b) ile aynı gerekçe.
@@ -877,8 +917,40 @@ class ASMEVIII1DesignCode(DesignCode):
             reinforcement_pad_allowable_stress=host_mat.allowable_stress if host_mat else 0.0,
             design_pressure=dc.design_pressure,
             design_temperature=dc.design_temperature,
+            nozzle_inclination_angle=nozzle.inclination_angle,
         )
         return build_reinforcement_calculation_result(inp)
+
+    def calculate_flange(self, input_data: dict) -> CalculationResult:
+        """Appendix 2 flanş stres rotası; B16 rating hesabından ayrıdır."""
+        try:
+            from flanges import FlangeCalculator
+        except ImportError:
+            return super().calculate_flange(input_data)
+        flange = input_data["flange"]
+        mat = next((m for m in input_data.get("materials", [])
+                    if m.material_id == flange.material_id), None)
+        if mat is None:
+            return FlangeCalculator(self.code_name, self.code_edition).check_flange_stress({
+                "flange": {"tag": flange.flange_id, "material_id": flange.material_id},
+                "design_conditions": input_data["design_conditions"], "materials": [],
+            })
+        # M, bolt load and Y/f are deliberately explicit: no silent Appendix 2 factors.
+        payload = {
+            "flange": {"tag": flange.flange_id, "type": flange.type,
+                       "A": flange.outside_diameter, "B": flange.inside_diameter,
+                       "t": flange.thickness, "g1": flange.hub_small_thickness,
+                       "h0": flange.hub_length, "material_id": flange.material_id},
+            "design_conditions": input_data["design_conditions"],
+            "materials": input_data.get("materials", []),
+            "bolt_load_W": input_data.get("bolt_load_W", 0.0),
+            "moment_M": input_data.get("moment_M", 0.0),
+        }
+        if input_data.get("flange_factor_Y") is not None:
+            payload["flange_factor_Y"] = input_data["flange_factor_Y"]
+        if input_data.get("flange_factor_f") is not None:
+            payload["flange_factor_f"] = input_data["flange_factor_f"]
+        return FlangeCalculator(self.code_name, self.code_edition).check_flange_stress(payload)
 
     def validate_welds(self, project) -> list:
         """Projedeki tüm kaynakları doğrula (welds paketine delege eder)."""
@@ -891,9 +963,16 @@ class ASMEVIII1DesignCode(DesignCode):
         results = []
         for weld in project.welds:
             # Bağlı bileşen kalınlığı: ilk gövde kesitini referans al (basitleştirilmiş)
-            comp_thickness = 0.0
-            if project.shell_sections:
-                comp_thickness = project.shell_sections[0].nominal_thickness
+            linked_components = [
+                component
+                for collection in (project.shell_sections, project.heads, project.cones)
+                for component in collection
+                if component.weld_joint_id == weld.joint_id
+            ]
+            comp_thickness = max(
+                (component.nominal_thickness for component in linked_components),
+                default=0.0,
+            )
             is_nozzle_weld = (weld.weld_category or "").upper() in ("C", "D")
             inp = WeldValidationInput(
                 weld=weld,
@@ -936,14 +1015,48 @@ class ASMEVIII1DesignCode(DesignCode):
         materials = project.materials
         results = []
 
-        components = list(project.shell_sections) + list(project.heads)
+        by_key = {
+            **{("shell", c.section_id): c for c in project.shell_sections},
+            **{("head", c.head_id): c for c in project.heads},
+            **{("cone", c.cone_id): c for c in project.cones},
+        }
+        sequence = getattr(project, "component_sequence", None) or []
+        unresolved_refs = []
+        if sequence:
+            declared_keys = [
+                *(('shell', c.section_id) for c in project.shell_sections),
+                *(('head', c.head_id) for c in project.heads),
+                *(('cone', c.cone_id) for c in project.cones),
+            ]
+            sequence_keys = [(ref.component_type, ref.component_id) for ref in sequence]
+            declared_counts = {key: declared_keys.count(key) for key in set(declared_keys)}
+            sequence_counts = {key: sequence_keys.count(key) for key in set(sequence_keys)}
+            for key, expected_count in declared_counts.items():
+                actual_count = sequence_counts.get(key, 0)
+                if actual_count != expected_count:
+                    issue = "missing from" if actual_count < expected_count else "duplicated in"
+                    unresolved_refs.append(f"{key[0]}:{key[1]} {issue} component_sequence")
+            components = []
+            for ref in sequence:
+                component = by_key.get((ref.component_type, ref.component_id))
+                if component is None:
+                    unresolved_refs.append(f"{ref.component_type}:{ref.component_id}")
+                else:
+                    components.append(component)
+        else:
+            components = list(project.shell_sections) + list(project.heads) + list(project.cones)
         for comp in components:
             group = None
             for m in materials:
                 if m.material_id == comp.material_id:
                     raw = getattr(m, "ucs66_curve_group", None)
                     if raw:
-                        group = UCS66CurveGroup(raw)
+                        try:
+                            group = UCS66CurveGroup(raw)
+                        except ValueError:
+                            # Unknown material metadata must not abort all MDMT
+                            # checks. None makes this component explicitly blocked.
+                            group = None
                     break
             results.append(calc.check_mdmt({
                 "component": comp,
@@ -956,6 +1069,248 @@ class ASMEVIII1DesignCode(DesignCode):
                 ),
             }))
 
+        calculated = [r for r in results if r.final_result is not None]
+        if calculated or unresolved_refs:
+            governing = max(calculated, key=lambda r: r.final_result, default=None)
+            summary = CalculationResult(
+                component_id="MDMT-GOVERNING",
+                component_type="system",
+                calculation_type="mdmt_check",
+                code=self.code_name,
+                edition=self.code_edition,
+                clause_reference="UCS-66",
+                formula_reference="UCS-66 governing component envelope",
+            )
+            complete = (
+                not unresolved_refs
+                and len(results) == len(components)
+                and bool(components)
+                and all(
+                    r.final_result is not None
+                    and r.status.value not in (
+                        "BLOCKED MISSING INPUT", "BLOCKED CODE DATA",
+                        "NOT CALCULATED", "OUT OF SCOPE",
+                    )
+                    for r in results
+                )
+            )
+            # Yöneten değer adayını eksik/uygulanamaz bileşenler varken kap
+            # sonucu gibi yayımlamayız. Aday, denetim için snapshot'ta kalır.
+            summary.final_result = governing.final_result if complete and governing else None
+            summary.final_result_unit = "°C"
+            summary.allowable_limit = project.design_conditions.minimum_design_temperature
+            summary.allowable_limit_unit = "°C"
+            summary.input_snapshot = {
+                "governing_component_id": governing.component_id if governing else None,
+                "governing_component_type": governing.component_type if governing else None,
+                "governing_material": governing.material_properties_used.get("designation", "") if governing else "",
+                "provisional_governing_mdmt_C": governing.final_result if governing else None,
+                "component_count": len(components),
+                "unresolved_component_references": unresolved_refs,
+                "minimum_design_temperature_C": project.design_conditions.minimum_design_temperature,
+            }
+            if governing:
+                summary.add_intermediate(
+                    "governing_mdmt", governing.final_result, "°C",
+                    "Highest component MDMT limit"
+                )
+                summary.add_intermediate(
+                    "governing_component_id", governing.component_id, "-",
+                    "Component controlling the MDMT envelope"
+                )
+                summary.add_intermediate(
+                    "governing_material", governing.material_properties_used.get("designation", ""), "-",
+                    "Material controlling the MDMT envelope"
+                )
+            summary.add_assumption(
+                "Governing MDMT is the highest component UCS-66 limit; all component checks remain traceable above."
+            )
+            if unresolved_refs or any(
+                r.final_result is None or r.status.value in (
+                    "BLOCKED MISSING INPUT", "BLOCKED CODE DATA",
+                    "NOT CALCULATED", "OUT OF SCOPE",
+                ) for r in results
+            ):
+                summary.set_blocked_missing_input(
+                    "Governing MDMT cannot be confirmed: at least one pressure-bearing component "
+                    "is unresolved, lacks UCS-66 input, or has no applicable calculation. "
+                    "The candidate value is retained for review only."
+                )
+            elif governing and governing.status.value == "FAIL":
+                summary.set_fail()
+            else:
+                summary.set_review_required(
+                    "Governing MDMT envelope is preliminary until UCS-66 chart verification is completed."
+                )
+            summary.governing = True
+            results.append(summary)
+
+        return results
+
+    def check_junctions(self, project) -> list:
+        """Appendix 1-4/1-5 koni ucu bağlantıları için kapsam ve girdi iskeleti.
+
+        Bu metot geometri/topoloji girdilerini kontrol edip raporlar. Kodda
+        birleşim gerilmesi çözümü olmadığı için tam girdilerde de sayısal
+        yeterlilik sonucu üretmez.
+        """
+        results = []
+        component_maps = {
+            "shell": {s.section_id: s for s in getattr(project, "shell_sections", [])},
+            "head": {h.head_id: h for h in getattr(project, "heads", [])},
+            "cone": {c.cone_id: c for c in getattr(project, "cones", [])},
+        }
+        sequence = getattr(project, "component_sequence", None) or []
+
+        for junction in getattr(project, "junctions", []) or []:
+            result = CalculationResult(
+                component_id=junction.junction_id,
+                component_type="junction",
+                calculation_type="junction_check",
+                code=self.code_name,
+                edition=self.code_edition,
+                clause_reference="Appendix 1-4/1-5",
+                formula_reference="Cone junction input envelope",
+            )
+            result.input_snapshot = junction.model_dump(mode="json")
+            result.add_intermediate("left_component_id", junction.left_component_id, "-", "Sol bağlantı bileşeni")
+            result.add_intermediate("right_component_id", junction.right_component_id, "-", "Sağ bağlantı bileşeni")
+            result.add_intermediate("junction_type", junction.junction_type, "-", "Birleşim tipi")
+            result.add_intermediate("cone_end", junction.cone_end or "", "-", "Açıkça beyan edilen koni ucu")
+            result.add_intermediate("weld_joint_id", junction.weld_joint_id or "", "-", "Birleşim kaynak kimliği")
+            result.add_intermediate("weld_efficiency", junction.weld_efficiency, "-", "Beyan edilen kaynak verimi")
+            result.add_intermediate("large_end_diameter", junction.large_end_diameter, "mm", "Beyan edilen büyük uç çapı")
+            result.add_intermediate("small_end_diameter", junction.small_end_diameter, "mm", "Beyan edilen küçük uç çapı")
+            result.add_intermediate("knuckle_radius_mm", junction.knuckle_radius_mm, "mm", "Beyan edilen geçiş büküm yarıçapı")
+
+            def resolve_type(component_id):
+                sequence_types = {
+                    ref.component_type for ref in sequence
+                    if ref.component_id == component_id
+                }
+                if sequence_types:
+                    return next(iter(sequence_types)) if len(sequence_types) == 1 else None
+                matches = [kind for kind, items in component_maps.items() if component_id in items]
+                return matches[0] if len(matches) == 1 else None
+
+            left_type = resolve_type(junction.left_component_id)
+            right_type = resolve_type(junction.right_component_id)
+            left_obj = component_maps.get(left_type, {}).get(junction.left_component_id)
+            right_obj = component_maps.get(right_type, {}).get(junction.right_component_id)
+            for side, component_id, component_type, component in (
+                ("left", junction.left_component_id, left_type, left_obj),
+                ("right", junction.right_component_id, right_type, right_obj),
+            ):
+                result.add_intermediate(f"{side}_component_type", component_type or "unknown", "-", "Zincirdeki bileşen tipi")
+                if component is None:
+                    result.add_validity_check(f"{side}_component_resolves", False, actual=component_id)
+                else:
+                    result.add_validity_check(f"{side}_component_resolves", True, actual=component_id)
+
+            if left_type == "cone" and junction.left_component_id in component_maps["cone"]:
+                cone = component_maps["cone"][junction.left_component_id]
+            elif right_type == "cone" and junction.right_component_id in component_maps["cone"]:
+                cone = component_maps["cone"][junction.right_component_id]
+            else:
+                cone = None
+            if cone:
+                result.add_intermediate("cone_component_id", cone.cone_id, "-", "Birleşime bağlı koni")
+                result.add_intermediate("cone_large_diameter", cone.large_diameter, "mm", "Koni büyük uç iç çapı")
+                result.add_intermediate("cone_small_diameter", cone.small_diameter, "mm", "Koni küçük uç iç çapı")
+                result.add_intermediate("cone_half_apex_angle", cone.half_apex_angle, "deg", "Koni yarı tepe açısı")
+                result.add_intermediate("cone_nominal_thickness", cone.nominal_thickness, "mm", "Koni anma et kalınlığı")
+
+            issues = []
+            if not sequence:
+                issues.append("component_sequence yok; iki bileşenin komşuluğu teyit edilemiyor")
+            else:
+                left_positions = [i for i, ref in enumerate(sequence)
+                                  if ref.component_id == junction.left_component_id]
+                right_positions = [i for i, ref in enumerate(sequence)
+                                   if ref.component_id == junction.right_component_id]
+                left_index = left_positions[0] if len(left_positions) == 1 else None
+                right_index = right_positions[0] if len(right_positions) == 1 else None
+                adjacent = (left_index is not None and right_index is not None
+                            and abs(left_index - right_index) == 1)
+                result.add_validity_check("components_are_adjacent", adjacent,
+                                          actual=(left_index, right_index))
+                if not adjacent:
+                    issues.append("bağlanan bileşenler zincirde komşu değil veya zincirde bulunmuyor")
+
+            expected_other_type = {"cone_to_shell": "shell", "cone_to_head": "head"}.get(junction.junction_type)
+            if junction.junction_type == "shell_to_shell":
+                result.add_validity_check("junction_type_in_cone_scope", False, actual=junction.junction_type)
+            elif expected_other_type:
+                endpoint_types = (left_type, right_type)
+                type_ok = endpoint_types.count("cone") == 1 and endpoint_types.count(expected_other_type) == 1
+                result.add_validity_check("junction_type_matches_endpoints", type_ok,
+                                          actual=endpoint_types)
+                if not type_ok:
+                    issues.append(f"{junction.junction_type} tipi bir koni ve bir {expected_other_type} ucu gerektirir")
+            if cone and junction.cone_end is None:
+                issues.append("cone_end (large/small) açıkça belirtilmeli; yön zincir sırasından varsayılmıyor")
+            if cone:
+                declared_cone_diameters = (
+                    ("large_end_diameter", junction.large_end_diameter, cone.large_diameter),
+                    ("small_end_diameter", junction.small_end_diameter, cone.small_diameter),
+                )
+                for field_name, declared, actual in declared_cone_diameters:
+                    if declared is not None and not math.isclose(declared, actual, rel_tol=1e-9, abs_tol=1e-6):
+                        issues.append(
+                            f"{field_name}={declared:g} mm koni girdisiyle uyuşmuyor ({actual:g} mm)"
+                        )
+                other = right_obj if left_type == "cone" else left_obj
+                other_type = right_type if left_type == "cone" else left_type
+                if other is not None and other_type in ("shell", "head"):
+                    adjacent_diameter = other.inside_diameter
+                    if adjacent_diameter is None and other_type == "shell" and other.outside_diameter is not None:
+                        adjacent_diameter = other.outside_diameter - 2.0 * other.nominal_thickness
+                    result.add_intermediate(
+                        "adjacent_component_inside_diameter", adjacent_diameter, "mm",
+                        "Komşu shell/head gerçek iç çapı"
+                    )
+                    if adjacent_diameter is None:
+                        endpoint_ok = False
+                        issues.append("komşu bileşenin iç çapı tanımlanmamış")
+                    else:
+                        matches_large = math.isclose(adjacent_diameter, cone.large_diameter, rel_tol=1e-6, abs_tol=0.01)
+                        matches_small = math.isclose(adjacent_diameter, cone.small_diameter, rel_tol=1e-6, abs_tol=0.01)
+                        endpoint_ok = (
+                            (junction.cone_end == "large" and matches_large)
+                            or (junction.cone_end == "small" and matches_small)
+                        )
+                    result.add_validity_check(
+                        "cone_end_matches_adjacent_diameter", endpoint_ok,
+                        actual={"cone_end": junction.cone_end, "adjacent_diameter_mm": adjacent_diameter},
+                    )
+                    if junction.cone_end is not None and not endpoint_ok:
+                        issues.append("cone_end seçimi komşu bileşenin iç çapıyla uyuşmuyor")
+            if cone and cone.half_apex_angle > 30 and junction.knuckle_radius_mm is None:
+                issues.append("yarı tepe açısı 30° üzerinde; knuckle_radius_mm girdisi eksik")
+            if junction.weld_joint_id is None:
+                issues.append("weld_joint_id eksik; birleşim kaynağı bağlanmamış")
+            elif not any(w.joint_id == junction.weld_joint_id for w in getattr(project, "welds", [])):
+                issues.append(f"weld_joint_id '{junction.weld_joint_id}' projedeki kaynak listesinde bulunmuyor")
+            if junction.weld_efficiency is None:
+                issues.append("weld_efficiency eksik; birleşim kaynak verimi belirtilmemiş")
+            if cone and cone.half_apex_angle > 30:
+                result.add_warning(
+                    "Koni yarı tepe açısı 30° üzerinde; geçiş detayının knuckle/torikonik "
+                    "uygulanabilirliği mühendis incelemesi gerektirir."
+                )
+            if junction.analysis_status == "SUPPORTED":
+                result.add_warning("analysis_status=SUPPORTED beyanı hesap kapsamını etkinleştirmez; solver bu sürümde uygulanmamıştır.")
+
+            if junction.junction_type == "shell_to_shell":
+                result.set_out_of_scope("shell_to_shell bu koni ucu kontrolü kapsamında değil.")
+            elif issues:
+                result.set_blocked_missing_input("Junction girdisi/topolojisi tamamlanmalı: " + "; ".join(issues))
+            else:
+                result.set_out_of_scope(
+                    "Girdi ve bağlantı topolojisi kaydedildi. Appendix 1-4/1-5 koni ucu "
+                    "gerilme/yeterlilik çözümü bu sürümde uygulanmadı; sayısal sonuç üretilmedi."
+                )
+            results.append(result)
         return results
 
     def check_supports(self, project) -> list:
@@ -979,51 +1334,202 @@ class ASMEVIII1DesignCode(DesignCode):
         weight_N = vm.total_metal_mass_kg * 9.80665
 
         calc = SupportCalculator(code=self.code_name, edition=self.code_edition)
-        shell = project.shell_sections[0] if project.shell_sections else None
-        if shell is None:
-            return []
+        shells_by_id = {s.section_id: s for s in project.shell_sections}
+        if not shells_by_id:
+            results = []
+            for sup in supports:
+                r = CalculationResult(
+                    component_id=sup.support_id,
+                    component_type="support",
+                    calculation_type=f"{sup.type}_stress",
+                    code=self.code_name,
+                    edition=self.code_edition,
+                )
+                r.set_not_calculated("Support checks require a resolvable host shell section.")
+                results.append(r)
+            return results
 
-        saddles = [s for s in supports if s.type == "saddle"]
+        def component_axial_length(ref):
+            """Return an axial envelope for global support positions."""
+            if ref.component_type == "shell":
+                component = shells_by_id.get(ref.component_id)
+                return component.tangent_length if component else None
+            if ref.component_type == "cone":
+                cone = next((c for c in project.cones if c.cone_id == ref.component_id), None)
+                return cone.length if cone else None
+            if ref.component_type == "head":
+                head = next((h for h in project.heads if h.head_id == ref.component_id), None)
+                return (head.crown_depth or head.inside_diameter / 4.0) + head.straight_flange_length if head else None
+            return None
+
+        def shell_global_start(shell_id):
+            sequence = getattr(project, "component_sequence", None) or []
+            if not sequence:
+                # A legacy single-shell vessel has an unambiguous local origin.
+                # With multiple shells, an explicit host ID alone cannot map a
+                # global station to that shell without the ordered chain.
+                return 0.0 if len(shells_by_id) == 1 else None
+            position = 0.0
+            matches = 0
+            start = None
+            for ref in sequence:
+                if ref.component_type == "shell" and ref.component_id == shell_id:
+                    matches += 1
+                    start = position
+                length = component_axial_length(ref)
+                if length is None:
+                    return None
+                position += length
+            return start if matches == 1 else None
+
+        saddles_by_host = {}
+        for saddle in (s for s in supports if s.type == "saddle"):
+            # Two Zick supports must act on the same shell section.
+            saddle_host = getattr(saddle, "host_component_id", None)
+            if saddle_host is None and len(shells_by_id) == 1:
+                saddle_host = next(iter(shells_by_id))
+            saddles_by_host.setdefault(saddle_host, []).append(saddle)
         results = []
         for sup in supports:
-            overturning_moment = getattr(sup, "overturning_moment_Nmm", 0.0) or 0.0
+            host_id = getattr(sup, "host_component_id", None)
+            if host_id:
+                shell = shells_by_id.get(host_id)
+                if shell is None:
+                    r = CalculationResult(
+                        component_id=sup.support_id,
+                        component_type="support",
+                        calculation_type=f"{sup.type}_stress",
+                        code=self.code_name,
+                        edition=self.code_edition,
+                    )
+                    r.set_not_calculated(f"Support host component '{host_id}' is not a shell section.")
+                    results.append(r)
+                    continue
+            elif len(shells_by_id) == 1:
+                shell = next(iter(shells_by_id.values()))
+            else:
+                r = CalculationResult(
+                    component_id=sup.support_id,
+                    component_type="support",
+                    calculation_type=f"{sup.type}_stress",
+                    code=self.code_name,
+                    edition=self.code_edition,
+                )
+                r.set_not_calculated(
+                    "Multiple shell sections exist; support.host_component_id is required."
+                )
+                results.append(r)
+                continue
+
+            host_start = shell_global_start(shell.section_id)
+            if host_start is None:
+                r = CalculationResult(
+                    component_id=sup.support_id,
+                    component_type="support",
+                    calculation_type=f"{sup.type}_stress",
+                    code=self.code_name,
+                    edition=self.code_edition,
+                )
+                r.set_not_calculated(
+                    f"Shell host '{shell.section_id}' cannot be resolved uniquely in component_sequence; "
+                    "the sequence may contain missing, unknown, or duplicate component references."
+                )
+                results.append(r)
+                continue
+
+            host_end = host_start + shell.tangent_length
+            if not (host_start <= sup.location_mm <= host_end):
+                r = CalculationResult(
+                    component_id=sup.support_id,
+                    component_type="support",
+                    calculation_type=f"{sup.type}_stress",
+                    code=self.code_name,
+                    edition=self.code_edition,
+                )
+                r.set_not_calculated(
+                    f"Support position {sup.location_mm:g} mm is outside host shell "
+                    f"'{shell.section_id}' global interval [{host_start:g}, {host_end:g}] mm."
+                )
+                results.append(r)
+                continue
+
+            manual_moment = getattr(sup, "overturning_moment_Nmm", 0.0) or 0.0
+            global_moment = 0.0
+            global_horizontal = 0.0
+            for load_case in getattr(project, "load_cases", []) or []:
+                for load in getattr(load_case, "external_loads", []) or []:
+                    horizontal = math.hypot(load.fx_n, load.fy_n)
+                    lever = max(0.0, (load.elevation_mm or 0.0) - sup.location_mm)
+                    global_horizontal += horizontal
+                    global_moment += horizontal * lever + abs(load.mx_nmm) + abs(load.my_nmm)
+            overturning_moment = max(manual_moment, global_moment)
             payload = {
                 "support": {
                     "tag": sup.support_id,
+                    "host_component_id": shell.section_id,
                     "type": sup.type,
                     "location_mm": sup.location_mm,
                     "width_mm": sup.width_mm,
                     "height_mm": sup.height_mm,
+                    "diameter_mm": getattr(sup, "diameter_mm", None),
+                    "thickness_mm": getattr(sup, "thickness_mm", None),
+                    "n_legs": getattr(sup, "leg_count", None),
+                    "leg_diameter_mm": getattr(sup, "leg_diameter_mm", None),
+                    "leg_thickness_mm": getattr(sup, "leg_thickness_mm", None),
+                    "support_radius_mm": getattr(sup, "support_radius_mm", None),
+                    "base_plate_area_mm2": getattr(sup, "base_plate_area_mm2", None),
+                    "anchor_bolt_count": getattr(sup, "anchor_bolt_count", None),
+                    "anchor_bolt_diameter_mm": getattr(sup, "anchor_bolt_diameter_mm", None),
+                    "anchor_tension_allowable_N": getattr(sup, "anchor_tension_allowable_N", None),
+                    "anchor_shear_allowable_N": getattr(sup, "anchor_shear_allowable_N", None),
+                    "lateral_load_N": getattr(sup, "lateral_load_N", 0.0) or 0.0,
                     "contact_angle_deg": getattr(sup, "contact_angle_deg", None),
                 },
                 "shell": shell,
                 "vessel_length": shell.tangent_length,
+                "host_axial_start_mm": host_start,
                 "total_weight_N": weight_N,
                 "materials": project.materials,
                 "design_conditions": project.design_conditions,
                 "overturning_moment_Nmm": overturning_moment,
+                "global_horizontal_load_N": global_horizontal,
+                "global_overturning_moment_Nmm": global_moment,
+                "skirt_material_id": sup.material_id,
             }
             if sup.type == "saddle":
                 # İki eyer arası mesafe konumlardan türetilir; tek eyer varsa
                 # Zick geçersizdir — hesap paketi bunu kendi raporlar.
-                if len(saddles) >= 2:
-                    locs = sorted(s.location_mm for s in saddles)
+                host_saddles = saddles_by_host.get(shell.section_id, [])
+                if len(host_saddles) >= 2:
+                    locs = sorted(s.location_mm for s in host_saddles)
                     payload["saddle_distance"] = locs[-1] - locs[0]
-                    payload["saddle_from_end"] = locs[0]
+                    payload["saddle_from_end"] = max(0.0, locs[0] - host_start)
                 r = calc.check_saddle(payload)
             elif sup.type == "skirt":
                 r = calc.check_skirt(payload)
             elif sup.type == "leg":
-                payload["leg_count"] = getattr(sup, "leg_count", 0) or 0
                 r = calc.check_leg_support(payload)
             else:
                 continue
 
+            r.add_intermediate("host_component_id", shell.section_id, "-", "Resolved support host shell")
+            r.add_intermediate("host_axial_start", host_start, "mm", "Resolved host start on global vessel axis")
+            r.add_intermediate("global_horizontal_load", global_horizontal, "N", "Resultant horizontal external load")
+            r.add_intermediate("global_overturning_moment", global_moment, "N·mm", "External-load moment about support location")
+            if global_moment > 0.0:
+                r.add_assumption(
+                    "Global support action derived from load-case external loads; "
+                    "load combination and code-specific envelope review remains required."
+                )
             r.add_assumption(
                 f"K4: Destek yükü boş kap ağırlığından türetildi "
                 f"({vm.total_metal_mass_kg:.0f} kg metal). Sıvı, izolasyon ve iç "
                 f"ekipman ağırlıkları dahil DEĞİL."
             )
+            if r.status == CalculationStatus.PASS:
+                r.set_review_required(
+                    "Destek fiziği Faz A'da yaklaşık kapsamda; skirt/leg/saddle sonuçları mühendis incelemesi ister."
+                )
             if sup.type in ("skirt", "leg") and overturning_moment <= 0:
                 r.add_assumption(
                     "Devirme momenti girilmedi (0 N·mm) — rüzgâr ve deprem yükleri "
@@ -1103,10 +1609,32 @@ class ASMEVIII1DesignCode(DesignCode):
                 )
             results.append(r)
 
+        # No cone external-pressure solver is implemented. Retain per-component
+        # applicability so cones do not disappear from review for vacuum cases.
+        for cone in project.cones:
+            r = CalculationResult(
+                component_id=cone.cone_id,
+                component_type="cone",
+                calculation_type="external_pressure",
+                code=self.code_name,
+                edition=self.code_edition,
+                clause_reference="UG-28",
+                formula_reference="Cone external-pressure applicability",
+            )
+            r.set_out_of_scope(
+                "Conical-section external-pressure stability is not implemented; "
+                "no allowable or PASS result is reported."
+            )
+            r.input_snapshot = {
+                "external_pressure_MPa": external_pressure,
+                "vacuum_condition": bool(dc.vacuum_condition),
+                "cone_id": cone.cone_id,
+            }
+            results.append(r)
+
         # Vakum kontrolü
         if dc.vacuum_condition:
-            if project.shell_sections:
-                vshell = project.shell_sections[0]
+            for vshell in project.shell_sections:
                 a_val = getattr(vshell, "ug28_strain_factor_a", None) or 0.0
                 b_val = getattr(vshell, "ug28_allowable_stress_b", None) or 0.0
                 r = calc.check_vacuum_stability({

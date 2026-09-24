@@ -56,6 +56,7 @@ class NozzleReinforcementInput:
     # Tasarım
     design_pressure: float = 0.0  # MPa
     design_temperature: float = 0.0  # °C
+    nozzle_inclination_angle: float = 0.0  # derece, 0=radyal
 
 
 @dataclass
@@ -174,7 +175,11 @@ def check_nozzle_eligibility(inp: NozzleReinforcementInput) -> tuple[bool, str]:
     Returns:
         (is_eligible, message)
     """
-    d = inp.nozzle_inside_diameter + 2 * inp.nozzle_corrosion_allowance
+    angle = float(getattr(inp, "nozzle_inclination_angle", 0.0) or 0.0)
+    if angle < 0 or angle >= 90:
+        return False, "Nozzle inclination must be in [0, 90) degrees"
+    projection = 1.0 / math.cos(math.radians(angle))
+    d = (inp.nozzle_inside_diameter + 2 * inp.nozzle_corrosion_allowance) * projection
     D = inp.component_inside_diameter
 
     # UG-36(a): Açıklık çapı limiti — d ≤ D/2
@@ -250,12 +255,9 @@ def calculate_reinforcement(inp: NozzleReinforcementInput) -> NozzleReinforcemen
 
     # F = 1.0 — yalnız radyal nozul. Eğik nozulda UG-37 Şekil UG-37 F faktörü
     # gerekir; suite eğik nozul takviyesini kapsamıyor (K4: varsayım açık).
-    F = 1.0
-    if getattr(inp, "nozzle_inclination_angle", 0.0):
-        result.warnings.append(
-            "Eğik nozul: UG-37 F faktörü uygulanmadı (F = 1.0 alındı). "
-            "Takviye hesabı yalnız radyal nozul için geçerlidir."
-        )
+    angle = float(getattr(inp, "nozzle_inclination_angle", 0.0) or 0.0)
+    projection = 1.0 / math.cos(math.radians(angle))
+    F = projection
 
     # E1 = 1.0: açıklık kaynak dikişinden geçmiyor varsayımı.
     E1 = 1.0

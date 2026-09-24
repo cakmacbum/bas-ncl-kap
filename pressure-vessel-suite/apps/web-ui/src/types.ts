@@ -40,6 +40,9 @@ export interface Head {
   inside_diameter: number;
   crown_radius: number | null;
   knuckle_radius: number | null;
+  outside_diameter?: number | null;
+  crown_depth?: number | null;
+  torispherical_geometry?: "standard_asme_fd" | "custom";
   straight_flange_length: number;
   nominal_thickness: number;
   material_id: string;
@@ -48,8 +51,43 @@ export interface Head {
   mill_tolerance: number;
   forming_thinning: number;
   flat_attachment_factor: number | null;
+  flat_z_factor?: number | null;
   ug28_strain_factor_a: number | null;
   ug28_allowable_stress_b: number | null;
+}
+
+export interface Cone {
+  cone_id: string;
+  large_diameter: number;
+  small_diameter: number;
+  half_apex_angle: number;
+  length: number;
+  nominal_thickness: number;
+  material_id: string;
+  weld_joint_id: string | null;
+  internal_corrosion_allowance: number;
+  mill_tolerance: number;
+}
+
+export interface Junction {
+  junction_id: string;
+  left_component_id: string;
+  right_component_id: string;
+  junction_type: "cone_to_shell" | "cone_to_head" | "shell_to_shell";
+  cone_end: "large" | "small" | null;
+  weld_joint_id: string | null;
+  weld_efficiency: number | null;
+  large_end_diameter: number | null;
+  small_end_diameter: number | null;
+  knuckle_radius_mm: number | null;
+  analysis_status: "INPUT_ONLY" | "REVIEW_REQUIRED" | "SUPPORTED";
+}
+
+export type ComponentType = "head" | "shell" | "cone";
+
+export interface ComponentReference {
+  component_type: ComponentType;
+  component_id: string;
 }
 
 export interface Nozzle {
@@ -99,9 +137,20 @@ export interface Support {
   location_mm: number;
   width_mm: number;
   height_mm: number;
+  diameter_mm: number | null;
+  thickness_mm: number | null;
   material_id: string;
   contact_angle_deg: number | null;
   leg_count: number | null;
+  leg_diameter_mm: number | null;
+  leg_thickness_mm: number | null;
+  support_radius_mm: number | null;
+  base_plate_area_mm2: number | null;
+  anchor_bolt_count: number | null;
+  anchor_bolt_diameter_mm: number | null;
+  anchor_tension_allowable_N: number | null;
+  anchor_shear_allowable_N: number | null;
+  lateral_load_N: number;
   overturning_moment_Nmm: number;
 }
 
@@ -128,13 +177,67 @@ export interface VesselProject {
   code_edition: string;
   unit_system: string;
   orientation: string;
+  /** Gövde ve bombe çaplarının varsayılan ilişkisi. */
+  diameter_relation?: "linked" | "independent";
   design_conditions: DesignConditions;
   shell_sections: ShellSection[];
   heads: Head[];
+  cones: Cone[];
+  junctions: Junction[];
+  component_sequence: ComponentReference[];
+  flanges?: Flange[];
   nozzles: Nozzle[];
   materials: MaterialProperty[];
   supports: Support[];
   welds: WeldJoint[];
+  pressure_relief?: PressureReliefSystem | null;
+}
+
+export interface ProjectSummary {
+  id: string;
+  project_number: string;
+  project_name: string;
+  customer: string | null;
+  revision: string;
+  calculation_code: string;
+}
+
+export interface Flange {
+  flange_id: string;
+  type: "integral" | "loose";
+  inside_diameter: number;
+  outside_diameter: number;
+  thickness: number;
+  hub_small_thickness: number;
+  hub_length: number;
+  material_id: string;
+  gasket_m: number | null;
+  gasket_y: number | null;
+  bolt_count: number | null;
+  bolt_area: number | null;
+  bolt_allowable_stress: number | null;
+  rating_standard: string | null;
+}
+
+export interface PressureReliefDevice {
+  device_id: string;
+  device_type: "safety_valve" | "rupture_disk";
+  protected_component_id?: string | null;
+  set_pressure_mpa?: number | null;
+  burst_pressure_mpa?: number | null;
+  accumulation_percent?: number | null;
+  blowdown_percent?: number | null;
+  certified_capacity_kg_s?: number | null;
+  fluid_orifice_area_mm2?: number | null;
+  certification_reference?: string | null;
+}
+
+export interface PressureReliefSystem {
+  enabled: boolean;
+  protected_mawp_mpa?: number | null;
+  accumulation_limit_percent: number;
+  devices: PressureReliefDevice[];
+  notes?: string;
 }
 
 export interface IntermediateValue {

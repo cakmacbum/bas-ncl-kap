@@ -11,7 +11,7 @@ Boş bırakılırsa FEA lab BLOCKED_CODE_DATA ile durur; varsayılan ATANMAZ (K4
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Optional, List
 
 from pydantic import BaseModel, Field
 
@@ -94,6 +94,16 @@ class MaterialProperty(BaseModel):
                     "doğrulama laboratuvarı için; boşsa lab BLOCKED_CODE_DATA "
                     "döner (varsayım atanmaz, K4).",
     )
+
+    # Faz B: lisanslı veri paketinden alınan sıcaklık eğrileri. Ekstrapolasyon
+    # yapılmaz; aralık dışı bir sıcaklık hesaplamayı bloke eder.
+    allowable_stress_temperature_points: List[tuple[float, float]] = Field(default_factory=list)
+    yield_temperature_points: List[tuple[float, float]] = Field(default_factory=list)
+    elastic_modulus_temperature_points: List[tuple[float, float]] = Field(default_factory=list)
+    pwht_required: Optional[bool] = Field(default=None)
+    impact_test_required: Optional[bool] = Field(default=None)
+    weld_restrictions: List[str] = Field(default_factory=list)
+    data_checksum: str = Field(default="", description="İçe aktarılan kayıt checksum'ı.")
 
     model_config = {"frozen": True}
 

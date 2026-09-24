@@ -94,7 +94,7 @@ class ReportGenerator:
         sections.append(self._section_standards(project))
         sections.append(self._section_design_basis(project))
         sections.append(self._section_fluid_conditions(project))
-        sections.append(self._section_ped_scope(project, ped_result))
+        sections.append(self._section_ped_scope(project, ped_result, volume_mass))
         sections.append(self._section_materials(project))
         sections.append(self._section_geometry(project))
         sections.append(self._section_shell_calculations(calc_result))
@@ -103,6 +103,7 @@ class ReportGenerator:
         sections.append(self._section_welds(project))
         sections.append(self._section_mawp(calc_result))
         sections.append(self._section_hydrotest(calc_result))
+        sections.append(self._section_pressure_relief(calc_result))
         sections.append(self._section_weight_volume(volume_mass))
         sections.append(self._section_nozzle_schedule(project))
         sections.append(self._section_weld_map(project, calc_result))
@@ -112,6 +113,8 @@ class ReportGenerator:
         sections.append(self._section_2d_views())
         sections.append(self._section_3d_views())
         sections.append(self._section_approval())
+        sections.append(self._section_governing_and_deficiencies(calc_result))
+        sections.append(self._section_governing_mdmt_junction_applicability(project, calc_result))
 
         body = "\n".join(sections)
         traceability_html = traceability.to_html()
@@ -285,7 +288,10 @@ Yalnızca madde referansları ve formül sonuçları gösterilmiştir.</em></p>
 <p><em>Akışkan bilgisi tanımlanmamış.</em></p>
 </div>"""
 
-    def _section_ped_scope(self, project: VesselProject, ped_result: Optional[Any] = None) -> str:
+    def _section_ped_scope(
+        self, project: VesselProject, ped_result: Optional[Any] = None,
+        volume_mass: Optional[VesselVolumeMassReport] = None,
+    ) -> str:
         if ped_result is None:
             return """
 <div class="section">
@@ -308,6 +314,7 @@ PED değerlendirmesi için projeyi PED sınıflandırma motoruyla çalıştırı
 <tr><td>Akışkan Fazı</td><td>{_val(ped_result.fluid_phase)}</td></tr>
 <tr><td>Akışkan Grubu</td><td>{_val(ped_result.fluid_group)}</td></tr>
 <tr><td>Sınıflandırma Tablosu</td><td>{_val(ped_result.classification_table)}</td></tr>
+<tr><td>Hesapta kullanılan toplam iç hacim</td><td>{f'{volume_mass.total_inner_volume_liters:.2f} litre' if volume_mass else '—'}</td></tr>
 <tr><td>PS × V</td><td>{ped_result.ps_x_v:.1f} MPa·litre</td></tr>
 <tr><td><strong>PED Kategorisi</strong></td><td><strong>{_val(ped_result.category)}</strong></td></tr>
 <tr><td>Uygunluk Modülleri</td><td>{modules}</td></tr>
@@ -502,6 +509,22 @@ PED değerlendirmesi için projeyi PED sınıflandırma motoruyla çalıştırı
 <p><em>Hidrotest hesabı yapılamadı.</em></p>
 </div>"""
 
+    def _section_pressure_relief(self, calc_result: OrchestratorResult) -> str:
+        rows = ""
+        for r in calc_result.results:
+            if r.calculation_type != "pressure_relief":
+                continue
+            pressure = "—" if r.final_result is None else f"{r.final_result:.3f} {r.final_result_unit}"
+            rows += f"<tr><td>{r.component_id}</td><td>{pressure}</td><td>{r.status.value}</td></tr>"
+        if not rows:
+            rows = '<tr><td colspan="3"><em>Basınç tahliye sistemi tanımlanmamış.</em></td></tr>'
+        return f"""
+<div class="section">
+<h2>15. Basınç Tahliye Sistemi (UG-125–136)</h2>
+<table><tr><th>Cihaz</th><th>Ayar/kopma basıncı</th><th>Durum</th></tr>{rows}</table>
+<p><em>Bu bölüm cihaz seçimi ve kapasite sertifikasının yerine geçmez; REVIEW_REQUIRED sonuçlar yetkin mühendis incelemesi ister.</em></p>
+</div>"""
+
     def _section_weight_volume(self, volume_mass: Optional[VesselVolumeMassReport]) -> str:
         if volume_mass is None:
             return """
@@ -658,6 +681,103 @@ modülünden bir ESR matrisi geçirin.</em></p>
 <tr><td>Kontrol Eden</td><td></td><td></td><td></td></tr>
 <tr><td>Onaylayan</td><td></td><td></td><td></td></tr>
 </table>
+</div>"""
+
+    def _section_governing_and_deficiencies(self, calc_result: OrchestratorResult) -> str:
+        """Faz E3: yöneten sonuç ve kapatılması gereken eksikleri tek tabloda göster."""
+        governing = [r for r in calc_result.results if r.governing]
+        governing_rows = "".join(
+            f"<tr><td>{r.component_id or r.component_type}</td><td>{r.calculation_type}</td>"
+            f"<td>{r.final_result if r.final_result is not None else '—'} {r.final_result_unit}</td>"
+            f"<td>{r.status.value}</td><td>{r.clause_reference or '—'}</td></tr>"
+            for r in governing
+        ) or '<tr><td colspan="5"><em>Yöneten sonuç işaretlenmedi.</em></td></tr>'
+        deficiencies = []
+        deficiencies.extend(calc_result.errors)
+        deficiencies.extend(
+            f"{r.component_id or r.component_type}: {r.status.value}"
+            for r in calc_result.results
+            if r.status.value != "PASS"
+        )
+        deficiency_rows = "".join(f"<li>{item}</li>" for item in deficiencies)
+        if not deficiency_rows:
+            deficiency_rows = "<li>Eksiklik bulunmadı.</li>"
+        return f"""
+<div class="section">
+<h2>24. Yöneten Sonuç ve Eksiklik Listesi</h2>
+<h3>Yöneten bileşenler</h3>
+<table><tr><th>Bileşen</th><th>Hesap</th><th>Sonuç</th><th>Durum</th><th>Madde</th></tr>
+{governing_rows}</table>
+<h3>İnceleme / kapatma gerektirenler</h3><ul>{deficiency_rows}</ul>
+        </div>"""
+
+    def _section_governing_mdmt_junction_applicability(
+        self, project: VesselProject, calc_result: OrchestratorResult
+    ) -> str:
+        """Faz 9: rapor özetinde yöneten MDMT, junction ve kapsam görünürlüğü.
+
+        Sonuçların yalnızca PASS/FAIL durumunu değil, hangi bileşen için kontrolün
+        gerçekten çalıştırıldığını da gösterir. Böylece OUT_OF_SCOPE ve
+        NOT_CALCULATED kayıtları sessizce PASS gibi görünmez.
+        """
+        mawp = next((r for r in calc_result.results if r.calculation_type == "mawp" and r.governing), None)
+        mdmt = next((
+            r for r in calc_result.results
+            if r.calculation_type == "mdmt_check" and r.component_id == "MDMT-GOVERNING"
+        ), None)
+        mdmt_candidate = (mdmt.input_snapshot or {}) if mdmt else {}
+        mdmt_component = mdmt_candidate.get("governing_component_id", "")
+        mdmt_material = mdmt_candidate.get("governing_material", "")
+        mawp_txt = (
+            f"{mawp.component_id} — {mawp.final_result:.3f} {mawp.final_result_unit}"
+            if mawp and mawp.final_result is not None else "—"
+        )
+        if mdmt and mdmt.final_result is not None:
+            mdmt_txt = (
+                f"{mdmt.final_result:.1f} {mdmt.final_result_unit} — {mdmt_component}"
+                f" ({mdmt_material or 'malzeme belirtilmemiş'}); {mdmt.status.value}"
+            )
+        elif mdmt and mdmt_candidate.get("provisional_governing_mdmt_C") is not None:
+            mdmt_txt = (
+                f"Doğrulanamadı; aday {mdmt_candidate['provisional_governing_mdmt_C']:.1f} °C — "
+                f"{mdmt_component} ({mdmt_material or 'malzeme belirtilmemiş'}); {mdmt.status.value}"
+            )
+        else:
+            mdmt_txt = f"Hesaplanmadı{'; ' + mdmt.status.value if mdmt else ''}"
+
+        junction_rows = "".join(
+            f"<tr><td>{j.junction_id}</td><td>{j.junction_type}</td><td>{j.left_component_id} → {j.right_component_id}</td>"
+            f"<td>{next((r.status.value for r in calc_result.results if r.component_id == j.junction_id and r.calculation_type == 'junction_check'), j.analysis_status)}</td></tr>"
+            for j in getattr(project, "junctions", [])
+        )
+        if not junction_rows:
+            junction_rows = "".join(
+                f"<tr><td>{w.joint_id}</td><td>{w.joint_type}</td><td>{w.weld_category or '—'}</td>"
+                f"<td>{next((r.status.value for r in calc_result.results if r.component_id == w.joint_id and r.calculation_type == 'weld_validation'), 'NOT CALCULATED')}</td></tr>"
+                for w in project.welds
+            ) or '<tr><td colspan="4"><em>Junction/kaynak tanımlanmamış.</em></td></tr>'
+
+        grouped: Dict[str, List[Any]] = {}
+        for r in calc_result.results:
+            key = r.component_id or r.component_type or "global"
+            grouped.setdefault(key, []).append(r)
+        applicability_rows = "".join(
+            f"<tr><td>{component_id}</td><td>{'<br>'.join(sorted({r.component_type for r in rows}))}</td>"
+            f"<td>{len(rows)}</td><td>{'Uygulanabilir / hesaplandı' if any(r.status.value not in ('NOT CALCULATED', 'OUT OF SCOPE', 'BLOCKED_MISSING_INPUT', 'BLOCKED_CODE_DATA') for r in rows) else 'Uygulanmadı / veri eksik'}</td></tr>"
+            for component_id, rows in grouped.items()
+        ) or '<tr><td colspan="4"><em>Hesap sonucu yok.</em></td></tr>'
+
+        return f"""
+<div class="section">
+<h2>25. Yöneten MDMT, Junction ve Bileşen Bazlı Applicability</h2>
+<table>
+<tr><th>Yöneten MAWP</th><th>Yöneten MDMT</th></tr>
+<tr><td>{mawp_txt}</td><td>{mdmt_txt}</td></tr>
+</table>
+<h3>Junction özeti</h3>
+<table><tr><th>Junction</th><th>Tip</th><th>Bağlanan bileşenler</th><th>Uygulama durumu</th></tr>{junction_rows}</table>
+<h3>Bileşen bazlı applicability</h3>
+<table><tr><th>Bileşen</th><th>Tip</th><th>Sonuç sayısı</th><th>Applicability</th></tr>{applicability_rows}</table>
 </div>"""
 
     def _status_class(self, status: str) -> str:

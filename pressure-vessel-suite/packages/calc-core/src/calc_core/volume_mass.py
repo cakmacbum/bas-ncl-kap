@@ -17,7 +17,7 @@ from dataclasses import dataclass
 from typing import List, Optional
 
 from domain.enums import HeadType
-from domain.geometry import Head, ShellSection
+from domain.geometry import Cone, Head, ShellSection
 from domain.materials import MaterialProperty
 from domain.project import VesselProject
 
@@ -27,7 +27,7 @@ class VolumeResult:
     """Hacim hesaplama sonucu."""
 
     component_id: str
-    component_type: str  # "shell", "head"
+    component_type: str  # "shell", "head", "cone"
     inner_volume_mm3: float  # İç hacim (akışkan hacmi, korozyon payı düşülmüş)
     metal_volume_mm3: float  # Metal hacmi
     outer_volume_mm3: float  # Dış hacim (metal + iç hacim)
@@ -227,6 +227,27 @@ def head_volume(head: Head) -> VolumeResult:
     )
 
 
+def cone_volume(cone: Cone) -> VolumeResult:
+    """Konik kesitin kesik-koni iç, dış ve metal hacmini hesaplar."""
+    ca = cone.internal_corrosion_allowance or 0.0
+    r_large = max(cone.large_diameter / 2.0 - ca, 0.0)
+    r_small = max(cone.small_diameter / 2.0 - ca, 0.0)
+    outer_large = cone.large_diameter / 2.0 + cone.nominal_thickness
+    outer_small = cone.small_diameter / 2.0 + cone.nominal_thickness
+    L = cone.length
+    inner_vol = math.pi * L / 3.0 * (r_large**2 + r_large * r_small + r_small**2)
+    outer_vol = math.pi * L / 3.0 * (
+        outer_large**2 + outer_large * outer_small + outer_small**2
+    )
+    return VolumeResult(
+        component_id=cone.cone_id,
+        component_type="cone",
+        inner_volume_mm3=inner_vol,
+        metal_volume_mm3=outer_vol - inner_vol,
+        outer_volume_mm3=outer_vol,
+    )
+
+
 def calculate_mass(volume_mm3: float, density_kg_m3: float) -> float:
     """Metal ağırlığı hesabı.
 
@@ -241,7 +262,7 @@ def calculate_mass(volume_mm3: float, density_kg_m3: float) -> float:
     return volume_m3 * density_kg_m3
 
 
-def calculate_vessel_volume_mass(project: VesselProject) -> VesselVolumeMassReport:
+def _calculate_vessel_volume_mass_legacy(project: VesselProject) -> VesselVolumeMassReport:
     """Kap için toplam hacim ve ağırlık hesapla.
 
     Args:
@@ -290,6 +311,51 @@ def calculate_vessel_volume_mass(project: VesselProject) -> VesselVolumeMassRepo
         mass_results=mass_results,
     )
 
+def calculate_vessel_volume_mass(project: VesselProject) -> VesselVolumeMassReport:
+    """Calculate all pressure-bearing components in normalized chain order."""
+    volume_results: List[VolumeResult] = []
+    mass_results: List[MassResult] = []
+    collections = {
+        "shell": {item.section_id: item for item in project.shell_sections},
+        "head": {item.head_id: item for item in project.heads},
+        "cone": {item.cone_id: item for item in project.cones},
+    }
+
+    def add_component(component, component_type: str):
+        if component_type == "shell":
+            vr = shell_volume(component)
+        elif component_type == "head":
+            vr = head_volume(component)
+        else:
+            vr = cone_volume(component)
+        volume_results.append(vr)
+        mat = project.get_material(component.material_id)
+        density = mat.density if mat else 7850.0
+        mass_results.append(MassResult(
+            component_id=vr.component_id,
+            component_type=component_type,
+            metal_mass_kg=calculate_mass(vr.metal_volume_mm3, density),
+            density_kg_m3=density,
+            metal_volume_mm3=vr.metal_volume_mm3,
+        ))
+
+    sequence = getattr(project, "component_sequence", None) or []
+    refs = sequence or [
+        type("Ref", (), {"component_type": "shell", "component_id": item.section_id})
+        for item in project.shell_sections
+    ] + [
+        type("Ref", (), {"component_type": "head", "component_id": item.head_id})
+        for item in project.heads
+    ] + [
+        type("Ref", (), {"component_type": "cone", "component_id": item.cone_id})
+        for item in project.cones
+    ]
+    for ref in refs:
+        component = collections[ref.component_type].get(ref.component_id)
+        if component is not None:
+            add_component(component, ref.component_type)
+    return VesselVolumeMassReport(volume_results=volume_results, mass_results=mass_results)
+
 
 __all__ = [
     "VolumeResult",
@@ -297,6 +363,7 @@ __all__ = [
     "VesselVolumeMassReport",
     "shell_volume",
     "head_volume",
+    "cone_volume",
     "calculate_mass",
     "calculate_vessel_volume_mass",
 ]

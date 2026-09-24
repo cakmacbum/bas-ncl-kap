@@ -8,9 +8,37 @@ K6 kuralı: Standart telifli metni kopyalanmaz.
 from __future__ import annotations
 
 from datetime import date
-from typing import List, Optional
+from typing import Any, List, Optional
+import hashlib
+import json
 
 from pydantic import BaseModel, Field
+
+
+class CalculationRevisionBinding(BaseModel):
+    """PED çıktısını değişmez hesap revizyonuna bağlayan kimlik.
+
+    DoC/isim plakası gibi belgeler yalnızca aynı proje revizyonu ve aynı
+    hesap girdisi/sonuç özeti için geçerli kabul edilir. Hash'ler burada
+    yeniden hesaplanmaz; hesap motorunun ürettiği kanonik değerler saklanır.
+    """
+
+    model_config = {"frozen": True}
+
+    revision: str = Field(..., min_length=1)
+    input_snapshot_hash: str = Field(..., min_length=1)
+    calculation_result_hash: str = Field(..., min_length=1)
+
+    @classmethod
+    def from_payload(cls, revision: str, input_payload: Any, result_payload: Any):
+        def digest(value: Any) -> str:
+            raw = json.dumps(value, sort_keys=True, separators=(",", ":"), default=str)
+            return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+        return cls(
+            revision=revision,
+            input_snapshot_hash=digest(input_payload),
+            calculation_result_hash=digest(result_payload),
+        )
 
 
 class NameplateInfo(BaseModel):
@@ -77,6 +105,17 @@ class NameplateInfo(BaseModel):
     conformity_module: str = Field(
         ..., description="Uygunluk modülü (ör. 'B+D', 'G')."
     )
+    calculation_revision: Optional[str] = Field(default=None, description="Bağlı hesap revizyonu.")
+    input_snapshot_hash: Optional[str] = Field(default=None, description="Hesap girdisi hash'i.")
+    calculation_result_hash: Optional[str] = Field(default=None, description="Hesap sonucu hash'i.")
+
+    def bind_calculation_revision(self, binding: CalculationRevisionBinding) -> "NameplateInfo":
+        """İsim plakasını bir hesap revizyonuna bağlayan yeni nesne döndür."""
+        return self.model_copy(update={
+            "calculation_revision": binding.revision,
+            "input_snapshot_hash": binding.input_snapshot_hash,
+            "calculation_result_hash": binding.calculation_result_hash,
+        })
 
     def to_markdown(self) -> str:
         """İsim plakası bilgilerini markdown olarak üret."""
@@ -100,6 +139,9 @@ class NameplateInfo(BaseModel):
 | PED Kategorisi | {self.ped_category} |
 | Akışkan Grubu | {self.fluid_group} |
 | Uygunluk Modülü | {self.conformity_module} |
+| Hesap Revizyonu | {self.calculation_revision or '—'} |
+| Girdi Hash'i | {self.input_snapshot_hash or '—'} |
+| Sonuç Hash'i | {self.calculation_result_hash or '—'} |
 | CE | {ce_line} |
 """
 
@@ -123,6 +165,9 @@ class NameplateInfo(BaseModel):
 <tr><td>PED Kategorisi</td><td>{self.ped_category}</td></tr>
 <tr><td>Akışkan Grubu</td><td>{self.fluid_group}</td></tr>
 <tr><td>Uygunluk Modülü</td><td>{self.conformity_module}</td></tr>
+<tr><td>Hesap Revizyonu</td><td>{self.calculation_revision or '—'}</td></tr>
+<tr><td>Girdi Hash'i</td><td>{self.input_snapshot_hash or '—'}</td></tr>
+<tr><td>Sonuç Hash'i</td><td>{self.calculation_result_hash or '—'}</td></tr>
 <tr><td>CE</td><td>{ce_line}</td></tr>
 </table>
 """
@@ -180,6 +225,17 @@ class DeclarationOfConformity(BaseModel):
         default="",
         description="Ek bilgiler."
     )
+    calculation_revision: Optional[str] = Field(default=None, description="Bağlı hesap revizyonu.")
+    input_snapshot_hash: Optional[str] = Field(default=None, description="Hesap girdisi hash'i.")
+    calculation_result_hash: Optional[str] = Field(default=None, description="Hesap sonucu hash'i.")
+
+    def bind_calculation_revision(self, binding: CalculationRevisionBinding) -> "DeclarationOfConformity":
+        """DoC'yi immutable hesap revizyonuna bağlayan yeni nesne döndür."""
+        return self.model_copy(update={
+            "calculation_revision": binding.revision,
+            "input_snapshot_hash": binding.input_snapshot_hash,
+            "calculation_result_hash": binding.calculation_result_hash,
+        })
 
     def to_markdown(self) -> str:
         """DoC taslağını markdown olarak üret."""
@@ -254,4 +310,4 @@ incelemesi ve hukuki değerlendirme sonrasında imzalanmalıdır.*
 """
 
 
-__all__ = ["DeclarationOfConformity", "NameplateInfo"]
+__all__ = ["DeclarationOfConformity", "NameplateInfo", "CalculationRevisionBinding"]

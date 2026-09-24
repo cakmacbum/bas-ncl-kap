@@ -5,19 +5,20 @@
 // K6: Flanş/kapak biçimleri görsel temsildir (B16.5 ölçüsü değildir).
 // Kesin imalat modeli için CadQuery/STEP çıktısı kullanılır.
 
-import React, { useMemo } from "react";
+import React, { useMemo, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Bounds, GizmoHelper, GizmoViewport, OrbitControls } from "@react-three/drei";
+import { Bounds, GizmoHelper, GizmoViewport } from "@react-three/drei";
 import * as THREE from "three";
+import { CameraHelpNote, CameraRigLayer, CameraToolbar, type CameraApi } from "./cameraToolbar";
 
-import type { Head, Nozzle, ShellSection } from "./types";
+import type { ComponentReference, Cone, Head, Nozzle, ShellSection } from "./types";
 import type { DimKey } from "./schematic";
-import { nozzlePlacement, nozzleVisual, vesselProfile } from "./vesselModel";
+import { nozzlePlacement, nozzleVisual, vesselProfile, vesselProfileChain } from "./vesselModel";
 
-const COLOR_BODY = "#aeb8c4";
-const COLOR_ACTIVE = "#f0883e"; // 2D şemadaki turuncu vurgunun 3D karşılığı
-const COLOR_NOZZLE = "#9fb0c4";
-const COLOR_FLANGE = "#8c9bad";
+const COLOR_BODY = "#b8b8b8";
+const COLOR_ACTIVE = "#4d8bff";
+const COLOR_NOZZLE = "#a8a8a8";
+const COLOR_FLANGE = "#8f8f8f";
 
 // Tek koordinat çerçevesi: **model çerçevesi** — kap ekseni = Z, radyal düzlem = XY,
 // θ = +X'ten itibaren. Backend `nozzles/position.py` ile aynı sözleşme.
@@ -25,12 +26,16 @@ const COLOR_FLANGE = "#8c9bad";
 // rotateX(+90) ile bu çerçeveye alınır; başka hiçbir yerde eksen düzeltmesi yoktur.
 
 function VesselBody({
-  shell, leftHead, rightHead, active,
+  shell, leftHead, rightHead, shells, cones, sequence, heads, active,
 }: {
-  shell: ShellSection; leftHead: Head; rightHead: Head; active: DimKey;
+  shell: ShellSection; shells: ShellSection[]; leftHead: Head; rightHead: Head; cones: Cone[];
+  sequence: ComponentReference[]; heads: Head[]; active: DimKey;
 }) {
   const geometry = useMemo(() => {
-    const pts = vesselProfile(shell, leftHead, rightHead).map(
+    const profile = sequence.length > 0
+      ? vesselProfileChain(shells, heads, cones, sequence)
+      : vesselProfile(shell, leftHead, rightHead);
+    const pts = profile.map(
       (p) => new THREE.Vector2(Math.max(p.r, 0), p.z),
     );
     const g = new THREE.LatheGeometry(pts, 72);
@@ -40,6 +45,7 @@ function VesselBody({
     shell.inside_diameter, shell.tangent_length, shell.nominal_thickness,
     leftHead.type, leftHead.straight_flange_length, leftHead.inside_diameter,
     rightHead.type, rightHead.straight_flange_length, rightHead.inside_diameter,
+    shells, cones, sequence, heads,
   ]);
 
   const highlighted =
@@ -128,7 +134,7 @@ function NozzleMesh({
       </mesh>
       <mesh position={pipe.center} quaternion={pipe.quat}>
         <cylinderGeometry args={[pipe.idR, pipe.idR, pipe.length * 1.001, 32, 1, true]} />
-        <meshStandardMaterial color="#5c6672" metalness={0.3} roughness={0.7}
+        <meshStandardMaterial color="#5c5c5c" metalness={0.3} roughness={0.7}
           side={THREE.BackSide} />
       </mesh>
 
@@ -142,7 +148,7 @@ function NozzleMesh({
       {!fitting.blind && (
         <mesh position={fitting.center} quaternion={fitting.quat}>
           <cylinderGeometry args={[pipe.idR, pipe.idR, fitting.t * 1.05, 32, 1, true]} />
-          <meshStandardMaterial color="#5c6672" metalness={0.3} roughness={0.7}
+          <meshStandardMaterial color="#5c5c5c" metalness={0.3} roughness={0.7}
             side={THREE.BackSide} />
         </mesh>
       )}
@@ -152,7 +158,10 @@ function NozzleMesh({
 
 export interface LivePreviewProps {
   shell: ShellSection;
+  shells?: ShellSection[];
   heads: Head[];
+  cones?: Cone[];
+  componentSequence?: ComponentReference[];
   nozzles: Nozzle[];
   orientation?: string;
   active: DimKey;
@@ -161,6 +170,7 @@ export interface LivePreviewProps {
 
 export function LivePreview({
   shell, heads, nozzles, orientation, active, activeNozzle,
+  shells = [shell], cones = [], componentSequence = [],
 }: LivePreviewProps) {
   const leftHead = heads[0];
   const rightHead = heads[1] ?? heads[0];
@@ -175,6 +185,7 @@ export function LivePreview({
 
   const isVertical = orientation === "vertical";
   const nozzleActive = active === "nz" || active === "theta" || active === "nd";
+  const cameraApi = useRef<CameraApi | null>(null);
 
   return (
     <div className="live-preview">
@@ -187,14 +198,15 @@ export function LivePreview({
         <ambientLight intensity={0.55} />
         <directionalLight position={[1500, 3000, 2000]} intensity={1.3} />
         <directionalLight position={[-2000, -1000, -1500]} intensity={0.35} />
-        <hemisphereLight args={["#dfe7f0", "#1a2230", 0.4]} />
+        <hemisphereLight args={["#eeeeee", "#1a1a1a", 0.4]} />
 
-        <Bounds fit clip observe margin={1.3}>
+        <Bounds fit clip margin={1.3}>
           {/* Tek görüntüleme rotasyonu (model çerçevesi → sahne):
               yatay → θ=0° ekranda üst (2D şemadaki sözleşme),
               dikey → kap ekseni yukarı. */}
           <group rotation={isVertical ? [-Math.PI / 2, 0, 0] : [0, 0, Math.PI / 2]}>
-            <VesselBody shell={shell} leftHead={leftHead} rightHead={rightHead}
+            <VesselBody shell={shell} shells={shells} leftHead={leftHead} rightHead={rightHead}
+              cones={cones} sequence={componentSequence} heads={heads}
               active={active} />
             {nozzles.map((nz, i) => (
               <NozzleMesh
@@ -208,13 +220,16 @@ export function LivePreview({
           </group>
         </Bounds>
 
-        <OrbitControls makeDefault enableDamping dampingFactor={0.08} />
+        <CameraRigLayer apiRef={cameraApi} orientation={isVertical ? "vertical" : "horizontal"} />
         <GizmoHelper alignment="bottom-right" margin={[64, 64]}>
           <GizmoViewport axisColors={["#ef5a63", "#37c98b", "#4aa8e0"]}
-            labelColor="#e6edf5" />
+            labelColor="#fafafa" />
         </GizmoHelper>
       </Canvas>
       </div>
+
+      <CameraToolbar apiRef={cameraApi} />
+      <CameraHelpNote />
 
       <p className="preview-note">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none"

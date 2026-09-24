@@ -739,7 +739,9 @@ def test_v12_default_knuckle_radius_is_asme_fd_six_percent():
     })
     inter = {i["name"]: i["value"] for i in r.intermediate_values}
 
-    assert relative_tolerance(inter["r"], 0.06 * 1000.0, 1e-9), "varsayılan büküm %6 olmalı"
+    # Varsayılan F&D taç/büküm yarıçapları dış çapa göre tanımlanır;
+    # 20 mm nominal etle dış çap 1040 mm olur.
+    assert relative_tolerance(inter["r"], 0.06 * 1040.0, 1e-9), "varsayılan büküm dış çapın %6'sı olmalı"
     assert relative_tolerance(inter["M_factor"], 1.770621, 1e-5)
     # Eski D/10 varsayılanına dönülmediğinden emin ol (M = 1.5406 verirdi)
     assert not relative_tolerance(inter["M_factor"], 1.540569, 1e-3)

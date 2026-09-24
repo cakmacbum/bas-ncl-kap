@@ -1,6 +1,6 @@
 // FastAPI istemcisi (Vite /api proxy üzerinden localhost:8000).
 
-import type { VesselProject, CalcPayload } from "./types";
+import type { VesselProject, CalcPayload, ProjectSummary } from "./types";
 
 const BASE = "/api";
 
@@ -38,6 +38,14 @@ async function fetchJson<T>(input: RequestInfo, init?: RequestInit): Promise<T> 
 }
 
 export const api = {
+  async listProjects(): Promise<ProjectSummary[]> {
+    return fetchJson(`${BASE}/projects`);
+  },
+
+  async getProject(id: string): Promise<VesselProject> {
+    return fetchJson(`${BASE}/projects/${encodeURIComponent(id)}`);
+  },
+
   async health(): Promise<{ status: string; cad_available: boolean }> {
     return fetchJson(`${BASE}/health`);
   },

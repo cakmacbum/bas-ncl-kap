@@ -13,11 +13,12 @@ Referans: EN 13445-3:2021+A1:2023
 
 from __future__ import annotations
 
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from calc_core.code_interface import DesignCode
 from calc_core.result import CalculationResult
 from code_en_13445 import formulas
+from domain.enums import CalculationStatus
 
 # EN 13445'te yaygın torisferik bombe (Korbbogen / DIN 28011) için büküm yarıçapı
 # oranı. ASME F&D'nin %6'sından farklıdır — bu yüzden ASME'deki sabit BURAYA
@@ -33,6 +34,10 @@ def _torispherical_radii_en(head, D: float, result: CalculationResult) -> tuple[
     tarafında aynı sessiz varsayılan %13'lük emniyetsiz bir sapmaya yol açmıştı
     (V-12); aynı desen burada tekrarlanmasın diye varsayım kayda geçer (K4).
     """
+    if getattr(head, "torispherical_geometry", "standard_asme_fd") == "custom":
+        if not head.crown_radius or not head.knuckle_radius:
+            raise ValueError("Özel torisferik geometri için crown_radius ve knuckle_radius zorunludur")
+        return head.crown_radius, head.knuckle_radius
     L = head.crown_radius if head.crown_radius else D
     if not head.crown_radius:
         result.add_assumption(
@@ -571,6 +576,124 @@ class EN13445DesignCode(DesignCode):
             "Nozzle reinforcement calculation for EN 13445 will be implemented in a future phase. "
             "This result must not be used for fabrication."
         )
+        return result
+
+    def _unsupported_result(
+        self,
+        *,
+        component_id: str = "",
+        component_type: str,
+        calculation_type: str,
+        clause: str,
+        reason: str,
+        status: str = "not_calculated",
+    ) -> CalculationResult:
+        """EN kapsamı dışındaki yolu açıkça raporla.
+
+        Özellikle önemli olan, burada ASME hesabına fallback yapılmamasıdır.
+        """
+        result = CalculationResult(
+            component_id=component_id,
+            component_type=component_type,
+            calculation_type=calculation_type,
+            code=self.code_name,
+            edition=self.code_edition,
+            clause_reference=clause,
+        )
+        if status == "out_of_scope":
+            result.set_out_of_scope(reason)
+        else:
+            result.set_not_calculated(reason)
+        return result
+
+    def check_external_pressure(self, project) -> List[CalculationResult]:
+        """EN dış basınç/vakum yolu.
+
+        EN 13445-3 dış basınç için gereken eğri/veri paketi bu sürümde yoktur;
+        hiçbir zaman ASME UG-28 değerleri kullanılmaz.
+        """
+        components = [
+            *((s.section_id, "shell") for s in project.shell_sections),
+            *((h.head_id, "head") for h in project.heads),
+        ]
+        if not components:
+            return [self._unsupported_result(
+                component_type="system",
+                calculation_type="external_pressure",
+                clause="EN 13445-3, Part 8",
+                reason="No shell/head component was supplied for EN external-pressure review.",
+            )]
+        return [self._unsupported_result(
+            component_id=component_id,
+            component_type=component_type,
+            calculation_type="external_pressure",
+            clause="EN 13445-3, Part 8",
+            reason=(
+                "EN 13445 external-pressure/vacuum chart data and stiffening-ring "
+                "verification are not implemented; result is not usable for design."
+            ),
+        ) for component_id, component_type in components]
+
+    def check_load_combinations(self, project) -> List[CalculationResult]:
+        """EN yük kombinasyonlarını sessizce yok saymak yerine işaretle."""
+        if not project.load_combinations:
+            return []
+        results = []
+        known_cases = {case.load_case_id for case in project.load_cases}
+        for combination in project.load_combinations:
+            result = self._unsupported_result(
+                component_id=combination.combination_id,
+                component_type="load_combination",
+                calculation_type="load_combination",
+                clause="EN 13445-3, 5 / EN 13445-3, 16",
+                reason=(
+                    "EN load-combination stress evaluation is not implemented; "
+                    "this combination must be independently reviewed."
+                ),
+            )
+            result.input_snapshot = {
+                "combination_id": combination.combination_id,
+                "load_case_ids": list(combination.load_case_ids),
+                "load_factors": dict(combination.load_factors),
+                "missing_load_case_ids": sorted(set(combination.load_case_ids) - known_cases),
+                "standard": combination.standard,
+                "standard_edition": combination.standard_edition,
+            }
+            results.append(result)
+        return results
+
+    def calculate_flange(self, input_data: dict) -> CalculationResult:
+        """EN flange calculation is deliberately not routed through ASME Appendix 2."""
+        flange = input_data.get("flange")
+        component_id = getattr(flange, "flange_id", "") if flange is not None else ""
+        return self._unsupported_result(
+            component_id=component_id,
+            component_type="flange",
+            calculation_type="flange",
+            clause="EN 13445-3, 11",
+            reason="EN 13445 flange design is not implemented in this release; no ASME fallback is permitted.",
+        )
+
+    def calculate_fatigue(self, input_data: dict) -> CalculationResult:
+        """EN fatigue için kontrollü sınır.
+
+        Çevrim ve malzeme yorulma verisi olmadan sonuç üretmek yerine eksik
+        girdiyi bloklar; veri verilse bile yöntem henüz tasarım sonucu üretmez.
+        """
+        result = self._unsupported_result(
+            component_id=str(input_data.get("component_id", "")),
+            component_type="system",
+            calculation_type="fatigue",
+            clause="EN 13445-3, 18",
+            reason="EN fatigue curves and cycle-by-cycle assessment are not implemented.",
+        )
+        result.input_snapshot = {
+            "design_cycles": input_data.get("design_cycles"),
+            "material_fatigue_data": input_data.get("material_fatigue_data"),
+        }
+        if not input_data.get("design_cycles") or not input_data.get("material_fatigue_data"):
+            result.status = CalculationStatus.BLOCKED_MISSING_INPUT
+            result.add_warning("Design cycles and EN material fatigue data are required before fatigue assessment.")
         return result
 
 

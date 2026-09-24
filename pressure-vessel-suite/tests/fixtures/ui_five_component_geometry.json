@@ -1,0 +1,26 @@
+{
+  "shells": [
+    { "section_id": "SHELL-01", "inside_diameter": 1000, "tangent_length": 2000, "nominal_thickness": 12 },
+    { "section_id": "SHELL-02", "inside_diameter": 800, "tangent_length": 1500, "nominal_thickness": 10 }
+  ],
+  "cones": [
+    { "cone_id": "CONE-01", "large_diameter": 1000, "small_diameter": 800, "length": 500, "nominal_thickness": 10 }
+  ],
+  "heads": [
+    { "head_id": "HEAD-L", "inside_diameter": 1000, "type": "elliptical", "straight_flange_length": 25, "nominal_thickness": 12 },
+    { "head_id": "HEAD-R", "inside_diameter": 800, "type": "elliptical", "straight_flange_length": 25, "nominal_thickness": 10 }
+  ],
+  "component_sequence": [
+    { "component_type": "head", "component_id": "HEAD-L" },
+    { "component_type": "shell", "component_id": "SHELL-01" },
+    { "component_type": "cone", "component_id": "CONE-01" },
+    { "component_type": "shell", "component_id": "SHELL-02" },
+    { "component_type": "head", "component_id": "HEAD-R" }
+  ],
+  "expected_global_profile": {
+    "segment_starts_mm": [0, 275, 2275, 2775, 4275],
+    "segment_ends_mm": [275, 2275, 2775, 4275, 4500],
+    "total_length_mm": 4500,
+    "inside_diameters_at_junctions_mm": [1000, 1000, 800, 800]
+  }
+}

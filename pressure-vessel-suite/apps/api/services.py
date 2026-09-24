@@ -9,11 +9,21 @@ import math
 import tempfile
 from typing import Any, Dict, Optional
 
-from domain import VesselProject  # type: ignore
+from domain import CalculationCode, VesselProject  # type: ignore
 from code_asme_viii_1 import ASMEVIII1DesignCode  # type: ignore
+from code_en_13445 import EN13445DesignCode  # type: ignore
 from calc_core.orchestrator import CalculationOrchestrator, OrchestratorResult  # type: ignore
 from calc_core.volume_mass import calculate_vessel_volume_mass  # type: ignore
 from report_engine.generator import ReportGenerator  # type: ignore
+from compliance import ESRMatrix  # type: ignore
+from ped_2014_68_eu import (  # type: ignore
+    ClassificationInput,
+    FluidClassification,
+    PEDClassificationEngine,
+    EquipmentType,
+    FluidPhasePED,
+    GHSClassification,
+)
 
 try:
     from cad_engine.vessel_builder import (  # type: ignore
@@ -45,9 +55,21 @@ def _json_safe(obj: Any) -> Any:
     return obj
 
 
+def _build_design_code(project: VesselProject):
+    """Projede seçilen standardın motorunu açıkça oluşturur.
+
+    Standart seçimi hiçbir durumda sessizce başka bir motora düşmez.
+    """
+    if project.calculation_code == CalculationCode.ASME_VIII_1:
+        return ASMEVIII1DesignCode(edition=project.code_edition or "2025")
+    if project.calculation_code == CalculationCode.EN_13445:
+        return EN13445DesignCode(edition=project.code_edition or "2021+A1:2023")
+    raise ValueError(f"Unsupported calculation code: {project.calculation_code}")
+
+
 def run_calculation(project: VesselProject) -> OrchestratorResult:
-    """ASME VIII-1 hesap sırasını çalıştır."""
-    code = ASMEVIII1DesignCode(edition=project.code_edition or "2025")
+    """Projede seçilen hesap standardının hesap sırasını çalıştır."""
+    code = _build_design_code(project)
     return CalculationOrchestrator(code).run(project)
 
 
@@ -82,10 +104,64 @@ def calculation_payload(project: VesselProject) -> Dict[str, Any]:
 
 
 def generate_report_html(project: VesselProject) -> str:
-    """Tam HTML rapor üret (izlenebilirlik bloğuyla)."""
+    """Tam HTML rapor üret (PED/ESR verisi EN raporuna bağlanır)."""
     result = run_calculation(project)
     vm = calculate_vessel_volume_mass(project)
-    rep = ReportGenerator().generate(project, result, vm)
+    ped_result = None
+    compliance = None
+    if project.fluid is not None:
+        try:
+            expected_components = {
+                ("shell", item.section_id) for item in project.shell_sections
+            } | {
+                ("head", item.head_id) for item in project.heads
+            } | {
+                ("cone", item.cone_id) for item in project.cones
+            }
+            reported_components = [
+                (item.component_type, item.component_id) for item in vm.volume_results
+            ]
+            if (
+                not expected_components
+                or
+                len(reported_components) != len(expected_components)
+                or set(reported_components) != expected_components
+            ):
+                raise ValueError(
+                    "PED classification blocked: vessel volume does not cover each "
+                    "pressure-bearing component exactly once."
+                )
+            phase = FluidPhasePED.GAS if project.fluid.phase.lower() in {"gas", "steam", "vapor"} else FluidPhasePED.LIQUID
+            hazard_classes = []
+            for value in project.fluid.hazard_classes:
+                try:
+                    hazard_classes.append(GHSClassification(value))
+                except ValueError:
+                    # Bilinmeyen sınıflandırma güvenli tarafta Group 2'ye
+                    # düşürülür; kullanıcı girdisi rapora yine yazılır.
+                    continue
+            ped_input = ClassificationInput(
+                equipment_type=EquipmentType.VESSEL,
+                ps_mpa=project.design_conditions.maximum_allowable_pressure_ps,
+                volume_liters=vm.total_inner_volume_liters,
+                ts_min_c=project.design_conditions.minimum_design_temperature,
+                ts_max_c=project.design_conditions.design_temperature,
+                fluids=[FluidClassification(
+                    fluid_name=project.fluid.name,
+                    phase=phase,
+                    ghs_classifications=hazard_classes,
+                )],
+            )
+            ped_result = PEDClassificationEngine().classify(ped_input)
+            compliance = ESRMatrix.default_for_vessel()
+            compliance.project_number = project.project_number
+        except Exception as exc:
+            # Rapor üretimi hesap sonucunu kaybetmemeli; başarısız PED yolu
+            # raporda "çalıştırılmadı" olarak kalır.
+            result.add_error(f"PED classification error: {exc}")
+    rep = ReportGenerator().generate(
+        project, result, vm, ped_result=ped_result, compliance=compliance
+    )
     return rep.html_content
 
 

@@ -5,7 +5,7 @@ K7 kuralı: Bu modeller standarttan bağımsızdır; ASME/EN kuralları code plu
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Literal, Optional
 
 from pydantic import BaseModel, Field, model_validator
 
@@ -87,6 +87,12 @@ class Head(BaseModel):
         default=None, gt=0,
         description="Büküm yarıçapı (mm). Torispherical için zorunlu.",
     )
+    torispherical_geometry: Literal["standard_asme_fd", "custom"] = Field(
+        default="standard_asme_fd",
+        description="Torisferik geometri rotası; özel geometri için yarıçaplar zorunludur.",
+    )
+    outside_diameter: Optional[float] = Field(default=None, gt=0, description="Dış çap (mm).")
+    crown_depth: Optional[float] = Field(default=None, gt=0, description="Eliptik bombe derinliği h (mm).")
     straight_flange_length: float = Field(
         default=25.0, ge=0,
         description="Düz flanş uzunluğu (mm). Varsayılan: 25 mm.",
@@ -117,6 +123,7 @@ class Head(BaseModel):
         description="UG-34 C katsayısı — bağlantı tipi çizimine göre (ör. 0.13, 0.20, 0.33). "
                     "Kullanıcı girer (K4/K6). Yalnızca düz kapak (FLAT) tipi için.",
     )
+    flat_z_factor: Optional[float] = Field(default=None, gt=0, description="UG-34(c)(3) Z faktörü.")
     ug28_strain_factor_a: Optional[float] = Field(
         default=None, gt=0,
         description="UG-33 için Şekil G'den okunan A faktörü. K6: çizelge repoda tutulmaz.",
@@ -234,6 +241,46 @@ class Cone(BaseModel):
     )
 
 
+class Junction(BaseModel):
+    """Koni ucu ile komşu basınç taşıyan eleman birleşimi girdisi."""
+
+    junction_id: str = Field(...)
+    left_component_id: str = Field(...)
+    right_component_id: str = Field(...)
+    junction_type: Literal["cone_to_shell", "cone_to_head", "shell_to_shell"]
+    cone_end: Optional[Literal["large", "small"]] = Field(
+        default=None,
+        description=(
+            "Koni ucu birleşimi için birleşen uç. Topoloji komşuluğundan çıkarılmaz; "
+            "tasarımcı tarafından açıkça belirtilmelidir."
+        ),
+    )
+    weld_joint_id: Optional[str] = Field(default=None)
+    weld_efficiency: Optional[float] = Field(default=None, gt=0, le=1)
+    large_end_diameter: Optional[float] = Field(default=None, gt=0)
+    small_end_diameter: Optional[float] = Field(default=None, gt=0)
+    knuckle_radius_mm: Optional[float] = Field(default=None, gt=0)
+    analysis_status: Literal["INPUT_ONLY", "REVIEW_REQUIRED", "SUPPORTED"] = "INPUT_ONLY"
+
+
+class Flange(BaseModel):
+    """Appendix 2 flanş girdisi; rating ve hesap rotası ayrıdır."""
+    flange_id: str
+    type: str = Field(default="integral", pattern="^(integral|loose)$")
+    inside_diameter: float = Field(..., gt=0)
+    outside_diameter: float = Field(..., gt=0)
+    thickness: float = Field(..., gt=0)
+    hub_small_thickness: float = Field(..., gt=0)
+    hub_length: float = Field(..., gt=0)
+    material_id: str
+    gasket_m: Optional[float] = Field(default=None, gt=0)
+    gasket_y: Optional[float] = Field(default=None, gt=0)
+    bolt_count: Optional[int] = Field(default=None, gt=0)
+    bolt_area: Optional[float] = Field(default=None, gt=0)
+    bolt_allowable_stress: Optional[float] = Field(default=None, gt=0)
+    rating_standard: Optional[str] = Field(default=None)
+
+
 class Support(BaseModel):
     """Kap desteği — eyer (saddle), etek (skirt) veya ayak (leg).
 
@@ -243,6 +290,10 @@ class Support(BaseModel):
     """
 
     support_id: str = Field(..., description="Destek tanımı (ör. 'SAD-01').")
+    host_component_id: Optional[str] = Field(
+        default=None,
+        description="Desteğin bağlandığı basınç taşıyan bileşen kimliği."
+    )
     type: str = Field(
         ..., pattern="^(saddle|skirt|leg)$",
         description="Destek tipi: saddle | skirt | leg.",
@@ -257,6 +308,12 @@ class Support(BaseModel):
     height_mm: float = Field(
         ..., gt=0, description="Destek yüksekliği (mm)."
     )
+    diameter_mm: Optional[float] = Field(
+        default=None, gt=0, description="Etek çapı (mm). Yalnız skirt tipinde."
+    )
+    thickness_mm: Optional[float] = Field(
+        default=None, gt=0, description="Etek et kalınlığı (mm). Yalnız skirt tipinde."
+    )
     material_id: str = Field(..., description="Malzeme tanımı.")
     contact_angle_deg: Optional[float] = Field(
         default=None, ge=0, le=180,
@@ -266,6 +323,35 @@ class Support(BaseModel):
         default=None, gt=0,
         description="Ayak sayısı. Yalnız leg tipinde geçerli.",
     )
+    leg_diameter_mm: Optional[float] = Field(
+        default=None, gt=0, description="Ayak dış çapı (mm). Yalnız leg tipinde."
+    )
+    leg_thickness_mm: Optional[float] = Field(
+        default=None, gt=0, description="Ayak et kalınlığı (mm). Yalnız leg tipinde."
+    )
+    support_radius_mm: Optional[float] = Field(
+        default=None, gt=0,
+        description="Ayakların kap ekseninden dağılım yarıçapı (mm). Moment hesabı için.",
+    )
+    base_plate_area_mm2: Optional[float] = Field(
+        default=None, gt=0, description="Ayak taban plakası alanı (mm²)."
+    )
+    anchor_bolt_count: Optional[int] = Field(
+        default=None, gt=0, description="Ankraj cıvatası adedi. Uplift kontrolü için."
+    )
+    anchor_bolt_diameter_mm: Optional[float] = Field(
+        default=None, gt=0, description="Ankraj cıvatası nominal çapı (mm)."
+    )
+    anchor_tension_allowable_N: Optional[float] = Field(
+        default=None, gt=0, description="Bir ankraj cıvatası için izin verilen çekme (N)."
+    )
+    anchor_shear_allowable_N: Optional[float] = Field(
+        default=None, gt=0, description="Bir ankraj cıvatası için izin verilen kesme (N)."
+    )
+    lateral_load_N: float = Field(
+        default=0.0, ge=0,
+        description="Destek tabanına aktarılan yatay kuvvet (N); ankraj kesme kontrolü için.",
+    )
     overturning_moment_Nmm: float = Field(
         default=0.0, ge=0,
         description="Devirme momenti (N·mm) — rüzgâr/deprem. Yalnız skirt ve leg. "
@@ -273,4 +359,4 @@ class Support(BaseModel):
     )
 
 
-__all__ = ["ShellSection", "Head", "Nozzle", "Cone", "Support"]
+__all__ = ["ShellSection", "Head", "Nozzle", "Cone", "Junction", "Flange", "Support"]

@@ -7,7 +7,7 @@ Referans: PED 2014/68/EU, Annex I (ESR), Article 14 (DoC), Article 16 (Nameplate
 """
 
 from compliance.esr_matrix import ESRMatrix, ESRItem
-from compliance.declaration import DeclarationOfConformity, NameplateInfo
+from compliance.declaration import DeclarationOfConformity, NameplateInfo, CalculationRevisionBinding
 from compliance.technical_file import TechnicalFileIndex, TechnicalFileItem
 from compliance.risk_analysis import RiskAnalysis, RiskItem
 
@@ -16,6 +16,7 @@ __all__ = [
     "ESRItem",
     "DeclarationOfConformity",
     "NameplateInfo",
+    "CalculationRevisionBinding",
     "TechnicalFileIndex",
     "TechnicalFileItem",
     "RiskAnalysis",

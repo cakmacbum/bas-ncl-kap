@@ -12,7 +12,7 @@ import {
   SegmentTabs,
 } from "./components";
 import { CALC_TYPE_TR, HEAD_TYPE_TR, NOZZLE_TYPE_TR, ORIENTATION_TR, SUPPORT_TYPE_TR, tr } from "./i18n";
-import type { CalcResult } from "./types";
+import type { CalcResult, VesselProject } from "./types";
 import { VesselViewer, type ModelDims } from "./viewer";
 import { VesselSchematic, type DimKey } from "./schematic";
 import { LivePreview } from "./livePreview";
@@ -20,6 +20,7 @@ import {
   CUSTOM, catalog, dimsFor, matchDims, sizeOptions, wallOptions,
 } from "./nozzleCatalog";
 import { headDepth } from "./vesselModel";
+import { geometryIssues, geometrySignature } from "./geometryValidation";
 
 function PageHead({ kicker, title, desc }: { kicker: string; title: string; desc: string }) {
   return (
@@ -58,17 +59,48 @@ function NextButtons({ onNext, nextLabel }: { onNext: () => void; nextLabel?: st
 
 // ============================================================ 1. Yeni Proje
 export function NewProjectPage() {
-  const { project, setProject, setStep } = useStore();
+  const { project, setProject, setStep, loadProject, dirty } = useStore();
+  const [savedProjects, setSavedProjects] = useState<import("./types").ProjectSummary[]>([]);
+  const [projectBusy, setProjectBusy] = useState(false);
+  const [projectError, setProjectError] = useState<string | null>(null);
+  const refreshProjects = async () => {
+    setProjectBusy(true);
+    setProjectError(null);
+    try { setSavedProjects(await api.listProjects()); }
+    catch (e: any) { setProjectError(e.message ?? "Projeler alınamadı"); }
+    finally { setProjectBusy(false); }
+  };
+  const openProject = async (id: string) => {
+    setProjectBusy(true);
+    setProjectError(null);
+    try { loadProject(id, await api.getProject(id)); }
+    catch (e: any) { setProjectError(e.message ?? "Proje açılamadı"); }
+    finally { setProjectBusy(false); }
+  };
   const p = project;
   return (
-    <div className="page">
+    <div className="page page--project">
       <PageHead
         kicker="Adım 01 / 06"
-        title="Yeni Proje"
-        desc="Proje kimliği ve hesap rotasını tanımlayın. V1 rotası ASME VIII-1 (iç basınç)."
+        title="Her güvenilir tasarım, doğru girdilerle başlar."
+        desc="Projenizi tanımlayın, tasarım koşullarını belirleyin ve basınçlı kabınızı adım adım değerlendirin."
       />
+      <div className="project-workspace">
+      <div className="project-workspace__form">
+      <Panel title="Kayıtlı Projeler" meta="API çalışma alanı"
+        desc="Sunucuda kayıtlı bir projeyi açın.">
+        <div style={{ display: "flex", alignItems: "end", gap: 12, flexWrap: "wrap" }}>
+          <button className="btn btn--ghost" type="button" onClick={refreshProjects} disabled={projectBusy}>
+            {projectBusy ? "Yükleniyor…" : "Projeleri Yenile"}
+          </button>
+          {savedProjects.length > 0 && <SelectField label="Proje aç" value=""
+            options={[{ value: "", label: "Proje seçin…" }, ...savedProjects.map((p) => ({ value: p.id, label: `${p.project_number} · ${p.project_name} · Rev ${p.revision}` }))]}
+            onChange={(id) => { if (id && (!dirty || window.confirm("Kaydedilmemiş değişiklikler var. Başka projeyi açmak istiyor musunuz?"))) void openProject(id); }} />}
+        </div>
+        {projectError && <div className="alert alert--warn" role="alert">{projectError}</div>}
+      </Panel>
       <Panel title="Proje Kimliği" meta="genel bilgiler"
-        desc="Proje kimliği ve hesap standardı (ASME VIII-1).">
+        desc="Proje kimliği ve hesap standardı (ASME VIII-1 veya EN 13445).">
         <div className="grid">
           <TextField label="Proje Numarası" value={p.project_number}
             onChange={(v) => setProject((x) => ({ ...x, project_number: v }))} />
@@ -84,7 +116,10 @@ export function NewProjectPage() {
         desc="Hesap standardı ve kap yönelimi (yatay/dikey).">
         <div className="grid">
           <SelectField label="Hesap Standardı" value={p.calculation_code}
-            options={[{ value: "ASME VIII-1", label: "ASME VIII Division 1" }]}
+            options={[
+              { value: "ASME VIII-1", label: "ASME VIII Division 1" },
+              { value: "EN 13445", label: "EN 13445" },
+            ]}
             onChange={(v) => setProject((x) => ({ ...x, calculation_code: v }))} />
           <TextField label="Standart Sürümü" value={p.code_edition}
             onChange={(v) => setProject((x) => ({ ...x, code_edition: v }))} />
@@ -94,16 +129,47 @@ export function NewProjectPage() {
               { value: "vertical", label: "Dikey" },
             ]}
             onChange={(v) => setProject((x) => ({ ...x, orientation: v }))} />
+          {p.calculation_code === "EN 13445" && (
+            <p className="field__hint" style={{ gridColumn: "1 / -1", color: "var(--review)" }}>
+              EN 13445 motoru seçildi. Kapsamı tamamlanmamış modüller REVIEW_REQUIRED veya
+              NOT_CALCULATED dönebilir; sonuçlar yetkili mühendis doğrulaması olmadan nihai tasarım kararı değildir.
+            </p>
+          )}
         </div>
       </Panel>
-      <NextButtons onNext={() => setStep(1)} />
+      <NextButtons onNext={() => setStep(1)} nextLabel="Tasarım koşullarına devam et →" />
+      </div>
+      <aside className="project-preview" aria-label="Proje özeti">
+        <div className="project-preview__heading"><span>TEKNİK ÖNİZLEME</span><span className="preview-dot">Girdilere bağlı</span></div>
+        <h2>{p.project_name || "Yeni Basınçlı Kap"}</h2>
+        <p>{ORIENTATION_TR[p.orientation] ?? p.orientation} kap · {p.materials[0]?.material_designation}</p>
+        <VesselSchematic di={p.shell_sections[0].inside_diameter ?? 0}
+          leftDi={p.heads[0].inside_diameter}
+          rightDi={(p.heads[1] ?? p.heads[0]).inside_diameter}
+          L={p.shell_sections[0].tangent_length} t={p.shell_sections[0].nominal_thickness}
+          straightFlange={p.heads[0].straight_flange_length}
+          leftStraightFlange={p.heads[0].straight_flange_length}
+          rightStraightFlange={(p.heads[1] ?? p.heads[0]).straight_flange_length}
+          leftHeadType={p.heads[0].type} rightHeadType={(p.heads[1] ?? p.heads[0]).type}
+          orientation={p.orientation as "horizontal" | "vertical"} active=""
+          nozzles={p.nozzles.map(n => ({tag: n.tag, z: n.axial_position, theta: n.circumferential_angle, od: n.outside_diameter, host: n.host_component_id, nozzle_type: n.nozzle_type}))} />
+        <div className="project-preview__metrics">
+          <div><span>Tasarım basıncı</span><strong>{p.design_conditions.design_pressure}<small> MPa</small></strong></div>
+          <div><span>Tasarım sıcaklığı</span><strong>{p.design_conditions.design_temperature}<small> °C</small></strong></div>
+          <div><span>İç çap</span><strong>{p.shell_sections[0].inside_diameter}<small> mm</small></strong></div>
+          <div><span>Gövde uzunluğu</span><strong>{p.shell_sections[0].tangent_length}<small> mm</small></strong></div>
+        </div>
+        <div className="project-preview__note">Önizleme mevcut geometri girdilerini gösterir. Hesap sonucu veya imalat çizimi değildir.</div>
+        <button className="btn btn--ghost" onClick={() => setStep(2)}>Geometriyi düzenle ↗</button>
+      </aside>
+      </div>
     </div>
   );
 }
 
 // ============================================================ 2. Tasarım Koşulları
 export function ConditionsPage() {
-  const { project, patchConditions, setStep } = useStore();
+  const { project, setProject, patchConditions, setStep } = useStore();
   const dc = project.design_conditions;
   return (
     <div className="page">
@@ -125,6 +191,34 @@ export function ConditionsPage() {
             onChange={(v) => patchConditions({ maximum_allowable_pressure_ps: v })}
             hint="PED / isim plakası" />
         </div>
+      </Panel>
+      <Panel title="Basınç Tahliye Sistemi" meta="UG-125–136"
+        desc="Emniyet vanası/patlama diski ayarını girin. Kapasite sertifikası olmadan sonuç nihai PASS değildir.">
+        <div className="grid">
+          <SelectField label="Tahliye sistemi" value={project.pressure_relief?.enabled ? "enabled" : "disabled"}
+            options={[{ value: "disabled", label: "Tanımlı değil" }, { value: "enabled", label: "Etkin" }]}
+            onChange={(v) => setProject((x) => ({
+              ...x,
+              pressure_relief: v === "enabled"
+                ? (x.pressure_relief ?? { enabled: true, protected_mawp_mpa: null, accumulation_limit_percent: 10, devices: [{ device_id: "RV-1", device_type: "safety_valve", set_pressure_mpa: x.design_conditions.design_pressure, accumulation_percent: null, certified_capacity_kg_s: null }] })
+                : { ...(x.pressure_relief ?? { accumulation_limit_percent: 10, devices: [] }), enabled: false },
+            }))} />
+          <NumField label="Korunan MAWP" unit="MPa" value={project.pressure_relief?.protected_mawp_mpa ?? 0}
+            onChange={(v) => setProject((x) => ({ ...x, pressure_relief: { ...(x.pressure_relief ?? { enabled: true, accumulation_limit_percent: 10, devices: [] }), enabled: true, protected_mawp_mpa: v > 0 ? v : null } }))}
+            hint="Boş bırakılırsa hesaplanan global MAWP kullanılır" />
+          <NumField label="İzin verilen accumulation" unit="%" value={project.pressure_relief?.accumulation_limit_percent ?? 10}
+            onChange={(v) => setProject((x) => ({ ...x, pressure_relief: { ...(x.pressure_relief ?? { enabled: true, devices: [] }), enabled: true, accumulation_limit_percent: v } }))} />
+          {project.pressure_relief?.enabled && project.pressure_relief.devices[0] && (
+            <>
+              <SelectField label="Cihaz tipi" value={project.pressure_relief.devices[0].device_type}
+                options={[{ value: "safety_valve", label: "Emniyet vanası" }, { value: "rupture_disk", label: "Patlama diski" }]}
+                onChange={(v) => setProject((x) => ({ ...x, pressure_relief: { ...x.pressure_relief!, devices: [{ ...x.pressure_relief!.devices[0], device_type: v as "safety_valve" | "rupture_disk" }, ...x.pressure_relief!.devices.slice(1)] } }))} />
+              <NumField label="Set / burst basıncı" unit="MPa" value={project.pressure_relief.devices[0].set_pressure_mpa ?? project.pressure_relief.devices[0].burst_pressure_mpa ?? 0}
+                onChange={(v) => setProject((x) => ({ ...x, pressure_relief: { ...x.pressure_relief!, devices: [{ ...x.pressure_relief!.devices[0], set_pressure_mpa: v > 0 ? v : null, burst_pressure_mpa: null }, ...x.pressure_relief!.devices.slice(1)] } }))} />
+            </>
+          )}
+        </div>
+        {project.pressure_relief?.enabled && <p className="field__hint" style={{ color: "var(--review)" }}>Kapasite, blowdown ve senaryo doğrulaması yetkin mühendis/üretici verisiyle tamamlanmalıdır.</p>}
       </Panel>
       <Panel title="Sıcaklıklar" meta="°C"
         desc="Çalışma, tasarım ve hidrotest sıcaklıkları.">
@@ -186,35 +280,108 @@ export function ConditionsPage() {
 // ============================================================ 3. Geometri
 export function GeometryPage() {
   const { project, setProject, setStep } = useStore();
-  const shell = project.shell_sections[0];
-  const mat = project.materials[0];
-  const weld = project.welds[0];
+  const [activeShellId, setActiveShellId] = useState(project.shell_sections[0]?.section_id ?? "");
+  const [activeMaterialId, setActiveMaterialId] = useState(project.materials[0]?.material_id ?? "");
+  const [activeWeldId, setActiveWeldId] = useState(project.welds[0]?.joint_id ?? "");
+  const shell = project.shell_sections.find((item) => item.section_id === activeShellId) ?? project.shell_sections[0];
+  const mat = project.materials.find((item) => item.material_id === activeMaterialId) ?? project.materials[0];
+  const weld = project.welds.find((item) => item.joint_id === activeWeldId) ?? project.welds[0];
 
   const setShell = (patch: Partial<typeof shell>) =>
-    setProject((x) => ({ ...x, shell_sections: [{ ...x.shell_sections[0], ...patch }] }));
+    setProject((x) => {
+      const linked = (x.diameter_relation ?? "linked") === "linked";
+      const heads = linked && patch.inside_diameter != null
+        ? x.heads.map((head) => ({ ...head, inside_diameter: patch.inside_diameter as number }))
+        : x.heads;
+      return {
+        ...x,
+        shell_sections: x.shell_sections.map((section, index) =>
+          section.section_id === shell.section_id ? { ...section, ...patch } : section
+        ),
+        heads,
+      };
+    });
   const setHead = (i: number, patch: Partial<(typeof project.heads)[0]>) =>
     setProject((x) => ({
       ...x,
       heads: x.heads.map((h, idx) => (idx === i ? { ...h, ...patch } : h)),
     }));
   const setMat = (patch: Partial<typeof mat>) =>
-    setProject((x) => ({ ...x, materials: [{ ...x.materials[0], ...patch }] }));
+    setProject((x) => ({
+      ...x,
+      materials: x.materials.map((item, index) =>
+        item.material_id === mat.material_id ? { ...item, ...patch } : item
+      ),
+    }));
   const setWeld = (patch: Partial<typeof weld>) =>
-    setProject((x) => ({ ...x, welds: [{ ...x.welds[0], ...patch }] }));
+    setProject((x) => ({
+      ...x,
+      welds: x.welds.map((item, index) =>
+        item.joint_id === weld.joint_id ? { ...item, ...patch } : item
+      ),
+    }));
+
+  const addShell = () => setProject((x) => {
+    const n = x.shell_sections.length + 1;
+    const source = x.shell_sections[x.shell_sections.length - 1] ?? x.shell_sections[0];
+    const sectionId = `SHELL-${String(n).padStart(2, "0")}`;
+    const next = { ...source, section_id: sectionId };
+    const sequence = [...(x.component_sequence ?? [])];
+    sequence.splice(Math.max(0, sequence.length - 1), 0, { component_type: "shell" as const, component_id: sectionId });
+    setActiveShellId(sectionId);
+    return { ...x, shell_sections: [...x.shell_sections, next], component_sequence: sequence };
+  });
+
+  const addCone = () => setProject((x) => {
+    const n = x.cones.length + 1;
+    const lastShell = x.shell_sections[x.shell_sections.length - 1];
+    const diameter = lastShell?.inside_diameter ?? 1000;
+    const coneId = `CONE-${String(n).padStart(2, "0")}`;
+    const cone = {
+      cone_id: coneId,
+      large_diameter: diameter,
+      small_diameter: Math.max(1, diameter - 200),
+      half_apex_angle: 15,
+      length: 500,
+      nominal_thickness: lastShell?.nominal_thickness ?? 12,
+      material_id: lastShell?.material_id ?? "MAT-01",
+      weld_joint_id: lastShell?.weld_joint_id ?? "WJ-01",
+      internal_corrosion_allowance: lastShell?.internal_corrosion_allowance ?? 2,
+      mill_tolerance: lastShell?.mill_tolerance ?? 12.5,
+    };
+    const sequence = [...(x.component_sequence ?? [])];
+    sequence.splice(Math.max(0, sequence.length - 1), 0, { component_type: "cone" as const, component_id: coneId });
+    return { ...x, cones: [...x.cones, cone], component_sequence: sequence };
+  });
 
   const headOpts = Object.entries(HEAD_TYPE_TR).map(([value, label]) => ({ value, label }));
   const nozzleTypeOpts = Object.entries(NOZZLE_TYPE_TR).map(([value, label]) => ({ value, label }));
-  const hostOpts = [
-    { value: "SHELL-01", label: "Gövde (SHELL-01)" },
-    { value: "HEAD-L", label: "Sol Bombe (HEAD-L)" },
-    { value: "HEAD-R", label: "Sağ Bombe (HEAD-R)" },
-  ];
+  const componentLabel = (ref: VesselProject["component_sequence"][0]) =>
+    `${ref.component_type === "head" ? "Bombe" : ref.component_type === "shell" ? "Gövde" : "Koni"} (${ref.component_id})`;
+  const hostOpts = (project.component_sequence ?? []).map((ref) => ({ value: ref.component_id, label: componentLabel(ref) }));
+  const materialOpts = project.materials.map((m) => ({ value: m.material_id, label: `${m.material_id} — ${m.material_designation}` }));
+  const weldOpts = project.welds.map((w) => ({ value: w.joint_id, label: `${w.joint_id} — ${w.joint_type}` }));
 
   const [active, setActive] = useState<DimKey>("");
   const [activeNozzle, setActiveNozzle] = useState<number>(0);
   const dim = (k: DimKey) => ({ onFocus: () => setActive(k), onBlur: () => setActive("") });
   const leftHead = project.heads[0];
   const rightHead = project.heads[1] ?? project.heads[0];
+  const issues = geometryIssues(project);
+  const issueSignature = geometrySignature(project);
+  const [acceptedIssueSignature, setAcceptedIssueSignature] = useState<string | null>(null);
+  React.useEffect(() => {
+    setAcceptedIssueSignature(null);
+  }, [issueSignature]);
+  const proceedToResults = () => {
+    const blocking = issues.filter((issue) => issue.blocking);
+    if (blocking.length > 0) return;
+    if (issues.length > 0 && acceptedIssueSignature !== issueSignature) {
+      setAcceptedIssueSignature(issueSignature);
+      return;
+    }
+    setStep(3);
+  };
 
   // Dar form: tek bölüm açık (akordeon)
   const [openSection, setOpenSection] = useState<string>("shell");
@@ -253,6 +420,13 @@ export function GeometryPage() {
   const addSupport = useStore((s) => s.addSupport);
   const removeSupport = useStore((s) => s.removeSupport);
   const updateSupport = useStore((s) => s.updateSupport);
+  const addMaterial = useStore((s) => s.addMaterial);
+  const removeMaterial = useStore((s) => s.removeMaterial);
+  const addWeld = useStore((s) => s.addWeld);
+  const removeWeld = useStore((s) => s.removeWeld);
+  const duplicateComponent = useStore((s) => s.duplicateComponent);
+  const removeComponent = useStore((s) => s.removeComponent);
+  const moveComponent = useStore((s) => s.moveComponent);
   const [activeSupport, setActiveSupport] = useState<number>(0);
   const saddleCount = project.supports.filter((s) => s.type === "saddle").length;
 
@@ -275,7 +449,28 @@ export function GeometryPage() {
       />
       <div className="geo-layout">
         <div className="geo-forms">
-          <AccordionSection {...sec("shell")} title="Silindirik Gövde" meta="SHELL-01"
+          <AccordionSection id="components" open title="Eleman Zinciri" meta={`${project.component_sequence?.length ?? 0} eleman`}
+            onToggle={() => undefined} desc="Basınç taşıyan bileşenler kalıcı kimlikleriyle ve hesap sırasıyla tutulur.">
+            <div style={{ display: "grid", gap: 8 }}>
+              {(project.component_sequence ?? []).map((ref, index) => (
+                <div key={`${ref.component_type}-${ref.component_id}`} className="derived-dims" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                  <span>{index + 1}. {ref.component_type === "head" ? "Bombe" : ref.component_type === "shell" ? "Silindir" : "Koni"} <b>{ref.component_id}</b></span>
+                  <span style={{ display: "flex", gap: 4 }}>
+                    {ref.component_type === "shell" && <button type="button" className="ghost-btn" onClick={() => setActiveShellId(ref.component_id)}>Düzenle</button>}
+                    <button type="button" className="ghost-btn" onClick={() => moveComponent(index, -1)} disabled={index === 0}>↑</button>
+                    <button type="button" className="ghost-btn" onClick={() => moveComponent(index, 1)} disabled={index === (project.component_sequence?.length ?? 1) - 1}>↓</button>
+                    <button type="button" className="ghost-btn" onClick={() => duplicateComponent(ref)}>Kopyala</button>
+                    <button type="button" className="ghost-btn" onClick={() => removeComponent(ref)}>Sil</button>
+                  </span>
+                </div>
+              ))}
+              <div style={{ display: "flex", gap: 8 }}>
+                <button type="button" className="ghost-btn" onClick={addShell}>Silindir ekle</button>
+                <button type="button" className="ghost-btn" onClick={addCone}>Koni ekle</button>
+              </div>
+            </div>
+          </AccordionSection>
+          <AccordionSection {...sec("shell")} title="Silindirik Gövde" meta={shell.section_id}
             desc="Kabın ana silindirik kabuğu — iç çap, uzunluk ve et kalınlığı.">
             <div className="grid">
               <NumField label="İç Çap" unit="mm" value={shell.inside_diameter ?? 0}
@@ -302,7 +497,30 @@ export function GeometryPage() {
                 onChange={(v) => setShell({ ug28_allowable_stress_b: v > 0 ? v : null })}
                 hint="0 = girilmedi"
                 help="A faktörü ve tasarım sıcaklığıyla malzeme çizelgesinden okunan B değeri." />
+              <SelectField label="Malzeme" value={shell.material_id} options={materialOpts}
+                onChange={(v) => setShell({ material_id: v })} />
+              <SelectField label="Kaynak Birleşimi" value={shell.weld_joint_id ?? ""}
+                options={[{ value: "", label: "— yok —" }, ...weldOpts]}
+                onChange={(v) => setShell({ weld_joint_id: v || null })} />
             </div>
+              <SelectField label="Gövde–bombe çap ilişkisi"
+                value={project.diameter_relation ?? "linked"}
+                options={[
+                  { value: "linked", label: "Bağlı — gövde çapını bombelere uygula" },
+                  { value: "independent", label: "Bağımsız — farklı çaplara izin ver" },
+                ]}
+                onChange={(v) => setProject((x) => ({
+                  ...x,
+                  diameter_relation: v as "linked" | "independent",
+                  heads: v === "linked"
+                    ? x.heads.map((head) => ({ ...head, inside_diameter: x.shell_sections[0].inside_diameter ?? head.inside_diameter }))
+                    : x.heads,
+                }))}
+                help="Bağlı modda gövde iç çapı değiştiğinde sol ve sağ bombe çapları otomatik güncellenir. Bağımsız modda farklı çap girebilirsiniz; bu durumda geçiş uyarısı gösterilir." />
+              <div className="derived-dims" aria-label="Gövde türetilmiş ölçüleri">
+                <span>Gövde dış çapı</span><b>{((shell.inside_diameter ?? 0) + 2 * shell.nominal_thickness).toFixed(1)} mm</b>
+                <span>Gövde dış yarıçapı</span><b>{((shell.inside_diameter ?? 0) / 2 + shell.nominal_thickness).toFixed(1)} mm</b>
+              </div>
           </AccordionSection>
 
           {project.heads.map((h, i) => (
@@ -334,8 +552,18 @@ export function GeometryPage() {
                   onChange={(v) => setHead(i, { ug28_allowable_stress_b: v > 0 ? v : null })}
                   hint="0 = girilmedi"
                   help="A faktörü ve tasarım sıcaklığıyla malzeme çizelgesinden okunan B değeri." />
+                <SelectField label="Malzeme" value={h.material_id} options={materialOpts}
+                  onChange={(v) => setHead(i, { material_id: v })} />
+                <SelectField label="Kaynak Birleşimi" value={h.weld_joint_id ?? ""}
+                  options={[{ value: "", label: "— yok —" }, ...weldOpts]}
+                  onChange={(v) => setHead(i, { weld_joint_id: v || null })} />
 
                 {/* Düz kapak için UG-34 C katsayısı */}
+                <div className="derived-dims" aria-label="Bombe türetilmiş ölçüleri">
+                  <span>Dış çap</span><b>{(h.inside_diameter + 2 * h.nominal_thickness).toFixed(1)} mm</b>
+                  <span>Kubbe derinliği</span><b>{headDepth(h.inside_diameter, h.type, h.straight_flange_length).toFixed(1)} mm</b>
+                  <span>Gövde farkı</span><b>{(h.inside_diameter - (shell.inside_diameter ?? 0)).toFixed(1)} mm</b>
+                </div>
                 {h.type === "flat" && (
                   <NumField
                     label="Düz Kapak C Katsayısı (UG-34)"
@@ -358,6 +586,25 @@ export function GeometryPage() {
                       help="Torisferik bombenin mafsal (birleşme) yarıçapı. Genelde iç çapın %6-10'u." />
                   </>
                 )}
+              </div>
+            </AccordionSection>
+          ))}
+
+          {project.cones.map((cone) => (
+            <AccordionSection key={cone.cone_id} {...sec(`cone-${cone.cone_id}`)} title="Konik Bölüm" meta={cone.cone_id}
+              desc="Koni büyük/küçük çap, uzunluk ve yarı tepe açısı.">
+              <div className="grid">
+                <NumField label="Büyük Çap" unit="mm" value={cone.large_diameter}
+                  onChange={(v) => setProject((x) => ({ ...x, cones: x.cones.map((item) => item.cone_id === cone.cone_id ? { ...item, large_diameter: v } : item) }))} />
+                <NumField label="Küçük Çap" unit="mm" value={cone.small_diameter}
+                  onChange={(v) => setProject((x) => ({ ...x, cones: x.cones.map((item) => item.cone_id === cone.cone_id ? { ...item, small_diameter: v } : item) }))} />
+                <NumField label="Uzunluk" unit="mm" value={cone.length}
+                  onChange={(v) => setProject((x) => ({ ...x, cones: x.cones.map((item) => item.cone_id === cone.cone_id ? { ...item, length: v } : item) }))} />
+                <NumField label="Yarı Tepe Açısı" unit="°" value={cone.half_apex_angle}
+                  onChange={(v) => setProject((x) => ({ ...x, cones: x.cones.map((item) => item.cone_id === cone.cone_id ? { ...item, half_apex_angle: v } : item) }))}
+                  help="30° üzeri knuckle/özel analiz, 60° üzeri Appendix 1-8 kapsam dışıdır." />
+                <NumField label="Nominal Kalınlık" unit="mm" value={cone.nominal_thickness}
+                  onChange={(v) => setProject((x) => ({ ...x, cones: x.cones.map((item) => item.cone_id === cone.cone_id ? { ...item, nominal_thickness: v } : item) }))} />
               </div>
             </AccordionSection>
           ))}
@@ -411,6 +658,7 @@ export function GeometryPage() {
               return (
                 <div className="grid" style={{ marginTop: 14 }}>
                   <TextField label="Etiket (Tag)" value={nz.tag}
+                    help="Nozulun imalat, hesap ve rapor üzerindeki benzersiz etiketi; örneğin N1 veya N2."
                     onChange={(v) => setNoz({ tag: v })} />
                   <SelectField label="Nozul Tipi" value={nz.nozzle_type}
                     options={nozzleTypeOpts}
@@ -455,6 +703,8 @@ export function GeometryPage() {
                     options={wallOptions}
                     onChange={(v) => { if (sizeVal !== CUSTOM) applySize(sizeVal, v); }}
                     help="Boru et kalınlığı serisi. Yalnızca katalogdan bir anma çapı seçiliyken etkilidir." />
+                  <SelectField label="Nozul Malzemesi" value={nz.material_id} options={materialOpts}
+                    onChange={(v) => setNoz({ material_id: v })} />
                   {!catalog.verified && (
                     <p className="field__hint" style={{ gridColumn: "1 / -1", color: "var(--review)" }}>
                       ⚠ Katalog değerleri henüz <b>doğrulanmadı</b> — imalat öncesi
@@ -472,6 +722,11 @@ export function GeometryPage() {
                   <NumField label="Boyun Kalınlığı" unit="mm" value={nz.neck_thickness}
                     onChange={(v) => setNoz({ neck_thickness: v, size_designation: null })}
                     help="Nozul borusunun et kalınlığı; takviye alanına katkı sağlar." />
+                  <div className="derived-dims" aria-label="Nozul türetilmiş ölçüleri">
+                    <span>Hesaplanan et</span><b>{((nz.outside_diameter - nz.inside_diameter) / 2).toFixed(2)} mm</b>
+                    <span>Toplam nozul boyu</span><b>{(nz.inside_projection + nz.outside_projection).toFixed(1)} mm</b>
+                    <span>Açıklık çapı</span><b>{nz.inside_diameter.toFixed(1)} mm</b>
+                  </div>
                   <NumField label="İç Çıkıntı" unit="mm" value={nz.inside_projection}
                     onChange={(v) => setNoz({ inside_projection: v })}
                     help="Nozulun kabın içine doğru uzanma mesafesi." />
@@ -527,7 +782,10 @@ export function GeometryPage() {
                       { value: "skirt", label: "Etek (skirt)" },
                       { value: "leg", label: "Ayak (leg)" },
                     ]}
-                    onChange={(v) => setSup({ type: v as typeof sup.type })} />
+                    onChange={(v) => setSup({ type: v as typeof sup.type })}
+                    help="Kabı taşıyan destek türü: eyer, etek veya ayak. Seçim, aşağıdaki destek ölçülerini ve kontrolünü belirler." />
+                  <SelectField label="Destek Malzemesi" value={sup.material_id} options={materialOpts}
+                    onChange={(v) => setSup({ material_id: v })} />
                   <NumField label="Konum" unit="mm" value={sup.location_mm}
                     onChange={(v) => setSup({ location_mm: v })}
                     help="Kap ekseni boyunca konum. Etek için taban kotu." />
@@ -535,7 +793,16 @@ export function GeometryPage() {
                     onChange={(v) => setSup({ width_mm: v })}
                     help="Destek genişliği — eyerde temas genişliği." />
                   <NumField label="Yükseklik" unit="mm" value={sup.height_mm}
-                    onChange={(v) => setSup({ height_mm: v })} />
+                    onChange={(v) => setSup({ height_mm: v })}
+                    help="Desteğin kap eksenine dik yöndeki toplam yüksekliği." />
+                  {sup.type === "skirt" && <>
+                    <NumField label="Etek Çapı" unit="mm" value={sup.diameter_mm ?? 0}
+                      onChange={(v) => setSup({ diameter_mm: v > 0 ? v : null })}
+                      help="Etek ortalama/dış çapı; hesap için zorunludur." />
+                    <NumField label="Etek Et Kalınlığı" unit="mm" value={sup.thickness_mm ?? 0}
+                      onChange={(v) => setSup({ thickness_mm: v > 0 ? v : null })}
+                      help="Etek nominal et kalınlığı; hesap için zorunludur." />
+                  </>}
                   {sup.type === "saddle" && (
                     <NumField label="Sarma Açısı" unit="°" value={sup.contact_angle_deg ?? 0}
                       onChange={(v) => setSup({ contact_angle_deg: v })}
@@ -543,8 +810,35 @@ export function GeometryPage() {
                       help="Eyer sarma açısı — Zick analizi için. Genelde 120°." />
                   )}
                   {sup.type === "leg" && (
-                    <NumField label="Ayak Sayısı" value={sup.leg_count ?? 0}
-                      onChange={(v) => setSup({ leg_count: v > 0 ? v : null })} />
+                    <>
+                      <NumField label="Ayak Sayısı" value={sup.leg_count ?? 0}
+                        onChange={(v) => setSup({ leg_count: v > 0 ? v : null })}
+                        help="Leg tipindeki desteğin taşıyıcı ayak adedi." />
+                      <NumField label="Ayak Çapı" unit="mm" value={sup.leg_diameter_mm ?? 0}
+                        onChange={(v) => setSup({ leg_diameter_mm: v > 0 ? v : null })}
+                        help="Ayak dış çapı; hesap için zorunludur." />
+                      <NumField label="Ayak Et Kalınlığı" unit="mm" value={sup.leg_thickness_mm ?? 0}
+                        onChange={(v) => setSup({ leg_thickness_mm: v > 0 ? v : null })}
+                        help="Ayak nominal et kalınlığı; hesap için zorunludur." />
+                      <NumField label="Ayak Dağılım Yarıçapı" unit="mm" value={sup.support_radius_mm ?? 0}
+                        onChange={(v) => setSup({ support_radius_mm: v > 0 ? v : null })}
+                        help="Ayak eksenlerinin kap merkezinden gerçek uzaklığı; moment hesabı için zorunludur." />
+                      <NumField label="Taban Plakası Alanı" unit="mm²" value={sup.base_plate_area_mm2 ?? 0}
+                        onChange={(v) => setSup({ base_plate_area_mm2: v > 0 ? v : null })}
+                        help="Boş bırakılırsa dairesel ayak kesiti kullanılır." />
+                      <NumField label="Ankraj Cıvatası Adedi" value={sup.anchor_bolt_count ?? 0}
+                        onChange={(v) => setSup({ anchor_bolt_count: v > 0 ? v : null })}
+                        help="Uplift ve yatay yük aktarımında kullanılan ankraj adedi." />
+                      <NumField label="Ankraj İzinli Çekme" unit="N" value={sup.anchor_tension_allowable_N ?? 0}
+                        onChange={(v) => setSup({ anchor_tension_allowable_N: v > 0 ? v : null })}
+                        help="Bir ankraj cıvatası için izin verilen çekme kuvveti." />
+                      <NumField label="Ankraj İzinli Kesme" unit="N" value={sup.anchor_shear_allowable_N ?? 0}
+                        onChange={(v) => setSup({ anchor_shear_allowable_N: v > 0 ? v : null })}
+                        help="Bir ankraj cıvatası için izin verilen kesme kuvveti." />
+                      <NumField label="Yatay Taban Yükü" unit="N" value={sup.lateral_load_N}
+                        onChange={(v) => setSup({ lateral_load_N: v })}
+                        help="Ankraj kesme kontrolüne aktarılan yatay kuvvet." />
+                    </>
                   )}
                   {(sup.type === "skirt" || sup.type === "leg") && (
                     <NumField label="Devirme Momenti" unit="N·mm"
@@ -561,16 +855,29 @@ export function GeometryPage() {
           <AccordionSection {...sec("material")} title="Malzeme"
             meta={mat.material_id + " (manuel giriş — K4)"}
             desc="Gövde ve bombelerin malzeme özellikleri — standart tablosundan seçilir.">
+            <div className="nozzle-list" style={{ marginBottom: 12 }}>
+              {project.materials.map((m) => (
+                <div key={m.material_id} className={`nozzle-card${m.material_id === mat.material_id ? " nozzle-card--active" : ""}`} onClick={() => setActiveMaterialId(m.material_id)}>
+                  <div className="nozzle-card__head"><span className="nozzle-card__tag">{m.material_id}</span><span>{m.material_designation}</span>
+                    {project.materials.length > 1 && <button className="nozzle-card__del" onClick={(e) => { e.stopPropagation(); removeMaterial(m.material_id); }}>✕</button>}
+                  </div>
+                </div>
+              ))}
+              <button className="btn btn--ghost btn--sm nozzle-add" onClick={() => { addMaterial(); setActiveMaterialId(`MAT-${String(project.materials.length + 1).padStart(2, "0")}`); }}>+ Malzeme Ekle</button>
+            </div>
             <div className="grid">
               <TextField label="Malzeme Tanımı" value={mat.material_designation}
+                help="Malzeme sertifikasında veya standart tablosunda geçen tam malzeme tanımı."
                 onChange={(v) => setMat({ material_designation: v })} />
               <NumField label="İzin Verilen Gerilme (S)" unit="MPa" value={mat.allowable_stress}
                 onChange={(v) => setMat({ allowable_stress: v })}
                 help="Tasarım sıcaklığında malzemenin izin verilen gerilmesi (standart tablosundan). Et kalınlığını doğrudan belirler." />
               <NumField label="Akma Dayanımı" unit="MPa" value={mat.yield_strength}
-                onChange={(v) => setMat({ yield_strength: v })} />
+                onChange={(v) => setMat({ yield_strength: v })}
+                help="Malzemenin kalıcı şekil değiştirmeye başladığı gerilme değeri." />
               <NumField label="Çekme Dayanımı" unit="MPa" value={mat.tensile_strength}
-                onChange={(v) => setMat({ tensile_strength: v })} />
+                onChange={(v) => setMat({ tensile_strength: v })}
+                help="Malzemenin kopmadan önce ulaşabildiği en yüksek çekme gerilmesi." />
               <NumField label="Yoğunluk" unit="kg/m³" value={mat.density}
                 onChange={(v) => setMat({ density: v })} help="Ağırlık hesabı için kullanılır." />
               <SelectField
@@ -591,17 +898,41 @@ export function GeometryPage() {
 
           <AccordionSection {...sec("weld")} title="Kaynak & NDT" meta={weld.joint_id}
             desc="Kaynak birleşim verimi ve tahribatsız muayene kapsamı.">
+            <div className="nozzle-list" style={{ marginBottom: 12 }}>
+              {project.welds.map((w) => (
+                <div key={w.joint_id} className={`nozzle-card${w.joint_id === weld.joint_id ? " nozzle-card--active" : ""}`} onClick={() => setActiveWeldId(w.joint_id)}>
+                  <div className="nozzle-card__head"><span className="nozzle-card__tag">{w.joint_id}</span><span>{w.joint_type}</span>
+                    {project.welds.length > 1 && <button className="nozzle-card__del" onClick={(e) => { e.stopPropagation(); removeWeld(w.joint_id); }}>✕</button>}
+                  </div>
+                </div>
+              ))}
+              <button className="btn btn--ghost btn--sm nozzle-add" onClick={() => { addWeld(); setActiveWeldId(`WJ-${String(project.welds.length + 1).padStart(2, "0")}`); }}>+ Kaynak Ekle</button>
+            </div>
             <div className="grid">
               <NumField label="Kaynak Verimi (E)" value={weld.joint_efficiency}
                 onChange={(v) => setWeld({ joint_efficiency: v })} step={0.05}
                 help="Kaynak birleşim katsayısı (0.70–1.00). NDT kapsamına bağlıdır; et kalınlığını etkiler." />
               <TextField label="NDE Yöntemi" value={weld.nde_method ?? ""}
+                help="Kaynak için uygulanan tahribatsız muayene yöntemi; örneğin RT, UT veya PT."
                 onChange={(v) => setWeld({ nde_method: v })} />
               <TextField label="NDE Kapsamı" value={weld.nde_extent ?? ""}
+                help="Muayenenin kaynak üzerindeki kapsamı; örneğin 100% veya spot."
                 onChange={(v) => setWeld({ nde_extent: v })} />
             </div>
           </AccordionSection>
         </div>
+
+        {issues.length > 0 && (
+          <div className={`alert ${issues.some((issue) => issue.blocking) ? "alert--error" : "alert--warn"}`} role="alert">
+            <strong>Geometri kontrolü</strong>
+            <ul>
+              {issues.map((issue) => <li key={issue.code}>{issue.message}</li>)}
+            </ul>
+            {!issues.some((issue) => issue.blocking) && acceptedIssueSignature === issueSignature && (
+              <span className="field__hint">Uyarı kabul edildi; sonuçlara geçebilirsiniz.</span>
+            )}
+          </div>
+        )}
 
         <aside className="geo-preview">
           <div className="panel geo-preview__card">
@@ -625,7 +956,10 @@ export function GeometryPage() {
               {previewTab === "3d" && (
                 <LivePreview
                   shell={shell}
+                  shells={project.shell_sections}
                   heads={project.heads}
+                  cones={project.cones}
+                  componentSequence={project.component_sequence}
                   nozzles={project.nozzles}
                   orientation={project.orientation}
                   active={active}
@@ -637,15 +971,21 @@ export function GeometryPage() {
                 <div className="geo-preview__scroll">
                   <VesselSchematic
                     di={shell.inside_diameter ?? 0}
+                    leftDi={leftHead.inside_diameter}
+                    rightDi={rightHead.inside_diameter}
                     L={shell.tangent_length}
                     t={shell.nominal_thickness}
                     straightFlange={rightHead.straight_flange_length}
+                    leftStraightFlange={leftHead.straight_flange_length}
+                    rightStraightFlange={rightHead.straight_flange_length}
                     leftHeadType={leftHead.type}
                     rightHeadType={rightHead.type}
                     leftHeadT={leftHead.nominal_thickness}
                     rightHeadT={rightHead.nominal_thickness}
                     nozzles={schematicNozzles}
                     activeNozzle={activeNozzle}
+                    chain={{ sequence: project.component_sequence, shells: project.shell_sections,
+                      heads: project.heads, cones: project.cones }}
                     active={active}
                     orientation={project.orientation as "horizontal" | "vertical"}
                   />
@@ -683,7 +1023,10 @@ export function GeometryPage() {
         </aside>
       </div>
 
-      <NextButtons onNext={() => setStep(3)} nextLabel="Sonuçlara Geç →" />
+      <NextButtons onNext={proceedToResults}
+        nextLabel={issues.length > 0 && acceptedIssueSignature !== issueSignature
+          ? "Uyarıyı kabul et ve sonuçlara geç →"
+          : "Sonuçlara Geç →"} />
     </div>
   );
 }
@@ -873,6 +1216,8 @@ export function ResultsPage() {
 
           <ResultGroup title="Et Kalınlığı — Gövde & Bombe" rows={byType("thickness")} emptyNote="Gövde/bombe kalınlık hesabı üretilmedi. Geometri adımında en az bir gövde kesiti ve bombe tanımlı olmalı; hata varsa yukarıdaki Hesap Hataları panelinde görünür." />
           <ResultGroup title="Nozul Takviyesi (UG-37/UG-40)" rows={byType("nozzle_reinforcement")} emptyNote="Nozul tanımlanmadığı için UG-37/UG-40 takviye kontrolü yapılmadı." />
+          <ResultGroup title="Flanş Gerilmesi (Appendix 2)" rows={byType("flange_stress")} emptyNote="Flanş tanımlanmadığı için Appendix 2 kontrolü yapılmadı." />
+          <ResultGroup title="Basınç Tahliye (UG-125–136)" rows={byType("pressure_relief")} emptyNote="Basınç tahliye sistemi tanımlanmadı." />
           <ResultGroup title="MAWP — Bileşen Bazında" rows={byType("mawp")} emptyNote="Bileşen MAWP değeri üretilmedi — kalınlık hesabı başarısızsa MAWP de üretilmez." />
           <ResultGroup title="Hidrostatik Test" rows={byType("hydrotest")} emptyNote="UG-99(b) test basıncı üretilmedi; MAWP hesaplanamadığında test basıncı da hesaplanamaz." />
           <ResultGroup title="Pnömatik Test — UG-100" rows={byType("pneumatic_test")} emptyNote="UG-100 pnömatik test basıncı üretilmedi." />
@@ -906,6 +1251,8 @@ export function ResultsPage() {
           <ResultGroup title="Kaynak Doğrulama" rows={byType("weld_validation")} emptyNote="Kaynak birleşimi tanımlanmadığı için kaynak doğrulaması yapılmadı." />
           <ResultGroup title="Çakışma / Geometri" rows={byType("clash_check")} emptyNote="Çakışma kontrolü üretilmedi — en az iki nozul veya nozul+destek gerekir." />
 
+          <ResultGroup title="Koni Uç Birleşimleri" rows={byType("junction_check")}
+            emptyNote="Junction tanımı yok veya koni uç birleşimi kapsam dışı." />
           <NextButtons onNext={() => setStep(4)} nextLabel="3D Modele Geç →" />
         </>
       )}
@@ -922,8 +1269,8 @@ function computeDims(project: ReturnType<typeof useStore.getState>["project"]): 
   const di = shell.inside_diameter ?? 0;
   const t = shell.nominal_thickness;
   const outerR = di / 2 + t;
-  const lhd = headDepth(di, leftHead.type, leftHead.straight_flange_length);
-  const rhd = headDepth(di, rightHead.type, rightHead.straight_flange_length);
+  const lhd = headDepth(leftHead.inside_diameter, leftHead.type, leftHead.straight_flange_length);
+  const rhd = headDepth(rightHead.inside_diameter, rightHead.type, rightHead.straight_flange_length);
 
   const nozzles = project.nozzles.map((nz) => ({
     tag: nz.tag,
@@ -1010,7 +1357,8 @@ export function ViewerPage() {
             }
           >
             <div className="viewer-shell">
-              <VesselViewer url={url} autoRotate={autoRotate} dims={dims} section={section} />
+              <VesselViewer url={url} autoRotate={autoRotate} dims={dims} section={section}
+                onManual={() => setAutoRotate(false)} />
               <div className="dim-panel">
                 <div className="dim-panel__title">ANA ÖLÇÜLER</div>
                 <DimRow k="Toplam boy" v={`${dims.overallLen.toFixed(0)} mm`} />
@@ -1040,7 +1388,7 @@ export function ViewerPage() {
 
 // ============================================================ 6. Rapor
 export function ReportPage() {
-  const { projectId, setStep } = useStore();
+  const { projectId, setStep, calc, project } = useStore();
   const [ready, setReady] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -1080,6 +1428,14 @@ export function ReportPage() {
         </div>
       ) : (
         <>
+          {calc && <Panel title="Rapor özeti" meta="yöneten ve kapsam sonuçları">
+            <div className="kpi-row">
+              <div className="kpi"><div className="kpi__label">Yöneten MAWP</div><div className="kpi__value">{calc.global_mawp_mpa?.toFixed(2) ?? "—"}<span className="kpi__unit"> MPa</span></div></div>
+              <div className="kpi"><div className="kpi__label">Yöneten MDMT</div><div className="kpi__value">{(() => { const r = calc.results.find((x) => x.calculation_type === "mdmt_check" && x.component_id === "MDMT-GOVERNING"); return r && r.status !== "BLOCKED MISSING INPUT" && r.status !== "BLOCKED CODE DATA" && r.final_result != null ? r.final_result.toFixed(1) : "—"; })()}<span className="kpi__unit"> °C</span></div></div>
+              <div className="kpi"><div className="kpi__label">Junction</div><div className="kpi__value">{project.welds.length}<span className="kpi__unit"> kaynak</span></div></div>
+              <div className="kpi"><div className="kpi__label">Applicability</div><div className="kpi__value">{new Set(calc.results.map((r) => r.component_id || r.component_type)).size}<span className="kpi__unit"> bileşen</span></div></div>
+            </div>
+          </Panel>}
           <Panel
             title="Hesap Raporu"
             meta="HTML — izlenebilirlik bloğu dahil"

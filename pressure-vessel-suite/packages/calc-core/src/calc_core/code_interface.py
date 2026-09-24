@@ -61,6 +61,13 @@ class DesignCode(ABC):
         )
         return result
 
+    def calculate_flange(self, input_data: dict) -> CalculationResult:
+        """Appendix 2 flanş hesabı (opsiyonel code extension)."""
+        result = CalculationResult(component_type="flange", calculation_type="flange_stress",
+                                   code=self.code_name, edition=self.code_edition)
+        result.set_not_calculated("Flange calculation has not been implemented by this code.")
+        return result
+
     def validate_weld(self, input_data: dict) -> CalculationResult:
         """Kaynak doğrulama (opsiyonel — varsayılan NOT_CALCULATED)."""
         result = CalculationResult(
@@ -111,6 +118,27 @@ class DesignCode(ABC):
         Standart eklentisi bunu, kendi `supports` bağımlılığıyla uygular.
         """
         return []
+
+    def check_load_combinations(self, project: "VesselProject") -> List[CalculationResult]:
+        """Yük kombinasyonlarının standart eklentisi tarafından değerlendirilmesi.
+
+        Kombinasyonlar tanımlı olup eklenti bunları desteklemiyorsa boş liste
+        döndürmek güvenli değildir; eklenti açık bir NOT_CALCULATED sonucu
+        üretmelidir. Varsayılan davranış geriye dönük uyumluluk için boştur.
+        """
+        return []
+
+    def check_pressure_relief(
+        self, project: "VesselProject", global_mawp: float | None = None
+    ) -> List[CalculationResult]:
+        """UG-125--136 relief-system validation (optional code extension)."""
+        try:
+            from pressure_relief.calculator import PressureReliefCalculator
+            return PressureReliefCalculator(self.code_name, self.code_edition).check(
+                getattr(project, "pressure_relief", None), global_mawp
+            )
+        except ImportError:
+            return []
 
     def calculate_pneumatic_test_pressure(self, input_data: dict) -> CalculationResult:
         """Pnömatik test basıncı hesabı (opsiyonel — varsayılan NOT_CALCULATED)."""

@@ -7,7 +7,7 @@ name = "pv-code-en-13445"
 version = "0.1.0"
 description = "EN 13445 hesap eklentisi — Pressure Vessel Suite"
 requires-python = ">=3.11"
-dependencies = ["pv-calc-core", "pv-domain", "pv-units", "pv-materials"]
+dependencies = ["pv-calc-core", "pv-domain", "pv-units", "pv-materials", "pv-pressure-relief"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/code_en_13445"]

@@ -1,5 +1,8 @@
 """FastAPI backend smoke testleri — proje oluştur → hesapla → rapor."""
 
+import json
+from pathlib import Path
+
 import pytest
 
 pytest.importorskip("fastapi")
@@ -86,6 +89,58 @@ def test_create_calculate_report_flow(client):
     rep = client.get(f"/api/projects/{pid}/report.html")
     assert rep.status_code == 200
     assert "BASINÇLI KAP HESAP RAPORU" in rep.text
+
+
+def test_five_component_chain_survives_api_save_open_roundtrip(client):
+    """The complete VesselProject fixture survives API list/load unchanged."""
+    fixture_path = Path(__file__).parents[1] / "fixtures" / "vessel_project_five_component.json"
+    project = json.loads(fixture_path.read_text(encoding="utf-8"))
+    project["project_number"] = "API-CHAIN-001"
+
+    created = client.post("/api/projects", json=project)
+    assert created.status_code == 201
+    pid = created.json()["id"]
+    listed = client.get("/api/projects")
+    assert listed.status_code == 200
+    summary = next(item for item in listed.json() if item["id"] == pid)
+    assert summary["project_number"] == "API-CHAIN-001"
+    opened = client.get(f"/api/projects/{pid}")
+    assert opened.status_code == 200
+    saved = opened.json()
+    assert [(x["component_type"], x["component_id"]) for x in saved["component_sequence"]] == [
+        ("head", "HEAD-L"), ("shell", "SHELL-01"), ("cone", "CONE-01"),
+        ("shell", "SHELL-02"), ("head", "HEAD-R"),
+    ]
+    assert {x["material_id"] for x in saved["materials"]} == {"M1", "M2"}
+    assert {x["joint_id"] for x in saved["welds"]} == {"WJ-01", "WJ-02"}
+    assert [x["material_id"] for x in saved["shell_sections"]] == ["M1", "M2"]
+    assert [x["weld_joint_id"] for x in saved["shell_sections"]] == ["WJ-01", "WJ-02"]
+    assert client.post(f"/api/projects/{pid}/calculate").status_code == 200
+    report = client.get(f"/api/projects/{pid}/report.html")
+    assert report.status_code == 200
+    for component_id in ("HEAD-L", "SHELL-01", "CONE-01", "SHELL-02", "HEAD-R"):
+        assert component_id in report.text
+    assert "24." in report.text and "25." in report.text
+    assert "Applicability" in report.text
+
+
+def test_en_calculation_code_selects_en_engine(client):
+    """EN isteği API'de ASME'ye sessizce düşmemelidir."""
+    import copy
+
+    sample_en = copy.deepcopy(SAMPLE)
+    sample_en["project_number"] = "API-EN-001"
+    sample_en["calculation_code"] = "EN 13445"
+    sample_en["code_edition"] = "2021+A1:2023"
+
+    created = client.post("/api/projects", json=sample_en)
+    assert created.status_code == 201
+    pid = created.json()["id"]
+
+    calculated = client.post(f"/api/projects/{pid}/calculate")
+
+    assert calculated.status_code == 200
+    assert calculated.json()["code"] == "EN 13445"
 
 
 def test_404_unknown_project(client):

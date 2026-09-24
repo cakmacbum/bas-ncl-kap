@@ -1,0 +1,17 @@
+{
+  "materials": [
+    {"material_id": "M1", "material_designation": "SA-516 Gr.70"},
+    {"material_id": "M2", "material_designation": "SA-240 304L"}
+  ],
+  "welds": [
+    {"joint_id": "WJ-01", "joint_type": "longitudinal"},
+    {"joint_id": "WJ-02", "joint_type": "circumferential"}
+  ],
+  "component_sequence": [
+    {"component_type": "head", "component_id": "HEAD-L"},
+    {"component_type": "shell", "component_id": "SHELL-01"},
+    {"component_type": "cone", "component_id": "CONE-01"},
+    {"component_type": "head", "component_id": "HEAD-R"}
+  ],
+  "nozzle": {"host_component_id": "CONE-01", "material_id": "M2"}
+}

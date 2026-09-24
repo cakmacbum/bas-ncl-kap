@@ -306,6 +306,147 @@ def skirt_combined_stress(
     return S_bending + S_compression
 
 
+# ── Leg (ayak destek) ─────────────────────────────────────────────────────────
+
+def leg_pipe_section_area(D_outside: float, t_leg: float) -> float:
+    """Boru kesitli ayağın taşıyıcı alanı (halka kesit).
+
+    A = π/4 × (D_outside² - D_inside²),  D_inside = D_outside - 2×t_leg
+
+    Ayak DOLU DAİRE değil, et kalınlığı `t_leg` olan bir borudur; kesit alanı
+    dış çaptan türetilen dolu daireden küçüktür. Dolu daire varsayımı gerçek
+    gerilmeyi olduğundan düşük gösterir (emniyetsiz).
+
+    Args:
+        D_outside: Ayak dış çapı (mm).
+        t_leg: Ayak et kalınlığı (mm).
+
+    Returns:
+        Halka kesit alanı (mm²).
+    """
+    if D_outside <= 0 or t_leg <= 0:
+        raise ValueError("D_outside, t_leg pozitif olmalı")
+    D_inside = D_outside - 2.0 * t_leg
+    if D_inside <= 0:
+        raise ValueError(
+            f"t_leg={t_leg} çok büyük: D_inside={D_inside} <= 0 (D_outside={D_outside})"
+        )
+    return math.pi / 4.0 * (D_outside * D_outside - D_inside * D_inside)
+
+
+def leg_reaction_extremes(
+    W_total: float,
+    n_legs: int,
+    M_overturning: float = 0.0,
+    support_radius: float = 0.0,
+) -> Tuple[float, float]:
+    """Ayak takımında en kritik (maks/min) reaksiyon kuvveti.
+
+    Simetrik dağılım varsayımı — takım tek bir birim olarak modellenir:
+
+    N_max = W/n + M/(n×r)
+    N_min = W/n - M/(n×r)
+
+    r, ayakların kap ekseninden dağılım yarıçapıdır (moment kolu); ayak
+    çapından türetilemez, ayrı girdidir.
+
+    Args:
+        W_total: Toplam ağırlık (N).
+        n_legs: Ayak sayısı.
+        M_overturning: Devirme momenti (N·mm). Varsayılan 0.
+        support_radius: Dağılım yarıçapı (mm). Moment sıfırsa gerekmez.
+
+    Returns:
+        (N_max, N_min) — sırasıyla en yüklü ve en az yüklü (veya negatifse
+        kaldırma talebindeki) ayak reaksiyonu (N).
+    """
+    if n_legs < 1:
+        raise ValueError("n_legs en az 1 olmalı")
+    if M_overturning > 0 and support_radius <= 0:
+        raise ValueError("M_overturning > 0 ise support_radius pozitif olmalı")
+
+    base = W_total / n_legs
+    if support_radius > 0 and M_overturning > 0:
+        moment_term = M_overturning / (n_legs * support_radius)
+    else:
+        moment_term = 0.0
+    return base + moment_term, base - moment_term
+
+
+def leg_base_pressure(N_max: float, A_leg: float) -> float:
+    """Ayak kesitindeki eksenel yataklık gerilmesi.
+
+    P = N_max / A_leg
+
+    Args:
+        N_max: En kritik ayak reaksiyonu (N).
+        A_leg: Ayak taşıyıcı kesit alanı (mm²) — bkz. `leg_pipe_section_area`
+            veya taban plakası alanı (`base_plate_area_mm2` verilmişse).
+
+    Returns:
+        Yataklık gerilmesi (MPa).
+    """
+    if A_leg <= 0:
+        raise ValueError("A_leg pozitif olmalı")
+    return N_max / A_leg
+
+
+# ── Taban plakası ─────────────────────────────────────────────────────────────
+# Yöntem: Moss, *Pressure Vessel Design Manual*, Procedure 4-12 (ayak taban
+# plakası) — AISC ASD kolon tabanı konsol şerit yaklaşımıyla aynıdır.
+
+def base_plate_bearing_pressure(N: float, length: float, width: float) -> float:
+    """Temel yataklık basıncı q = N / (L × W) (MPa)."""
+    if length <= 0 or width <= 0:
+        raise ValueError(f"Plaka ölçüleri pozitif olmalı: {length}, {width}")
+    return N / (length * width)
+
+
+def base_plate_cantilevers(
+    length: float,
+    width: float,
+    profile_depth: float,
+    profile_width: float,
+    depth_factor: float = 0.95,
+    width_factor: float = 0.80,
+) -> Tuple[float, float]:
+    """Profil kenarından plaka kenarına konsol çıkıntıları (m, n).
+
+        m = (L − depth_factor × h) / 2,   n = (W − width_factor × b)/2
+
+    0,95/0,80 katsayıları I/U profil için kritik kesitin profil dış
+    yüzünün biraz içinde oluştuğunu hesaba katar; boru için ikisi de 0,80
+    alınır. Profil plakadan taşarsa ValueError.
+    """
+    if min(length, width, profile_depth, profile_width) <= 0:
+        raise ValueError("Plaka ve profil ölçüleri pozitif olmalı")
+    if profile_depth > length or profile_width > width:
+        raise ValueError(
+            f"Profil ({profile_depth}×{profile_width}) taban plakasından "
+            f"({length}×{width}) büyük olamaz"
+        )
+    m = (length - depth_factor * profile_depth) / 2.0
+    n = (width - width_factor * profile_width) / 2.0
+    return m, n
+
+
+def base_plate_required_thickness(q: float, cantilever: float, Fy: float) -> float:
+    """Konsol şerit eğilmesinden gerekli plaka kalınlığı.
+
+        t = c × √(3q / Fb),  Fb = 0,75·Fy   ⇔   t = 2c·√(q / Fy)
+
+    Args:
+        q: Yataklık basıncı (MPa).
+        cantilever: En büyük konsol çıkıntısı c = max(m, n) (mm).
+        Fy: Plaka akma dayanımı (MPa).
+    """
+    if q < 0:
+        raise ValueError(f"q negatif olamaz: {q}")
+    if cantilever < 0 or Fy <= 0:
+        raise ValueError(f"cantilever ≥ 0 ve Fy > 0 olmalı: {cantilever}, {Fy}")
+    return cantilever * math.sqrt(3.0 * q / (0.75 * Fy))
+
+
 __all__ = [
     "SaddleResult",
     "SkirtResult",
@@ -319,4 +460,10 @@ __all__ = [
     "skirt_bending_stress",
     "skirt_compression_stress",
     "skirt_combined_stress",
+    "leg_pipe_section_area",
+    "leg_reaction_extremes",
+    "leg_base_pressure",
+    "base_plate_bearing_pressure",
+    "base_plate_cantilevers",
+    "base_plate_required_thickness",
 ]

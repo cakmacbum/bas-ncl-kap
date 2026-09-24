@@ -211,6 +211,24 @@ class TestSaveLoadRoundTrip:
         save_project_json(sample_project, fpath)
         assert fpath.exists()
 
+    def test_five_component_fixture_roundtrips_as_full_vessel_project(self, tmp_path):
+        """Tam fixture JSON'u model doğrulaması ve hash'li dosya round-trip'inden geçer."""
+        fixture = Path(__file__).parents[1] / "fixtures" / "vessel_project_five_component.json"
+        source = load_project_json(fixture)
+        target = tmp_path / "five_component_project.json"
+
+        saved = save_project_json(source, target)
+        loaded = load_project_json(target)
+
+        expected_sequence = [
+            ("head", "HEAD-L"), ("shell", "SHELL-01"), ("cone", "CONE-01"),
+            ("shell", "SHELL-02"), ("head", "HEAD-R"),
+        ]
+        assert [(x.component_type, x.component_id) for x in loaded.component_sequence] == expected_sequence
+        assert {m.material_id for m in loaded.materials} == {"M1", "M2"}
+        assert {w.joint_id for w in loaded.welds} == {"WJ-01", "WJ-02"}
+        assert loaded.model_dump(mode="json") == saved.model_dump(mode="json")
+
     def test_roundtrip_model_dump_match(self, sample_project, tmp_path):
         """Yüklenen model_dump() ile kaydedilen dict eşleşmeli (hash hariç)."""
         fpath = tmp_path / "test_project.json"

@@ -17,6 +17,7 @@ from typing import Any, Dict, List, Optional
 from calc_core.code_interface import DesignCode
 from calc_core.hydrostatics import static_head_pressure
 from calc_core.result import CalculationResult
+from calc_core.load_engine import aggregate_load_case, combine_load_cases, governing_state
 from domain.enums import CalculationStatus
 from domain.project import VesselProject
 
@@ -127,6 +128,7 @@ class CalculationOrchestrator:
 
         # A) Ön kontroller
         self._pre_checks(project, result)
+        self._calculate_global_loads(project, result)
 
         # B) Malzeme değerleri kontrolü
         self._check_materials(project, result)
@@ -186,6 +188,17 @@ class CalculationOrchestrator:
                 result.add(r)
             except Exception as e:
                 result.add_error(f"Nozzle {nozzle.tag} calc error: {e}")
+
+        # D1) Flanşlar: Appendix 2 tasarım rotası; rating tablosu ayrı metadata'dır.
+        for flange in getattr(project, "flanges", []):
+            try:
+                result.add(self.design_code.calculate_flange({
+                    "flange": flange,
+                    "design_conditions": project.design_conditions,
+                    "materials": project.materials,
+                }))
+            except Exception as e:
+                result.add_error(f"Flange {flange.flange_id} calc error: {e}")
 
         # D2) Nozul çakışma/geometri kontrolleri
         try:
@@ -294,6 +307,13 @@ class CalculationOrchestrator:
         except Exception as e:
             result.add_error(f"MDMT check error: {e}")
 
+        # Koni uç birleşimleri: desteklenmeyen gerçek çözüm yaklaşıklaştırılmaz.
+        try:
+            for r in getattr(self.design_code, "check_junctions", lambda _project: [])(project):
+                result.add(r)
+        except Exception as e:
+            result.add_error(f"Junction check error: {e}")
+
         # I) Destekler (eyer/etek/ayak). `project.supports` boşsa hiçbir şey
         #    üretilmez — destek tanımlamamak geçerli bir durumdur.
         try:
@@ -302,11 +322,79 @@ class CalculationOrchestrator:
         except Exception as e:
             result.add_error(f"Support check error: {e}")
 
+        # J) Kod-özel yük kombinasyonları. Desteklenmeyen EN yolları sessizce
+        # atlanmamalı; eklenti açık bir NOT_CALCULATED/OUT_OF_SCOPE sonucu döner.
+        try:
+            for r in self.design_code.check_load_combinations(project):
+                result.add(r)
+        except Exception as e:
+            result.add_error(f"Load combination check error: {e}")
+
+        # J) Basınç tahliye sistemi (ASME VIII-1 UG-125--136).
+        try:
+            for r in self.design_code.check_pressure_relief(project, result.get_global_mawp()):
+                result.add(r)
+        except Exception as e:
+            result.add_error(f"Pressure relief check error: {e}")
+
         # (Statik kafa düzeltmesi E2'ye alındı — test basınçları nihai MAWP'yi
         #  kullanabilsin diye. Burada tekrar çağrılmaz: idempotent değildir,
         #  ikinci çağrı düzeltmeyi MAWP'den bir kez daha düşerdi.)
 
         return result
+
+    def _calculate_global_loads(self, project: VesselProject, result: OrchestratorResult) -> None:
+        """Aggregate global forces/moments without pretending to be a code check."""
+        if not project.load_cases and not project.load_combinations:
+            return
+        cases = {case.load_case_id: case for case in project.load_cases}
+        states = []
+        for case in project.load_cases:
+            state = aggregate_load_case(case)
+            r = CalculationResult(
+                component_id=case.load_case_id, component_type="system",
+                calculation_type="global_load_case", code=self.design_code.code_name,
+                edition=self.design_code.code_edition, load_case_id=case.load_case_id,
+                input_snapshot=case.model_dump(),
+            )
+            r.add_intermediate("axial_force", state.axial_force_n, "N")
+            r.add_intermediate("resultant_shear", state.resultant_shear_n, "N")
+            r.add_intermediate("overturning_moment", state.resultant_overturning_moment_nmm, "N-mm")
+            r.add_intermediate("torsional_moment", state.torsional_moment_z_nmm, "N-mm")
+            for assumption in state.assumptions:
+                r.add_assumption(assumption)
+            r.set_review_required("Global load aggregation is not a code-specific support or stability check.")
+            result.add(r)
+            states.append(state)
+        combination_states = []
+        for combination in project.load_combinations:
+            r = CalculationResult(
+                component_id=combination.combination_id, component_type="system",
+                calculation_type="global_load_combination", code=self.design_code.code_name,
+                edition=self.design_code.code_edition, input_snapshot=combination.model_dump(),
+            )
+            try:
+                state = combine_load_cases(cases, combination)
+            except ValueError as exc:
+                r.set_blocked_missing_input(str(exc))
+                result.add(r)
+                continue
+            r.add_intermediate("axial_force", state.axial_force_n, "N")
+            r.add_intermediate("resultant_shear", state.resultant_shear_n, "N")
+            r.add_intermediate("overturning_moment", state.resultant_overturning_moment_nmm, "N-mm")
+            r.add_intermediate("torsional_moment", state.torsional_moment_z_nmm, "N-mm")
+            for assumption in state.assumptions:
+                r.add_assumption(assumption)
+            r.set_review_required("Load combination envelope requires code-specific structural checks.")
+            result.add(r)
+            combination_states.append(state)
+        governing = governing_state(combination_states or states)
+        if governing:
+            for item in result.results:
+                if item.calculation_type == "global_load_case" and item.load_case_id in governing.load_case_ids:
+                    item.governing = True
+                if item.calculation_type == "global_load_combination" and tuple(item.input_snapshot.get("load_case_ids", ())) == governing.load_case_ids:
+                    item.governing = True
 
     def _apply_static_head_correction(
         self, project: VesselProject, result: OrchestratorResult
@@ -391,18 +479,25 @@ class CalculationOrchestrator:
 
     def _check_materials(self, project: VesselProject, result: OrchestratorResult) -> None:
         """B) Malzeme kontrolü."""
-        for shell in project.shell_sections:
-            mat = project.get_material(shell.material_id)
+        components = (
+            [(x.section_id, "shell", x.material_id) for x in project.shell_sections]
+            + [(x.head_id, "head", x.material_id) for x in project.heads]
+            + [(x.cone_id, "cone", x.material_id) for x in project.cones]
+            + [(x.tag, "nozzle", x.material_id) for x in project.nozzles]
+            + [(x.support_id, "support", x.material_id) for x in project.supports]
+        )
+        for component_id, component_type, material_id in components:
+            mat = project.get_material(material_id)
             if mat is None:
                 r = CalculationResult(
-                    component_id=shell.section_id,
-                    component_type="shell",
+                    component_id=component_id,
+                    component_type=component_type,
                     calculation_type="material_check",
                     code=self.design_code.code_name,
                     edition=self.design_code.code_edition,
                 )
                 r.set_not_calculated(
-                    f"Material '{shell.material_id}' not found in project materials list."
+                    f"Material '{material_id}' not found in project materials list."
                 )
                 result.add(r)
 

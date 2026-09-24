@@ -8,6 +8,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import tempfile
 from pathlib import Path
 from typing import Any, Dict
 
@@ -22,6 +24,33 @@ def _canonical_bytes(data: Dict[str, Any]) -> bytes:
     return json.dumps(data, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode(
         "utf-8"
     )
+
+
+def _normalize_component_sequence(data: Dict[str, Any]) -> Dict[str, Any]:
+    """Eski tek silindirli dosyayı açık bileşen zincirine taşır.
+
+    Birden fazla basınç taşıyan eleman olup sırası bulunmayan dosyada tahmin
+    yapılmaz; kullanıcıdan açık migrasyon istenir.
+    """
+    if "component_sequence" in data:
+        return data
+    shells = data.get("shell_sections") or []
+    heads = data.get("heads") or []
+    cones = data.get("cones") or []
+    if len(shells) == 1 and len(heads) == 2 and not cones:
+        normalized = dict(data)
+        normalized["component_sequence"] = [
+            {"component_type": "head", "component_id": heads[0]["head_id"]},
+            {"component_type": "shell", "component_id": shells[0]["section_id"]},
+            {"component_type": "head", "component_id": heads[1]["head_id"]},
+        ]
+        return normalized
+    if len(shells) + len(heads) + len(cones) > 0:
+        raise ValueError(
+            "Birden fazla basınç taşıyan eleman içeren eski projede component_sequence eksik; "
+            "eleman sırası açıkça verilmelidir."
+        )
+    return {**data, "component_sequence": []}
 
 
 def compute_input_hash(project: VesselProject) -> str:
@@ -56,10 +85,22 @@ def save_project_json(project: VesselProject, path: str | Path) -> VesselProject
     project_dict = project.model_dump(mode="json")
     project_dict["input_file_hash"] = project_hash
 
-    path.write_text(
-        json.dumps(project_dict, indent=2, ensure_ascii=False, sort_keys=False),
-        encoding="utf-8",
-    )
+    # Aynı klasörde geçici dosya + fsync + replace: yarım JSON yazımı
+    # elektrik/işlem kesintisinde mevcut revizyonu bozmaz.
+    payload = json.dumps(project_dict, indent=2, ensure_ascii=False, sort_keys=False)
+    fd, temp_name = tempfile.mkstemp(prefix=f".{path.name}.", suffix=".tmp", dir=path.parent)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8", newline="") as stream:
+            stream.write(payload)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temp_name, path)
+    except Exception:
+        try:
+            os.unlink(temp_name)
+        except FileNotFoundError:
+            pass
+        raise
 
     return project.model_copy(update={"input_file_hash": project_hash})
 
@@ -89,7 +130,8 @@ def load_project_json(path: str | Path) -> VesselProject:
     except json.JSONDecodeError as e:
         raise ValueError(f"Geçersiz JSON: {e}") from e
 
-    # Hash doğrulama (varsa)
+    # Hash doğrulama (varsa). Migrasyon hash kontrolünden sonra yapılır;
+    # böylece eski dosyanın orijinal içeriği bozulmadan doğrulanır.
     stored_hash = data.get("input_file_hash")
     if stored_hash:
         check_dict = data.copy()
@@ -102,7 +144,7 @@ def load_project_json(path: str | Path) -> VesselProject:
             )
 
     try:
-        project = VesselProject.model_validate(data)
+        project = VesselProject.model_validate(_normalize_component_sequence(data))
     except Exception as e:
         raise ValueError(f"Proje doğrulama hatası: {e}") from e
 

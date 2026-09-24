@@ -78,9 +78,20 @@ def shell_required_nominal_thickness(
 ) -> float:
     """Gerekli nominal et kalınlığı.
 
-    t_nominal = t_required / mill_tolerance_factor + C + forming_thinning
+    t_nominal = (t_required + C + forming_thinning) / mill_tolerance_factor
 
     ASME'de tipik mill toleransı %12.5 → factor = 0.875 (1 - 0.125).
+
+    Mill (sac) negatif toleransı **sipariş edilen nominal kalınlığın tamamına**
+    uygulanır: sac en kötü durumda `factor × t_nominal` kalınlığında teslim
+    edilebilir. Ömür sonunda basınca dayanması gereken kalınlık, teslim edilen
+    kalınlıktan korozyon payı ve şekillendirme incelmesi düşüldükten sonra
+    kalandır:
+
+        factor × t_nominal - C - forming_thinning >= t_required
+
+    Bu nedenle C ve forming_thinning bölmenin **içinde** kalmalıdır. Payı bölme
+    dışında toplamak (t_required/factor + C) ömür sonunda eksik kalınlık verir.
 
     Args:
         t_required: Korozyonsuz gerekli kalınlık (mm).
@@ -93,7 +104,7 @@ def shell_required_nominal_thickness(
     """
     if mill_tolerance_factor <= 0 or mill_tolerance_factor > 1.0:
         raise ValueError(f"mill_tolerance_factor 0-1 aralığında olmalı: {mill_tolerance_factor}")
-    return t_required / mill_tolerance_factor + C + forming_thinning
+    return (t_required + C + forming_thinning) / mill_tolerance_factor
 
 
 # ── UG-32: Elipsoidal bombe ──────────────────────────────────────────────────
@@ -138,6 +149,19 @@ def head_elliptical_thickness(
     t = P * D / denominator * K
 
     return t, K
+
+
+def head_elliptical_thickness_general(
+    P: float, D: float, h: float, S: float, E: float
+) -> Tuple[float, float]:
+    """UG-32(d)/Appendix 1-4 genel eliptik bombe."""
+    if min(P, D, h, S, E) <= 0:
+        raise ValueError("P, D, h, S ve E pozitif olmalı")
+    K = (2.0 + (D / (2.0 * h)) ** 2) / 6.0
+    denominator = 2.0 * S * E - 0.2 * P
+    if denominator <= 0:
+        raise ValueError("UG-32: 2×S×E - 0.2×P ≤ 0")
+    return P * D * K / denominator, K
 
 
 # ── UG-32: Torisferik bombe ──────────────────────────────────────────────────
@@ -473,6 +497,16 @@ def flat_head_thickness(
 
     t = d * math.sqrt(C_attach * P / (S * E)) + CA
     return t
+
+
+def flat_head_thickness_non_circular(
+    P: float, characteristic_diameter: float, S: float, E: float,
+    C_attach: float, z_factor: float, CA: float = 0.0,
+) -> float:
+    """UG-34(c)(3) dairesel olmayan düz kapak için Z faktörü."""
+    if characteristic_diameter <= 0 or z_factor <= 0:
+        raise ValueError("characteristic_diameter ve Z pozitif olmalı")
+    return characteristic_diameter * z_factor * math.sqrt(C_attach * P / (S * E)) + CA
 
 
 def flat_head_mawp(
