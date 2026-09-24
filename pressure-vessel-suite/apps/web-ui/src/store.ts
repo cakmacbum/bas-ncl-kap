@@ -171,6 +171,7 @@ interface AppState {
   step: number;
   theme: Theme;
   dirty: boolean;
+  activeShellId: string;
 
   setProject: (updater: (p: VesselProject) => VesselProject) => void;
   patchConditions: (patch: Partial<VesselProject["design_conditions"]>) => void;
@@ -179,6 +180,7 @@ interface AppState {
   setCalc: (c: CalcPayload | null) => void;
   setStep: (s: number) => void;
   setDirty: (d: boolean) => void;
+  setActiveShellId: (id: string) => void;
   toggleTheme: () => void;
   addNozzle: () => void;
   removeNozzle: (index: number) => void;
@@ -208,6 +210,7 @@ export const useStore = create<AppState>((set) => ({
   step: 0,
   theme: "light",
   dirty: true,
+  activeShellId: "SHELL-01",
 
   setProject: (updater) =>
     set((s) => ({ project: updater(s.project), dirty: true, calc: null })),
@@ -224,10 +227,12 @@ export const useStore = create<AppState>((set) => ({
   loadProject: (id, project) => set({
     project: normalizeProject(project), projectId: id, inputHash: null,
     calc: null, dirty: false, step: 0,
+    activeShellId: project.shell_sections[0]?.section_id ?? "",
   }),
   setCalc: (c) => set({ calc: c }),
   setStep: (step) => set({ step }),
   setDirty: (dirty) => set({ dirty }),
+  setActiveShellId: (activeShellId) => set({ activeShellId }),
   toggleTheme: () =>
     set((s) => {
       const theme = s.theme === "dark" ? "light" : "dark";

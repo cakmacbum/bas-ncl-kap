@@ -9,6 +9,7 @@ import {
   ReportPage,
 } from "./pages";
 import { geometryIssues } from "./geometryValidation";
+import { GeometryAgentDrawer } from "./GeometryAgentDrawer";
 
 const STEPS = [
   { title: "Yeni Proje", sub: "Kimlik & rota", note: "Proje kimliği ve hesap standardı (ASME VIII-1)." },
@@ -21,6 +22,7 @@ const STEPS = [
 
 export function App() {
   const { step, setStep, theme, toggleTheme, project, calc } = useStore();
+  const [agentOpen, setAgentOpen] = React.useState(false);
 
   React.useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -78,6 +80,9 @@ export function App() {
               MAWP {calc.global_mawp_mpa.toFixed(2)} MPa
             </span>
           )}
+          <button className="btn agent-open-btn" type="button" onClick={() => setAgentOpen(true)} aria-haspopup="dialog">
+            <span aria-hidden="true">✦</span> Ajan
+          </button>
           <button className="icon-btn" onClick={toggleTheme} title="Tema değiştir" aria-label={theme === "dark" ? "Açık temaya geç" : "Koyu temaya geç"}>
             {theme === "dark" ? "☀" : "☾"}
           </button>
@@ -114,6 +119,7 @@ export function App() {
         {pages[step]}
         <footer className="workspace-footer"><span>Basınçlı Kap Suite</span><span>Hesap çıktıları mühendislik incelemesi gerektirir.</span><span>SI · mm / MPa / °C</span></footer>
       </main>
+      <GeometryAgentDrawer open={agentOpen} onClose={() => setAgentOpen(false)} />
     </div>
   );
 }

@@ -1,6 +1,12 @@
 // FastAPI istemcisi (Vite /api proxy üzerinden localhost:8000).
 
-import type { VesselProject, CalcPayload, ProjectSummary } from "./types";
+import type {
+  VesselProject,
+  CalcPayload,
+  ProjectSummary,
+  GeometryAgentInterpretRequest,
+  GeometryAgentSuggestion,
+} from "./types";
 
 const BASE = "/api";
 
@@ -73,6 +79,16 @@ export const api = {
 
   async calculate(id: string): Promise<CalcPayload> {
     return fetchJson(`${BASE}/projects/${id}/calculate`, { method: "POST" });
+  },
+
+  async interpretGeometry(
+    payload: GeometryAgentInterpretRequest
+  ): Promise<GeometryAgentSuggestion> {
+    return fetchJson(`${BASE}/agent/geometry/interpret`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
   },
 
   reportUrl(id: string): string {

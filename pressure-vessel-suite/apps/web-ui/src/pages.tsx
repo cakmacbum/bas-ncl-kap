@@ -279,8 +279,7 @@ export function ConditionsPage() {
 
 // ============================================================ 3. Geometri
 export function GeometryPage() {
-  const { project, setProject, setStep } = useStore();
-  const [activeShellId, setActiveShellId] = useState(project.shell_sections[0]?.section_id ?? "");
+  const { project, setProject, setStep, activeShellId, setActiveShellId } = useStore();
   const [activeMaterialId, setActiveMaterialId] = useState(project.materials[0]?.material_id ?? "");
   const [activeWeldId, setActiveWeldId] = useState(project.welds[0]?.joint_id ?? "");
   const shell = project.shell_sections.find((item) => item.section_id === activeShellId) ?? project.shell_sections[0];

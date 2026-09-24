@@ -193,6 +193,38 @@ export interface VesselProject {
   pressure_relief?: PressureReliefSystem | null;
 }
 
+export type GeometryAgentTarget = "shell" | "head" | "vessel";
+export type GeometryAgentField =
+  | "inside_diameter"
+  | "tangent_length"
+  | "nominal_thickness"
+  | "type"
+  | "straight_flange_length"
+  | "orientation";
+
+export interface GeometryAgentChange {
+  target_type: GeometryAgentTarget;
+  target_id: string;
+  field: GeometryAgentField;
+  value: number | string;
+}
+
+export interface GeometryAgentSuggestion {
+  summary: string;
+  changes: GeometryAgentChange[];
+  warnings: string[];
+}
+
+export interface GeometryAgentInterpretRequest {
+  instruction: string;
+  context: {
+    active_shell_id: string;
+    shell_ids: string[];
+    heads: { head_id: string; side: "left" | "right" | "other" }[];
+    diameter_relation: "linked" | "independent";
+  };
+}
+
 export interface ProjectSummary {
   id: string;
   project_number: string;
