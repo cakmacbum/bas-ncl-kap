@@ -1,5 +1,7 @@
 """Nozul takviye hesabı testleri — ASME UG-37/UG-40."""
 
+from dataclasses import replace
+
 import pytest
 
 from domain import CalculationStatus
@@ -213,6 +215,39 @@ class TestReinforcementCalculation:
 
 
 # ── CalculationResult entegrasyonu ────────────────────────────────────────────
+
+class TestInclinedNozzleIsNotFinal:
+    """Eğik nozul: 1/cos(α) izdüşümü UG-37 eğik yöntemi değildir → nihai PASS verilmez."""
+
+    @staticmethod
+    def _thick(basic_input, angle):
+        # Bol takviyeli gövde: radyalde açıkça PASS
+        return replace(basic_input, component_nominal_thickness=30.0,
+                       nozzle_inclination_angle=angle)
+
+    def test_radial_still_passes(self, basic_input):
+        assert calculate_reinforcement(self._thick(basic_input, 0.0)).status == CalculationStatus.PASS
+
+    def test_inclined_pass_becomes_review_required(self, basic_input):
+        r = calculate_reinforcement(self._thick(basic_input, 30.0))
+        assert r.status == CalculationStatus.REVIEW_REQUIRED
+        assert any("Eğik nozul" in w and "30" in w for w in r.warnings)
+
+    def test_inclined_area_still_computed_with_projection(self, basic_input):
+        # Gerekli alan izdüşümle büyür: A_req(30°) = A_req(0°)/cos(30°) — sayılar korunur
+        r0 = calculate_reinforcement(self._thick(basic_input, 0.0))
+        r30 = calculate_reinforcement(self._thick(basic_input, 30.0))
+        assert r30.required_area == pytest.approx(r0.required_area / 0.8660254, rel=1e-3)
+
+    def test_inclined_fail_stays_fail(self, basic_input):
+        weak = replace(basic_input, component_nominal_thickness=7.5,
+                       nozzle_inclination_angle=30.0)
+        assert calculate_reinforcement(weak).status == CalculationStatus.FAIL
+
+    def test_calculation_result_carries_review_status(self, basic_input):
+        res = build_reinforcement_calculation_result(self._thick(basic_input, 30.0))
+        assert res.status == CalculationStatus.REVIEW_REQUIRED
+
 
 class TestCalculationResultIntegration:
     """build_reinforcement_calculation_result testleri."""

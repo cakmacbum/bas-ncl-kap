@@ -13,6 +13,7 @@ from domain import CalculationCode, VesselProject  # type: ignore
 from code_asme_viii_1 import ASMEVIII1DesignCode  # type: ignore
 from code_en_13445 import EN13445DesignCode  # type: ignore
 from calc_core.orchestrator import CalculationOrchestrator, OrchestratorResult  # type: ignore
+from calc_core.verification import validate_suite  # type: ignore
 from calc_core.volume_mass import calculate_vessel_volume_mass  # type: ignore
 from report_engine.generator import ReportGenerator  # type: ignore
 from compliance import ESRMatrix  # type: ignore
@@ -73,6 +74,15 @@ def run_calculation(project: VesselProject) -> OrchestratorResult:
     return CalculationOrchestrator(code).run(project)
 
 
+def _verification_section(results) -> Dict[str, Any]:
+    """Yayın-öncesi doğrulama kapısı (bilgilendirici; hesabı değiştirmez/engellemez)."""
+    try:
+        return validate_suite(results).to_dict()
+    except Exception as e:  # pragma: no cover - kapı hatası hesabı düşürmemeli
+        return {"case_name": "calculation-run", "passed": False, "checks": [],
+                "errors": [f"Doğrulama kapısı çalıştırılamadı: {e}"]}
+
+
 def calculation_payload(project: VesselProject) -> Dict[str, Any]:
     """Hesap sonucu + global MAWP + hacim/ağırlığı JSON'a çevir."""
     result = run_calculation(project)
@@ -99,6 +109,7 @@ def calculation_payload(project: VesselProject) -> Dict[str, Any]:
         "results": [r.to_dict() for r in result.results],
         "errors": result.errors,
         "volume_mass": volume_mass,
+        "verification": _verification_section(result.results),
     }
     return _json_safe(payload)
 

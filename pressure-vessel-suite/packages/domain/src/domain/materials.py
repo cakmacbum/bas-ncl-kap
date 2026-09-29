@@ -47,6 +47,14 @@ class MaterialProperty(BaseModel):
     allowable_stress: float = Field(
         ..., gt=0, description="İzin verilen gerilme (MPa)."
     )
+    allowable_stress_test_temp: Optional[float] = Field(
+        default=None, gt=0,
+        description=(
+            "Test sıcaklığındaki izin verilen gerilme (MPa). UG-99(b)/UG-100 LSR = "
+            "S_test/S_design oranı için gerekir; girilmezse ve tasarım/test sıcaklığı "
+            "farklıysa test basıncı sonucu REVIEW_REQUIRED olur (K4)."
+        ),
+    )
     yield_strength: float = Field(
         ..., gt=0, description="Akma dayanımı (MPa)."
     )

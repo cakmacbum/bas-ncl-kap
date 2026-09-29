@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { VesselProject, CalcPayload } from "./types";
+import type { VesselProject, CalcPayload, Flange } from "./types";
 
 export function defaultProject(): VesselProject {
   return {
@@ -43,6 +43,7 @@ export function defaultProject(): VesselProject {
         thickness_max: 1000,
         temperature: 150,
         allowable_stress: 138,
+        allowable_stress_test_temp: null,
         yield_strength: 260,
         tensile_strength: 485,
         source_reference: "ASME II-D Table 1A",
@@ -54,6 +55,7 @@ export function defaultProject(): VesselProject {
       },
     ],
     supports: [],
+    flanges: [],
     welds: [
       {
         joint_id: "WJ-01",
@@ -185,6 +187,9 @@ interface AppState {
   addNozzle: () => void;
   removeNozzle: (index: number) => void;
   updateNozzle: (index: number, patch: Partial<VesselProject["nozzles"][0]>) => void;
+  addFlange: () => void;
+  removeFlange: (index: number) => void;
+  updateFlange: (index: number, patch: Partial<Flange>) => void;
   addSupport: () => void;
   removeSupport: (index: number) => void;
   updateSupport: (index: number, patch: Partial<VesselProject["supports"][0]>) => void;
@@ -291,25 +296,109 @@ export const useStore = create<AppState>((set) => ({
         calc: null,
       };
     }),
+  addFlange: () =>
+    set((s) => {
+      const flanges = s.project.flanges ?? [];
+      const newFlange: Flange = {
+        flange_id: `FL-${flanges.length + 1}`,
+        type: "integral",
+        inside_diameter: 500,
+        outside_diameter: 700,
+        thickness: 50,
+        hub_small_thickness: 20,
+        hub_length: 50,
+        material_id: s.project.materials[0]?.material_id ?? "MAT-01",
+        gasket_m: null,
+        gasket_y: null,
+        bolt_count: null,
+        bolt_area: null,
+        bolt_allowable_stress: null,
+        flange_factor_Y: null,
+        flange_factor_f: null,
+        flange_factor_F: null,
+        flange_factor_V: null,
+        flange_factor_T: null,
+        flange_factor_U: null,
+        hub_large_thickness: null,
+        bolt_load_W_N: null,
+        moment_M_Nmm: null,
+        rating_standard: null,
+      };
+      return { project: { ...s.project, flanges: [...flanges, newFlange] }, dirty: true, calc: null };
+    }),
+  removeFlange: (index) =>
+    set((s) => ({
+      project: { ...s.project, flanges: (s.project.flanges ?? []).filter((_, i) => i !== index) },
+      dirty: true,
+      calc: null,
+    })),
+  updateFlange: (index, patch) =>
+    set((s) => ({
+      project: {
+        ...s.project,
+        flanges: (s.project.flanges ?? []).map((f, i) => (i === index ? { ...f, ...patch } : f)),
+      },
+      dirty: true,
+      calc: null,
+    })),
   addSupport: () =>
     set((s) => {
       const n = s.project.supports.length + 1;
       const shell = s.project.shell_sections[0];
       const newSupport = {
         support_id: `SUP-${n}`,
+        // Varsayılan host: zincirdeki ilk GÖVDE (eyer yalnız gövdeye oturur; etek/ayak da
+        // varsayılan olarak gövdeye bağlanır). Gövde yoksa ilk eleman.
+        host_component_id:
+          s.project.component_sequence.find((c) => c.component_type === "shell")?.component_id
+          ?? s.project.shell_sections[0]?.section_id
+          ?? s.project.component_sequence[0]?.component_id
+          ?? null,
         type: "saddle" as const,
         location_mm: Math.round((shell.tangent_length ?? 2000) * 0.2),
         width_mm: 200,
         height_mm: 500,
         diameter_mm: null,
         thickness_mm: null,
+        skirt_allowable_compressive_MPa: null,
+        skirt_weld_efficiency: null,
         material_id: "MAT-01",
         contact_angle_deg: 120,
+        saddle_stiffened: null,
+        zick_K1: null,
+        zick_K2: null,
+        zick_K3: null,
+        zick_K6: null,
+        zick_K7: null,
         leg_count: null,
         leg_diameter_mm: null,
         leg_thickness_mm: null,
         support_radius_mm: null,
+        leg_pad_length_mm: null,
+        leg_pad_width_mm: null,
+        leg_pad_thickness_mm: null,
         base_plate_area_mm2: null,
+        leg_attachment: null,
+        leg_section_type: null,
+        leg_profile_height_mm: null,
+        leg_profile_width_mm: null,
+        leg_web_thickness_mm: null,
+        leg_flange_thickness_mm: null,
+        leg_unbraced_length_mm: null,
+        leg_eccentricity_mm: null,
+        leg_effective_length_factor_K: null,
+        leg_pad_contact_ratio: null,
+        base_plate_length_mm: null,
+        base_plate_width_mm: null,
+        base_plate_thickness_mm: null,
+        base_plate_yield_MPa: null,
+        foundation_bearing_allowable_MPa: null,
+        pad_to_shell_weld_leg_mm: null,
+        leg_to_pad_weld_leg_mm: null,
+        leg_to_base_plate_weld_leg_mm: null,
+        weld_electrode_strength_MPa: null,
+        weld_min_leg_mm: null,
+        wrc_coefficients: null,
         anchor_bolt_count: null,
         anchor_bolt_diameter_mm: null,
         anchor_tension_allowable_N: null,
@@ -416,6 +505,7 @@ export const useStore = create<AppState>((set) => ({
       cones: s.project.cones.map((x) => ({ ...x, material_id: replace(x.material_id) })),
       nozzles: s.project.nozzles.map((x) => ({ ...x, material_id: replace(x.material_id) })),
       supports: s.project.supports.map((x) => ({ ...x, material_id: replace(x.material_id) })),
+      flanges: (s.project.flanges ?? []).map((x) => ({ ...x, material_id: replace(x.material_id) })),
     }, dirty: true, calc: null };
   }),
   addWeld: () => set((s) => {
@@ -462,7 +552,16 @@ export const useStore = create<AppState>((set) => ({
       : ref.component_type === "head"
         ? { ...s.project, heads: s.project.heads.filter((x) => x.head_id !== ref.component_id) }
         : { ...s.project, cones: s.project.cones.filter((x) => x.cone_id !== ref.component_id) };
-    return { project: { ...project, component_sequence: sequence, nozzles: project.nozzles.filter((x) => x.host_component_id !== ref.component_id) }, dirty: true, calc: null };
+    return {
+      project: {
+        ...project,
+        component_sequence: sequence,
+        nozzles: project.nozzles.filter((x) => x.host_component_id !== ref.component_id),
+        supports: project.supports.map((x) => x.host_component_id === ref.component_id ? { ...x, host_component_id: null } : x),
+      },
+      dirty: true,
+      calc: null,
+    };
   }),
   moveComponent: (index, direction) => set((s) => {
     const next = index + direction;

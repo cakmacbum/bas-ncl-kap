@@ -159,3 +159,15 @@ def test_stl_endpoint(client):
     assert r.status_code == 200
     assert r.headers["content-type"] == "model/stl"
     assert len(r.content) > 1000
+
+
+def test_calculate_payload_contains_verification(client):
+    """Yayın kapısı yanıtta görünür (bilgilendirici); hesap sonucu değişmez."""
+    pid = client.post("/api/projects", json=SAMPLE).json()["id"]
+    body = client.post(f"/api/projects/{pid}/calculate").json()
+    ver = body["verification"]
+    assert set(ver) >= {"case_name", "passed", "checks", "errors"}
+    assert len(ver["checks"]) == len(body["results"])
+    # passed, hata listesiyle tutarlı olmalı
+    assert ver["passed"] is (not ver["errors"])
+    assert all("notices" in r for r in body["results"])

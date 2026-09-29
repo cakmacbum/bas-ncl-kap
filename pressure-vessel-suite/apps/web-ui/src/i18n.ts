@@ -32,9 +32,14 @@ export const CALC_TYPE_TR: Record<string, string> = {
   vacuum_stability: "Vakum stabilitesi",
   pressure_consistency: "Basınç tutarlılığı",
   material_check: "Malzeme kontrolü",
+  flange_stress: "Flanş gerilmesi (Appendix 2)",
   saddle_stress: "Eyer gerilmesi (Zick)",
   skirt_stress: "Etek gerilmesi",
   leg_stress: "Ayak gerilmesi",
+  leg_section_check: "Ayak profili kontrolü",
+  leg_weld_check: "Ayak kaynak kontrolü",
+  base_plate_check: "Taban plakası kontrolü",
+  wrc_local_stress: "WRC lokal gerilme",
 };
 
 export const SUPPORT_TYPE_TR: Record<string, string> = {

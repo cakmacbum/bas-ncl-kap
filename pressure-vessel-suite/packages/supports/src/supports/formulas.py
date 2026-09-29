@@ -5,7 +5,7 @@ K6 kuralı: Standart telifli metni gömülmez; yalnızca madde referansı saklan
 
 Referanslar:
 - Zick, L.P., "Stresses in Large Horizontal Cylindrical Pressure Vessels on Two Saddle Supports"
-- ASME VIII-1, Appendix G (skirt)
+- Moss, Pressure Vessel Design Manual (PVDM), Proc. 4-1 / ASME VIII-1 UG-23(b) (etek; madde metni gömülmez)
 """
 
 from __future__ import annotations
@@ -16,231 +16,202 @@ from typing import Tuple
 
 
 # ── Saddle (Zick analizi) ─────────────────────────────────────────────────────
+#
+# Yapı Zick (1951) / Moss PVDM Prosedür 3-10 / Megyesy'e göredir. K1…K7 katsayı
+# tabloları lisanslı olabileceğinden BURADA YOKTUR (K6): kullanıcı tablodan
+# okuyup girer. Adlandırma Moss/Megyesy'dir; Zick 1951 orijinalinde numaralama
+# farklıdır (orada K3 çevresel moment sabitidir):
+#   K1  boyuna eğilme, eyer kesiti (çekme tarafı); halkalı / başlık-destekli π
+#   K2  kabuk teğetsel kesme (halkalı: 1/π = 0,319 sabit)
+#   K3  başlık kesmesi (yalnız A ≤ R/2)
+#   K6  eyer boynuzunda çevresel eğilme momenti sabiti
+#   K7  eyer altı kabuk çevresel basma sabiti
+# Semboller: Q eyer reaksiyonu (N), R ortalama yarıçap, t korozyonlu et, L
+# teğet-teğet kap boyu, A eyerin en yakın teğet çizgisine uzaklığı, H BAŞLIK
+# DERİNLİĞİ, b eyer genişliği. Birimler mm / N / MPa.
 
-@dataclass
-class SaddleResult:
-    """Saddle hesap sonuçları."""
-    Q: float = 0.0          # Saddle reaksiyon kuvveti (N)
-    S1: float = 0.0         # Longitudinal bending stress at saddle (MPa)
-    S2: float = 0.0         # Circumferential stress at saddle (MPa)
-    S3: float = 0.0         # Circumferential stress at crown (MPa)
-    S4: float = 0.0         # Shear stress (MPa)
-    K: float = 0.0          # Saddle width factor
-    C4: float = 0.0         # Saddle location factor
+_ZICK_EFF_WIDTH_C = 1.56  # kabuğun eyerle birlikte çalışan etkin genişliği: b + 1,56·√(R·t)
 
 
-def saddle_reaction(
-    W_total: float,
-    n_saddles: int = 2,
-) -> float:
-    """Saddle reaksiyon kuvveti.
-
-    Q = W_total / n_saddles
-
-    Args:
-        W_total: Toplam ağırlık (N) — kap + içerik + donanım.
-        n_saddles: Saddle sayısı (tipik: 2).
-
-    Returns:
-        Saddle reaksiyon kuvveti (N).
-    """
+def saddle_reaction(W_total: float, n_saddles: int = 2) -> float:
+    """Simetrik durumda eyer reaksiyonu Q = W_total / n_saddles (N)."""
     if n_saddles <= 0:
         raise ValueError("Saddle sayısı pozitif olmalı")
     return W_total / n_saddles
 
 
-def zick_longitudinal_bending(
-    Q: float,
-    L: float,
-    R_m: float,
-    t: float,
-    A: float,
-    h: float,
+def saddle_reactions_two(
+    W_total: float, x_left: float, x_right: float, x_cg: float
+) -> Tuple[float, float]:
+    """İki eyerin reaksiyonları — moment dengesinden (asimetride W/2 değil).
+
+    Q_sol = W·(x_sağ − x_cg)/(x_sağ − x_sol),  Q_sağ = W − Q_sol
+    """
+    if x_right <= x_left:
+        raise ValueError("Eyer konumları x_sağ > x_sol olmalı")
+    q_left = W_total * (x_right - x_cg) / (x_right - x_left)
+    return q_left, W_total - q_left
+
+
+def zick_head_depth(head) -> float:
+    """Başlık derinliği H (mm) — teğet çizgisinden başlık ucuna (düz flanş HARİÇ).
+
+    Eliptik: crown_depth verilmişse o, yoksa D/4 (2:1). Yarıküresel: D/2.
+    Torisferik: crown_depth verilmişse o; yoksa Rc, rk yarıçaplarından
+    h = Rc − √((Rc − rk)² − (D/2 − rk)²) (standart ASME F&D: Rc = D, rk = 0,06 D).
+    Düz: 0.
+    """
+    D = head.inside_diameter
+    kind = getattr(head.type, "value", head.type)
+    if kind == "flat":
+        return 0.0
+    if kind == "hemispherical":
+        return D / 2.0
+    if getattr(head, "crown_depth", None):
+        return float(head.crown_depth)
+    if kind == "elliptical":
+        return D / 4.0
+    Rc = head.crown_radius
+    rk = head.knuckle_radius
+    if kind == "torispherical" and getattr(head, "torispherical_geometry", "") == "standard_asme_fd":
+        Rc, rk = D, 0.06 * D
+    if not Rc or not rk:
+        raise ValueError("Torisferik başlık derinliği için crown_depth veya Rc/rk gerekli")
+    return Rc - math.sqrt((Rc - rk) ** 2 - (D / 2.0 - rk) ** 2)
+
+
+def zick_moment_saddle(Q: float, L: float, R: float, A: float, H: float) -> float:
+    """Zick M1 — eyer kesitindeki boyuna eğilme momenti (N·mm; + = eyerde üst lif çekme).
+
+    M1 = Q·A·[1 − (1 − A/L + (R² − H²)/(2·A·L)) / (1 + 4H/(3L))]
+
+    Kontrol (H = 0, R → 0): M1 = Q·A²/L (iki ucu A taşan basit kiriş, w·A²/2).
+    """
+    if L <= 0 or A <= 0 or R <= 0:
+        raise ValueError("L, A, R pozitif olmalı")
+    return Q * A * (
+        1.0 - (1.0 - A / L + (R * R - H * H) / (2.0 * A * L)) / (1.0 + 4.0 * H / (3.0 * L))
+    )
+
+
+def zick_moment_midspan(Q: float, L: float, R: float, A: float, H: float) -> float:
+    """Zick M2 — orta açıklık boyuna eğilme momenti (N·mm; + = alt lif çekme).
+
+    M2 = (Q·L/4)·[(1 + 2(R² − H²)/L²)/(1 + 4H/(3L)) − 4A/L]
+
+    Kontrol (H = 0, R → 0): M2 = Q·L/4 − Q·A (iki eşit yüklü basit kiriş).
+    """
+    if L <= 0 or R <= 0:
+        raise ValueError("L, R pozitif olmalı")
+    return (Q * L / 4.0) * (
+        (1.0 + 2.0 * (R * R - H * H) / (L * L)) / (1.0 + 4.0 * H / (3.0 * L)) - 4.0 * A / L
+    )
+
+
+def zick_longitudinal_stress_saddle(M1: float, K1: float, R: float, t: float) -> float:
+    """S1 (eyer kesiti) = |M1| / (K1·R²·t)  [MPa]. K1: halkalı/başlık-destekli π."""
+    if K1 <= 0 or R <= 0 or t <= 0:
+        raise ValueError("K1, R, t pozitif olmalı")
+    return abs(M1) / (K1 * R * R * t)
+
+
+def zick_longitudinal_stress_midspan(M2: float, R: float, t: float) -> float:
+    """S1 (orta açıklık) = |M2| / (π·R²·t)  [MPa]."""
+    if R <= 0 or t <= 0:
+        raise ValueError("R, t pozitif olmalı")
+    return abs(M2) / (math.pi * R * R * t)
+
+
+def zick_pressure_longitudinal(P: float, R: float, t: float) -> float:
+    """Boyuna basınç gerilmesi P·R/(2t) — yalnız çekme tarafına eklenir."""
+    if t <= 0:
+        raise ValueError("t pozitif olmalı")
+    return P * R / (2.0 * t)
+
+
+def zick_effective_width(b: float, R: float, t: float) -> float:
+    """Etkin genişlik b + 1,56·√(R·t) (Zick düzeltmesi; eski 10·t yerine)."""
+    if b <= 0 or R <= 0 or t <= 0:
+        raise ValueError("b, R, t pozitif olmalı")
+    return b + _ZICK_EFF_WIDTH_C * math.sqrt(R * t)
+
+
+def zick_shear_shell(
+    Q: float, R: float, t: float, L: float, A: float, H: float, K2: float,
+    head_stiffened: bool = False,
 ) -> float:
-    """Zick — Saddle'da boyuna eğilme gerilmesi.
+    """Kabuk teğetsel kesme gerilmesi (MPa).
 
-    S1 = Q × L / (4 × π × R_m² × t) × [1 - (2×A/L) / (1 + 4×h/(3×L))]
-
-    Args:
-        Q: Saddle reaksiyonu (N).
-        L: Kap uzunluğu (saddle arası, mm).
-        R_m: Ortalama yarıçap (mm).
-        t: Gövde et kalınlığı (mm).
-        A: Saddle'dan kap ucuna mesafe (mm).
-        h: Saddle yüksekliği (mm).
-
-    Returns:
-        Boyuna eğilme gerilmesi (MPa).
-
-    Referans: Zick analizi, S1
+    Eyer başlıktan uzak (A > R/2) veya halkalı: S2 = K2·Q/(R·t)·(L − 2A)/(L + 4H/3)
+    Eyer başlığa yakın (A ≤ R/2, halkasız): S2 = K2·Q/(R·t)
     """
-    if R_m <= 0 or t <= 0 or L <= 0:
-        raise ValueError("R_m, t, L pozitif olmalı")
+    if K2 <= 0 or R <= 0 or t <= 0 or L <= 0:
+        raise ValueError("K2, R, t, L pozitif olmalı")
+    base = K2 * Q / (R * t)
+    if head_stiffened:
+        return base
+    return base * (L - 2.0 * A) / (L + 4.0 * H / 3.0)
 
-    K1 = 1.0 - (2.0 * A / L) / (1.0 + 4.0 * h / (3.0 * L))
-    S1 = Q * L / (4.0 * math.pi * R_m * R_m * t) * K1
 
-    return S1
+def zick_shear_head(Q: float, R: float, t_head: float, K3: float) -> float:
+    """Başlıkta ek kesme gerilmesi S3 = K3·Q/(R·t_h) (yalnız A ≤ R/2)."""
+    if K3 <= 0 or R <= 0 or t_head <= 0:
+        raise ValueError("K3, R, t_h pozitif olmalı")
+    return K3 * Q / (R * t_head)
 
 
-def zick_circumferential_saddle(
-    Q: float,
-    R_m: float,
-    t: float,
-    b: float,
+def zick_circumferential_membrane(Q: float, R: float, t: float, b: float) -> float:
+    """Boynuz doğrudan (membran) terimi Q/(4·t·(b + 1,56√(R·t))) — MPa, basma."""
+    return Q / (4.0 * t * zick_effective_width(b, R, t))
+
+
+def zick_circumferential_horn(
+    Q: float, R: float, t: float, b: float, L: float, K6: float
 ) -> float:
-    """Zick — Saddle'da çevresel gerilme.
+    """Eyer boynuzunda toplam çevresel gerilme büyüklüğü (MPa, basma).
 
-    S2 = Q / (4 × t × (b + 1.56×sqrt(R_m×t)))
-
-    Args:
-        Q: Saddle reaksiyonu (N).
-        R_m: Ortalama yarıçap (mm).
-        t: Gövde et kalınlığı (mm).
-        b: Saddle genişliği (mm).
-
-    Returns:
-        Çevresel gerilme (MPa).
-
-    Referans: Zick analizi, S2
+    L ≥ 8R:  S4 = Q/(4t(b+1,56√(Rt))) + 12·K6·Q·R/(L·t²)
+    L < 8R:  S4 = Q/(4t(b+1,56√(Rt))) + 3·K6·Q/(2·t²)
+    (her iki terim basma; büyüklük döner.)
     """
-    if R_m <= 0 or t <= 0 or b <= 0:
-        raise ValueError("R_m, t, b pozitif olmalı")
+    if K6 <= 0 or L <= 0:
+        raise ValueError("K6, L pozitif olmalı")
+    membrane = zick_circumferential_membrane(Q, R, t, b)
+    if L >= 8.0 * R:
+        bending = 12.0 * K6 * Q * R / (L * t * t)
+    else:
+        bending = 3.0 * K6 * Q / (2.0 * t * t)
+    return membrane + bending
 
-    effective_width = b + 1.56 * math.sqrt(R_m * t)
-    S2 = Q / (4.0 * t * effective_width)
 
-    return S2
+def zick_circumferential_bottom(Q: float, R: float, t: float, b: float, K7: float) -> float:
+    """Kabuk tabanı (eyer altı) çevresel basma S5 = K7·Q/(t·(b + 1,56√(R·t))) (MPa)."""
+    if K7 <= 0:
+        raise ValueError("K7 pozitif olmalı")
+    return K7 * Q / (t * zick_effective_width(b, R, t))
 
 
-def zick_circumferential_crown(
-    Q: float,
-    R_m: float,
-    t: float,
-    b: float,
-    L: float,
-) -> float:
-    """Zick — Taç noktasında çevresel gerilme.
+def saddle_stress_limits(S_allow: float, S_yield: float, E: float = 1.0) -> dict:
+    """Zick sınırları (ayrı ayrı; tek bir 0,67·S DEĞİL).
 
-    S3 = Q / (4 × t × (b + 1.56×sqrt(R_m×t))) × K2
-
-    K2 = L/(4×R_m) faktörü.
-
-    Args:
-        Q: Saddle reaksiyonu (N).
-        R_m: Ortalama yarıçap (mm).
-        t: Gövde et kalınlığı (mm).
-        b: Saddle genişliği (mm).
-        L: Kap uzunluğu (mm).
-
-    Returns:
-        Taç noktasında çevresel gerilme (MPa).
-
-    Referans: Zick analizi, S3
+    S1 çekme        ≤ S·E
+    S1 basma        ≤ 0,5·Sy   (burkulma B sınırı UG-23(b) ayrıca kontrol edilir)
+    S2 kabuk kesme  ≤ 0,8·S
+    S3 başlık kesme ≤ 1,25·S
+    S4 boynuz çevresel ≤ 1,5·S
+    S5 taban/aşınma plakası basma ≤ 0,5·Sy
     """
-    if R_m <= 0 or t <= 0 or b <= 0 or L <= 0:
-        raise ValueError("R_m, t, b, L pozitif olmalı")
-
-    K2 = L / (4.0 * R_m)
-    effective_width = b + 1.56 * math.sqrt(R_m * t)
-    S3 = Q / (4.0 * t * effective_width) * K2
-
-    return S3
-
-
-def zick_shear_stress(
-    Q: float,
-    R_m: float,
-    t: float,
-    A: float,
-    L: float,
-) -> float:
-    """Zick — Kesme gerilmesi.
-
-    S4 = Q / (π × R_m × t) × (L - 2×A) / (L + 4×h/3)
-
-    Args:
-        Q: Saddle reaksiyonu (N).
-        R_m: Ortalama yarıçap (mm).
-        t: Gövde et kalınlığı (mm).
-        A: Saddle'dan kap ucuna mesafe (mm).
-        L: Kap uzunluğu (mm).
-
-    Returns:
-        Kesme gerilmesi (MPa).
-
-    Referans: Zick analizi, S4
-    """
-    if R_m <= 0 or t <= 0 or L <= 0:
-        raise ValueError("R_m, t, L pozitif olmalı")
-
-    S4 = Q / (math.pi * R_m * t) * (L - 2.0 * A) / L
-
-    return S4
-
-
-def saddle_stress_limits(
-    S_allow: float,
-) -> Tuple[float, float, float, float]:
-    """Saddle gerilme limitleri.
-
-    Zick limitleri:
-    - S1 ≤ 0.67 × S_allow (çelik)
-    - S2 ≤ 0.67 × S_allow (çelik)
-    - S3 ≤ 0.67 × S_allow (çelik)
-    - S4 ≤ 0.67 × S_allow (çelik)
-
-    Args:
-        S_allow: İzin verilen gerilme (MPa).
-
-    Returns:
-        (S1_limit, S2_limit, S3_limit, S4_limit)
-    """
-    limit = 0.67 * S_allow
-    return limit, limit, limit, limit
+    return {
+        "S1_tension": S_allow * E,
+        "S1_compression": 0.5 * S_yield,
+        "S2": 0.8 * S_allow,
+        "S3": 1.25 * S_allow,
+        "S4": 1.5 * S_allow,
+        "S5": 0.5 * S_yield,
+    }
 
 
 # ── Skirt (etek destek) ───────────────────────────────────────────────────────
-
-@dataclass
-class SkirtResult:
-    """Skirt hesap sonuçları."""
-    P_base: float = 0.0         # Temel basıncı (MPa)
-    S_bending: float = 0.0      # Eğilme gerilmesi (MPa)
-    S_compression: float = 0.0  # Basınç gerilmesi (MPa)
-    S_combined: float = 0.0     # Birleşik gerilme (MPa)
-
-
-def skirt_base_pressure(
-    W_total: float,
-    M_overturning: float,
-    D_skirt: float,
-    t_skirt: float,
-) -> float:
-    """Skirt temel basıncı.
-
-    P_base = W / (π × D_skirt × t_skirt) + 4×M / (π × D_skirt² × t_skirt)
-
-    Args:
-        W_total: Toplam ağırlık (N).
-        M_overturning: Devirme momenti (N·mm).
-        D_skirt: Skirt çapı (mm).
-        t_skirt: Skirt et kalınlığı (mm).
-
-    Returns:
-        Temel basıncı (MPa).
-    """
-    if D_skirt <= 0 or t_skirt <= 0:
-        raise ValueError("D_skirt, t_skirt pozitif olmalı")
-
-    A_skirt = math.pi * D_skirt * t_skirt
-    S_skirt = math.pi * D_skirt * D_skirt * t_skirt / 4.0
-
-    P_axial = W_total / A_skirt
-    P_bending = M_overturning / S_skirt
-
-    return P_axial + P_bending
-
 
 def skirt_bending_stress(
     M_overturning: float,
@@ -253,7 +224,7 @@ def skirt_bending_stress(
 
     Args:
         M_overturning: Devirme momenti (N·mm).
-        D_skirt: Skirt çapı (mm).
+        D_skirt: Etek ORTALAMA çapı (mm) — dış çap değil.
         t_skirt: Skirt et kalınlığı (mm).
 
     Returns:
@@ -276,7 +247,7 @@ def skirt_compression_stress(
 
     Args:
         W_total: Toplam ağırlık (N).
-        D_skirt: Skirt çapı (mm).
+        D_skirt: Etek ORTALAMA çapı (mm) — dış çap değil.
         t_skirt: Skirt et kalınlığı (mm).
 
     Returns:
@@ -304,6 +275,41 @@ def skirt_combined_stress(
         Birleşik gerilme (MPa).
     """
     return S_bending + S_compression
+
+
+def skirt_tensile_stress(
+    M_overturning: float,
+    W_min: float,
+    D_skirt: float,
+    t_skirt: float,
+) -> float:
+    """Etek çekme tarafı gerilmesi (kaldırma eğilimi).
+
+    S_t = M / Z − W_min / A,  A = π·D_m·t,  Z = π·D_m²·t/4
+
+    Pozitif değer, rüzgâr tarafında çekme (ankraj/kaldırma) demektir. W_min,
+    en küçük eşzamanlı ağırlıktır (boş kap); işletme/test ağırlığı DEĞİL.
+
+    Returns:
+        Çekme gerilmesi (MPa); negatifse çekme oluşmaz (tüm kesit basma).
+    """
+    if D_skirt <= 0 or t_skirt <= 0:
+        raise ValueError("D_skirt, t_skirt pozitif olmalı")
+    return (
+        skirt_bending_stress(M_overturning, D_skirt, t_skirt)
+        - skirt_compression_stress(W_min, D_skirt, t_skirt)
+    )
+
+
+def skirt_geometric_factor_A(D_skirt: float, t_skirt: float) -> float:
+    """Silindirik etek için geometrik faktör A = 0,125 / (R/t), R = D_m/2.
+
+    Yalnız bilgi amaçlıdır: UG-23(b) B çizelgesinde okuma için A üretir. B
+    değeri eğri okumasıdır ve bu pakette YOKTUR (K6).
+    """
+    if D_skirt <= 0 or t_skirt <= 0:
+        raise ValueError("D_skirt, t_skirt pozitif olmalı")
+    return 0.125 / ((D_skirt / 2.0) / t_skirt)
 
 
 # ── Leg (ayak destek) ─────────────────────────────────────────────────────────
@@ -342,10 +348,20 @@ def leg_reaction_extremes(
 ) -> Tuple[float, float]:
     """Ayak takımında en kritik (maks/min) reaksiyon kuvveti.
 
-    Simetrik dağılım varsayımı — takım tek bir birim olarak modellenir:
+    Simetrik dağılım varsayımı — takım tek bir birim olarak modellenir. Eşit
+    aralıklı n ayak r yarıçaplı çember üzerindeyken devirme momenti eğilme
+    eksenine uzaklıkla orantılı kuvvet doğurur (F_i = M·y_i / Σy²):
 
-    N_max = W/n + M/(n×r)
-    N_min = W/n - M/(n×r)
+    n ≥ 3:  Σy² = n·r²/2  →  en yüklü ayak (moment ekseni bir ayağın
+            üstündeyken):  ΔN = 2M/(n×r)          (= 4M/(n×D), D = 2r)
+    n = 2:  iki ayak moment düzleminde karşılıklı → ΔN = M/(n×r)
+
+    N_max = W/n + ΔN,  N_min = W/n − ΔN.
+
+    Eski `M/(n×r)` n ≥ 3 için gerçek en kötü ayak yükünün YARISIYDI
+    (emniyetsiz). Bağımsız kaynak: Moss, *Pressure Vessel Design Manual*
+    (ankraj/ayak yükü `P = W/N ± 4M/(N·D)`). n = 2'de moment eksenine dik
+    yönde ayaklar momenti taşıyamaz — bu yön kapsanmaz, yerleşim doğrulanmalı.
 
     r, ayakların kap ekseninden dağılım yarıçapıdır (moment kolu); ayak
     çapından türetilemez, ayrı girdidir.
@@ -367,7 +383,10 @@ def leg_reaction_extremes(
 
     base = W_total / n_legs
     if support_radius > 0 and M_overturning > 0:
-        moment_term = M_overturning / (n_legs * support_radius)
+        if n_legs == 1:
+            raise ValueError("Tek ayak devirme momentini taşıyamaz (n_legs ≥ 2 gerekir)")
+        factor = 1.0 if n_legs == 2 else 2.0
+        moment_term = factor * M_overturning / (n_legs * support_radius)
     else:
         moment_term = 0.0
     return base + moment_term, base - moment_term
@@ -447,16 +466,50 @@ def base_plate_required_thickness(q: float, cantilever: float, Fy: float) -> flo
     return cantilever * math.sqrt(3.0 * q / (0.75 * Fy))
 
 
+# ── Ayak yük dağılımı yardımcıları ────────────────────────────────────────────
+
+def leg_lateral_load_per_leg(H_total: float, n_legs: int) -> float:
+    """Toplam yatay taban yükünün ayak başına düşen payı H = H_toplam / n (N).
+
+    Eşit paylaşım varsayımı (yönden bağımsız, simetrik takım).
+    """
+    if n_legs < 1:
+        raise ValueError("n_legs en az 1 olmalı")
+    if H_total < 0:
+        raise ValueError(f"H_total negatif olamaz: {H_total}")
+    return H_total / n_legs
+
+
+def leg_eccentric_moment(N: float, eccentricity: float) -> float:
+    """Ayak yükünün gövde yüzeyine göre eksantrik momenti M = N·e (N·mm)."""
+    if eccentricity < 0:
+        raise ValueError(f"eccentricity negatif olamaz: {eccentricity}")
+    return abs(N) * eccentricity
+
+
+def leg_base_moment(N: float, eccentricity: float, H_per_leg: float, leg_length: float) -> float:
+    """Ayak tabanında kaynak/plakaya aktarılan moment (N·mm), muhafazakâr:
+
+        M_taban = N·e + H·L
+
+    N·e: eksantrik eksenel yükün ayak boyunca sabit kalan momenti (ankastre taban
+    varsayımı); H·L: yatay yükün serbest uçlu konsol (K = 2,1) kolu.
+    """
+    if leg_length <= 0:
+        raise ValueError(f"leg_length pozitif olmalı: {leg_length}")
+    return leg_eccentric_moment(N, eccentricity) + abs(H_per_leg) * leg_length
+
+
 __all__ = [
     "SaddleResult",
-    "SkirtResult",
     "saddle_reaction",
     "zick_longitudinal_bending",
     "zick_circumferential_saddle",
     "zick_circumferential_crown",
     "zick_shear_stress",
     "saddle_stress_limits",
-    "skirt_base_pressure",
+    "skirt_tensile_stress",
+    "skirt_geometric_factor_A",
     "skirt_bending_stress",
     "skirt_compression_stress",
     "skirt_combined_stress",
@@ -466,4 +519,7 @@ __all__ = [
     "base_plate_bearing_pressure",
     "base_plate_cantilevers",
     "base_plate_required_thickness",
+    "leg_lateral_load_per_leg",
+    "leg_eccentric_moment",
+    "leg_base_moment",
 ]

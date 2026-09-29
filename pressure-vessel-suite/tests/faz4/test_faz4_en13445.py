@@ -331,10 +331,45 @@ class TestEN13445DesignCode:
             "materials": [comp["mat"]],
             "code_edition": "2021+A1:2023",
         })
-        assert r.status.value == "PASS"
+        # Tasarım 200 °C / test 20 °C, test gerilmesi girilmemiş → fa/ft bilinmiyor (B-28)
+        assert r.status.value == "REVIEW REQUIRED"
         assert r.final_result is not None
         # PED test basıncı = max(1.25×1.0, 1.43×1.5) = 2.145 MPa
         assert relative_tolerance(r.final_result, 2.145, 0.001), f"P_test={r.final_result}"
+        assert any("fa/ft" in w for w in r.warnings)
+
+    def test_ped_hydrotest_ratio_below_threshold_passes(self, en_code, sample_en_project_components):
+        """fa/ft ≤ 1.43/1.25 = 1.144 → 1.43·Ps her iki seçim yönünde belirleyici → PASS."""
+        comp = sample_en_project_components
+        mat = comp["mat"].model_copy(update={
+            "allowable_stress_test_temp": comp["mat"].allowable_stress * 1.07,
+        })
+        r = en_code.calculate_hydrotest_pressure({
+            "design_conditions": comp["dc"], "materials": [mat], "code_edition": "2021+A1:2023",
+        })
+        assert r.status.value == "PASS"
+        assert relative_tolerance(r.final_result, 2.145, 0.001)
+
+    def test_ped_hydrotest_ratio_above_threshold_needs_review(self, en_code, sample_en_project_components):
+        """fa/ft > 1.144 → 1.25·Ps·fa/ft terimi 1.43·Ps'i aşabilir → inceleme."""
+        comp = sample_en_project_components
+        mat = comp["mat"].model_copy(update={
+            "allowable_stress_test_temp": comp["mat"].allowable_stress * 1.40,
+        })
+        r = en_code.calculate_hydrotest_pressure({
+            "design_conditions": comp["dc"], "materials": [mat], "code_edition": "2021+A1:2023",
+        })
+        assert r.status.value == "REVIEW REQUIRED"
+        assert any("1.144" in w for w in r.warnings)
+
+    def test_ped_hydrotest_same_temperature_passes(self, en_code, sample_en_project_components):
+        """Tasarım = test sıcaklığı → fa = ft → PASS (ek veri gerekmez)."""
+        comp = sample_en_project_components
+        dc = comp["dc"].model_copy(update={"hydrotest_temperature": comp["dc"].design_temperature})
+        r = en_code.calculate_hydrotest_pressure({
+            "design_conditions": dc, "materials": [comp["mat"]], "code_edition": "2021+A1:2023",
+        })
+        assert r.status.value == "PASS"
 
     def test_nozzle_not_calculated(self, en_code, sample_en_project_components):
         """Nozul hesapları NOT_CALCULATED."""

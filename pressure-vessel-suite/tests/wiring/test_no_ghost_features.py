@@ -47,7 +47,7 @@ def _ui_expected_types() -> set[str]:
 # Bilinçli olarak arayüzde gösterilmeyen tipler ve sebepleri.
 # Buraya bir tip eklemek bir KARARDIR — gerekçesiz eklenmemeli.
 UI_DE_GOSTERILMEYENLER = {
-    "flange": "Flange domain is not wired to the orchestrator; UI panel deferred",
+    "flange": "B16 rating/metadata sonuç tipi; ayrı panel yok — Appendix 2 sonucu flange_stress olarak gösteriliyor",
     "global_load_case": "Phase C global envelope API result; UI panel deferred",
     "global_load_combination": "Phase C global combination API result; UI panel deferred",
     "pressure_relief": "Pressure relief API result; UI panel deferred",
@@ -55,7 +55,6 @@ UI_DE_GOSTERILMEYENLER = {
     "fatigue": "Fatigue route is out of scope",
     "fea_analysis": "FEA laboratuvarı offline araçtır, arayüzde gösterilmez (Faz 2 kararı)",
     "fea_material_data_check": "aynı gerekçe",
-    "flange_stress": "flanş modülü hesap hattına bağlı değil — limitations.md B-11",
 }
 
 

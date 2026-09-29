@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from typing import Tuple
+from typing import List, Tuple
 
 
 @dataclass
@@ -34,7 +34,8 @@ class FlangeStress:
     S_H: float = 0.0        # Longitudinal hub stress (MPa)
     S_R: float = 0.0        # Radial flange stress (MPa)
     S_T: float = 0.0        # Tangential flange stress (MPa)
-    S_avg: float = 0.0      # Average stress (MPa)
+    S_HR_avg: float = 0.0   # (S_H+S_R)/2 (MPa)
+    S_HT_avg: float = 0.0   # (S_H+S_T)/2 (MPa)
     allowable: float = 0.0  # Allowable stress (MPa)
 
 
@@ -125,58 +126,101 @@ def flange_moment(
     return H_D * h_D + H_G * h_G + H_T * h_T
 
 
+def flange_shape_parameters(
+    A: float,
+    B: float,
+    t: float,
+    g0: float,
+    F: float,
+    V: float,
+    T: float,
+    U: float,
+) -> dict:
+    """Appendix 2-7 — Şekil sabitlerinden türetilen boyutsuz parametreler.
+
+    F, V, T, U lisanslı Şekil 2-7.1 eğrilerinden KULLANICI tarafından okunur (K6);
+    burada yalnızca formülle hesaplanabilen büyüklükler üretilir.
+
+    K  = A/B
+    Z  = (K² + 1) / (K² − 1)
+    h0 = √(B·g0)
+    e  = F / h0
+    d  = (U/V) · h0 · g0²
+    L  = (t·e + 1)/T + t³/d
+
+    Args:
+        A, B: Flanş dış / iç çapı (mm). A > B olmalı (K > 1; aksi halde Z tanımsız).
+        t: Flanş kalınlığı (mm).
+        g0: Hub kalınlığı, küçük uç (mm).
+        F, V, T, U: Şekil 2-7.1 faktörleri (boyutsuz, > 0).
+
+    Returns:
+        {"K", "Z", "h0", "e", "d", "L"}
+
+    Referans: Appendix 2-7 (Taylor Forge yöntemi)
+    """
+    for name, val in (("A", A), ("B", B), ("t", t), ("g0", g0),
+                      ("F", F), ("V", V), ("T", T), ("U", U)):
+        if val is None or val <= 0:
+            raise ValueError(f"{name} pozitif olmalı")
+    if A <= B:
+        raise ValueError("A > B olmalı (K = A/B > 1)")
+    K = A / B
+    Z = (K * K + 1.0) / (K * K - 1.0)
+    h0 = math.sqrt(B * g0)
+    e = F / h0
+    d = (U / V) * h0 * g0 * g0
+    L = (t * e + 1.0) / T + t ** 3 / d
+    return {"K": K, "Z": Z, "h0": h0, "e": e, "d": d, "L": L}
+
+
 def hub_longitudinal_stress(
     M: float,
     f: float,
+    L: float,
     g1: float,
-    h0: float,
+    B: float,
 ) -> float:
-    """Appendix 2 — Hub boyuna gerilme.
+    """Appendix 2-7 — Hub boyuna gerilme (integral flanş).
 
-    S_H = (M × f) / (λ × g1² × h0)   (integral flange)
+    S_H = f·M / (L·g1²·B)
 
     Args:
         M: Moment (N·mm).
-        f: Hub correction factor.
-        g1: Hub thickness at small end (mm).
-        h0: Hub length (mm).
+        f: Hub gerilme düzeltme faktörü (Şekil 2-7.6; kullanıcı girdisi).
+        L: Flanş parametresi (flange_shape_parameters).
+        g1: Hub kalınlığı, büyük uç (mm).
+        B: Flanş iç çapı (mm).
 
     Returns:
-        Hub boyuna gerilme (MPa).
+        S_H (MPa).
 
     Referans: Appendix 2-7
     """
-    if g1 <= 0 or h0 <= 0:
-        raise ValueError("g1 ve h0 pozitif olmalı")
-    # λ faktörü integral flange için yaklaşık 1.0
-    return M * f / (g1 * g1 * h0)
+    if g1 <= 0 or B <= 0 or L <= 0:
+        raise ValueError("g1, B ve L pozitif olmalı")
+    return f * M / (L * g1 * g1 * B)
 
 
 def radial_flange_stress(
     M: float,
-    B: float,
+    L: float,
     t: float,
-    h0: float,
+    e: float,
+    B: float,
 ) -> float:
-    """Appendix 2 — Radyal flanş gerilmesi.
+    """Appendix 2-7 — Radyal flanş gerilmesi.
 
-    S_R = (4×M × β) / (λ × t² × B)   (integral flange, β=1)
-
-    Args:
-        M: Moment (N·mm).
-        B: Flanş iç çapı (mm).
-        t: Flanş kalınlığı (mm).
-        h0: Hub uzunluğu (mm).
+    S_R = (1.33·t·e + 1)·M / (L·t²·B)
 
     Returns:
-        Radyal gerilme (MPa).
+        S_R (MPa).
 
     Referans: Appendix 2-7
     """
-    if B <= 0 or t <= 0:
-        raise ValueError("B ve t pozitif olmalı")
-    # β = 1, λ ≈ 1 (integral)
-    return 4.0 * M / (t * t * B)
+    if B <= 0 or t <= 0 or L <= 0:
+        raise ValueError("B, t ve L pozitif olmalı")
+    return (1.33 * t * e + 1.0) * M / (L * t * t * B)
 
 
 def tangential_flange_stress(
@@ -184,81 +228,55 @@ def tangential_flange_stress(
     Y: float,
     t: float,
     B: float,
+    Z: float,
+    S_R: float,
 ) -> float:
-    """Appendix 2 — Teğetsel flanş gerilmesi.
+    """Appendix 2-7 — Teğetsel flanş gerilmesi.
 
-    S_T = (M × Y) / (t² × B) - Z × S_R
+    S_T = Y·M/(t²·B) − Z·S_R
 
     Args:
-        M: Moment (N·mm).
-        Y: Flanş faktörü (tablo).
-        t: Flanş kalınlığı (mm).
-        B: Flanş iç çapı (mm).
+        Y: Şekil 2-7.1 faktörü (kullanıcı girdisi).
+        Z: (K²+1)/(K²−1).
+        S_R: Radyal gerilme (MPa).
 
     Returns:
-        Teğetsel gerilme (MPa).
+        S_T (MPa). Negatif olabilir (işaret korunur).
 
     Referans: Appendix 2-7
     """
     if B <= 0 or t <= 0:
         raise ValueError("B ve t pozitif olmalı")
-    return M * Y / (t * t * B)
+    return Y * M / (t * t * B) - Z * S_R
 
 
-def average_flange_stress(
-    S_R: float,
-    S_T: float,
-) -> float:
-    """Appendix 2 — Ortalama flanş gerilmesi.
-
-    S_avg = (S_R + S_T) / 2
-
-    Returns:
-        Ortalama gerilme (MPa).
-
-    Referans: Appendix 2-7
-    """
-    return (S_R + S_T) / 2.0
-
-
-def flange_stress_check(
+def flange_stress_checks(
     S_H: float,
     S_R: float,
     S_T: float,
-    S_avg: float,
-    S_allow: float,
-) -> Tuple[bool, str]:
-    """Appendix 2 — Flanş gerilme kontrolü.
+    S_f: float,
+) -> List[Tuple[str, float, float]]:
+    """Appendix 2-7 — Gerilme kontrolleri (integral flanş).
 
-    Kontroller:
-    1. S_H ≤ 1.5 × S_allow
-    2. S_R ≤ S_allow
-    3. S_avg ≤ S_allow
+    Kontroller (S_n bilinmediğinden S_H için yalnız 1.5·S_f):
+      S_H ≤ 1.5·S_f ; S_R ≤ S_f ; S_T ≤ S_f ;
+      (S_H+S_R)/2 ≤ S_f ; (S_H+S_T)/2 ≤ S_f
 
-    Args:
-        S_H: Hub boyuna gerilme (MPa).
-        S_R: Radyal gerilme (MPa).
-        S_T: Teğetsel gerilme (MPa).
-        S_avg: Ortalama gerilme (MPa).
-        S_allow: İzin verilen gerilme (MPa).
+    Gerilmeler işaretli karşılaştırılır (Appendix 2 işaretli değerleri kullanır);
+    negatif gerilme sınırı aşmaz.
 
     Returns:
-        (pass, açıklama)
+        [(ad, değer, sınır), ...]
 
     Referans: Appendix 2-7
     """
-    checks = []
-
-    if S_H > 1.5 * S_allow:
-        checks.append(f"S_H={S_H:.2f} > 1.5×S_allow={1.5*S_allow:.2f}")
-    if S_R > S_allow:
-        checks.append(f"S_R={S_R:.2f} > S_allow={S_allow:.2f}")
-    if S_avg > S_allow:
-        checks.append(f"S_avg={S_avg:.2f} > S_allow={S_allow:.2f}")
-
-    if checks:
-        return False, "; ".join(checks)
-    return True, "All stress checks passed"
+    return [
+        ("S_H", S_H, 1.5 * S_f),
+        ("S_R", S_R, S_f),
+        ("S_T", S_T, S_f),
+        ("(S_H+S_R)/2", (S_H + S_R) / 2.0, S_f),
+        ("(S_H+S_T)/2", (S_H + S_T) / 2.0, S_f),
+    ]
 
 
 __all__ = [
@@ -268,9 +286,9 @@ __all__ = [
     "bolt_load_operating",
     "bolt_load_gasket_only",
     "flange_moment",
+    "flange_shape_parameters",
     "hub_longitudinal_stress",
     "radial_flange_stress",
     "tangential_flange_stress",
-    "average_flange_stress",
-    "flange_stress_check",
+    "flange_stress_checks",
 ]

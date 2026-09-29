@@ -469,6 +469,61 @@ class TestASMEVIII1DesignCode:
         assert len(r.intermediate_values) > 0
         assert r.material_properties_used["designation"] == "SA-516 Gr.70"
 
+    # ── Malzeme veri geçerliliği (sıcaklık / kalınlık aralığı) ───────────────
+
+    def _shell_input(self, sample_project, **mat_update):
+        mat = sample_project.materials[0].model_copy(update=mat_update)
+        return {
+            "shell": sample_project.shell_sections[0],
+            "design_conditions": sample_project.design_conditions,
+            "materials": [mat],
+            "welds": sample_project.welds,
+            "code_edition": sample_project.code_edition,
+        }
+
+    def test_material_temperature_mismatch_needs_review(self, asme_code, sample_project):
+        """S, 20 °C için girilmiş ama tasarım 200 °C → sonuç nihai PASS olamaz."""
+        r = asme_code.calculate_shell_thickness(self._shell_input(sample_project, temperature=20.0))
+        assert r.status.value == "REVIEW REQUIRED"
+        assert any("20 °C" in w and "200 °C" in w for w in r.warnings)
+
+    def test_material_temperature_match_still_passes(self, asme_code, sample_project):
+        r = asme_code.calculate_shell_thickness(self._shell_input(sample_project))
+        assert r.status.value == "PASS"
+
+    def test_material_thickness_range_violation_needs_review(self, asme_code, sample_project):
+        """Nominal kalınlık malzeme veri aralığının dışında (12 mm > max 10 mm)."""
+        r = asme_code.calculate_shell_thickness(self._shell_input(sample_project, thickness_max=10.0))
+        assert r.status.value == "REVIEW REQUIRED"
+        assert any("aralığının" in w for w in r.warnings)
+
+    def test_material_mismatch_keeps_fail(self, asme_code, sample_project):
+        """Başarısız (FAIL) sonuç uyuşmazlıkla PASS/REVIEW'a yükseltilmez."""
+        inp = self._shell_input(sample_project, temperature=20.0)
+        inp["shell"] = inp["shell"].model_copy(update={"nominal_thickness": 3.0})
+        r = asme_code.calculate_shell_thickness(inp)
+        assert r.status.value == "FAIL"
+        assert any("20 °C" in w for w in r.warnings)
+
+    def test_material_mismatch_flags_head_and_mawp(self, asme_code, sample_project):
+        mat = sample_project.materials[0].model_copy(update={"temperature": 20.0})
+        head = sample_project.heads[0]
+        rh = asme_code.calculate_head_thickness({
+            "head": head, "design_conditions": sample_project.design_conditions,
+            "materials": [mat], "welds": sample_project.welds,
+            "code_edition": sample_project.code_edition,
+        })
+        shell = sample_project.shell_sections[0]
+        rm = asme_code.calculate_mawp({
+            "component_type": "shell", "component": shell,
+            "design_conditions": sample_project.design_conditions,
+            "materials": [mat], "welds": sample_project.welds,
+            "nominal_thickness": shell.nominal_thickness,
+            "code_edition": sample_project.code_edition,
+        })
+        assert rh.status.value == "REVIEW REQUIRED"
+        assert rm.status.value == "REVIEW REQUIRED"
+
     def test_head_thickness_result(self, asme_code, sample_project):
         """Bomba et kalınlığı hesap sonucu."""
         head = sample_project.heads[0]
@@ -554,9 +609,68 @@ class TestASMEVIII1DesignCode:
             "materials": sample_project.materials,
             "code_edition": sample_project.code_edition,
         })
-        assert r.status.value == "PASS"
+        # Tasarım 200 °C, test 20 °C ve test gerilmesi girilmemiş → LSR bilinmiyor;
+        # LSR=1 test basıncını düşük verebileceğinden PASS değil REVIEW_REQUIRED (B-28).
+        assert r.status.value == "REVIEW REQUIRED"
         assert r.final_result is not None
         assert r.final_result > sample_project.design_conditions.design_pressure
+        assert any("Test gerilmesi eksik" in w for w in r.warnings)
+
+    def test_hydrotest_with_test_temperature_stress(self, asme_code, sample_project):
+        """UG-99(b): HTP = 1.3 × MAWP × (S_test/S_design) — el hesabı, uygulamadan bağımsız.
+
+        MAWP = 2.0 MPa, S_test = 148 MPa (20°C), S_design = 138 MPa (200°C)
+        → 1.3 × 2.0 × 148/138 = 2.7884 MPa
+        """
+        mat = sample_project.materials[0].model_copy(update={"allowable_stress_test_temp": 148.0})
+        r = asme_code.calculate_hydrotest_pressure({
+            "project": sample_project,
+            "design_conditions": sample_project.design_conditions,
+            "materials": [mat],
+            "global_mawp": 2.0,
+            "code_edition": sample_project.code_edition,
+        })
+        assert r.status.value == "PASS"
+        assert relative_tolerance(r.final_result, 1.3 * 2.0 * 148.0 / 138.0, 0.0005)
+        # LSR=1 yedeğiyle hesaplansaydı 2.6 MPa çıkardı — gerçek değer daha yüksek olmalı
+        assert r.final_result > 1.3 * 2.0
+
+    def test_hydrotest_lsr_uses_lowest_ratio(self, asme_code, sample_project):
+        """İki malzemede LSR = en küçük oran (UG-99(b))."""
+        base = sample_project.materials[0]
+        hi = base.model_copy(update={"allowable_stress_test_temp": 160.0})   # oran 1.1594
+        lo = base.model_copy(update={
+            "material_id": "MAT-02", "allowable_stress_test_temp": 145.0,   # oran 1.0507
+        })
+        project = sample_project.model_copy(update={
+            "shell_sections": [
+                sample_project.shell_sections[0],
+                sample_project.shell_sections[0].model_copy(
+                    update={"section_id": "SHELL-X", "material_id": "MAT-02"}),
+            ],
+        })
+        r = asme_code.calculate_hydrotest_pressure({
+            "project": project,
+            "design_conditions": project.design_conditions,
+            "materials": [hi, lo],
+            "global_mawp": 2.0,
+            "code_edition": project.code_edition,
+        })
+        assert r.status.value == "PASS"
+        assert relative_tolerance(r.final_result, 1.3 * 2.0 * 145.0 / 138.0, 0.0005)
+
+    def test_hydrotest_same_temperature_is_exact(self, asme_code, sample_project):
+        """Tasarım = test sıcaklığı → S_test = S_design gerçek eşitlik; PASS, LSR=1."""
+        dc = sample_project.design_conditions.model_copy(update={"hydrotest_temperature": 200.0})
+        r = asme_code.calculate_hydrotest_pressure({
+            "project": sample_project,
+            "design_conditions": dc,
+            "materials": sample_project.materials,
+            "global_mawp": 2.0,
+            "code_edition": sample_project.code_edition,
+        })
+        assert r.status.value == "PASS"
+        assert relative_tolerance(r.final_result, 1.3 * 2.0, 0.0005)
 
     def test_flat_head_thickness_result(self, asme_code, sample_project):
         """Düz kapak et kalınlığı — C_attach ile."""
@@ -614,12 +728,29 @@ class TestASMEVIII1DesignCode:
             "materials": sample_project.materials,
             "code_edition": sample_project.code_edition,
         })
-        assert r.status.value == "PASS"
+        assert r.status.value == "REVIEW REQUIRED"  # test gerilmesi girilmedi (B-28)
         assert r.final_result is not None
         assert r.clause_reference == "UG-100"
         # Pnömatik test 1.1× olmalı (hidrotest 1.3×)
         assert r.final_result < 1.3 * sample_project.design_conditions.design_pressure
-        assert len(r.warnings) >= 2  # Güvenlik + MDMT uyarıları
+        # Güvenlik + MDMT notları artık "notices" (yayın kapısı: PASS'i geçersiz kılmayan
+        # bilgilendirme); "warnings" yalnızca durumu düşüren uyarılar içindir.
+        assert len(r.notices) >= 2
+        assert any("hidrostatik testten daha tehlikelidir" in n for n in r.notices)
+        assert any("MDMT" in n for n in r.notices)
+
+    def test_pneumatic_with_test_temperature_stress(self, asme_code, sample_project):
+        """UG-100: 1.1 × MAWP × (S_test/S_design) — el hesabı."""
+        mat = sample_project.materials[0].model_copy(update={"allowable_stress_test_temp": 148.0})
+        r = asme_code.calculate_pneumatic_test_pressure({
+            "project": sample_project,
+            "design_conditions": sample_project.design_conditions,
+            "materials": [mat],
+            "global_mawp": 2.0,
+            "code_edition": sample_project.code_edition,
+        })
+        assert r.status.value == "PASS"
+        assert relative_tolerance(r.final_result, 1.1 * 2.0 * 148.0 / 138.0, 0.0005)
 
     def test_cone_thickness_result(self, asme_code, sample_project):
         """Konik bölüm et kalınlığı — DesignCode entegrasyonu."""
@@ -894,7 +1025,8 @@ class TestOrchestratorWithASME:
         # Hidrotest
         hydro_results = [r for r in result.results if r.calculation_type == "hydrotest"]
         assert len(hydro_results) == 1
-        assert hydro_results[0].status.value == "PASS"
+        # Örnek proje: tasarım 200 °C / test 20 °C, test gerilmesi girilmemiş (B-28)
+        assert hydro_results[0].status.value == "REVIEW REQUIRED"
 
     def test_nozzle_reinforcement_calculated(self, asme_code, sample_project):
         """Nozul takviye hesabı artık gerçek hesap üretir (Faz 3 entegrasyonu).

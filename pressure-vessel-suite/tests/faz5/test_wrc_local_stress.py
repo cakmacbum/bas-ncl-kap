@@ -25,6 +25,13 @@ from supports.wrc import (
 )
 
 
+def full(**kw):
+    """Dört bileşen de açıkça girilmiş katsayı; belirtilmeyenler gerçek 0.0."""
+    base = dict(Nx=0.0, Ny=0.0, Mx=0.0, My=0.0)
+    base.update(kw)
+    return WrcPointCoefficients(**base)
+
+
 class TestGeometryParams:
     def test_gamma_and_beta(self):
         assert gamma(500, 10) == pytest.approx(50.0)
@@ -56,40 +63,53 @@ class TestCoefficientBookkeeping:
         coeffs = WrcCoefficients()
         assert coeffs.missing_for("A", "P", {"P": 0.0}) == []
 
-    def test_missing_nonzero_load_no_entry_is_flagged(self):
+    def test_missing_nonzero_load_no_entry_lists_all_components(self):
         coeffs = WrcCoefficients()
-        assert coeffs.missing_for("C", "MC", {"MC": 5000.0}) == ["C/MC"]
+        assert coeffs.missing_for("C", "MC", {"MC": 5000.0}) == ["C/MC: Nx, Ny, Mx, My"]
 
-    def test_partial_entry_is_not_flagged(self):
+    def test_partial_entry_is_flagged_not_zeroed(self):
+        # B-29: kısmi giriş eskiden eksik bileşeni sessizce 0 sayıyordu (gerilme düşük kalıyordu)
+        coeffs = WrcCoefficients(table={"A": {"P": WrcPointCoefficients(Nx=0.4, Mx=0.3)}})
+        assert coeffs.missing_for("A", "P", {"P": 1000.0}) == ["A/P: Ny, My"]
+
+    def test_partial_entry_blocks_calculation(self):
         coeffs = WrcCoefficients(table={"A": {"P": WrcPointCoefficients(Nx=0.4)}})
+        with pytest.raises(ValueError, match="Ny, Mx, My"):
+            point_stress_resultants("A", coeffs, 500, P=1000)
+
+    def test_explicit_zero_is_a_real_value(self):
+        coeffs = WrcCoefficients(table={"A": {"P": full(Nx=0.4)}})
         assert coeffs.missing_for("A", "P", {"P": 1000.0}) == []
-
-    def test_unset_component_contributes_zero(self):
-        coeffs = WrcCoefficients(table={"A": {"P": WrcPointCoefficients(Nx=0.4)}})
         Nx, Ny, Mx, My = point_stress_resultants("A", coeffs, 500, P=1000)
         assert Ny == Mx == My == 0.0
+        assert Nx == pytest.approx(0.4 * 1000 / 500)
+
+    def test_inactive_load_needs_no_coefficients(self):
+        # P aktif, ML=0: ML için katsayı girilmemesi hesabı engellemez
+        coeffs = WrcCoefficients(table={"A": {"P": full(Nx=0.4)}})
+        Nx, _, _, _ = point_stress_resultants("A", coeffs, 500, P=1000, ML=0.0)
         assert Nx == pytest.approx(0.4 * 1000 / 500)
 
 
 class TestPointStressResultants:
     def test_force_load_scales_as_documented(self):
         # P kuvvet tipi: N ∝ K·P/Rm, M ∝ K·P
-        coeffs = WrcCoefficients(table={"A": {"P": WrcPointCoefficients(Nx=0.5, Mx=0.3)}})
+        coeffs = WrcCoefficients(table={"A": {"P": full(Nx=0.5, Mx=0.3)}})
         Nx, _, Mx, _ = point_stress_resultants("A", coeffs, Rm=500, P=10_000)
         assert Nx == pytest.approx(0.5 * 10_000 / 500)
         assert Mx == pytest.approx(0.3 * 10_000)
 
     def test_moment_load_scales_as_documented(self):
         # ML moment tipi: N ∝ K·ML/Rm², M ∝ K·ML/Rm
-        coeffs = WrcCoefficients(table={"A": {"ML": WrcPointCoefficients(Nx=0.2, Mx=0.6)}})
+        coeffs = WrcCoefficients(table={"A": {"ML": full(Nx=0.2, Mx=0.6)}})
         Nx, _, Mx, _ = point_stress_resultants("A", coeffs, Rm=500, ML=2_000_000)
         assert Nx == pytest.approx(0.2 * 2_000_000 / 500**2)
         assert Mx == pytest.approx(0.6 * 2_000_000 / 500)
 
     def test_contributions_from_multiple_loads_superpose(self):
         coeffs = WrcCoefficients(table={"A": {
-            "P": WrcPointCoefficients(Nx=0.5),
-            "ML": WrcPointCoefficients(Nx=0.2),
+            "P": full(Nx=0.5),
+            "ML": full(Nx=0.2),
         }})
         Nx_p, _, _, _ = point_stress_resultants("A", coeffs, 500, P=10_000)
         Nx_ml, _, _, _ = point_stress_resultants("A", coeffs, 500, ML=2_000_000)
@@ -103,7 +123,7 @@ class TestPointStressResultants:
 
 class TestEvaluatePoint:
     def test_outside_adds_bending_inside_subtracts(self):
-        coeffs = WrcCoefficients(table={"A": {"P": WrcPointCoefficients(Nx=0.1, Mx=0.5)}})
+        coeffs = WrcCoefficients(table={"A": {"P": full(Nx=0.1, Mx=0.5)}})
         out = evaluate_point("A", "outside", coeffs, Rm=500, T_eff=10, P=10_000)
         inn = evaluate_point("A", "inside", coeffs, Rm=500, T_eff=10, P=10_000)
         assert out.bending_axial == pytest.approx(-inn.bending_axial)
@@ -141,10 +161,18 @@ class TestEvaluatePoint:
 
 class TestEvaluateAllPoints:
     def test_returns_eight_points(self):
-        results = evaluate_all_points(WrcCoefficients(), Rm=500, T_eff=10, P=1000)
+        coeffs = WrcCoefficients(table={pt: {"P": full()} for pt in "ABCD"})
+        results = evaluate_all_points(coeffs, Rm=500, T_eff=10, P=1000)
         assert len(results) == 8
         assert set(k[0] for k in results) == {"A", "B", "C", "D"}
         assert set(k[1] for k in results) == {"outside", "inside"}
+
+
+class TestAllPointsRequireCoefficients:
+    def test_missing_point_blocks_the_whole_evaluation(self):
+        coeffs = WrcCoefficients(table={pt: {"P": full()} for pt in "ABC"})  # D eksik
+        with pytest.raises(ValueError, match="D/P"):
+            evaluate_all_points(coeffs, Rm=500, T_eff=10, P=1000)
 
 
 class TestClassification:
@@ -156,19 +184,19 @@ class TestClassification:
         assert cls.allowable_PL == pytest.approx(225.0)
 
     def test_fail_when_pl_pb_exceeds_allowable(self):
-        coeffs = WrcCoefficients(table={"A": {"P": WrcPointCoefficients(Mx=5.0)}})
+        coeffs = WrcCoefficients(table={"A": {"P": full(Mx=5.0)}})
         r = evaluate_point("A", "outside", coeffs, Rm=500, T_eff=10, P=100_000)
         cls = classify_point(r, S=150)
         assert cls.pl_pb_ok is False
 
     def test_pl_excludes_bending_pl_pb_includes_it(self):
-        coeffs = WrcCoefficients(table={"A": {"P": WrcPointCoefficients(Mx=2.0)}})
+        coeffs = WrcCoefficients(table={"A": {"P": full(Mx=2.0)}})
         r = evaluate_point("A", "outside", coeffs, Rm=500, T_eff=10, P=50_000)
         cls = classify_point(r, S=200)
         assert cls.PL < cls.PL_plus_Pb
 
     def test_membrane_only_load_gives_equal_pl_and_pl_pb(self):
-        coeffs = WrcCoefficients(table={"A": {"P": WrcPointCoefficients(Nx=0.3)}})
+        coeffs = WrcCoefficients(table={"A": {"P": full(Nx=0.3)}})
         r = evaluate_point("A", "outside", coeffs, Rm=500, T_eff=10, P=20_000)
         cls = classify_point(r, S=150)
         assert cls.PL == pytest.approx(cls.PL_plus_Pb)

@@ -9,15 +9,9 @@ from units import relative_tolerance
 
 from supports.formulas import (
     saddle_reaction,
-    zick_longitudinal_bending,
-    zick_circumferential_saddle,
-    zick_circumferential_crown,
-    zick_shear_stress,
-    saddle_stress_limits,
     skirt_bending_stress,
     skirt_compression_stress,
     skirt_combined_stress,
-    skirt_base_pressure,
     leg_pipe_section_area,
     leg_reaction_extremes,
     leg_base_pressure,
@@ -148,9 +142,11 @@ def test_support_host_is_required_when_multiple_shells_have_no_host(support_mate
             Support(support_id="SKIRT-X", type="skirt", width_mm=200.0,
                     height_mm=1000.0, diameter_mm=1000.0, thickness_mm=10.0,
                     material_id="MAT-01"),
-            Support(support_id="SKIRT-Y", type="skirt", host_component_id="S2",
+            # Eyer: konum-aralığı kapısı yalnız eyer içindir; zincirsiz çok gövdede
+            # global konum çözülemez -> bloke. (Etek/ayak bu kapıya tabi DEĞİL.)
+            Support(support_id="SKIRT-Y", type="saddle", host_component_id="S2",
                     location_mm=500.0, width_mm=200.0, height_mm=1000.0,
-                    diameter_mm=1000.0, thickness_mm=10.0, material_id="MAT-01"),
+                    material_id="MAT-01"),
         ],
     )
     results = ASMEVIII1DesignCode().check_supports(project)
@@ -244,20 +240,91 @@ class TestLegFormulas:
         assert relative_tolerance(N_min, 100000.0, 0.001)
 
     def test_reaction_extremes_with_moment(self):
-        """Moment varsa en yüklü ve en az yüklü ayak ayrışır.
+        """Moment varsa en yüklü ve en az yüklü ayak ayrışır (n ≥ 3: 2M/(n·r)).
 
         W=400000 N, n=4, M=40000000 N·mm, r=500 mm
-        N_max = 100000 + 40000000/(4×500) = 100000+20000 = 120000 N
-        N_min = 100000 - 20000 = 80000 N
+        ΔN = 2×40e6/(4×500) = 40000 N   (Moss: 4M/(N·D), D = 2r = 1000 mm)
+        N_max = 100000 + 40000 = 140000 N,  N_min = 60000 N
+        (Eski M/(n·r) formülü 120000/80000 veriyordu — gerçek yükün yarısı, B-32.)
         """
         N_max, N_min = leg_reaction_extremes(400000.0, 4, 40_000_000.0, 500.0)
-        assert relative_tolerance(N_max, 120000.0, 0.001)
-        assert relative_tolerance(N_min, 80000.0, 0.001)
+        assert relative_tolerance(N_max, 140000.0, 0.001)
+        assert relative_tolerance(N_min, 60000.0, 0.001)
+
+    @pytest.mark.parametrize("n", [3, 4, 5, 6, 8])
+    def test_reaction_matches_independent_leg_by_leg_statics(self, n):
+        """Formülden bağımsız: n ayağı çember üzerine yerleştir, moment yönünü tara,
+        her ayak için F_i = W/n + M·y_i/Σy² ile en büyük yükü bul → formülle aynı olmalı."""
+        import math
+        W, M, r = 1_000_000.0, 60_000_000.0, 800.0
+        angles = [2 * math.pi * i / n for i in range(n)]
+        worst = 0.0
+        for k in range(0, 3600):
+            phi = math.radians(k / 10.0)                       # moment ekseni yönü
+            ys = [r * math.sin(a - phi) for a in angles]        # eksene uzaklık
+            s2 = sum(y * y for y in ys)
+            worst = max(worst, max(W / n + M * y / s2 for y in ys))
+        N_max, _ = leg_reaction_extremes(W, n, M, r)
+        assert N_max == pytest.approx(worst, rel=2e-3)
+
+    def test_reaction_two_legs_in_moment_plane(self):
+        """n=2, ayaklar moment düzleminde: kuvvet çifti F·2r = M → ΔN = M/(2r)."""
+        N_max, N_min = leg_reaction_extremes(100_000.0, 2, 10_000_000.0, 500.0)
+        assert N_max == pytest.approx(50_000.0 + 10_000.0)
+        assert N_min == pytest.approx(50_000.0 - 10_000.0)
+
+    def test_single_leg_cannot_carry_moment(self):
+        with pytest.raises(ValueError, match="Tek ayak"):
+            leg_reaction_extremes(100_000.0, 1, 1_000_000.0, 500.0)
 
     def test_reaction_extremes_requires_radius_with_moment(self):
         """Moment > 0 iken dağılım yarıçapı verilmezse hata."""
         with pytest.raises(ValueError, match="support_radius"):
             leg_reaction_extremes(400000.0, 4, 40_000_000.0, 0.0)
+
+    def test_leg_uplift_uses_empty_weight(self, support_material):
+        """Yükselme boş kap ağırlığıyla değerlendirilir (basma hidrotest ağırlığıyla).
+
+        n=4, r=500, M=4e8 → ΔN = 2M/(nr) = 400 000 N.
+        Basma W=800 kN → N_max = 200 000 + 400 000; boş W=200 kN → N_min = 50 000 − 400 000.
+        (Boş ağırlık verilmeseydi N_min = 200 000 − 400 000 = −200 000: kaldırma yarı yarıya az.)
+        """
+        calc = SupportCalculator(code="ASME VIII-1", edition="2025")
+        base = {"support": {"tag": "L1", "n_legs": 4, "leg_diameter_mm": 200.0,
+                            "leg_thickness_mm": 12.0, "support_radius_mm": 500.0},
+                "total_weight_N": 800_000.0, "overturning_moment_Nmm": 4e8,
+                "materials": [support_material], "skirt_material_id": "MAT-01"}
+        vals = lambda r: {v["name"]: v["value"] for v in r.intermediate_values}
+        with_empty = calc.check_leg_support({**base, "min_weight_N": 200_000.0})
+        without = calc.check_leg_support(base)
+        assert vals(with_empty)["N_max"] == pytest.approx(600_000.0)
+        assert vals(with_empty)["N_min"] == pytest.approx(-350_000.0)
+        assert vals(without)["N_min"] == pytest.approx(-200_000.0)
+        assert any("K4" in a and "Boş" in a for a in without.assumptions)
+
+    def test_leg_stress_ignores_base_plate_area(self, support_material):
+        """B-33: taban plakası alanı ayak çelik gerilmesini DÜŞÜRMEMELİ.
+
+        Eskiden base_plate_area_mm2 verilince N_max/A_taban çelik S ile kıyaslanıyordu;
+        çok büyük plaka girmek 'güvenli' sonuç üretiyordu. Şimdi ayak gerilmesi
+        yalnız ayak halka kesitinden gelir; plaka alanı yalnız P_bearing'i etkiler.
+        """
+        def run(area):
+            sup = {"tag": "L1", "n_legs": 4, "leg_diameter_mm": 100.0,
+                   "leg_thickness_mm": 10.0, "support_radius_mm": 500.0}
+            if area:
+                sup["base_plate_area_mm2"] = area
+            calc = SupportCalculator(code="ASME VIII-1", edition="2025")
+            return calc.check_leg_support({
+                "support": sup, "total_weight_N": 400000.0,
+                "overturning_moment_Nmm": 0.0,
+                "materials": [support_material], "skirt_material_id": "MAT-01"})
+        small, huge = run(None), run(10_000_000.0)
+        vals = lambda r: {v["name"]: v["value"] for v in r.intermediate_values}
+        assert vals(huge)["P_base"] == pytest.approx(vals(small)["P_base"])
+        assert vals(huge)["P_bearing"] == pytest.approx(100_000.0 / 10_000_000.0)
+        assert any("KONTROL EDİLMEDİ" in w for w in huge.warnings)
+        assert "P_bearing" not in vals(small)
 
     def test_base_pressure_uses_annulus_area_end_to_end(self):
         """check_leg_support artık halka kesit alanını kullanıyor (Faz 0).
@@ -347,50 +414,7 @@ class TestAnchorSafety:
         assert result.status.value == "FAIL"
         assert any(v["name"] == "anchor_tension_ratio" for v in result.intermediate_values)
 
-    def test_zick_longitudinal_bending(self):
-        """Zick S1 — boyuna eğilme gerilmesi.
-
-        Q = 250000 N, L = 4000 mm, R_m = 506 mm, t = 12 mm
-        A = 800 mm, h = 0 mm
-        K1 = 1 - (2×800/4000) / (1+0) = 1 - 0.4 = 0.6
-        S1 = 250000×4000 / (4×π×506²×12) × 0.6
-           = 1000000000 / (4×3.14159×256036×12) × 0.6
-           = 1000000000 / 38610432 × 0.6
-           = 25.9 × 0.6 = 15.54 MPa
-        """
-        S1 = zick_longitudinal_bending(250000.0, 4000.0, 506.0, 12.0, 800.0, 0.0)
-        assert S1 > 0
-        assert relative_tolerance(S1, 15.54, 0.05), f"S1={S1}"
-
-    def test_zick_circumferential_saddle(self):
-        """Zick S2 — saddle'da çevresel gerilme.
-
-        Q = 250000 N, R_m = 506 mm, t = 12 mm, b = 200 mm
-        eff = 200 + 1.56×sqrt(506×12) = 200 + 1.56×77.97 = 200 + 121.6 = 321.6
-        S2 = 250000 / (4×12×321.6) = 250000 / 15436.8 = 16.2 MPa
-        """
-        S2 = zick_circumferential_saddle(250000.0, 506.0, 12.0, 200.0)
-        assert S2 > 0
-        assert relative_tolerance(S2, 16.2, 0.05), f"S2={S2}"
-
-    def test_zick_circumferential_crown(self):
-        """Zick S3 — taç noktasında çevresel gerilme."""
-        S3 = zick_circumferential_crown(250000.0, 506.0, 12.0, 200.0, 4000.0)
-        assert S3 > 0
-
-    def test_zick_shear_stress(self):
-        """Zick S4 — kesme gerilmesi."""
-        S4 = zick_shear_stress(250000.0, 506.0, 12.0, 800.0, 4000.0)
-        assert S4 > 0
-
-    def test_saddle_stress_limits(self):
-        """Saddle gerilme limitleri.
-
-        S_allow = 138 MPa → limit = 0.67×138 = 92.46 MPa
-        """
-        S1_l, S2_l, S3_l, S4_l = saddle_stress_limits(138.0)
-        assert relative_tolerance(S1_l, 92.46, 0.01)
-        assert S1_l == S2_l == S3_l == S4_l
+    # Zick eyer testleri: tests/faz5/test_saddle_zick.py (yeniden yazıldı, el hesabı).
 
 
 # ── Skirt formül testleri ─────────────────────────────────────────────────────
@@ -420,11 +444,6 @@ class TestSkirtFormulas:
         """Skirt birleşik gerilme."""
         S = skirt_combined_stress(6.37, 6.37)
         assert relative_tolerance(S, 12.74, 0.01)
-
-    def test_skirt_base_pressure(self):
-        """Skirt temel basıncı."""
-        P = skirt_base_pressure(200000.0, 50000000.0, 1000.0, 10.0)
-        assert P > 0
 
 
 # ── Calculator entegrasyon testleri ───────────────────────────────────────────
@@ -461,84 +480,15 @@ class TestSupportCalculator:
             source_reference="ASME II-D Table 1A, Line 4",
         )
 
-    def test_saddle_pass(self, calc, shell, mat):
-        """Saddle kontrolü — PASS (düşük ağırlık)."""
-        dc = DesignConditions(
-            operating_pressure=1.0,
-            design_pressure=1.2,
-            maximum_allowable_pressure_ps=1.5,
-            operating_temperature=200.0,
-            design_temperature=200.0,
-            minimum_design_temperature=-10.0,
-        )
-        r = calc.check_saddle({
-            "support": {
-                "tag": "SADDLE-01",
-                "type": "saddle",
-                "width_mm": 200.0,
-                "height_mm": 0.0,
-            },
-            "shell": shell,
-            "vessel_length": 4000.0,
-            "saddle_distance": 4000.0,
-            "saddle_from_end": 800.0,
-            "total_weight_N": 100000.0,  # Düşük ağırlık
-            "materials": [mat],
-            "design_conditions": dc,
-        })
-        assert r.code == "ASME VIII-1"
-        assert r.clause_reference == "Zick Analysis"
-        assert r.status.value == "REVIEW REQUIRED"
-        assert r.final_result is not None
-
-    def test_saddle_fail(self, calc, shell, mat):
-        """Saddle kontrolü — FAIL (çok yüksek ağırlık)."""
-        dc = DesignConditions(
-            operating_pressure=1.0,
-            design_pressure=1.2,
-            maximum_allowable_pressure_ps=1.5,
-            operating_temperature=200.0,
-            design_temperature=200.0,
-            minimum_design_temperature=-10.0,
-        )
-        r = calc.check_saddle({
-            "support": {
-                "tag": "SADDLE-02",
-                "type": "saddle",
-                "width_mm": 200.0,
-                "height_mm": 0.0,
-            },
-            "shell": shell,
-            "vessel_length": 4000.0,
-            "saddle_distance": 4000.0,
-            "saddle_from_end": 800.0,
-            "total_weight_N": 5000000.0,  # Çok yüksek ağırlık
-            "materials": [mat],
-            "design_conditions": dc,
-        })
-        assert r.status.value == "FAIL"
-
-    def test_saddle_traceability(self, calc, shell, mat):
-        """K5: Saddle izlenebilirlik."""
-        dc = DesignConditions(
-            operating_pressure=1.0,
-            design_pressure=1.2,
-            maximum_allowable_pressure_ps=1.5,
-            operating_temperature=200.0,
-            design_temperature=200.0,
-            minimum_design_temperature=-10.0,
-        )
-        r = calc.check_saddle({
-            "support": {"tag": "SADDLE-03", "type": "saddle", "width_mm": 200.0},
-            "shell": shell,
-            "total_weight_N": 100000.0,
-            "materials": [mat],
-            "design_conditions": dc,
-        })
-        assert len(r.intermediate_values) > 0
+    # Eyer (Zick) calculator testleri: tests/faz5/test_saddle_zick.py
 
     def test_skirt_pass(self, calc, mat):
-        """Skirt kontrolü — PASS."""
+        """Skirt kontrolü — B girilmişse REVIEW REQUIRED (nihai PASS değil).
+
+        S_comb = 6.37 + 6.37 = 12.74 MPa; B = 50 MPa -> min(S, B) sınırı altında.
+        B girilmezse burkulma kontrolü yapılamaz: BLOCKED CODE DATA
+        (bkz. tests/faz5/test_skirt_buckling.py).
+        """
         dc = DesignConditions(
             operating_pressure=1.0,
             design_pressure=1.2,
@@ -554,6 +504,7 @@ class TestSupportCalculator:
                 "diameter_mm": 1000.0,
                 "thickness_mm": 10.0,
                 "height_mm": 2000.0,
+                "skirt_allowable_compressive_MPa": 50.0,
             },
             "total_weight_N": 200000.0,
             "overturning_moment_Nmm": 50000000.0,
@@ -621,6 +572,7 @@ class TestSupportCalculator:
                 height_mm=2000.0,
                 diameter_mm=1000.0,
                 thickness_mm=10.0,
+                skirt_allowable_compressive_MPa=50.0,
                 material_id="MAT-01",
             )],
         )

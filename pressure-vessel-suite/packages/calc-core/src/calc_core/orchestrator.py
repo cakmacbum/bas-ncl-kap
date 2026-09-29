@@ -196,6 +196,12 @@ class CalculationOrchestrator:
                     "flange": flange,
                     "design_conditions": project.design_conditions,
                     "materials": project.materials,
+                    # K6: Y/f kullanıcı girdisi (lisanslı çizelge); boşsa None → bloke.
+                    "flange_factor_Y": flange.flange_factor_Y,
+                    "flange_factor_f": flange.flange_factor_f,
+                    # K6: W/M kullanıcı girdisi (Appendix 2 çalışma sayfası); boşsa None → bloke.
+                    "bolt_load_W": getattr(flange, "bolt_load_W_N", None),
+                    "moment_M": getattr(flange, "moment_M_Nmm", None),
                 }))
             except Exception as e:
                 result.add_error(f"Flange {flange.flange_id} calc error: {e}")

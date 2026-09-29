@@ -278,7 +278,44 @@ class Flange(BaseModel):
     bolt_count: Optional[int] = Field(default=None, gt=0)
     bolt_area: Optional[float] = Field(default=None, gt=0)
     bolt_allowable_stress: Optional[float] = Field(default=None, gt=0)
+    # K6: Y ve f lisanslı ASME Appendix 2 (Şekil 2-7.1 / tablolar) çizelgesinden
+    # KULLANICI tarafından okunur; koda gömülmez, boşsa hesap BLOCKED_MISSING_INPUT.
+    flange_factor_Y: Optional[float] = Field(default=None, gt=0)
+    flange_factor_f: Optional[float] = Field(default=None, gt=0)
+    # K6: Şekil 2-7.1 boyutsuz faktörleri F, V, T, U de lisanslı eğrilerden kullanıcı
+    # tarafından okunur; koda gömülmez/interpolasyon yapılmaz. Biri boşsa hesap bloke.
+    flange_factor_F: Optional[float] = Field(default=None, gt=0)
+    flange_factor_V: Optional[float] = Field(default=None, gt=0)
+    flange_factor_T: Optional[float] = Field(default=None, gt=0)
+    flange_factor_U: Optional[float] = Field(default=None, gt=0)
+    # Appendix 2 g1: hub kalınlığı, BÜYÜK uç (flanş sırtı). `hub_small_thickness` = g0.
+    # Varsayılan yok (K4): boşsa hesap bloke.
+    hub_large_thickness: Optional[float] = Field(default=None, gt=0)
+    # K6: W (cıvata tasarım yükü, N) ve M (flanşa etkiyen toplam moment, N·mm)
+    # kullanıcının Appendix 2 çalışma sayfasından gelir; program hesaplamaz.
+    # gt=0: moment bu modelde pozitif büyüklük olarak girilir; 0 girilirse gerilmeler
+    # sıfır çıkıp sahte PASS üreteceğinden 0 geçersizdir. Boş = hesap bloke (varsayılan yok).
+    bolt_load_W_N: Optional[float] = Field(default=None, gt=0)
+    moment_M_Nmm: Optional[float] = Field(default=None, gt=0)
     rating_standard: Optional[str] = Field(default=None)
+
+
+class WrcCoefficientEntry(BaseModel):
+    """Bir WRC 107/537 nokta (A/B/C/D) x yük (P/ML/MC/VL/VC) için dört boyutsuz katsayı.
+
+    K6: katsayılar lisanslı WRC bülteninden okunur, programda YOKTUR. `None` =
+    okunmadı (hesap bloklanır, sıfır sayılmaz); bültende gerçekten sıfır olan
+    bileşen açıkça 0.0 girilir.
+    """
+
+    Nx: Optional[float] = Field(default=None, description="Eksenel (boyuna) membran katsayısı.")
+    Ny: Optional[float] = Field(default=None, description="Çevresel membran katsayısı.")
+    Mx: Optional[float] = Field(default=None, description="Eksenel eğilme momenti katsayısı.")
+    My: Optional[float] = Field(default=None, description="Çevresel eğilme momenti katsayısı.")
+
+
+_WRC_POINTS = ("A", "B", "C", "D")
+_WRC_LOADS = ("P", "ML", "MC", "VL", "VC")
 
 
 class Support(BaseModel):
@@ -309,7 +346,19 @@ class Support(BaseModel):
         ..., gt=0, description="Destek yüksekliği (mm)."
     )
     diameter_mm: Optional[float] = Field(
-        default=None, gt=0, description="Etek çapı (mm). Yalnız skirt tipinde."
+        default=None, gt=0,
+        description="Etek ORTALAMA çapı (mm) — dış/iç çap değil. Yalnız skirt tipinde.",
+    )
+    skirt_allowable_compressive_MPa: Optional[float] = Field(
+        default=None, gt=0,
+        description="UG-23(b) izin verilen basma gerilmesi B (MPa); tasarım sıcaklığında "
+                    "Fig. çizelgesinden okunur (A = 0,125/(R/t)). Program bu değeri içermez "
+                    "(K6); boşsa etek basma/burkulma kontrolü BLOCKED_CODE_DATA. Yalnız skirt.",
+    )
+    skirt_weld_efficiency: Optional[float] = Field(
+        default=None, gt=0, le=1,
+        description="Etek kaynak/birleşim verimi E (0<E<=1); çekme tarafı S·E. Boşsa "
+                    "0,6 VARSAYILIR ve sonuca yazılır (K4). Yalnız skirt.",
     )
     thickness_mm: Optional[float] = Field(
         default=None, gt=0, description="Etek et kalınlığı (mm). Yalnız skirt tipinde."
@@ -317,7 +366,35 @@ class Support(BaseModel):
     material_id: str = Field(..., description="Malzeme tanımı.")
     contact_angle_deg: Optional[float] = Field(
         default=None, ge=0, le=180,
-        description="Eyer sarma açısı (derece). Zick analizi için; yalnız saddle.",
+        description="Eyer sarma açısı (derece). Zick analizi için; yalnız saddle. "
+                    "K katsayılarını okumak içindir (hesapta doğrudan kullanılmaz).",
+    )
+    saddle_stiffened: Optional[bool] = Field(
+        default=None,
+        description="Eyer düzleminde halka (ring) takviyesi var mı (yalnız saddle). "
+                    "None = girilmedi → Zick hesabı bloke.",
+    )
+    zick_K1: Optional[float] = Field(
+        default=None, gt=0,
+        description="Zick K1 (eyer kesiti boyuna eğilme; Moss PVDM 3-10 / Zick 1951 Tablo I). "
+                    "K6: tablo repoda tutulmaz, kullanıcı θ ve halka durumuna göre okur. "
+                    "Halkalı / başlık-destekli (A ≤ R/2) durumda π sabiti kodla verilir.",
+    )
+    zick_K2: Optional[float] = Field(
+        default=None, gt=0,
+        description="Zick K2 (kabuk teğetsel kesme). Halkalı durumda 1/π kodla verilir. K6.",
+    )
+    zick_K3: Optional[float] = Field(
+        default=None, gt=0,
+        description="Zick K3 (başlık kesmesi; yalnız A ≤ R/2, halkasız). Moss adlandırması. K6.",
+    )
+    zick_K6: Optional[float] = Field(
+        default=None, gt=0,
+        description="Zick K6 (eyer boynuzu çevresel eğilme sabiti; θ ve A/R'ye bağlı). K6.",
+    )
+    zick_K7: Optional[float] = Field(
+        default=None, gt=0,
+        description="Zick K7 (eyer altı kabuk çevresel basma sabiti; θ'ya bağlı). K6.",
     )
     leg_count: Optional[int] = Field(
         default=None, gt=0,
@@ -328,6 +405,15 @@ class Support(BaseModel):
     )
     leg_thickness_mm: Optional[float] = Field(
         default=None, gt=0, description="Ayak et kalınlığı (mm). Yalnız leg tipinde."
+    )
+    leg_pad_length_mm: Optional[float] = Field(
+        default=None, gt=0, description="Ayak-gövde bağlantı pedi boyu (mm); yalnız leg tipinde."
+    )
+    leg_pad_width_mm: Optional[float] = Field(
+        default=None, gt=0, description="Ayak-gövde bağlantı pedi eni (mm); yalnız leg tipinde."
+    )
+    leg_pad_thickness_mm: Optional[float] = Field(
+        default=None, gt=0, description="Ayak-gövde bağlantı pedi kalınlığı (mm); yalnız leg tipinde."
     )
     support_radius_mm: Optional[float] = Field(
         default=None, gt=0,
@@ -348,6 +434,86 @@ class Support(BaseModel):
     anchor_shear_allowable_N: Optional[float] = Field(
         default=None, gt=0, description="Bir ankraj cıvatası için izin verilen kesme (N)."
     )
+    leg_attachment: Optional[str] = Field(
+        default=None, pattern="^(shell|bottom_head)$",
+        description="Ayak bağlantı yeri: shell (gövde çevresi + ped) | bottom_head (alt bombe altı). "
+                    "WRC 107 lokal gerilme yalnız shell için hesaplanır. Yalnız leg tipinde.",
+    )
+    leg_section_type: Optional[str] = Field(
+        default=None, pattern="^(pipe|channel|box|angle)$",
+        description="Ayak kesit tipi. None = eski davranış (boru: leg_diameter_mm/leg_thickness_mm, "
+                    "yalnız leg_stress). Dolu ise ayak kesit/kaynak/taban plakası/WRC "
+                    "alt kontrolleri de çalışır. Yalnız leg tipinde.",
+    )
+    leg_profile_height_mm: Optional[float] = Field(
+        default=None, gt=0,
+        description="Profil yüksekliği h (U: h, kutu: H, köşebent: düşey kol a) (mm). K6: katalog gömülü değil.",
+    )
+    leg_profile_width_mm: Optional[float] = Field(
+        default=None, gt=0,
+        description="Profil genişliği b (U: flanş genişliği, kutu: B, köşebent: yatay kol b) (mm).",
+    )
+    leg_web_thickness_mm: Optional[float] = Field(
+        default=None, gt=0,
+        description="Gövde kalınlığı s (U); kutuda et kalınlığı t; köşebentte kol kalınlığı t (mm).",
+    )
+    leg_flange_thickness_mm: Optional[float] = Field(
+        default=None, gt=0, description="Flanş kalınlığı t (yalnız U profil) (mm).",
+    )
+    leg_unbraced_length_mm: Optional[float] = Field(
+        default=None, gt=0,
+        description="Burkulma boyu L (mm). Boşsa destek yüksekliği (height_mm) kullanılır ve sonuca yazılır.",
+    )
+    leg_eccentricity_mm: Optional[float] = Field(
+        default=None, ge=0,
+        description="Gövde dış yüzünden ayak ağırlık merkezine mesafe e (mm) = moment kolu.",
+    )
+    leg_effective_length_factor_K: Optional[float] = Field(
+        default=None, gt=0,
+        description="Etkin boy katsayısı K. Boşsa 2,1 (serbest uçlu konsol, AISC) varsayılır ve sonuca yazılır.",
+    )
+    leg_pad_contact_ratio: Optional[float] = Field(
+        default=None, gt=0, le=1,
+        description="Profilin pede kaynaklı/temaslı kontur oranı (0-1). Ayak->ped kaynak grubunun "
+                    "boyu bu oranla ölçeklenir. Boşsa 1,0 (tam kontur) varsayılır.",
+    )
+    base_plate_length_mm: Optional[float] = Field(
+        default=None, gt=0, description="Taban plakası boyu L (profil yüksekliği yönünde) (mm)."
+    )
+    base_plate_width_mm: Optional[float] = Field(
+        default=None, gt=0, description="Taban plakası eni W (mm)."
+    )
+    base_plate_thickness_mm: Optional[float] = Field(
+        default=None, gt=0, description="Taban plakası kalınlığı (mm)."
+    )
+    base_plate_yield_MPa: Optional[float] = Field(
+        default=None, gt=0, description="Taban plakası akma dayanımı Fy (MPa)."
+    )
+    foundation_bearing_allowable_MPa: Optional[float] = Field(
+        default=None, gt=0,
+        description="Temel/beton izin verilen yataklık basıncı (MPa). Kullanıcı girdisi; boşsa kontrol edilmez.",
+    )
+    pad_to_shell_weld_leg_mm: Optional[float] = Field(
+        default=None, gt=0, description="Ped->gövde köşe kaynağı bacağı z (mm)."
+    )
+    leg_to_pad_weld_leg_mm: Optional[float] = Field(
+        default=None, gt=0, description="Ayak->ped köşe kaynağı bacağı z (mm)."
+    )
+    leg_to_base_plate_weld_leg_mm: Optional[float] = Field(
+        default=None, gt=0, description="Ayak->taban plakası köşe kaynağı bacağı z (mm)."
+    )
+    weld_electrode_strength_MPa: Optional[float] = Field(
+        default=None, gt=0, description="Elektrot dayanımı Fexx (MPa); boşsa kaynak kontrolü bloke."
+    )
+    weld_min_leg_mm: Optional[float] = Field(
+        default=None, gt=0,
+        description="Asgari köşe kaynağı bacağı (mm), kullanıcı girdisi (AWS D1.1 tablosu K6 gereği gömülü değil).",
+    )
+    wrc_coefficients: Optional[dict[str, dict[str, WrcCoefficientEntry]]] = Field(
+        default=None,
+        description="WRC 107/537 katsayıları: nokta (A/B/C/D) -> yük (P/ML/MC/VL/VC) -> {Nx,Ny,Mx,My}. "
+                    "Lisanslı bültenden okunur (K6); boşsa/eksikse wrc_local_stress BLOCKED_CODE_DATA.",
+    )
     lateral_load_N: float = Field(
         default=0.0, ge=0,
         description="Destek tabanına aktarılan yatay kuvvet (N); ankraj kesme kontrolü için.",
@@ -358,5 +524,33 @@ class Support(BaseModel):
                     "0 = moment yok; bu varsayım sonuca yazılır.",
     )
 
+    @model_validator(mode="after")
+    def _check_wrc_keys(self) -> "Support":
+        if self.wrc_coefficients:
+            for pt, loads in self.wrc_coefficients.items():
+                if pt not in _WRC_POINTS:
+                    raise ValueError(f"wrc_coefficients nokta anahtarı A/B/C/D olmalı: {pt!r}")
+                for ld in loads:
+                    if ld not in _WRC_LOADS:
+                        raise ValueError(
+                            f"wrc_coefficients yük anahtarı {'/'.join(_WRC_LOADS)} olmalı: {ld!r}"
+                        )
+        return self
 
-__all__ = ["ShellSection", "Head", "Nozzle", "Cone", "Junction", "Flange", "Support"]
+    @model_validator(mode="after")
+    def _check_skirt_wall_physical(self) -> "Support":
+        # Etek et kalınlığı çap/2'ye ulaşırsa halka kesit dolu diske dejenere olur
+        # (iç çap <= 0); fiziksel olarak imkânsız girdi.
+        if (
+            self.type == "skirt"
+            and self.diameter_mm is not None
+            and self.thickness_mm is not None
+            and self.thickness_mm >= self.diameter_mm / 2.0
+        ):
+            raise ValueError(
+                "Etek et kalınlığı çapın yarısından küçük olmalı (thickness_mm < diameter_mm/2)."
+            )
+        return self
+
+
+__all__ = ["ShellSection", "Head", "Nozzle", "Cone", "Junction", "Flange", "Support", "WrcCoefficientEntry"]

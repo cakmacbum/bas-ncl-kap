@@ -62,16 +62,6 @@ def test_calculation_code_dropdown_exposes_asme_and_en():
 # KARARDIR — gerekçesiz eklenmemeli. (Aynı desen: test_no_ghost_features.py
 # içindeki UI_DE_GOSTERILMEYENLER.)
 ARAYUZDE_YOK = {
-    "Flange.flange_id": "Flange domain UI deferred until complete Appendix 2 wiring",
-    "Flange.rating_standard": "Flange domain UI deferred until complete Appendix 2 wiring",
-    "Flange.thickness": "Flange domain UI deferred until complete Appendix 2 wiring",
-    "Flange.hub_length": "Flange domain UI deferred until complete Appendix 2 wiring",
-    "Flange.hub_small_thickness": "Flange domain UI deferred until complete Appendix 2 wiring",
-    "Flange.bolt_count": "Flange domain UI deferred until complete Appendix 2 wiring",
-    "Flange.bolt_area": "Flange domain UI deferred until complete Appendix 2 wiring",
-    "Flange.bolt_allowable_stress": "Flange domain UI deferred until complete Appendix 2 wiring",
-    "Flange.gasket_m": "Flange domain UI deferred until complete Appendix 2 wiring",
-    "Flange.gasket_y": "Flange domain UI deferred until complete Appendix 2 wiring",
     "Head.crown_depth": "Head geometry UI field deferred to B-06 geometry completion",
     "Head.flat_z_factor": "Head geometry UI field deferred to B-06 geometry completion",
     "Support.anchor_bolt_count": "Phase C anchor input UI deferred",

@@ -5,7 +5,7 @@
 // K6: Flanş/kapak biçimleri görsel temsildir (B16.5 ölçüsü değildir).
 // Kesin imalat modeli için CadQuery/STEP çıktısı kullanılır.
 
-import React, { useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Bounds, GizmoHelper, GizmoViewport } from "@react-three/drei";
 import * as THREE from "three";

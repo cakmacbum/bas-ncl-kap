@@ -89,6 +89,39 @@ def weld_group_two_lines(d: float, b: float) -> WeldGroup:
     return WeldGroup(L_w=2.0 * d, S_w=d * d / 3.0)
 
 
+def weld_group_circle(d: float) -> WeldGroup:
+    """Daire kontur çevre kaynağı (boru ayak). d: kaynak dairesinin çapı.
+
+        L_w = π·d,   S_w = π·d²/4      (I_w = π·d³/8 çizgi atalet momenti)
+    """
+    if d <= 0:
+        raise ValueError(f"d pozitif olmalı: {d}")
+    return WeldGroup(L_w=math.pi * d, S_w=math.pi * d * d / 4.0)
+
+
+def weld_group_channel(b: float, d: float) -> WeldGroup:
+    """C (U profil) konturu: iki yatay kenar b + bir düşey kenar d.
+
+    d: eğilme doğrultusundaki boy (üst/alt kenarlar arası). Kaynak grubu
+    d/2 merkezinde simetriktir:  I_w = 2·b·(d/2)² + d³/12
+        L_w = 2b + d,   S_w = I_w/(d/2) = b·d + d²/6
+    """
+    if b <= 0 or d <= 0:
+        raise ValueError(f"b ve d pozitif olmalı: {b}, {d}")
+    return WeldGroup(L_w=2.0 * b + d, S_w=b * d + d * d / 6.0)
+
+
+def scale_weld_group(group: WeldGroup, ratio: float) -> WeldGroup:
+    """Grubu eşit oranda kısaltır (kısmi temas/kaynak): L_w ve S_w oranla çarpılır.
+
+    YAKLAŞIKTIR: gerçek kısmi kaynak grubunun S_w'si geometriye bağlıdır; doğrusal
+    ölçekleme bir idealizasyondur (çağıran sonuca yazmalıdır).
+    """
+    if not (0.0 < ratio <= 1.0):
+        raise ValueError(f"ratio (0,1] aralığında olmalı: {ratio}")
+    return WeldGroup(L_w=group.L_w * ratio, S_w=group.S_w * ratio)
+
+
 def weld_line_forces(
     L_w: float,
     S_w: float,
@@ -167,6 +200,9 @@ __all__ = [
     "WeldGroup",
     "weld_group_rectangle",
     "weld_group_two_lines",
+    "weld_group_circle",
+    "weld_group_channel",
+    "scale_weld_group",
     "weld_line_forces",
     "FilletWeldCheck",
     "check_fillet_weld_group",

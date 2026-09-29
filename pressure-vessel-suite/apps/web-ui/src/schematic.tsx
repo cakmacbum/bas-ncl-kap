@@ -1,5 +1,4 @@
-import React from "react";
-import { HEAD_TYPE_TR, NOZZLE_TYPE_TR } from "./i18n";
+import { HEAD_TYPE_TR } from "./i18n";
 import { headDepth } from "./vesselModel";
 import type { ComponentReference, Cone, Head, ShellSection } from "./types";
 
@@ -200,7 +199,6 @@ export function VesselSchematic(props: Props) {
   // Sol ve sağ bombe derinlikleri (tip bazlı)
   const leftHD = headDepth(leftDi, leftHeadType, leftStraightFlange);
   const rightHD = headDepth(rightDi, rightHeadType, rightStraightFlange);
-  const maxHD = Math.max(leftHD, rightHD);
 
   const totalLenMM = Math.max(L + leftHD + rightHD, 1);
   const dImm = Math.max(di, leftDi, rightDi, 1);
@@ -214,7 +212,6 @@ export function VesselSchematic(props: Props) {
 
   const bodyH = Math.max(di, 1) * s;
   const cY = padT + availH / 2;
-  const cX = padL + availW / 2;
 
   // Yatay düzen (dikeyde x/y rolleri swap edilir)
   const x0 = padL + leftHD * s;          // sol teğet çizgisi

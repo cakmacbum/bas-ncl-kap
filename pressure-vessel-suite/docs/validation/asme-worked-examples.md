@@ -210,6 +210,11 @@ bu yüzden hafif emniyetsiz tarafta kalıyor — kayıt: [`limitations.md`](../l
 Bu turda değiştirilmedi: `Head` modelinde dış çap alanı yok, iç çaptan türetmek `nominal_thickness`
 bağımlılığı getirir. Kullanıcı taç yarıçapını girdiğinde sorun yok; varsayılan durumda uyarı var.
 
+> **Güncelleme (2026-09-25, kodda doğrulandı):** Bu bölüm tur 2 anını anlatır. `Head.outside_diameter`
+> sonradan eklendi ve `design_code._torispherical_radii` girilmeyen taç yarıçapı için artık `L` = dış çap
+> kullanıyor (dış çap yoksa iç çap + 2 x nominal kalınlık); yani yukarıdaki `L = D` (iç çap) tespiti
+> güncel kodu tarif etmez. Bu varsayılanın `design_code` yolunda uçtan uca testi doğrulanamadı.
+
 ## V-12 · Varsayılan büküm yarıçapı 🔴
 
 ```

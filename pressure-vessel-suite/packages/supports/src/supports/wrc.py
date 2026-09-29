@@ -21,6 +21,9 @@ M: kuvvet boyutlu bileşke moment/uzunluk):
 
     N_katkı = K_N · Load / Rm         M_katkı = K_M · Load
 
+Kayma yükleri (boyuna `VL`, çevresel `VC`) de KUVVET tipidir: bülten eğrisi
+`N·Rm/V` ve `M/V` verir → N_katkı = K_N·V/Rm, M_katkı = K_M·V.
+
 Moment tipi yükler (`ML`, `MC`) için bülten `N·Rm²/Moment` ve `M·Rm/Moment`
 sunar:
 
@@ -52,7 +55,7 @@ SURFACES = ("outside", "inside")
 # hangi bileşke için gerekli olduğunu belirtir; kullanıcı yalnız gerçekten
 # ihtiyaç duyulanları girer.
 _COMPONENTS = ("Nx", "Ny", "Mx", "My")
-_LOADS = ("P", "ML", "MC")
+_LOADS = ("P", "ML", "MC", "VL", "VC")
 
 
 def gamma(Rm: float, T: float) -> float:
@@ -91,8 +94,9 @@ class WrcPointCoefficients:
     """Bir nokta (A/B/C/D) için, bir yük (P/ML/MC) altında dört boyutsuz
     katsayı: eksenel membran/eğilme (Nx, Mx), çevresel membran/eğilme (Ny, My).
 
-    Bülgeden okunmayan bileşen `None` bırakılabilir (o yükün o noktada o
-    bileşene katkısı yoksa/ihmal edilebilirse) — `None` katkı 0 sayılır.
+    Aktif (sıfır olmayan) bir yük için dört bileşenin **hepsi** girilmelidir.
+    Bültende değeri gerçekten sıfır olan bileşen açıkça `0.0` girilir; `None`
+    "okunmadı" demektir ve hesap bloklanır — sessizce sıfır sayılmaz (K4/K6).
     """
 
     Nx: Optional[float] = None
@@ -106,10 +110,9 @@ class WrcCoefficients:
     """Tüm noktalar × tüm yükler için kullanıcı tarafından girilen katsayı
     tablosu. Yapı: `table[point][load] = WrcPointCoefficients`.
 
-    Hiçbir katsayı zorunlu değildir — `resolve_missing` hangi (nokta, yük,
-    bileşen) üçlülerinin, verilen yük seti için gerçekten katkısı olup
-    olmadığını (yük sıfır değilse ve karşılık gelen katsayı `None` ise)
-    döner; bunlar `BLOCKED_CODE_DATA` gerekçesidir.
+    Katsayılar yalnız aktif (sıfır olmayan) yükler için gerekir; o yükün
+    kullanılan her noktasında dört bileşen (Nx, Ny, Mx, My) tam girilmelidir.
+    Eksikleri `missing_for` listeler; hesap eksik katsayıyla çalışmaz.
     """
 
     table: Dict[str, Dict[str, WrcPointCoefficients]] = field(default_factory=dict)
@@ -118,16 +121,16 @@ class WrcCoefficients:
         return self.table.get(point, {}).get(load, WrcPointCoefficients())
 
     def missing_for(self, point: str, load: str, active_loads: Dict[str, float]) -> list:
-        """`load` sıfır değilse ve bu nokta için hiçbir bileşen girilmemişse
-        eksik kabul edilir; kısmi girilmiş noktalar olduğu gibi kullanılır
-        (girilmeyen bileşenin katkısı 0 alınır — bu WRC pratiğinde de olağan,
-        zira her yük her noktada/bileşende baskın değildir)."""
+        """Aktif (sıfır olmayan) `load` için bu noktada girilmemiş bileşenleri döner.
+
+        Örn. `["A/P: Ny, My"]`. Yük sıfırsa katsayı gerekmez. Eksik bileşen
+        sıfır sayılmaz — çağıran taraf `BLOCKED_CODE_DATA` verir.
+        """
         if active_loads.get(load, 0.0) == 0.0:
             return []
         coeffs = self.get(point, load)
-        if all(getattr(coeffs, c) is None for c in _COMPONENTS):
-            return [f"{point}/{load}"]
-        return []
+        names = [c for c in _COMPONENTS if getattr(coeffs, c) is None]
+        return [f"{point}/{load}: {', '.join(names)}"] if names else []
 
 
 @dataclass(frozen=True)
@@ -163,10 +166,12 @@ def point_stress_resultants(
     P: float = 0.0,
     ML: float = 0.0,
     MC: float = 0.0,
+    VL: float = 0.0,
+    VC: float = 0.0,
 ) -> Tuple[float, float, float, float]:
     """Bir noktadaki toplam Nx, Ny, Mx, My bileşke değerleri (bindirme).
 
-    P kuvvet tipi (N∝1/Rm, M∝1); ML/MC moment tipi (N∝1/Rm², M∝1/Rm).
+    P, VL, VC kuvvet tipi (N∝1/Rm, M∝1); ML/MC moment tipi (N∝1/Rm², M∝1/Rm).
     """
     if point not in POINTS:
         raise ValueError(f"Geçersiz nokta: {point}")
@@ -175,8 +180,17 @@ def point_stress_resultants(
         ("P", P, _force_contribution, _force_contribution),
         ("ML", ML, _moment_contribution, _moment_contribution),
         ("MC", MC, _moment_contribution, _moment_contribution),
+        ("VL", VL, _force_contribution, _force_contribution),
+        ("VC", VC, _force_contribution, _force_contribution),
     ):
         c = coeffs.get(point, load_name)
+        if load_value != 0.0:
+            gaps = coeffs.missing_for(point, load_name, {load_name: load_value})
+            if gaps:
+                raise ValueError(
+                    f"WRC katsayısı eksik — {gaps[0]}. Bültende gerçekten sıfırsa 0.0 girin; "
+                    "eksik katsayı sıfır sayılmaz."
+                )
         Nx += contrib_n(c.Nx, load_value, Rm, True)
         Ny += contrib_n(c.Ny, load_value, Rm, True)
         Mx += contrib_m(c.Mx, load_value, Rm, False)
@@ -196,6 +210,8 @@ def evaluate_point(
     shear_stress: float = 0.0,
     pressure_axial_stress: float = 0.0,
     pressure_circ_stress: float = 0.0,
+    VL: float = 0.0,
+    VC: float = 0.0,
 ) -> PointStressResult:
     """Tek bir nokta/yüzey için lokal + basınç gerilmesini birleştirir.
 
@@ -213,7 +229,7 @@ def evaluate_point(
     if T_eff <= 0:
         raise ValueError(f"T_eff pozitif olmalı: {T_eff}")
 
-    Nx, Ny, Mx, My = point_stress_resultants(point, coeffs, Rm, P, ML, MC)
+    Nx, Ny, Mx, My = point_stress_resultants(point, coeffs, Rm, P, ML, MC, VL, VC)
     sign = 1.0 if surface == "outside" else -1.0
 
     sigma_m_x = Nx / T_eff
@@ -248,6 +264,8 @@ def evaluate_all_points(
     shear_stress: float = 0.0,
     pressure_axial_stress: float = 0.0,
     pressure_circ_stress: float = 0.0,
+    VL: float = 0.0,
+    VC: float = 0.0,
 ) -> Dict[Tuple[str, str], PointStressResult]:
     """8 nokta (A/B/C/D × dış/iç) için `evaluate_point`'i toplu çalıştırır."""
     results = {}
@@ -255,9 +273,61 @@ def evaluate_all_points(
         for surface in SURFACES:
             results[(point, surface)] = evaluate_point(
                 point, surface, coeffs, Rm, T_eff, P, ML, MC,
-                shear_stress, pressure_axial_stress, pressure_circ_stress,
+                shear_stress, pressure_axial_stress, pressure_circ_stress, VL, VC,
             )
     return results
+
+
+def missing_coefficients(
+    coeffs: WrcCoefficients,
+    active_loads: Dict[str, float],
+    points: Tuple[str, ...] = POINTS,
+) -> list:
+    """Aktif (sıfır olmayan) her yük × her nokta için girilmemiş katsayıları listeler.
+
+    Örn. `["A/VL: Ny, My", "B/VL: Nx, Ny, Mx, My"]`. Eksik bileşen sıfır sayılmaz.
+    """
+    missing = []
+    for point in points:
+        for load in _LOADS:
+            missing.extend(coeffs.missing_for(point, load, active_loads))
+    return missing
+
+
+def _entry_value(entry, name: str) -> Optional[float]:
+    if entry is None:
+        return None
+    if isinstance(entry, dict):
+        return entry.get(name)
+    return getattr(entry, name, None)
+
+
+def coefficients_from_mapping(mapping) -> WrcCoefficients:
+    """Kullanıcı girdisi `{nokta: {yük: {Nx,Ny,Mx,My}}}` (dict veya Pydantic
+    `WrcCoefficientEntry`) yapısını `WrcCoefficients`'e çevirir. None/boş → boş tablo."""
+    table: Dict[str, Dict[str, WrcPointCoefficients]] = {}
+    for point, loads in (mapping or {}).items():
+        for load, entry in (loads or {}).items():
+            table.setdefault(point, {})[load] = WrcPointCoefficients(
+                Nx=_entry_value(entry, "Nx"), Ny=_entry_value(entry, "Ny"),
+                Mx=_entry_value(entry, "Mx"), My=_entry_value(entry, "My"),
+            )
+    return WrcCoefficients(table=table)
+
+
+def pressure_membrane_stresses(P_design: float, Rm: float, T: float) -> Tuple[float, float]:
+    """İnce cidar silindir basınç membran gerilmeleri (MPa).
+
+        σ_çevresel = P·Rm/T,   σ_boyuna = P·Rm/(2T)
+
+    Rm ortalama yarıçap, T korozyonlu kalınlık. Lokal gerilmeyle birleştirilen
+    genel primer membrandır ("basıncın buna göre tespit edilmesi").
+    """
+    if Rm <= 0 or T <= 0:
+        raise ValueError(f"Rm ve T pozitif olmalı: {Rm}, {T}")
+    if P_design < 0:
+        raise ValueError(f"P_design negatif olamaz: {P_design}")
+    return P_design * Rm / (2.0 * T), P_design * Rm / T
 
 
 @dataclass(frozen=True)
@@ -308,6 +378,9 @@ __all__ = [
     "WrcCoefficients",
     "PointStressResult",
     "point_stress_resultants",
+    "missing_coefficients",
+    "coefficients_from_mapping",
+    "pressure_membrane_stresses",
     "evaluate_point",
     "evaluate_all_points",
     "WrcClassification",

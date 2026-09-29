@@ -72,6 +72,103 @@ def _torispherical_radii(head, D: float, result: CalculationResult) -> tuple[flo
     return L, r
 
 
+_GRAVITY_M_S2 = 9.80665
+# Ayak alt kontrollerinin (kesit/kaynak/taban plakası/WRC) okuduğu Support alanları.
+_LEG_DETAIL_FIELDS = (
+    "leg_attachment", "leg_section_type", "leg_profile_height_mm", "leg_profile_width_mm",
+    "leg_web_thickness_mm", "leg_flange_thickness_mm", "leg_unbraced_length_mm",
+    "leg_eccentricity_mm", "leg_effective_length_factor_K", "leg_pad_length_mm",
+    "leg_pad_width_mm", "leg_pad_thickness_mm", "leg_pad_contact_ratio",
+    "base_plate_length_mm", "base_plate_width_mm", "base_plate_thickness_mm",
+    "base_plate_yield_MPa", "foundation_bearing_allowable_MPa",
+    "pad_to_shell_weld_leg_mm", "leg_to_pad_weld_leg_mm", "leg_to_base_plate_weld_leg_mm",
+    "weld_electrode_strength_MPa", "weld_min_leg_mm", "wrc_coefficients",
+)
+_HYDROTEST_WATER_DENSITY_KG_M3 = 1000.0  # K4 varsayımı: hidrotest ortamı su
+
+
+def _support_load_envelope(project, support_location_mm: float) -> dict:
+    """Yük durumlarından destek yük ZARFI (alternatif durumlar toplanmaz).
+
+    Her yük durumu ayrı değerlendirilir; `concurrent_with` ile açıkça eşzamanlı
+    işaretlenen durumlar (NON_CONCURRENT_LOAD_PAIRS dışındaysa) aynı grupta
+    birleşir. Grup içinde: yatay yük Σ√(Fx²+Fy²); moment = √((ΣMx)²+(ΣMy)²)
+    (SRSS) + Σ yatay·kaldıraç (yön bilinmediğinden aritmetik toplam, muhafazakâr).
+    Zarf: gruplar arası en büyük moment/yatay yük; Fz zarfı ayrı max/min.
+    Fz işaret kuralı domain'de tanımlı DEĞİL; K4 varsayımı: Fz>0 aşağı (basma).
+    """
+    from domain.load_cases import NON_CONCURRENT_LOAD_PAIRS
+
+    cases = list(getattr(project, "load_cases", None) or [])
+    by_id = {c.load_case_id: c for c in cases}
+
+    def non_concurrent(a, b) -> bool:
+        return any({a.load_type, b.load_type} == {l, r} for l, r in NON_CONCURRENT_LOAD_PAIRS)
+
+    env = {
+        "moment_Nmm": 0.0, "moment_case": None,
+        "horizontal_N": 0.0, "horizontal_case": None,
+        "fz_max_N": 0.0, "fz_min_N": 0.0,
+        "per_case": [], "notes": [],
+    }
+    seen_groups = set()
+    for case in cases:
+        members = [case] + [
+            by_id[i] for i in (case.concurrent_with or [])
+            if i in by_id and i != case.load_case_id and not non_concurrent(case, by_id[i])
+        ]
+        key = frozenset(c.load_case_id for c in members)
+        if key in seen_groups:
+            continue
+        seen_groups.add(key)
+        label = "+".join(c.load_case_id for c in members)
+        loads = [ld for c in members for ld in (c.external_loads or [])]
+        if not loads:
+            continue
+        horizontal = sum(math.hypot(ld.fx_n, ld.fy_n) for ld in loads)
+        m_direct = math.hypot(sum(ld.mx_nmm for ld in loads), sum(ld.my_nmm for ld in loads))
+        m_lever = sum(
+            math.hypot(ld.fx_n, ld.fy_n) * max(0.0, (ld.elevation_mm or 0.0) - support_location_mm)
+            for ld in loads
+        )
+        if any(
+            math.hypot(ld.fx_n, ld.fy_n) > 0.0 and (ld.elevation_mm or 0.0) <= support_location_mm
+            for ld in loads
+        ):
+            env["notes"].append(
+                f"Yük durumu {label}: yatay kuvvet var ama yük kotu (elevation_mm) destek kotunun "
+                f"({support_location_mm:g} mm) üstünde girilmemiş; kaldıraç kolu 0 alındı, "
+                f"kuvvetin momenti HESAPLANAMADI (yalnız girilen Mx/My kullanıldı)."
+            )
+        moment = m_direct + m_lever
+        fz = sum(ld.fz_n for ld in loads)
+        env["per_case"].append({"case": label, "moment_Nmm": moment, "horizontal_N": horizontal, "fz_N": fz})
+        if moment > env["moment_Nmm"]:
+            env["moment_Nmm"], env["moment_case"] = moment, label
+        if horizontal > env["horizontal_N"]:
+            env["horizontal_N"], env["horizontal_case"] = horizontal, label
+        env["fz_max_N"] = max(env["fz_max_N"], fz)
+        env["fz_min_N"] = min(env["fz_min_N"], fz)
+    return env
+
+
+def _host_outer_diameters(project, host_type: str, host) -> tuple:
+    """Host bileşenin dış çap aralığı (min, max) mm; bilinmiyorsa (None, None)."""
+    try:
+        if host_type == "cone":
+            t = host.nominal_thickness
+            return host.small_diameter + 2.0 * t, host.large_diameter + 2.0 * t
+        if getattr(host, "outside_diameter", None):
+            d = host.outside_diameter
+        elif getattr(host, "inside_diameter", None):
+            d = host.inside_diameter + 2.0 * host.nominal_thickness
+        else:
+            return None, None
+        return d, d
+    except (AttributeError, TypeError):
+        return None, None
+
+
 class ASMEVIII1DesignCode(DesignCode):
     """ASME VIII Division 1 hesap eklentisi.
 
@@ -108,6 +205,34 @@ class ASMEVIII1DesignCode(DesignCode):
         )
         if result.status == CalculationStatus.PASS:
             result.set_fail(result.utilization_ratio or 1.0)
+
+    def _apply_material_data_check(
+        self, result: CalculationResult, mat, dc, nominal_thickness: float
+    ) -> None:
+        """Malzeme S değerinin bu tasarım noktası için geçerliliğini denetle.
+
+        Sonuç "S, tasarım sıcaklığında girildi" varsayımına dayanır ama malzemenin
+        `temperature` ve `thickness_min/max` alanları hiçbir yerde kıyaslanmıyordu:
+        yanlış sıcaklıktaki bir S ile sayısal PASS çıkabilirdi. Uyuşmazlık
+        sessizce geçilmez — uyarı yazılır, PASS → REVIEW_REQUIRED olur (K4).
+        Sıcaklık kıyası, S'nin gerçek tablo değeri olduğunu kanıtlamaz; yalnız
+        girilen S'nin hangi sıcaklık için olduğu beyanını doğrular.
+        """
+        issues = []
+        if abs(mat.temperature - dc.design_temperature) > 1e-6:
+            issues.append(
+                f"Malzeme '{mat.material_id}' S değeri {mat.temperature:g} °C için girilmiş; "
+                f"tasarım sıcaklığı {dc.design_temperature:g} °C. S bu sıcaklıkta doğrulanmadı."
+            )
+        if nominal_thickness and not (mat.thickness_min <= nominal_thickness <= mat.thickness_max):
+            issues.append(
+                f"Nominal kalınlık {nominal_thickness:g} mm, malzeme '{mat.material_id}' veri "
+                f"aralığının [{mat.thickness_min:g}, {mat.thickness_max:g}] mm dışında."
+            )
+        for issue in issues:
+            result.add_warning(issue)
+        if issues and result.status == CalculationStatus.PASS:
+            result.set_review_required(issues[0])
 
     @property
     def code_name(self) -> str:
@@ -262,6 +387,7 @@ class ASMEVIII1DesignCode(DesignCode):
                 f"selected thickness {shell.nominal_thickness:.2f} mm"
             )
         self._apply_ug16b_minimum(result, shell.nominal_thickness, C)
+        self._apply_material_data_check(result, mat, dc, shell.nominal_thickness)
 
         result.rounding_rule = "shell_required_nominal_thickness"
 
@@ -449,6 +575,7 @@ class ASMEVIII1DesignCode(DesignCode):
                 f"selected thickness {head.nominal_thickness:.2f} mm"
             )
         self._apply_ug16b_minimum(result, head.nominal_thickness, C)
+        self._apply_material_data_check(result, mat, dc, head.nominal_thickness)
 
         result.material_properties_used = {
             "designation": mat.material_designation,
@@ -607,6 +734,7 @@ class ASMEVIII1DesignCode(DesignCode):
         result.final_result = mawp
         result.final_result_unit = "MPa"
         result.set_pass()
+        self._apply_material_data_check(result, mat, dc, t_actual)
         result.material_properties_used = {
             "designation": mat.material_designation,
             "allowable_stress": S,
@@ -616,21 +744,88 @@ class ASMEVIII1DesignCode(DesignCode):
         return result
 
     @staticmethod
-    def _governing_test_material(input_data: dict, materials: list):
-        """Liste sırası yerine bağlı basınç taşıyan malzemeyi belirle."""
+    def _test_candidate_materials(input_data: dict, materials: list) -> list:
+        """Projede basınç taşıyan parçalara bağlı malzemeler (yoksa hepsi)."""
         project = input_data.get("project")
         if project is None:
-            candidates = list(materials)
-        else:
-            material_ids = {
-                component.material_id
-                for collection in (project.shell_sections, project.heads, project.cones)
-                for component in collection
-            }
-            candidates = [material for material in materials if material.material_id in material_ids]
-            if not candidates:
-                candidates = list(materials)
+            return list(materials)
+        material_ids = {
+            component.material_id
+            for collection in (project.shell_sections, project.heads, project.cones)
+            for component in collection
+        }
+        candidates = [material for material in materials if material.material_id in material_ids]
+        return candidates or list(materials)
+
+    @staticmethod
+    def _governing_test_material(input_data: dict, materials: list):
+        """Liste sırası yerine bağlı basınç taşıyan malzemeyi belirle."""
+        candidates = ASMEVIII1DesignCode._test_candidate_materials(input_data, materials)
         return min(candidates, key=lambda material: material.allowable_stress)
+
+    @staticmethod
+    def _test_stress_ratio(input_data: dict, materials: list, dc) -> dict:
+        """UG-99(b)/UG-100 LSR — basınç parçalarındaki en küçük S_test/S_design oranı.
+
+        Döner: {S_test, S_design, ratio, material_id, complete, missing, basis}
+        - Tüm aday malzemelerde `allowable_stress_test_temp` varsa: oran malzeme
+          bazında hesaplanır, en küçüğü belirleyicidir (complete=True).
+        - Değilse ve tasarım sıcaklığı = test sıcaklığı ise: S_test = S_design
+          gerçek eşitliktir (aynı tablo noktası), LSR = 1 (complete=True).
+        - Aksi halde test gerilmesi bilinmiyor: LSR=1 yalnız yedek değerdir ve
+          emniyetsiz olabilir (oran normalde ≥ 1) → complete=False (K4).
+        """
+        candidates = ASMEVIII1DesignCode._test_candidate_materials(input_data, materials)
+        if all(m.allowable_stress_test_temp is not None for m in candidates):
+            governing = min(
+                candidates, key=lambda m: m.allowable_stress_test_temp / m.allowable_stress
+            )
+            return {
+                "S_test": governing.allowable_stress_test_temp,
+                "S_design": governing.allowable_stress,
+                "ratio": governing.allowable_stress_test_temp / governing.allowable_stress,
+                "material_id": governing.material_id,
+                "complete": True,
+                "missing": [],
+                "basis": "material",
+            }
+        governing = min(candidates, key=lambda m: m.allowable_stress)
+        missing = [m.material_id for m in candidates if m.allowable_stress_test_temp is None]
+        same_temp = abs(dc.design_temperature - dc.hydrotest_temperature) < 1e-9
+        return {
+            "S_test": governing.allowable_stress,
+            "S_design": governing.allowable_stress,
+            "ratio": 1.0,
+            "material_id": governing.material_id,
+            "complete": same_temp,
+            "missing": [] if same_temp else missing,
+            "basis": "same_temperature" if same_temp else "assumed",
+        }
+
+    def _apply_test_stress_ratio(self, result: CalculationResult, info: dict, dc, clause: str) -> None:
+        """LSR kaynağını sonuca yaz; bilinmiyorsa uyarı ekle (statüyü çağıran verir)."""
+        if info["basis"] == "material":
+            result.add_assumption(
+                f"{clause} LSR = min(S_test/S_design) = {info['ratio']:.4f}; belirleyici malzeme "
+                f"{info['material_id']} (S_test={info['S_test']} MPa, S_design={info['S_design']} MPa)."
+            )
+        elif info["basis"] == "same_temperature":
+            result.add_assumption(
+                f"{clause} Tasarım ve test sıcaklığı aynı ({dc.hydrotest_temperature} °C): "
+                f"S_test = S_design ({info['S_design']} MPa), LSR = 1.0. Belirleyici malzeme: "
+                f"{info['material_id']}."
+            )
+        else:
+            result.add_assumption(
+                f"K4: Test sıcaklığındaki izin verilen gerilme girilmedi; LSR=1.0 yedek değer "
+                f"olarak kullanıldı (belirleyici malzeme {info['material_id']})."
+            )
+            result.add_warning(
+                f"Test gerilmesi eksik ({', '.join(info['missing'])}): tasarım sıcaklığı "
+                f"{dc.design_temperature} °C, test sıcaklığı {dc.hydrotest_temperature} °C. "
+                "S_test/S_design normalde ≥ 1'dir; LSR=1 test basıncını olması gerekenden DÜŞÜK "
+                "verebilir (emniyetsiz yön). Malzemede 'Test sıcaklığında S' değerini girin."
+            )
 
     def calculate_hydrotest_pressure(self, input_data: dict) -> CalculationResult:
         """UG-99 — Hidrostatik test basıncı.
@@ -664,18 +859,12 @@ class ASMEVIII1DesignCode(DesignCode):
             result.set_not_calculated("No materials defined for hydrotest calculation")
             return result
 
-        # İlk malzemeyi kullan (V1'de basitleştirme)
-        mat = self._governing_test_material(input_data, materials)
-        S_design = mat.allowable_stress
-
-        # V1'de test sıcaklığındaki gerilme = tasarım sıcaklığındaki gerilme varsayımı
-        # (daha düşük sıcaklık → genellikle daha yüksek gerilme → ratio ≥ 1.0)
-        S_test = S_design  # Konservatif varsayım
-
-        result.add_assumption(
-            f"K4: Test temperature allowable stress = design temperature allowable stress "
-            f"({S_design} MPa). Ratio = 1.0 (conservative). Governing material: {mat.material_id}."
-        )
+        # UG-99(b): LSR = basınç parçalarındaki en küçük S_test/S_design oranı.
+        # Oran normalde ≥ 1 olduğundan, test gerilmesi bilinmeyip LSR=1 alınırsa
+        # test basıncı olması gerekenden DÜŞÜK kalabilir (emniyetsiz) — K4.
+        stress = self._test_stress_ratio(input_data, materials, dc)
+        S_design, S_test = stress["S_design"], stress["S_test"]
+        self._apply_test_stress_ratio(result, stress, dc, "UG-99(b):")
 
         # UG-99(b) tabanı MAWP'dir. Endnote yalnızca MAWP hesaplanmadığında tasarım
         # basıncına izin verir; bu suite MAWP'yi hesapladığı için taban MAWP olmalı.
@@ -723,7 +912,13 @@ class ASMEVIII1DesignCode(DesignCode):
 
         result.final_result = p_test
         result.final_result_unit = "MPa"
-        result.set_pass()
+        if stress["complete"]:
+            result.set_pass()
+        else:
+            result.set_review_required(
+                "Test sıcaklığındaki izin verilen gerilme girilmedi; LSR=1 varsayımı test "
+                "basıncını olması gerekenden düşük verebilir."
+            )
 
         return result
 
@@ -756,14 +951,10 @@ class ASMEVIII1DesignCode(DesignCode):
             result.set_not_calculated("No materials defined for pneumatic test calculation")
             return result
 
-        mat = self._governing_test_material(input_data, materials)
-        S_design = mat.allowable_stress
-        S_test = S_design  # Konservatif varsayım (hidrotest ile aynı)
-
-        result.add_assumption(
-            f"K4: Test temperature allowable stress = design temperature allowable stress "
-            f"({S_design} MPa). Ratio = 1.0 (conservative). Governing material: {mat.material_id}."
-        )
+        # UG-100: LSR mantığı hidrostatik testle aynıdır (bkz. UG-99(b)).
+        stress = self._test_stress_ratio(input_data, materials, dc)
+        S_design, S_test = stress["S_design"], stress["S_test"]
+        self._apply_test_stress_ratio(result, stress, dc, "UG-100:")
 
         # UG-100 tabanı da MAWP'dir — UG-99(b) ile aynı gerekçe.
         P_design = dc.design_pressure
@@ -802,14 +993,20 @@ class ASMEVIII1DesignCode(DesignCode):
 
         result.final_result = p_test
         result.final_result_unit = "MPa"
-        result.set_pass()
+        if stress["complete"]:
+            result.set_pass()
+        else:
+            result.set_review_required(
+                "Test sıcaklığındaki izin verilen gerilme girilmedi; LSR=1 varsayımı test "
+                "basıncını olması gerekenden düşük verebilir."
+            )
 
-        # Pnömatik test güvenlik uyarıları
-        result.add_warning(
+        # Pnömatik test güvenlik notları: zorunlu bilgilendirme, durumu düşüren uyarı değil.
+        result.add_notice(
             "Pnömatik test hidrostatik testten daha tehlikelidir. "
             "Yüksek enerji depolayan bir testtir; uygun güvenlik önlemleri alınmalı."
         )
-        result.add_warning(
+        result.add_notice(
             f"Test sıcaklığı {dc.hydrotest_temperature}°C. "
             "MDMT kontrolü yapılmalı — test sıcaklığı MDMT'nin altında olmamalı."
         )
@@ -935,21 +1132,30 @@ class ASMEVIII1DesignCode(DesignCode):
                 "flange": {"tag": flange.flange_id, "material_id": flange.material_id},
                 "design_conditions": input_data["design_conditions"], "materials": [],
             })
-        # M, bolt load and Y/f are deliberately explicit: no silent Appendix 2 factors.
+        # M, bolt load and Y/f/F/V/T/U are deliberately explicit: no silent Appendix 2 factors.
+        # W/M: kullanıcı girdisi (Appendix 2 çalışma sayfası); program hesaplamaz (K6).
         payload = {
             "flange": {"tag": flange.flange_id, "type": flange.type,
                        "A": flange.outside_diameter, "B": flange.inside_diameter,
-                       "t": flange.thickness, "g1": flange.hub_small_thickness,
-                       "h0": flange.hub_length, "material_id": flange.material_id},
+                       "t": flange.thickness,
+                       # Appendix 2: g0 = küçük uç, g1 = büyük uç (flanş sırtı) hub kalınlığı.
+                       "g0": flange.hub_small_thickness,
+                       "g1": getattr(flange, "hub_large_thickness", None),
+                       "h": flange.hub_length, "material_id": flange.material_id},
             "design_conditions": input_data["design_conditions"],
             "materials": input_data.get("materials", []),
-            "bolt_load_W": input_data.get("bolt_load_W", 0.0),
-            "moment_M": input_data.get("moment_M", 0.0),
+            "bolt_load_W": input_data.get("bolt_load_W"),
+            "moment_M": input_data.get("moment_M"),
         }
         if input_data.get("flange_factor_Y") is not None:
             payload["flange_factor_Y"] = input_data["flange_factor_Y"]
         if input_data.get("flange_factor_f") is not None:
             payload["flange_factor_f"] = input_data["flange_factor_f"]
+        # K6: Şekil 2-7.1 faktörleri F/V/T/U kullanıcı girdisidir; boşsa None → bloke.
+        for key in ("F", "V", "T", "U"):
+            val = getattr(flange, f"flange_factor_{key}", None)
+            if val is not None:
+                payload[f"flange_factor_{key}"] = val
         return FlangeCalculator(self.code_name, self.code_edition).check_flange_stress(payload)
 
     def validate_welds(self, project) -> list:
@@ -1331,7 +1537,10 @@ class ASMEVIII1DesignCode(DesignCode):
         from calc_core.volume_mass import calculate_vessel_volume_mass
 
         vm = calculate_vessel_volume_mass(project)
-        weight_N = vm.total_metal_mass_kg * 9.80665
+        weight_empty_N = vm.total_metal_mass_kg * _GRAVITY_M_S2
+        # Hidrotest: metal + su (rho=1000 kg/m3, K4 varsayımı) — iç hacim korozyon payı düşülmüş.
+        water_mass_kg = vm.total_inner_volume_m3 * _HYDROTEST_WATER_DENSITY_KG_M3
+        weight_hydro_N = weight_empty_N + water_mass_kg * _GRAVITY_M_S2
 
         calc = SupportCalculator(code=self.code_name, edition=self.code_edition)
         shells_by_id = {s.section_id: s for s in project.shell_sections}
@@ -1349,6 +1558,8 @@ class ASMEVIII1DesignCode(DesignCode):
                 results.append(r)
             return results
 
+        sequence_all = getattr(project, "component_sequence", None) or []
+
         def component_axial_length(ref):
             """Return an axial envelope for global support positions."""
             if ref.component_type == "shell":
@@ -1362,18 +1573,17 @@ class ASMEVIII1DesignCode(DesignCode):
                 return (head.crown_depth or head.inside_diameter / 4.0) + head.straight_flange_length if head else None
             return None
 
-        def shell_global_start(shell_id):
-            sequence = getattr(project, "component_sequence", None) or []
-            if not sequence:
+        def component_global_start(kind, component_id):
+            if not sequence_all:
                 # A legacy single-shell vessel has an unambiguous local origin.
                 # With multiple shells, an explicit host ID alone cannot map a
                 # global station to that shell without the ordered chain.
-                return 0.0 if len(shells_by_id) == 1 else None
+                return 0.0 if (kind == "shell" and len(shells_by_id) == 1) else None
             position = 0.0
             matches = 0
             start = None
-            for ref in sequence:
-                if ref.component_type == "shell" and ref.component_id == shell_id:
+            for ref in sequence_all:
+                if ref.component_type == kind and ref.component_id == component_id:
                     matches += 1
                     start = position
                 length = component_axial_length(ref)
@@ -1391,88 +1601,128 @@ class ASMEVIII1DesignCode(DesignCode):
             saddles_by_host.setdefault(saddle_host, []).append(saddle)
         results = []
         for sup in supports:
+            def blocked(message, _sup=sup):
+                r = CalculationResult(
+                    component_id=_sup.support_id,
+                    component_type="support",
+                    calculation_type=f"{_sup.type}_stress",
+                    code=self.code_name,
+                    edition=self.code_edition,
+                )
+                r.set_not_calculated(message)
+                results.append(r)
+
+            # Host çözümü: eyer YALNIZ gövdeye oturur; etek ve ayak gövde, bombe
+            # veya koni üzerinde olabilir (etek tabanı gövde aralığının dışındadır).
             host_id = getattr(sup, "host_component_id", None)
+            host_type, host = None, None
             if host_id:
-                shell = shells_by_id.get(host_id)
-                if shell is None:
-                    r = CalculationResult(
-                        component_id=sup.support_id,
-                        component_type="support",
-                        calculation_type=f"{sup.type}_stress",
-                        code=self.code_name,
-                        edition=self.code_edition,
-                    )
-                    r.set_not_calculated(f"Support host component '{host_id}' is not a shell section.")
-                    results.append(r)
+                if host_id in shells_by_id:
+                    host_type, host = "shell", shells_by_id[host_id]
+                elif sup.type != "saddle":
+                    head = next((h for h in project.heads if h.head_id == host_id), None)
+                    cone = next((c for c in project.cones if c.cone_id == host_id), None)
+                    if head is not None:
+                        host_type, host = "head", head
+                    elif cone is not None:
+                        host_type, host = "cone", cone
+                if host is None:
+                    if sup.type == "saddle":
+                        blocked(f"Support host component '{host_id}' is not a shell section.")
+                    else:
+                        blocked(f"Support host component '{host_id}' is not a shell, head or cone of the project.")
                     continue
             elif len(shells_by_id) == 1:
-                shell = next(iter(shells_by_id.values()))
+                host_type, host = "shell", next(iter(shells_by_id.values()))
             else:
-                r = CalculationResult(
-                    component_id=sup.support_id,
-                    component_type="support",
-                    calculation_type=f"{sup.type}_stress",
-                    code=self.code_name,
-                    edition=self.code_edition,
-                )
-                r.set_not_calculated(
-                    "Multiple shell sections exist; support.host_component_id is required."
-                )
-                results.append(r)
+                blocked("Multiple shell sections exist; support.host_component_id is required.")
                 continue
+            host_id = host.section_id if host_type == "shell" else (host.head_id if host_type == "head" else host.cone_id)
+            # Hesap paketlerine geçen "shell": host gövde; bombe/koni hostunda ilk gövde (yalnız uyumluluk).
+            shell = host if host_type == "shell" else next(iter(shells_by_id.values()))
+            host_axial_length = component_axial_length(
+                type("Ref", (), {"component_type": host_type, "component_id": host_id})
+            ) or shell.tangent_length
 
-            host_start = shell_global_start(shell.section_id)
-            if host_start is None:
-                r = CalculationResult(
-                    component_id=sup.support_id,
-                    component_type="support",
-                    calculation_type=f"{sup.type}_stress",
-                    code=self.code_name,
-                    edition=self.code_edition,
-                )
-                r.set_not_calculated(
-                    f"Shell host '{shell.section_id}' cannot be resolved uniquely in component_sequence; "
+            host_start = component_global_start(host_type, host_id)
+            if sup.type == "saddle":
+                if host_start is None:
+                    blocked(
+                        f"Shell host '{shell.section_id}' cannot be resolved uniquely in component_sequence; "
+                        "the sequence may contain missing, unknown, or duplicate component references."
+                    )
+                    continue
+                host_end = host_start + shell.tangent_length
+                if not (host_start <= sup.location_mm <= host_end):
+                    blocked(
+                        f"Support position {sup.location_mm:g} mm is outside host shell "
+                        f"'{shell.section_id}' global interval [{host_start:g}, {host_end:g}] mm."
+                    )
+                    continue
+            elif sequence_all and host_start is None:
+                # Etek/ayak için konum-aralığı kapısı YOK; ama zincir tanımlıysa host
+                # zincirde tek ve çözümlenebilir olmalı (tutarsız proje).
+                blocked(
+                    f"Support host '{host_id}' cannot be resolved uniquely in component_sequence; "
                     "the sequence may contain missing, unknown, or duplicate component references."
                 )
-                results.append(r)
                 continue
 
-            host_end = host_start + shell.tangent_length
-            if not (host_start <= sup.location_mm <= host_end):
-                r = CalculationResult(
-                    component_id=sup.support_id,
-                    component_type="support",
-                    calculation_type=f"{sup.type}_stress",
-                    code=self.code_name,
-                    edition=self.code_edition,
-                )
-                r.set_not_calculated(
-                    f"Support position {sup.location_mm:g} mm is outside host shell "
-                    f"'{shell.section_id}' global interval [{host_start:g}, {host_end:g}] mm."
-                )
-                results.append(r)
-                continue
+            orchestration_warnings = []
+            host_d_min, host_d_max = _host_outer_diameters(project, host_type, host)
+            if sup.type == "skirt" and sup.diameter_mm and host_d_min:
+                if sup.diameter_mm < 0.85 * host_d_min or sup.diameter_mm > 1.15 * host_d_max:
+                    orchestration_warnings.append(
+                        f"Etek çapı {sup.diameter_mm:g} mm, host '{host_id}' dış çap aralığından "
+                        f"[{host_d_min:g}, {host_d_max:g}] mm (±%15 tolerans) sapıyor; etek-host süreklilik/"
+                        f"geometri uyumu mühendis kontrolü ister."
+                    )
+            if sup.type == "leg" and sup.support_radius_mm and host_d_max:
+                if sup.support_radius_mm > host_d_max:  # r > 2 x host dış yarıçapı
+                    blocked(
+                        f"Ayak dağılım yarıçapı {sup.support_radius_mm:g} mm, host '{host_id}' dış "
+                        f"yarıçapının ({host_d_max / 2.0:g} mm) 2 katından büyük; gerçekçi değil, girdiyi düzeltin."
+                    )
+                    continue
+                if sup.support_radius_mm > host_d_max / 2.0 * 1.25:
+                    orchestration_warnings.append(
+                        f"Ayak dağılım yarıçapı {sup.support_radius_mm:g} mm, host dış yarıçapından "
+                        f"({host_d_max / 2.0:g} mm) belirgin büyük; konsol/traversli ayak düzeni doğrulanmalı."
+                    )
+            orientation = getattr(getattr(project, "orientation", None), "value", getattr(project, "orientation", None))
+            if orientation == "vertical" and sup.type == "saddle":
+                orchestration_warnings.append("Dikey kapta eyer desteği: tipik düzen değildir (eyer yatay kaplar içindir); tip seçimi doğrulanmalı.")
+            if orientation == "horizontal" and sup.type in ("skirt", "leg"):
+                orchestration_warnings.append(f"Yatay kapta {sup.type} desteği: tipik düzen değildir (yatay kaplarda eyer kullanılır); tip seçimi doğrulanmalı.")
 
+            # Yük zarfı: alternatif yük durumları (rüzgâr / deprem / hidrotest ...) TOPLANMAZ.
             manual_moment = getattr(sup, "overturning_moment_Nmm", 0.0) or 0.0
-            global_moment = 0.0
-            global_horizontal = 0.0
-            for load_case in getattr(project, "load_cases", []) or []:
-                for load in getattr(load_case, "external_loads", []) or []:
-                    horizontal = math.hypot(load.fx_n, load.fy_n)
-                    lever = max(0.0, (load.elevation_mm or 0.0) - sup.location_mm)
-                    global_horizontal += horizontal
-                    global_moment += horizontal * lever + abs(load.mx_nmm) + abs(load.my_nmm)
+            env = _support_load_envelope(project, sup.location_mm)
+            global_moment = env["moment_Nmm"]
+            global_horizontal = env["horizontal_N"]
             overturning_moment = max(manual_moment, global_moment)
+            if overturning_moment <= 0.0:
+                moment_source = "none"
+            elif manual_moment >= global_moment:
+                moment_source = "manual (support.overturning_moment_Nmm)"
+            else:
+                moment_source = f"load_case:{env['moment_case']}"
+            # Ağırlık durumları: basma = hidrotest (metal + su) + en büyük aşağı Fz;
+            # kaldırma/uplift = boş metal + en küçük (yukarı) Fz.
+            compression_weight_N = weight_hydro_N + max(0.0, env["fz_max_N"])
+            uplift_weight_N = max(0.0, weight_empty_N + min(0.0, env["fz_min_N"]))
             payload = {
                 "support": {
                     "tag": sup.support_id,
-                    "host_component_id": shell.section_id,
+                    "host_component_id": host_id,
                     "type": sup.type,
                     "location_mm": sup.location_mm,
                     "width_mm": sup.width_mm,
                     "height_mm": sup.height_mm,
                     "diameter_mm": getattr(sup, "diameter_mm", None),
                     "thickness_mm": getattr(sup, "thickness_mm", None),
+                    "skirt_allowable_compressive_MPa": getattr(sup, "skirt_allowable_compressive_MPa", None),
+                    "skirt_weld_efficiency": getattr(sup, "skirt_weld_efficiency", None),
                     "n_legs": getattr(sup, "leg_count", None),
                     "leg_diameter_mm": getattr(sup, "leg_diameter_mm", None),
                     "leg_thickness_mm": getattr(sup, "leg_thickness_mm", None),
@@ -1484,11 +1734,24 @@ class ASMEVIII1DesignCode(DesignCode):
                     "anchor_shear_allowable_N": getattr(sup, "anchor_shear_allowable_N", None),
                     "lateral_load_N": getattr(sup, "lateral_load_N", 0.0) or 0.0,
                     "contact_angle_deg": getattr(sup, "contact_angle_deg", None),
+                    "saddle_stiffened": getattr(sup, "saddle_stiffened", None),
+                    "zick_K1": getattr(sup, "zick_K1", None),
+                    "zick_K2": getattr(sup, "zick_K2", None),
+                    "zick_K3": getattr(sup, "zick_K3", None),
+                    "zick_K6": getattr(sup, "zick_K6", None),
+                    "zick_K7": getattr(sup, "zick_K7", None),
                 },
                 "shell": shell,
-                "vessel_length": shell.tangent_length,
+                "vessel_length": host_axial_length if host_type != "shell" else shell.tangent_length,
                 "host_axial_start_mm": host_start,
-                "total_weight_N": weight_N,
+                # total_weight_N = BASMA durumu (hidrotest: metal + su); geriye dönük uyumlu anahtar.
+                # empty_weight_N = KALDIRMA/uplift için boş metal ağırlığı (hesap paketleri henüz okumuyor).
+                "total_weight_N": compression_weight_N,
+                "empty_weight_N": uplift_weight_N,
+                # Hesap paketlerinin okuduğu ad: yükselme/çekme kontrolü boş (min) ağırlıkla yapılır.
+                "min_weight_N": uplift_weight_N,
+                "host_component_type": host_type,
+                "host_outer_diameter_mm": host_d_max,
                 "materials": project.materials,
                 "design_conditions": project.design_conditions,
                 "overturning_moment_Nmm": overturning_moment,
@@ -1497,35 +1760,112 @@ class ASMEVIII1DesignCode(DesignCode):
                 "skirt_material_id": sup.material_id,
             }
             if sup.type == "saddle":
-                # İki eyer arası mesafe konumlardan türetilir; tek eyer varsa
-                # Zick geçersizdir — hesap paketi bunu kendi raporlar.
+                # Zick girdileri: tüm eyer konumları (>=3 → kapsam dışı, tek → hesaplanmaz),
+                # teğet-teğet L ve teğet başlangıcı (zincirden), başlık derinliği H (başlık tanımından).
+                from supports import formulas as _saddle_formulas
+
+                saddle_notes = []
                 host_saddles = saddles_by_host.get(shell.section_id, [])
-                if len(host_saddles) >= 2:
-                    locs = sorted(s.location_mm for s in host_saddles)
-                    payload["saddle_distance"] = locs[-1] - locs[0]
-                    payload["saddle_from_end"] = max(0.0, locs[0] - host_start)
+                payload["saddle_positions_mm"] = sorted(s.location_mm for s in host_saddles)
+                payload["weight_case"] = "hidrotest (metal + su) + en büyük aşağı Fz — basma durumu"
+                _pos, _t_start, _t_end, _n_cyl, _resolvable = 0.0, None, None, 0, True
+                for _ref in sequence_all:
+                    _len = component_axial_length(_ref)
+                    if _len is None:
+                        _resolvable = False
+                        break
+                    if _ref.component_type in ("shell", "cone"):
+                        _t_start = _pos if _t_start is None else _t_start
+                        _t_end = _pos + _len
+                        _n_cyl += 1
+                    _pos += _len
+                if not sequence_all:
+                    _t_start, _t_end, _n_cyl = 0.0, shell.tangent_length, 1
+                if _resolvable and _t_start is not None:
+                    payload["tangent_start_mm"] = _t_start
+                    payload["vessel_length"] = _t_end - _t_start
+                if _n_cyl > 1:
+                    saddle_notes.append(
+                        "Zick sabit et kalınlığı varsayar; teğet-teğet aralıkta birden fazla silindirik/konik "
+                        "bileşen var — host gövde kalınlığı kullanıldı, diğer bileşenler ayrıca doğrulanmalı."
+                    )
+                _seq_head_ids = {_r.component_id for _r in sequence_all if _r.component_type == "head"}
+                _heads = [_h for _h in project.heads if not _seq_head_ids or _h.head_id in _seq_head_ids]
+                if _heads:
+                    try:
+                        _depths = [_saddle_formulas.zick_head_depth(_h) for _h in _heads]
+                        payload["head_depth_mm"] = max(_depths)
+                        if max(_depths) - min(_depths) > 0.01 * max(max(_depths), 1.0):
+                            saddle_notes.append(
+                                "Başlık derinlikleri farklı; Zick simetrik başlık varsayar — en büyük H kullanıldı."
+                            )
+                    except ValueError:
+                        pass
+                    payload["head_thickness_mm"] = min(
+                        _h.nominal_thickness - _h.internal_corrosion_allowance - _h.external_corrosion_allowance
+                        for _h in _heads
+                    )
+                _weld = project.get_weld(shell.weld_joint_id) if shell.weld_joint_id else None
+                payload["joint_efficiency"] = _weld.joint_efficiency if _weld else None
                 r = calc.check_saddle(payload)
+                for _note in saddle_notes:
+                    r.add_warning(_note)
             elif sup.type == "skirt":
                 r = calc.check_skirt(payload)
             elif sup.type == "leg":
+                for _f in _LEG_DETAIL_FIELDS:
+                    payload["support"][_f] = getattr(sup, _f, None)
                 r = calc.check_leg_support(payload)
+                # leg_section_type boş → yalnız leg_stress (eski boru-ayak davranışı);
+                # dolu → dört alt kontrol de üretilir ve leg_stress özetine bağlanır.
+                leg_details = calc.check_leg_detail(payload)
+                calc.summarize_leg(r, leg_details)
+                if not leg_details and any(
+                    getattr(sup, _f, None) is not None
+                    for _f in _LEG_DETAIL_FIELDS
+                    if _f not in ("leg_pad_length_mm", "leg_pad_width_mm", "leg_pad_thickness_mm")
+                ):
+                    r.add_warning(
+                        "Ayak ped/kaynak/taban plakası/WRC alanları girildi ancak leg_section_type boş: "
+                        "alt kontroller (leg_section_check, leg_weld_check, base_plate_check, "
+                        "wrc_local_stress) ÇALIŞTIRILMADI; yalnız boru-ayak leg_stress hesaplandı."
+                    )
             else:
                 continue
 
-            r.add_intermediate("host_component_id", shell.section_id, "-", "Resolved support host shell")
-            r.add_intermediate("host_axial_start", host_start, "mm", "Resolved host start on global vessel axis")
-            r.add_intermediate("global_horizontal_load", global_horizontal, "N", "Resultant horizontal external load")
-            r.add_intermediate("global_overturning_moment", global_moment, "N·mm", "External-load moment about support location")
+            r.add_intermediate("host_component_id", host_id, "-", f"Resolved support host ({host_type})")
+            if host_start is not None:
+                r.add_intermediate("host_axial_start", host_start, "mm", "Resolved host start on global vessel axis")
+            r.add_intermediate("global_horizontal_load", global_horizontal, "N", "Envelope (max over load cases) horizontal external load")
+            r.add_intermediate("global_overturning_moment", global_moment, "N·mm", "Envelope (max over load cases) moment about support location")
+            r.add_intermediate("governing_moment_source", moment_source, "-", "Governing overturning-moment source (manual vs load case)")
+            r.add_intermediate("governing_load_case", env["moment_case"] or "-", "-", "Load case governing the external-load moment envelope")
+            r.add_intermediate("compression_weight_N", compression_weight_N, "N", "Compression weight: hydrotest (metal + water) + max downward Fz")
+            r.add_intermediate("empty_weight_N", uplift_weight_N, "N", "Uplift/lifting weight: empty metal + min Fz")
+            r.add_intermediate("hydrotest_water_mass_kg", water_mass_kg, "kg", "Water mass = rho * inner volume (rho = 1000 kg/m3, K4)")
             if global_moment > 0.0:
                 r.add_assumption(
-                    "Global support action derived from load-case external loads; "
-                    "load combination and code-specific envelope review remains required."
+                    "Global support action derived from load-case external loads as an ENVELOPE (max over "
+                    "load cases; alternative cases such as wind and seismic are NOT summed). Within a case: "
+                    "moment = SRSS(sum Mx, sum My) + sum(H x lever), arithmetic add is conservative; "
+                    "governing case: " + str(env["moment_case"]) + ". Code-specific combination review remains required."
+                )
+            for note in env["notes"]:
+                r.add_assumption("K4: " + note)
+            if env["fz_max_N"] != 0.0 or env["fz_min_N"] != 0.0:
+                r.add_assumption(
+                    "K4: Fz sign convention is not defined in the domain; Fz > 0 assumed downward (adds to "
+                    "compression weight), Fz < 0 upward (reduces uplift weight)."
                 )
             r.add_assumption(
-                f"K4: Destek yükü boş kap ağırlığından türetildi "
-                f"({vm.total_metal_mass_kg:.0f} kg metal). Sıvı, izolasyon ve iç "
+                f"K4: Destek yükü iki ağırlık durumundan türetildi: boş metal "
+                f"{vm.total_metal_mass_kg:.0f} kg ve hidrotest (metal + su, rho=1000 kg/m3, iç hacim "
+                f"{vm.total_inner_volume_m3:.3f} m3 -> {water_mass_kg:.0f} kg su). Basma kontrolü hidrotest "
+                f"ağırlığıyla, kaldırma/uplift boş ağırlıkla ilgilidir; işletme sıvısı, izolasyon ve iç "
                 f"ekipman ağırlıkları dahil DEĞİL."
             )
+            for w in orchestration_warnings:
+                r.add_warning(w)
             if r.status == CalculationStatus.PASS:
                 r.set_review_required(
                     "Destek fiziği Faz A'da yaklaşık kapsamda; skirt/leg/saddle sonuçları mühendis incelemesi ister."
@@ -1536,6 +1876,10 @@ class ASMEVIII1DesignCode(DesignCode):
                     "destek gerilmesine YANSITILMADI."
                 )
             results.append(r)
+            if sup.type == "leg":
+                for _d in leg_details:
+                    _d.add_intermediate("host_component_id", host_id, "-", f"Resolved support host ({host_type})")
+                    results.append(_d)
 
         return results
 
@@ -1783,6 +2127,7 @@ class ASMEVIII1DesignCode(DesignCode):
                 f"selected thickness {cone.nominal_thickness:.2f} mm"
             )
         self._apply_ug16b_minimum(result, cone.nominal_thickness, C)
+        self._apply_material_data_check(result, mat, dc, cone.nominal_thickness)
 
         result.material_properties_used = {
             "designation": mat.material_designation,

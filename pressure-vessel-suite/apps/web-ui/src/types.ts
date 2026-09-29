@@ -122,6 +122,8 @@ export interface MaterialProperty {
   thickness_max: number;
   temperature: number;
   allowable_stress: number;
+  /** Test sıcaklığındaki S (UG-99(b)/UG-100 LSR). Boşsa ve sıcaklıklar farklıysa test basıncı REVIEW_REQUIRED. */
+  allowable_stress_test_temp: number | null;
   yield_strength: number;
   tensile_strength: number;
   source_reference: string;
@@ -133,25 +135,69 @@ export interface MaterialProperty {
 
 export interface Support {
   support_id: string;
+  host_component_id: string | null;
   type: "saddle" | "skirt" | "leg";
   location_mm: number;
   width_mm: number;
   height_mm: number;
   diameter_mm: number | null;
   thickness_mm: number | null;
+  skirt_allowable_compressive_MPa: number | null;
+  skirt_weld_efficiency: number | null;
   material_id: string;
   contact_angle_deg: number | null;
+  /** Eyer düzleminde halka var mı; null = girilmedi (Zick bloke). */
+  saddle_stiffened: boolean | null;
+  /** Zick K katsayıları — kullanıcı tablodan okur (K6: program tabloyu içermez). null = girilmedi. */
+  zick_K1: number | null;
+  zick_K2: number | null;
+  zick_K3: number | null;
+  zick_K6: number | null;
+  zick_K7: number | null;
   leg_count: number | null;
   leg_diameter_mm: number | null;
   leg_thickness_mm: number | null;
   support_radius_mm: number | null;
+  leg_pad_length_mm: number | null;
+  leg_pad_width_mm: number | null;
+  leg_pad_thickness_mm: number | null;
   base_plate_area_mm2: number | null;
+  /** Ayak alt kontrol alanları (Ayak-A backend). null = girilmedi. K6: profil katalogu/AWS tablosu/WRC katsayısı programda yok. */
+  leg_attachment: "shell" | "bottom_head" | null;
+  leg_section_type: "pipe" | "channel" | "box" | "angle" | null;
+  leg_profile_height_mm: number | null;
+  leg_profile_width_mm: number | null;
+  leg_web_thickness_mm: number | null;
+  leg_flange_thickness_mm: number | null;
+  leg_unbraced_length_mm: number | null;
+  leg_eccentricity_mm: number | null;
+  leg_effective_length_factor_K: number | null;
+  leg_pad_contact_ratio: number | null;
+  base_plate_length_mm: number | null;
+  base_plate_width_mm: number | null;
+  base_plate_thickness_mm: number | null;
+  base_plate_yield_MPa: number | null;
+  foundation_bearing_allowable_MPa: number | null;
+  pad_to_shell_weld_leg_mm: number | null;
+  leg_to_pad_weld_leg_mm: number | null;
+  leg_to_base_plate_weld_leg_mm: number | null;
+  weld_electrode_strength_MPa: number | null;
+  weld_min_leg_mm: number | null;
+  /** WRC 107/537 katsayıları: nokta (A/B/C/D) → yük (P/ML/MC/VL/VC) → dört katsayı. null = okunmadı. */
+  wrc_coefficients: Record<string, Record<string, WrcCoefficientEntry>> | null;
   anchor_bolt_count: number | null;
   anchor_bolt_diameter_mm: number | null;
   anchor_tension_allowable_N: number | null;
   anchor_shear_allowable_N: number | null;
   lateral_load_N: number;
   overturning_moment_Nmm: number;
+}
+
+export interface WrcCoefficientEntry {
+  Nx: number | null;
+  Ny: number | null;
+  Mx: number | null;
+  My: number | null;
 }
 
 export interface WeldJoint {
@@ -248,6 +294,19 @@ export interface Flange {
   bolt_count: number | null;
   bolt_area: number | null;
   bolt_allowable_stress: number | null;
+  // K6: lisanslı ASME Appendix 2 çizelgesinden kullanıcı okur; null = girilmedi (hesap bloke).
+  flange_factor_Y: number | null;
+  flange_factor_f: number | null;
+  // K6: Şekil 2-7.1 faktörleri F, V, T, U — kullanıcı okur; null = girilmedi (hesap bloke).
+  flange_factor_F: number | null;
+  flange_factor_V: number | null;
+  flange_factor_T: number | null;
+  flange_factor_U: number | null;
+  // Appendix 2 g1: hub büyük uç kalınlığı (hub_small_thickness = g0); null = girilmedi (bloke).
+  hub_large_thickness: number | null;
+  // K6: W (N) ve M (N·mm) kullanıcının Appendix 2 çalışma sayfasından gelir; null = girilmedi (hesap bloke).
+  bolt_load_W_N: number | null;
+  moment_M_Nmm: number | null;
   rating_standard: string | null;
 }
 
@@ -293,10 +352,21 @@ export interface CalcResult {
   utilization_ratio: number | null;
   status: string;
   warnings: string[];
+  notices?: string[];
   assumptions: string[];
   intermediate_values: IntermediateValue[];
   governing?: boolean;
   reference_elevation_mm?: number;
+}
+
+/** Yayın-öncesi doğrulama kapısı (API `verification` bölümü; bilgilendirici, engelleyici değil).
+ *  Bilinçli olarak CalcPayload'a EKLENMEDİ: test_ui_parity her CalcPayload alanının render
+ *  edilmesini zorunlu kılar; UI görüntüsü eklenince `verification?: CalcVerification` yazılır. */
+export interface CalcVerification {
+  case_name: string;
+  passed: boolean;
+  checks: { calculation_id: string; passed: boolean }[];
+  errors: string[];
 }
 
 export interface CalcPayload {

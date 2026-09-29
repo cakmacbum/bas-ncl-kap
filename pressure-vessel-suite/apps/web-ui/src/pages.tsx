@@ -6,13 +6,12 @@ import {
   NumField,
   TextField,
   SelectField,
-  StatusBadge,
   ResultRow,
   AccordionSection,
   SegmentTabs,
 } from "./components";
-import { CALC_TYPE_TR, HEAD_TYPE_TR, NOZZLE_TYPE_TR, ORIENTATION_TR, SUPPORT_TYPE_TR, tr } from "./i18n";
-import type { CalcResult, VesselProject } from "./types";
+import { HEAD_TYPE_TR, NOZZLE_TYPE_TR, ORIENTATION_TR, SUPPORT_TYPE_TR } from "./i18n";
+import type { CalcResult, VesselProject, WrcCoefficientEntry } from "./types";
 import { VesselViewer, type ModelDims } from "./viewer";
 import { VesselSchematic, type DimKey } from "./schematic";
 import { LivePreview } from "./livePreview";
@@ -58,6 +57,176 @@ function NextButtons({ onNext, nextLabel }: { onNext: () => void; nextLabel?: st
 }
 
 // ============================================================ 1. Yeni Proje
+// ---------- Ayak (leg) destek alt formu ----------
+type LegSup = VesselProject["supports"][number];
+
+/** Boş = null (girilmedi); 0 gerçek sıfırdır — NumField'ın `v > 0 ? v : null` deseni WRC için YANLIŞ. */
+function WrcCell(props: { label: string; value: number | null; onChange: (v: number | null) => void }) {
+  return (
+    <input
+      className="input"
+      type="number"
+      step="any"
+      aria-label={props.label}
+      value={props.value === null || props.value === undefined ? "" : props.value}
+      onChange={(e) => {
+        const raw = e.target.value;
+        if (raw === "") return props.onChange(null);
+        const n = parseFloat(raw);
+        if (Number.isFinite(n)) props.onChange(n);
+      }}
+    />
+  );
+}
+
+const WRC_POINTS = ["A", "B", "C", "D"] as const;
+const WRC_LOADS: { key: string; label: string }[] = [
+  { key: "P", label: "P (radyal)" },
+  { key: "ML", label: "ML (boyuna moment)" },
+  { key: "MC", label: "MC (çevresel moment)" },
+  { key: "VL", label: "VL (boyuna kesme)" },
+  { key: "VC", label: "VC (çevresel kesme)" },
+];
+const WRC_COMPS = ["Nx", "Ny", "Mx", "My"] as const;
+
+function LegSupportFields({ sup, setSup }: { sup: LegSup; setSup: (p: Partial<LegSup>) => void }) {
+  const [open, setOpen] = useState<string>("leg-conn");
+  const toggle = (id: string) => setOpen((c) => (c === id ? "" : id));
+  const s = (id: string) => ({ id, open: open === id, onToggle: toggle });
+  const num = (label: string, key: keyof LegSup, opts: { unit?: string; help?: string; hint?: string } = {}) => (
+    <NumField label={label} unit={opts.unit} value={(sup[key] as number | null) ?? 0}
+      onChange={(v) => setSup({ [key]: v > 0 ? v : null } as Partial<LegSup>)}
+      hint={opts.hint} help={opts.help} />
+  );
+  const secType = sup.leg_section_type;
+  const isPipe = secType === null || secType === undefined || secType === "pipe";
+  const setWrc = (pt: string, ld: string, comp: string, v: number | null) => {
+    const cur = sup.wrc_coefficients ?? {};
+    const entry: WrcCoefficientEntry = { ...(cur[pt]?.[ld] ?? { Nx: null, Ny: null, Mx: null, My: null }), [comp]: v };
+    const allNull = WRC_COMPS.every((c) => entry[c] === null);
+    const ptMap = { ...(cur[pt] ?? {}) };
+    if (allNull) delete ptMap[ld]; else ptMap[ld] = entry;
+    const next = { ...cur };
+    if (Object.keys(ptMap).length === 0) delete next[pt]; else next[pt] = ptMap;
+    setSup({ wrc_coefficients: Object.keys(next).length === 0 ? null : next });
+  };
+  const wrcFilled = Object.values(sup.wrc_coefficients ?? {}).reduce((a, m) => a + Object.keys(m).length, 0);
+  return (
+    <div style={{ gridColumn: "1 / -1" }}>
+      <AccordionSection {...s("leg-conn")} title="Bağlantı ve Kesit" desc="Ayağın bağlandığı yer, kesit tipi ve burkulma girdileri.">
+        <div className="grid">
+          <SelectField label="Ayak Bağlantı Yeri" value={sup.leg_attachment ?? ""}
+            options={[
+              { value: "", label: "Seçin (girilmedi)" },
+              { value: "shell", label: "Gövde (shell)" },
+              { value: "bottom_head", label: "Alt bombe (bottom head)" },
+            ]}
+            onChange={(v) => setSup({ leg_attachment: v === "" ? null : (v as LegSup["leg_attachment"]) })}
+            help="Ayağın kap üzerinde nereye bağlandığı; lokal gerilme (WRC) kontrolünün hangi cidara uygulanacağını belirler." />
+          <SelectField label="Ayak Kesit Tipi" value={secType ?? ""}
+            options={[
+              { value: "", label: "Boru (eski davranış)" },
+              { value: "pipe", label: "Boru (pipe)" },
+              { value: "channel", label: "U profil (channel)" },
+              { value: "box", label: "Kutu profil (box)" },
+              { value: "angle", label: "Köşebent (angle)" },
+            ]}
+            onChange={(v) => setSup({ leg_section_type: v === "" ? null : (v as LegSup["leg_section_type"]) })}
+            help="Boş = boru (eski davranış). Kesit tipine göre aşağıdaki ölçü alanları değişir; profil katalog değerleri programda yoktur, ölçüleri siz girin (K6)." />
+          {num("Ayak Sayısı", "leg_count", { help: "Leg tipindeki desteğin taşıyıcı ayak adedi." })}
+          {num("Ayak Dağılım Yarıçapı", "support_radius_mm", { unit: "mm", help: "Ayak eksenlerinin kap merkezinden gerçek uzaklığı; moment hesabı için zorunludur." })}
+          {isPipe && <>
+            {num("Ayak Çapı", "leg_diameter_mm", { unit: "mm", help: "Ayak dış çapı; hesap için zorunludur." })}
+            {num("Ayak Et Kalınlığı", "leg_thickness_mm", { unit: "mm", help: "Ayak nominal et kalınlığı; hesap için zorunludur." })}
+          </>}
+          {!isPipe && <>
+            {num("Profil Yüksekliği", "leg_profile_height_mm", { unit: "mm", help: "Profil toplam yüksekliği (kesit derinliği)." })}
+            {num("Profil Genişliği", "leg_profile_width_mm", { unit: "mm", help: "Profil flanş/kol genişliği." })}
+            {num("Gövde (Web) Kalınlığı", "leg_web_thickness_mm", { unit: "mm", help: "Profil gövde/duvar kalınlığı." })}
+            {secType === "channel" &&
+              num("Flanş Kalınlığı", "leg_flange_thickness_mm", { unit: "mm", help: "U profil flanş kalınlığı (yalnız U profil için)." })}
+          </>}
+          {num("Bağlanmamış (Burkulma) Boyu", "leg_unbraced_length_mm", { unit: "mm", help: "Ayağın yanal desteksiz boyu; burkulma kontrolü için." })}
+          {num("Eksantriklik e", "leg_eccentricity_mm", { unit: "mm", help: "Yükün ayak ağırlık merkezine göre kaçıklığı; ek eğilme momenti üretir." })}
+          {num("Etkin Boy Faktörü K", "leg_effective_length_factor_K", {
+            help: "Burkulma etkin boy faktörü. Boşsa 2,1 (ankastre-serbest uç, konservatif) varsayılır ve sonuca yazılır.",
+            hint: !(sup.leg_effective_length_factor_K && sup.leg_effective_length_factor_K > 0) ? "Boş: 2,1 varsayılır." : undefined })}
+        </div>
+      </AccordionSection>
+
+      <AccordionSection {...s("leg-pad")} title="Takviye Pedi" desc="Ayağın kap cidarına bağlandığı ped.">
+        <div className="grid">
+          {num("Bağlantı Pedi Boyu", "leg_pad_length_mm", { unit: "mm", help: "Ayağın kap cidarına bağlandığı dikdörtgen pedin boyu." })}
+          {num("Bağlantı Pedi Eni", "leg_pad_width_mm", { unit: "mm", help: "Bağlantı pedinin eni." })}
+          {num("Bağlantı Pedi Kalınlığı", "leg_pad_thickness_mm", { unit: "mm", help: "Bağlantı pedinin kalınlığı." })}
+          {num("Ped Temas Oranı", "leg_pad_contact_ratio", {
+            help: "Profil konturunun pede KAYNAKLANABİLEN oranı (0–1). Boş = 1,0. Profilin pede yalnız ~%10'u temas ediyorsa ~0,10 girin; kaynak boyu buna göre kısalır ve emniyetli yönde FAIL verebilir.",
+            hint: !(sup.leg_pad_contact_ratio && sup.leg_pad_contact_ratio > 0) ? "Boş: 1,0 varsayılır." : undefined })}
+        </div>
+      </AccordionSection>
+
+      <AccordionSection {...s("leg-base")} title="Taban Plakası" desc="Taban plakası ölçüleri, akma dayanımı, temel yataklığı ve ankrajlar.">
+        <div className="grid">
+          {num("Taban Plakası Boyu", "base_plate_length_mm", { unit: "mm" })}
+          {num("Taban Plakası Eni", "base_plate_width_mm", { unit: "mm" })}
+          {num("Taban Plakası Kalınlığı", "base_plate_thickness_mm", { unit: "mm" })}
+          {num("Taban Plakası Akma Dayanımı", "base_plate_yield_MPa", { unit: "MPa", help: "Taban plakası malzemesinin akma dayanımı (Fy)." })}
+          {num("Temel İzin Verilen Yataklık Basıncı", "foundation_bearing_allowable_MPa", { unit: "MPa",
+            help: "Beton/grout izin verilen basıncı — kullanıcı girdisi. Boşsa yataklık kontrol edilmez." })}
+          {num("Taban Plakası Alanı", "base_plate_area_mm2", { unit: "mm²",
+            help: "Yalnız temel yataklık basıncı (N_max/alan) raporu içindir. Ayak çelik gerilmesi her zaman ayak kesitinden hesaplanır; izin verilen basınç girilmezse yataklık kontrol edilmez." })}
+          {num("Ankraj Cıvatası Adedi", "anchor_bolt_count", { help: "Uplift ve yatay yük aktarımında kullanılan ankraj adedi." })}
+          {num("Ankraj İzinli Çekme", "anchor_tension_allowable_N", { unit: "N", help: "Bir ankraj cıvatası için izin verilen çekme kuvveti." })}
+          {num("Ankraj İzinli Kesme", "anchor_shear_allowable_N", { unit: "N", help: "Bir ankraj cıvatası için izin verilen kesme kuvveti." })}
+          <NumField label="Yatay Taban Yükü" unit="N" value={sup.lateral_load_N}
+            onChange={(v) => setSup({ lateral_load_N: v })}
+            help="Ankraj kesme kontrolüne aktarılan yatay kuvvet." />
+        </div>
+      </AccordionSection>
+
+      <AccordionSection {...s("leg-weld")} title="Kaynaklar" desc="Ped–gövde, ayak–ped ve ayak–taban plakası köşe kaynakları.">
+        <div className="grid">
+          {num("Ped–Gövde Kaynak Bacağı", "pad_to_shell_weld_leg_mm", { unit: "mm" })}
+          {num("Ayak–Ped Kaynak Bacağı", "leg_to_pad_weld_leg_mm", { unit: "mm" })}
+          {num("Ayak–Taban Plakası Kaynak Bacağı", "leg_to_base_plate_weld_leg_mm", { unit: "mm" })}
+          {num("Elektrot Dayanımı Fexx", "weld_electrode_strength_MPa", { unit: "MPa", help: "Kaynak metali (elektrot) çekme dayanımı sınıfı, ör. 480." })}
+          {num("Asgari Köşe Kaynak Bacağı", "weld_min_leg_mm", { unit: "mm",
+            help: "AWS D1.1 asgari köşe kaynağı bacağı tablosu programda YOK; kendi tablonuzdan girin, boşsa kontrol yapılmadı uyarısı çıkar." })}
+        </div>
+      </AccordionSection>
+
+      <AccordionSection {...s("leg-wrc")} title="WRC Katsayıları" meta={`${wrcFilled} / 20 yük satırı`}
+        desc="WRC 107/537 lokal gerilme katsayıları (nokta × yük × bileşen).">
+        <div className="hint">
+          Lisanslı WRC 537 bülteninden okunur; program bu katsayıları içermez. Aktif yükte dört bileşenin hepsi zorunludur;
+          bültende gerçekten sıfırsa 0 girin, boş bırakmayın. Boş = okunmadı; 0 = gerçek sıfır.
+        </div>
+        <div style={{ overflowX: "auto", marginTop: 8 }}>
+          <table className="table" style={{ width: "100%" }}>
+            <thead>
+              <tr><th>Nokta</th><th>Yük</th>{WRC_COMPS.map((c) => <th key={c}>{c}</th>)}</tr>
+            </thead>
+            <tbody>
+              {WRC_POINTS.flatMap((pt) => WRC_LOADS.map((ld) => (
+                <tr key={`${pt}-${ld.key}`}>
+                  <td>{pt}</td><td>{ld.label}</td>
+                  {WRC_COMPS.map((c) => (
+                    <td key={c}>
+                      <WrcCell label={`WRC ${pt} ${ld.key} ${c}`}
+                        value={sup.wrc_coefficients?.[pt]?.[ld.key]?.[c] ?? null}
+                        onChange={(v) => setWrc(pt, ld.key, c, v)} />
+                    </td>
+                  ))}
+                </tr>
+              )))}
+            </tbody>
+          </table>
+        </div>
+      </AccordionSection>
+    </div>
+  );
+}
+
 export function NewProjectPage() {
   const { project, setProject, setStep, loadProject, dirty } = useStore();
   const [savedProjects, setSavedProjects] = useState<import("./types").ProjectSummary[]>([]);
@@ -294,7 +463,7 @@ export function GeometryPage() {
         : x.heads;
       return {
         ...x,
-        shell_sections: x.shell_sections.map((section, index) =>
+        shell_sections: x.shell_sections.map((section) =>
           section.section_id === shell.section_id ? { ...section, ...patch } : section
         ),
         heads,
@@ -308,14 +477,14 @@ export function GeometryPage() {
   const setMat = (patch: Partial<typeof mat>) =>
     setProject((x) => ({
       ...x,
-      materials: x.materials.map((item, index) =>
+      materials: x.materials.map((item) =>
         item.material_id === mat.material_id ? { ...item, ...patch } : item
       ),
     }));
   const setWeld = (patch: Partial<typeof weld>) =>
     setProject((x) => ({
       ...x,
-      welds: x.welds.map((item, index) =>
+      welds: x.welds.map((item) =>
         item.joint_id === weld.joint_id ? { ...item, ...patch } : item
       ),
     }));
@@ -415,6 +584,13 @@ export function GeometryPage() {
   const removeNozzle = useStore((s) => s.removeNozzle);
   const updateNozzle = useStore((s) => s.updateNozzle);
 
+  // Flanş yardımcıları (store'dan)
+  const addFlange = useStore((s) => s.addFlange);
+  const removeFlange = useStore((s) => s.removeFlange);
+  const updateFlange = useStore((s) => s.updateFlange);
+  const [activeFlange, setActiveFlange] = useState<number>(0);
+  const flanges = project.flanges ?? [];
+
   // Destek yardımcıları (store'dan)
   const addSupport = useStore((s) => s.addSupport);
   const removeSupport = useStore((s) => s.removeSupport);
@@ -430,7 +606,7 @@ export function GeometryPage() {
   const saddleCount = project.supports.filter((s) => s.type === "saddle").length;
 
   // Şemaya geçirilecek nozul listesi
-  const schematicNozzles = project.nozzles.map((nz, i) => ({
+  const schematicNozzles = project.nozzles.map((nz) => ({
     tag: nz.tag,
     z: nz.axial_position,
     theta: nz.circumferential_angle,
@@ -743,6 +919,120 @@ export function GeometryPage() {
             })()}
           </AccordionSection>
 
+          {/* ---- Flanşlar (çoklu, Appendix 2) ---- */}
+          <AccordionSection {...sec("flanges")} title="Flanşlar (Appendix 2)"
+            meta={`${flanges.length} adet`}
+            desc="ASME VIII-1 Appendix 2 flanş gerilme kontrolü. Y ve f faktörleri girilmeden hesap bloke kalır; program bu değerleri içermez (K6).">
+            <div className="nozzle-list">
+              {flanges.map((fl, i) => (
+                <div key={i}
+                  className={`nozzle-card${activeFlange === i ? " nozzle-card--active" : ""}`}
+                  onClick={() => setActiveFlange(i)}>
+                  <div className="nozzle-card__head">
+                    <span className="nozzle-card__tag">{fl.flange_id || `FL-${i + 1}`}</span>
+                    <span className="nozzle-card__type">{fl.type === "loose" ? "Gevşek" : "Integral"}</span>
+                    <span className="nozzle-card__host">{fl.material_id}</span>
+                    <button className="nozzle-card__del" title="Flanşı sil"
+                      onClick={(e) => { e.stopPropagation(); removeFlange(i); setActiveFlange(0); }}>
+                      ✕
+                    </button>
+                  </div>
+                </div>
+              ))}
+              <button className="btn btn--ghost nozzle-add" onClick={addFlange}>
+                ＋ Flanş Ekle
+              </button>
+            </div>
+
+            {flanges[activeFlange] && (() => {
+              const fl = flanges[activeFlange];
+              const setFl = (patch: Partial<typeof fl>) => updateFlange(activeFlange, patch);
+              return (
+                <div className="grid" style={{ marginTop: 14 }}>
+                  <TextField label="Flanş Kimliği" value={fl.flange_id}
+                    onChange={(v) => setFl({ flange_id: v })}
+                    help="Flanşın hesap ve rapordaki benzersiz etiketi." />
+                  <SelectField label="Flanş Tipi" value={fl.type}
+                    options={[{ value: "integral", label: "Integral" }, { value: "loose", label: "Gevşek (loose)" }]}
+                    onChange={(v) => setFl({ type: v as "integral" | "loose" })} />
+                  <SelectField label="Flanş Malzemesi" value={fl.material_id} options={materialOpts}
+                    onChange={(v) => setFl({ material_id: v })} />
+                  <NumField label="İç Çap (B)" unit="mm" value={fl.inside_diameter}
+                    onChange={(v) => setFl({ inside_diameter: v })} />
+                  <NumField label="Dış Çap (A)" unit="mm" value={fl.outside_diameter}
+                    onChange={(v) => setFl({ outside_diameter: v })} />
+                  <NumField label="Flanş Kalınlığı (t)" unit="mm" value={fl.thickness}
+                    onChange={(v) => setFl({ thickness: v })} />
+                  <NumField label="Hub Kalınlığı, küçük uç (g0)" unit="mm" value={fl.hub_small_thickness}
+                    onChange={(v) => setFl({ hub_small_thickness: v })}
+                    help="Hub'ın küçük uçtaki (boru/kabuk tarafı) kalınlığı g0; h0 = √(B·g0) için kullanılır." />
+                  <NumField label="Hub Kalınlığı, büyük uç (g1)" unit="mm" value={fl.hub_large_thickness ?? 0}
+                    onChange={(v) => setFl({ hub_large_thickness: v > 0 ? v : null })}
+                    hint="0 = girilmedi (flanş hesabı bloke)"
+                    help="Hub'ın flanş sırtındaki (büyük uç) kalınlığı g1; S_H hesabında kullanılır." />
+                  <NumField label="Hub Uzunluğu (h)" unit="mm" value={fl.hub_length}
+                    onChange={(v) => setFl({ hub_length: v })} />
+                  <NumField label="Conta m Faktörü" value={fl.gasket_m ?? 0}
+                    onChange={(v) => setFl({ gasket_m: v > 0 ? v : null })}
+                    hint="0 = girilmedi"
+                    help="Conta faktörü m — lisanslı standart çizelgesinden okunur." />
+                  <NumField label="Conta y Değeri" unit="MPa" value={fl.gasket_y ?? 0}
+                    onChange={(v) => setFl({ gasket_y: v > 0 ? v : null })}
+                    hint="0 = girilmedi"
+                    help="Conta minimum oturma gerilmesi y — lisanslı standart çizelgesinden okunur." />
+                  <NumField label="Cıvata Sayısı" value={fl.bolt_count ?? 0}
+                    onChange={(v) => setFl({ bolt_count: v > 0 ? Math.round(v) : null })}
+                    hint="0 = girilmedi" />
+                  <NumField label="Cıvata Alanı" unit="mm²" value={fl.bolt_area ?? 0}
+                    onChange={(v) => setFl({ bolt_area: v > 0 ? v : null })}
+                    hint="0 = girilmedi" />
+                  <NumField label="Cıvata İzin Gerilmesi" unit="MPa" value={fl.bolt_allowable_stress ?? 0}
+                    onChange={(v) => setFl({ bolt_allowable_stress: v > 0 ? v : null })}
+                    hint="0 = girilmedi" />
+                  <NumField label="Y Faktörü" value={fl.flange_factor_Y ?? 0}
+                    onChange={(v) => setFl({ flange_factor_Y: v > 0 ? v : null })}
+                    hint="0 = girilmedi (flanş hesabı bloke)"
+                    help="Lisanslı ASME Appendix 2 çizelgesinden okunur; program bu değerleri içermez (K6)." />
+                  <NumField label="f Faktörü (hub düzeltme)" value={fl.flange_factor_f ?? 0}
+                    onChange={(v) => setFl({ flange_factor_f: v > 0 ? v : null })}
+                    hint="0 = girilmedi (flanş hesabı bloke)"
+                    help="Lisanslı ASME Appendix 2 çizelgesinden okunur; program bu değerleri içermez (K6)." />
+                  <NumField label="F Faktörü" value={fl.flange_factor_F ?? 0}
+                    onChange={(v) => setFl({ flange_factor_F: v > 0 ? v : null })}
+                    hint="0 = girilmedi (flanş hesabı bloke)"
+                    help="Şekil 2-7.1'den okunur; program bu değerleri içermez (K6)." />
+                  <NumField label="V Faktörü" value={fl.flange_factor_V ?? 0}
+                    onChange={(v) => setFl({ flange_factor_V: v > 0 ? v : null })}
+                    hint="0 = girilmedi (flanş hesabı bloke)"
+                    help="Şekil 2-7.1'den okunur; program bu değerleri içermez (K6)." />
+                  <NumField label="T Faktörü" value={fl.flange_factor_T ?? 0}
+                    onChange={(v) => setFl({ flange_factor_T: v > 0 ? v : null })}
+                    hint="0 = girilmedi (flanş hesabı bloke)"
+                    help="Şekil 2-7.1'den okunur; program bu değerleri içermez (K6)." />
+                  <NumField label="U Faktörü" value={fl.flange_factor_U ?? 0}
+                    onChange={(v) => setFl({ flange_factor_U: v > 0 ? v : null })}
+                    hint="0 = girilmedi (flanş hesabı bloke)"
+                    help="Şekil 2-7.1'den okunur; program bu değerleri içermez (K6)." />
+                  <NumField label="Cıvata Tasarım Yükü W" unit="N" value={fl.bolt_load_W_N ?? 0}
+                    onChange={(v) => setFl({ bolt_load_W_N: v > 0 ? v : null })}
+                    hint="0 = girilmedi (flanş hesabı bloke)"
+                    help="Appendix 2 çalışma sayfanızdan girilir; program bu değeri hesaplamaz." />
+                  <NumField label="Flanş Momenti M" unit="N·mm" value={fl.moment_M_Nmm ?? 0}
+                    onChange={(v) => setFl({ moment_M_Nmm: v > 0 ? v : null })}
+                    hint="0 = girilmedi (flanş hesabı bloke)"
+                    help="Appendix 2 çalışma sayfanızdan girilir; program bu değeri hesaplamaz." />
+                  <p className="field__hint" style={{ gridColumn: "1 / -1", color: "var(--review)" }}>
+                    Y, f, F, V, T, U Şekil 2-7.1'den okunur; W ve M Appendix 2 çalışma sayfanızdan gelir. Program
+                    bu değerleri içermez ve hesaplamaz (Z, e, d, L, K, h0 formülle hesaplanır). Biri (veya g1)
+                    girilmeden hesap bloke kalır; girildiğinde sonuç nihai PASS değil "İnceleme gerekli" olur
+                    (S_H için 2.5·S_n sınırı, rijitlik ve conta/cıvata kontrolleri yapılmaz). Gevşek (loose)
+                    flanş bu formüllerle hesaplanmaz (kapsam dışı).
+                  </p>
+                </div>
+              );
+            })()}
+          </AccordionSection>
+
           {/* ---- Destekler (çoklu) ---- */}
           <AccordionSection {...sec("supports")} title="Destekler"
             meta={`${project.supports.length} adet`}
@@ -783,11 +1073,20 @@ export function GeometryPage() {
                     ]}
                     onChange={(v) => setSup({ type: v as typeof sup.type })}
                     help="Kabı taşıyan destek türü: eyer, etek veya ayak. Seçim, aşağıdaki destek ölçülerini ve kontrolünü belirler." />
+                  <SelectField label="Bağlandığı Bileşen" value={sup.host_component_id ?? ""}
+                    options={[
+                      { value: "", label: "Bileşen seçin" },
+                      ...(sup.type === "saddle"
+                        ? (project.component_sequence ?? []).filter((ref) => ref.component_type === "shell").map((ref) => ({ value: ref.component_id, label: componentLabel(ref) }))
+                        : hostOpts),
+                    ]}
+                    onChange={(v) => setSup({ host_component_id: v || null })}
+                    help="Desteğin bağlandığı basınç taşıyan bileşen. Eyer yalnız gövdeye oturur ve konumu bu gövdenin eksen aralığında olmalıdır. Etek ve ayak gövde, bombe veya koniye bağlanabilir; konum aralığı denetlenmez, etek/ayak çapı host çapıyla uyumlu olmalıdır." />
                   <SelectField label="Destek Malzemesi" value={sup.material_id} options={materialOpts}
                     onChange={(v) => setSup({ material_id: v })} />
                   <NumField label="Konum" unit="mm" value={sup.location_mm}
                     onChange={(v) => setSup({ location_mm: v })}
-                    help="Kap ekseni boyunca konum. Etek için taban kotu." />
+                    help="Kap ekseni boyunca konum. Eyer için host gövde aralığı içinde olmalıdır; etek/ayak için taban kotudur (host aralığı dışında olabilir) ve devirme momenti kaldıracını belirler." />
                   <NumField label="Genişlik" unit="mm" value={sup.width_mm}
                     onChange={(v) => setSup({ width_mm: v })}
                     help="Destek genişliği — eyerde temas genişliği." />
@@ -795,9 +1094,17 @@ export function GeometryPage() {
                     onChange={(v) => setSup({ height_mm: v })}
                     help="Desteğin kap eksenine dik yöndeki toplam yüksekliği." />
                   {sup.type === "skirt" && <>
-                    <NumField label="Etek Çapı" unit="mm" value={sup.diameter_mm ?? 0}
+                    <NumField label="Etek Ortalama Çapı" unit="mm" value={sup.diameter_mm ?? 0}
                       onChange={(v) => setSup({ diameter_mm: v > 0 ? v : null })}
-                      help="Etek ortalama/dış çapı; hesap için zorunludur." />
+                      help="Etek ORTALAMA çapı (dış çap değil: D_ort = D_dış − t); hesap için zorunludur. Dış çap girilirse gerilme %1-2 emniyetsiz çıkar." />
+                    <NumField label="Etek İzin Verilen Basma B (UG-23(b))" unit="MPa" value={sup.skirt_allowable_compressive_MPa ?? 0}
+                      onChange={(v) => setSup({ skirt_allowable_compressive_MPa: v > 0 ? v : null })}
+                      hint={!(sup.skirt_allowable_compressive_MPa && sup.skirt_allowable_compressive_MPa > 0)
+                        ? "B girilmedi: etek basma/burkulma kontrolü BLOKLU (BLOCKED_CODE_DATA) kalır." : undefined}
+                      help="0 = girilmedi. UG-23(b) B faktörü tasarım sıcaklığında Fig. çizelgesinden okunur (A = 0,125/(R/t)); program bu değeri içermez." />
+                    <NumField label="Etek Kaynak Verimi E" value={sup.skirt_weld_efficiency ?? 0}
+                      onChange={(v) => setSup({ skirt_weld_efficiency: v > 0 ? v : null })}
+                      help="Çekme tarafı S·E için etek birleşim verimi (0-1). 0 = girilmedi; 0,6 VARSAYILIR ve sonuca yazılır." />
                     <NumField label="Etek Et Kalınlığı" unit="mm" value={sup.thickness_mm ?? 0}
                       onChange={(v) => setSup({ thickness_mm: v > 0 ? v : null })}
                       help="Etek nominal et kalınlığı; hesap için zorunludur." />
@@ -806,45 +1113,51 @@ export function GeometryPage() {
                     <NumField label="Sarma Açısı" unit="°" value={sup.contact_angle_deg ?? 0}
                       onChange={(v) => setSup({ contact_angle_deg: v })}
                       hint={saddleCount < 2 ? "Zick analizi iki eyer gerektirir; tek eyerle sonuç sınırlı olur." : undefined}
-                      help="Eyer sarma açısı — Zick analizi için. Genelde 120°." />
+                      help="Eyer sarma açısı θ — K katsayılarını okumak içindir; kod asgari 120° (Zick 1951)." />
                   )}
+                  {sup.type === "saddle" && (<>
+                    <SelectField label="Eyer Düzleminde Halka"
+                      value={sup.saddle_stiffened === null || sup.saddle_stiffened === undefined ? "" : sup.saddle_stiffened ? "yes" : "no"}
+                      options={[
+                        { value: "", label: "Seçin (girilmedi)" },
+                        { value: "no", label: "Halka yok" },
+                        { value: "yes", label: "Halka var" },
+                      ]}
+                      onChange={(v) => setSup({ saddle_stiffened: v === "" ? null : v === "yes" })}
+                      help="Eyer düzleminde halka (ring) takviyesi. Seçilmezse Zick hesabı BLOKE (BLOCKED_MISSING_INPUT) kalır. A ≤ R/2 (başlığa yakın) durumu hesapta otomatik belirlenir." />
+                    <div className="hint" style={{ gridColumn: "1 / -1" }}>
+                      K değerlerini Zick 1951 / Moss Procedure 3-10 tablosundan θ ve halka durumuna göre okuyun; program bu tabloyu içermez (K6). 0 = girilmedi.
+                      Eksik katsayı sonucu BLOCKED_CODE_DATA bırakır. Halkalı/başlık-destekli durumda K1 = π, halkalıda K2 = 1/π kodla verilir.
+                    </div>
+                    <NumField label="Zick K1" value={sup.zick_K1 ?? 0}
+                      onChange={(v) => setSup({ zick_K1: v > 0 ? v : null })}
+                      hint={!(sup.zick_K1 && sup.zick_K1 > 0) ? "K1 girilmedi: halkasız eyer için hesap BLOKLU." : undefined}
+                      help="Eyer kesiti boyuna eğilme sabiti (θ'ya bağlı). Halkalı veya A ≤ R/2 ise π kullanılır (bu alan yok sayılır)." />
+                    <NumField label="Zick K2" value={sup.zick_K2 ?? 0}
+                      onChange={(v) => setSup({ zick_K2: v > 0 ? v : null })}
+                      hint={!(sup.zick_K2 && sup.zick_K2 > 0) ? "K2 girilmedi: halkasız eyer için hesap BLOKLU." : undefined}
+                      help="Kabuk teğetsel kesme sabiti (θ ve A ≤ R/2 durumuna bağlı). Halkalıda 1/π kodla verilir." />
+                    <NumField label="Zick K3 (başlık kesmesi)" value={sup.zick_K3 ?? 0}
+                      onChange={(v) => setSup({ zick_K3: v > 0 ? v : null })}
+                      help="Yalnız A ≤ R/2 (eyer başlığa yakın, halkasız) için: başlık kesmesi sabiti (Moss adlandırması)." />
+                    <NumField label="Zick K6" value={sup.zick_K6 ?? 0}
+                      onChange={(v) => setSup({ zick_K6: v > 0 ? v : null })}
+                      hint={!(sup.zick_K6 && sup.zick_K6 > 0) ? "K6 girilmedi: halkasız eyer için hesap BLOKLU." : undefined}
+                      help="Eyer boynuzu çevresel eğilme sabiti (θ ve A/R'ye bağlı). Halkalı eyerde kullanılmaz." />
+                    <NumField label="Zick K7" value={sup.zick_K7 ?? 0}
+                      onChange={(v) => setSup({ zick_K7: v > 0 ? v : null })}
+                      hint={!(sup.zick_K7 && sup.zick_K7 > 0) ? "K7 girilmedi: hesap BLOKLU." : undefined}
+                      help="Eyer altı kabuk çevresel basma sabiti (θ'ya bağlı). Her durumda gerekir." />
+                  </>)}
                   {sup.type === "leg" && (
-                    <>
-                      <NumField label="Ayak Sayısı" value={sup.leg_count ?? 0}
-                        onChange={(v) => setSup({ leg_count: v > 0 ? v : null })}
-                        help="Leg tipindeki desteğin taşıyıcı ayak adedi." />
-                      <NumField label="Ayak Çapı" unit="mm" value={sup.leg_diameter_mm ?? 0}
-                        onChange={(v) => setSup({ leg_diameter_mm: v > 0 ? v : null })}
-                        help="Ayak dış çapı; hesap için zorunludur." />
-                      <NumField label="Ayak Et Kalınlığı" unit="mm" value={sup.leg_thickness_mm ?? 0}
-                        onChange={(v) => setSup({ leg_thickness_mm: v > 0 ? v : null })}
-                        help="Ayak nominal et kalınlığı; hesap için zorunludur." />
-                      <NumField label="Ayak Dağılım Yarıçapı" unit="mm" value={sup.support_radius_mm ?? 0}
-                        onChange={(v) => setSup({ support_radius_mm: v > 0 ? v : null })}
-                        help="Ayak eksenlerinin kap merkezinden gerçek uzaklığı; moment hesabı için zorunludur." />
-                      <NumField label="Taban Plakası Alanı" unit="mm²" value={sup.base_plate_area_mm2 ?? 0}
-                        onChange={(v) => setSup({ base_plate_area_mm2: v > 0 ? v : null })}
-                        help="Boş bırakılırsa dairesel ayak kesiti kullanılır." />
-                      <NumField label="Ankraj Cıvatası Adedi" value={sup.anchor_bolt_count ?? 0}
-                        onChange={(v) => setSup({ anchor_bolt_count: v > 0 ? v : null })}
-                        help="Uplift ve yatay yük aktarımında kullanılan ankraj adedi." />
-                      <NumField label="Ankraj İzinli Çekme" unit="N" value={sup.anchor_tension_allowable_N ?? 0}
-                        onChange={(v) => setSup({ anchor_tension_allowable_N: v > 0 ? v : null })}
-                        help="Bir ankraj cıvatası için izin verilen çekme kuvveti." />
-                      <NumField label="Ankraj İzinli Kesme" unit="N" value={sup.anchor_shear_allowable_N ?? 0}
-                        onChange={(v) => setSup({ anchor_shear_allowable_N: v > 0 ? v : null })}
-                        help="Bir ankraj cıvatası için izin verilen kesme kuvveti." />
-                      <NumField label="Yatay Taban Yükü" unit="N" value={sup.lateral_load_N}
-                        onChange={(v) => setSup({ lateral_load_N: v })}
-                        help="Ankraj kesme kontrolüne aktarılan yatay kuvvet." />
-                    </>
+                    <LegSupportFields sup={sup} setSup={setSup} />
                   )}
                   {(sup.type === "skirt" || sup.type === "leg") && (
                     <NumField label="Devirme Momenti" unit="N·mm"
                       value={sup.overturning_moment_Nmm}
                       onChange={(v) => setSup({ overturning_moment_Nmm: v })}
                       hint="0 = moment yok (varsayım sonuçlara yazılır)"
-                      help="Rüzgâr/deprem kaynaklı devirme momenti. 0 bırakılırsa bu yükler destek gerilmesine yansıtılmaz." />
+                      help="Manuel devirme momenti. Yük durumlarından (rüzgâr, deprem vb.) türetilen moment ile karşılaştırılır; büyük olan alınır ve yöneten kaynak sonuca yazılır. Yük durumları birbirinin üzerine eklenmez, en elverişsiz durum (zarf) alınır." />
                   )}
                 </div>
               );
@@ -871,6 +1184,19 @@ export function GeometryPage() {
               <NumField label="İzin Verilen Gerilme (S)" unit="MPa" value={mat.allowable_stress}
                 onChange={(v) => setMat({ allowable_stress: v })}
                 help="Tasarım sıcaklığında malzemenin izin verilen gerilmesi (standart tablosundan). Et kalınlığını doğrudan belirler." />
+              <NumField label="S Değerinin Sıcaklığı" unit="°C" value={mat.temperature}
+                onChange={(v) => setMat({ temperature: v })}
+                help="Yukarıdaki izin verilen gerilmenin (S) okunduğu sıcaklık. Tasarım sıcaklığıyla aynı olmalı; farklıysa S bu sıcaklıkta doğrulanmadığından sonuçlar inceleme gerektirir." />
+              <NumField label="Kalınlık Aralığı — En Az" unit="mm" value={mat.thickness_min}
+                onChange={(v) => setMat({ thickness_min: v })}
+                help="Malzeme veri satırının geçerli olduğu en küçük kalınlık. Nominal kalınlık aralık dışındaysa sonuç inceleme gerektirir." />
+              <NumField label="Kalınlık Aralığı — En Çok" unit="mm" value={mat.thickness_max}
+                onChange={(v) => setMat({ thickness_max: v > 0 ? v : 999 })}
+                help="Malzeme veri satırının geçerli olduğu en büyük kalınlık (0 girilirse 999 mm sayılır)." />
+              <NumField label="Test Sıcaklığında S" unit="MPa" value={mat.allowable_stress_test_temp ?? 0}
+                onChange={(v) => setMat({ allowable_stress_test_temp: v > 0 ? v : null })}
+                hint="0 = girilmedi (test basıncı inceleme gerektirir)"
+                help="Hidrostatik/pnömatik test sıcaklığındaki (varsayılan 20 °C) izin verilen gerilme. UG-99(b) LSR = S_test/S_design oranı için gerekir; tasarım ve test sıcaklığı farklıysa ve girilmezse test basıncı düşük kalabilir, sonuç inceleme gerektirir." />
               <NumField label="Akma Dayanımı" unit="MPa" value={mat.yield_strength}
                 onChange={(v) => setMat({ yield_strength: v })}
                 help="Malzemenin kalıcı şekil değiştirmeye başladığı gerilme değeri." />
@@ -1247,6 +1573,14 @@ export function ResultsPage() {
             ]}
             emptyNote="Destek tanımlanmadığı için Zick (eyer) / etek / ayak kontrolü YAPILMADI. Kap desteklenmiyor anlamına gelmez — kontrol hiç çalışmadı."
           />
+          <ResultGroup title="Ayak Profili — Basma / Burkulma / Eğilme" rows={byType("leg_section_check")}
+            emptyNote="Ayak kesit tipi veya profil ölçüleri girilmediği için ayak profili kontrolü yapılmadı." />
+          <ResultGroup title="Ayak Kaynakları — Köşe Kaynak" rows={byType("leg_weld_check")}
+            emptyNote="Ped/ayak kaynak bacakları veya Fexx girilmediği için ayak kaynak kontrolü yapılmadı." />
+          <ResultGroup title="Taban Plakası" rows={byType("base_plate_check")}
+            emptyNote="Taban plakası ölçüleri/akma dayanımı girilmediği için taban plakası kontrolü yapılmadı." />
+          <ResultGroup title="WRC Lokal Gerilme (Gövde)" rows={byType("wrc_local_stress")}
+            emptyNote="Ayak bağlantısı, ped ölçüleri veya WRC katsayıları girilmediği için lokal gerilme kontrolü yapılmadı." />
           <ResultGroup title="Kaynak Doğrulama" rows={byType("weld_validation")} emptyNote="Kaynak birleşimi tanımlanmadığı için kaynak doğrulaması yapılmadı." />
           <ResultGroup title="Çakışma / Geometri" rows={byType("clash_check")} emptyNote="Çakışma kontrolü üretilmedi — en az iki nozul veya nozul+destek gerekir." />
 

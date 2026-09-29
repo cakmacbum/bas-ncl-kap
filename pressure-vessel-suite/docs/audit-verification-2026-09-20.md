@@ -1,5 +1,13 @@
 # Denetim Raporu Doğrulama Eki — 20 Eylül 2026
 
+> **Tarihli belge:** Bu belge **2026-09-20** durumunu anlatır ve gövdesi yeniden yazılmamıştır.
+> Güncel durum için [`limitations.md`](limitations.md) (Revizyon 3.3, 2026-09-25) ve
+> [`calculation-coverage.md`](calculation-coverage.md) (Revizyon 3.0, 2026-09-25) esas alınmalıdır.
+> Bu belgedeki B-20/B-21/B-22 kapanışları (bkz. "2026-09-20 kod turu sonucu") geçerlidir;
+> 2026-09-22 ve 2026-09-25 turlarındaki sonraki kayıtlar (B-26…B-31: mill toleransı, ayak kesiti,
+> test basıncı LSR, WRC eksik katsayı, eğik nozul, malzeme S doğrulaması) bu belgede **yoktur**.
+> Test/TypeScript sayıları (567/571 geçti) o günün değerleridir; 2026-09-25 tam turu 708 passed / 1 skipped.
+
 > Bu belge [kapsam/boşluk raporunu](../../eksikler.md) düzeltir ve tamamlar. Ana rapora
 > dokunulmamıştır; bu sayfa yalnızca bağımsız doğrulama bulgularını taşır.
 

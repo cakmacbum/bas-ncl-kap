@@ -557,9 +557,54 @@ class EN13445DesignCode(DesignCode):
 
         result.final_result = p_test
         result.final_result_unit = "MPa"
-        result.set_pass()
+
+        # EN 13445-5 10.2.3.3.1: Pt = max(1.25·Ps·fa/ft ; 1.43·Ps). fa/ft (test/tasarım
+        # sıcaklığı gerilme oranı) uygulanmıyor. 1.43·Ps, oran ≤ 1.43/1.25 iken —
+        # oranın en büyük/en küçük seçilmesinden bağımsız olarak — belirleyicidir;
+        # oran bu eşiği aşarsa test basıncı düşük kalır (emniyetsiz). Oranın hangi
+        # malzemeden seçileceği lisanslı metinle doğrulanmadığı için o durumda karar
+        # mühendise bırakılır (K3/K4).
+        review_reason = self._test_ratio_review_reason(input_data, dc)
+        if review_reason:
+            result.add_warning(review_reason)
+            result.set_review_required(review_reason)
+        else:
+            result.set_pass()
 
         return result
+
+    _EN_RATIO_THRESHOLD = 1.43 / 1.25
+
+    def _test_ratio_review_reason(self, input_data: dict, dc):
+        """fa/ft oranı sonucu etkileyebilirse gerekçe metni, etkilemezse None."""
+        if abs(dc.design_temperature - dc.hydrotest_temperature) < 1e-9:
+            return None  # aynı sıcaklık → fa = ft, oran 1
+        materials = input_data.get("materials", []) or []
+        project = input_data.get("project")
+        if project is not None:
+            ids = {
+                c.material_id
+                for coll in (project.shell_sections, project.heads, project.cones)
+                for c in coll
+            }
+            materials = [m for m in materials if m.material_id in ids] or materials
+        missing = [m.material_id for m in materials if m.allowable_stress_test_temp is None]
+        if missing or not materials:
+            return (
+                f"fa/ft oranı uygulanmadı: tasarım {dc.design_temperature} °C, test "
+                f"{dc.hydrotest_temperature} °C ve test gerilmesi eksik "
+                f"({', '.join(missing) or 'malzeme yok'}). Oran > "
+                f"{self._EN_RATIO_THRESHOLD:.3f} ise 1.25·Ps·fa/ft terimi 1.43·Ps'i aşar ve "
+                "test basıncı olması gerekenden DÜŞÜK kalır. Malzemede 'Test sıcaklığında S' girin."
+            )
+        worst = max(m.allowable_stress_test_temp / m.allowable_stress for m in materials)
+        if worst > self._EN_RATIO_THRESHOLD:
+            return (
+                f"fa/ft = {worst:.3f} > {self._EN_RATIO_THRESHOLD:.3f}: 1.25·Ps·fa/ft terimi "
+                "1.43·Ps'i aşabilir ve bu formül fa/ft'yi uygulamıyor. Oranın hangi malzemeden "
+                "seçileceği lisanslı EN 13445-5 10.2.3.3.1 metniyle doğrulanmalıdır."
+            )
+        return None
 
     def calculate_nozzle(self, input_data: dict) -> CalculationResult:
         """Nozul takviye hesabı — NOT_CALCULATED (bu aşamada)."""

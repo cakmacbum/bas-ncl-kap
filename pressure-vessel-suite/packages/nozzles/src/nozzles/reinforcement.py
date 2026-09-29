@@ -253,8 +253,10 @@ def calculate_reinforcement(inp: NozzleReinforcementInput) -> NozzleReinforcemen
     fr1 = fr2 = min(1.0, Sn / Sv) if Sv > 0 else 1.0
     fr4 = min(1.0, Sp / Sv) if Sv > 0 else 1.0
 
-    # F = 1.0 — yalnız radyal nozul. Eğik nozulda UG-37 Şekil UG-37 F faktörü
-    # gerekir; suite eğik nozul takviyesini kapsamıyor (K4: varsayım açık).
+    # Radyal nozulda F = 1.0. Eğik nozulda 1/cos(α) yalnız açıklığın kesit
+    # düzlemindeki izdüşümünü (elips) yaklaşıklar; UG-37'nin eğik/hillside
+    # yöntemiyle doğrulanmış DEĞİLDİR ve Şekil UG-37 F faktörüyle aynı şey
+    # değildir. Bu yüzden α > 0 sonucu aşağıda PASS yerine REVIEW_REQUIRED olur (K4).
     angle = float(getattr(inp, "nozzle_inclination_angle", 0.0) or 0.0)
     projection = 1.0 / math.cos(math.radians(angle))
     F = projection
@@ -402,6 +404,13 @@ def calculate_reinforcement(inp: NozzleReinforcementInput) -> NozzleReinforcemen
     # ── 6. Durum ──────────────────────────────────────────────────────────────
     if total >= A_required:
         result.status = CalculationStatus.PASS
+        if angle > 0.0:
+            result.status = CalculationStatus.REVIEW_REQUIRED
+            result.warnings.append(
+                f"Eğik nozul (α={angle:g}°): alan yerine koyma 1/cos(α) izdüşümüyle "
+                "yaklaşıklandı; UG-37 eğik/hillside yöntemi ve F faktörü doğrulanmadı. "
+                "Sonuç nihai değildir — mühendis incelemesi gerekir."
+            )
     else:
         result.status = CalculationStatus.FAIL
         deficit = A_required - total

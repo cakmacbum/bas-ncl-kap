@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { api } from "./api";
 import {
   applyGeometryAgentChanges,
@@ -26,7 +26,7 @@ const VALUE_LABELS: Record<string, string> = {
   vertical: "Dikey",
 };
 
-function displayValue(field: string, value: number | string | null): string {
+function displayValue(_field: string, value: number | string | null): string {
   if (value == null) return "—";
   if (typeof value === "number") return `${value} mm`;
   return VALUE_LABELS[value] ?? value;

@@ -57,6 +57,8 @@ class CalculationResult:
     status: CalculationStatus = CalculationStatus.NOT_CALCULATED
 
     warnings: List[str] = field(default_factory=list)
+    # Bilgilendirme/güvenlik notları: durumu düşürmez, PASS ile birlikte bulunabilir.
+    notices: List[str] = field(default_factory=list)
     assumptions: List[str] = field(default_factory=list)
     rounding_rule: str = ""
 
@@ -83,6 +85,10 @@ class CalculationResult:
     def add_warning(self, warning: str) -> None:
         """Uyarı ekle."""
         self.warnings.append(warning)
+
+    def add_notice(self, notice: str) -> None:
+        """Bilgilendirme/güvenlik notu ekle (uyarı değildir; yayın kapısını etkilemez)."""
+        self.notices.append(notice)
 
     def add_assumption(self, assumption: str) -> None:
         """Varsayım ekle (K4 — varsayımları gizleme)."""
@@ -166,6 +172,7 @@ class CalculationResult:
             "utilization_ratio": self.utilization_ratio,
             "status": self.status.value,
             "warnings": self.warnings,
+            "notices": self.notices,
             "assumptions": self.assumptions,
             "rounding_rule": self.rounding_rule,
             # §12.4 genişletme alanları
