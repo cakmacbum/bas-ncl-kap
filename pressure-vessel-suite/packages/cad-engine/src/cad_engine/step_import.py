@@ -134,7 +134,7 @@ class HeadRecognition:
     type: RecognizedField
     inside_diameter: RecognizedField
     nominal_thickness: RecognizedField
-    straight_flange_length: RecognizedField
+    straight_flange_length: Optional[RecognizedField]
     crown_radius: Optional[RecognizedField] = None
     knuckle_radius: Optional[RecognizedField] = None
 
@@ -144,7 +144,9 @@ class HeadRecognition:
             "type": self.type.to_dict(),
             "inside_diameter": self.inside_diameter.to_dict(),
             "nominal_thickness": self.nominal_thickness.to_dict(),
-            "straight_flange_length": self.straight_flange_length.to_dict(),
+            "straight_flange_length": (
+                self.straight_flange_length.to_dict() if self.straight_flange_length else None
+            ),
             "crown_radius": self.crown_radius.to_dict() if self.crown_radius else None,
             "knuckle_radius": self.knuckle_radius.to_dict() if self.knuckle_radius else None,
         }
@@ -1002,11 +1004,11 @@ def _analyze_head(side, region, fr: _Frame, z_t, sign, center, ri, ltol, sf):
             _r2(sf), "medium", "İç silindir yüzündeki dikişten ölçüldü (tanjant boyunun içinde)."
         )
     else:
-        sf_field = RecognizedField(
-            0.0,
-            "low",
-            "Düz flanş gövde silindiriyle aynı yüzeyde birleşmiş — dosyadan ayırt edilemez. "
-            "Değeri formdan/çizimden girin (0 yalnızca yer tutucu).",
+        # K4: yer tutucu değer önerilmez — alan null, sebep uyarıda.
+        sf_field = None
+        warns.append(
+            f"{label} bombe düz flanşı gövde silindiriyle aynı yüzeyde birleşmiş — dosyadan "
+            "ayırt edilemez. Değeri formdan/çizimden girin."
         )
 
     kinds_in = [f.kind for f in inner]

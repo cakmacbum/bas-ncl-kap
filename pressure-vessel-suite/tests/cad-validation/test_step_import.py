@@ -90,9 +90,9 @@ def _assert_contract(d):
             field(d["shell"][k])
     for h in d["heads"]:
         assert h["side"] in {"left", "right"}
-        for k in ("type", "inside_diameter", "nominal_thickness", "straight_flange_length"):
+        for k in ("type", "inside_diameter", "nominal_thickness"):
             field(h[k])
-        for k in ("crown_radius", "knuckle_radius"):
+        for k in ("straight_flange_length", "crown_radius", "knuckle_radius"):
             if h[k] is not None:
                 field(h[k])
     for n in d["nozzles"]:
@@ -150,10 +150,10 @@ def test_builder_straight_flange_is_not_in_geometry(stepdir):
     işaretsiz)."""
     p = _export(_project(HeadType.ELLIPTICAL), stepdir / "rt_sf.step")
     d = recognize_step(p).to_dict()
+    assert d["heads"]
     for h in d["heads"]:
-        sf = h["straight_flange_length"]
-        assert sf["confidence"] == "low"
-        assert sf["note"] and "ayırt edilemez" in sf["note"]
+        assert h["straight_flange_length"] is None
+    assert any("ayırt edilemez" in w for w in d["warnings"])
 
 
 def test_builder_torispherical_reported_as_unsupported_ellipse(stepdir):

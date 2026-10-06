@@ -5,7 +5,7 @@ Tur başı: 2026-10-06 · checkpoint `a0d5619` · Codex: açık (codex-cli 0.157
 ## Pano
 | Paket | Yürütücü | Dalga | Dosyalar (sahip) | Durum |
 |---|---|---|---|---|
-| P01 tanıyıcı | Claude Opus (worktree) | 1 | `packages/cad-engine/src/cad_engine/step_import.py`, `tests/cad-validation/test_step_import.py` | DAĞITILDI |
+| P01 tanıyıcı | Claude Opus (worktree) | 1 | `packages/cad-engine/src/cad_engine/step_import.py`, `tests/cad-validation/test_step_import.py` | ENTEGRE (e09dfee cherry-pick + DEC-004 sf=null) |
 | P02 API | Claude Sonnet backend-builder (worktree) | 1 | `apps/api/main.py`, `apps/api/services.py`, `tests/api/test_step_import_api.py` | ENTEGRE (ab4d28c, tests/api 22 geçti) — BLOCKED de 503 döner |
 | P03 UI | Codex gpt-6-luna·medium (`ork/P03`) | 1 | `apps/web-ui/src/StepImportDrawer.tsx` (yeni), `types.ts`, `api.ts`, `pages.tsx`, `workspace.css` | ENTEGRE (fbf377f + tip düzeltmesi bce68f9; build temiz) → P03b cila Sonnet |
 
@@ -43,7 +43,7 @@ CadQuery yoksa `status="BLOCKED"` döner, exception fırlatmaz. Bozuk/okunamayan
     { "side": "left" | "right",
       "type": Field,               // value: "elliptical"|"torispherical"|"hemispherical"|"flat"
       "inside_diameter": Field, "nominal_thickness": Field,
-      "straight_flange_length": Field,
+      "straight_flange_length": Field | null,   // null = dosyadan ayırt edilemedi (sebep warnings'te) — DEC-004
       "crown_radius": Field | null, "knuckle_radius": Field | null }
   ],
   "nozzles": [

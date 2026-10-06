@@ -14,3 +14,8 @@ Bedel: tarayıcı tarafında `fetch(body: file)` — sorun değil.
 ## DEC-003 — Münazara atlandı (2026-10-06)
 Tanıyıcı hesap metodolojisi değil, girdi önerisi üretir; her değer kullanıcı onayından geçer.
 Risk orta → Kademe 1 kontrol + test zorunlu, Kademe 2 gerekmez.
+
+## DEC-004 — Ayırt edilemeyen düz flanş null döner, yer tutucu yok (2026-10-06)
+Karar: `straight_flange_length` dosyada ayrı yüz yoksa `null`; sebep `warnings`'te. UI satırı göstermez.
+Gerekçe: P01 `0.0`/low öneriyordu; kullanıcı işaretlerse forma 0 mm yazılırdı (K4 ihlali).
+Kök neden: vessel_builder bombe eteğini gövde silindirine bindiriyor → dikiş yok.
