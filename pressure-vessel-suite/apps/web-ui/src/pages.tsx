@@ -1279,7 +1279,7 @@ export function GeometryPage() {
               <SegmentTabs
                 ariaLabel="Önizleme görünümü"
                 value={previewTab}
-                onChange={setPreviewTab}
+                onChange={(v) => setPreviewTab(v as typeof previewTab)}
                 options={[
                   { value: "3d", label: "3D Önizleme" },
                   { value: "2d", label: "Ölçülü Kesit" },
