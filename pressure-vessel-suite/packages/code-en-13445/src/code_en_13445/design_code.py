@@ -80,6 +80,30 @@ class EN13445DesignCode(DesignCode):
     def code_edition(self) -> str:
         return self._edition
 
+    @staticmethod
+    def _apply_material_data_check(result: CalculationResult, mat, dc, nominal_thickness: float) -> None:
+        """Flag material S metadata that does not match the entered design point.
+
+        This check only verifies the user's declared temperature and thickness
+        range; it does not prove that the manually entered EN design stress is
+        the correct tabulated value.
+        """
+        issues = []
+        if abs(mat.temperature - dc.design_temperature) > 1e-6:
+            issues.append(
+                f"Material '{mat.material_id}' design stress is declared at {mat.temperature:g} C; "
+                f"design temperature is {dc.design_temperature:g} C. Verify the EN material value."
+            )
+        if nominal_thickness and not (mat.thickness_min <= nominal_thickness <= mat.thickness_max):
+            issues.append(
+                f"Nominal thickness {nominal_thickness:g} mm is outside material '{mat.material_id}' "
+                f"declared range [{mat.thickness_min:g}, {mat.thickness_max:g}] mm."
+            )
+        for issue in issues:
+            result.add_warning(issue)
+        if issues and result.status == CalculationStatus.PASS:
+            result.set_review_required(issues[0])
+
     def calculate_shell_thickness(self, input_data: dict) -> CalculationResult:
         """EN 13445-3, 5.4.2 — Silindirik gövde iç basınç et kalınlığı.
 
@@ -218,6 +242,7 @@ class EN13445DesignCode(DesignCode):
             )
 
         result.rounding_rule = "shell_required_nominal_thickness"
+        self._apply_material_data_check(result, mat, dc, shell.nominal_thickness)
 
         # Malzeme bilgisi
         result.material_properties_used = {
@@ -370,6 +395,7 @@ class EN13445DesignCode(DesignCode):
                 f"Required nominal thickness {e_nominal:.2f} mm exceeds "
                 f"selected thickness {head.nominal_thickness:.2f} mm"
             )
+        self._apply_material_data_check(result, mat, dc, head.nominal_thickness)
 
         result.material_properties_used = {
             "designation": mat.material_designation,
@@ -494,6 +520,7 @@ class EN13445DesignCode(DesignCode):
         result.final_result = mawp
         result.final_result_unit = "MPa"
         result.set_pass()
+        self._apply_material_data_check(result, mat, dc, t_actual)
         result.material_properties_used = {
             "designation": mat.material_designation,
             "design_stress_f": f,

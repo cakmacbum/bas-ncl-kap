@@ -13,6 +13,7 @@ from calc_core.code_interface import DesignCode
 from calc_core.result import CalculationResult
 from code_asme_viii_1 import formulas
 from domain.enums import CalculationStatus
+from domain.load_cases import LoadType
 
 # ASME "flanged and dished" (F&D) standart bombe geometrisi: taç yarıçapı = çap,
 # büküm yarıçapı = taç yarıçapının %6'sı. UG-32(e) asgarisi de %6'dır.
@@ -111,8 +112,17 @@ def _support_load_envelope(project, support_location_mm: float) -> dict:
         "fz_max_N": 0.0, "fz_min_N": 0.0,
         "per_case": [], "notes": [],
     }
+    group_specs = []
     seen_groups = set()
+    combination_case_ids = {
+        case_id
+        for combination in (getattr(project, "load_combinations", None) or [])
+        if combination.is_concurrent
+        for case_id in combination.load_case_ids
+    }
     for case in cases:
+        if case.load_case_id in combination_case_ids:
+            continue
         members = [case] + [
             by_id[i] for i in (case.concurrent_with or [])
             if i in by_id and i != case.load_case_id and not non_concurrent(case, by_id[i])
@@ -121,19 +131,45 @@ def _support_load_envelope(project, support_location_mm: float) -> dict:
         if key in seen_groups:
             continue
         seen_groups.add(key)
-        label = "+".join(c.load_case_id for c in members)
-        loads = [ld for c in members for ld in (c.external_loads or [])]
+        group_specs.append(("+".join(c.load_case_id for c in members), members, {}))
+    for combination in getattr(project, "load_combinations", None) or []:
+        if not combination.is_concurrent:
+            continue
+        members = [by_id[i] for i in combination.load_case_ids if i in by_id]
+        if len(members) != len(combination.load_case_ids) or any(
+            non_concurrent(a, b)
+            for index, a in enumerate(members)
+            for b in members[index + 1:]
+        ):
+            env["notes"].append(
+                f"Kombinasyon {combination.combination_id} eksik veya eşzamanlı olmayan yük içeriyor; kullanılmadı."
+            )
+            continue
+        if members:
+            factors = combination.load_factors or {}
+            group_specs.append((combination.combination_id, members, factors))
+
+    for label, members, factors in group_specs:
+        loads = [
+            (ld, float(factors.get(c.load_case_id, 1.0)))
+            for c in members for ld in (c.external_loads or [])
+        ]
         if not loads:
             continue
-        horizontal = sum(math.hypot(ld.fx_n, ld.fy_n) for ld in loads)
-        m_direct = math.hypot(sum(ld.mx_nmm for ld in loads), sum(ld.my_nmm for ld in loads))
+        horizontal = sum(math.hypot(ld.fx_n, ld.fy_n) * factor for ld, factor in loads)
+        m_direct = math.hypot(
+            sum(ld.mx_nmm * factor for ld, factor in loads),
+            sum(ld.my_nmm * factor for ld, factor in loads),
+        )
         m_lever = sum(
-            math.hypot(ld.fx_n, ld.fy_n) * max(0.0, (ld.elevation_mm or 0.0) - support_location_mm)
-            for ld in loads
+            math.hypot(ld.fx_n, ld.fy_n) * factor
+            * max(0.0, (ld.elevation_mm or 0.0) - support_location_mm)
+            for ld, factor in loads
         )
         if any(
-            math.hypot(ld.fx_n, ld.fy_n) > 0.0 and (ld.elevation_mm or 0.0) <= support_location_mm
-            for ld in loads
+            math.hypot(ld.fx_n, ld.fy_n) * factor > 0.0
+            and (ld.elevation_mm or 0.0) <= support_location_mm
+            for ld, factor in loads
         ):
             env["notes"].append(
                 f"Yük durumu {label}: yatay kuvvet var ama yük kotu (elevation_mm) destek kotunun "
@@ -141,8 +177,12 @@ def _support_load_envelope(project, support_location_mm: float) -> dict:
                 f"kuvvetin momenti HESAPLANAMADI (yalnız girilen Mx/My kullanıldı)."
             )
         moment = m_direct + m_lever
-        fz = sum(ld.fz_n for ld in loads)
-        env["per_case"].append({"case": label, "moment_Nmm": moment, "horizontal_N": horizontal, "fz_N": fz})
+        fz = sum(ld.fz_n * factor for ld, factor in loads)
+        env["per_case"].append({
+            "case": label, "moment_Nmm": moment, "horizontal_N": horizontal, "fz_N": fz,
+            "load_types": [c.load_type for c in members], "load_case_ids": [c.load_case_id for c in members],
+            "load_factors": factors,
+        })
         if moment > env["moment_Nmm"]:
             env["moment_Nmm"], env["moment_case"] = moment, label
         if horizontal > env["horizontal_N"]:
@@ -607,7 +647,12 @@ class ASMEVIII1DesignCode(DesignCode):
         dc = input_data["design_conditions"]
         materials = input_data.get("materials", [])
         welds = input_data.get("welds", [])
-        t_actual = input_data.get("nominal_thickness", component.nominal_thickness)
+        t_nominal = input_data.get("nominal_thickness", component.nominal_thickness)
+        mill_tolerance_pct = float(getattr(component, "mill_tolerance", 0.0) or 0.0)
+        forming_thinning_mm = float(getattr(component, "forming_thinning", 0.0) or 0.0)
+        # MAWP represents the lowest delivered/formed wall: negative mill
+        # tolerance and forming thinning reduce the nominal wall before CA.
+        t_actual = t_nominal * (1.0 - mill_tolerance_pct / 100.0) - forming_thinning_mm
 
         # Bileşen kimliği — gövde/bombe/koni farklı alan adları kullanıyor.
         component_id = next(
@@ -648,11 +693,19 @@ class ASMEVIII1DesignCode(DesignCode):
 
         result.input_snapshot = {
             "component_type": comp_type,
-            "t_actual_mm": t_actual,
+            "t_nominal_mm": t_nominal,
+            "mill_tolerance_pct": mill_tolerance_pct,
+            "forming_thinning_mm": forming_thinning_mm,
+            "t_min_delivered_mm": t_actual,
             "S_MPa": S,
             "E": E,
             "C_mm": C,
         }
+        result.add_intermediate("t_nominal", t_nominal, "mm", "Nominal thickness")
+        result.add_intermediate("mill_tolerance_pct", mill_tolerance_pct, "%", "Negative mill tolerance")
+        result.add_intermediate("forming_thinning", forming_thinning_mm, "mm", "Forming thinning")
+        result.add_intermediate("t_min_delivered", t_actual, "mm", "Minimum delivered/formed thickness")
+        result.add_intermediate("t_corroded", t_actual - C, "mm", "Minimum thickness after corrosion allowance")
 
         result.add_assumption(
             f"K4: Allowable stress S={S} MPa entered manually for "
@@ -670,9 +723,7 @@ class ASMEVIII1DesignCode(DesignCode):
                 result.clause_reference = "UG-27(c)(1)"
                 mawp = formulas.mawp_from_shell(R, t_actual, S, E, C)
                 result.add_intermediate("R", R, "mm", "Corroded inside radius")
-                result.add_intermediate("t_actual", t_actual, "mm", "Actual thickness")
                 result.add_intermediate("C", C, "mm", "Corrosion allowance")
-                result.add_intermediate("t_corroded", t_actual - C, "mm", "Corroded thickness")
 
             elif comp_type == "cone":
                 # Koni MAWP'i eskiden HİÇ hesaplanmıyordu: `cone_mawp` yazılmıştı
@@ -685,7 +736,6 @@ class ASMEVIII1DesignCode(DesignCode):
                 mawp = formulas.cone_mawp(D, t_actual, S, E, cone.half_apex_angle, C)
                 result.add_intermediate("D_large_corroded", D, "mm", "Corroded large diameter")
                 result.add_intermediate("alpha_deg", cone.half_apex_angle, "deg", "Half apex angle")
-                result.add_intermediate("t_actual", t_actual, "mm", "Actual thickness")
 
             elif comp_type == "head":
                 from domain.enums import HeadType
@@ -734,7 +784,7 @@ class ASMEVIII1DesignCode(DesignCode):
         result.final_result = mawp
         result.final_result_unit = "MPa"
         result.set_pass()
-        self._apply_material_data_check(result, mat, dc, t_actual)
+        self._apply_material_data_check(result, mat, dc, t_nominal)
         result.material_properties_used = {
             "designation": mat.material_designation,
             "allowable_stress": S,
@@ -1707,10 +1757,75 @@ class ASMEVIII1DesignCode(DesignCode):
                 moment_source = "manual (support.overturning_moment_Nmm)"
             else:
                 moment_source = f"load_case:{env['moment_case']}"
-            # Ağırlık durumları: basma = hidrotest (metal + su) + en büyük aşağı Fz;
-            # kaldırma/uplift = boş metal + en küçük (yukarı) Fz.
-            compression_weight_N = weight_hydro_N + max(0.0, env["fz_max_N"])
-            uplift_weight_N = max(0.0, weight_empty_N + min(0.0, env["fz_min_N"]))
+            # Moment ve düşey kuvvet aynı governing load group'tan alınır. Hidrotest
+            # suyu yalnız aynı grupta HYDROTEST/FLUID_WEIGHT varsa eklenir; rüzgâr/
+            # deprem momentine hidrotest ağırlığı bağlamak NON_CONCURRENT kuralını
+            # ihlal eder. Açık ağırlık durumu olmayan çevresel yükler boş kap kabulüyle
+            # değerlendirilir ve aşağıda REVIEW_REQUIRED olarak işaretlenir.
+            governing = next(
+                (p for p in env["per_case"] if p["case"] == env["moment_case"]), None
+            )
+            if governing is None and env["per_case"]:
+                # Vertical-only external-load groups still need a matched weight.
+                governing = max(env["per_case"], key=lambda p: abs(p["fz_N"]))
+            if governing is not None:
+                governing_types = set(governing["load_types"])
+                paired_fz = governing["fz_N"]
+                factors = governing["load_factors"]
+                ids = governing["load_case_ids"]
+                # Only HYDROTEST defines the liquid as the same water-fill used by
+                # this module. Other fluid/operating loads need their own fluid model.
+                hydro_factor = sum(
+                    factors.get(cid, 1.0) for cid, load_type in zip(ids, governing["load_types"])
+                    if load_type == LoadType.HYDROTEST
+                )
+                dead_factor = sum(
+                    factors.get(cid, 1.0) for cid, load_type in zip(ids, governing["load_types"])
+                    if load_type == LoadType.DEAD_WEIGHT
+                )
+                unresolved_fluid = any(
+                    t in (LoadType.FLUID_WEIGHT, LoadType.OPERATING) for t in governing_types
+                )
+                wet_case = hydro_factor != 0.0
+                if hydro_factor:
+                    weight_basis_N = weight_empty_N * hydro_factor + (weight_hydro_N - weight_empty_N) * hydro_factor
+                elif dead_factor:
+                    weight_basis_N = weight_empty_N * dead_factor
+                else:
+                    weight_basis_N = weight_empty_N
+                    if not any(t in (LoadType.WIND, LoadType.SEISMIC) for t in governing_types):
+                        orchestration_warnings.append(
+                            "Governing yük grubunda ağırlık türü tanımlı değil; boş kap ağırlığı kullanıldı."
+                        )
+                if unresolved_fluid:
+                    orchestration_warnings.append(
+                        "Governing grupta FLUID_WEIGHT/OPERATING var; akışkan kütlesi bu hesapta çözümlenemedi, "
+                        "yalnız tanımlı DEAD_WEIGHT (yoksa boş kap baz ağırlığı) kullanıldı."
+                    )
+                if (
+                    any(t in (LoadType.WIND, LoadType.SEISMIC) for t in governing_types)
+                    and not wet_case and not dead_factor
+                ):
+                    orchestration_warnings.append(
+                        "Rüzgâr/deprem momenti aynı load group içindeki düşey yükle eşleştirildi; "
+                        "LoadType bu durumun işletme mi boş kap mı olduğunu belirtmediğinden boş kap "
+                        "ağırlığı kullanıldı. Gerçek kombinasyon ve akışkan ağırlığı mühendisçe doğrulanmalı."
+                    )
+            else:
+                # Dış moment yoksa mevcut hidrotest basma kontrolü korunur; Fz zarfı
+                # yalnızca kendisini tanımlayan durumdan başka yüklerle birleştirilmez.
+                governing_types = set()
+                paired_fz = env["fz_max_N"]
+                weight_basis_N = weight_hydro_N
+            if moment_source.startswith("manual") and manual_moment >= global_moment and manual_moment > 0.0:
+                # No load-case relation is supplied for the manual moment, so do
+                # not attach another case's Fz or hydrotest liquid to it.
+                paired_fz = 0.0
+                weight_basis_N = weight_empty_N
+            compression_weight_N = weight_basis_N + max(0.0, paired_fz)
+            # Uplift is checked for the least stabilizing empty-vessel state, even
+            # when the governing compression scenario is hydrotest.
+            uplift_weight_N = max(0.0, weight_empty_N + min(0.0, paired_fz))
             payload = {
                 "support": {
                     "tag": sup.support_id,
@@ -1869,6 +1984,22 @@ class ASMEVIII1DesignCode(DesignCode):
             if r.status == CalculationStatus.PASS:
                 r.set_review_required(
                     "Destek fiziği Faz A'da yaklaşık kapsamda; skirt/leg/saddle sonuçları mühendis incelemesi ister."
+                )
+            if any("LoadType bu durumun" in w for w in orchestration_warnings):
+                r.set_review_required(
+                    "Load case tipi işletme/boş kap ağırlık durumunu belirtmiyor; çevresel yük ve ağırlık eşleşmesi doğrulanmalı."
+                )
+            if any("akışkan kütlesi bu hesapta" in w for w in orchestration_warnings):
+                r.set_review_required(
+                    "İşletme/akışkan yükü için sıvı kütlesi mevcut hacim modelinden çözümlenemedi; gerçek doluluk ve yoğunluk doğrulanmalı."
+                )
+            if moment_source.startswith("manual") and manual_moment >= global_moment and manual_moment > 0.0:
+                r.set_review_required(
+                    "Manuel devirme momentinin hangi düşey yük durumu/kombinasyonu ile eşzamanlı olduğu tanımlı değil; destek etkileşimi doğrulanmalı."
+                )
+            if any("Kombinasyon" in note for note in env["notes"]):
+                r.set_review_required(
+                    "Bir veya daha fazla tanımlı yük kombinasyonu destek zarfına uygulanamadı; sonuç doğrulanmalı."
                 )
             if sup.type in ("skirt", "leg") and overturning_moment <= 0:
                 r.add_assumption(

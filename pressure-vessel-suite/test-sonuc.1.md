@@ -10,6 +10,11 @@ Bağımsız sonuçlar uygulamanın kodunu çağırmadan UG-27(c)(1)/(2) gövde v
 
 Sabitler: SA-516 Gr.70; arayüz varsayılanı S=138 MPa; E=1; korozyon payı 2 mm; sac negatif toleransı %12,5; bombe şekillendirme incelmesi 1 mm; çelik yoğunluğu 7850 kg/m³; su 1000 kg/m³; 4 ayak; rüzgâr veya devrilme momenti yok. Çaplar 600–1500 mm, teğet boylar 900–4500 mm, tasarım basınçları 0,5–1,6 MPa. Ayak boruları tank çapına göre 114,3×8, 168,3×10, 219,1×12 veya 273×14 mm seçildi. Ayaklar için su dolu ve boş tank yükü ayrı hesaplandı; eşit ayak paylaşımı W/4 ve boru halka alanı A=π/4·(D²−d²) kullanıldı. Dikey kap ayak yükü dağılımı için [Pressure Vessel Design Handbook](https://electronicsandbooks.com/edt/manual/Publischer/V/Van%20Nostrand%20Reinhold/Pressure%20Vessel%20Design%20Handbook%2C%20H%20Bednar%201981%200442254164%20OCR%20c20140816%20%5B331%5D.pdf) referans alındı.
 
+> **Tarihsel sonuç:** Bu tablo 26.09.2026 sürümünün API çıktısını kaydeder. 30.09.2026'da MAWP
+> hesabı minimum teslim edilmiş et (`nominal × (1 − sac toleransı) − şekillendirme incelmesi`) ile
+> güncellendi. Bu eski API değerleri düzeltme sonrası sürümü temsil etmez; karşılaştırma yeniden
+> çalıştırılmadan MAWP doğrulama kanıtı olarak kullanılmamalıdır.
+
 ## 20 vaka çıktısı
 
 | Vaka | D×L (mm) | P (MPa) | Seçilen t gövde/bombe (mm) | Gerekli t gövde (Dış hesap / Program API) (mm) | Gerekli t bombe (Dış hesap / Program API) (mm) | MAWP (Dış hesap / Program API) (MPa) | Boş ayak σ (Dış hesap) (MPa) | Su dolu ayak σ (Dış hesap / Program API) (MPa) | Uygulama ayak durumu |
@@ -34,6 +39,37 @@ Sabitler: SA-516 Gr.70; arayüz varsayılanı S=138 MPa; E=1; korozyon payı 2 m
 | PV20-18 | 1500×3000 | 0,8 | 8/10 | 7,285/7,285 | 8,414/8,414 | 0,914/1,096 (+19,9%) | 0,320 | 1,674/1,674 | REVIEW REQUIRED |
 | PV20-19 | 1500×3750 | 1,2 | 10/12 | 9,798/9,798 | 10,908/10,908 | 1,232/1,459 (+18,4%) | 0,454 | 2,091/2,091 | REVIEW REQUIRED |
 | PV20-20 | 1500×4500 | 1,6 | 14/14 | 12,320/12,320 | 13,405/13,405 | 1,695/2,181 (+28,7%) | 0,685 | 2,606/2,606 | REVIEW REQUIRED |
+
+## 30.09.2026 MAWP düzeltmesi sonrası tekrar çalıştırma
+
+Eski 20 vaka girdisi (D, L, P, seçilen gövde/bombe etleri, CA=2 mm, sac toleransı=%12,5,
+bombe şekillendirme incelmesi=1 mm) yeniden kurularak uygulamanın `calculation_payload`
+hesap servisine verildi. Tek bileşenli silindirik kap + iki 2:1 elipsoidal bombe için her
+vakanın global MAWP'si bağımsız referansla 0,0005 MPa içinde eşleşti. Bu, kaydedilmiş
+bağımsız karşılaştırmanın yeniden oynatımıdır; lisanslı ASME uygunluk incelemesi değildir.
+
+| Vaka | Referans MAWP (MPa) | Güncel API MAWP (MPa) |
+|---|---:|---:|
+| PV20-01 | 1,825 | 1,8254 |
+| PV20-02 | 1,027 | 1,0274 |
+| PV20-03 | 1,476 | 1,4756 |
+| PV20-04 | 1,825 | 1,8254 |
+| PV20-05 | 0,514 | 0,5138 |
+| PV20-06 | 1,110 | 1,1103 |
+| PV20-07 | 1,372 | 1,3718 |
+| PV20-08 | 1,704 | 1,7037 |
+| PV20-09 | 0,618 | 0,6182 |
+| PV20-10 | 0,890 | 0,8900 |
+| PV20-11 | 1,366 | 1,3663 |
+| PV20-12 | 1,841 | 1,8407 |
+| PV20-13 | 0,516 | 0,5156 |
+| PV20-14 | 0,916 | 0,9163 |
+| PV20-15 | 1,317 | 1,3168 |
+| PV20-16 | 1,717 | 1,7171 |
+| PV20-17 | 0,595 | 0,5949 |
+| PV20-18 | 0,914 | 0,9139 |
+| PV20-19 | 1,232 | 1,2321 |
+| PV20-20 | 1,695 | 1,6954 |
 
 ## Bulgular
 

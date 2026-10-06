@@ -1,5 +1,7 @@
 ﻿# 20 tank için basınç ve ayak karşılaştırması
 
+> Historical API output: the first table records the 26.09.2026 build. On 30.09.2026, MAWP was changed to use minimum delivered/formed thickness. Updated calculation-service results for the same 20 cases are in `test-sonuc.1.md`.
+
 **Çalıştırma:** 26.09.2026 · ASME VIII-1 2025 hesap servisi · 20/20 vaka tamamlandı. Bu oturumda kullanılabilir tarayıcı olmadığı için kullanıcı arayüzü yolu çalıştırılamadı; aynı uygulamanın `/api/projects/{id}/calculate` hesap servisi kullanıldı.
 
 ## Referans yöntemi ve girdiler

@@ -277,6 +277,24 @@ class TestEN13445DesignCode:
         assert len(r.intermediate_values) > 0
         assert r.material_properties_used["designation"] == "P355NH"
 
+    def test_material_temperature_and_thickness_range_require_review(self, en_code, sample_en_project_components):
+        comp = sample_en_project_components
+        mat = comp["mat"].model_copy(update={"temperature": 20.0, "thickness_min": 20.0})
+        r = en_code.calculate_shell_thickness({
+            "shell": comp["shell"], "design_conditions": comp["dc"],
+            "materials": [mat], "welds": comp["welds"],
+        })
+        assert r.status.value == "REVIEW REQUIRED"
+        assert any("design stress is declared at 20 C" in w for w in r.warnings)
+        assert any("outside material" in w for w in r.warnings)
+
+        mawp = en_code.calculate_mawp({
+            "component_type": "shell", "component": comp["shell"],
+            "design_conditions": comp["dc"], "materials": [mat],
+            "welds": comp["welds"], "nominal_thickness": comp["shell"].nominal_thickness,
+        })
+        assert mawp.status.value == "REVIEW REQUIRED"
+
     def test_head_thickness_result(self, en_code, sample_en_project_components):
         """Bomba et kalınlığı hesap sonucu."""
         comp = sample_en_project_components

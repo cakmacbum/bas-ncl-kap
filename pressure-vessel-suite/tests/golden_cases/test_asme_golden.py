@@ -601,6 +601,36 @@ class TestASMEVIII1DesignCode:
         assert r.status.value == "PASS"
         assert r.final_result is not None
 
+    def test_mawp_uses_minimum_delivered_and_formed_thickness(self, asme_code, sample_project):
+        """MAWP, nominal et yerine mill toleransı ve şekillendirme sonrası eti kullanır."""
+        from code_asme_viii_1.formulas import mawp_from_ellipsoidal_head
+
+        head = sample_project.heads[0].model_copy(update={
+            "mill_tolerance": 12.5,
+            "forming_thinning": 1.0,
+        })
+        t_min = head.nominal_thickness * 0.875 - 1.0
+        weld = next(w for w in sample_project.welds if w.joint_id == head.weld_joint_id)
+        r = asme_code.calculate_mawp({
+            "component_type": "head", "component": head,
+            "design_conditions": sample_project.design_conditions,
+            "materials": sample_project.materials, "welds": sample_project.welds,
+            "nominal_thickness": head.nominal_thickness,
+            "code_edition": sample_project.code_edition,
+        })
+        expected = mawp_from_ellipsoidal_head(
+            head.inside_diameter + 2 * head.internal_corrosion_allowance,
+            t_min, sample_project.materials[0].allowable_stress, weld.joint_efficiency,
+            head.internal_corrosion_allowance,
+        )
+        assert r.final_result == pytest.approx(expected)
+        assert r.input_snapshot["t_min_delivered_mm"] == pytest.approx(t_min)
+        assert r.final_result < mawp_from_ellipsoidal_head(
+            head.inside_diameter + 2 * head.internal_corrosion_allowance,
+            head.nominal_thickness, sample_project.materials[0].allowable_stress,
+            weld.joint_efficiency, head.internal_corrosion_allowance,
+        )
+
     def test_hydrotest(self, asme_code, sample_project):
         """Hidrostatik test basıncı."""
         r = asme_code.calculate_hydrotest_pressure({

@@ -359,9 +359,7 @@ export interface CalcResult {
   reference_elevation_mm?: number;
 }
 
-/** Yayın-öncesi doğrulama kapısı (API `verification` bölümü; bilgilendirici, engelleyici değil).
- *  Bilinçli olarak CalcPayload'a EKLENMEDİ: test_ui_parity her CalcPayload alanının render
- *  edilmesini zorunlu kılar; UI görüntüsü eklenince `verification?: CalcVerification` yazılır. */
+/** Publication validation summary; informative and does not change calculations. */
 export interface CalcVerification {
   case_name: string;
   passed: boolean;
@@ -381,4 +379,5 @@ export interface CalcPayload {
     inner_volume_m3: number;
     metal_mass_kg: number;
   };
+  verification?: CalcVerification;
 }

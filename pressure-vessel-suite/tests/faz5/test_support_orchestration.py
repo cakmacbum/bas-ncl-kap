@@ -17,6 +17,7 @@ from domain import (
     Head,
     HeadType,
     LoadCase,
+    LoadCombination,
     LoadType,
     MaterialProperty,
     ProductForm,
@@ -37,7 +38,7 @@ def _mat():
     )
 
 
-def _project(supports, load_cases=None, chain=True, orientation=None):
+def _project(supports, load_cases=None, chain=True, orientation=None, load_combinations=None):
     kwargs = {}
     if orientation:
         kwargs["orientation"] = orientation
@@ -67,6 +68,7 @@ def _project(supports, load_cases=None, chain=True, orientation=None):
         materials=[_mat()],
         supports=supports,
         load_cases=load_cases or [],
+        load_combinations=load_combinations or [],
         **kwargs,
     )
 
@@ -223,10 +225,10 @@ def test_horizontal_force_moment_uses_lever_arm_from_support():
 
 
 def test_fz_adds_to_compression_weight():
-    base = _iv(_run(_project([_skirt()])), "compression_weight_N")
+    empty = _iv(_run(_project([_skirt()])), "empty_weight_N")
     lcs = [_lc("DL", LoadType.DEAD_WEIGHT, [ExternalLoad(load_id="F", fz_n=1.0e5)])]
     r = _run(_project([_skirt()], lcs))
-    assert _iv(r, "compression_weight_N") == pytest.approx(base + 1.0e5)
+    assert _iv(r, "compression_weight_N") == pytest.approx(empty + 1.0e5)
 
 
 def test_missing_elevation_with_horizontal_force_is_flagged_not_silent():
@@ -251,3 +253,35 @@ def test_hydrotest_weight_is_metal_plus_water_hand_calc():
     assert _iv(r, "compression_weight_N") == pytest.approx((metal_kg + water_kg) * G, rel=1e-6)
     assert _iv(r, "hydrotest_water_mass_kg") == pytest.approx(water_kg, rel=1e-6)
     assert any("rho=1000" in a for a in r.assumptions)
+
+
+def test_wind_moment_does_not_get_paired_with_hydrotest_water_weight():
+    project = _project(
+        [_skirt()],
+        [
+            _lc("HYDRO", LoadType.HYDROTEST, []),
+            _lc("WIND", LoadType.WIND, [_moment_load(mx=4e8)], concurrent=["HYDRO"]),
+        ],
+    )
+    r = _run(project)
+    empty_weight = _iv(_run(_project([_skirt()])), "empty_weight_N")
+    assert _iv(r, "global_overturning_moment") == pytest.approx(4e8)
+    assert _iv(r, "compression_weight_N") == pytest.approx(empty_weight)
+    assert any("boş kap ağırlığı" in warning for warning in r.warnings)
+    assert r.status.value == "REVIEW REQUIRED"
+
+
+def test_explicit_load_combination_scales_moment_and_uses_its_dead_weight():
+    load_cases = [
+        _lc("DEAD", LoadType.DEAD_WEIGHT, []),
+        _lc("WIND", LoadType.WIND, [_moment_load(mx=4e8)]),
+    ]
+    combination = LoadCombination(
+        combination_id="DEAD_WIND", name="Dead + wind", load_case_ids=["DEAD", "WIND"],
+        load_factors={"DEAD": 1.0, "WIND": 0.5}, is_concurrent=True,
+    )
+    project = _project([_skirt()], load_cases, load_combinations=[combination])
+    r = _run(project)
+    assert _iv(r, "global_overturning_moment") == pytest.approx(2e8)
+    assert _iv(r, "governing_load_case") == "DEAD_WIND"
+    assert _iv(r, "compression_weight_N") == pytest.approx(_iv(_run(_project([_skirt()])), "empty_weight_N"))

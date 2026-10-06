@@ -328,10 +328,10 @@ seçilemezken üçüncü bir kod eklemek Faz 3/4'te kapatılan hayalet özellik 
   hesap → 3B → rapor) çalıştırıldı: konsol hatası yok, tüm ağ istekleri başarılı,
   sunucu logunda hata yok, HTML rapor ve STEP çıktısı üretildi.
 
-- **Not (hata değil, asimetri):** MAWP hesabı mill toleransını kullanmaz
-  (`t = nominal − C`). Derecelendirme için standart pratiktir, ancak tasarım
-  yönünde sacın ince gelebileceği varsayılırken MAWP'de tam nominal varsayılması
-  bilinçli bir tercih olarak belgelenmelidir.
+- ~~**MAWP sac toleransı ve şekillendirme incelmesi:**~~ **Düzeltildi (2026-09-30):** MAWP
+  artık `t_min = nominal × (1 − mill_tolerance/100) − forming_thinning` kalınlığını kullanır;
+  formülde korozyon payı ayrıca düşülür. Bu, proje için seçilmiş en düşük teslim/şekillendirme
+  sonrası et politikasıdır; ASME lisanslı metninden normatif yorum iddiası değildir.
 
 ### Emniyet denetimi turu (2026-09-25)
 
@@ -420,40 +420,7 @@ seçilemezken üçüncü bir kod eklemek Faz 3/4'te kapatılan hayalet özellik 
   yataklık basıncı) ara değerini verir ve beton/grout izin verilen basınç girdisi olmadığından
   **kontrol edilmez** (uyarı yazılır). Arayüz yardım metni düzeltildi.
 
-- **Kısmen kapatıldı (2026-09-26, Ayak-A backend) — ayak ped/profil/kaynak/taban plakası/WRC.**
-  `Support.leg_section_type` doluysa `leg_section_check`, `leg_weld_check`, `base_plate_check`,
-  `wrc_local_stress` üretilir (boşsa eski boru-ayak davranışı). Arayüz (Ayak-B, 2026-09-26): ayak formu Bağlantı/Kesit, Takviye Pedi, Taban Plakası,
-  Kaynaklar ve WRC Katsayıları (20 satır × 4 hücre; boş = null, 0 = gerçek sıfır) alt bölümlerine ayrıldı,
-  dört sonuç grubu eklendi. Açık kalanlar: WRC katsayıları kullanıcı girdisi (K6), kayma τ hesaplanmıyor, ped gövde kalınlığına eklenmez, yatay
-  yük yönü bilinmediğinden P ve VC birlikte uygulanır; kaynak grubu idealizasyonu ve temas oranı yorumu
-  (kaynaklı kontur oranı) mühendis onayı ister; AWS asgari bacak kullanıcı girdisi; `anchor_bolt_diameter_mm`
-  hesapta kullanılmaz (uyarı yazılır); tek ayak (n<2) devrilme analizi kapsam dışı; CAD/FEA'da ayak yok;
-  `leg_stress` nihai PASS vermez.
-
-### Destek denetim turu ve ayak sistemi (2026-09-26)
-
-Bağımsız denetçiler eyer (Zick), etek ve `check_supports` orkestrasyonunu inceledi; bulguların
-kanıtlananları ajanlarla düzeltildi (ayrıntı: ilgili destek satırları ve `calculation-coverage.md`).
-
-- ~~**B-34 — Etek/ayak arayüzden varsayılan olarak hesaplanamıyordu.**~~ **Kapatıldı:** yeni destek
-  host'u zincirin ilk BOMBESİ oluyordu ve kod bombeyi reddediyordu; konum-aralığı kapısı etek/ayak
-  tabanı için mantıksal olarak yanlıştı. Host artık shell/head/cone kabul edilir, konum kapısı yalnız
-  eyerdedir, varsayılan host ilk gövdedir, host seçici üç tipte de görünür.
-- ~~**B-35 — Alternatif yük durumları toplanıyordu.**~~ **Kapatıldı:** rüzgâr + deprem (ve aynı yükün iki
-  kopyası) `+=` ile birikiyordu. Artık durum bazında zarf (max), moment √(Mx²+My²), Fz basmaya eklenir,
-  yönetici durum sonuca yazılır. **Açık:** ağırlık–moment eşleşmesi (hidrotest ağırlığı rüzgâr momentiyle aynı
-  hesapta, muhafazakâr; gerçek çift eşleştirmesi yok).
-- ~~**B-36 — Destek ağırlığı yalnız boş kap; hidrotest yok.**~~ **Kapatıldı:** basma ağırlığı = metal + su
-  (ρ=1000 kg/m³ K4 varsayımı) + Fz; `min_weight_N` (boş) etek çekmesi ve ayak yükselmesi için.
-- ~~**B-37 — Etek izin verilen gerilmesinde burkulma yoktu.**~~ **Kapatıldı:** basma sınırı min(S, B); B
-  (UG-23(b) faktörü) kullanıcı girdisi (K6), girilmezse `BLOCKED_CODE_DATA`. Çekme tarafı S·E (E varsayılan
-  0,6, K4). Etek çapı "ortalama çap". **Açık:** UG-23(b) Ro/t ile ortalama R/t seçimi ve 0,6 verimi bağımsız
-  kaynakla doğrulanamadı.
-- ~~**B-38 — Eyer formülleri Zick değildi.**~~ **Kapatıldı (yapı):** M1/M2, K1/K2/K3/K6/K7 katsayıları
-  kullanıcı girdisi (K6), boynuz eğilmesi, kabuk tabanı, K2/K3 kesme, başlık derinliği H ve teğet-teğet L,
-  iki uç A, ≥3 eyer kapsam dışı, kontrol başına sınır ve oran; sonuç asla nihai PASS değil. **Açık:** S3/S5
-  formüllerinin ve K1' (basma tarafı) ayrımının birebir kaynak teyidi yok; yayımlı çözümlü örnekle
-  karşılaştırma yapılamadı — Moss 3-10 / Megyesy ile doğrulanmalı.
+- **Engineering source review:** primary-source review is recorded in `docs/validation/engineering-source-review-2026-09-30.md`. Zick?s original S3 labels do not yet map cleanly to the app?s head-shear S3; K1-prime and Moss/Megyesy coefficient mapping remain unverified. Skirt B-factor needs a matching chart readback and E=0.6 depends on joint detail. Blodgett base formulas pass an integral check; WRC force/moment dimensions are consistent, but coefficient surfaces and a published numeric reproduction remain open. These checks stay REVIEW REQUIRED.
 - **Ayak (leg) sistemi eklendi:** U profil/boru/kutu/köşebent kesiti, ped, taban plakası, üç köşe kaynağı,
   WRC lokal gerilme; dört ayrı sonuç (`leg_section_check`, `leg_weld_check`, `base_plate_check`,
   `wrc_local_stress`) ve arayüz formu. `leg_stress` özeti hiçbir zaman nihai PASS vermez. **Açık/yorum:**
@@ -461,9 +428,24 @@ kanıtlananları ajanlarla düzeltildi (ayrıntı: ilgili destek satırları ve 
   hesaplanmıyor, ped gövde kalınlığına eklenmiyor, yatay yük yönü bilinmediğinden muhafazakâr birleşim,
   Blodgett Sw ifadeleri türetmeyle doğrulandı (kaynak tablosu görülmedi), WRC boyut analizi bültenle
   karşılaştırılmadı, `anchor_bolt_diameter_mm` hesapta kullanılmıyor.
-- **Açık — MAWP'de bombe şekillendirme incelmesi:** bombe kalınlığı hesabı 1 mm şekillendirme incelmesini
-  düşer, bombe MAWP'si düşmez (`test-sonuc.1.md` karşılaştırması). Şekillendirme sonrası kalınlıkla MAWP
-  daha doğrudur; ayrıca %12,5 sac toleransı levha için (0,25 mm) fazla temkinli olabilir — karar bekliyor.
+- **MAWP mill tolerance/forming thinning:** corrected on 2026-09-30 and the same 20-case inputs were rerun through the calculation service. All 20 API values match the independent reference within 0.0005 MPa; see `test-sonuc.1.md`.
+
+
+### 30.09.2026 sonrası açık kalanlar
+
+- **EN 13445 B-31 metadata gate:** on 2026-09-30, the entered design-stress temperature and nominal thickness range are checked for shell, head, and MAWP results. Metadata mismatch changes PASS to REVIEW REQUIRED. This does not verify the manually entered stress against a licensed EN material table; independent published-case validation remains open.
+
+- **Support load pairing (updated 2026-09-30):** support checks now preserve each valid `concurrent_with`/`LoadCombination` group and apply its factors to forces and moments. Hydrotest water weight is paired only with a HYDROTEST case. Operating/fluid cases without resolvable mass, ambiguous wind/seismic empty-vs-operating weight, and manual moments without a paired vertical load produce REVIEW REQUIRED. **Still open:** report empty-tank leg stress as a separate result.
+- **UG-99(b) test gerilmesi:** test basıncı ve statik yükler üretiliyor, ancak bileşen bazında test gerilmesi/
+  kapasite sınırı denetlenmiyor. Sınır ve yöntem lisanslı geçerli baskı ve mühendis kararıyla teyit edilmeden
+  otomatik PASS üretilmemeli.
+- **Kaynak doğrulaması:** Zick S3/S5, K1′, etek UG-23(b) geometrisi/verimi ve WRC boyut analizi için
+  erişilebilir güvenilir ve bağımsız doğrulama örneği tamamlanmadı. Mevcut çıktılar bu nedenle mühendis
+  incelemesi gerektirir.
+- **Ankraj çapı:** alan arayüzde bilgi girdisi olarak sunulur; kapasite dişli çekme alanı varsaymadan,
+  kullanıcı girdisi izinli çekme/kesme kuvvetleriyle hesaplanır. Gerçek ankraj dayanımı ayrıca doğrulanmalı.
+- **Güvenlik anahtarı:** sohbette açığa çıkan OpenRouter anahtarının sağlayıcı panelinden yenilenmesi gerekir;
+  bu çalışma alanından sağlayıcı hesabına erişim yok.
 
 ---
 

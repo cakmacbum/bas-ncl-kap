@@ -176,6 +176,7 @@ function LegSupportFields({ sup, setSup }: { sup: LegSup; setSup: (p: Partial<Le
           {num("Taban Plakası Alanı", "base_plate_area_mm2", { unit: "mm²",
             help: "Yalnız temel yataklık basıncı (N_max/alan) raporu içindir. Ayak çelik gerilmesi her zaman ayak kesitinden hesaplanır; izin verilen basınç girilmezse yataklık kontrol edilmez." })}
           {num("Ankraj Cıvatası Adedi", "anchor_bolt_count", { help: "Uplift ve yatay yük aktarımında kullanılan ankraj adedi." })}
+          {num("Ankraj Cıvatası Nominal Çapı", "anchor_bolt_diameter_mm", { unit: "mm", help: "Bilgi ve rapor için saklanır. Dişli çekme alanı ve kapasite, kullanıcı tarafından girilen ankraj izinli kuvvetlerinden hesaplanır; çap tek başına kapasite üretmez." })}
           {num("Ankraj İzinli Çekme", "anchor_tension_allowable_N", { unit: "N", help: "Bir ankraj cıvatası için izin verilen çekme kuvveti." })}
           {num("Ankraj İzinli Kesme", "anchor_shear_allowable_N", { unit: "N", help: "Bir ankraj cıvatası için izin verilen kesme kuvveti." })}
           <NumField label="Yatay Taban Yükü" unit="N" value={sup.lateral_load_N}
@@ -1481,6 +1482,27 @@ export function ResultsPage() {
                 {calc.errors.map((e, i) => (
                   <li key={i} className="mono">{e}</li>
                 ))}
+              </ul>
+            </Panel>
+          )}
+          {calc.verification && (
+            <Panel
+              title="Yayın Öncesi Doğrulama"
+              meta={calc.verification.passed ? "BAŞARILI" : "İNCELEME GEREKLİ"}
+              desc={`Kontrol kümesi: ${calc.verification.case_name}. Bu gösterge mühendislik onayının yerini almaz.`}
+            >
+              <ul className="err-list">
+                {calc.verification.checks.map((check) => (
+                  <li key={check.calculation_id}>
+                    <span className="mono">{check.calculation_id}</span>: {check.passed ? "geçti" : "başarısız"}
+                  </li>
+                ))}
+                {calc.verification.errors.map((message, i) => (
+                  <li key={`error-${i}`} className="mono">{message}</li>
+                ))}
+                {calc.verification.checks.length === 0 && calc.verification.errors.length === 0 && (
+                  <li>Doğrulama sonucu kaydı yok.</li>
+                )}
               </ul>
             </Panel>
           )}
