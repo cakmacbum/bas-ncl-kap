@@ -148,6 +148,8 @@ button, input, select { -webkit-tap-highlight-color: transparent; }
 .step-row__values del { color: var(--text-faint); }
 .step-row__values ins { color: var(--accent); text-decoration: none; font-weight: 700; }
 .step-row__note { color: var(--text-dim); font-size: 10px; line-height: 1.5; }
+.step-row__effect { color: var(--review); font-size: 10px; line-height: 1.5; }
+.step-row--static { cursor: default; margin-left: 24px; background: var(--panel); }
 .step-badge { padding: 1px 7px; border: 1px solid var(--line); border-radius: 999px; color: var(--text-dim); font: 600 10px var(--font-mono); }
 .step-badge--high { color: var(--accent); border-color: var(--accent); }
 .step-badge--low { color: var(--review); border-color: var(--review); background: color-mix(in srgb, var(--review) 10%, var(--panel)); }
