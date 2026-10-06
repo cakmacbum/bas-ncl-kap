@@ -7,6 +7,13 @@
       "runtimeArgs": ["run", "dev"],
       "cwd": "pressure-vessel-suite/apps/web-ui",
       "port": 5173
+    },
+    {
+      "name": "api",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "uvicorn", "apps.api.main:app", "--port", "8000", "--env-file", ".env"],
+      "cwd": "pressure-vessel-suite",
+      "port": 8000
     }
   ]
 }
