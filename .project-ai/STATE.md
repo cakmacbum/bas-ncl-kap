@@ -1,10 +1,11 @@
 # CURRENT STATE
 guncellendi: 2026-10-06
 
-Mevcut milestone:  M1 — STEP içe aktarma + STL görüntüleme
-Mevcut görev:      Dalga 2 (düzeltme) — P04 çekmece yazma güvenliği (Opus), P05 yükleme sertleştirme + sf eşiği (Opus)
-Tamamlanan:        P01 tanıyıcı, P02 API, P03 UI (Codex) + P03b cila, DEC-004 sf=null; e2e Browser: S1/S3/S5/S6 geçti; cad+api 85 test
+Mevcut milestone:  M1 — STEP içe aktarma + STL görüntüleme — **KAPANDI**
+Mevcut görev:      yok
+Tamamlanan:        T-1.0 … T-1.6 (bkz. TASKS.md)
 Bloke:             yok
-Bilinen problemler: code-review 2 YÜKSEK (nozul etiketle ezme, eski OD kalması) + security ORTA (OCC olay döngüsünü kilitliyor) → dalga 2'de
-                   varsayılan projede "N1: PASS sonucu final_result içermiyor" (bu işten bağımsız, ayrı bakılacak)
-Sıradaki aksiyon:  P04+P05 raporları → build + pytest + e2e tekrar → M1 kapanış (limitations B kaydı, kasa, log)
+Bilinen problemler: B-36 builder torisferiği elips çiziyor (açık) · global 500 işleyicisi ayrıntı sızdırıyor ·
+                   varsayılan projede "N1: PASS sonucu final_result içermiyor" (bu işten bağımsız) ·
+                   her içe aktarma çocuk süreç OCP import'u yüzünden +~5 s
+Sıradaki aksiyon:  Yusuf'un kararı — FUTURE.md'den seçim veya başka iş

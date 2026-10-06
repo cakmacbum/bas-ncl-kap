@@ -447,6 +447,26 @@ seçilemezken üçüncü bir kod eklemek Faz 3/4'te kapatılan hayalet özellik 
 - **Güvenlik anahtarı:** sohbette açığa çıkan OpenRouter anahtarının sağlayıcı panelinden yenilenmesi gerekir;
   bu çalışma alanından sağlayıcı hesabına erişim yok.
 
+### STEP içe aktarma (2026-10-06)
+
+- **B-34 — STEP içe aktarma kapsamı (yeni özellik, bilinçli dar).** `POST /api/import/step` +
+  `cad_engine.step_import.recognize_step`. STEP'ten yalnız tek eksenli dönel kap tanınır: tek silindir
+  gövde + iki bombe (2:1 eliptik / gerçek küre+torus torisferik / yarım küre / düz) + radyal gövde nozulları.
+  Koni, bombe nozulu, eğik/ofset nozul, çoklu gövde, destek → `unrecognized` (PARTIAL), sessizce yok sayılmaz.
+  Malzeme, tasarım basıncı/sıcaklığı, kaynak verimi ve korozyon payı dosyada **yoktur**, hiç önerilmez.
+  Her değer kullanıcı onayından geçer (K2: CAD hesabın kaynağı değildir); STEP nozulları her zaman yeni nozul
+  olarak eklenir, mevcut nozul ezilmez. Tanıma ayrı süreçte, 30 s zaman aşımı, eşzamanlı en çok 2.
+- **B-35 — Düz flanş çoğu dosyadan okunamaz.** Bombe eteği gövde silindiriyle tek yüze birleşmişse
+  (suite'in kendi STEP çıktısı dahil) `straight_flange_length` null döner, değer elle girilir. Dikiş varsa
+  sf ≤ min(0.25·L, max(150 mm, 0.1·D)); daha uzaktaki dikiş course dikişi sayılır, sf önerilmez.
+- **B-36 — Suite'in torisferik CAD çıktısı gerçek torisferik değil.** `vessel_builder` torisferik bombeyi
+  derinliği Rc/rk'den hesaplanmış elips olarak çiziyor (vessel_builder.py:172-197). Bu yüzden suite'in kendi
+  torisferik STEP'i geri yüklenince "desteklenmeyen h/D oranı" ile PARTIAL döner (dürüst davranış); dışarıya
+  verilen STEP'in bombe profili de imalat profiliyle birebir değildir. **Açık.**
+- **B-37 — STL hesap girdisi değildir.** STL yalnız "Yüklenen model" sekmesinde görüntülenir; ölçü çıkarılmaz.
+- Global hata işleyicisi (`apps/api/main.py`) 500 yanıtlarında `{tip}: {mesaj}` döndürüyor; ayrıntı sızıntısı
+  riski — STEP ucunda kapatıldı, genel işleyicide açık.
+
 ---
 
 *Oluşturma tarihi: 2026-07-19 · Revizyon: 3.3 (2026-09-25 doküman tutarlılık düzeltmesi dahil: B-20/B-21/B-22 kapatıldı olarak işaretlendi, B-02/B-04/B-06/B-07/B-14 kod durumu notları, kapsam/paket tabloları, Phase C başlık/sıra) — 2026-09-25 emniyet denetimi: eğik nozul PASS (B-30) ve malzeme sıcaklık/kalınlık doğrulaması (B-31) kapatıldı; test basıncı LSR varsayımı (B-28) ve WRC eksik katsayı (B-29) kapatıldı, ayak kesit kusuru (B-27) kaydedildi; 2026-09-22: mill toleransı (B-26).*
