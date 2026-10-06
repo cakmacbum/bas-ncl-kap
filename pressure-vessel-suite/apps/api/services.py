@@ -5,7 +5,9 @@ K1/K7: Hesap mantığı paketlerde kalır; burada yalnızca çağrı/serileştir
 
 from __future__ import annotations
 
+import logging
 import math
+import multiprocessing
 import tempfile
 from typing import Any, Dict, Optional
 
@@ -44,6 +46,70 @@ try:
     from cad_engine.step_import import recognize_step  # type: ignore
 except Exception:  # pragma: no cover
     recognize_step = None  # type: ignore
+
+logger = logging.getLogger("basincli-kap.api")
+
+# Tanıma ayrı süreçte koşar (OCC olay döngüsünü/sunucuyu kilitlemesin, takılırsa
+# öldürülebilsin). Süre, çocuk sürecin OCP import'unu (~4-5 sn) da kapsar.
+STEP_RECOGNITION_TIMEOUT_S = 30.0
+
+
+class StepRecognitionTimeout(Exception):
+    """Tanıma süresi aşıldı; süreç öldürüldü."""
+
+
+class StepRecognitionFailed(Exception):
+    """Tanıma süreci sonuç vermeden öldü/çöktü ya da hata fırlattı."""
+
+
+def _step_worker(fn, path: str, filename: Optional[str], conn) -> None:
+    """Çocuk süreç girişi (spawn; modül seviyesinde olmalı)."""
+    try:
+        conn.send(("ok", fn(path, filename=filename).to_dict()))
+    except BaseException as exc:  # sonuç yerine yalnız hata tipi döner
+        conn.send(("error", type(exc).__name__))
+    finally:
+        conn.close()
+
+
+def recognize_step_isolated(
+    path: str, filename: Optional[str] = None, timeout: Optional[float] = None
+) -> Dict[str, Any]:
+    """`recognize_step`'i ayrı bir süreçte çalıştır, `to_dict()` sonucunu döndür.
+
+    Bloklayıcıdır — async uçtan threadpool ile çağrılmalı.
+    Raises: StepRecognitionTimeout, StepRecognitionFailed.
+    """
+    if timeout is None:
+        timeout = STEP_RECOGNITION_TIMEOUT_S
+    ctx = multiprocessing.get_context("spawn")
+    recv_conn, send_conn = ctx.Pipe(duplex=False)
+    proc = ctx.Process(
+        target=_step_worker,
+        args=(recognize_step, str(path), filename, send_conn),
+        daemon=True,
+    )
+    try:
+        proc.start()
+        send_conn.close()  # çocuk ölürse recv EOFError versin
+        if not recv_conn.poll(timeout):
+            raise StepRecognitionTimeout()
+        try:
+            kind, payload = recv_conn.recv()
+        except (EOFError, OSError):
+            proc.join(5)
+            raise StepRecognitionFailed(f"süreç sonuç vermeden sonlandı (exitcode={proc.exitcode})")
+        if kind != "ok":
+            raise StepRecognitionFailed(f"tanıyıcı hata fırlattı: {payload}")
+        proc.join(5)
+        return payload
+    finally:
+        recv_conn.close()
+        send_conn.close()
+        if proc.is_alive():
+            proc.kill()
+        if proc.pid is not None:
+            proc.join(5)
 
 
 def _json_safe(obj: Any) -> Any:

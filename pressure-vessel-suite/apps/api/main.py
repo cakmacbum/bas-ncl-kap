@@ -12,12 +12,14 @@ from apps.api import _bootstrap  # noqa: F401
 import logging
 import os
 import tempfile
+import threading
 from pathlib import Path
 from urllib.parse import unquote
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
+from starlette.concurrency import run_in_threadpool
 
 from domain import VesselProject, compute_input_hash  # type: ignore
 
@@ -161,34 +163,75 @@ def _safe_filename(raw: str | None) -> str | None:
     return name or None
 
 
+STEP_HEADER_PROBE = 4096
+STEP_MAX_CONCURRENT = 2
+# Eşzamanlı tanıma sınırı (her biri ayrı süreç + OCC belleği). Dolu → 429, kuyruk yok.
+_step_slots = threading.BoundedSemaphore(STEP_MAX_CONCURRENT)
+
+
+def _check_step_header(head: bytes) -> None:
+    if b"ISO-10303-21" not in head[:STEP_HEADER_PROBE]:
+        raise HTTPException(status_code=415, detail="Geçerli bir STEP dosyası değil (ISO-10303-21 başlığı yok).")
+
+
+async def _receive_step(request: Request, dest: str) -> None:
+    """Gövdeyi akışta `dest`'e yaz: boyutu okurken say, başlığı ilk 4 KB'ta denetle."""
+    size = 0
+    head = b""
+    checked = False
+    try:
+        with open(dest, "wb") as fh:
+            async for chunk in request.stream():
+                if not chunk:
+                    continue
+                size += len(chunk)
+                if size > STEP_MAX_BYTES:
+                    raise HTTPException(status_code=413, detail="Dosya 20 MB sınırını aşıyor.")
+                if not checked:
+                    head += chunk[: STEP_HEADER_PROBE - len(head)]
+                    if len(head) >= STEP_HEADER_PROBE:
+                        _check_step_header(head)
+                        checked = True
+                fh.write(chunk)
+    except OSError:
+        logger.exception("STEP yüklemesi geçici dosyaya yazılamadı")
+        raise HTTPException(status_code=500, detail="Yüklenen dosya geçici alana yazılamadı.")
+    if not checked:
+        _check_step_header(head)
+
+
 @app.post("/api/import/step")
 async def import_step(request: Request) -> dict:
-    """Ham STEP baytlarını al, tanıyıcıya ver, ölçü önerilerini döndür."""
+    """Ham STEP baytlarını al, tanıyıcıya (ayrı süreçte) ver, ölçü önerilerini döndür."""
     if services.recognize_step is None:
         raise HTTPException(status_code=503, detail="STEP tanıyıcı kullanılamıyor (CAD motoru yok).")
 
-    # Content-Length'e güvenme: okurken say.
-    data = bytearray()
-    async for chunk in request.stream():
-        data.extend(chunk)
-        if len(data) > STEP_MAX_BYTES:
-            raise HTTPException(status_code=413, detail="Dosya 20 MB sınırını aşıyor.")
-
-    if b"ISO-10303-21" not in bytes(data[:4096]):
-        raise HTTPException(status_code=415, detail="Geçerli bir STEP dosyası değil (ISO-10303-21 başlığı yok).")
-
     filename = _safe_filename(request.headers.get("x-filename"))
-    tmp_path = None
-    try:
-        with tempfile.NamedTemporaryFile(suffix=".step", delete=False) as tmp:
-            tmp.write(data)
-            tmp_path = tmp.name
-        recognition = services.recognize_step(tmp_path, filename=filename)
-    finally:
-        if tmp_path and os.path.exists(tmp_path):
-            os.remove(tmp_path)
+    # Windows'ta kilitli dosya silinemezse temizlik hatası asıl yanıtı ezmesin.
+    with tempfile.TemporaryDirectory(prefix="step-import-", ignore_cleanup_errors=True) as tmp_dir:
+        tmp_path = os.path.join(tmp_dir, "upload.step")
+        await _receive_step(request, tmp_path)
 
-    result = recognition.to_dict()
+        if not _step_slots.acquire(blocking=False):
+            raise HTTPException(
+                status_code=429,
+                detail="Şu anda çok fazla STEP içe aktarma işleniyor; biraz sonra tekrar deneyin.",
+                headers={"Retry-After": "10"},
+            )
+        try:
+            result = await run_in_threadpool(services.recognize_step_isolated, tmp_path, filename)
+        except services.StepRecognitionTimeout:
+            logger.warning("STEP tanıma zaman aşımı (%s)", filename)
+            raise HTTPException(
+                status_code=504,
+                detail="STEP tanıma zaman aşımına uğradı — model çok karmaşık olabilir.",
+            )
+        except services.StepRecognitionFailed as exc:
+            logger.error("STEP tanıma süreci başarısız (%s): %s", filename, exc)
+            raise HTTPException(status_code=500, detail="STEP tanıma beklenmedik şekilde sonlandı.")
+        finally:
+            _step_slots.release()
+
     if result.get("status") == "BLOCKED":
         raise HTTPException(status_code=503, detail="CAD motoru (CadQuery) kurulu değil.")
     return services._json_safe(result)

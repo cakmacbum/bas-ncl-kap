@@ -27,6 +27,7 @@ Koordinat kuralları (SPEC §8):
 
 from __future__ import annotations
 
+import logging
 import math
 import re
 from dataclasses import dataclass, field
@@ -66,6 +67,8 @@ try:  # CAD çekirdeği opsiyonel — yoksa BLOCKED döneriz (exception yok).
     CAD_KERNEL_AVAILABLE = True
 except ImportError:  # pragma: no cover - ortam bağımlı
     CAD_KERNEL_AVAILABLE = False
+
+logger = logging.getLogger(__name__)
 
 
 NOT_IN_FILE: Tuple[str, ...] = (
@@ -468,10 +471,9 @@ def recognize_step(path, filename: Optional[str] = None) -> StepRecognition:
 
     try:
         return _recognize(Path(path), source)
-    except Exception as exc:  # K4: sızdırma yok, açık sebep
-        return _rejected(
-            source, "file", f"Dosya işlenirken beklenmeyen hata: {type(exc).__name__}: {exc}"
-        )
+    except Exception:  # K4: sızdırma yok — ayrıntı (yol, exception) yalnız log'a
+        logger.exception("STEP tanıma beklenmeyen hata (%s)", fname)
+        return _rejected(source, "file", "Dosya işlenirken beklenmeyen bir hata oluştu.")
 
 
 def _rejected(source: StepSource, feature: str, reason: str, warnings=None) -> StepRecognition:
@@ -492,8 +494,9 @@ def _recognize(path: Path, source: StepSource) -> StepRecognition:
     # ── Birim (dosyadan) ──
     try:
         text = path.read_bytes().decode("latin-1", errors="replace")
-    except OSError as exc:
-        return _rejected(source, "file", f"Dosya okunamadı: {exc}")
+    except OSError:
+        logger.warning("STEP dosyası okunamadı (%s)", source.filename, exc_info=True)
+        return _rejected(source, "file", "Dosya okunamadı.")
     if "ISO-10303-21" not in text[:4096]:
         return _rejected(source, "file", "Dosya STEP (ISO-10303-21) biçiminde değil.")
     unit, scale = _detect_unit(text)
@@ -614,7 +617,9 @@ def _analyze(faces: List[_FaceInfo], source: StepSource, warnings: List[str]) ->
         return _rejected(source, "shell", "Gövde silindirinin boyu sıfır.", warnings)
 
     # Düz flanş: iç silindir yüzü uçlara yakın dairesel dikişlerle bölünmüşse ölçülür.
-    sf_left, sf_right = _straight_flange_splits(shell_in, fr, z0, z1, ri, rtol)
+    (sf_left, sf_left_note), (sf_right, sf_right_note) = _straight_flange_splits(
+        shell_in, fr, z0, z1, ri, rtol
+    )
 
     shell = ShellRecognition(
         inside_diameter=RecognizedField(_r2(2 * ri), "high"),
@@ -698,11 +703,13 @@ def _analyze(faces: List[_FaceInfo], source: StepSource, warnings: List[str]) ->
     center = _add(fr.origin, _mul(fr.d, 0.5 * (z0 + z1)))
     heads: List[HeadRecognition] = []
     head_ok = True
-    for side, region, z_t, sign, sf in (
-        ("left", left, z0, -1.0, sf_left),
-        ("right", right, z1, +1.0, sf_right),
+    for side, region, z_t, sign, sf, sf_note in (
+        ("left", left, z0, -1.0, sf_left, sf_left_note),
+        ("right", right, z1, +1.0, sf_right, sf_right_note),
     ):
-        head, head_unrec, head_warn = _analyze_head(side, region, fr, z_t, sign, center, ri, ltol, sf)
+        head, head_unrec, head_warn = _analyze_head(
+            side, region, fr, z_t, sign, center, ri, ltol, sf, sf_note
+        )
         unrec.extend(head_unrec)
         warnings.extend(head_warn)
         if head is None:
@@ -730,11 +737,23 @@ def _analyze(faces: List[_FaceInfo], source: StepSource, warnings: List[str]) ->
     )
 
 
+# Düz flanş için mutlak üst sınır: sf ≤ max(150 mm, 0.1·D_iç) (ayrıca ≤ 0.25·L).
+# Gerekçe: bombe düz flanşı pratikte 25–50 mm; kalın bombelerde DIN 28011/28013
+# h1 ≈ 3.5·s kuralı s ≈ 40 mm'ye kadar ~140 mm verir → 150 mm tabanı. Büyük çaplı/kalın
+# kaplarda (D 3000 mm, s ~80 mm → 3.5·s ≈ 280 mm) 0.1·D devreye girer. Gövde course
+# (sac parça) genişlikleri ise tipik 1000–3000 mm olduğundan bu sınır course dikişini
+# düz flanş sanmayı engeller. Sınırı aşan dikiş sf olarak önerilmez (DEC-004: null + sebep).
+_SF_ABS_LIMIT_MM = 150.0
+_SF_DIAMETER_RATIO = 0.1
+
+
 def _straight_flange_splits(shell_in, fr: _Frame, z0, z1, ri, rtol):
     """İç silindir yüzlerinin uçlara yakın iç sınırlarından düz flanş boyunu çıkar.
 
-    Bombe eteği gövdeyle aynı yüzeyde birleşmişse (dikiş yok) düz flanş dosyadan
-    ayırt edilemez → None.
+    Döner: ((sf_sol, not_sol), (sf_sağ, not_sağ)). sf None ise not, nedenini açıklayan
+    uyarıdır (None → dikiş yok: bombe eteği gövdeyle aynı yüzeyde, ayırt edilemez).
+    Uca en yakın dikiş düz flanş üst sınırını aşıyorsa gövde course dikişi sayılır →
+    sf None + sebep.
     """
     cuts = set()
     for f in shell_in:
@@ -749,10 +768,24 @@ def _straight_flange_splits(shell_in, fr: _Frame, z0, z1, ri, rtol):
                 continue
             cuts.add(round(fr.s(_xyz(c.Location())), 3))
     L = z1 - z0
+    limit = min(0.25 * L, max(_SF_ABS_LIMIT_MM, _SF_DIAMETER_RATIO * 2 * ri))
     inner = sorted(z for z in cuts if z0 + rtol < z < z1 - rtol)
-    left = [z - z0 for z in inner if z - z0 <= 0.25 * L]
-    right = [z1 - z for z in inner if z1 - z <= 0.25 * L]
-    return (min(left) if left else None), (min(right) if right else None)
+    out = []
+    for label, dists in (("Sol", [z - z0 for z in inner]), ("Sağ", [z1 - z for z in inner])):
+        if not dists:
+            out.append((None, None))
+            continue
+        d = min(dists)
+        if d <= limit:
+            out.append((d, None))
+        else:
+            out.append((
+                None,
+                f"{label} uca en yakın iç silindir dikişi {_r2(d)} mm'de — düz flanş üst "
+                f"sınırının (≤ {_r2(limit)} mm) üstünde; gövde course dikişi sayıldı, düz flanş "
+                "önerilmedi. Değeri formdan/çizimden girin.",
+            ))
+    return out[0], out[1]
 
 
 # ── Nozullar ─────────────────────────────────────────────────────────────────
@@ -935,7 +968,7 @@ def _fit_ellipse_depth(pts: Sequence[Tuple[float, float]], a: float) -> Tuple[fl
     return H, res
 
 
-def _analyze_head(side, region, fr: _Frame, z_t, sign, center, ri, ltol, sf):
+def _analyze_head(side, region, fr: _Frame, z_t, sign, center, ri, ltol, sf, sf_note=None):
     """Tek bombe bölgesini tanı. Döner: (HeadRecognition | None, unrecognized, warnings)."""
     unrec: List[UnrecognizedFeature] = []
     warns: List[str] = []
@@ -1007,7 +1040,8 @@ def _analyze_head(side, region, fr: _Frame, z_t, sign, center, ri, ltol, sf):
         # K4: yer tutucu değer önerilmez — alan null, sebep uyarıda.
         sf_field = None
         warns.append(
-            f"{label} bombe düz flanşı gövde silindiriyle aynı yüzeyde birleşmiş — dosyadan "
+            sf_note
+            or f"{label} bombe düz flanşı gövde silindiriyle aynı yüzeyde birleşmiş — dosyadan "
             "ayırt edilemez. Değeri formdan/çizimden girin."
         )
 

@@ -407,3 +407,71 @@ def test_blocked_without_cad_kernel(monkeypatch, tmp_path):
     _assert_contract(d)
     assert d["status"] == "BLOCKED"
     assert d["source"]["filename"] == "x.step"
+
+
+# ── Düz flanş üst sınırı (course dikişi) ve hata metni sızıntısı (P05) ──────
+
+
+def _hemi_vessel_with_seams(seams, a=500.0, t=12.0, L=6000.0):
+    """Yarım küre bombeli kap; iç gövde silindiri verilen z'lerde dikişle bölünür
+    (çok parçalı/course gövde). clean=False → dikişler birleştirilmez."""
+    s2 = math.sqrt(0.5)
+    wp = cq.Workplane("XZ").moveTo(0.0, L + a)
+    wp = wp.threePointArc((a * s2, L + a * s2), (a, L))
+    for z in sorted(seams, reverse=True):
+        wp = wp.lineTo(a, z)
+    wp = wp.lineTo(a, 0.0)
+    wp = wp.threePointArc((a * s2, -a * s2), (0.0, -a))
+    b = a + t
+    wp = wp.lineTo(0.0, -b)
+    wp = wp.threePointArc((b * s2, -b * s2), (b, 0.0))
+    wp = wp.lineTo(b, L)
+    wp = wp.threePointArc((b * s2, L + b * s2), (0.0, L + b))
+    return wp.close().revolve(360, (0, 0, 0), (0, 1, 0), clean=False)
+
+
+def test_course_seam_is_not_straight_flange(stepdir):
+    """Sol uçtan 1000 mm'deki course dikişi (eski kural: ≤0.25·L → sf=1000 önerirdi) düz
+    flanş SAYILMAZ: alan null + sebep uyarıda. Sağdaki 40 mm dikiş sf olarak önerilir."""
+    L = 6000.0
+    shape = _hemi_vessel_with_seams([1000.0, L - 40.0], L=L)
+    p = export_step(shape, stepdir / "courses.step")
+    d = recognize_step(p).to_dict()
+    _assert_contract(d)
+    assert _close(d["shell"]["tangent_length"]["value"], L, 1e-3)
+    heads = {h["side"]: h for h in d["heads"]}
+    assert set(heads) == {"left", "right"}, d["unrecognized"]
+    assert heads["left"]["straight_flange_length"] is None
+    assert any("course" in w and "Sol" in w for w in d["warnings"])
+    sf_r = heads["right"]["straight_flange_length"]
+    assert sf_r is not None and _close(sf_r["value"], 40.0, 1e-3)
+    assert sf_r["confidence"] == "medium"
+
+
+def test_unexpected_error_reason_has_no_path_or_exception(monkeypatch, tmp_path):
+    secret = tmp_path / "gizli-klasor" / "x.step"
+
+    def _boom(path, source):
+        raise RuntimeError(f"OCC patladı: {secret}")
+
+    monkeypatch.setattr(step_import, "_recognize", _boom)
+    d = recognize_step(secret, filename="x.step").to_dict()
+    assert d["status"] == "REJECTED"
+    reason = d["unrecognized"][0]["reason"]
+    assert "gizli-klasor" not in reason and "RuntimeError" not in reason and "patladı" not in reason
+
+
+def test_read_error_reason_has_no_path(monkeypatch, tmp_path):
+    f = tmp_path / "gizli-klasor" / "x.step"
+    f.parent.mkdir()
+    f.write_bytes(b"ISO-10303-21;\n")
+
+    def _deny(self):
+        raise PermissionError(13, "Erişim engellendi", str(self))
+
+    monkeypatch.setattr(step_import.Path, "read_bytes", _deny)
+    d = recognize_step(f, filename="x.step").to_dict()
+    assert d["status"] == "REJECTED"
+    reason = d["unrecognized"][0]["reason"]
+    assert reason == "Dosya okunamadı."
+    assert "gizli-klasor" not in json.dumps(d)

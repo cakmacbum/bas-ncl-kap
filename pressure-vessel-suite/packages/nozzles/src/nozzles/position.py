@@ -5,7 +5,7 @@ K2 kuralı: CAD'e dokunulmaz; saf matematikle yapılır.
 
 Nozul konumu üç koordinatla tanımlanır:
   - z: Eksenel mesafe (gövde başlangıcından itibaren, mm)
-  - θ: Çevresel açı (derece, 0 = üst, 90 = yan)
+  - θ: Çevresel açı (derece; gövde ekseni etrafında +X'ten +Y'ye doğru: 0 = +X, 90 = +Y)
   - α: Eğim açısı (derece, 0 = radyal/dik)
 
 Referans: Kaynak §6 — Nozzle positioning
