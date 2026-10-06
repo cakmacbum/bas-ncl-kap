@@ -34,6 +34,19 @@ export interface ShellSection {
 
 export type HeadTypeT = "elliptical" | "torispherical" | "hemispherical" | "flat";
 
+export type RecognitionConfidence = "high" | "medium" | "low";
+export interface RecognizedField<T = number> { value: T; confidence: RecognitionConfidence; note: string | null; }
+export interface StepRecognition {
+  status: "RECOGNIZED" | "PARTIAL" | "REJECTED" | "BLOCKED";
+  source: { filename: string; unit: string; unit_scale: number; solid_count: number };
+  shell: null | { inside_diameter: RecognizedField; nominal_thickness: RecognizedField; tangent_length: RecognizedField };
+  heads: Array<{ side: "left" | "right"; type: RecognizedField<HeadTypeT>; inside_diameter: RecognizedField; nominal_thickness: RecognizedField; straight_flange_length: RecognizedField; crown_radius: RecognizedField | null; knuckle_radius: RecognizedField | null }>;
+  nozzles: Array<{ tag: string; outside_diameter: RecognizedField; inside_diameter: RecognizedField; neck_thickness: RecognizedField; axial_position: RecognizedField; circumferential_angle: RecognizedField; outside_projection: RecognizedField }>;
+  unrecognized: Array<{ feature: string; reason: string }>;
+  warnings: string[];
+  not_in_file: string[];
+}
+
 export interface Head {
   head_id: string;
   type: HeadTypeT;

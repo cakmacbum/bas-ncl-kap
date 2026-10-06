@@ -6,6 +6,7 @@ import type {
   ProjectSummary,
   GeometryAgentInterpretRequest,
   GeometryAgentSuggestion,
+  StepRecognition,
 } from "./types";
 
 const BASE = "/api";
@@ -44,6 +45,22 @@ async function fetchJson<T>(input: RequestInfo, init?: RequestInit): Promise<T> 
 }
 
 export const api = {
+  async importStep(file: File): Promise<StepRecognition> {
+    let res: Response;
+    try {
+      res = await fetch(`${BASE}/import/step`, {
+        method: "POST",
+        headers: { "Content-Type": "application/octet-stream", "X-Filename": encodeURIComponent(file.name) },
+        body: file,
+      });
+    } catch {
+      throw new Error("API sunucusuna bağlanılamadı. Backend çalışıyor mu?");
+    }
+    if (res.status === 413) throw new Error("Dosya 20 MB sınırını aşıyor.");
+    if (res.status === 415) throw new Error("Dosya STEP (ISO-10303-21) değil.");
+    if (res.status === 503) throw new Error("CAD motoru kurulu değil.");
+    return jsonOrThrow<StepRecognition>(res);
+  },
   async listProjects(): Promise<ProjectSummary[]> {
     return fetchJson(`${BASE}/projects`);
   },

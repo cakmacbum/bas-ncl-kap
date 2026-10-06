@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useStore } from "./store";
 import { api } from "./api";
 import {
@@ -20,6 +20,7 @@ import {
 } from "./nozzleCatalog";
 import { headDepth } from "./vesselModel";
 import { geometryIssues, geometrySignature } from "./geometryValidation";
+import { StepImportDrawer } from "./StepImportDrawer";
 
 function PageHead({ kicker, title, desc }: { kicker: string; title: string; desc: string }) {
   return (
@@ -452,6 +453,17 @@ export function GeometryPage() {
   const { project, setProject, setStep, activeShellId, setActiveShellId } = useStore();
   const [activeMaterialId, setActiveMaterialId] = useState(project.materials[0]?.material_id ?? "");
   const [activeWeldId, setActiveWeldId] = useState(project.welds[0]?.joint_id ?? "");
+  const [stepFile, setStepFile] = useState<File | null>(null);
+  const [uploadedModelUrl, setUploadedModelUrl] = useState<string | null>(null);
+  useEffect(() => () => { if (uploadedModelUrl) URL.revokeObjectURL(uploadedModelUrl); }, [uploadedModelUrl]);
+  const selectModel = (file?: File) => {
+    if (!file) return;
+    if (file.name.toLowerCase().endsWith(".stl")) {
+      setStepFile(null);
+      setUploadedModelUrl((old) => { if (old) URL.revokeObjectURL(old); return URL.createObjectURL(file); });
+      setPreviewTab("uploaded");
+    } else setStepFile(file);
+  };
   const shell = project.shell_sections.find((item) => item.section_id === activeShellId) ?? project.shell_sections[0];
   const mat = project.materials.find((item) => item.material_id === activeMaterialId) ?? project.materials[0];
   const weld = project.welds.find((item) => item.joint_id === activeWeldId) ?? project.welds[0];
@@ -561,7 +573,7 @@ export function GeometryPage() {
   });
 
   // Büyük önizleme: ölçülü kesit / anlık 3D / kesin CadQuery modeli
-  const [previewTab, setPreviewTab] = useState<"2d" | "3d" | "exact">("3d");
+  const [previewTab, setPreviewTab] = useState<"2d" | "3d" | "exact" | "uploaded">("3d");
   const [exactUrl, setExactUrl] = useState<string | null>(null);
   const [exactBusy, setExactBusy] = useState(false);
   const [exactErr, setExactErr] = useState<string | null>(null);
@@ -623,6 +635,7 @@ export function GeometryPage() {
         title="Kap Geometrisi"
         desc="Değeri yazarken sağdaki canlı şema güncellenir; düzenlediğin ölçü şemada vurgulanır. Alan başlıklarındaki (?) işaretine gelerek ne olduğunu görebilirsin."
       />
+      <div className="btn-row"><label className="btn agent-open-btn">Modelden içe aktar<input type="file" accept=".step,.stp,.stl" hidden onChange={(event) => { selectModel(event.target.files?.[0]); event.currentTarget.value = ""; }} /></label></div>
       <div className="geo-layout">
         <div className="geo-forms">
           <AccordionSection id="components" open title="Eleman Zinciri" meta={`${project.component_sequence?.length ?? 0} eleman`}
@@ -1271,6 +1284,7 @@ export function GeometryPage() {
                   { value: "3d", label: "3D Önizleme" },
                   { value: "2d", label: "Ölçülü Kesit" },
                   { value: "exact", label: "Kesin Model" },
+                  ...(uploadedModelUrl ? [{ value: "uploaded", label: "Yüklenen model" }] : []),
                 ]}
               />
               <button className="btn btn--ghost btn--sm" onClick={loadExact}
@@ -1344,6 +1358,7 @@ export function GeometryPage() {
                   </div>
                 )
               )}
+              {previewTab === "uploaded" && uploadedModelUrl && <><p>Yüklenen model (yalnız görüntü — hesaba girmez)</p><VesselViewer url={uploadedModelUrl} autoRotate={false} section={false} dims={computeDims(project)} /></>}
             </div>
           </div>
         </aside>
@@ -1353,6 +1368,7 @@ export function GeometryPage() {
         nextLabel={issues.length > 0 && acceptedIssueSignature !== issueSignature
           ? "Uyarıyı kabul et ve sonuçlara geç →"
           : "Sonuçlara Geç →"} />
+      {stepFile && <StepImportDrawer file={stepFile} onClose={() => setStepFile(null)} />}
     </div>
   );
 }
