@@ -39,6 +39,12 @@ except Exception:  # pragma: no cover
     export_stl = None  # type: ignore
     CADQUERY_AVAILABLE = False
 
+# STEP tanıyıcı (P01) — yoksa uç 503 döner, uygulama yine de açılır.
+try:
+    from cad_engine.step_import import recognize_step  # type: ignore
+except Exception:  # pragma: no cover
+    recognize_step = None  # type: ignore
+
 
 def _json_safe(obj: Any) -> Any:
     """Yanıtı JSON-güvenli hale getir: sonlu olmayan float'ları (inf/-inf/nan) None'a çevir.

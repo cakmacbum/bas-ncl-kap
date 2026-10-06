@@ -10,7 +10,10 @@ from __future__ import annotations
 from apps.api import _bootstrap  # noqa: F401
 
 import logging
+import os
+import tempfile
 from pathlib import Path
+from urllib.parse import unquote
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -143,3 +146,49 @@ def model_stl(project_id: str) -> FileResponse:
         )
     filename = f"{project.project_number or 'vessel'}.stl"
     return FileResponse(path, filename=filename, media_type="model/stl")
+
+
+# --- STEP içe aktarma (proje deposuna dokunmaz) ---
+STEP_MAX_BYTES = 20 * 1024 * 1024
+
+
+def _safe_filename(raw: str | None) -> str | None:
+    """X-Filename başlığından yalnız dosya adını al (URL-decode, yol bileşenlerini at)."""
+    if not raw:
+        return None
+    name = unquote(raw).replace("\\", "/").split("/")[-1].strip()
+    name = "".join(ch for ch in name if ch.isprintable())[:200]
+    return name or None
+
+
+@app.post("/api/import/step")
+async def import_step(request: Request) -> dict:
+    """Ham STEP baytlarını al, tanıyıcıya ver, ölçü önerilerini döndür."""
+    if services.recognize_step is None:
+        raise HTTPException(status_code=503, detail="STEP tanıyıcı kullanılamıyor (CAD motoru yok).")
+
+    # Content-Length'e güvenme: okurken say.
+    data = bytearray()
+    async for chunk in request.stream():
+        data.extend(chunk)
+        if len(data) > STEP_MAX_BYTES:
+            raise HTTPException(status_code=413, detail="Dosya 20 MB sınırını aşıyor.")
+
+    if b"ISO-10303-21" not in bytes(data[:4096]):
+        raise HTTPException(status_code=415, detail="Geçerli bir STEP dosyası değil (ISO-10303-21 başlığı yok).")
+
+    filename = _safe_filename(request.headers.get("x-filename"))
+    tmp_path = None
+    try:
+        with tempfile.NamedTemporaryFile(suffix=".step", delete=False) as tmp:
+            tmp.write(data)
+            tmp_path = tmp.name
+        recognition = services.recognize_step(tmp_path, filename=filename)
+    finally:
+        if tmp_path and os.path.exists(tmp_path):
+            os.remove(tmp_path)
+
+    result = recognition.to_dict()
+    if result.get("status") == "BLOCKED":
+        raise HTTPException(status_code=503, detail="CAD motoru (CadQuery) kurulu değil.")
+    return services._json_safe(result)
