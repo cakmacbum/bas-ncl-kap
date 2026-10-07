@@ -2,7 +2,7 @@
   "family": "F10-nozul_yerlesim",
   "meta": {
     "code": "API calculation route",
-    "oracle": "x=R cos(theta), y=R sin(theta), z=axial position; geometric comparison unavailable"
+    "oracle": "x=R cos(theta), y=R sin(theta), z=axial position; single-nozzle clash oracle PASS"
   },
   "results": [
     {
@@ -20,17 +20,18 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
-      "suite_status": "PASS"
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
+      "suite_status": "REVIEW REQUIRED"
     },
     {
       "case_id": "SHELL-02",
@@ -47,16 +48,17 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
       "suite_status": "PASS"
     },
     {
@@ -74,16 +76,17 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
       "suite_status": "PASS"
     },
     {
@@ -101,16 +104,17 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
       "suite_status": "PASS"
     },
     {
@@ -128,16 +132,17 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
       "suite_status": "PASS"
     },
     {
@@ -155,16 +160,17 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
       "suite_status": "PASS"
     },
     {
@@ -182,16 +188,17 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
       "suite_status": "PASS"
     },
     {
@@ -209,16 +216,17 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
       "suite_status": "PASS"
     },
     {
@@ -236,17 +244,18 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
-      "suite_status": "PASS"
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
+      "suite_status": "REVIEW REQUIRED"
     },
     {
       "case_id": "SHELL-10",
@@ -263,17 +272,18 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
-      "suite_status": "PASS"
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
+      "suite_status": "REVIEW REQUIRED"
     },
     {
       "case_id": "SHELL-11",
@@ -290,16 +300,17 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
       "suite_status": "PASS"
     },
     {
@@ -317,16 +328,17 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
       "suite_status": "PASS"
     },
     {
@@ -344,16 +356,17 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
       "suite_status": "PASS"
     },
     {
@@ -371,17 +384,18 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
-      "suite_status": "PASS"
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
+      "suite_status": "REVIEW REQUIRED"
     },
     {
       "case_id": "SHELL-15",
@@ -398,16 +412,17 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
       "suite_status": "PASS"
     },
     {
@@ -425,16 +440,17 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
       "suite_status": "PASS"
     },
     {
@@ -452,17 +468,18 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
-      "suite_status": "PASS"
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
+      "suite_status": "REVIEW REQUIRED"
     },
     {
       "case_id": "SHELL-18",
@@ -479,17 +496,18 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
-      "suite_status": "PASS"
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
+      "suite_status": "FAIL"
     },
     {
       "case_id": "SHELL-19",
@@ -506,17 +524,18 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
-      "suite_status": "PASS"
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
+      "suite_status": "FAIL"
     },
     {
       "case_id": "SHELL-20",
@@ -533,17 +552,18 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
-      "suite_status": "PASS"
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
+      "suite_status": "FAIL"
     },
     {
       "case_id": "SHELL-21",
@@ -560,17 +580,18 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
-      "suite_status": "PASS"
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
+      "suite_status": "FAIL"
     },
     {
       "case_id": "SHELL-22",
@@ -587,17 +608,18 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
-      "suite_status": "PASS"
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
+      "suite_status": "FAIL"
     },
     {
       "case_id": "SHELL-23",
@@ -614,17 +636,18 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
-      "suite_status": "PASS"
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
+      "suite_status": "FAIL"
     },
     {
       "case_id": "SHELL-24",
@@ -641,17 +664,18 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
-      "suite_status": "PASS"
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
+      "suite_status": "FAIL"
     },
     {
       "case_id": "SHELL-25",
@@ -668,17 +692,18 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
-      "suite_status": "PASS"
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
+      "suite_status": "FAIL"
     },
     {
       "case_id": "SHELL-26",
@@ -695,17 +720,18 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
-      "suite_status": "PASS"
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
+      "suite_status": "FAIL"
     },
     {
       "case_id": "SHELL-27",
@@ -722,17 +748,18 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
-      "suite_status": "PASS"
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
+      "suite_status": "FAIL"
     },
     {
       "case_id": "SHELL-28",
@@ -749,17 +776,18 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
-      "suite_status": "PASS"
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
+      "suite_status": "FAIL"
     },
     {
       "case_id": "SHELL-29",
@@ -776,17 +804,18 @@
         },
         "api_ok": true,
         "api_http_status": 200,
-        "api_errors": null
+        "api_errors": null,
+        "clash_marker": "PASS"
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
-      "suite_status": "PASS"
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
+      "suite_status": "FAIL"
     },
     {
       "case_id": "SHELL-30",
@@ -803,16 +832,17 @@
         },
         "api_ok": false,
         "api_http_status": 422,
-        "api_errors": "{\"detail\":[{\"type\":\"less_than\",\"loc\":[\"body\",\"nozzles\",0,\"circumferential_angle\"],\"msg\":\"Input should be less than 360\",\"input\":360,\"ctx\":{\"lt\":360.0}}]}"
+        "api_errors": "{\"detail\":[{\"type\":\"less_than\",\"loc\":[\"body\",\"nozzles\",0,\"circumferential_angle\"],\"msg\":\"Input should be less than 360\",\"input\":360,\"ctx\":{\"lt\":360.0}}]}",
+        "clash_marker": null
       },
-      "quantity": "position_and_interference",
-      "unit": "mixed",
+      "quantity": "clash_check",
+      "unit": "mm",
       "suite": null,
       "reference": null,
-      "ref_source": "independent cylindrical geometry",
+      "ref_source": "catalog clash_check",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "note": "Catalog row emitted, but placement/distance is absent; categorical marker is not numeric comparison.",
       "suite_status": null
     }
   ]
