@@ -1,0 +1,819 @@
+{
+  "family": "F10-nozul_yerlesim",
+  "meta": {
+    "code": "API calculation route",
+    "oracle": "x=R cos(theta), y=R sin(theta), z=axial position; geometric comparison unavailable"
+  },
+  "results": [
+    {
+      "case_id": "SHELL-01",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 200,
+        "theta_deg": 0,
+        "outside_diameter_mm": 60.3,
+        "oracle_location": {
+          "x_mm": 500.0,
+          "y_mm": 0.0,
+          "z_mm": 200.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-02",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 300,
+        "theta_deg": 45,
+        "outside_diameter_mm": 60.3,
+        "oracle_location": {
+          "x_mm": 353.5533905932738,
+          "y_mm": 353.5533905932738,
+          "z_mm": 300.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-03",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 400,
+        "theta_deg": 90,
+        "outside_diameter_mm": 60.3,
+        "oracle_location": {
+          "x_mm": 3.061616997868383e-14,
+          "y_mm": 500.0,
+          "z_mm": 400.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-04",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 500,
+        "theta_deg": 135,
+        "outside_diameter_mm": 60.3,
+        "oracle_location": {
+          "x_mm": -353.5533905932737,
+          "y_mm": 353.5533905932738,
+          "z_mm": 500.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-05",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 600,
+        "theta_deg": 180,
+        "outside_diameter_mm": 60.3,
+        "oracle_location": {
+          "x_mm": -500.0,
+          "y_mm": 6.123233995736766e-14,
+          "z_mm": 600.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-06",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 700,
+        "theta_deg": 225,
+        "outside_diameter_mm": 60.3,
+        "oracle_location": {
+          "x_mm": -353.55339059327383,
+          "y_mm": -353.5533905932737,
+          "z_mm": 700.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-07",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 800,
+        "theta_deg": 270,
+        "outside_diameter_mm": 60.3,
+        "oracle_location": {
+          "x_mm": -9.184850993605149e-14,
+          "y_mm": -500.0,
+          "z_mm": 800.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-08",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 900,
+        "theta_deg": 315,
+        "outside_diameter_mm": 60.3,
+        "oracle_location": {
+          "x_mm": 353.55339059327366,
+          "y_mm": -353.55339059327383,
+          "z_mm": 900.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-09",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 1000,
+        "theta_deg": 359.9,
+        "outside_diameter_mm": 60.3,
+        "oracle_location": {
+          "x_mm": 499.99923845664387,
+          "y_mm": -0.8726641829492227,
+          "z_mm": 1000.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-10",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 1100,
+        "theta_deg": 0,
+        "outside_diameter_mm": 100,
+        "oracle_location": {
+          "x_mm": 500.0,
+          "y_mm": 0.0,
+          "z_mm": 1100.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-11",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 1200,
+        "theta_deg": 90,
+        "outside_diameter_mm": 100,
+        "oracle_location": {
+          "x_mm": 3.061616997868383e-14,
+          "y_mm": 500.0,
+          "z_mm": 1200.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-12",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 1300,
+        "theta_deg": 180,
+        "outside_diameter_mm": 100,
+        "oracle_location": {
+          "x_mm": -500.0,
+          "y_mm": 6.123233995736766e-14,
+          "z_mm": 1300.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-13",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 1400,
+        "theta_deg": 270,
+        "outside_diameter_mm": 100,
+        "oracle_location": {
+          "x_mm": -9.184850993605149e-14,
+          "y_mm": -500.0,
+          "z_mm": 1400.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-14",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 1500,
+        "theta_deg": 0,
+        "outside_diameter_mm": 200,
+        "oracle_location": {
+          "x_mm": 500.0,
+          "y_mm": 0.0,
+          "z_mm": 1500.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-15",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 1600,
+        "theta_deg": 90,
+        "outside_diameter_mm": 200,
+        "oracle_location": {
+          "x_mm": 3.061616997868383e-14,
+          "y_mm": 500.0,
+          "z_mm": 1600.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-16",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 1700,
+        "theta_deg": 180,
+        "outside_diameter_mm": 200,
+        "oracle_location": {
+          "x_mm": -500.0,
+          "y_mm": 6.123233995736766e-14,
+          "z_mm": 1700.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-17",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 1800,
+        "theta_deg": 270,
+        "outside_diameter_mm": 200,
+        "oracle_location": {
+          "x_mm": -9.184850993605149e-14,
+          "y_mm": -500.0,
+          "z_mm": 1800.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-18",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 1900,
+        "theta_deg": 0,
+        "outside_diameter_mm": 400,
+        "oracle_location": {
+          "x_mm": 500.0,
+          "y_mm": 0.0,
+          "z_mm": 1900.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-19",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 2000,
+        "theta_deg": 90,
+        "outside_diameter_mm": 400,
+        "oracle_location": {
+          "x_mm": 3.061616997868383e-14,
+          "y_mm": 500.0,
+          "z_mm": 2000.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-20",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 2100,
+        "theta_deg": 180,
+        "outside_diameter_mm": 400,
+        "oracle_location": {
+          "x_mm": -500.0,
+          "y_mm": 6.123233995736766e-14,
+          "z_mm": 2100.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-21",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 2200,
+        "theta_deg": 270,
+        "outside_diameter_mm": 400,
+        "oracle_location": {
+          "x_mm": -9.184850993605149e-14,
+          "y_mm": -500.0,
+          "z_mm": 2200.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-22",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 2300,
+        "theta_deg": 0,
+        "outside_diameter_mm": 900,
+        "oracle_location": {
+          "x_mm": 500.0,
+          "y_mm": 0.0,
+          "z_mm": 2300.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-23",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 2400,
+        "theta_deg": 90,
+        "outside_diameter_mm": 900,
+        "oracle_location": {
+          "x_mm": 3.061616997868383e-14,
+          "y_mm": 500.0,
+          "z_mm": 2400.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-24",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 2500,
+        "theta_deg": 180,
+        "outside_diameter_mm": 900,
+        "oracle_location": {
+          "x_mm": -500.0,
+          "y_mm": 6.123233995736766e-14,
+          "z_mm": 2500.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-25",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 2600,
+        "theta_deg": 270,
+        "outside_diameter_mm": 900,
+        "oracle_location": {
+          "x_mm": -9.184850993605149e-14,
+          "y_mm": -500.0,
+          "z_mm": 2600.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-26",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 2700,
+        "theta_deg": 0,
+        "outside_diameter_mm": 1100,
+        "oracle_location": {
+          "x_mm": 500.0,
+          "y_mm": 0.0,
+          "z_mm": 2700.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-27",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 2800,
+        "theta_deg": 90,
+        "outside_diameter_mm": 1100,
+        "oracle_location": {
+          "x_mm": 3.061616997868383e-14,
+          "y_mm": 500.0,
+          "z_mm": 2800.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-28",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 2900,
+        "theta_deg": 180,
+        "outside_diameter_mm": 1100,
+        "oracle_location": {
+          "x_mm": -500.0,
+          "y_mm": 6.123233995736766e-14,
+          "z_mm": 2900.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-29",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 3000,
+        "theta_deg": 270,
+        "outside_diameter_mm": 1100,
+        "oracle_location": {
+          "x_mm": -9.184850993605149e-14,
+          "y_mm": -500.0,
+          "z_mm": 3000.0
+        },
+        "api_ok": true,
+        "api_http_status": 200,
+        "api_errors": null
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "SHELL-30",
+      "family": "F10-nozul_yerlesim",
+      "params": {
+        "host": "SHELL-01",
+        "z_mm": 3100,
+        "theta_deg": 360,
+        "outside_diameter_mm": 60.3,
+        "oracle_location": {
+          "x_mm": 500.0,
+          "y_mm": 0.0,
+          "z_mm": 3100.0
+        },
+        "api_ok": false,
+        "api_http_status": 422,
+        "api_errors": "{\"detail\":[{\"type\":\"less_than\",\"loc\":[\"body\",\"nozzles\",0,\"circumferential_angle\"],\"msg\":\"Input should be less than 360\",\"input\":360,\"ctx\":{\"lt\":360.0}}]}"
+      },
+      "quantity": "position_and_interference",
+      "unit": "mixed",
+      "suite": null,
+      "reference": null,
+      "ref_source": "independent cylindrical geometry",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API output has no nozzle placement/interference quantity; no numeric comparison.",
+      "suite_status": null
+    }
+  ]
+}
