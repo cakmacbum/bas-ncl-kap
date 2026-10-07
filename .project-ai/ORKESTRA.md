@@ -6,9 +6,9 @@ M1 panosu: `arsiv/ORKESTRA-M1.md`
 ## Pano
 | Paket | Yürütücü | Dalga | Sahip olduğu yol | Durum |
 |---|---|---|---|---|
-| P00 harness | Codex luna·medium (pilot) | 0 | `pressure-vessel-suite/tools/campaign/*.py`, `tests/campaign/` | DAĞITILDI |
-| K1–K4 kaynak avı | Claude Sonnet ×4 (WebSearch) | 0 | `docs/validation/campaign-2026-10/sources-K<n>.md` | DAĞITILDI |
-| F01–F20 aileler | Codex luna·medium ×20 | 1 | `tools/campaign/families/fNN_*/`, `docs/validation/campaign-2026-10/FNN-*.md` | BEKLİYOR |
+| P00 harness | Codex luna·medium (pilot) | 0 | `pressure-vessel-suite/tools/campaign/*.py`, `tests/campaign/` | ENTEGRE (d582f39 + şef düzeltmesi f9199de) |
+| K1–K4 kaynak avı | Claude Sonnet ×4 (WebSearch) | 0 | `docs/validation/campaign-2026-10/sources-K<n>.md` | TAMAM — 87 vaka (25/21/22/19) |
+| F01–F21 aileler (F21 flanş eklendi) | Codex luna·medium ×21 aynı anda | 1 | `tools/campaign/families/fNN_*/`, `docs/validation/campaign-2026-10/FNN-*.md` | DAĞITILDI |
 
 ## Sözleşmeler
 
