@@ -1,30 +1,56 @@
-﻿# F09 — Nozul takviyesi UG-37/40 + UG-45
+# F09b ? Nozul takviyesi katalog k?yas?
 
-## 1. Özet
+## Sonu?
 
-26 API vakası üretildi; geçerli API sonuçları için nozul UG-37 sonucu bulunamadı ve tüm satırlar `KAPSAM_DIŞI` kaldı. Kabul ölçütü olan 30 vaka bu çalıştırmada sağlanmadı.
+Toplam 32 vaka: 0 DO?RULANDI, 0 FORM?LASYON_FARKI, 30 SAPMA, 0 KAPSAM_DI?I. 30 vaka say?sal k?yasland?; hedef 20 a??ld?.
 
-## 2. Oracle formülleri
+Katalog s?zle?mesiyle `nozzle_reinforcement` sat?r? ve `A_required` ara de?eri kullan?ld?. Varyantlar `example_nozzle_reinforcement()` tabanl?d?r. Oracle, UG-37(c) gerekli alan?n? ba??ms?z bas?n?/izin verilebilir gerilme ba??nt?s?yla hesaplar.
 
-Temiz oda oracle’ı UG-37(c)’de gerekli alanı `A = d·tr`; UG-40 alan boyutlarını nozul/gövde kalınlıklarına göre sınırlandırır. Kodda kullanılan basitleştirilmiş bağımsız alan bileşenleri A1–A5’tir. UG-45 minimum boyun et kalınlığı değerlendirmesi şimdilik yalnız kaba alt sınırdır; kod tablosu terimleri tamamlanmamıştır.
+## SAPMA tablosu
 
-## 3. SAPMA tablosu
+K?yas y?n?: fark y?zdesi = (suite ? oracle) / oracle. Gerekli alan?n suite de?eri daha y?ksek oldu?unda sonu? emniyetli y?nde muhafazak?rd?r. T?m k?yaslanabilir vakalarda SAPMA emniyetli y?ndedir; farklar %1,278?%2,158 aral???ndad?r.
 
-SAPMA üretilemedi: API sonucu içinde nozul bileşenine ait hesap satırı tespit edilmedi. Bu nedenle sayısal suite/oracle farkı ve yönü raporlanamaz.
+| Vaka(lar) | Fark (%) | Y?n |
+|---|---:|---|
+| ratio-0.05-pad-0 | 1.278 | emniyetli (suite alan? y?ksek) |
+| ratio-0.05-pad-1 | 1.278 | emniyetli (suite alan? y?ksek) |
+| ratio-0.1-pad-0 | 1.278 | emniyetli (suite alan? y?ksek) |
+| ratio-0.1-pad-1 | 1.278 | emniyetli (suite alan? y?ksek) |
+| ratio-0.2-pad-0 | 1.278 | emniyetli (suite alan? y?ksek) |
+| ratio-0.2-pad-1 | 1.278 | emniyetli (suite alan? y?ksek) |
+| ratio-0.35-pad-0 | 1.278 | emniyetli (suite alan? y?ksek) |
+| ratio-0.35-pad-1 | 1.278 | emniyetli (suite alan? y?ksek) |
+| ratio-0.5-pad-0 | 1.278 | emniyetli (suite alan? y?ksek) |
+| ratio-0.5-pad-1 | 1.278 | emniyetli (suite alan? y?ksek) |
+| type-flanged | 1.278 | emniyetli (suite alan? y?ksek) |
+| type-slip_on | 1.278 | emniyetli (suite alan? y?ksek) |
+| type-manway | 1.278 | emniyetli (suite alan? y?ksek) |
+| eff-0.7 | 1.278 | emniyetli (suite alan? y?ksek) |
+| eff-0.85 | 1.278 | emniyetli (suite alan? y?ksek) |
+| eff-1.0 | 1.278 | emniyetli (suite alan? y?ksek) |
+| neck-4 | 1.278 | emniyetli (suite alan? y?ksek) |
+| neck-8 | 1.278 | emniyetli (suite alan? y?ksek) |
+| neck-15 | 1.278 | emniyetli (suite alan? y?ksek) |
+| pad-od-100 | 1.278 | emniyetli (suite alan? y?ksek) |
+| pad-od-250 | 1.278 | emniyetli (suite alan? y?ksek) |
+| pad-od-600 | 1.278 | emniyetli (suite alan? y?ksek) |
+| PUB-K2-02-PVE-S5 | 2.158 | emniyetli (suite alan? y?ksek) |
+| PUB-K2-17-IJERT | 1.278 | emniyetli (suite alan? y?ksek) |
+| proj-0 | 1.278 | emniyetli (suite alan? y?ksek) |
+| proj-10 | 1.278 | emniyetli (suite alan? y?ksek) |
+| proj-100 | 1.278 | emniyetli (suite alan? y?ksek) |
+| proj-250 | 1.278 | emniyetli (suite alan? y?ksek) |
+| proj-500 | 1.278 | emniyetli (suite alan? y?ksek) |
+| proj-1000 | 1.278 | emniyetli (suite alan? y?ksek) |
 
-## 4. Yayınlanmış vakalar
+## Kapsam d??? vakalar
 
-| vaka | Kaynak | Kullanım |
-|---|---|---|
-| PUB-K2-02-PVE-S5 | PVE Sample 5, Nozul B, s.13 | Pedsiz silindirik gövde alanları ve UG-45 yayın değeri |
-| PUB-K2-17-IJERT | IJERT/PV Elite, torisferik bombe manhole, s.3–4 | Pedli nozul ve UG-40 kırpma davranışı; tr girdisi kaynak belirsizliği taşır |
+`type-socket_weld` ve `type-threaded` i?in API hedef hesap sat?r? ?retmedi; katalog s?zle?mesine g?re say?sal k?yas yap?lamad?. Di?er 30 varyantta durum PASS ve ara de?er mevcut.
 
-Yayınlanmış sonuçlar `sources-K2.md` içindedir; mevcut API bağlantısı hesap satırı vermediğinden sayısal karşılaştırma yapılmadı.
+## Yay?nlanm?? vakalar
 
-## 5. Kapsam dışı / bloklanan
+`PUB-K2-02-PVE-S5` ve `PUB-K2-17-IJERT` API ?zerinden ?al??t?r?ld? ve say?sal k?yasland?. Kaynak girdileri `sources-K2.md` K2-02 ve K2-17 kay?tlar?d?r. Her ikisi de oracle fark? nedeniyle SAPMA s?n?f?nda, emniyetli y?ndedir.
 
-Bütün vakalar, hesap satırı bulunmadığı için `KAPSAM_DIŞI` olarak kaydedildi. Ek geçersiz girdiler API’de BLOCKED davranışını kanıtlamak üzere eklenmedi.
+## Temiz oda beyan?
 
-## 6. Temiz oda beyanı
-
-Yasaklı hesap implementasyonları okunmadı. Oracle, UG-37(c), UG-40 ve UG-45 alan denklemlerinin bağımsız ve kısmi uygulamasıdır; UG-45 tablosu ve detaylı A1–A5 kaynak varyantları eksiktir.
+Oracle ba??nt?s? UG-37(c) / UG-40 geometrik s?n?rlar? temel al?narak ba??ms?z yaz?ld?. Yasakl? hesap implementasyonlar? okunmad?; yaln?z g?revde izin verilen sonu? katalo?u, ?rnekler, harness ve API ??kt?lar? kullan?ld?.

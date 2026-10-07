@@ -1,8 +1,8 @@
 ﻿"""Temiz oda UG-37(c)/UG-40/UG-45 alan hesabı (mm, MPa)."""
 
-def calculate(*, d, t, tn, pressure, allowable, efficiency=1.0, pad_od=0.0, pad_t=0.0, projection=0.0):
+def calculate(*, d, host_d, t, tn, pressure, allowable, efficiency=1.0, pad_od=0.0, pad_t=0.0, projection=0.0):
     # UG-37(c): required area; UG-40: limits for available shell/nozzle/pad area.
-    tr = pressure * d / (2 * allowable * efficiency + 0.8 * pressure)
+    tr = pressure * host_d / (2 * allowable * efficiency + 0.8 * pressure)
     trn = pressure * d / (2 * allowable + 0.8 * pressure)
     A = d * tr
     L = min(max(d, (d/2 + tn + t)), 2.5*t, 2.5*tn)
