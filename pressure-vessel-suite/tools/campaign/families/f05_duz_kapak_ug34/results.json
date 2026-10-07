@@ -1,0 +1,694 @@
+{
+  "family": "F05-duz_kapak_ug34",
+  "meta": {
+    "code": "ASME VIII-1",
+    "clause": "UG-34(c)(2)",
+    "oracle": "t=d*sqrt(CP/SE + 1.9WhG/(SEd^3))+CA",
+    "cases": 34
+  },
+  "results": [
+    {
+      "case_id": "C017-d200-P02",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 200,
+        "P_MPa": 0.2,
+        "C": 0.17,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 3.1404739448268417,
+      "reference": 3.1404739448268417,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "C020-d200-P10",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 200,
+        "P_MPa": 1,
+        "C": 0.2,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 7.6167681111889625,
+      "reference": 7.6167681111889625,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "C025-d400-P05",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 400,
+        "P_MPa": 0.5,
+        "C": 0.25,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 12.043167820347879,
+      "reference": 12.043167820347879,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "C030-d400-P20",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 400,
+        "P_MPa": 2,
+        "C": 0.3,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 26.38525871609943,
+      "reference": 26.38525871609943,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "C033-d600-P10",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 600,
+        "P_MPa": 1,
+        "C": 0.33,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 29.351747365794637,
+      "reference": 29.351747365794637,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "C017-d600-P30",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 600,
+        "P_MPa": 3,
+        "C": 0.17,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 36.489009862538,
+      "reference": 36.489009862538,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "C020-d800-P05",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 800,
+        "P_MPa": 0.5,
+        "C": 0.2,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 21.543473528588667,
+      "reference": 21.543473528588667,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "C025-d800-P15",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 800,
+        "P_MPa": 1.5,
+        "C": 0.25,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 41.718757097842115,
+      "reference": 41.718757097842115,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "C030-d1000-P02",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 1000,
+        "P_MPa": 0.2,
+        "C": 0.3,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 20.859378548921057,
+      "reference": 20.859378548921057,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "C033-d1000-P10",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 1000,
+        "P_MPa": 1,
+        "C": 0.33,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 48.91957894299106,
+      "reference": 48.91957894299106,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "C017-d1200-P05",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 1200,
+        "P_MPa": 0.5,
+        "C": 0.17,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 29.793151794200348,
+      "reference": 29.793151794200348,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "C020-d1200-P20",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 1200,
+        "P_MPa": 2,
+        "C": 0.2,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 64.630420585766,
+      "reference": 64.630420585766,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "C025-d1400-P10",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 1400,
+        "P_MPa": 1,
+        "C": 0.25,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 59.61063942914919,
+      "reference": 59.61063942914919,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "C030-d1400-P30",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 1400,
+        "P_MPa": 3,
+        "C": 0.3,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 113.10323602509048,
+      "reference": 113.10323602509048,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "C033-d1600-P05",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 1600,
+        "P_MPa": 0.5,
+        "C": 0.33,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 55.34618560540739,
+      "reference": 55.34618560540739,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "C017-d1600-P15",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 1600,
+        "P_MPa": 1.5,
+        "C": 0.17,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 68.80433683355582,
+      "reference": 68.80433683355582,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "C020-d1800-P10",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 1800,
+        "P_MPa": 1,
+        "C": 0.2,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 68.55091300070066,
+      "reference": 68.55091300070066,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "C025-d1800-P30",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 1800,
+        "P_MPa": 3,
+        "C": 0.25,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 132.74827220951357,
+      "reference": 132.74827220951357,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "C030-d2000-P05",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 2000,
+        "P_MPa": 0.5,
+        "C": 0.3,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 65.96314679024857,
+      "reference": 65.96314679024857,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "C033-d2000-P20",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 2000,
+        "P_MPa": 2,
+        "C": 0.33,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 138.36546401351848,
+      "reference": 138.36546401351848,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "W-C020",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 600,
+        "P_MPa": 1,
+        "C": 0.2,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 22.850304333566886,
+      "reference": 22.850304333566886,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "W-C025",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 1000,
+        "P_MPa": 1,
+        "C": 0.25,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 42.57902816367799,
+      "reference": 42.57902816367799,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "W-C030",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 1600,
+        "P_MPa": 2,
+        "C": 0.3,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 105.54103486439772,
+      "reference": 105.54103486439772,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "W-C033",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 2000,
+        "P_MPa": 3,
+        "C": 0.33,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 169.4623924282742,
+      "reference": 169.4623924282742,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "CA-1",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 500,
+        "P_MPa": 1,
+        "C": 0.2,
+        "CA_mm": 1,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 19.118087959084296,
+      "reference": 20.041920277972405,
+      "ref_source": "oracle",
+      "diff_pct": -4.609500018336425,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "CA-5",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 1000,
+        "P_MPa": 1,
+        "C": 0.25,
+        "CA_mm": 5,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 43.004818445314775,
+      "reference": 47.57902816367799,
+      "ref_source": "oracle",
+      "diff_pct": -9.613920029277065,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "CA-20",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 1500,
+        "P_MPa": 2,
+        "C": 0.3,
+        "CA_mm": 20,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 101.5832460569828,
+      "reference": 118.94472018537286,
+      "ref_source": "oracle",
+      "diff_pct": -14.596254546929499,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "LOW-P",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 1000,
+        "P_MPa": 0.01,
+        "C": 0.2,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 3.808384055594481,
+      "reference": 3.808384055594481,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "HIGH-P",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 1000,
+        "P_MPa": 5,
+        "C": 0.33,
+        "CA_mm": 0,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 109.38750394719531,
+      "reference": 109.38750394719531,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "LOW-S",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 1000,
+        "P_MPa": 1,
+        "C": 0.2,
+        "CA_mm": 50,
+        "S_MPa": 50
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 69.57010852370433,
+      "reference": 113.24555320336759,
+      "ref_source": "oracle",
+      "diff_pct": -38.56702841234783,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "HIGH-S",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 1000,
+        "P_MPa": 1,
+        "C": 0.2,
+        "CA_mm": 200,
+        "S_MPa": 137.895
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 53.31737677832274,
+      "reference": 238.08384055594482,
+      "ref_source": "oracle",
+      "diff_pct": -77.60562974210161,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "INVALID-NEGATIVE-P",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 1000,
+        "P_MPa": -1,
+        "C": null,
+        "CA_mm": 2,
+        "S_MPa": 138
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": null,
+      "reference": null,
+      "ref_source": "oracle",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API/result missing: {\"detail\":[{\"type\":\"greater_than\",\"loc\":[\"body\",\"design_conditions\",\"design_pressure\"],\"msg\":\"Input should be greater than 0\",\"input\":-1,\"ctx\":{\"gt\":0.0}}]}",
+      "suite_status": "BLOCKED INVALID INPUT"
+    },
+    {
+      "case_id": "BLOCKED-MISSING-C",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 500,
+        "P_MPa": 1.2,
+        "C": null,
+        "CA_mm": 0,
+        "S_MPa": 138
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": null,
+      "reference": null,
+      "ref_source": "oracle",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "PUBLISHED-K1-05",
+      "family": "F05-duz_kapak_ug34",
+      "params": {
+        "d_mm": 609.6,
+        "pressure_mpa": 0.6894757293168361,
+        "allowable_mpa": 137.89514586336722,
+        "efficiency": 1.0,
+        "c_factor": 0.2,
+        "corrosion_mm": 0.0,
+        "published_mm": 19.27606,
+        "source": "K1-05 Codeware COMPRESS Demo Vessel, 2022, pp. 16-17"
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 19.27724461638644,
+      "reference": 19.27606,
+      "ref_source": "K1-05 Codeware COMPRESS Demo Vessel, 2022, pp. 16-17",
+      "diff_pct": 0.006145531744760468,
+      "verdict": "DOĞRULANDI",
+      "note": "Published output has C=.2 and zero corrosion allowance.",
+      "suite_status": "PASS"
+    }
+  ]
+}
