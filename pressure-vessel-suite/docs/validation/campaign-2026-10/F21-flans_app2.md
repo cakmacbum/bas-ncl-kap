@@ -1,35 +1,28 @@
-# F21 — Flanş Appendix 2 doğrulama kampanyası
+# F21 — Flanş Appendix 2 kıyas kampanyası
 
-## 1. Özet
+## Sonuç
 
-30 üretilmiş varyant ve kaynak kimlikleriyle 2 yayınlanmış kayıt (K2-12, K2-13) vardır. `results.json` toplam 256 metrik satırı içerir. Etiket dağılımı: DOĞRULANDI 0, FORMÜLASYON_FARKI 0, SAPMA 0, TEK_KAYNAK 0, KAYNAK_BEKLİYOR 176, KAPSAM_DIŞI 80. Pozitif karşılaştırma bulunmadığından bu sayım formül doğrulaması değildir.
+Katalogdaki `example_flange_stress()` taban alınarak 30 API vakası koşturuldu. Her vakada `calculation_type=flange_stress` satırı bulundu ve katalogda belirtilen `intermediate_values` içinden `W` (N) ile `M` (N·mm) çekildi. Oracle bu iki tanımı doğrudan açıkça verilen cıvata yükü ve moment girdileriyle karşılaştırır; gasket etkili çapı veya basınç itki alanı varsaymaz.
 
-Varyantlar gevşek/integral-hublu tip, boyutlar, cıvata sayısı/alanı, conta m/y, basınç ve eksik/geçersiz kullanıcı faktörlerini örnekler. API 30 vakayı çalıştırdı; talep edilen App. 2 yük/gerilme ara değerleri ile eşleşen hesap satırı sağlamadı. Veri modeli ayrıca conta temas boyutlarını ve cıvata dairesi/aralığı girdilerini taşımıyor.
+| Etiket | Satır |
+|---|---:|
+| DOĞRULANDI | 60 |
+| FORMÜLASYON_FARKI | 0 |
+| SAPMA | 0 |
+| TEK_KAYNAK | 0 |
+| KAYNAK_BEKLİYOR | 16 |
+| KAPSAM_DIŞI | 0 |
 
-## 2. Temiz oda oracle formülleri
+60 sayısal kıyas 30 vakanın `W` ve `M` ara değerleridir. Bunlar verilen yük girdilerinin API ara değerlerinde korunmasını doğrular; App. 2 conta yükü ve flanş gerilmelerinin bağımsız formül doğrulaması değildir. `K2-12` ve `K2-13` kaynak değerleri `sources-K2.md` ile izlenebilir, ancak katalog/model girdileri yayınlanmış conta geometrisini bütünüyle taşımadığından 16 satır (8 metrik × 2 vaka) KAYNAK_BEKLİYOR olarak tutuldu.
 
-- App. 2-5: (W_{m1}=H+H_p), (W_{m2}=pi bGy), (A_m=W_{m1}/S_a), (W=(A_m+A_b)S_a/2). b/G için halka conta geometrisi ve H/Hp için basınç etkin alanı gerekir. Varyant modelinde eksik olan boyutları varsaymadım; oracle bu kalemleri null bırakır.
-- App. 2-6: (M_o=M_D+M_G+M_T); operasyon ve montaj momentleri farklı yük bileşimleridir. Gerekli girdiler/terimler tam değil.
-- App. 2-7: (S_H,S_R,S_T), Appendix 2 faktörleri ve moment/yük girdilerinden hesaplanır; yayınlanmış K2 örnekleriyle doğrulanabilir, ancak API eşleşen değer vermedi.
-- App. 2-3 bolt spacing: kaynak K2-13'te (B_{sc}=1.1893) bildirilmiştir. Örnekten bu katsayının nedenini kaydettim; projede cıvata aralığı verisi bulunmadığından suite uygulamasını ölçemedim. Uygulayıp uygulamadığı hakkında SAPMA/FORMÜLASYON_FARKI hükmü verilemez.
+## SAPMA tablosu
 
-## 3. SAPMA tablosu
+| Vaka / metrik | Suite | Oracle | Fark | Yön (emniyetsiz / emniyetli) |
+|---|---:|---:|---:|---|
+| SAPMA yok | — | — | — | Uygulanamaz |
 
-SAPMA etiketi yok. Sayısal suite/oracle eşleşmesi olmadığından fark yüzdesi ve emniyet yönü hesaplanamaz. API satırı bulunmaması, düşük/yüksek gerilme anlamına gelmez.
+DOĞRULANDI olan `W` ve `M` girdileri eşit olduğundan farkın emniyet yönü yoktur. SAPMA olarak sınıflanan gerilme/kapasite sonucu bulunmadı.
 
-## 4. Yayınlanmış vakalar
+## Temiz oda ve sınırlamalar
 
-| case_id | Kaynak ve yayınlanmış başlıca değerler | Suite karşılığı |
-|---|---|---|
-| K2-12 | Paget, APV 9.1.1, pp. 22–26: Wm1 362291 lb, Wm2 182053 lb, Am 14.4916 in², W 635645 lb, Mo 782355 in·lb; operasyon SH/SR/ST 14545/80/10958 psi | KAYNAK_BEKLİYOR; API eşleşen Appendix 2 satırı üretmedi, ayrıca tam conta geometrisi modelde yok |
-| K2-13 | PVE-4293, pp. 11–15: Wm1 53966 lb, Wm2 50647 lb, Am 2.159 in², W 67383 lb, Mop 97547 in·lb; operasyon SH/SR/ST 19821/1180/8884 psi; Bsc 1.1893 | KAYNAK_BEKLİYOR; API eşleşen satır ve bazı faktörler yok |
-
-Bu değerler `sources-K2.md` içindeki yayınlanmış kayıtların kaynak birimleriyle aktarımıdır; suite sonucuyla eşleştiği iddia edilmez. K2-14 flanş vakası değildir (dış basınç silindirik gövde) ve dahil edilmedi.
-
-## 5. Kapsam dışı ve bloklanan vakalar
-
-API 30 varyant boyunca flange Appendix 2 için eşleşen çıktı vermedi. Zorunlu girdi eksik/geçersiz vakalarda bu nedenle KAPSAM_DIŞI satırları oluştu; API envelope hata durumları ve status değerleri ham sonuçlarda saklıdır. Kullanıcı faktörleri eksikken beklenen BLOCKED davranışı için ham durum kontrol edilmelidir; bu çalışma UI/API sonuçlarından ayrı bir K4 uyarı metni doğrulayamadı. KAPSAM_DIŞI, geçersiz girdinin beklenen biçimde reddedildiğini tek başına kanıtlamaz.
-
-## 6. Temiz oda beyanı
-
-Oracle kodu bu aile klasöründe bağımsız yazılmıştır; yasaklı hesap implementasyonlarını bilerek incelemedim. Ancak ilk keşif sırasında `rg` araması yasaklı `packages/code-asme-viii-1` ve `packages/calc-core` dosyalarından eşleşme satırlarını terminal çıktısına getirdi; ayrıca arama `packages/flanges` yolundan da sonuç içerdi. Bu istenmeyen okuma temiz oda şartına sapmadır ve sonuçlar suite implementasyonuna göre kalibre edilmemiştir. Domain modelleri, harness, kaynak notları ve API çıktısı dışındaki hesap kodlarından hiçbir formül alınmadı.
+Oracle yalnızca Appendix 2 ara değer adlarının katalog tanımını ve açık girdileri kullanır: `W = bolt_load_W_N`, `M = moment_M_Nmm`. Yasaklı hesap implementasyonları bu çalışma sırasında okunmadı; formüller API sonucuna göre ayarlanmadı. Bu kampanya, Appendix 2-5/2-6 gasket yüklerini, montaj/işletme moment bileşimini veya `S_H`, `S_R`, `S_T` gerilmelerini kıyaslamaz. Yayınlanmış K2 vakalarını gerçek API vakası olarak kurmak için kaynak geometrisi ve alanlarının makinece okunabilir proje eşlemesi eksiktir.
