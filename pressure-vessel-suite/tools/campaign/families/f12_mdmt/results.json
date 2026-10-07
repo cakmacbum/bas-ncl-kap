@@ -2,7 +2,8 @@
   "family": "F12-mdmt",
   "meta": {
     "code": "ASME VIII-1",
-    "oracle": "published K4 point ledger; unsupported UCS-66 curve points withheld"
+    "input_example": "tools.campaign.examples.example_mdmt_check",
+    "oracle": "published K4 MDMT points only; UCS-66 curve values withheld"
   },
   "results": [
     {
@@ -15,13 +16,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -34,13 +35,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -53,13 +54,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -72,13 +73,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -91,13 +92,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -110,13 +111,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -129,13 +130,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -148,13 +149,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -167,13 +168,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -186,13 +187,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -205,13 +206,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -224,13 +225,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -243,13 +244,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -23.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -262,13 +263,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -281,13 +282,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -300,13 +301,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -23.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -319,13 +320,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": 2.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -338,13 +339,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -357,13 +358,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -376,13 +377,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": 2.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -395,13 +396,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -414,13 +415,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -433,13 +434,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -452,13 +453,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -471,13 +472,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -490,13 +491,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -509,13 +510,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -528,13 +529,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -547,13 +548,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -566,13 +567,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -585,13 +586,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -604,13 +605,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -623,13 +624,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -23.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -642,13 +643,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -661,13 +662,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -680,13 +681,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -23.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -699,13 +700,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": 2.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -718,13 +719,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -737,13 +738,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -756,13 +757,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": 2.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -775,13 +776,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -794,13 +795,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -813,13 +814,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -832,13 +833,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -851,13 +852,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -870,13 +871,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -889,13 +890,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -908,13 +909,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -927,13 +928,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -946,13 +947,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -965,13 +966,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -984,13 +985,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1003,13 +1004,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -40.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1022,13 +1023,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1041,13 +1042,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1060,13 +1061,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -40.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1079,13 +1080,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -15.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1098,13 +1099,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1117,13 +1118,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1136,13 +1137,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -15.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1155,13 +1156,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1174,13 +1175,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1193,13 +1194,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1212,13 +1213,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1231,13 +1232,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1250,13 +1251,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1269,13 +1270,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1288,13 +1289,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1307,13 +1308,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1326,13 +1327,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1345,13 +1346,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1364,13 +1365,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1383,13 +1384,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -40.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1402,13 +1403,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1421,13 +1422,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1440,13 +1441,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -40.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1459,13 +1460,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -15.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1478,13 +1479,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1497,13 +1498,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -46.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1516,13 +1517,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -15.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1535,13 +1536,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1554,13 +1555,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1573,13 +1574,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1592,13 +1593,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1611,13 +1612,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1630,13 +1631,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1649,13 +1650,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1668,13 +1669,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1687,13 +1688,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1706,13 +1707,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1725,13 +1726,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1744,13 +1745,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1763,13 +1764,13 @@
         "status": "FAIL"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "FAIL"
     },
     {
@@ -1782,13 +1783,13 @@
         "status": "FAIL"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "FAIL"
     },
     {
@@ -1801,13 +1802,13 @@
         "status": "FAIL"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "FAIL"
     },
     {
@@ -1820,13 +1821,13 @@
         "status": "FAIL"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "FAIL"
     },
     {
@@ -1839,13 +1840,13 @@
         "status": "FAIL"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "FAIL"
     },
     {
@@ -1858,13 +1859,13 @@
         "status": "FAIL"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "FAIL"
     },
     {
@@ -1877,13 +1878,13 @@
         "status": "FAIL"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "FAIL"
     },
     {
@@ -1896,13 +1897,13 @@
         "status": "FAIL"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "FAIL"
     },
     {
@@ -1915,13 +1916,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1934,13 +1935,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1953,13 +1954,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1972,13 +1973,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -1991,13 +1992,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -2010,13 +2011,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -2029,13 +2030,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -2048,13 +2049,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -2067,13 +2068,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -2086,13 +2087,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -2105,13 +2106,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -2124,13 +2125,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -2143,13 +2144,13 @@
         "status": "FAIL"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "FAIL"
     },
     {
@@ -2162,13 +2163,13 @@
         "status": "FAIL"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "FAIL"
     },
     {
@@ -2181,13 +2182,13 @@
         "status": "FAIL"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "FAIL"
     },
     {
@@ -2200,13 +2201,13 @@
         "status": "FAIL"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "FAIL"
     },
     {
@@ -2219,13 +2220,13 @@
         "status": "FAIL"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -28.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "FAIL"
     },
     {
@@ -2238,13 +2239,13 @@
         "status": "FAIL"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "FAIL"
     },
     {
@@ -2257,13 +2258,13 @@
         "status": "FAIL"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "FAIL"
     },
     {
@@ -2276,13 +2277,13 @@
         "status": "FAIL"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -28.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "FAIL"
     },
     {
@@ -2295,13 +2296,13 @@
         "status": "FAIL"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -18.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "FAIL"
     },
     {
@@ -2314,13 +2315,13 @@
         "status": "FAIL"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "FAIL"
     },
     {
@@ -2333,13 +2334,13 @@
         "status": "FAIL"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "FAIL"
     },
     {
@@ -2352,13 +2353,13 @@
         "status": "FAIL"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -18.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "FAIL"
     },
     {
@@ -2371,13 +2372,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -8.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -2390,13 +2391,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -2409,13 +2410,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -2428,13 +2429,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -8.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -2447,13 +2448,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": 2.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -2466,13 +2467,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -2485,13 +2486,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -2504,13 +2505,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": 2.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -2523,13 +2524,13 @@
         "status": "BLOCKED MISSING INPUT"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": null,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "BLOCKED MISSING INPUT"
     },
     {
@@ -2542,13 +2543,13 @@
         "status": "BLOCKED MISSING INPUT"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": null,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "BLOCKED MISSING INPUT"
     },
     {
@@ -2561,13 +2562,13 @@
         "status": "BLOCKED MISSING INPUT"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": null,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "BLOCKED MISSING INPUT"
     },
     {
@@ -2580,13 +2581,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -2599,13 +2600,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -2618,13 +2619,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     },
     {
@@ -2637,13 +2638,13 @@
         "status": "REVIEW REQUIRED"
       },
       "quantity": "MDMT",
-      "unit": "Â°C",
+      "unit": "°C",
       "suite": -29.0,
       "reference": null,
       "ref_source": "none",
       "diff_pct": null,
       "verdict": "KAYNAK_BEKLİYOR",
-      "note": "No admissible numeric curve reference.",
+      "note": "Catalog has no independent numeric curve reference for this point.",
       "suite_status": "REVIEW REQUIRED"
     }
   ]

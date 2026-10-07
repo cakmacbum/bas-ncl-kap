@@ -1,7 +1,8 @@
-"""Small, deliberate grid for UCS-66 inputs."""
+﻿"""Small, deliberate grid for UCS-66 inputs."""
 from copy import deepcopy
 
-from tools.campaign.bases import vertical_leg_tank, with_code
+from tools.campaign.bases import with_code
+from tools.campaign.examples import example_mdmt_check
 
 
 def variants():
@@ -11,7 +12,7 @@ def variants():
     for group in "ABCD":
         for thickness in (6, 12, 25, 50, 100):
             index += 1
-            project = vertical_leg_tank()
+            project = example_mdmt_check()
             project = with_code(project, "ASME VIII-1")
             project["shell_sections"][0]["nominal_thickness"] = thickness
             project["shell_sections"][0]["internal_corrosion_allowance"] = 0
@@ -19,25 +20,24 @@ def variants():
                 material["ucs66_curve_group"] = group
             project["design_conditions"]["impact_test_temperature_C"] = -20
             yield f"GRID-{index:02d}", project
-    for ratio, impact, pwht in ((0.35, None, False), (0.65, -20, False),
-                                (0.85, -40, True), (0.95, 0, True),
-                                (1.0, 20, False)):
+    for impact, pwht in ((None, False), (-20, False), (-40, True), (0, True), (20, False)):
         index += 1
-        project = vertical_leg_tank()
+        project = example_mdmt_check()
         project = with_code(project, "ASME VIII-1")
         project["shell_sections"][0]["nominal_thickness"] = 25
         project["design_conditions"]["impact_test_temperature_C"] = impact
         for material in project["materials"]:
             material["ucs66_curve_group"] = "B"
-        # PWHT is represented as weld state; ratio is a documented input axis.
+        # The catalogue does not expose a verified ratio input fixture; do not
+        # claim this note is an API input or a tested ratio variation.
         for weld in project["welds"]:
             weld["pwht_required"] = pwht
-        project["materials"][0]["notes"] = f"campaign coincident ratio target {ratio}"
+        project["materials"][0].pop("notes", None)
         yield f"EDGE-{index:02d}", project
     for thickness, temperature in ((6, -46), (10, -20), (18, -10), (25, 0),
                                    (40, 10), (60, 20), (80, -30), (100, -46)):
         index += 1
-        project = vertical_leg_tank()
+        project = example_mdmt_check()
         project = with_code(project, "ASME VIII-1")
         project["shell_sections"][0]["nominal_thickness"] = thickness
         project["design_conditions"]["impact_test_temperature_C"] = temperature
@@ -47,7 +47,7 @@ def variants():
     # Deliberately absent curve group and missing impact-test temperature.
     for label, curve, impact in (("NO-CURVE", None, -20), ("NO-IMPACT", "B", None)):
         index += 1
-        project = vertical_leg_tank()
+        project = example_mdmt_check()
         project = with_code(project, "ASME VIII-1")
         project["design_conditions"]["impact_test_temperature_C"] = impact
         for material in project["materials"]:
