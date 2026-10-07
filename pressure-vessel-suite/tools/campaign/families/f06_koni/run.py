@@ -1,4 +1,4 @@
-from pathlib import Path
+﻿from pathlib import Path
 from tools.campaign.harness import run_case, find_results, value_of
 from tools.campaign.compare import CaseResult, judge, write_results
 from .variants import variants
@@ -20,7 +20,7 @@ def run():
         stress=material["allowable_stress"]
         thickness=project["cones"][0]["nominal_thickness"]
         ref=required_thickness(pressure,dia,angle,stress,1.0)/0.875
-        result=next((r for r in cone if "UG-32" in str(r.get("clause_reference","")) or "1-4" in str(r.get("clause_reference",""))),None)
+        result=next((r for r in find_results(payload,component_id="CONE-01",calculation_type="thickness") if "UG-32(g)" in str(r.get("clause_reference",""))),None)
         suite=value_of(result,"t_nominal_required") if result else None
         if suite is None and result: suite=value_of(result,"final_result")
         status=(result or {}).get("status")
@@ -29,12 +29,15 @@ def run():
         mawp_row=next((r for r in find_results(payload,component_id="CONE-01",calculation_type="mawp") if "UG-32(g)" in str(r.get("clause_reference",""))),None)
         suite_mawp=value_of(mawp_row,"mawp") if mawp_row else None
         if suite_mawp is None and mawp_row: suite_mawp=value_of(mawp_row,"final_result")
-        ref_mawp=mawp(thickness,dia,angle,stress,1.0)
+        ref_mawp=mawp(thickness-project["cones"][0]["internal_corrosion_allowance"],dia,angle,stress,1.0)
         mdiff,mverdict=judge(suite_mawp,ref_mawp,suite_status=(mawp_row or {}).get("status"),formulation_note="UG-32(g) ic cap")
         rows.append(CaseResult(case_id+"-MAWP",FAMILY,{"angle_deg":angle,"pressure_mpa":pressure,"large_diameter_mm":dia},"mawp","MPa",suite_mawp,ref_mawp,"oracle",mdiff,mverdict,"Nominal thickness based UG-32(g) pressure inversion.",(mawp_row or {}).get("status")))
-        # Bağlantı takviyesi API çıktısı ayrı kayıt: bağımsız App 1-5 değer seti bulunmadığından kaynak bekliyor.
-        rows.append(CaseResult(case_id+"-APP15",FAMILY,{"angle_deg":angle,"junction":"large"},"reinforcement_area","mm2",None,None,"",None,"KAPSAM_DIŞI","Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.","BLOCKED MISSING INPUT"))
+        junction=next(iter(find_results(payload,component_id="J-L",calculation_type="junction_check")),None)
+        rows.append(CaseResult(case_id+"-APP15",FAMILY,{"angle_deg":angle,"junction":"large"},"junction_check","status",None,None,"K2-18 only stress context",None,"KAPSAM_DIÅI","Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle.",(junction or {}).get("status")))
     write_results(Path(__file__).parent,FAMILY,rows,{"code":"ASME VIII-1","oracle":"UG-32(g) independent; Appendix 1-5 external published reference missing"})
 
 
 if __name__ == "__main__": run()
+
+
+

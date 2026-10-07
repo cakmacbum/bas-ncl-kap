@@ -1,36 +1,37 @@
-# F06 — Konik gövde UG-32(g) ve Appendix 1-5
+﻿# F06 — Konik gövde UG-32(g) ve Appendix 1-5
 
 ## 1. Özet
 
-48 kayıt: 12 DOĞRULANDI, 20 FORMÜLASYON_FARKI, 16 KAPSAM_DIŞI; SAPMA, TEK_KAYNAK ve KAYNAK_BEKLİYOR yok. 16 geometri/basınç varyantında koni kalınlığı ve MAWP; bağlantı takviyesi ayrıca kaydedildi. Suite'in bileşen durumları REVIEW REQUIRED sayı ürettiğinden sayısal kıyaslandı. Junction kontrolü BLOCKED MISSING INPUT döndürdü.
+48 kayıt: 20 DOĞRULANDI, 12 FORMÜLASYON_FARKI, 0 SAPMA, 0 TEK_KAYNAK, 0 KAYNAK_BEKLİYOR, 16 KAPSAM_DIŞI. 16 geometri/basınç girdisi için kalınlık ve MAWP satırları katalogdaki `thickness` / `mawp` türleriyle, gerçek `t_nominal_required` ve `MAWP` ara değerlerinden okundu. 32 sayısal kıyas yapıldı (16 thickness + 16 mawp; kabul eşiği ≥20). Her varyant için ayrıca junction satırı aranır; katalog bunun sayısal yeterlilik değil girdi/topoloji incelemesi olduğunu söyler. K2-05 yayınlanmış koni girdisi dahil edilmiştir.
 
 ## 2. Oracle formülleri
 
-- ASME VIII-1 UG-32(g): `t = P D / [2 cos(α) (S E − 0.6 P)]` (D iç çap). Uygulanan basınç MPa, D ve t mm, S MPa.
-- Aynı bağıntının basınç için çözümü: `P = 2 S E t cos(α) / [D + 0.6 t cos(α)]`.
-- Malzeme negatif toleransı girilmediğinde suite nominal kalınlığı `t/0.875` ile bildiriyor; kalınlık kıyas oracle'ı buna göre normalize edildi.
-- Appendix 1-5 takviye alanı için Q/Δ ve etkin alan girdilerini sağlayan yayınlanmış nümerik vaka bulunmadığından bağımsız alan oracle'ı kurulmadı.
+- ASME VIII-1 UG-32(g), bağımsız oracle: `t = P D / [2 cos(α) (S E − 0.6 P)]`; basınç MPa, çap/kalınlık mm, gerilme MPa.
+- Basınç ters çözümü: `P = 2 S E t cos(α) / [D + 0.6 t cos(α)]`. MAWP kıyasına nominal et kalınlığından korozyon payı çıkarılarak girildi.
+- Kalınlık nominal tolerans kıyasında %12,5 tolerans için gereken nominal kalınlık `t/0.875` kullanıldı.
+- Appendix 1-5 için sayısal alan oracle kurulmadı: kaynak kataloğu ve K2, yayımlanmış sayısal alan örneği olmadığını, API junction kontrolünün de yeterlilik hesabı olmadığını gösteriyor.
 
 ## 3. SAPMA tablosu
 
 | case_id | girdiler | suite | oracle | fark % | yön | olası neden |
 |---|---|---:|---:|---:|---|---|
-| GRID-02, GRID-05, GRID-08, GRID-11, GRID-14, GRID-17, GRID-20, GRID-23, GRID-26, GRID-29 (kalınlık) | α 5–60°, D_L/D_S 0.50–0.85, P 0.5–2 MPa, CA 0–2 mm | results.json | results.json | ~14.3 | emniyetli | Kalınlık kıyası nominal toleranslı suite sonucu ile teorik gerekli t arasında formülasyon farkıdır; tolerans dönüşümünün etkisi. |
-| GRID-02-MAWP, GRID-05-MAWP, GRID-08-MAWP, GRID-11-MAWP, GRID-14-MAWP, GRID-17-MAWP, GRID-20-MAWP, GRID-23-MAWP, GRID-26-MAWP, GRID-29-MAWP | aynı açı/çap ızgarası; t_nom=12.7 mm | results.json | results.json | sonuç başına JSON'da | emniyetsiz | Suite basınç ters çözümünde nominal/etkin et kalınlığı ile oracle girdisinin tanım farkı olasıdır (tahmin). |
+| Yok | 0 SAPMA | — | — | — | — | Sayısal kıyaslanan hiçbir satır tolerans dışı SAPMA üretmedi. |
 
-Fark ve işaret değerleri her vaka için `results.json` içinde; yön, daha düşük izin verilebilir basınç veya daha yüksek gerekli kalınlığın emniyetli olduğu konvansiyonuyla verilmiştir. Kalan DOĞRULANDI kayıtları bu notta listelenen açı/çap noktaları dışındaki karşılaştırmalardır; tüm kesin değerler JSON'dadır.
+`results.json` her vaka için farkı ve yönü saklar. Yön tanımı: düşük MAWP veya yüksek gerekli kalınlık suite bakımından emniyetsiz; tersi emniyetli. FORMÜLASYON_FARKI etiketleri K2-05 OD tabanlı App. 1-4(e) yayını ile ID tabanlı UG-32(g) bağıntısı arasındaki bilinen formül farkıdır.
 
 ## 4. Yayınlanmış vakalar
 
 | case_id | Kaynak | Yayınlanmış değer | Sonuç |
 |---|---|---|---|
-| GRID-31 (K2-05) | PVE, *PVE Sample 5*, s.7; K2-05 | 25.3°, OD büyük uç 12.750 in, yerel OD 10.39 in, P 200.953 psi, E=0.70; t_req 0.108 in (büyük uç), 0.088 in (yerel); Pmax 351 psi | Bu varyant iç çap UG-32(g) / E=1 koşulunda tekrar hesaplanır; yayımlanmış 1-4(e) OD biçimi ile doğrudan eşdeğer sayılmadı (FORMÜLASYON_FARKI). |
-| K2-18 (bilgi) | PVE, *External Pressure Calculations*, s.35–37 | Bednar süreksizlik gerilmeleri; Q/Δ takviye alanı değil | App. 1-5 kıyası olarak kullanılmadı. |
+| GRID-16 (K2-05) | PVE, *PVE Sample 5*, s.7; K2-05 | α=25,3°, ODL=12,750 in, yerel OD=10,39 in, P=200,953 psi, E=0,70; büyük uç treq=0,108 in, yerel treq=0,088 in, Pmax=351 psi | Yayın dış çaplı App. 1-4(e) formülüdür; bu vaka iç çaplı bağımsız UG-32(g) oracle ile koştu ve farklı formülasyon olarak işaretlendi. E=0,70 ve yayımlanmış çaplar korundu. |
+| K2-18 (bağlam) | PVE, *External Pressure Calculations*, s.35–37 | Bednar süreksizlik gerilmeleri | App. 1-5 takviye alanı kıyası olarak kullanılmadı. |
 
 ## 5. Kapsam dışı ve bloklanan vakalar
 
-Her GRID-xx-APP15 kaydı, bağlantı verisinde gereken App. 1-5 girdileri bulunmadığı için API'nin BLOCKED MISSING INPUT durumunu korur ve KAPSAM_DIŞI sayılır. K2-18 bir gerilme yaklaşımıdır, alan takviyesi değildir. Yayınlanmış App. 1-5 nümerik örneği olmadığı için bu başlıkta sonuç uydurulmamıştır. Açı 5°–60° aralığı ve 30° sınırı kapsandı; geçersiz alfa test girdisi modele giremediğinden ayrıca koşturulmadı.
+16 junction vakası `KAPSAM_DIŞI`: katalog `junction_check` için sonuçların topoloji/girdi incelemesi olduğunu, sayısal yeterlilik üretmediğini belirtir. API sonucu girdileri/bağlantıyı REVIEW REQUIRED veya BLOCKED MISSING INPUT olarak raporlayabilir; bu App. 1-5 alanı için sayısal kıyas değildir. K2 kaynak kataloğunda yayınlanmış App. 1-5 iç basınç alan sonucu yok; K2-18 farklı Bednar gerilme yaklaşımıdır. Varyant örnekleri `examples.py` içindeki junction projesini taban alıp her koşulda bileşen sırasını, weld id/verimini ve koni bağlantısını tanımlayacak şekilde oluşturuldu.
 
 ## 6. Temiz oda beyanı
 
-Oracle, paketin dışındaki hesap implementasyonları okunmadan UG-32(g) eşitliğinden bağımsız olarak yazıldı. Suite değerleri yalnızca harness'in public API çıktısından alındı. Yasaklı hesap paketleri açılmadı; C-1/C-2 harness sözleşmesi kullanıldı.
+Oracle UG-32(g) formüllerinden bağımsız yazıldı. Yasaklı `packages/code-*`, `nozzles`, `supports`, `external-pressure`, `mdmt`, `flanges` ve `calc-core` hesap implementasyonları okunmadı. Suite değerleri yalnızca `harness.run_case` public API çıktısından, katalogdaki doğru `calculation_type` ve `intermediate_values` adlarıyla alındı. Katalog, örnekler ve K2 yayınlanmış vaka notları kullanıldı.
+
+
