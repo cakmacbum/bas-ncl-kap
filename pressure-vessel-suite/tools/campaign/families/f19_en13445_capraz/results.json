@@ -12,17 +12,17 @@
       "params": {
         "code": "EN 13445",
         "P_MPa": 0.5,
-        "z": 0.7,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
       "suite": 1.822141560798548,
-      "reference": 3.912704598597039,
+      "reference": 1.8148820326678765,
       "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": -53.4301270417423,
-      "verdict": "SAPMA",
+      "diff_pct": 0.4000000000000021,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "PASS"
     },
@@ -32,17 +32,17 @@
       "params": {
         "code": "ASME VIII-1",
         "P_MPa": 0.5,
-        "z": 0.7,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 0.7,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
-      "suite": null,
-      "reference": 3.912704598597039,
-      "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
+      "suite": 2.6064382139148496,
+      "reference": 2.596053997923157,
+      "ref_source": "oracle: ASME VIII-1 UG-27(c)(1)",
+      "diff_pct": 0.40000000000000285,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "PASS"
     },
@@ -52,17 +52,17 @@
       "params": {
         "code": "EN 13445",
         "P_MPa": 1.2,
-        "z": 0.85,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
       "suite": 4.384279475982533,
-      "reference": 7.762886597938143,
+      "reference": 4.366812227074235,
       "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": -43.52256186317321,
-      "verdict": "SAPMA",
+      "diff_pct": 0.4000000000000111,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "PASS"
     },
@@ -72,17 +72,17 @@
       "params": {
         "code": "ASME VIII-1",
         "P_MPa": 1.2,
-        "z": 0.85,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 0.85,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
-      "suite": null,
-      "reference": 7.762886597938143,
-      "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
+      "suite": 5.167267112712301,
+      "reference": 5.14668039114771,
+      "ref_source": "oracle: ASME VIII-1 UG-27(c)(1)",
+      "diff_pct": 0.40000000000000235,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "PASS"
     },
@@ -92,17 +92,17 @@
       "params": {
         "code": "EN 13445",
         "P_MPa": 2.0,
-        "z": 1.0,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
       "suite": 7.328467153284672,
-      "reference": 11.032967032967033,
+      "reference": 7.299270072992701,
       "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": -33.57664233576642,
-      "verdict": "SAPMA",
+      "diff_pct": 0.4000000000000056,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "PASS"
     },
@@ -112,17 +112,17 @@
       "params": {
         "code": "ASME VIII-1",
         "P_MPa": 2.0,
-        "z": 1.0,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
-      "suite": null,
-      "reference": 11.032967032967033,
-      "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
+      "suite": 7.339181286549707,
+      "reference": 7.309941520467835,
+      "ref_source": "oracle: ASME VIII-1 UG-27(c)(1)",
+      "diff_pct": 0.39999999999999925,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "PASS"
     },
@@ -132,17 +132,17 @@
       "params": {
         "code": "EN 13445",
         "P_MPa": 4.0,
-        "z": 0.7,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
       "suite": 14.764705882352942,
-      "reference": 32.17948717948718,
+      "reference": 14.705882352941176,
       "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": -54.11764705882353,
-      "verdict": "SAPMA",
+      "diff_pct": 0.4000000000000107,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "FAIL"
     },
@@ -152,17 +152,17 @@
       "params": {
         "code": "ASME VIII-1",
         "P_MPa": 4.0,
-        "z": 0.7,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 0.7,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
-      "suite": null,
-      "reference": 32.17948717948718,
-      "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
+      "suite": 21.31634819532909,
+      "reference": 21.231422505307858,
+      "ref_source": "oracle: ASME VIII-1 UG-27(c)(1)",
+      "diff_pct": 0.40000000000000824,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "FAIL"
     },
@@ -172,17 +172,17 @@
       "params": {
         "code": "EN 13445",
         "P_MPa": 8.25,
-        "z": 0.85,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
       "suite": 30.935574229691877,
-      "reference": 55.909551130610865,
+      "reference": 30.81232492997199,
       "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": -44.668534080298784,
-      "verdict": "SAPMA",
+      "diff_pct": 0.3999999999999985,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "FAIL"
     },
@@ -192,17 +192,17 @@
       "params": {
         "code": "ASME VIII-1",
         "P_MPa": 8.25,
-        "z": 0.85,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 0.85,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
-      "suite": null,
-      "reference": 55.909551130610865,
-      "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
+      "suite": 36.86248331108144,
+      "reference": 36.715620827770366,
+      "ref_source": "oracle: ASME VIII-1 UG-27(c)(1)",
+      "diff_pct": 0.39999999999998304,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "FAIL"
     },
@@ -212,17 +212,17 @@
       "params": {
         "code": "EN 13445",
         "P_MPa": 1.2,
-        "z": 1.0,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
       "suite": 4.384279475982533,
-      "reference": 6.590809628008752,
+      "reference": 4.366812227074235,
       "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": -33.478893740902464,
-      "verdict": "SAPMA",
+      "diff_pct": 0.4000000000000111,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "PASS"
     },
@@ -232,17 +232,17 @@
       "params": {
         "code": "ASME VIII-1",
         "P_MPa": 1.2,
-        "z": 1.0,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
-      "suite": null,
-      "reference": 6.590809628008752,
-      "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
+      "suite": 4.388111888111888,
+      "reference": 4.370629370629371,
+      "ref_source": "oracle: ASME VIII-1 UG-27(c)(1)",
+      "diff_pct": 0.40000000000000047,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "PASS"
     },
@@ -252,17 +252,17 @@
       "params": {
         "code": "EN 13445",
         "P_MPa": 4.0,
-        "z": 1.0,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
       "suite": 14.764705882352942,
-      "reference": 22.31111111111111,
+      "reference": 14.705882352941176,
       "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": -33.823529411764696,
-      "verdict": "SAPMA",
+      "diff_pct": 0.4000000000000107,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "FAIL"
     },
@@ -272,17 +272,17 @@
       "params": {
         "code": "ASME VIII-1",
         "P_MPa": 4.0,
-        "z": 1.0,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
-      "suite": null,
-      "reference": 22.31111111111111,
-      "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
+      "suite": 14.80825958702065,
+      "reference": 14.749262536873157,
+      "ref_source": "oracle: ASME VIII-1 UG-27(c)(1)",
+      "diff_pct": 0.40000000000000263,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "FAIL"
     },
@@ -292,17 +292,17 @@
       "params": {
         "code": "EN 13445",
         "P_MPa": 8.25,
-        "z": 1.0,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
       "suite": 30.935574229691877,
-      "reference": 47.12944523470839,
+      "reference": 30.81232492997199,
       "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": -34.360410830999065,
-      "verdict": "SAPMA",
+      "diff_pct": 0.3999999999999985,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "FAIL"
     },
@@ -312,17 +312,17 @@
       "params": {
         "code": "ASME VIII-1",
         "P_MPa": 8.25,
-        "z": 1.0,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
-      "suite": null,
-      "reference": 47.12944523470839,
-      "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
+      "suite": 31.127395715896277,
+      "reference": 31.003382187147686,
+      "ref_source": "oracle: ASME VIII-1 UG-27(c)(1)",
+      "diff_pct": 0.40000000000000174,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "FAIL"
     },
@@ -332,17 +332,17 @@
       "params": {
         "code": "EN 13445",
         "P_MPa": 0.5,
-        "z": 1.0,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
       "suite": 1.822141560798548,
-      "reference": 2.7356948228882834,
+      "reference": 1.8148820326678765,
       "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": -33.39382940108893,
-      "verdict": "SAPMA",
+      "diff_pct": 0.4000000000000021,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "PASS"
     },
@@ -352,17 +352,17 @@
       "params": {
         "code": "ASME VIII-1",
         "P_MPa": 0.5,
-        "z": 1.0,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
-      "suite": null,
-      "reference": 2.7356948228882834,
-      "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
+      "suite": 1.822803195352215,
+      "reference": 1.815541031227306,
+      "ref_source": "oracle: ASME VIII-1 UG-27(c)(1)",
+      "diff_pct": 0.3999999999999931,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "PASS"
     },
@@ -372,17 +372,17 @@
       "params": {
         "code": "EN 13445",
         "P_MPa": 2.0,
-        "z": 0.7,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
       "suite": 7.328467153284672,
-      "reference": 15.835962145110413,
+      "reference": 7.299270072992701,
       "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": -53.72262773722628,
-      "verdict": "SAPMA",
+      "diff_pct": 0.4000000000000056,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "PASS"
     },
@@ -392,17 +392,17 @@
       "params": {
         "code": "ASME VIII-1",
         "P_MPa": 2.0,
-        "z": 0.7,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 0.7,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
-      "suite": null,
-      "reference": 15.835962145110413,
-      "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
+      "suite": 10.524109014675053,
+      "reference": 10.482180293501049,
+      "ref_source": "oracle: ASME VIII-1 UG-27(c)(1)",
+      "diff_pct": 0.4000000000000027,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "FAIL"
     },
@@ -412,17 +412,17 @@
       "params": {
         "code": "EN 13445",
         "P_MPa": 8.25,
-        "z": 0.7,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
       "suite": 30.935574229691877,
-      "reference": 68.71007880547492,
+      "reference": 30.81232492997199,
       "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": -54.97665732959851,
-      "verdict": "SAPMA",
+      "diff_pct": 0.3999999999999985,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "FAIL"
     },
@@ -432,17 +432,17 @@
       "params": {
         "code": "ASME VIII-1",
         "P_MPa": 8.25,
-        "z": 0.7,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 0.7,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
-      "suite": null,
-      "reference": 68.71007880547492,
-      "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
+      "suite": 45.18821603927987,
+      "reference": 45.00818330605565,
+      "ref_source": "oracle: ASME VIII-1 UG-27(c)(1)",
+      "diff_pct": 0.4000000000000016,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "FAIL"
     },
@@ -452,17 +452,17 @@
       "params": {
         "code": "EN 13445",
         "P_MPa": 1.2,
-        "z": 1.0,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
       "suite": 4.384279475982533,
-      "reference": 6.590809628008752,
+      "reference": 4.366812227074235,
       "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": -33.478893740902464,
-      "verdict": "SAPMA",
+      "diff_pct": 0.4000000000000111,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "PASS"
     },
@@ -472,17 +472,17 @@
       "params": {
         "code": "ASME VIII-1",
         "P_MPa": 1.2,
-        "z": 1.0,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
-      "suite": null,
-      "reference": 6.590809628008752,
-      "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
+      "suite": 4.388111888111888,
+      "reference": 4.370629370629371,
+      "ref_source": "oracle: ASME VIII-1 UG-27(c)(1)",
+      "diff_pct": 0.40000000000000047,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "PASS"
     },
@@ -492,17 +492,17 @@
       "params": {
         "code": "EN 13445",
         "P_MPa": 1.2,
-        "z": 1.0,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
       "suite": 4.384279475982533,
-      "reference": 6.590809628008752,
+      "reference": 4.366812227074235,
       "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": -33.478893740902464,
-      "verdict": "SAPMA",
+      "diff_pct": 0.4000000000000111,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "PASS"
     },
@@ -512,17 +512,17 @@
       "params": {
         "code": "ASME VIII-1",
         "P_MPa": 1.2,
-        "z": 1.0,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138.0
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
-      "suite": null,
-      "reference": 6.590809628008752,
-      "ref_source": "oracle: EN 13445-3 7.4.2",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
+      "suite": 4.388111888111888,
+      "reference": 4.370629370629371,
+      "ref_source": "oracle: ASME VIII-1 UG-27(c)(1)",
+      "diff_pct": 0.40000000000000047,
+      "verdict": "DOĞRULANDI",
       "note": "",
       "suite_status": "PASS"
     },
@@ -532,14 +532,14 @@
       "params": {
         "code": "EN 13445",
         "P_MPa": 0,
-        "z": 1.0,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
       "suite": null,
-      "reference": 0.0,
+      "reference": null,
       "ref_source": "oracle: EN 13445-3 7.4.2",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
@@ -552,15 +552,15 @@
       "params": {
         "code": "ASME VIII-1",
         "P_MPa": 0,
-        "z": 1.0,
-        "Di_mm": 1000,
-        "f_EN_MPa": 92.0
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
       "suite": null,
-      "reference": 0.0,
-      "ref_source": "oracle: EN 13445-3 7.4.2",
+      "reference": null,
+      "ref_source": "oracle: ASME VIII-1 UG-27(c)(1)",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
       "note": "{\"detail\":[{\"type\":\"greater_than\",\"loc\":[\"body\",\"design_conditions\",\"design_pressure\"],\"msg\":\"Input should be greater than 0\",\"input\":0,\"ctx\":{\"gt\":0.0}}]}",
@@ -572,14 +572,14 @@
       "params": {
         "code": "EN 13445",
         "P_MPa": 1.2,
-        "z": 1.0,
-        "Di_mm": 1000,
-        "f_EN_MPa": null
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
       "suite": null,
-      "reference": null,
+      "reference": 4.366812227074235,
       "ref_source": "oracle: EN 13445-3 7.4.2",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
@@ -592,15 +592,15 @@
       "params": {
         "code": "ASME VIII-1",
         "P_MPa": 1.2,
-        "z": 1.0,
-        "Di_mm": 1000,
-        "f_EN_MPa": null
+        "z_or_E": 1.0,
+        "inside_radius_mm": 500.0,
+        "allowable_MPa": 138
       },
       "quantity": "shell_required_thickness",
       "unit": "mm",
       "suite": null,
-      "reference": null,
-      "ref_source": "oracle: EN 13445-3 7.4.2",
+      "reference": 4.370629370629371,
+      "ref_source": "oracle: ASME VIII-1 UG-27(c)(1)",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
       "note": "{\"detail\":[{\"type\":\"float_type\",\"loc\":[\"body\",\"materials\",0,\"yield_strength\"],\"msg\":\"Input should be a valid number\",\"input\":null}]}",
