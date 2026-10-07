@@ -1,34 +1,32 @@
-# F18 — Rüzgâr, deprem ve yük kombinasyonları
+# F18 — Rüzgâr ve deprem yük girdileri (2026-10-07)
 
-## 1. Özet
+## Sonuç
 
-`results.json` 31 kayıt içerir: 18 rüzgâr hızı/bölge/ölçü ızgara vakası, 6 sınır/geçersiz girdi, 6 yük faktörü varyantı ve 1 yayınlanmış vaka. Etiket dağılımı: DOĞRULANDI 0 · FORMÜLASYON_FARKI 0 · SAPMA 0 · TEK_KAYNAK 1 · KAYNAK_BEKLİYOR 30 · KAPSAM_DIŞI 0. API hesap payload'ında rüzgâr/deprem satırı bulunmadığından nicel kıyas yapılamadı.
+`results.json` 37 kayıt içerir: 18 katalog `global_load_case` API vakasından türetilen 36 sayısal skaler kıyas (kesme ve devrilme momenti) ve K3-19 yayımlanmış kaynak kaydı. Etiket dağılımı: **DOĞRULANDI 36 · FORMÜLASYON_FARKI 0 · SAPMA 0 · TEK_KAYNAK 1 · KAYNAK_BEKLİYOR 0 · KAPSAM_DIŞI 0**. 36 kıyasın tamamında fark %0.
 
-## 2. Oracle formülleri
+## Katalog sınırı ve oracle
 
-1. Düzgün dağılmış rüzgâr yükü için dinamik basınç: `q = 0.613 V²` (N/m²).
-2. Projeksiyon kuvveti: `F = q Cf A`; düzgün dağılım varsayımıyla taban momenti `M = F h/2`.
-3. Deprem taban kesmesi: `V = Cs W`. Faktörlü bileşim `Σ γᵢ Lᵢ`; devrilme momenti `V h/2`.
-4. Bu denklemler temel bağımsız kontrollerdir; `Cf`, ağırlık, etkin yükseklik ve API'den eşleşen sonuç olmadığı için vaka başına sayısal oracle üretilemedi.
+Katalog rüzgâr/deprem için doğrudan bir hesaplama türü tanımlamıyor. Rüzgâr/deprem girdileri `global_load_case` içinde taşınıyor; bu sonuç `REVIEW REQUIRED` durumunda `resultant_shear`, `overturning_moment` ve diğer yük ara değerlerini sağlıyor. `global_load_combination` ise wind+seismic eşzamanlılığını kabul etmiyor. Bu nedenle 18 projede kataloğun tetikleyicisi ve alan adları aynen kullanıldı; her projeye bir açık yatay dış kuvvet (`fx_n`) ve moment (`my_nmm`) eklendi. Rüzgâr hızı ve deprem bölge katsayısı varyant eksenleri olarak saklandı, fakat API bu değerlerden rüzgâr basıncı veya deprem kuvveti türetmiyor.
 
-## 3. SAPMA tablosu
+Oracle sıfırdan doğrudan denge girdilerinden yazıldı: tek yatay bileşen için `V = |Fx|`, tek devrilme momenti için `M = |My|`. Bu, API'nin raporladığı yük bileşenlerinin aktarımını doğrular; rüzgâr/deprem mühendislik denklemlerini veya tasarım yeterliliğini doğrulamaz. Katalogdan edinilen yük alanları ve ara değer adları dışında hesap kodu kullanılmadı.
 
-SAPMA yok. Rüzgâr/deprem API sonucu bulunmadığı için suite ve oracle değerleri kıyaslanamadı; emniyetsiz/emniyetli yön tayin edilemez. İlgili 30 kayıt `KAYNAK_BEKLİYOR` etiketlidir.
+## SAPMA tablosu
 
-| case_id | suite | oracle | fark | yön | açıklama |
-|---|---:|---:|---:|---|---|
-| GRID-01…18, EDGE-*, INVALID-*, MISSING-WIND, FACTOR-* | yok | eşleşen vaka değeri yok | — | tayin edilemez | API payload'ında rüzgâr/deprem sonucu yok |
+Sayısal SAPMA bulunmadı; bu nedenle emniyetsiz/emniyetli yönlü sapma yoktur.
 
-## 4. Yayınlanmış vakalar
+| case_id | API türü / ara değer | Suite | Oracle | Fark | Yön |
+|---|---|---:|---:|---:|---|
+| LOAD-01…18 kesme kıyasları | `global_load_case` / `resultant_shear` | 1,000 veya 2,500 N | aynı | %0 | SAPMA yok |
+| LOAD-01…18 moment kıyasları | `global_load_case` / `overturning_moment` | 200,000 veya 500,000 N·mm | aynı | %0 | SAPMA yok |
 
-| case_id | Kaynak ve yayınlanmış değer | Suite karşılaştırması | Etiket |
-|---|---|---|---|
-| K3-19-PUBLISHED | ASCE Petrochemical Committee, *Wind Loads for Petrochemical and Other Industrial Facilities* (2011), §6.4, s.140–149. Ayrıntılı yöntem toplam taban kesmesi 58,868 lb; basit yöntem 82,496 lb. | API'de eşleşen ASCE yöntemi/çıktısı yok. `results.json` ayrıntılı toplamı kaynak değeri olarak saklar. | TEK_KAYNAK |
+## Yayımlanmış vaka
 
-## 5. Kapsam dışı ve bloklanan vakalar
+| Vaka | Kaynak değeri | API durumu |
+|---|---|---|
+| K3-19-PUBLISHED | ASCE Petrochemical Committee (2011), §6.4, ayrıntılı toplam taban kesmesi 58,868 lb (basit yöntem 82,496 lb) | `global_load_case` ASCE §6.4 yöntemini/çıktısını üretmediğinden TEK_KAYNAK; suite API vakası olarak sayılmadı. |
 
-API, projeleri kabul edip hesap payload'ı döndürdü; ancak payload'larda rüzgâr/deprem hesap satırı olmadığından geçerli varyantlarda hesaplanabilir taban kesmesi/momenti yoktu. Bu yüzden bunları `KAPSAM_DIŞI` diye etiketlemek yerine kaynak eksikliği olarak `KAYNAK_BEKLİYOR` kaydettik. `INVALID-NEGATIVE`, `MISSING-WIND` ve `INVALID-ZONE` de API tarafından BLOCKED dönmedi; eksik/geçersiz durum için zorunlu BLOCKED davranışı doğrulanamadı. K3-19 bağımsız yayınlanmış kaynakla sınırlı kaldı.
+K3-03 (NBC 2005 deprem+rüzgâr), K3-09 ve K3-10 için kaynak notlarında suite'in tetikleyebileceği eşleşen hesap girdisi/çıktısı belirtilmiyor; K3-19 ise yayımlanmış ASCE toplamını verir ancak API yöntemi bu toplamı hesaplamaz. Bunları gerçek API doğrulaması gibi sunmak doğru olmayacağından kaynak kıyasları genişletilmedi.
 
-## 6. Temiz oda beyanı
+## Temiz oda beyanı
 
-Oracle, basınç ve yük hesaplama implementasyonlarını okumadan bu ailede sıfırdan yazılmış temel denklemleri kullanır. Yasaklı paketler açılmadı; suite değerleri yalnızca kampanya harness'inin API payload'ından okunmaya çalışıldı. Domain şeması, harness belgeleri/kodları, kaynak politikası ve K3 kaynak kaydı okundu. `.project-ai/ORKESTRA.md` worktree'de bulunmadı. Temiz oda kuralına uyuldu.
+Oracle denklemleri bu ailede açık `fx_n` ve `my_nmm` değerlerinden bağımsız olarak yazıldı. Yasaklı kod paketleri, nozzles, supports, external-pressure, mdmt, flanges ve calc-core implementasyonları okunmadı. Sonuç satırları public API harness'inden, alan sözleşmesi ise `RESULT_CATALOG.md` ve `examples.py` içeriğinden alındı. Temiz oda kuralına uyuldu.
