@@ -1,0 +1,662 @@
+{
+  "family": "F17-lokal_kaynak",
+  "meta": {
+    "code": "ASME VIII-1",
+    "source": "engineering-source-review-2026-09-30.md §3; sources-K3.md K3-22",
+    "oracle": "closed line-integral identities; WRC dimensional scaling only"
+  },
+  "results": [
+    {
+      "case_id": "RECT-01",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 50,
+        "d_mm": 100,
+        "wrc_factor": 1.0,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "RECT-02",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 70,
+        "d_mm": 120,
+        "wrc_factor": 1.0,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "RECT-03",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 100,
+        "d_mm": 200,
+        "wrc_factor": 1.0,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "RECT-04",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 150,
+        "d_mm": 250,
+        "wrc_factor": 1.0,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "RECT-05",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 200,
+        "d_mm": 300,
+        "wrc_factor": 1.0,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "RECT-06",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 100,
+        "d_mm": 100,
+        "wrc_factor": 1.0,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "RECT-07",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 25,
+        "d_mm": 200,
+        "wrc_factor": 1.0,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "RECT-08",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 300,
+        "d_mm": 50,
+        "wrc_factor": 1.0,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "RECT-09",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 75,
+        "d_mm": 225,
+        "wrc_factor": 1.0,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "RECT-10",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 250,
+        "d_mm": 125,
+        "wrc_factor": 1.0,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "RECT-11",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 400,
+        "d_mm": 400,
+        "wrc_factor": 1.0,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "RECT-12",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 10,
+        "d_mm": 10,
+        "wrc_factor": 1.0,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "RECT-13",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 500,
+        "d_mm": 100,
+        "wrc_factor": 1.0,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "CIRCLE-01",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "circle",
+        "b_mm": 50,
+        "d_mm": 50,
+        "diameter_mm": 50,
+        "wrc_factor": 1.0,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "CIRCLE-02",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "circle",
+        "b_mm": 100,
+        "d_mm": 100,
+        "diameter_mm": 100,
+        "wrc_factor": 1.0,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "CIRCLE-03",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "circle",
+        "b_mm": 200,
+        "d_mm": 200,
+        "diameter_mm": 200,
+        "wrc_factor": 1.0,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "CIRCLE-04",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "circle",
+        "b_mm": 500,
+        "d_mm": 500,
+        "diameter_mm": 500,
+        "wrc_factor": 1.0,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "CIRCLE-05",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "circle",
+        "b_mm": 1000,
+        "d_mm": 1000,
+        "diameter_mm": 1000,
+        "wrc_factor": 1.0,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "WRC-SCALE-01",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 100,
+        "d_mm": 200,
+        "wrc_factor": 0.25,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "WRC-SCALE-02",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 100,
+        "d_mm": 200,
+        "wrc_factor": 0.5,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "WRC-SCALE-03",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 100,
+        "d_mm": 200,
+        "wrc_factor": 1.0,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "WRC-SCALE-04",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 100,
+        "d_mm": 200,
+        "wrc_factor": 2.0,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "WRC-SCALE-05",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 100,
+        "d_mm": 200,
+        "wrc_factor": 4.0,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "PAD-01",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 100,
+        "d_mm": 100,
+        "wrc_factor": 1.0,
+        "support_pad_length_mm": 100,
+        "support_pad_width_mm": 100
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "PAD-02",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 250,
+        "d_mm": 180,
+        "wrc_factor": 1.0,
+        "support_pad_length_mm": 250,
+        "support_pad_width_mm": 180
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "PAD-03",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 400,
+        "d_mm": 250,
+        "wrc_factor": 1.0,
+        "support_pad_length_mm": 400,
+        "support_pad_width_mm": 250
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "PAD-04",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 600,
+        "d_mm": 400,
+        "wrc_factor": 1.0,
+        "support_pad_length_mm": 600,
+        "support_pad_width_mm": 400
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "API yanıtında lokal kaynak/WRC büyüklüğü yok; suite Lw/Sw/Jw/kaynak gerilmesi üretmedi.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "INVALID-ZERO",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 0,
+        "d_mm": 200,
+        "wrc_factor": 1.0,
+        "invalid": true
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API çıktı zarfı: 422; {\"detail\":[{\"type\":\"greater_than\",\"loc\":[\"body\",\"design_conditions\",\"design_pressure\"],\"msg\":\"Input should be greater than 0\",\"input\":-1.0,\"ctx\":{\"gt\":0.0}}]}",
+      "suite_status": "BLOCKED INVALID INPUT"
+    },
+    {
+      "case_id": "INVALID-NEGATIVE",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 100,
+        "d_mm": -1,
+        "wrc_factor": 1.0,
+        "invalid": true
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API çıktı zarfı: 422; {\"detail\":[{\"type\":\"greater_than\",\"loc\":[\"body\",\"design_conditions\",\"design_pressure\"],\"msg\":\"Input should be greater than 0\",\"input\":-1.0,\"ctx\":{\"gt\":0.0}}]}",
+      "suite_status": "BLOCKED INVALID INPUT"
+    },
+    {
+      "case_id": "INVALID-MISSING",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": null,
+        "d_mm": 200,
+        "wrc_factor": 1.0,
+        "invalid": true
+      },
+      "quantity": "weld_stress",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Blodgett bağımsız çizgi integrali",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API çıktı zarfı: 422; {\"detail\":[{\"type\":\"greater_than\",\"loc\":[\"body\",\"design_conditions\",\"design_pressure\"],\"msg\":\"Input should be greater than 0\",\"input\":-1.0,\"ctx\":{\"gt\":0.0}}]}",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "PUB-K3-22",
+      "family": "F17-lokal_kaynak",
+      "params": {
+        "shape": "rectangle",
+        "b_mm": 70,
+        "d_mm": 120,
+        "force_N": 10000,
+        "moment_Nmm": 1600000
+      },
+      "quantity": "Sw",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 13200.0,
+      "ref_source": "sources-K3.md K3-22",
+      "diff_pct": null,
+      "verdict": "TEK_KAYNAK",
+      "note": "Yayınlanan Iu/c türetimi Sw=13,200 mm² ile örtüşür; suite API'sinde Sw alanı bulunmuyor.",
+      "suite_status": null
+    }
+  ]
+}

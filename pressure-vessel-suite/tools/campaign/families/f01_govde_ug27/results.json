@@ -1,0 +1,1673 @@
+{
+  "family": "F01-govde-ug27",
+  "meta": {
+    "code": "ASME VIII-1",
+    "oracle": "UG-27(c)(1), clean-room arithmetic"
+  },
+  "results": [
+    {
+      "case_id": "grid-01:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 0.1
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 0.15009005403241946,
+      "reference": 0.15009005403241946,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-01:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 0.1
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 12.345679012345679,
+      "reference": 12.345679012345679,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-01:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 0.1
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 150.0,
+      "reference": 150.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-02:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 0.5
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 1.2340216322517208,
+      "reference": 1.2340216322517208,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-02:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 0.5
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 6.4507474128018405,
+      "reference": 6.4507474128018405,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-02:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 0.5
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 251.0,
+      "reference": 251.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-03:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1.0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 4.1875,
+      "reference": 4.1875,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-03:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 4.212209302325581,
+      "reference": 4.212209302325581,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-03:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1.0
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 402.0,
+      "reference": 402.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-04:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1.2
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 4.388111888111888,
+      "reference": 4.388111888111888,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-04:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1.2
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 4.183453940934871,
+      "reference": 3.9181515566869005,
+      "ref_source": "oracle",
+      "diff_pct": 6.771110826358758,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-04:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1.2
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 502.0,
+      "reference": 502.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-05:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 2.0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 11.923990498812351,
+      "reference": 11.923990498812351,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-05:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 2.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 2.84001572327044,
+      "reference": 2.84001572327044,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-05:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 2.0
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 753.0,
+      "reference": 753.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-06:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 3.0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 27.33212341197822,
+      "reference": 27.33212341197822,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "grid-06:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 3.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 1.4939235253433454,
+      "reference": 1.2741121772677813,
+      "ref_source": "oracle",
+      "diff_pct": 17.25211892621023,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "grid-06:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 3.0
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 1004.0,
+      "reference": 1004.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "grid-07:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 4.0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 28.968713789107763,
+      "reference": 28.968713789107763,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "grid-07:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 4.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 2.77337559429477,
+      "reference": 2.77337559429477,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "grid-07:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 4.0
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 1250.0,
+      "reference": 1250.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "grid-08:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 5.0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 50.166666666666664,
+      "reference": 50.166666666666664,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "grid-08:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 5.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 1.2644628099173554,
+      "reference": 1.1637674449368345,
+      "ref_source": "oracle",
+      "diff_pct": 8.652533237513472,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "grid-08:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 5.0
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 1505.0,
+      "reference": 1505.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "grid-09:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 7.5
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 102.49027237354086,
+      "reference": 102.49027237354086,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "grid-09:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 7.5
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 1.0553162548175017,
+      "reference": 1.0553162548175017,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "grid-09:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 7.5
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 1756.0,
+      "reference": 1756.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "grid-10:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 10.0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 103.4020618556701,
+      "reference": 103.4020618556701,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "grid-10:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 10.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 1.1426300362660837,
+      "reference": 0.9444748222896058,
+      "ref_source": "oracle",
+      "diff_pct": 20.98046547139372,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "grid-10:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 10.0
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 2006.0,
+      "reference": 2006.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "thin-11:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 0.385
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 1.8150531551281144,
+      "reference": 1.8150531551281144,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "thin-11:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 0.385
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 4.166666666666667,
+      "reference": 4.166666666666667,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "thin-11:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 0.385
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 600.0,
+      "reference": 600.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "thick-12:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 10.0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 23.4375,
+      "reference": 23.4375,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "thick-12:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 10.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 7.632398753894081,
+      "reference": 7.632398753894081,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "thick-12:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 10.0
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 150.0,
+      "reference": 150.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "mill-13:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1.5
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 4.480712166172107,
+      "reference": 4.480712166172107,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "mill-13:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1.5
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 5.078702216511403,
+      "reference": 5.078702216511403,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "mill-13:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1.5
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 302.0,
+      "reference": 302.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "mill-14:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1.5
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 4.480712166172107,
+      "reference": 4.480712166172107,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "mill-14:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1.5
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 5.869565217391304,
+      "reference": 5.869565217391304,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "mill-14:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1.5
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 302.0,
+      "reference": 302.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "ca-15:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 2.5
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 8.351648351648352,
+      "reference": 8.351648351648352,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "ca-15:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 2.5
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 4.160206718346253,
+      "reference": 4.160206718346253,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "ca-15:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 2.5
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 456.0,
+      "reference": 456.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "ca-16:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 2.5
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 8.241758241758241,
+      "reference": 8.241758241758241,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "ca-16:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 2.5
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 5.974025974025974,
+      "reference": 4.214659685863874,
+      "ref_source": "oracle",
+      "diff_pct": 41.74397031539888,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "ca-16:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 2.5
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 450.0,
+      "reference": 450.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "eff-17:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 2.0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 7.219020172910662,
+      "reference": 7.219020172910662,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "eff-17:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 2.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 5.191256830601093,
+      "reference": 5.191256830601093,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "eff-17:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 2.0
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 501.0,
+      "reference": 501.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "eff-18:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 2.0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 5.936018957345971,
+      "reference": 5.936018957345971,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "eff-18:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 2.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 6.3036690085870415,
+      "reference": 6.3036690085870415,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "eff-18:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 2.0
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 501.0,
+      "reference": 501.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "eff-19:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 2.0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 5.040241448692153,
+      "reference": 5.040241448692153,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "eff-19:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 2.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 7.41608118657299,
+      "reference": 7.41608118657299,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "eff-19:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 2.0
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 501.0,
+      "reference": 501.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "large-20:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 0.1
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 2.8595939376608523,
+      "reference": 2.8595939376608523,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "large-20:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 0.1
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 0.6093011688634667,
+      "reference": 0.6093011688634667,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "large-20:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 0.1
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 2000.0,
+      "reference": 2000.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "large-21:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 10.0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 149.70149253731344,
+      "reference": 149.70149253731344,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "large-21:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 10.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 0.7998410253862586,
+      "reference": 0.6611323756027241,
+      "ref_source": "oracle",
+      "diff_pct": 20.980465471393707,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "large-21:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 10.0
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 2006.0,
+      "reference": 2006.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "outside-22:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 2.0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 8.47545219638243,
+      "reference": 8.440999138673558,
+      "ref_source": "oracle",
+      "diff_pct": 0.40816326530612085,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "outside-22:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 2.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 4.199284009546539,
+      "reference": 4.2160543130990416,
+      "ref_source": "oracle",
+      "diff_pct": -0.39777247414479544,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "outside-22:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 2.0
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 492.0,
+      "reference": 490.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.40816326530612246,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "outside-23:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 3.0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 17.72727272727273,
+      "reference": 17.73845007451565,
+      "ref_source": "oracle",
+      "diff_pct": -0.06301197227473004,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "outside-23:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 3.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 2.452126336732156,
+      "reference": 2.2904191616766467,
+      "ref_source": "oracle",
+      "diff_pct": 7.060156401116361,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "outside-23:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 3.0
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 793.0,
+      "reference": 793.5,
+      "ref_source": "oracle",
+      "diff_pct": -0.0630119722747322,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "outside-24:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1.0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 6.911928651059085,
+      "reference": 6.911928651059085,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "outside-24:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 2.8753993610223643,
+      "reference": 2.8753993610223643,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "outside-24:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1.0
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 1240.0,
+      "reference": 1240.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "medium-25:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 4.0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 28.904876099120706,
+      "reference": 28.904876099120706,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "medium-25:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 4.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 1.8871286043197018,
+      "reference": 1.60967175321111,
+      "ref_source": "oracle",
+      "diff_pct": 17.236859040055666,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "medium-25:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 4.0
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 904.0,
+      "reference": 904.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "medium-26:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 6.0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 38.576429404900814,
+      "reference": 38.576429404900814,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "medium-26:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 6.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 2.8306973400431343,
+      "reference": 2.8306973400431343,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "medium-26:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 6.0
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 1102.0,
+      "reference": 1102.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "medium-27:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 0.8
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 3.930998431782541,
+      "reference": 3.930998431782541,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "medium-27:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 0.8
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 3.2923037056232185,
+      "reference": 3.0975862963924214,
+      "ref_source": "oracle",
+      "diff_pct": 6.286101196198249,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "medium-27:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 0.8
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 376.0,
+      "reference": 376.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "medium-28:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1.8
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 10.33083531347103,
+      "reference": 10.33083531347103,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "medium-28:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1.8
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 2.9434346599811967,
+      "reference": 2.9434346599811967,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "medium-28:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1.8
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": 628.0,
+      "reference": 628.0,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "invalid-p-29:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": null,
+      "reference": null,
+      "ref_source": "oracle",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API result missing or case intentionally invalid",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "invalid-p-29:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "oracle",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API result missing or case intentionally invalid",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "invalid-p-29:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 0
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": null,
+      "reference": null,
+      "ref_source": "oracle",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API result missing or case intentionally invalid",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "invalid-d-30:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": null,
+      "reference": null,
+      "ref_source": "oracle",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API result missing or case intentionally invalid",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "invalid-d-30:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "oracle",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API result missing or case intentionally invalid",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "invalid-d-30:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": null,
+      "reference": null,
+      "ref_source": "oracle",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API result missing or case intentionally invalid",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "invalid-s-31:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": null,
+      "reference": null,
+      "ref_source": "oracle",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API result missing or case intentionally invalid",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "invalid-s-31:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "oracle",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API result missing or case intentionally invalid",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "invalid-s-31:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": null,
+      "reference": null,
+      "ref_source": "oracle",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API result missing or case intentionally invalid",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "missing-mat-32:required_thickness",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": null,
+      "reference": null,
+      "ref_source": "oracle",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API result missing or case intentionally invalid",
+      "suite_status": "NOT CALCULATED"
+    },
+    {
+      "case_id": "missing-mat-32:mawp",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "oracle",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API result missing or case intentionally invalid",
+      "suite_status": "NOT CALCULATED"
+    },
+    {
+      "case_id": "missing-mat-32:used_radius",
+      "family": "F01-govde-ug27",
+      "params": {
+        "project": "CAMPAIGN-VERTICAL-LEG",
+        "pressure_mpa": 1
+      },
+      "quantity": "used_radius",
+      "unit": "mm",
+      "suite": null,
+      "reference": null,
+      "ref_source": "oracle",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "API result missing or case intentionally invalid",
+      "suite_status": "NOT CALCULATED"
+    },
+    {
+      "case_id": "K1-16",
+      "family": "F01-govde-ug27",
+      "params": {
+        "published_anchor": true
+      },
+      "quantity": "required_thickness",
+      "unit": "in",
+      "suite": null,
+      "reference": 0.2437,
+      "ref_source": "PVEng PVE-6847, pp.15-16; App.1-1(a)(1) outer-radius alternate; 0.2437 in",
+      "diff_pct": null,
+      "verdict": "TEK_KAYNAK",
+      "note": "Published anchor recorded; no matching independently runnable source case.",
+      "suite_status": null
+    },
+    {
+      "case_id": "K1-18",
+      "family": "F01-govde-ug27",
+      "params": {
+        "published_anchor": true
+      },
+      "quantity": "required_thickness",
+      "unit": "in",
+      "suite": null,
+      "reference": 0.127,
+      "ref_source": "PVEng PVE-3247, p.2; UG-27(c)(1), CA case; 0.127 in",
+      "diff_pct": null,
+      "verdict": "TEK_KAYNAK",
+      "note": "Published anchor recorded; no matching independently runnable source case.",
+      "suite_status": null
+    }
+  ]
+}

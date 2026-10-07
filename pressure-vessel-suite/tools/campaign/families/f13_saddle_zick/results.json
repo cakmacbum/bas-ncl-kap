@@ -1,0 +1,3138 @@
+{
+  "family": "F13-saddle_zick",
+  "meta": {
+    "code": "Zick 1951 / ASME VIII-2 4.15 mapping",
+    "oracle": "F13-local equations; external K values not tabulated",
+    "api_ok_cases": 32
+  },
+  "results": [
+    {
+      "case_id": "R1-base",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-base",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-base",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-base",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-short_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 3500,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          4500
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-short_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 3500,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          4500
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-short_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 3500,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          4500
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-short_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 3500,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          4500
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-long_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 7000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          6000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-long_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 7000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          6000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-long_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 7000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          6000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-long_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 7000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          6000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-a_low",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 300,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-a_low",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 300,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-a_low",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 300,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-a_low",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 300,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-a_high",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1400,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-a_high",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1400,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-a_high",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1400,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-a_high",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1400,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-theta_150",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 150,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-theta_150",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 150,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-theta_150",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 150,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-theta_150",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 150,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-theta_135",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 135,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-theta_135",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 135,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-theta_135",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 135,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-theta_135",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 135,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-width_narrow",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 150,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-width_narrow",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 150,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-width_narrow",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 150,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-width_narrow",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 150,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-width_wide",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 400,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-width_wide",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 400,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-width_wide",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 400,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-width_wide",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 400,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-ring",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": true,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-ring",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": true,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-ring",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": true,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R1-ring",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": true,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 0.85
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-base",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-base",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-base",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-base",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-short_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 3500,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          4500
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-short_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 3500,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          4500
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-short_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 3500,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          4500
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-short_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 3500,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          4500
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-long_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 7000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          6000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-long_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 7000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          6000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-long_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 7000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          6000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-long_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 7000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          6000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-a_low",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 300,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-a_low",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 300,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-a_low",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 300,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-a_low",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 300,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-a_high",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1400,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-a_high",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1400,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-a_high",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1400,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-a_high",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1400,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-theta_150",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 150,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-theta_150",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 150,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-theta_150",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 150,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-theta_150",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 150,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-theta_135",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 135,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-theta_135",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 135,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-theta_135",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 135,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-theta_135",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 135,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-width_narrow",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 150,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-width_narrow",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 150,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-width_narrow",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 150,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-width_narrow",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 150,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-width_wide",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 400,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-width_wide",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 400,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-width_wide",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 400,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-width_wide",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 400,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-ring",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": true,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-ring",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": true,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-ring",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": true,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R2-ring",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": true,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.0
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-base",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-base",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-base",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-base",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-short_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 3500,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          4500
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-short_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 3500,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          4500
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-short_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 3500,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          4500
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-short_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 3500,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          4500
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-long_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 7000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          6000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-long_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 7000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          6000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-long_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 7000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          6000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-long_L",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 7000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          3000,
+          6000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-a_low",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 300,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-a_low",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 300,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-a_low",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 300,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-a_low",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 300,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-a_high",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1400,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-a_high",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1400,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-a_high",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1400,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-a_high",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1400,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-theta_150",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 150,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-theta_150",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 150,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-theta_150",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 150,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-theta_150",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 150,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-theta_135",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 135,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-theta_135",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 135,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-theta_135",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 135,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-theta_135",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 135,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-width_narrow",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 150,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-width_narrow",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 150,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-width_narrow",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 150,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-width_narrow",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 150,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-width_wide",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 400,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-width_wide",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 400,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-width_wide",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 400,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-width_wide",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 400,
+        "theta_deg": 120,
+        "ring": false,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-ring",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": true,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-ring",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": true,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-ring",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": true,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "R3-ring",
+      "family": "F13-saddle_zick",
+      "params": {
+        "L_mm": 5000,
+        "b_mm": 250,
+        "theta_deg": 120,
+        "ring": true,
+        "A_mm": 1000,
+        "saddle_positions_mm": [
+          4000,
+          5000
+        ],
+        "weight_scale_label": 1.15
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "invalid-missing-K",
+      "family": "F13-saddle_zick",
+      "params": {
+        "invalid": "K1 missing"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "invalid-missing-K",
+      "family": "F13-saddle_zick",
+      "params": {
+        "invalid": "K1 missing"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "invalid-missing-K",
+      "family": "F13-saddle_zick",
+      "params": {
+        "invalid": "K1 missing"
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "invalid-missing-K",
+      "family": "F13-saddle_zick",
+      "params": {
+        "invalid": "K1 missing"
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "invalid-angle",
+      "family": "F13-saddle_zick",
+      "params": {
+        "invalid": "angle 160 deg"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "invalid-angle",
+      "family": "F13-saddle_zick",
+      "params": {
+        "invalid": "angle 160 deg"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "invalid-angle",
+      "family": "F13-saddle_zick",
+      "params": {
+        "invalid": "angle 160 deg"
+      },
+      "quantity": "S3_shell",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    },
+    {
+      "case_id": "invalid-angle",
+      "family": "F13-saddle_zick",
+      "params": {
+        "invalid": "angle 160 deg"
+      },
+      "quantity": "S4",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Independent reaction/load not published for this variant.",
+      "suite_status": null
+    }
+  ]
+}

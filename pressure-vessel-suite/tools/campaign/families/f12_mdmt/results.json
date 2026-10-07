@@ -1,0 +1,2650 @@
+{
+  "family": "F12-mdmt",
+  "meta": {
+    "code": "ASME VIII-1",
+    "oracle": "published K4 point ledger; unsupported UCS-66 curve points withheld"
+  },
+  "results": [
+    {
+      "case_id": "GRID-01:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "A",
+        "thickness_mm": 6,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-01:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "A",
+        "thickness_mm": 6,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-01:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "A",
+        "thickness_mm": 6,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-01:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "A",
+        "thickness_mm": 6,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-02:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "A",
+        "thickness_mm": 12,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-02:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "A",
+        "thickness_mm": 12,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-02:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "A",
+        "thickness_mm": 12,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-02:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "A",
+        "thickness_mm": 12,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-03:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "A",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-03:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "A",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-03:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "A",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-03:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "A",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-04:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "A",
+        "thickness_mm": 50,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -23.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-04:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "A",
+        "thickness_mm": 50,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-04:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "A",
+        "thickness_mm": 50,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-04:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "A",
+        "thickness_mm": 50,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -23.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-05:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "A",
+        "thickness_mm": 100,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": 2.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-05:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "A",
+        "thickness_mm": 100,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-05:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "A",
+        "thickness_mm": 100,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-05:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "A",
+        "thickness_mm": 100,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": 2.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-06:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 6,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-06:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 6,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-06:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 6,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-06:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 6,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-07:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 12,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-07:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 12,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-07:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 12,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-07:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 12,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-08:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-08:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-08:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-08:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-09:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 50,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -23.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-09:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 50,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-09:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 50,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-09:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 50,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -23.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-10:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 100,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": 2.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-10:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 100,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-10:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 100,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-10:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 100,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": 2.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-11:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "C",
+        "thickness_mm": 6,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-11:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "C",
+        "thickness_mm": 6,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-11:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "C",
+        "thickness_mm": 6,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-11:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "C",
+        "thickness_mm": 6,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-12:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "C",
+        "thickness_mm": 12,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-12:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "C",
+        "thickness_mm": 12,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-12:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "C",
+        "thickness_mm": 12,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-12:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "C",
+        "thickness_mm": 12,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-13:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "C",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-13:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "C",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-13:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "C",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-13:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "C",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-14:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "C",
+        "thickness_mm": 50,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -40.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-14:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "C",
+        "thickness_mm": 50,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-14:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "C",
+        "thickness_mm": 50,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-14:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "C",
+        "thickness_mm": 50,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -40.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-15:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "C",
+        "thickness_mm": 100,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -15.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-15:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "C",
+        "thickness_mm": 100,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-15:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "C",
+        "thickness_mm": 100,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-15:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "C",
+        "thickness_mm": 100,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -15.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-16:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "D",
+        "thickness_mm": 6,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-16:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "D",
+        "thickness_mm": 6,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-16:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "D",
+        "thickness_mm": 6,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-16:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "D",
+        "thickness_mm": 6,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-17:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "D",
+        "thickness_mm": 12,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-17:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "D",
+        "thickness_mm": 12,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-17:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "D",
+        "thickness_mm": 12,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-17:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "D",
+        "thickness_mm": 12,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-18:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "D",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-18:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "D",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-18:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "D",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-18:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "D",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-19:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "D",
+        "thickness_mm": 50,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -40.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-19:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "D",
+        "thickness_mm": 50,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-19:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "D",
+        "thickness_mm": 50,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-19:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "D",
+        "thickness_mm": 50,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -40.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-20:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "D",
+        "thickness_mm": 100,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -15.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-20:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "D",
+        "thickness_mm": 100,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-20:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "D",
+        "thickness_mm": 100,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -46.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-20:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "D",
+        "thickness_mm": 100,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -15.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "EDGE-21:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": null,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "EDGE-21:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": null,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "EDGE-21:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": null,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "EDGE-21:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": null,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "EDGE-22:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "EDGE-22:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "EDGE-22:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "EDGE-22:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "EDGE-23:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -40,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "EDGE-23:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -40,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "EDGE-23:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -40,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "EDGE-23:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": -40,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "EDGE-24:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": 0,
+        "status": "FAIL"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "EDGE-24:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": 0,
+        "status": "FAIL"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "EDGE-24:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": 0,
+        "status": "FAIL"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "EDGE-24:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": 0,
+        "status": "FAIL"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "EDGE-25:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": 20,
+        "status": "FAIL"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "EDGE-25:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": 20,
+        "status": "FAIL"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "EDGE-25:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": 20,
+        "status": "FAIL"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "EDGE-25:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": 20,
+        "status": "FAIL"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "TEMP-26:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 6,
+        "impact_test_temperature_C": -46,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "TEMP-26:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 6,
+        "impact_test_temperature_C": -46,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "TEMP-26:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 6,
+        "impact_test_temperature_C": -46,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "TEMP-26:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 6,
+        "impact_test_temperature_C": -46,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "TEMP-27:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 10,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "TEMP-27:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 10,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "TEMP-27:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 10,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "TEMP-27:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 10,
+        "impact_test_temperature_C": -20,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "TEMP-28:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 18,
+        "impact_test_temperature_C": -10,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "TEMP-28:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 18,
+        "impact_test_temperature_C": -10,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "TEMP-28:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 18,
+        "impact_test_temperature_C": -10,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "TEMP-28:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 18,
+        "impact_test_temperature_C": -10,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "TEMP-29:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": 0,
+        "status": "FAIL"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "TEMP-29:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": 0,
+        "status": "FAIL"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "TEMP-29:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": 0,
+        "status": "FAIL"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "TEMP-29:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 25,
+        "impact_test_temperature_C": 0,
+        "status": "FAIL"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "TEMP-30:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 40,
+        "impact_test_temperature_C": 10,
+        "status": "FAIL"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -28.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "TEMP-30:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 40,
+        "impact_test_temperature_C": 10,
+        "status": "FAIL"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "TEMP-30:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 40,
+        "impact_test_temperature_C": 10,
+        "status": "FAIL"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "TEMP-30:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 40,
+        "impact_test_temperature_C": 10,
+        "status": "FAIL"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -28.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "TEMP-31:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 60,
+        "impact_test_temperature_C": 20,
+        "status": "FAIL"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -18.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "TEMP-31:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 60,
+        "impact_test_temperature_C": 20,
+        "status": "FAIL"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "TEMP-31:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 60,
+        "impact_test_temperature_C": 20,
+        "status": "FAIL"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "TEMP-31:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 60,
+        "impact_test_temperature_C": 20,
+        "status": "FAIL"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -18.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "TEMP-32:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 80,
+        "impact_test_temperature_C": -30,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -8.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "TEMP-32:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 80,
+        "impact_test_temperature_C": -30,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "TEMP-32:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 80,
+        "impact_test_temperature_C": -30,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "TEMP-32:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 80,
+        "impact_test_temperature_C": -30,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -8.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "TEMP-33:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 100,
+        "impact_test_temperature_C": -46,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": 2.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "TEMP-33:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 100,
+        "impact_test_temperature_C": -46,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "TEMP-33:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 100,
+        "impact_test_temperature_C": -46,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "TEMP-33:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 100,
+        "impact_test_temperature_C": -46,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": 2.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "INVALID-34-NO-CURVE:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": null,
+        "thickness_mm": 12,
+        "impact_test_temperature_C": -20,
+        "status": "BLOCKED MISSING INPUT"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": null,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "INVALID-34-NO-CURVE:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": null,
+        "thickness_mm": 12,
+        "impact_test_temperature_C": -20,
+        "status": "BLOCKED MISSING INPUT"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": null,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "INVALID-34-NO-CURVE:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": null,
+        "thickness_mm": 12,
+        "impact_test_temperature_C": -20,
+        "status": "BLOCKED MISSING INPUT"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": null,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "INVALID-35-NO-IMPACT:SHELL-01",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 12,
+        "impact_test_temperature_C": null,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "INVALID-35-NO-IMPACT:HEAD-L",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 12,
+        "impact_test_temperature_C": null,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "INVALID-35-NO-IMPACT:HEAD-R",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 12,
+        "impact_test_temperature_C": null,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "INVALID-35-NO-IMPACT:MDMT-GOVERNING",
+      "family": "F12-mdmt",
+      "params": {
+        "curve_group": "B",
+        "thickness_mm": 12,
+        "impact_test_temperature_C": null,
+        "status": "REVIEW REQUIRED"
+      },
+      "quantity": "MDMT",
+      "unit": "Â°C",
+      "suite": -29.0,
+      "reference": null,
+      "ref_source": "none",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "No admissible numeric curve reference.",
+      "suite_status": "REVIEW REQUIRED"
+    }
+  ]
+}

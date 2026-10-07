@@ -1,0 +1,734 @@
+{
+  "family": "F09-nozul-takviye",
+  "meta": {
+    "code": "ASME VIII-1",
+    "oracle": "UG-37(c), UG-40, UG-45"
+  },
+  "results": [
+    {
+      "case_id": "ratio-0.05-pad-0",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 41.0,
+          "inside_diameter": 25.0,
+          "neck_thickness": 8.0,
+          "material_id": "M1",
+          "reinforcement_pad": false,
+          "outside_projection": 30.0,
+          "reinforcement_pad_thickness": null,
+          "reinforcement_pad_od": null
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 2.7079722703639515,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 2.7079722703639515, 'A1': 475.66724436741765, 'A2': 315.6672443674177, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 791.3344887348353, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "ratio-0.05-pad-1",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 41.0,
+          "inside_diameter": 25.0,
+          "neck_thickness": 8.0,
+          "material_id": "M1",
+          "reinforcement_pad": true,
+          "outside_projection": 30.0,
+          "reinforcement_pad_thickness": 8.0,
+          "reinforcement_pad_od": 125.0
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 2.7079722703639515,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 2.7079722703639515, 'A1': 475.66724436741765, 'A2': 315.6672443674177, 'A3': 0.0, 'A4': 320.0, 'A5': 0.0, 'total': 1111.3344887348353, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "ratio-0.1-pad-0",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 66.0,
+          "inside_diameter": 50.0,
+          "neck_thickness": 8.0,
+          "material_id": "M1",
+          "reinforcement_pad": false,
+          "outside_projection": 30.0,
+          "reinforcement_pad_thickness": null,
+          "reinforcement_pad_od": null
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 10.831889081455806,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 10.831889081455806, 'A1': 471.33448873483536, 'A2': 311.33448873483536, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 782.6689774696707, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "ratio-0.1-pad-1",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 66.0,
+          "inside_diameter": 50.0,
+          "neck_thickness": 8.0,
+          "material_id": "M1",
+          "reinforcement_pad": true,
+          "outside_projection": 30.0,
+          "reinforcement_pad_thickness": 8.0,
+          "reinforcement_pad_od": 150.0
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 10.831889081455806,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 10.831889081455806, 'A1': 471.33448873483536, 'A2': 311.33448873483536, 'A3': 0.0, 'A4': 320.0, 'A5': 0.0, 'total': 1102.6689774696706, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "ratio-0.2-pad-0",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 116.0,
+          "inside_diameter": 100.0,
+          "neck_thickness": 8.0,
+          "material_id": "M1",
+          "reinforcement_pad": false,
+          "outside_projection": 30.0,
+          "reinforcement_pad_thickness": null,
+          "reinforcement_pad_od": null
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 43.327556325823224,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 43.327556325823224, 'A1': 462.66897746967066, 'A2': 302.6689774696707, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 765.3379549393414, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "ratio-0.2-pad-1",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 116.0,
+          "inside_diameter": 100.0,
+          "neck_thickness": 8.0,
+          "material_id": "M1",
+          "reinforcement_pad": true,
+          "outside_projection": 30.0,
+          "reinforcement_pad_thickness": 8.0,
+          "reinforcement_pad_od": 200.0
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 43.327556325823224,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 43.327556325823224, 'A1': 462.66897746967066, 'A2': 302.6689774696707, 'A3': 0.0, 'A4': 320.0, 'A5': 0.0, 'total': 1085.3379549393414, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "ratio-0.35-pad-0",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 191.0,
+          "inside_diameter": 175.0,
+          "neck_thickness": 8.0,
+          "material_id": "M1",
+          "reinforcement_pad": false,
+          "outside_projection": 30.0,
+          "reinforcement_pad_thickness": null,
+          "reinforcement_pad_od": null
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 132.69064124783364,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 132.69064124783364, 'A1': 449.6707105719237, 'A2': 289.67071057192373, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 739.3414211438474, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "ratio-0.35-pad-1",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 191.0,
+          "inside_diameter": 175.0,
+          "neck_thickness": 8.0,
+          "material_id": "M1",
+          "reinforcement_pad": true,
+          "outside_projection": 30.0,
+          "reinforcement_pad_thickness": 8.0,
+          "reinforcement_pad_od": 275.0
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 132.69064124783364,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 132.69064124783364, 'A1': 449.6707105719237, 'A2': 289.67071057192373, 'A3': 0.0, 'A4': 320.0, 'A5': 0.0, 'total': 1059.3414211438474, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "ratio-0.5-pad-0",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 266.0,
+          "inside_diameter": 250.0,
+          "neck_thickness": 8.0,
+          "material_id": "M1",
+          "reinforcement_pad": false,
+          "outside_projection": 30.0,
+          "reinforcement_pad_thickness": null,
+          "reinforcement_pad_od": null
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 270.7972270363952,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 270.7972270363952, 'A1': 436.6724436741768, 'A2': 276.67244367417675, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 713.3448873483535, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "ratio-0.5-pad-1",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 266.0,
+          "inside_diameter": 250.0,
+          "neck_thickness": 8.0,
+          "material_id": "M1",
+          "reinforcement_pad": true,
+          "outside_projection": 30.0,
+          "reinforcement_pad_thickness": 8.0,
+          "reinforcement_pad_od": 350.0
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 270.7972270363952,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 270.7972270363952, 'A1': 436.6724436741768, 'A2': 276.67244367417675, 'A3': 0.0, 'A4': 320.0, 'A5': 0.0, 'total': 1033.3448873483535, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "type-flanged",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 60.3,
+          "inside_diameter": 52.5,
+          "neck_thickness": 3.9,
+          "material_id": "M1",
+          "reinforcement_pad": false,
+          "nozzle_type": "flanged",
+          "outside_projection": 0.0
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 11.942157712305027,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 11.942157712305027, 'A1': 229.56434142114384, 'A2': 0.0, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 229.56434142114384, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "type-slip_on",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 60.3,
+          "inside_diameter": 52.5,
+          "neck_thickness": 3.9,
+          "material_id": "M1",
+          "reinforcement_pad": false,
+          "nozzle_type": "slip_on",
+          "outside_projection": 10.0
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 11.942157712305027,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 11.942157712305027, 'A1': 229.56434142114384, 'A2': 71.61434142114385, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 301.1786828422877, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "type-socket_weld",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 60.3,
+          "inside_diameter": 52.5,
+          "neck_thickness": 3.9,
+          "material_id": "M1",
+          "reinforcement_pad": false,
+          "nozzle_type": "socket_weld",
+          "outside_projection": 20.0
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 11.942157712305027,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 11.942157712305027, 'A1': 229.56434142114384, 'A2': 71.61434142114385, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 301.1786828422877, 'adequate': True, 'UG45_t_min': 1.5}; API ok=False error={\"detail\":[{\"type\":\"enum\",\"loc\":[\"body\",\"nozzles\",0,\"nozzle_type\"],\"msg\":\"Input should be 'slip_on', 'socket_welded', 'coupling', 'manway', 'flanged' or 'pad_reinforced'\",\"input\":\"socket_weld\",\"ctx\":{\"expected\":\"'slip_on', 'socket_welded', 'coupling', 'manway', 'flanged' or 'pad_reinforced'\"}}]}",
+      "suite_status": null
+    },
+    {
+      "case_id": "type-threaded",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 60.3,
+          "inside_diameter": 52.5,
+          "neck_thickness": 3.9,
+          "material_id": "M1",
+          "reinforcement_pad": false,
+          "nozzle_type": "threaded",
+          "outside_projection": 30.0
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 11.942157712305027,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 11.942157712305027, 'A1': 229.56434142114384, 'A2': 71.61434142114385, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 301.1786828422877, 'adequate': True, 'UG45_t_min': 1.5}; API ok=False error={\"detail\":[{\"type\":\"enum\",\"loc\":[\"body\",\"nozzles\",0,\"nozzle_type\"],\"msg\":\"Input should be 'slip_on', 'socket_welded', 'coupling', 'manway', 'flanged' or 'pad_reinforced'\",\"input\":\"threaded\",\"ctx\":{\"expected\":\"'slip_on', 'socket_welded', 'coupling', 'manway', 'flanged' or 'pad_reinforced'\"}}]}",
+      "suite_status": null
+    },
+    {
+      "case_id": "type-manway",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 60.3,
+          "inside_diameter": 52.5,
+          "neck_thickness": 3.9,
+          "material_id": "M1",
+          "reinforcement_pad": false,
+          "nozzle_type": "manway",
+          "outside_projection": 40.0
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 11.942157712305027,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 11.942157712305027, 'A1': 229.56434142114384, 'A2': 71.61434142114385, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 301.1786828422877, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "eff-0.7",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 60.3,
+          "inside_diameter": 52.5,
+          "neck_thickness": 3.9,
+          "material_id": "M1",
+          "reinforcement_pad": false
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 11.942157712305027,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 11.942157712305027, 'A1': 229.56434142114384, 'A2': 0.0, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 229.56434142114384, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "eff-0.85",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 60.3,
+          "inside_diameter": 52.5,
+          "neck_thickness": 3.9,
+          "material_id": "M1",
+          "reinforcement_pad": false
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 11.942157712305027,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 11.942157712305027, 'A1': 229.56434142114384, 'A2': 0.0, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 229.56434142114384, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "eff-1.0",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 60.3,
+          "inside_diameter": 52.5,
+          "neck_thickness": 3.9,
+          "material_id": "M1",
+          "reinforcement_pad": false
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 11.942157712305027,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 11.942157712305027, 'A1': 229.56434142114384, 'A2': 0.0, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 229.56434142114384, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "neck-4",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 60.3,
+          "inside_diameter": 52.3,
+          "neck_thickness": 4.0,
+          "material_id": "M1",
+          "reinforcement_pad": false
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 11.851343154246099,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 11.851343154246099, 'A1': 235.4679376083189, 'A2': 0.0, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 235.4679376083189, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "neck-8",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 60.3,
+          "inside_diameter": 44.3,
+          "neck_thickness": 8.0,
+          "material_id": "M1",
+          "reinforcement_pad": false
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 8.502989601386481,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 8.502989601386481, 'A1': 472.3223570190641, 'A2': 0.0, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 472.3223570190641, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "neck-15",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 60.3,
+          "inside_diameter": 30.299999999999997,
+          "neck_thickness": 15.0,
+          "material_id": "M1",
+          "reinforcement_pad": false
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 3.977859618717503,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 3.977859618717503, 'A1': 712.1230502599653, 'A2': 0.0, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 712.1230502599653, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "pad-od-100",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 60.3,
+          "inside_diameter": 52.5,
+          "neck_thickness": 3.9,
+          "material_id": "M1",
+          "reinforcement_pad": true,
+          "reinforcement_pad_thickness": 8.0,
+          "reinforcement_pad_od": 100.0
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 11.942157712305027,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 11.942157712305027, 'A1': 229.56434142114384, 'A2': 0.0, 'A3': 0.0, 'A4': 156.0, 'A5': 0.0, 'total': 385.5643414211438, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "pad-od-250",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 60.3,
+          "inside_diameter": 52.5,
+          "neck_thickness": 3.9,
+          "material_id": "M1",
+          "reinforcement_pad": true,
+          "reinforcement_pad_thickness": 8.0,
+          "reinforcement_pad_od": 250.0
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 11.942157712305027,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 11.942157712305027, 'A1': 229.56434142114384, 'A2': 0.0, 'A3': 0.0, 'A4': 156.0, 'A5': 0.0, 'total': 385.5643414211438, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "pad-od-600",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 60.3,
+          "inside_diameter": 52.5,
+          "neck_thickness": 3.9,
+          "material_id": "M1",
+          "reinforcement_pad": true,
+          "reinforcement_pad_thickness": 8.0,
+          "reinforcement_pad_od": 600.0
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 11.942157712305027,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 11.942157712305027, 'A1': 229.56434142114384, 'A2': 0.0, 'A3': 0.0, 'A4': 156.0, 'A5': 0.0, 'total': 385.5643414211438, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "PUB-K2-02-PVE-S5",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 55.677,
+          "inside_diameter": 47.498,
+          "neck_thickness": 4.089,
+          "material_id": "M1",
+          "reinforcement_pad": false,
+          "outside_projection": 38.1
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 9.774956689774697,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 9.774956689774697, 'A1': 93.4173506932409, 'A2': 79.39208069324091, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 172.80943138648183, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "PUB-K2-17-IJERT",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 457.2,
+          "inside_diameter": 428.65,
+          "neck_thickness": 14.275,
+          "material_id": "M1",
+          "reinforcement_pad": true,
+          "reinforcement_pad_thickness": 6,
+          "reinforcement_pad_od": 600
+        },
+        "host": "shell"
+      },
+      "quantity": "A",
+      "unit": "mm2",
+      "suite": null,
+      "reference": 796.1040836221837,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "independent={'A': 796.1040836221837, 'A1': 608.5658578856152, 'A2': 0.0, 'A3': 0.0, 'A4': 360.0, 'A5': 0.0, 'total': 968.5658578856152, 'adequate': True, 'UG45_t_min': 1.8572357019064125}; API ok=True error=None",
+      "suite_status": "PASS"
+    }
+  ]
+}

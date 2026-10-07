@@ -1,0 +1,639 @@
+{
+  "family": "F20-uctan_uca",
+  "meta": {
+    "basis": "cylindrical shell + analytical head volume",
+    "published_cases": "K1 review pending exact matches"
+  },
+  "results": [
+    {
+      "case_id": "head-0-elliptical",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.8047,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.8047,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": -8.234209010241688,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "head-0-torispherical",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.8047,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.8047,
+      "reference": null,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "head-0-hemispherical",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 2.0,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 2.0,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": 1.6964492599970225,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "head-0-flat",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.5583,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.5583,
+      "reference": 1.5707963267948966,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": -0.7955408719597943,
+      "verdict": "DOĞRULANDI",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "pressure-0-0.5",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.8047,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.8047,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": -8.234209010241688,
+      "verdict": "SAPMA",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "pressure-0-1.0",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.8047,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.8047,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": -8.234209010241688,
+      "verdict": "SAPMA",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "pressure-0-1.5",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.8047,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.8047,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": -8.234209010241688,
+      "verdict": "SAPMA",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "three-nozzles-0",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.8047,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.8047,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": -8.234209010241688,
+      "verdict": "TEK_KAYNAK",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "head-1-elliptical",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.8047,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.8047,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": -8.234209010241688,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "head-1-torispherical",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.8047,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.8047,
+      "reference": null,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "head-1-hemispherical",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 2.0,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 2.0,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": 1.6964492599970225,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "head-1-flat",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.5583,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.5583,
+      "reference": 1.5707963267948966,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": -0.7955408719597943,
+      "verdict": "DOĞRULANDI",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "pressure-1-0.5",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.8047,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.8047,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": -8.234209010241688,
+      "verdict": "SAPMA",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "pressure-1-1.0",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.8047,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.8047,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": -8.234209010241688,
+      "verdict": "SAPMA",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "pressure-1-1.5",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.8047,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.8047,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": -8.234209010241688,
+      "verdict": "SAPMA",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "three-nozzles-1",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.8047,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.8047,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": -8.234209010241688,
+      "verdict": "TEK_KAYNAK",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "head-2-elliptical",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.8047,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.8047,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": -8.234209010241688,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "head-2-torispherical",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.8047,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.8047,
+      "reference": null,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": null,
+      "verdict": "KAYNAK_BEKLİYOR",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "head-2-hemispherical",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 2.0,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 2.0,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": 1.6964492599970225,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "head-2-flat",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.5583,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.5583,
+      "reference": 1.5707963267948966,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": -0.7955408719597943,
+      "verdict": "DOĞRULANDI",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "pressure-2-0.5",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.8047,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.8047,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": -8.234209010241688,
+      "verdict": "SAPMA",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "pressure-2-1.0",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.8047,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.8047,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": -8.234209010241688,
+      "verdict": "SAPMA",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "pressure-2-1.5",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.8047,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.8047,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": -8.234209010241688,
+      "verdict": "SAPMA",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "three-nozzles-2",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.8047,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.8047,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": -8.234209010241688,
+      "verdict": "TEK_KAYNAK",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "en-code",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "EN 13445",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.8047,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.8047,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": -8.234209010241688,
+      "verdict": "TEK_KAYNAK",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "external-pressure",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.8047,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.8047,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": -8.234209010241688,
+      "verdict": "TEK_KAYNAK",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "mdmt",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.8047,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.8047,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": -8.234209010241688,
+      "verdict": "TEK_KAYNAK",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "wind-load",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.8047,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.8047,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": -8.234209010241688,
+      "verdict": "TEK_KAYNAK",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "vacuum",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": true,
+        "errors": [],
+        "volume_m3": 1.8047,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": 1.8047,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": -8.234209010241688,
+      "verdict": "SAPMA",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": null
+    },
+    {
+      "case_id": "invalid-pressure",
+      "family": "F20-uctan_uca",
+      "params": {
+        "code": "ASME VIII-1",
+        "ok": false,
+        "errors": "{\"detail\":[{\"type\":\"greater_than\",\"loc\":[\"body\",\"design_conditions\",\"design_pressure\"],\"msg\":\"Input should be greater than 0\",\"input\":-1,\"ctx\":{\"gt\":0.0}}]}",
+        "volume_m3": null,
+        "report_html": null,
+        "step": null
+      },
+      "quantity": "inner_volume",
+      "unit": "m3",
+      "suite": null,
+      "reference": 1.9666370011472105,
+      "ref_source": "clean-room geometric integral",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Nozzle and load cases exercise end-to-end API path; volume oracle omits those fittings.",
+      "suite_status": "BLOCKED MISSING INPUT"
+    }
+  ]
+}
