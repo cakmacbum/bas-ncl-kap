@@ -1,0 +1,889 @@
+{
+  "family": "F06-koni",
+  "meta": {
+    "code": "ASME VIII-1",
+    "oracle": "UG-32(g) independent; Appendix 1-5 external published reference missing"
+  },
+  "results": [
+    {
+      "case_id": "GRID-01",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 5,
+        "pressure_mpa": 0.5,
+        "large_diameter_mm": 1000.0,
+        "small_diameter_mm": 500.0,
+        "ca_mm": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 2.082829832022715,
+      "reference": 2.082829832022715,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "UG-32(g); koni MAWP oracle: 3.46555 MPa; App 1-5 Q/area oracle unavailable.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-01-MAWP",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 5,
+        "pressure_mpa": 0.5,
+        "large_diameter_mm": 1000.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 3.4396410013076393,
+      "reference": 3.4655546181705312,
+      "ref_source": "oracle",
+      "diff_pct": -0.7477480437625239,
+      "verdict": "DOĞRULANDI",
+      "note": "Nominal thickness based UG-32(g) pressure inversion.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-01-APP15",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 5,
+        "junction": "large"
+      },
+      "quantity": "reinforcement_area",
+      "unit": "mm2",
+      "suite": null,
+      "reference": null,
+      "ref_source": "",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "GRID-02",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 5,
+        "pressure_mpa": 1.0,
+        "large_diameter_mm": 1000.0,
+        "small_diameter_mm": 700.0,
+        "ca_mm": 1
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 5.325961643661609,
+      "reference": 4.174754990822821,
+      "ref_source": "oracle",
+      "diff_pct": 27.57543030356115,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "UG-32(g); koni MAWP oracle: 3.46555 MPa; App 1-5 Q/area oracle unavailable.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-02-MAWP",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 5,
+        "pressure_mpa": 1.0,
+        "large_diameter_mm": 1000.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 3.1662937314240613,
+      "reference": 3.4655546181705312,
+      "ref_source": "oracle",
+      "diff_pct": -8.635295637165573,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "Nominal thickness based UG-32(g) pressure inversion.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-02-APP15",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 5,
+        "junction": "large"
+      },
+      "quantity": "reinforcement_area",
+      "unit": "mm2",
+      "suite": null,
+      "reference": null,
+      "ref_source": "",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "GRID-03",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 5,
+        "pressure_mpa": 2.0,
+        "large_diameter_mm": 1000.0,
+        "small_diameter_mm": 850.0,
+        "ca_mm": 2
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 10.705389447732001,
+      "reference": 8.386130639459877,
+      "ref_source": "oracle",
+      "diff_pct": 27.655886939790154,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "UG-32(g); koni MAWP oracle: 3.46555 MPa; App 1-5 Q/area oracle unavailable.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-03-MAWP",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 5,
+        "pressure_mpa": 2.0,
+        "large_diameter_mm": 1000.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 2.8933790499255254,
+      "reference": 3.4655546181705312,
+      "ref_source": "oracle",
+      "diff_pct": -16.510360715280193,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "Nominal thickness based UG-32(g) pressure inversion.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-03-APP15",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 5,
+        "junction": "large"
+      },
+      "quantity": "reinforcement_area",
+      "unit": "mm2",
+      "suite": null,
+      "reference": null,
+      "ref_source": "",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "GRID-04",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 15,
+        "pressure_mpa": 0.5,
+        "large_diameter_mm": 1000.0,
+        "small_diameter_mm": 500.0,
+        "ca_mm": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 2.148098724784901,
+      "reference": 2.148098724784901,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "UG-32(g); koni MAWP oracle: 3.36102 MPa; App 1-5 Q/area oracle unavailable.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-04-MAWP",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 15,
+        "pressure_mpa": 0.5,
+        "large_diameter_mm": 1000.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 3.336645418095034,
+      "reference": 3.361024870780235,
+      "ref_source": "oracle",
+      "diff_pct": -0.7253576995858866,
+      "verdict": "DOĞRULANDI",
+      "note": "Nominal thickness based UG-32(g) pressure inversion.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-04-APP15",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 15,
+        "junction": "large"
+      },
+      "quantity": "reinforcement_area",
+      "unit": "mm2",
+      "suite": null,
+      "reference": null,
+      "ref_source": "",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "GRID-05",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 15,
+        "pressure_mpa": 1.0,
+        "large_diameter_mm": 1000.0,
+        "small_diameter_mm": 700.0,
+        "ca_mm": 1
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 5.457046091789991,
+      "reference": 4.305577793346155,
+      "ref_source": "oracle",
+      "diff_pct": 26.7436417064236,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "UG-32(g); koni MAWP oracle: 3.36102 MPa; App 1-5 Q/area oracle unavailable.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-05-MAWP",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 15,
+        "pressure_mpa": 1.0,
+        "large_diameter_mm": 1000.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 3.0713722166623927,
+      "reference": 3.361024870780235,
+      "ref_source": "oracle",
+      "diff_pct": -8.617986038603808,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "Nominal thickness based UG-32(g) pressure inversion.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-05-APP15",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 15,
+        "junction": "large"
+      },
+      "quantity": "reinforcement_area",
+      "unit": "mm2",
+      "suite": null,
+      "reference": null,
+      "ref_source": "",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "GRID-06",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 15,
+        "pressure_mpa": 2.0,
+        "large_diameter_mm": 1000.0,
+        "small_diameter_mm": 850.0,
+        "ca_mm": 2
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 10.969233793915818,
+      "reference": 8.648923812949732,
+      "ref_source": "oracle",
+      "diff_pct": 26.82773060726892,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "UG-32(g); koni MAWP oracle: 3.36102 MPa; App 1-5 Q/area oracle unavailable.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-06-MAWP",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 15,
+        "pressure_mpa": 2.0,
+        "large_diameter_mm": 1000.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 2.806537946306842,
+      "reference": 3.361024870780235,
+      "ref_source": "oracle",
+      "diff_pct": -16.497554936113087,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "Nominal thickness based UG-32(g) pressure inversion.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-06-APP15",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 15,
+        "junction": "large"
+      },
+      "quantity": "reinforcement_area",
+      "unit": "mm2",
+      "suite": null,
+      "reference": null,
+      "ref_source": "",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "GRID-07",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 30,
+        "pressure_mpa": 0.5,
+        "large_diameter_mm": 1000.0,
+        "small_diameter_mm": 500.0,
+        "ca_mm": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 2.3958928070946186,
+      "reference": 2.3958928070946186,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "UG-32(g); koni MAWP oracle: 3.01569 MPa; App 1-5 Q/area oracle unavailable.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-07-MAWP",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 30,
+        "pressure_mpa": 0.5,
+        "large_diameter_mm": 1000.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 2.9960497008299614,
+      "reference": 3.0156913555770744,
+      "ref_source": "oracle",
+      "diff_pct": -0.6513151523543237,
+      "verdict": "DOĞRULANDI",
+      "note": "Nominal thickness based UG-32(g) pressure inversion.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-07-APP15",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 30,
+        "junction": "large"
+      },
+      "quantity": "reinforcement_area",
+      "unit": "mm2",
+      "suite": null,
+      "reference": null,
+      "ref_source": "",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "GRID-08",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 30,
+        "pressure_mpa": 1.0,
+        "large_diameter_mm": 1000.0,
+        "small_diameter_mm": 700.0,
+        "ca_mm": 1
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 5.954709667107548,
+      "reference": 4.8022480281940165,
+      "ref_source": "oracle",
+      "diff_pct": 23.998378095996394,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "UG-32(g); koni MAWP oracle: 3.01569 MPa; App 1-5 Q/area oracle unavailable.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-08-MAWP",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 30,
+        "pressure_mpa": 1.0,
+        "large_diameter_mm": 1000.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 2.757525440375383,
+      "reference": 3.0156913555770744,
+      "ref_source": "oracle",
+      "diff_pct": -8.560753895595175,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "Nominal thickness based UG-32(g) pressure inversion.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-08-APP15",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 30,
+        "junction": "large"
+      },
+      "quantity": "reinforcement_area",
+      "unit": "mm2",
+      "suite": null,
+      "reference": null,
+      "ref_source": "",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "GRID-09",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 30,
+        "pressure_mpa": 2.0,
+        "large_diameter_mm": 1000.0,
+        "small_diameter_mm": 850.0,
+        "ca_mm": 2
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 11.970921808962142,
+      "reference": 9.646621039091489,
+      "ref_source": "oracle",
+      "diff_pct": 24.094455047542265,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "UG-32(g); koni MAWP oracle: 3.01569 MPa; App 1-5 Q/area oracle unavailable.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-09-MAWP",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 30,
+        "pressure_mpa": 2.0,
+        "large_diameter_mm": 1000.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 2.5194526869168783,
+      "reference": 3.0156913555770744,
+      "ref_source": "oracle",
+      "diff_pct": -16.455220715557516,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "Nominal thickness based UG-32(g) pressure inversion.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-09-APP15",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 30,
+        "junction": "large"
+      },
+      "quantity": "reinforcement_area",
+      "unit": "mm2",
+      "suite": null,
+      "reference": null,
+      "ref_source": "",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "GRID-10",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 45,
+        "pressure_mpa": 0.5,
+        "large_diameter_mm": 1000.0,
+        "small_diameter_mm": 500.0,
+        "ca_mm": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 2.9343574278931324,
+      "reference": 2.9343574278931324,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "UG-32(g); koni MAWP oracle: 2.46527 MPa; App 1-5 Q/area oracle unavailable.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-10-MAWP",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 45,
+        "pressure_mpa": 0.5,
+        "large_diameter_mm": 1000.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 2.452125827844923,
+      "reference": 2.4652674495527354,
+      "ref_source": "oracle",
+      "diff_pct": -0.5330708321402065,
+      "verdict": "DOĞRULANDI",
+      "note": "Nominal thickness based UG-32(g) pressure inversion.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-10-APP15",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 45,
+        "junction": "large"
+      },
+      "quantity": "reinforcement_area",
+      "unit": "mm2",
+      "suite": null,
+      "reference": null,
+      "ref_source": "",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "GRID-11",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 45,
+        "pressure_mpa": 1.0,
+        "large_diameter_mm": 1000.0,
+        "small_diameter_mm": 700.0,
+        "ca_mm": 1
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 7.036148843825498,
+      "reference": 5.881528643680993,
+      "ref_source": "oracle",
+      "diff_pct": 19.63129434700633,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "UG-32(g); koni MAWP oracle: 2.46527 MPa; App 1-5 Q/area oracle unavailable.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-11-MAWP",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 45,
+        "pressure_mpa": 1.0,
+        "large_diameter_mm": 1000.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 2.256474488322719,
+      "reference": 2.4652674495527354,
+      "ref_source": "oracle",
+      "diff_pct": -8.469383768803539,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "Nominal thickness based UG-32(g) pressure inversion.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-11-APP15",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 45,
+        "junction": "large"
+      },
+      "quantity": "reinforcement_area",
+      "unit": "mm2",
+      "suite": null,
+      "reference": null,
+      "ref_source": "",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "GRID-12",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 45,
+        "pressure_mpa": 2.0,
+        "large_diameter_mm": 1000.0,
+        "small_diameter_mm": 850.0,
+        "ca_mm": 2
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 14.147622528175333,
+      "reference": 11.814649643885504,
+      "ref_source": "oracle",
+      "diff_pct": 19.74644153326395,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "UG-32(g); koni MAWP oracle: 2.46527 MPa; App 1-5 Q/area oracle unavailable.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "GRID-12-MAWP",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 45,
+        "pressure_mpa": 2.0,
+        "large_diameter_mm": 1000.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 2.0612679057375405,
+      "reference": 2.4652674495527354,
+      "ref_source": "oracle",
+      "diff_pct": -16.387655785115367,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "Nominal thickness based UG-32(g) pressure inversion.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-12-APP15",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 45,
+        "junction": "large"
+      },
+      "quantity": "reinforcement_area",
+      "unit": "mm2",
+      "suite": null,
+      "reference": null,
+      "ref_source": "",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "GRID-13",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 60,
+        "pressure_mpa": 0.5,
+        "large_diameter_mm": 1000.0,
+        "small_diameter_mm": 500.0,
+        "ca_mm": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 4.1498080713766985,
+      "reference": 4.1498080713766985,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "UG-32(g); koni MAWP oracle: 1.74595 MPa; App 1-5 Q/area oracle unavailable.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-13-MAWP",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 60,
+        "pressure_mpa": 0.5,
+        "large_diameter_mm": 1000.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 1.7393461820924558,
+      "reference": 1.7459479383548684,
+      "ref_source": "oracle",
+      "diff_pct": -0.3781187352374952,
+      "verdict": "DOĞRULANDI",
+      "note": "Nominal thickness based UG-32(g) pressure inversion.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-13-APP15",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 60,
+        "junction": "large"
+      },
+      "quantity": "reinforcement_area",
+      "unit": "mm2",
+      "suite": null,
+      "reference": null,
+      "ref_source": "",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "GRID-14",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 60,
+        "pressure_mpa": 1.0,
+        "large_diameter_mm": 1000.0,
+        "small_diameter_mm": 700.0,
+        "ca_mm": 1
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 9.477230193387397,
+      "reference": 8.317737575379494,
+      "ref_source": "oracle",
+      "diff_pct": 13.940000000000015,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "UG-32(g); koni MAWP oracle: 1.74595 MPa; App 1-5 Q/area oracle unavailable.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-14-MAWP",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 60,
+        "pressure_mpa": 1.0,
+        "large_diameter_mm": 1000.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 1.6001664981863593,
+      "reference": 1.7459479383548684,
+      "ref_source": "oracle",
+      "diff_pct": -8.349701441033385,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "Nominal thickness based UG-32(g) pressure inversion.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-14-APP15",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 60,
+        "junction": "large"
+      },
+      "quantity": "reinforcement_area",
+      "unit": "mm2",
+      "suite": null,
+      "reference": null,
+      "ref_source": "",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "GRID-15",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 60,
+        "pressure_mpa": 2.0,
+        "large_diameter_mm": 1000.0,
+        "small_diameter_mm": 850.0,
+        "ca_mm": 2
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 19.0609857978279,
+      "reference": 16.708437761069337,
+      "ref_source": "oracle",
+      "diff_pct": 14.08,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "UG-32(g); koni MAWP oracle: 1.74595 MPa; App 1-5 Q/area oracle unavailable.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "GRID-15-MAWP",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 60,
+        "pressure_mpa": 2.0,
+        "large_diameter_mm": 1000.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 1.4613724985649534,
+      "reference": 1.7459479383548684,
+      "ref_source": "oracle",
+      "diff_pct": -16.299193895670115,
+      "verdict": "FORMÜLASYON_FARKI",
+      "note": "Nominal thickness based UG-32(g) pressure inversion.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-15-APP15",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 60,
+        "junction": "large"
+      },
+      "quantity": "reinforcement_area",
+      "unit": "mm2",
+      "suite": null,
+      "reference": null,
+      "ref_source": "",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "GRID-16",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 25.3,
+        "pressure_mpa": 1.385522162333989,
+        "large_diameter_mm": 1000.0,
+        "small_diameter_mm": 814.9019607843138,
+        "ca_mm": 0.0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 6.3842863961925564,
+      "reference": 6.3842863961925564,
+      "ref_source": "oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "UG-32(g); koni MAWP oracle: 3.14731 MPa; App 1-5 Q/area oracle unavailable.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-16-MAWP",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 25.3,
+        "pressure_mpa": 1.385522162333989,
+        "large_diameter_mm": 1000.0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 3.1259205382664015,
+      "reference": 3.1473080050779747,
+      "ref_source": "oracle",
+      "diff_pct": -0.6795479431014043,
+      "verdict": "DOĞRULANDI",
+      "note": "Nominal thickness based UG-32(g) pressure inversion.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "GRID-16-APP15",
+      "family": "F06-koni",
+      "params": {
+        "angle_deg": 25.3,
+        "junction": "large"
+      },
+      "quantity": "reinforcement_area",
+      "unit": "mm2",
+      "suite": null,
+      "reference": null,
+      "ref_source": "",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
+      "suite_status": "BLOCKED MISSING INPUT"
+    }
+  ]
+}
