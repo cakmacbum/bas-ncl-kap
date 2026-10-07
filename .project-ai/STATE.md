@@ -1,11 +1,8 @@
 # CURRENT STATE
-guncellendi: 2026-10-06
+guncellendi: 2026-10-07
 
-Mevcut milestone:  M1 — STEP içe aktarma + STL görüntüleme — **KAPANDI**
-Mevcut görev:      yok
-Tamamlanan:        T-1.0 … T-1.6 (bkz. TASKS.md)
+Mevcut milestone:  M2 — Tank doğrulama kampanyası (plan: ~/.claude/plans/e-er-bir-kullan-c-kendi-dazzling-jellyfish.md)
+Mevcut görev:      Dalga 0 — P00 harness (Codex pilot) + K1–K4 kaynak avı (Claude)
+Tamamlanan:        M1 (STEP içe aktarma) — arsiv/
 Bloke:             yok
-Bilinen problemler: B-36 builder torisferiği elips çiziyor (açık) · global 500 işleyicisi ayrıntı sızdırıyor ·
-                   varsayılan projede "N1: PASS sonucu final_result içermiyor" (bu işten bağımsız) ·
-                   her içe aktarma çocuk süreç OCP import'u yüzünden +~5 s
-Sıradaki aksiyon:  Yusuf'un kararı — FUTURE.md'den seçim veya başka iş
+Sıradaki aksiyon:  P00 + kaynaklar gelince checkpoint → 20 Codex paketi (F01–F20)

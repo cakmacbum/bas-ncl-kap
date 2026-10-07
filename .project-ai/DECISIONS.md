@@ -19,3 +19,7 @@ Risk orta → Kademe 1 kontrol + test zorunlu, Kademe 2 gerekmez.
 Karar: `straight_flange_length` dosyada ayrı yüz yoksa `null`; sebep `warnings`'te. UI satırı göstermez.
 Gerekçe: P01 `0.0`/low öneriyordu; kullanıcı işaretlerse forma 0 mm yazılırdı (K4 ihlali).
 Kök neden: vessel_builder bombe eteğini gövde silindirine bindiriyor → dikiş yok.
+
+## DEC-005 — M2 kampanya düzeni (2026-10-07, Yusuf)
+Dış kaynak = web'den yayınlanmış örnek + temiz-oda oracle; 20 Codex aynı anda; bulgu yalnız raporlanır,
+düzeltme Yusuf onayından sonra Claude'da. Kıyas API yolundan (`/calculate`), formül doğrudan çağrılmaz.
