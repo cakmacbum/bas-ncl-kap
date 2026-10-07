@@ -1,0 +1,1265 @@
+{
+  "family": "F04-bombe-yarimkure",
+  "meta": {
+    "code": "ASME VIII-1",
+    "clause": "UG-32(f)"
+  },
+  "results": [
+    {
+      "case_id": "grid-D300-P0.1",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 300,
+        "pressure": 0.1,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 0.062116302423571065,
+      "reference": 0.05435176462062468,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.28571428571429,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-D300-P0.1",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 300,
+        "pressure": 0.1,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 42.7906976744186,
+      "reference": 42.7906976744186,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-D300-P20",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 300,
+        "pressure": 20,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 12.605042016806722,
+      "reference": 11.029411764705882,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.285714285714283,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-D300-P20",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 300,
+        "pressure": 20,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 42.7906976744186,
+      "reference": 42.7906976744186,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-D4000-P0.1",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 4000,
+        "pressure": 0.1,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 0.8282173656476142,
+      "reference": 0.7246901949416624,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.285714285714283,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-D4000-P0.1",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 4000,
+        "pressure": 0.1,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 3.304070231444533,
+      "reference": 3.304070231444533,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-D4000-P20",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 4000,
+        "pressure": 20,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 168.0672268907563,
+      "reference": 147.05882352941177,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.285714285714283,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "grid-D4000-P20",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 4000,
+        "pressure": 20,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 3.304070231444533,
+      "reference": 3.304070231444533,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "grid-D1000-P1",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1000,
+        "pressure": 1,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 2.0718947477468146,
+      "reference": 1.8129079042784626,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.285714285714295,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-D1000-P1",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1000,
+        "pressure": 1,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 13.12202852614897,
+      "reference": 13.12202852614897,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-D2000-P5",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 2000,
+        "pressure": 5,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 20.779220779220783,
+      "reference": 18.181818181818183,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.285714285714294,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-D2000-P5",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 2000,
+        "pressure": 5,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 6.592356687898089,
+      "reference": 6.592356687898089,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-D3000-P10",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 3000,
+        "pressure": 10,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 62.56517205422315,
+      "reference": 54.74452554744526,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.28571428571428,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "grid-D3000-P10",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 3000,
+        "pressure": 10,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 4.401913875598086,
+      "reference": 4.401913875598086,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "grid-D1500-P3",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1500,
+        "pressure": 3,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 9.337068160597573,
+      "reference": 8.169934640522877,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.285714285714276,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-D1500-P3",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1500,
+        "pressure": 3,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 8.7758346581876,
+      "reference": 8.7758346581876,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "grid-D2500-P8",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 2500,
+        "pressure": 8,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 41.649312786339024,
+      "reference": 36.44314868804665,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.28571428571428,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "grid-D2500-P8",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 2500,
+        "pressure": 8,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 5.278928912974179,
+      "reference": 5.278928912974179,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "diameter-300",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 300,
+        "pressure": 2,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 1.2440389798880365,
+      "reference": 1.0885341074020318,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.285714285714294,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "diameter-300",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 300,
+        "pressure": 2,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 42.7906976744186,
+      "reference": 42.7906976744186,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "diameter-500",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 500,
+        "pressure": 2,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 2.0733982998133937,
+      "reference": 1.8142235123367196,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.28571428571428,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "diameter-500",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 500,
+        "pressure": 2,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 25.996860282574566,
+      "reference": 25.996860282574566,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "diameter-1000",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1000,
+        "pressure": 2,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 4.1467965996267875,
+      "reference": 3.6284470246734393,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.28571428571428,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "diameter-1000",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1000,
+        "pressure": 2,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 13.12202852614897,
+      "reference": 13.12202852614897,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "diameter-2000",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 2000,
+        "pressure": 2,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 8.293593199253575,
+      "reference": 7.2568940493468785,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.28571428571428,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "diameter-2000",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 2000,
+        "pressure": 2,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 6.592356687898089,
+      "reference": 6.592356687898089,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "diameter-3000",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 3000,
+        "pressure": 2,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 12.440389798880364,
+      "reference": 10.88534107402032,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.285714285714283,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "diameter-3000",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 3000,
+        "pressure": 2,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 4.401913875598086,
+      "reference": 4.401913875598086,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "diameter-4000",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 4000,
+        "pressure": 2,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 16.58718639850715,
+      "reference": 14.513788098693757,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.28571428571428,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "diameter-4000",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 4000,
+        "pressure": 2,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 3.304070231444533,
+      "reference": 3.304070231444533,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "pressure-0.1",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1500,
+        "pressure": 0.1,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 0.3105815121178553,
+      "reference": 0.2717588231031234,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.285714285714283,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "pressure-0.1",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1500,
+        "pressure": 0.1,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 8.7758346581876,
+      "reference": 8.7758346581876,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "pressure-0.5",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1500,
+        "pressure": 0.5,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 1.5533578418681717,
+      "reference": 1.3591881116346503,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.285714285714285,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "pressure-0.5",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1500,
+        "pressure": 0.5,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 8.7758346581876,
+      "reference": 8.7758346581876,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "pressure-1",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1500,
+        "pressure": 1,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 3.1078421216202217,
+      "reference": 2.719361856417694,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.285714285714294,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "pressure-1",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1500,
+        "pressure": 1,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 8.7758346581876,
+      "reference": 8.7758346581876,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "pressure-5",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1500,
+        "pressure": 5,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 15.584415584415584,
+      "reference": 13.636363636363637,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.285714285714283,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "pressure-5",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1500,
+        "pressure": 5,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 8.7758346581876,
+      "reference": 8.7758346581876,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "pressure-10",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1500,
+        "pressure": 10,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 31.282586027111574,
+      "reference": 27.37226277372263,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.28571428571428,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "pressure-10",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1500,
+        "pressure": 10,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 8.7758346581876,
+      "reference": 8.7758346581876,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "pressure-20",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1500,
+        "pressure": 20,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 63.02521008403362,
+      "reference": 55.14705882352941,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.28571428571429,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "pressure-20",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1500,
+        "pressure": 20,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 8.7758346581876,
+      "reference": 8.7758346581876,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "ca-2",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1500,
+        "pressure": 5,
+        "ca": 2
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 17.911688311688312,
+      "reference": 15.672727272727272,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.285714285714295,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "ca-2",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1500,
+        "pressure": 5,
+        "ca": 2
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 8.027498677948175,
+      "reference": 8.027498677948175,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "ca-5",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1500,
+        "pressure": 5,
+        "ca": 5
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 21.4025974025974,
+      "reference": 18.727272727272727,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.28571428571428,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "ca-5",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1500,
+        "pressure": 5,
+        "ca": 5
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 6.91091196626252,
+      "reference": 6.91091196626252,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "eff-0.85",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1500,
+        "pressure": 5,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 18.34637964774951,
+      "reference": 16.053082191780824,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.285714285714276,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "eff-0.85",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1500,
+        "pressure": 5,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 7.45945945945946,
+      "reference": 7.45945945945946,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "stress-low",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1500,
+        "pressure": 5,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 21.536252692031585,
+      "reference": 18.844221105527637,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.285714285714283,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "stress-low",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1500,
+        "pressure": 5,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 6.359300476947536,
+      "reference": 6.359300476947536,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "thick-wall",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 300,
+        "pressure": 20,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 12.605042016806722,
+      "reference": 11.029411764705882,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.285714285714283,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "thick-wall",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 300,
+        "pressure": 20,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 267.0967741935484,
+      "reference": 267.0967741935484,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "thin-wall",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 4000,
+        "pressure": 0.1,
+        "ca": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 0.8282173656476142,
+      "reference": 0.7246901949416624,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.285714285714283,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "thin-wall",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 4000,
+        "pressure": 0.1,
+        "ca": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 0.8275034979012592,
+      "reference": 0.8275034979012592,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "interaction-300-0.1",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 300,
+        "pressure": 0.1,
+        "ca": 1
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 1.2227587210455995,
+      "reference": 1.0699138809148996,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.28571428571428,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "interaction-300-0.1",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 300,
+        "pressure": 0.1,
+        "ca": 1
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 47.848101265822784,
+      "reference": 47.848101265822784,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "interaction-4000-20",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 4000,
+        "pressure": 20,
+        "ca": 1
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 216.88409703504044,
+      "reference": 189.77358490566039,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.285714285714285,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "interaction-4000-20",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 4000,
+        "pressure": 20,
+        "ca": 1
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 3.764940239043825,
+      "reference": 3.764940239043825,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "interaction-1000-10",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1000,
+        "pressure": 10,
+        "ca": 1
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 27.89853137516689,
+      "reference": 24.411214953271028,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.28571428571429,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "interaction-1000-10",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 1000,
+        "pressure": 10,
+        "ca": 1
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 14.881889763779528,
+      "reference": 14.881889763779528,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "interaction-2000-15",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 2000,
+        "pressure": 15,
+        "ca": 1
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 81.7062374245473,
+      "reference": 71.49295774647888,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.285714285714294,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "interaction-2000-15",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 2000,
+        "pressure": 15,
+        "ca": 1
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 7.5,
+      "reference": 7.5,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "interaction-3000-1",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 3000,
+        "pressure": 1,
+        "ca": 1
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 9.092016417317621,
+      "reference": 7.955514365152919,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 14.285714285714276,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "interaction-3000-1",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 3000,
+        "pressure": 1,
+        "ca": 1
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 5.013262599469496,
+      "reference": 5.013262599469496,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "K1-12-spherical-segment",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 18288,
+        "pressure": 1.0834,
+        "ca": 0.762
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 39.26888054268631,
+      "reference": 34.36027047485052,
+      "ref_source": "K1-12 PVEcalc-4225-0-1, sphere segment",
+      "diff_pct": 14.285714285714283,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "K1-12-spherical-segment",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 18288,
+        "pressure": 1.0834,
+        "ca": 0.762
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 1.18752553285968,
+      "reference": 1.18752553285968,
+      "ref_source": "K1-12 PVEcalc-4225-0-1, sphere segment",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "K1-13-spherical-segment",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 18288,
+        "pressure": 1.169,
+        "ca": 0.762
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": 42.30513400845741,
+      "reference": 37.01699225740023,
+      "ref_source": "K1-13 PVEcalc-4225-0-1, sphere segment",
+      "diff_pct": 14.285714285714283,
+      "verdict": "SAPMA",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "K1-13-spherical-segment",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "diameter": 18288,
+        "pressure": 1.169,
+        "ca": 0.762
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": 1.1711588716571009,
+      "reference": 1.1711588716571009,
+      "ref_source": "K1-13 PVEcalc-4225-0-1, sphere segment",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "invalid-zero-pressure",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "design_pressure": 0
+      },
+      "quantity": "required_thickness",
+      "unit": "mm",
+      "suite": null,
+      "reference": 0.0,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "{\"detail\":[{\"type\":\"greater_than\",\"loc\":[\"body\",\"design_conditions\",\"design_pressure\"],\"msg\":\"Input should be greater than 0\",\"input\":0,\"ctx\":{\"gt\":0.0}}]}",
+      "suite_status": "BLOCKED MISSING INPUT"
+    },
+    {
+      "case_id": "invalid-zero-pressure",
+      "family": "F04-bombe-yarimkure",
+      "params": {
+        "design_pressure": 0
+      },
+      "quantity": "mawp",
+      "unit": "MPa",
+      "suite": null,
+      "reference": 8.7758346581876,
+      "ref_source": "UG-32(f) independent oracle",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "{\"detail\":[{\"type\":\"greater_than\",\"loc\":[\"body\",\"design_conditions\",\"design_pressure\"],\"msg\":\"Input should be greater than 0\",\"input\":0,\"ctx\":{\"gt\":0.0}}]}",
+      "suite_status": "BLOCKED MISSING INPUT"
+    }
+  ]
+}
