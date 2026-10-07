@@ -32,8 +32,6 @@ def run():
         diameter, thickness = get("D_skirt_mean"), get("t_skirt")
         weight, moment = get("W_total"), get("M_overturning")
         efficiency = get("E_weld")
-        if case_id == "K3-08":
-            weight, moment, diameter, thickness, efficiency = 720000.0, 2050e6, 4250.0, 10.0, 1.0
         references = {
             "axial_stress": axial_stress(weight, moment, diameter, thickness),
             "weld_stress": weld_stress(weight, moment, diameter, thickness, efficiency),
@@ -49,7 +47,7 @@ def run():
             verdict = {"DO�RULANDI": "DOĞRULANDI", "FORM�LASYON_FARKI": "FORMÜLASYON_FARKI",
                        "KAPSAM_DI�I": "KAPSAM_DIŞI", "KAYNAK_BEKL�YOR": "KAYNAK_BEKLİYOR"}.get(verdict, verdict)
             rows.append(CaseResult(case_id, FAMILY, params, quantity, "MPa", suite, reference,
-                "K3-08 CRC Press" if case_id == "K3-08" else "independent W/A ± M/Z thin-wall calculation",
+                "K3-08 CRC Press (geometry/moment reference; API-derived W)" if case_id == "K3-08" else "independent W/A ± M/Z thin-wall calculation",
                 diff, verdict, "; status=" + str(result.get("status")), result.get("status")))
     write_results(HERE, FAMILY, rows, {"code": "ASME VIII-1", "oracle": "W/(πDt) ± 4M/(πD²t); tensile weld side considers E",
         "suite_source": "FastAPI /api/projects/{id}/calculate", "case_count": len(list(variants()))})

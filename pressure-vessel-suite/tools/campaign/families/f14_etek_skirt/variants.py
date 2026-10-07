@@ -7,7 +7,7 @@ from tools.campaign.bases import skirt_column
 def variants():
     # Cover both ends and representative interior points without a Cartesian grid.
     settings = [
-        (d, t, h, e, w, m)
+        (d, t, h, e, m)
         for d, t, h, e, w, m in [
             (850, 6, 1000, .55, 30000, 0), (1000, 8, 1200, .6, 50000, 1e6),
             (1500, 12, 2000, .7, 100000, 5e6), (2000, 20, 4000, .85, 250000, 2e7),
@@ -26,7 +26,7 @@ def variants():
             (1950, 7, 4900, .59, 275000, 3.2e7), (2650, 26, 1100, .97, 725000, 9.5e7),
         ]
     ]
-    for i, (diameter, thickness, height, efficiency, weight_n, moment_nmm) in enumerate(settings, 1):
+    for i, (diameter, thickness, height, efficiency, moment_nmm) in enumerate(settings, 1):
         p = skirt_column()
         support = p["supports"][0]
         support.update(diameter_mm=diameter, thickness_mm=thickness, height_mm=height,
@@ -34,14 +34,16 @@ def variants():
                        overturning_moment_Nmm=moment_nmm)
         p["project_number"] = f"F14-{i:02d}"
         yield f"GRID-{i:02d}", p, {"D_mm": diameter, "t_mm": thickness, "height_mm": height,
-            "E": efficiency, "W_not_applied_N": weight_n, "M_Nmm": moment_nmm}
+            "E": efficiency, "M_Nmm": moment_nmm,
+            "weight_case": "suite-derived W_total; template weight is not an exposed variant input"}
     # Published CRC arithmetic case, modelled with matching mean diameter and t.
     p = skirt_column()
     p["supports"][0].update(diameter_mm=4250, thickness_mm=10, height_mm=1200,
         skirt_weld_efficiency=1.0, skirt_allowable_compressive_MPa=120,
         overturning_moment_Nmm=2050e6)
     p["project_number"] = "F14-K3-08"
-    yield "K3-08", p, {"D_mm":4250,"t_mm":10,"E":1.0,"W_N":720000,"M_Nmm":2050e6}
+    yield "K3-08", p, {"D_mm":4250,"t_mm":10,"E":1.0,"M_Nmm":2050e6,
+        "published_W_N":720000,"weight_case":"suite-derived W_total; published weight not applied"}
     # Expected blocking conditions: no B value, or physically invalid skirt wall.
     p = skirt_column(); p["supports"][0]["skirt_allowable_compressive_MPa"] = None
     yield "MISSING-B", p, {"D_mm":1000,"t_mm":8}
