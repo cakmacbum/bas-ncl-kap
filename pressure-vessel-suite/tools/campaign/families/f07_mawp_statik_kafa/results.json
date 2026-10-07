@@ -1,0 +1,549 @@
+{
+  "family": "F07-mawp_statik_kafa",
+  "meta": {
+    "code": "ASME VIII-1",
+    "oracle": "UG-27(c)(1), UG-32(d), hydrostatic rho*g*h; clean-room"
+  },
+  "results": [
+    {
+      "case_id": "V-P1",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "vertical",
+        "density_kg_m3": null,
+        "design_pressure_mpa": 0.8
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.7098156081206928,
+      "reference": 2.021588569289324,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -15.422176693363129,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=HEAD-R; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "V-P2",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "vertical",
+        "density_kg_m3": null,
+        "design_pressure_mpa": 1.0
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.7098156081206928,
+      "reference": 2.021588569289324,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -15.422176693363129,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=HEAD-R; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "V-P3",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "vertical",
+        "density_kg_m3": null,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.7098156081206928,
+      "reference": 2.021588569289324,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -15.422176693363129,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=HEAD-R; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "V-P4",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "vertical",
+        "density_kg_m3": null,
+        "design_pressure_mpa": 1.5
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.7098156081206928,
+      "reference": 2.021588569289324,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -15.422176693363129,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=HEAD-R; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "V-P5",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "vertical",
+        "density_kg_m3": null,
+        "design_pressure_mpa": 2.0
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.7098156081206928,
+      "reference": 2.021588569289324,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -15.422176693363129,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=HEAD-R; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "V-RHO1",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "vertical",
+        "density_kg_m3": 0.0,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.7098156081206928,
+      "reference": 2.021588569289324,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -15.422176693363129,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=HEAD-R; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "V-RHO2",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "vertical",
+        "density_kg_m3": 500.0,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.7098156081206928,
+      "reference": 2.021588569289324,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -15.422176693363129,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=HEAD-R; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "V-RHO3",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "vertical",
+        "density_kg_m3": 800.0,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.7098156081206928,
+      "reference": 2.021588569289324,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -15.422176693363129,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=HEAD-R; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "V-RHO4",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "vertical",
+        "density_kg_m3": 1000.0,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.7098156081206928,
+      "reference": 2.021588569289324,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -15.422176693363129,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=HEAD-R; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "V-RHO5",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "vertical",
+        "density_kg_m3": 1200.0,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.7098156081206928,
+      "reference": 2.021588569289324,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -15.422176693363129,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=HEAD-R; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "V-RHO6",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "vertical",
+        "density_kg_m3": 1800.0,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.7098156081206928,
+      "reference": 2.021588569289324,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -15.422176693363129,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=HEAD-R; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "V-T1",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "vertical",
+        "density_kg_m3": null,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.3663366336633664,
+      "reference": 1.371769383697813,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -0.3960396039603865,
+      "verdict": "DOĞRULANDI",
+      "note": "suite_governing=SHELL-01; oracle_governing=SHELL-01; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "V-T2",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "vertical",
+        "density_kg_m3": null,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.7098156081206928,
+      "reference": 1.8480309493105842,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -7.479059874048823,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=SHELL-01; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "V-T3",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "vertical",
+        "density_kg_m3": null,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.7098156081206928,
+      "reference": 2.021588569289324,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -15.422176693363129,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=HEAD-R; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "V-T4",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "vertical",
+        "density_kg_m3": null,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.7098156081206928,
+      "reference": 2.021588569289324,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -15.422176693363129,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=HEAD-R; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "V-T5",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "vertical",
+        "density_kg_m3": null,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.7098156081206928,
+      "reference": 2.021588569289324,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -15.422176693363129,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=HEAD-R; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "V-H1",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "vertical",
+        "density_kg_m3": null,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.0455689124965053,
+      "reference": 1.137561511752804,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -8.086824167824778,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=HEAD-L; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "V-H2",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "vertical",
+        "density_kg_m3": null,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.4884962896264788,
+      "reference": 1.6195969735560718,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -8.094648611360482,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=HEAD-L; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "V-H3",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "vertical",
+        "density_kg_m3": null,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 2.152165818542882,
+      "reference": 2.3223124133834885,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -7.326602306393036,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=SHELL-01; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "V-H4",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "vertical",
+        "density_kg_m3": null,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 2.313153224216131,
+      "reference": 2.3223124133834885,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -0.39439952672057726,
+      "verdict": "DOĞRULANDI",
+      "note": "suite_governing=SHELL-01; oracle_governing=SHELL-01; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "H-RHO1",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "horizontal",
+        "density_kg_m3": 500.0,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.7098156081206928,
+      "reference": 2.021588569289324,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -15.422176693363129,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=HEAD-R; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "H-RHO2",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "horizontal",
+        "density_kg_m3": 800.0,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.7098156081206928,
+      "reference": 2.021588569289324,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -15.422176693363129,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=HEAD-R; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "H-RHO3",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "horizontal",
+        "density_kg_m3": 1000.0,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.7098156081206928,
+      "reference": 2.021588569289324,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -15.422176693363129,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=HEAD-R; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "H-RHO4",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "horizontal",
+        "density_kg_m3": 1200.0,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.7098156081206928,
+      "reference": 2.021588569289324,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -15.422176693363129,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=HEAD-R; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "H-T1",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "horizontal",
+        "density_kg_m3": null,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 0.8899692429804544,
+      "reference": 0.8935152903675665,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -0.3968647683301893,
+      "verdict": "DOĞRULANDI",
+      "note": "suite_governing=SHELL-01; oracle_governing=SHELL-01; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "H-T2",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "horizontal",
+        "density_kg_m3": null,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.3663366336633664,
+      "reference": 1.371769383697813,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -0.3960396039603865,
+      "verdict": "DOĞRULANDI",
+      "note": "suite_governing=SHELL-01; oracle_governing=SHELL-01; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "H-T3",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "horizontal",
+        "density_kg_m3": null,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.7098156081206928,
+      "reference": 2.021588569289324,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -15.422176693363129,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=HEAD-R; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "H-T4",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "horizontal",
+        "density_kg_m3": null,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 1.7098156081206928,
+      "reference": 2.021588569289324,
+      "ref_source": "Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "diff_pct": -15.422176693363129,
+      "verdict": "SAPMA",
+      "note": "suite_governing=HEAD-R; oracle_governing=HEAD-R; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "INVALID-NO-MATERIAL",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "vertical",
+        "density_kg_m3": null,
+        "design_pressure_mpa": 1.2
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Geçersiz: malzeme yok; KAPSAM_DIŞI beklenir",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "suite_governing=SHELL-01; oracle_governing=None; Geçersiz: malzeme yok; KAPSAM_DIŞI beklenir",
+      "suite_status": "NOT CALCULATED"
+    },
+    {
+      "case_id": "PUB-CW-K1-01",
+      "family": "F07-mawp_statik_kafa",
+      "params": {
+        "orientation": "vertical",
+        "density_kg_m3": 997,
+        "design_pressure_mpa": 0.696
+      },
+      "quantity": "global_mawp",
+      "unit": "MPa",
+      "suite": 2.1345975232198144,
+      "reference": 2.128,
+      "ref_source": "Codeware COMPRESS Demo Vessel, K1-01, 308.73 psi converted to MPa",
+      "diff_pct": 0.31003398589353043,
+      "verdict": "TEK_KAYNAK",
+      "note": "suite_governing=SHELL-01; oracle_governing=SHELL-01; K1-01 yayınlanmış silindir MAWP; statik kafa bileşen hesabı ayrı doğrulama gerektirir. Codeware COMPRESS Demo Vessel, K1-01, 308.73 psi converted to MPa",
+      "suite_status": "PASS"
+    }
+  ]
+}
