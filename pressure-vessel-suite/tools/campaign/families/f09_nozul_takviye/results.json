@@ -2,7 +2,9 @@
   "family": "F09-nozul-takviye",
   "meta": {
     "code": "ASME VIII-1",
-    "oracle": "UG-37(c), UG-40, UG-45"
+    "oracle": "UG-37(c), UG-40, UG-45",
+    "calculation_type": "nozzle_reinforcement",
+    "intermediate_value": "A_required"
   },
   "results": [
     {
@@ -24,14 +26,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 2.7079722703639515,
+      "suite": 109.70279720279721,
+      "reference": 108.31889081455807,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 2.7079722703639515, 'A1': 475.66724436741765, 'A2': 315.6672443674177, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 791.3344887348353, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "diff_pct": 1.2776223776223739,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 108.31889081455807, 'A1': 306.6897746967071, 'A2': 315.6672443674177, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 622.3570190641249, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     },
     {
@@ -53,14 +55,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 2.7079722703639515,
+      "suite": 109.70279720279721,
+      "reference": 108.31889081455807,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 2.7079722703639515, 'A1': 475.66724436741765, 'A2': 315.6672443674177, 'A3': 0.0, 'A4': 320.0, 'A5': 0.0, 'total': 1111.3344887348353, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "diff_pct": 1.2776223776223739,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 108.31889081455807, 'A1': 306.6897746967071, 'A2': 315.6672443674177, 'A3': 0.0, 'A4': 306.6897746967071, 'A5': 0.0, 'total': 929.046793760832, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     },
     {
@@ -82,14 +84,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 10.831889081455806,
+      "suite": 219.40559440559443,
+      "reference": 216.63778162911615,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 10.831889081455806, 'A1': 471.33448873483536, 'A2': 311.33448873483536, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 782.6689774696707, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "diff_pct": 1.2776223776223739,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 216.63778162911615, 'A1': 306.6897746967071, 'A2': 311.33448873483536, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 618.0242634315425, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     },
     {
@@ -111,14 +113,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 10.831889081455806,
+      "suite": 219.40559440559443,
+      "reference": 216.63778162911615,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 10.831889081455806, 'A1': 471.33448873483536, 'A2': 311.33448873483536, 'A3': 0.0, 'A4': 320.0, 'A5': 0.0, 'total': 1102.6689774696706, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "diff_pct": 1.2776223776223739,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 216.63778162911615, 'A1': 306.6897746967071, 'A2': 311.33448873483536, 'A3': 0.0, 'A4': 306.6897746967071, 'A5': 0.0, 'total': 924.7140381282496, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     },
     {
@@ -140,14 +142,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 43.327556325823224,
+      "suite": 438.81118881118886,
+      "reference": 433.2755632582323,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 43.327556325823224, 'A1': 462.66897746967066, 'A2': 302.6689774696707, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 765.3379549393414, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "diff_pct": 1.2776223776223739,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 433.2755632582323, 'A1': 306.6897746967071, 'A2': 302.6689774696707, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 609.3587521663778, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     },
     {
@@ -169,14 +171,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 43.327556325823224,
+      "suite": 438.81118881118886,
+      "reference": 433.2755632582323,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 43.327556325823224, 'A1': 462.66897746967066, 'A2': 302.6689774696707, 'A3': 0.0, 'A4': 320.0, 'A5': 0.0, 'total': 1085.3379549393414, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "diff_pct": 1.2776223776223739,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 433.2755632582323, 'A1': 306.6897746967071, 'A2': 302.6689774696707, 'A3': 0.0, 'A4': 306.6897746967071, 'A5': 0.0, 'total': 916.0485268630849, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     },
     {
@@ -198,14 +200,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 132.69064124783364,
+      "suite": 767.9195804195805,
+      "reference": 758.2322357019066,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 132.69064124783364, 'A1': 449.6707105719237, 'A2': 289.67071057192373, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 739.3414211438474, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "diff_pct": 1.2776223776223645,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 758.2322357019066, 'A1': 306.6897746967071, 'A2': 289.67071057192373, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 596.3604852686308, 'adequate': False, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     },
     {
@@ -227,14 +229,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 132.69064124783364,
+      "suite": 767.9195804195805,
+      "reference": 758.2322357019066,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 132.69064124783364, 'A1': 449.6707105719237, 'A2': 289.67071057192373, 'A3': 0.0, 'A4': 320.0, 'A5': 0.0, 'total': 1059.3414211438474, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "diff_pct": 1.2776223776223645,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 758.2322357019066, 'A1': 306.6897746967071, 'A2': 289.67071057192373, 'A3': 0.0, 'A4': 306.6897746967071, 'A5': 0.0, 'total': 903.0502599653379, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     },
     {
@@ -256,14 +258,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 270.7972270363952,
+      "suite": 1097.027972027972,
+      "reference": 1083.1889081455809,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 270.7972270363952, 'A1': 436.6724436741768, 'A2': 276.67244367417675, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 713.3448873483535, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "diff_pct": 1.2776223776223554,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 1083.1889081455809, 'A1': 306.6897746967071, 'A2': 276.67244367417675, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 583.3622183708839, 'adequate': False, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     },
     {
@@ -285,14 +287,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 270.7972270363952,
+      "suite": 1097.027972027972,
+      "reference": 1083.1889081455809,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 270.7972270363952, 'A1': 436.6724436741768, 'A2': 276.67244367417675, 'A3': 0.0, 'A4': 320.0, 'A5': 0.0, 'total': 1033.3448873483535, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "diff_pct": 1.2776223776223554,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 1083.1889081455809, 'A1': 306.6897746967071, 'A2': 276.67244367417675, 'A3': 0.0, 'A4': 306.6897746967071, 'A5': 0.0, 'total': 890.051993067591, 'adequate': False, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     },
     {
@@ -313,14 +315,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 11.942157712305027,
+      "suite": 230.37587412587413,
+      "reference": 227.46967071057196,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 11.942157712305027, 'A1': 229.56434142114384, 'A2': 0.0, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 229.56434142114384, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "diff_pct": 1.2776223776223645,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 227.46967071057196, 'A1': 149.5112651646447, 'A2': 0.0, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 149.5112651646447, 'adequate': False, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     },
     {
@@ -341,14 +343,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 11.942157712305027,
+      "suite": 230.37587412587413,
+      "reference": 227.46967071057196,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 11.942157712305027, 'A1': 229.56434142114384, 'A2': 71.61434142114385, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 301.1786828422877, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "diff_pct": 1.2776223776223645,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 227.46967071057196, 'A1': 149.5112651646447, 'A2': 71.61434142114385, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 221.12560658578855, 'adequate': False, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     },
     {
@@ -369,14 +371,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
       "suite": null,
-      "reference": 11.942157712305027,
+      "reference": 227.46967071057196,
       "ref_source": "UG-37(c) independent",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 11.942157712305027, 'A1': 229.56434142114384, 'A2': 71.61434142114385, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 301.1786828422877, 'adequate': True, 'UG45_t_min': 1.5}; API ok=False error={\"detail\":[{\"type\":\"enum\",\"loc\":[\"body\",\"nozzles\",0,\"nozzle_type\"],\"msg\":\"Input should be 'slip_on', 'socket_welded', 'coupling', 'manway', 'flanged' or 'pad_reinforced'\",\"input\":\"socket_weld\",\"ctx\":{\"expected\":\"'slip_on', 'socket_welded', 'coupling', 'manway', 'flanged' or 'pad_reinforced'\"}}]}",
+      "note": "independent={'A': 227.46967071057196, 'A1': 149.5112651646447, 'A2': 71.61434142114385, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 221.12560658578855, 'adequate': False, 'UG45_t_min': 1.5}; API ok=False error={\"detail\":[{\"type\":\"enum\",\"loc\":[\"body\",\"nozzles\",0,\"nozzle_type\"],\"msg\":\"Input should be 'slip_on', 'socket_welded', 'coupling', 'manway', 'flanged' or 'pad_reinforced'\",\"input\":\"socket_weld\",\"ctx\":{\"expected\":\"'slip_on', 'socket_welded', 'coupling', 'manway', 'flanged' or 'pad_reinforced'\"}}]}",
       "suite_status": null
     },
     {
@@ -397,14 +399,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
       "suite": null,
-      "reference": 11.942157712305027,
+      "reference": 227.46967071057196,
       "ref_source": "UG-37(c) independent",
       "diff_pct": null,
       "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 11.942157712305027, 'A1': 229.56434142114384, 'A2': 71.61434142114385, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 301.1786828422877, 'adequate': True, 'UG45_t_min': 1.5}; API ok=False error={\"detail\":[{\"type\":\"enum\",\"loc\":[\"body\",\"nozzles\",0,\"nozzle_type\"],\"msg\":\"Input should be 'slip_on', 'socket_welded', 'coupling', 'manway', 'flanged' or 'pad_reinforced'\",\"input\":\"threaded\",\"ctx\":{\"expected\":\"'slip_on', 'socket_welded', 'coupling', 'manway', 'flanged' or 'pad_reinforced'\"}}]}",
+      "note": "independent={'A': 227.46967071057196, 'A1': 149.5112651646447, 'A2': 71.61434142114385, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 221.12560658578855, 'adequate': False, 'UG45_t_min': 1.5}; API ok=False error={\"detail\":[{\"type\":\"enum\",\"loc\":[\"body\",\"nozzles\",0,\"nozzle_type\"],\"msg\":\"Input should be 'slip_on', 'socket_welded', 'coupling', 'manway', 'flanged' or 'pad_reinforced'\",\"input\":\"threaded\",\"ctx\":{\"expected\":\"'slip_on', 'socket_welded', 'coupling', 'manway', 'flanged' or 'pad_reinforced'\"}}]}",
       "suite_status": null
     },
     {
@@ -425,14 +427,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 11.942157712305027,
+      "suite": 230.37587412587413,
+      "reference": 227.46967071057196,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 11.942157712305027, 'A1': 229.56434142114384, 'A2': 71.61434142114385, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 301.1786828422877, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "diff_pct": 1.2776223776223645,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 227.46967071057196, 'A1': 149.5112651646447, 'A2': 71.61434142114385, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 221.12560658578855, 'adequate': False, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     },
     {
@@ -451,14 +453,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 11.942157712305027,
+      "suite": 230.37587412587413,
+      "reference": 227.46967071057196,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 11.942157712305027, 'A1': 229.56434142114384, 'A2': 0.0, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 229.56434142114384, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "diff_pct": 1.2776223776223645,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 227.46967071057196, 'A1': 149.5112651646447, 'A2': 0.0, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 149.5112651646447, 'adequate': False, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     },
     {
@@ -477,14 +479,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 11.942157712305027,
+      "suite": 230.37587412587413,
+      "reference": 227.46967071057196,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 11.942157712305027, 'A1': 229.56434142114384, 'A2': 0.0, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 229.56434142114384, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "diff_pct": 1.2776223776223645,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 227.46967071057196, 'A1': 149.5112651646447, 'A2': 0.0, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 149.5112651646447, 'adequate': False, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     },
     {
@@ -503,14 +505,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 11.942157712305027,
+      "suite": 230.37587412587413,
+      "reference": 227.46967071057196,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 11.942157712305027, 'A1': 229.56434142114384, 'A2': 0.0, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 229.56434142114384, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "diff_pct": 1.2776223776223645,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 227.46967071057196, 'A1': 149.5112651646447, 'A2': 0.0, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 149.5112651646447, 'adequate': False, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     },
     {
@@ -529,14 +531,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 11.851343154246099,
+      "suite": 229.49825174825176,
+      "reference": 226.6031195840555,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 11.851343154246099, 'A1': 235.4679376083189, 'A2': 0.0, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 235.4679376083189, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "diff_pct": 1.2776223776223687,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 226.6031195840555, 'A1': 153.34488734835355, 'A2': 0.0, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 153.34488734835355, 'adequate': False, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     },
     {
@@ -555,14 +557,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 8.502989601386481,
+      "suite": 194.39335664335664,
+      "reference": 191.9410745233969,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 8.502989601386481, 'A1': 472.3223570190641, 'A2': 0.0, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 472.3223570190641, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "diff_pct": 1.277622377622362,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 191.9410745233969, 'A1': 306.6897746967071, 'A2': 0.0, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 306.6897746967071, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     },
     {
@@ -581,14 +583,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 3.977859618717503,
+      "suite": 132.9597902097902,
+      "reference": 131.28249566724438,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 3.977859618717503, 'A1': 712.1230502599653, 'A2': 0.0, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 712.1230502599653, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "diff_pct": 1.2776223776223739,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 131.28249566724438, 'A1': 460.0346620450606, 'A2': 0.0, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 460.0346620450606, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     },
     {
@@ -609,14 +611,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 11.942157712305027,
+      "suite": 230.37587412587413,
+      "reference": 227.46967071057196,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 11.942157712305027, 'A1': 229.56434142114384, 'A2': 0.0, 'A3': 0.0, 'A4': 156.0, 'A5': 0.0, 'total': 385.5643414211438, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "diff_pct": 1.2776223776223645,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 227.46967071057196, 'A1': 149.5112651646447, 'A2': 0.0, 'A3': 0.0, 'A4': 149.5112651646447, 'A5': 0.0, 'total': 299.0225303292894, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     },
     {
@@ -637,14 +639,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 11.942157712305027,
+      "suite": 230.37587412587413,
+      "reference": 227.46967071057196,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 11.942157712305027, 'A1': 229.56434142114384, 'A2': 0.0, 'A3': 0.0, 'A4': 156.0, 'A5': 0.0, 'total': 385.5643414211438, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "diff_pct": 1.2776223776223645,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 227.46967071057196, 'A1': 149.5112651646447, 'A2': 0.0, 'A3': 0.0, 'A4': 149.5112651646447, 'A5': 0.0, 'total': 299.0225303292894, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     },
     {
@@ -665,14 +667,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 11.942157712305027,
+      "suite": 230.37587412587413,
+      "reference": 227.46967071057196,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 11.942157712305027, 'A1': 229.56434142114384, 'A2': 0.0, 'A3': 0.0, 'A4': 156.0, 'A5': 0.0, 'total': 385.5643414211438, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "diff_pct": 1.2776223776223645,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 227.46967071057196, 'A1': 149.5112651646447, 'A2': 0.0, 'A3': 0.0, 'A4': 149.5112651646447, 'A5': 0.0, 'total': 299.0225303292894, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     },
     {
@@ -692,14 +694,14 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 9.774956689774697,
+      "suite": 66.05668096153845,
+      "reference": 64.66107714038127,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 9.774956689774697, 'A1': 93.4173506932409, 'A2': 79.39208069324091, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 172.80943138648183, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "diff_pct": 2.1583367968450022,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 64.66107714038127, 'A1': 69.79221421143849, 'A2': 79.39208069324091, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 149.1842949046794, 'adequate': True, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     },
     {
@@ -720,14 +722,176 @@
         },
         "host": "shell"
       },
-      "quantity": "A",
+      "quantity": "A_required",
       "unit": "mm2",
-      "suite": null,
-      "reference": 796.1040836221837,
+      "suite": 1880.9641608391607,
+      "reference": 1857.2357019064127,
       "ref_source": "UG-37(c) independent",
-      "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "independent={'A': 796.1040836221837, 'A1': 608.5658578856152, 'A2': 0.0, 'A3': 0.0, 'A4': 360.0, 'A5': 0.0, 'total': 968.5658578856152, 'adequate': True, 'UG45_t_min': 1.8572357019064125}; API ok=True error=None",
+      "diff_pct": 1.2776223776223594,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 1857.2357019064127, 'A1': 460.0346620450606, 'A2': 0.0, 'A3': 0.0, 'A4': 360.0, 'A5': 0.0, 'total': 820.0346620450606, 'adequate': False, 'UG45_t_min': 1.8572357019064125}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "proj-0",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 60.3,
+          "inside_diameter": 52.5,
+          "neck_thickness": 3.9,
+          "material_id": "M1",
+          "reinforcement_pad": false,
+          "outside_projection": 0
+        },
+        "host": "shell"
+      },
+      "quantity": "A_required",
+      "unit": "mm2",
+      "suite": 230.37587412587413,
+      "reference": 227.46967071057196,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": 1.2776223776223645,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 227.46967071057196, 'A1': 149.5112651646447, 'A2': 0.0, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 149.5112651646447, 'adequate': False, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "proj-10",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 60.3,
+          "inside_diameter": 52.5,
+          "neck_thickness": 3.9,
+          "material_id": "M1",
+          "reinforcement_pad": false,
+          "outside_projection": 10
+        },
+        "host": "shell"
+      },
+      "quantity": "A_required",
+      "unit": "mm2",
+      "suite": 230.37587412587413,
+      "reference": 227.46967071057196,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": 1.2776223776223645,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 227.46967071057196, 'A1': 149.5112651646447, 'A2': 71.61434142114385, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 221.12560658578855, 'adequate': False, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "proj-100",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 60.3,
+          "inside_diameter": 52.5,
+          "neck_thickness": 3.9,
+          "material_id": "M1",
+          "reinforcement_pad": false,
+          "outside_projection": 100
+        },
+        "host": "shell"
+      },
+      "quantity": "A_required",
+      "unit": "mm2",
+      "suite": 230.37587412587413,
+      "reference": 227.46967071057196,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": 1.2776223776223645,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 227.46967071057196, 'A1': 149.5112651646447, 'A2': 71.61434142114385, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 221.12560658578855, 'adequate': False, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "proj-250",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 60.3,
+          "inside_diameter": 52.5,
+          "neck_thickness": 3.9,
+          "material_id": "M1",
+          "reinforcement_pad": false,
+          "outside_projection": 250
+        },
+        "host": "shell"
+      },
+      "quantity": "A_required",
+      "unit": "mm2",
+      "suite": 230.37587412587413,
+      "reference": 227.46967071057196,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": 1.2776223776223645,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 227.46967071057196, 'A1': 149.5112651646447, 'A2': 71.61434142114385, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 221.12560658578855, 'adequate': False, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "proj-500",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 60.3,
+          "inside_diameter": 52.5,
+          "neck_thickness": 3.9,
+          "material_id": "M1",
+          "reinforcement_pad": false,
+          "outside_projection": 500
+        },
+        "host": "shell"
+      },
+      "quantity": "A_required",
+      "unit": "mm2",
+      "suite": 230.37587412587413,
+      "reference": 227.46967071057196,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": 1.2776223776223645,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 227.46967071057196, 'A1': 149.5112651646447, 'A2': 71.61434142114385, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 221.12560658578855, 'adequate': False, 'UG45_t_min': 1.5}; API ok=True error=None",
+      "suite_status": "PASS"
+    },
+    {
+      "case_id": "proj-1000",
+      "family": "F09-nozul-takviye",
+      "params": {
+        "nozzle": {
+          "tag": "N1",
+          "host_component_id": "SHELL-01",
+          "axial_position": 1000,
+          "outside_diameter": 60.3,
+          "inside_diameter": 52.5,
+          "neck_thickness": 3.9,
+          "material_id": "M1",
+          "reinforcement_pad": false,
+          "outside_projection": 1000
+        },
+        "host": "shell"
+      },
+      "quantity": "A_required",
+      "unit": "mm2",
+      "suite": 230.37587412587413,
+      "reference": 227.46967071057196,
+      "ref_source": "UG-37(c) independent",
+      "diff_pct": 1.2776223776223645,
+      "verdict": "SAPMA",
+      "note": "independent={'A': 227.46967071057196, 'A1': 149.5112651646447, 'A2': 71.61434142114385, 'A3': 0.0, 'A4': 0.0, 'A5': 0.0, 'total': 221.12560658578855, 'adequate': False, 'UG45_t_min': 1.5}; API ok=True error=None",
       "suite_status": "PASS"
     }
   ]

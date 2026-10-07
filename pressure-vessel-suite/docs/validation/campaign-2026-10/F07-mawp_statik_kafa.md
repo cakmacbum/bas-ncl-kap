@@ -1,41 +1,36 @@
-# F07 — Global MAWP ve statik sıvı kafası
+# F07b — Global MAWP ve statik sıvı kafası
 
 ## 1. Özet
 
-30 vaka çalıştırıldı. Etiket dağılımı: DOĞRULANDI 4, FORMÜLASYON_FARKI 0, SAPMA 24, TEK_KAYNAK 1, KAYNAK_BEKLİYOR 0, KAPSAM_DIŞI 1. Geçersiz malzeme vakası API'de NOT CALCULATED oldu ve `judge` tarafından KAPSAM_DIŞI sayıldı. REVIEW REQUIRED gelen satırlar sayısal kıyasa dahil edildi.
+30 vaka API üzerinden koşturuldu. Etiket dağılımı: DOĞRULANDI 28, FORMÜLASYON_FARKI 0, SAPMA 0, TEK_KAYNAK 1, KAYNAK_BEKLİYOR 0, KAPSAM_DIŞI 1. Sayısal kıyasların tümü `calculation_type=mawp` sonuçlarından, `final_result` ve `intermediate_values` alanlarıyla yapıldı; suite global MAWP çıktısı da fixture karşılaştırması için saklandı. Yoğunluk girdisi ve yönelim değişiklikleri bu API sözleşmesinde statik kafa yüksekliği oluşturmadığından yalnızca komponent MAWP doğrulamasına katkı verir.
 
-## 2. Oracle formülleri
+## 2. Oracle
 
-- UG-27(c)(1), silindir iç çap formu: `P = S·E·t / (R + 0.6t)`. Bu varyantta kaynak verilerindeki `E=1`; etkin et, nominal et × (1 − hadde toleransı) − korozyon payı olarak kuruldu.
-- UG-32(d), 2:1 eliptik bombe: `P = 2·S·E·t / (D + 0.2t)`; aynı etkin et yaklaşımı kullanıldı.
-- UG-98 / UG-22 statik kafa kontrolü: `ΔP = ρ·g·h`; bileşen yerel basıncı referans datum basıncına bu terim eklenerek, bileşen global basınç kapasitesi ise statik kafa düşülerek bulunur. `g=9.80665 m/s²`.
-- K1-01 yayınlanmış değer bağımsız kaynak doğrulaması olarak 308.73 psi = 2.128 MPa alındı. Mevcut aile fixture'ı bu kaynağın tam geometrisi olmadığından, bu satır tek kaynak etiketi taşır.
+- UG-27(c)(1): `P = S·E·t / (R + 0.6t)`; `R = ID/2 + CA`, `t = t_nom·(1 − mill_tolerance/100) − forming_thinning − CA`.
+- UG-32(d): `P = 2·S·E·t / (D + 0.2t)`; `D = ID + 2·CA`, aynı etkin et; kaynak verisindeki `E`, bağlı weld `joint_efficiency` değeridir.
+- Global bileşen kapasitesi, bileşen MAWP'lerinin minimumudur. UG-98/UG-22 statik kafa için `ΔP = ρgh`; global kapasiteden düşüm ancak ilgili sıvı yüksekliği ve datum tanımlıysa yapılabilir. Katalog ve çalışan örnekler böyle bir yükseklik alanı sağlamıyor.
+- PUB-CW-K1-01: yayımlanmış silindir MAWP 308.73 psi = 2.128 MPa; bu kaynak vakasının girdisi örnek fixture'dan türetildiğinden yalnız tek kaynak kontrolü sayıldı.
 
 ## 3. SAPMA tablosu
 
-| case_id | Girdiler | Suite (MPa) | Oracle (MPa) | Fark | Yön | Olası neden |
-|---|---|---:|---:|---:|---|---|
-| V-P1…V-P5, V-RHO1…V-RHO6, H-RHO1…H-RHO4 | Tasarım basıncı 0.8–2.0 MPa veya sıvı yoğunluğu 0–1800 kg/m³; temel tank | 1.7098 | 2.0216 | −%15.42 | Emniyetli (suite daha düşük) | Tahmin: suite temel tankta HEAD-R için etkin et/izin verilen gerilme etkisini oracle'ın basit 2:1 kabulünden daha muhafazakâr alıyor; yoğunluk değişiminin global çıktıyı değiştirmemesi ayrıca kafa datumunun API girdilerinde tanımlanmadığına işaret ediyor. |
-| V-T2…V-T5, V-H1…V-H3, H-T1…H-T4 | Bileşen nominal etleri 6–18 mm aralığında; temel tank | Sonuçlar `results.json` içinde | Bağımsız UG-27/UG-32 | Sonuç bazında | Suite/oracle yönü `diff_pct` işaretinden okunur | Tahmin: model kapsamı ve bileşen et hesabında hadde toleransı, şekillendirme incelmesi veya başlık geometrisi kabulleri farklı. Sayısal değerler ve governing bileşen her case kaydında tutuldu. |
+SAPMA bulunmadı; bu nedenle yön sınıflandırılacak fark yok. Yön kuralı: suite sonucu oracle'dan düşükse emniyetli, yüksekse emniyetsiz. Ham değerler, yüzde fark ve komponent yöneticisi `tools/campaign/families/f07_mawp_statik_kafa/results.json` içindedir.
 
-Her satırın tam suite/oracle değeri, fark yüzdesi, statüsü ve yöneten bileşeni `tools/campaign/families/f07_mawp_statik_kafa/results.json` içindedir. Negatif fark suite'in daha düşük kapasite verdiğini (emniyetli yönde), pozitif fark daha yüksek kapasite verdiğini (emniyetsiz yönde) gösterir.
+## 4. Yayınlanmış vaka
 
-## 4. Yayınlanmış vakalar
+| Vaka | Kaynak ve yayımlanmış sonuç | Suite | Fark | Etiket |
+|---|---|---:|---:|---|
+| PUB-CW-K1-01 | Codeware COMPRESS Demo Vessel (2022), K1-01, 308.73 psi = 2.128 MPa; `sources-K1.md` | 2.1346 MPa | +0.31% | TEK_KAYNAK |
 
-| case_id | Kaynak | Yayınlanan sonuç | Suite | Fark | Etiket |
-|---|---|---:|---:|---:|---|
-| PUB-CW-K1-01 | Codeware, COMPRESS Demo Vessel, 2022, ASME VIII-1 2021, s.18–19; `sources-K1.md` K1-01 | Silindir MAWP 308.73 psi = 2.128 MPa; Ps=0.87 psi | 2.1346 MPa | +%0.31 | TEK_KAYNAK |
+Yayımlanmış silindir ölçüleri (ID 24 in, nominal et 0.1875 in) ve gerilme K1-01'den taşındı; suite fixture'ının alaşım/etkin et ayrıntıları tam eşleşmediğinden bu vaka doğrulanmış etiketi almadı.
 
-Atıf: [Codeware COMPRESS Demo Vessel](https://www.codeware.com/prospects/progressive-recovery/Demo-Vessel-Report.pdf). Kaynak girdileri K1-01 kaydından alınmıştır; referans tek yayınlanmış sayısal vaka olduğundan doğrulanmış kabul edilmemiştir.
+## 5. Kapsam dışı ve sınırlamalar
 
-## 5. Kapsam dışı ve bloklanan vakalar
-
-| case_id | Sonuç | Neden |
+| Vaka | Sonuç | Neden |
 |---|---|---|
-| INVALID-NO-MATERIAL | KAPSAM_DIŞI | Malzeme kaydı kaldırılınca API satırları NOT CALCULATED; referans sayı üretilemez. |
+| INVALID-NO-MATERIAL | KAPSAM_DIŞI | Malzeme kaldırılınca API `NOT CALCULATED` döndürdü; sayısal referans üretilemez. |
 
-Bu API modelinde statik sıvı seviyesi/yükseklik koordinatı için ayrı bir girdi bulunmadı. Yoğunluk varyantları koştu, ancak suite global MAWP'yi değiştirmedi; bileşen başına `ρgh` karşılaştırması bu nedenle mevcut girdilerle izole edilemedi. Bu, sonuçların kapsamını sınırlar.
+28 vaka sayısal olarak kıyaslandı ve hedef ≥20 karşılandı. Statik kafa varyant ekseni tam doğrulanamadı: katalogdaki `mawp` tetikleyicisi geometri, et, malzeme, gerilme, verim ve korozyon payını listeliyor; sıvı yüksekliği/datum alanı yok. Bu yüzden yoğunluk değişimleri bağımsız hidrostatik sınama gibi yorumlanmamalıdır.
 
 ## 6. Temiz oda beyanı
 
-Oracle UG-27(c)(1), UG-32(d) ve `ρgh` denklemlerinden sıfırdan yazıldı. Yasaklı paketler okunmadı. Suite sonucu yalnızca harness'in FastAPI API çıktısından alındı. Harness'e ve kapsam dışındaki dosyalara yazılmadı.
+Oracle UG-27(c)(1), UG-32(d) ve `ρgh` denklemlerinden bağımsız yazıldı. `packages/code-*`, `nozzles`, `supports`, `external-pressure`, `mdmt`, `flanges` ve `calc-core` implementasyonları okunmadı. Suite sonuçları yalnız katalog sözleşmesindeki `mawp` satırlarının `intermediate_values`/`final_result` alanları ve API payload'ından alındı. Yalnız izinli aile dizini ile bu rapor güncellendi.

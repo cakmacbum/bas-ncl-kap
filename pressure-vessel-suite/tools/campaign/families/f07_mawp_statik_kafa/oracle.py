@@ -10,22 +10,30 @@ def hydrostatic_mpa(density_kg_m3: float, height_m: float) -> float:
 
 def component_mawp(project: dict) -> tuple[float | None, str | None]:
     materials = {m["material_id"]: m for m in project.get("materials", [])}
+    efficiencies = {w["joint_id"]: w.get("joint_efficiency", 1.0) for w in project.get("welds", [])}
     candidates = []
     for shell in project.get("shell_sections", []):
         m = materials.get(shell.get("material_id"))
         if not m:
             continue
         d = shell.get("inside_diameter")
-        t = shell["nominal_thickness"] * (1-shell.get("mill_tolerance", 0)/100) - shell.get("internal_corrosion_allowance", 0)
+        ca = shell.get("internal_corrosion_allowance", 0)
+        t = shell["nominal_thickness"] * (1-shell.get("mill_tolerance", 0)/100) - shell.get("forming_thinning", 0) - ca
+        # UG-27(c)(1): use the corroded inside radius R_i + CA.
         if d and t > 0:
-            p = m["allowable_stress"] * t / (d/2 + 0.6*t)
+            r_corroded = d/2 + ca
+            e = efficiencies.get(shell.get("weld_joint_id"), 1.0)
+            p = m["allowable_stress"] * e * t / (r_corroded + 0.6*t)
             candidates.append((p, shell["section_id"]))
     for head in project.get("heads", []):
         m = materials.get(head.get("material_id"))
-        t = head["nominal_thickness"] * (1-head.get("mill_tolerance", 0)/100) - head.get("internal_corrosion_allowance", 0)
+        ca = head.get("internal_corrosion_allowance", 0)
+        t = head["nominal_thickness"] * (1-head.get("mill_tolerance", 0)/100) - head.get("forming_thinning", 0) - ca
         if m and head.get("type") == "elliptical" and t > 0:
-            d = head["inside_diameter"]
-            p = 2*m["allowable_stress"]*t/(d+0.2*t)
+            # UG-32(d): corrosion-adjusted inside diameter.
+            d = head["inside_diameter"] + 2*ca
+            e = efficiencies.get(head.get("weld_joint_id"), 1.0)
+            p = 2*m["allowable_stress"]*e*t/(d+0.2*t)
             candidates.append((p, head["head_id"]))
     if not candidates:
         return None, None

@@ -15,8 +15,8 @@
         "t_mm": 6,
         "height_mm": 1000,
         "E": 0.55,
-        "W_not_applied_N": 30000,
-        "M_Nmm": 0
+        "M_Nmm": 0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -36,8 +36,8 @@
         "t_mm": 6,
         "height_mm": 1000,
         "E": 0.55,
-        "W_not_applied_N": 30000,
-        "M_Nmm": 0
+        "M_Nmm": 0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -57,8 +57,8 @@
         "t_mm": 8,
         "height_mm": 1200,
         "E": 0.6,
-        "W_not_applied_N": 50000,
-        "M_Nmm": 1000000.0
+        "M_Nmm": 1000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -78,8 +78,8 @@
         "t_mm": 8,
         "height_mm": 1200,
         "E": 0.6,
-        "W_not_applied_N": 50000,
-        "M_Nmm": 1000000.0
+        "M_Nmm": 1000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -99,8 +99,8 @@
         "t_mm": 12,
         "height_mm": 2000,
         "E": 0.7,
-        "W_not_applied_N": 100000,
-        "M_Nmm": 5000000.0
+        "M_Nmm": 5000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -120,8 +120,8 @@
         "t_mm": 12,
         "height_mm": 2000,
         "E": 0.7,
-        "W_not_applied_N": 100000,
-        "M_Nmm": 5000000.0
+        "M_Nmm": 5000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -141,8 +141,8 @@
         "t_mm": 20,
         "height_mm": 4000,
         "E": 0.85,
-        "W_not_applied_N": 250000,
-        "M_Nmm": 20000000.0
+        "M_Nmm": 20000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -162,8 +162,8 @@
         "t_mm": 20,
         "height_mm": 4000,
         "E": 0.85,
-        "W_not_applied_N": 250000,
-        "M_Nmm": 20000000.0
+        "M_Nmm": 20000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -183,8 +183,8 @@
         "t_mm": 30,
         "height_mm": 6000,
         "E": 1.0,
-        "W_not_applied_N": 500000,
-        "M_Nmm": 100000000.0
+        "M_Nmm": 100000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -204,8 +204,8 @@
         "t_mm": 30,
         "height_mm": 6000,
         "E": 1.0,
-        "W_not_applied_N": 500000,
-        "M_Nmm": 100000000.0
+        "M_Nmm": 100000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -225,8 +225,8 @@
         "t_mm": 10,
         "height_mm": 3000,
         "E": 0.8,
-        "W_not_applied_N": 0,
-        "M_Nmm": 20000000.0
+        "M_Nmm": 20000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -246,8 +246,8 @@
         "t_mm": 10,
         "height_mm": 3000,
         "E": 0.8,
-        "W_not_applied_N": 0,
-        "M_Nmm": 20000000.0
+        "M_Nmm": 20000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -267,8 +267,8 @@
         "t_mm": 16,
         "height_mm": 5000,
         "E": 0.9,
-        "W_not_applied_N": 750000,
-        "M_Nmm": 40000000.0
+        "M_Nmm": 40000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -288,8 +288,8 @@
         "t_mm": 16,
         "height_mm": 5000,
         "E": 0.9,
-        "W_not_applied_N": 750000,
-        "M_Nmm": 40000000.0
+        "M_Nmm": 40000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -309,8 +309,8 @@
         "t_mm": 25,
         "height_mm": 1500,
         "E": 0.65,
-        "W_not_applied_N": 200000,
-        "M_Nmm": 80000000.0
+        "M_Nmm": 80000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -330,8 +330,8 @@
         "t_mm": 25,
         "height_mm": 1500,
         "E": 0.65,
-        "W_not_applied_N": 200000,
-        "M_Nmm": 80000000.0
+        "M_Nmm": 80000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -351,8 +351,8 @@
         "t_mm": 15,
         "height_mm": 6000,
         "E": 0.75,
-        "W_not_applied_N": 60000,
-        "M_Nmm": 6000000.0
+        "M_Nmm": 6000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -372,8 +372,8 @@
         "t_mm": 15,
         "height_mm": 6000,
         "E": 0.75,
-        "W_not_applied_N": 60000,
-        "M_Nmm": 6000000.0
+        "M_Nmm": 6000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -393,8 +393,8 @@
         "t_mm": 6,
         "height_mm": 2500,
         "E": 0.95,
-        "W_not_applied_N": 900000,
-        "M_Nmm": 90000000.0
+        "M_Nmm": 90000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -414,8 +414,8 @@
         "t_mm": 6,
         "height_mm": 2500,
         "E": 0.95,
-        "W_not_applied_N": 900000,
-        "M_Nmm": 90000000.0
+        "M_Nmm": 90000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -435,8 +435,8 @@
         "t_mm": 30,
         "height_mm": 4500,
         "E": 0.55,
-        "W_not_applied_N": 400000,
-        "M_Nmm": 30000000.0
+        "M_Nmm": 30000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -456,8 +456,8 @@
         "t_mm": 30,
         "height_mm": 4500,
         "E": 0.55,
-        "W_not_applied_N": 400000,
-        "M_Nmm": 30000000.0
+        "M_Nmm": 30000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -477,8 +477,8 @@
         "t_mm": 18,
         "height_mm": 1000,
         "E": 1.0,
-        "W_not_applied_N": 125000,
-        "M_Nmm": 70000000.0
+        "M_Nmm": 70000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -498,8 +498,8 @@
         "t_mm": 18,
         "height_mm": 1000,
         "E": 1.0,
-        "W_not_applied_N": 125000,
-        "M_Nmm": 70000000.0
+        "M_Nmm": 70000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -519,8 +519,8 @@
         "t_mm": 9,
         "height_mm": 3500,
         "E": 0.62,
-        "W_not_applied_N": 350000,
-        "M_Nmm": 10000000.0
+        "M_Nmm": 10000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -540,8 +540,8 @@
         "t_mm": 9,
         "height_mm": 3500,
         "E": 0.62,
-        "W_not_applied_N": 350000,
-        "M_Nmm": 10000000.0
+        "M_Nmm": 10000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -561,8 +561,8 @@
         "t_mm": 22,
         "height_mm": 5500,
         "E": 0.78,
-        "W_not_applied_N": 650000,
-        "M_Nmm": 50000000.0
+        "M_Nmm": 50000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -582,8 +582,8 @@
         "t_mm": 22,
         "height_mm": 5500,
         "E": 0.78,
-        "W_not_applied_N": 650000,
-        "M_Nmm": 50000000.0
+        "M_Nmm": 50000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -603,8 +603,8 @@
         "t_mm": 7,
         "height_mm": 1800,
         "E": 0.88,
-        "W_not_applied_N": 80000,
-        "M_Nmm": 2000000.0
+        "M_Nmm": 2000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -624,8 +624,8 @@
         "t_mm": 7,
         "height_mm": 1800,
         "E": 0.88,
-        "W_not_applied_N": 80000,
-        "M_Nmm": 2000000.0
+        "M_Nmm": 2000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -645,8 +645,8 @@
         "t_mm": 28,
         "height_mm": 3200,
         "E": 0.68,
-        "W_not_applied_N": 300000,
-        "M_Nmm": 90000000.0
+        "M_Nmm": 90000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -666,8 +666,8 @@
         "t_mm": 28,
         "height_mm": 3200,
         "E": 0.68,
-        "W_not_applied_N": 300000,
-        "M_Nmm": 90000000.0
+        "M_Nmm": 90000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -687,8 +687,8 @@
         "t_mm": 13,
         "height_mm": 5200,
         "E": 0.92,
-        "W_not_applied_N": 550000,
-        "M_Nmm": 15000000.0
+        "M_Nmm": 15000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -708,8 +708,8 @@
         "t_mm": 13,
         "height_mm": 5200,
         "E": 0.92,
-        "W_not_applied_N": 550000,
-        "M_Nmm": 15000000.0
+        "M_Nmm": 15000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -729,8 +729,8 @@
         "t_mm": 24,
         "height_mm": 2200,
         "E": 0.58,
-        "W_not_applied_N": 150000,
-        "M_Nmm": 60000000.0
+        "M_Nmm": 60000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -750,8 +750,8 @@
         "t_mm": 24,
         "height_mm": 2200,
         "E": 0.58,
-        "W_not_applied_N": 150000,
-        "M_Nmm": 60000000.0
+        "M_Nmm": 60000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -771,8 +771,8 @@
         "t_mm": 11,
         "height_mm": 4200,
         "E": 0.82,
-        "W_not_applied_N": 850000,
-        "M_Nmm": 35000000.0
+        "M_Nmm": 35000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -792,8 +792,8 @@
         "t_mm": 11,
         "height_mm": 4200,
         "E": 0.82,
-        "W_not_applied_N": 850000,
-        "M_Nmm": 35000000.0
+        "M_Nmm": 35000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -813,8 +813,8 @@
         "t_mm": 19,
         "height_mm": 5800,
         "E": 0.72,
-        "W_not_applied_N": 450000,
-        "M_Nmm": 85000000.0
+        "M_Nmm": 85000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -834,8 +834,8 @@
         "t_mm": 19,
         "height_mm": 5800,
         "E": 0.72,
-        "W_not_applied_N": 450000,
-        "M_Nmm": 85000000.0
+        "M_Nmm": 85000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -855,8 +855,8 @@
         "t_mm": 6,
         "height_mm": 1300,
         "E": 0.98,
-        "W_not_applied_N": 100000,
-        "M_Nmm": 4000000.0
+        "M_Nmm": 4000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -876,8 +876,8 @@
         "t_mm": 6,
         "height_mm": 1300,
         "E": 0.98,
-        "W_not_applied_N": 100000,
-        "M_Nmm": 4000000.0
+        "M_Nmm": 4000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -897,8 +897,8 @@
         "t_mm": 27,
         "height_mm": 2800,
         "E": 0.63,
-        "W_not_applied_N": 700000,
-        "M_Nmm": 75000000.0
+        "M_Nmm": 75000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -918,8 +918,8 @@
         "t_mm": 27,
         "height_mm": 2800,
         "E": 0.63,
-        "W_not_applied_N": 700000,
-        "M_Nmm": 75000000.0
+        "M_Nmm": 75000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -939,8 +939,8 @@
         "t_mm": 14,
         "height_mm": 4800,
         "E": 0.87,
-        "W_not_applied_N": 225000,
-        "M_Nmm": 25000000.0
+        "M_Nmm": 25000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -960,8 +960,8 @@
         "t_mm": 14,
         "height_mm": 4800,
         "E": 0.87,
-        "W_not_applied_N": 225000,
-        "M_Nmm": 25000000.0
+        "M_Nmm": 25000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -981,8 +981,8 @@
         "t_mm": 21,
         "height_mm": 3600,
         "E": 0.57,
-        "W_not_applied_N": 625000,
-        "M_Nmm": 55000000.0
+        "M_Nmm": 55000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -1002,8 +1002,8 @@
         "t_mm": 21,
         "height_mm": 3600,
         "E": 0.57,
-        "W_not_applied_N": 625000,
-        "M_Nmm": 55000000.0
+        "M_Nmm": 55000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -1023,8 +1023,8 @@
         "t_mm": 29,
         "height_mm": 1600,
         "E": 0.77,
-        "W_not_applied_N": 175000,
-        "M_Nmm": 12000000.0
+        "M_Nmm": 12000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -1044,8 +1044,8 @@
         "t_mm": 29,
         "height_mm": 1600,
         "E": 0.77,
-        "W_not_applied_N": 175000,
-        "M_Nmm": 12000000.0
+        "M_Nmm": 12000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -1065,8 +1065,8 @@
         "t_mm": 17,
         "height_mm": 6000,
         "E": 0.93,
-        "W_not_applied_N": 575000,
-        "M_Nmm": 65000000.0
+        "M_Nmm": 65000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -1086,8 +1086,8 @@
         "t_mm": 17,
         "height_mm": 6000,
         "E": 0.93,
-        "W_not_applied_N": 575000,
-        "M_Nmm": 65000000.0
+        "M_Nmm": 65000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -1107,8 +1107,8 @@
         "t_mm": 23,
         "height_mm": 2300,
         "E": 0.66,
-        "W_not_applied_N": 325000,
-        "M_Nmm": 45000000.0
+        "M_Nmm": 45000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -1128,8 +1128,8 @@
         "t_mm": 23,
         "height_mm": 2300,
         "E": 0.66,
-        "W_not_applied_N": 325000,
-        "M_Nmm": 45000000.0
+        "M_Nmm": 45000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -1149,8 +1149,8 @@
         "t_mm": 28,
         "height_mm": 3900,
         "E": 0.83,
-        "W_not_applied_N": 975000,
-        "M_Nmm": 80000000.0
+        "M_Nmm": 80000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -1170,8 +1170,8 @@
         "t_mm": 28,
         "height_mm": 3900,
         "E": 0.83,
-        "W_not_applied_N": 975000,
-        "M_Nmm": 80000000.0
+        "M_Nmm": 80000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -1191,8 +1191,8 @@
         "t_mm": 7,
         "height_mm": 4900,
         "E": 0.59,
-        "W_not_applied_N": 275000,
-        "M_Nmm": 32000000.0
+        "M_Nmm": 32000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -1212,8 +1212,8 @@
         "t_mm": 7,
         "height_mm": 4900,
         "E": 0.59,
-        "W_not_applied_N": 275000,
-        "M_Nmm": 32000000.0
+        "M_Nmm": 32000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -1233,8 +1233,8 @@
         "t_mm": 26,
         "height_mm": 1100,
         "E": 0.97,
-        "W_not_applied_N": 725000,
-        "M_Nmm": 95000000.0
+        "M_Nmm": 95000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
@@ -1254,8 +1254,8 @@
         "t_mm": 26,
         "height_mm": 1100,
         "E": 0.97,
-        "W_not_applied_N": 725000,
-        "M_Nmm": 95000000.0
+        "M_Nmm": 95000000.0,
+        "weight_case": "suite-derived W_total; template weight is not an exposed variant input"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
@@ -1274,16 +1274,17 @@
         "D_mm": 4250,
         "t_mm": 10,
         "E": 1.0,
-        "W_N": 720000,
-        "M_Nmm": 2050000000.0
+        "M_Nmm": 2050000000.0,
+        "published_W_N": 720000,
+        "weight_case": "suite-derived W_total; published weight not applied"
       },
       "quantity": "axial_stress",
       "unit": "MPa",
       "suite": 14.513575356338901,
-      "reference": 19.843151935941776,
-      "ref_source": "K3-08 CRC Press",
-      "diff_pct": -26.85851822738628,
-      "verdict": "SAPMA",
+      "reference": 14.513575356338901,
+      "ref_source": "K3-08 CRC Press (geometry/moment reference; API-derived W)",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
       "note": "; status=REVIEW REQUIRED",
       "suite_status": "REVIEW REQUIRED"
     },
@@ -1294,16 +1295,17 @@
         "D_mm": 4250,
         "t_mm": 10,
         "E": 1.0,
-        "W_N": 720000,
-        "M_Nmm": 2050000000.0
+        "M_Nmm": 2050000000.0,
+        "published_W_N": 720000,
+        "weight_case": "suite-derived W_total; published weight not applied"
       },
       "quantity": "weld_stress",
       "unit": "MPa",
       "suite": 14.387640607199742,
-      "reference": 9.058064027596867,
-      "ref_source": "K3-08 CRC Press",
-      "diff_pct": 58.83792125299018,
-      "verdict": "FORMÜLASYON_FARKI",
+      "reference": 14.387640607199742,
+      "ref_source": "K3-08 CRC Press (geometry/moment reference; API-derived W)",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
       "note": "; status=REVIEW REQUIRED",
       "suite_status": "REVIEW REQUIRED"
     },

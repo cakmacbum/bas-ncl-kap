@@ -1,32 +1,28 @@
-# F12 â€” MDMT UCS-66
+# F12b — MDMT UCS-66
 
-## 1. Ã–zet
+## Özet
 
-Vaka/sonuÃ§ satÄ±rÄ±: 139. Etiket daÄŸÄ±lÄ±mÄ±: KAPSAM_DIŞI=3, KAYNAK_BEKLİYOR=136
+Sonuç satırı: 139; sayısal kıyaslanan: 0. Etiket dağılımı: KAPSAM_DIŞI=3, KAYNAK_BEKLİYOR=136
 
-## 2. Oracle formÃ¼lleri
+## Oracle ve sınır
 
-UCS-66: gruba ve yÃ¶neten kalÄ±nlÄ±ÄŸa baÄŸlÄ± muafiyet sÄ±caklÄ±ÄŸÄ±; grafik deÄŸerleri K4 yayÄ±n Ã§Ä±ktÄ±larÄ±ndan alÄ±nmÄ±ÅŸtÄ±r. UCS-66.1: coincident ratio = trÂ·E*/(tg_srâˆ’c), sÄ±caklÄ±k azaltÄ±mÄ± Fig. UCS-66.1'den okunur. FigÃ¼r verisi bu kaynaklarda tam olmadÄ±ÄŸÄ± iÃ§in yeni deÄŸer tÃ¼retilmedi.
+Bağımsız UCS-66 grafik noktaları çıkarılmadı: katalog ve sources-K4 yalnızca seçili yayınlanmış nihai MDMT noktalarını verir; eğri/tablo değerleri ve Fig. UCS-66.1 tam verisi yoktur. Kaynak örneklerinin her birini bu API fixture'ına birebir eşleyen girdi seti de katalogda yok. Bu nedenle varyantların hesaplanan MDMT sayıları kaynaksız kıyaslanmadı; K4 noktaları yalnızca etiketli referans olarak tutuldu. Katalogdaki MDMT örneği API'de çalışır ve sonuçlar `mdmt_check` satırlarından, `mdmt` ara değeri/final sonuç sözleşmesiyle çekilir.
 
-## 3. SAPMA tablosu
+## SAPMA tablosu
 
-| case_id | girdiler | suite | oracle | fark % | yÃ¶n | olasÄ± neden |
+| case_id | girdiler | suite | oracle | fark % | yön | olası neden |
 |---|---|---:|---:|---:|---|---|
-SAPMA yok.
+Sayısal kıyaslanmış SAPMA yok.
 
-## 4. YayÄ±nlanmÄ±ÅŸ vakalar
+## Yayınlanmış vakalar
 
-| Kaynak vakasÄ± | YayÄ±n MDMT | KullanÄ±m |
+| Kaynak | Yayın MDMT | Durum |
 |---|---:|---|
-| K4-09 | -48.333 Â°C | K4 sources-K4.md §B, K4-09 (PVEng/PV Elite, 2015); -55 °F |
-| K4-10 | -31.111 Â°C | K4 sources-K4.md §B, K4-10 (PVEng/PV Elite, 2015); -24 °F |
-| K4-13 | -98.889 Â°C | K4 sources-K4.md §B, K4-13; -146 °F |
-| K4-16 | -19.444 Â°C | K4 sources-K4.md §B, K4-16; -3 °F |
+| K4-09 | -48.333 °C | Katalog girdileriyle birebir eşlenmedi; doğrulama iddiası yok |
+| K4-10 | -31.111 °C | Katalog girdileriyle birebir eşlenmedi; doğrulama iddiası yok |
+| K4-13 | -98.889 °C | Katalog girdileriyle birebir eşlenmedi; doğrulama iddiası yok |
+| K4-16 | -19.444 °C | Katalog girdileriyle birebir eşlenmedi; doğrulama iddiası yok |
 
-## 5. Kapsam dÄ±ÅŸÄ± ve bloklanan vakalar
+## Temiz oda
 
-Curve ve impact girdisi eksik vakalar API BLOCKED dÃ¶ndÃ¼rÃ¼rse KAPSAM_DIÅI; sayÄ±sal yayÄ±mlanmÄ±ÅŸ eÅŸleÅŸmesi olmayan varyantlar KAYNAK_BEKLÄ°YOR olarak tutulur. Coincident ratio/PWHT girdilerinin MDMT hesabÄ±nda etkili olduÄŸu API Ã§Ä±ktÄ±sÄ±ndan teyit edilmelidir.
-
-## 6. Temiz oda beyanÄ±
-
-Oracle baÄŸÄ±msÄ±z kuruldu; yasaklÄ± uygulama paketleri aÃ§Ä±lmadÄ±. UCS-66.1 grafik noktalarÄ± uydurulmadÄ±; API sonucu yalnÄ±zca harness Ã¼zerinden alÄ±ndÄ±.
+Oracle yalnızca açık yayınlanmış noktalara dayanır; eğri verisi türetilmedi. Yasaklı uygulama paketleri okunmadı. API sonuçları harness üzerinden alındı.

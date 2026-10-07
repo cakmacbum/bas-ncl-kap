@@ -18,9 +18,14 @@ def run():
         mawp_rows = find_results(payload, calculation_type="mawp")
         governing = min(mawp_rows, key=lambda r: float(r.get("final_result") or float("inf")), default=None)
         status = (governing or {}).get("status")
+        iv = {item.get("name"): item.get("value")
+              for item in (governing or {}).get("intermediate_values", [])}
         reference, oracle_governing, source = oracle(project, case_id)
         diff, verdict = judge(suite, reference, suite_status=status or ("BLOCKED MISSING INPUT" if not outcome["ok"] else None))
-        note = f"suite_governing={(governing or {}).get('component_id')}; oracle_governing={oracle_governing}; "
+        note = (f"suite_governing={(governing or {}).get('component_id')}; "
+                f"mawp_row={float((governing or {}).get('final_result') or 0):.9g} MPa; "
+                f"IV(t_corroded={iv.get('t_corroded')}, S={iv.get('S')}, E={iv.get('E')}); "
+                f"oracle_governing={oracle_governing}; ")
         if case_id.startswith("PUB-"):
             verdict = "TEK_KAYNAK" if suite is not None else verdict
             note += "K1-01 yayınlanmış silindir MAWP; statik kafa bileşen hesabı ayrı doğrulama gerektirir. "

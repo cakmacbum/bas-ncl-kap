@@ -1,25 +1,27 @@
-﻿# F19 — EN 13445 ↔ ASME çapraz kontrol
+# F19 — EN 13445 / ASME VIII-1 çapraz kontrol
 
 ## 1. Özet
 
-30 vaka üretildi: 13 SAPMA, 17 KAPSAM_DIŞI. API PASS satırları döndürdü; ancak ASME satırlarında ölçüm değeri seçilemedi. Büyük EN farkları girdi/formülasyon farkı adayıdır; doğrulanmış hata değildir.
+30 vaka API üzerinden çalıştırıldı. Yeni dağılım: **26 DOĞRULANDI, 0 FORMÜLASYON_FARKI, 0 SAPMA, 0 TEK_KAYNAK, 0 KAYNAK_BEKLİYOR, 4 KAPSAM_DIŞI**. Sayısal karşılaştırma 26 vakada yapılabildi; bunlar geçerli varyantların API `thickness` satırlarıdır. EN ve ASME için ayrı denklem oracle'ları, API'nin o satırda raporladığı yönetici girdilerle bağımsız hesaplandı. Bu, denklem tutarlılığı kontrolüdür; yayımlanmış kaynak doğrulaması sayılmaz.
 
 ## 2. Oracle formülleri
 
-`oracle.py` bağımsız EN 13445-3 7.4.2 hesabını uygular: `e=P·Di/(2·f·z−P)`, `f=min(Rp0.2/1.5,Rm/2.4)`. ASME kıyas bağıntısı `t=P·Di/(2·S·E−0.2P)`. EN 13445-3 7.5.3 bombe beta/geometri verisi ve 10.2.3.3 test basıncı API sonuçlarına güvenilir eşleşmedi; test basıncı formülü oracle'da yer alır.
+- EN 13445-3 7.4.2, silindirik gövde: `e = P·R/(f·z − 0.5P)` (R iç yarıçap, P/f MPa, sonuç mm).
+- ASME VIII-1 UG-27(c)(1): `t = P·R/(S·E − 0.6P)`.
+- ASME ve EN çıktıları kendi kodlarına ait gerekli kalınlık alanlarıyla karşılaştırıldı (`t_required` ve `e_required`). Katalog sözleşmesine göre sonuç `calculation_type=thickness`, bileşen `SHELL-01` satırından alındı.
 
 ## 3. SAPMA tablosu
 
-Otomatik SAPMA etiketleri kodlar arası formülasyon/girdi farkından etkilenebilir; gerçek sapma hükmü değildir. Her vakanın girdisi, suite/oracle değeri ve yüzde farkı `results.json` alanlarında kayıtlıdır. Emniyet yönü belirsizdir. Olası neden (tahmin): suite allowable stress girdisiyle, oracle Rp0.2/Rm sınırlarından türetilmiş f ile çalışıyor.
+SAPMA yok. Bu nedenle emniyetsiz/emniyetli yönü olan bir vaka bulunmuyor. 26 karşılaştırmanın farkları ve etiketleri `results.json` içindedir. Önceki turun büyük farkları, `e_required` alanının ASME'de aranması ve oracle'ın yanlış yarıçap/etkinlik girdisi kullanmasından kaynaklanıyordu; düzeltildi.
 
 ## 4. Yayınlanmış vakalar
 
-K4-01 CERN worksheet: Di=25 mm, f=154 MPa, z=1, P=4 MPa, e=0.329 mm (orta güven; P/z geri türetilmiş). K4-04 Ray Delaforce: P=300 psi, D=60 in, f varsayımı 20,000 psi, e=0.4533 in; yayınlanmış EN 0.453 in. K4-06: P=8.25 MPa, Di=2900 mm, yayınlanmış kalınlık 40/48 mm; bağımsız yeniden hesap 40.6/48.7 mm. K4-05 eliptik bombe sonucu dolaylı/düşük güvenlidir. Yayınlanmış vakalar API ile doğrulanmış karşılaştırmaya dönüşmedi.
+Bu çalıştırmada K4-01, K4-04 veya K4-06 yayımlanmış girdi setleri API projesine aktarılmadı; kaynak tabloları bu raporda suite doğrulaması gibi sunulmuyor. K4-01/K4-04 silindirik EN karşılaştırması için, K4-06 yüksek basınç EN kalınlığı için uygun dayanaklardır. Dolayısıyla 26 DOĞRULANDI etiketi yayımlanmış vaka teyidi değil, varyantlar üzerinde bağımsız denklem/API alanı uyumunu gösterir.
 
 ## 5. Kapsam dışı / bloklanan vakalar
 
-17 vaka KAPSAM_DIŞI: ASME satırlarında seçilen `e_required` alanı yoktu; bombe ve geçersiz/eksik malzeme girdileri güvenilir sayı sağlamadı. K4, EN 13445-5 test basıncı için doğrulanmış sayısal örnek olmadığını bildiriyor. API test basıncı ve bombe beta sonuçları açık.
+4 vaka `KAPSAM_DIŞI`: sıfır tasarım basınçlı iki varyant zorunlu pozitif basınç girdisini sağlamıyor; eksik akma/izin verilebilir dayanım girdili iki varyantta sayısal kıyas yok. API durum ve hata ayrıntıları vaka bazında `results.json` içinde tutulur. Geçerli sayı veren 26 vaka karşılaştırmaya dahil edildi.
 
 ## 6. Temiz oda beyanı
 
-Temiz oda kuralına uyuldu. Yasaklı kod paketleri açılmadı/okunmadı; suite değerleri yalnızca `run_case` API çıktısından alındı. İzinli domain modelleri, harness, K4 ve doğrulama dokümantasyonu okundu.
+Oracle, yasaklı hesaplama implementasyonları okunmadan, paket kapsamındaki formül dayanaklarından bağımsız yazıldı. Sonuçlar yalnız public `run_case` API çıktısından; satırlar katalogdaki `thickness` tipi ve `e_required`/`t_required` alan adlarıyla seçildi. Katalog ve `examples.py` okundu; yasaklı paketlere dokunulmadı.
