@@ -39,8 +39,11 @@ uyduğunu beyan et. Okumak zorunda kaldıysan hangi dosyayı neden okuduğunu a�
 - Oracle dayanağı: UG-37(c): A, A1, A2, A3, A5 (2 çarpanları); UG-40 sınırları max(d, Rn+tn+t) ve min(2.5t, 2.5tn+te); UG-45 boyun
 - Kıyaslanacak büyüklükler: A, A1..A5, toplam, yeterli mi, UG-45 t_min
 - **En az 30 vaka.** Eksenlerin tam ızgarasını kurma, akıllı örnekle: sınırlar, orta değerler,
-  köşe durumları ve geçersiz girdiler. Geçersiz girdide suite REVIEW/BLOCKED dönmeli; bunu
-  KAPSAM_DIŞI say, ama K4 uyarısının verildiğini kontrol et.
+  köşe durumları ve geçersiz girdiler. Geçersiz/eksik girdide suite BLOCKED dönmeli → KAPSAM_DIŞI
+  (K4 uyarısını kontrol et). **REVIEW REQUIRED sonuçlar sayı üretir ve NORMAL kıyaslanır**
+  (`judge(..., suite_status=...)` bunu zaten yapar); destek ailelerinde çoğu sonuç REVIEW'dur.
+- Temel tanklar `bases.py`'de: dikey ayaklı tankta TEK destek kaydı = tüm ayak takımı (`leg_count`);
+  her ayak için ayrı destek kaydı açma. Saddle'da Zick K katsayıları girilmezse BLOCKED döner.
 
 ## Kapsam
 - Yazacağın yerler: `pressure-vessel-suite/tools/campaign/families/f09_nozul_takviye/` (`__init__.py`,

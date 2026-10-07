@@ -39,8 +39,11 @@ uyduğunu beyan et. Okumak zorunda kaldıysan hangi dosyayı neden okuduğunu a�
 - Oracle dayanağı: iç tutarlılık: suite kalınlığı → suite MAWP ≥ P (Tur 4 tekniği); hacim ve kütle elle (silindir + bombe hacim formülleri, ρ=7850); hata listesi boş mu; rapor HTML üretiliyor mu (services.generate_report_html); 5 tankta STEP üretimi (services.generate_step)
 - Kıyaslanacak büyüklükler: hacim, kütle, MAWP tutarlılığı, rapor/STEP üretimi, hata sayısı
 - **En az 30 vaka.** Eksenlerin tam ızgarasını kurma, akıllı örnekle: sınırlar, orta değerler,
-  köşe durumları ve geçersiz girdiler. Geçersiz girdide suite REVIEW/BLOCKED dönmeli; bunu
-  KAPSAM_DIŞI say, ama K4 uyarısının verildiğini kontrol et.
+  köşe durumları ve geçersiz girdiler. Geçersiz/eksik girdide suite BLOCKED dönmeli → KAPSAM_DIŞI
+  (K4 uyarısını kontrol et). **REVIEW REQUIRED sonuçlar sayı üretir ve NORMAL kıyaslanır**
+  (`judge(..., suite_status=...)` bunu zaten yapar); destek ailelerinde çoğu sonuç REVIEW'dur.
+- Temel tanklar `bases.py`'de: dikey ayaklı tankta TEK destek kaydı = tüm ayak takımı (`leg_count`);
+  her ayak için ayrı destek kaydı açma. Saddle'da Zick K katsayıları girilmezse BLOCKED döner.
 
 ## Kapsam
 - Yazacağın yerler: `pressure-vessel-suite/tools/campaign/families/f20_uctan_uca/` (`__init__.py`,

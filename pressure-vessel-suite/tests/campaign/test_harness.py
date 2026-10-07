@@ -39,7 +39,9 @@ def test_compare_and_aggregate(tmp_path):
     diff, verdict = judge(10.05, 10, rel_tol=.01)
     assert verdict == "DOĞRULANDI" and diff == pytest.approx(.5)
     assert judge(None, None)[1] == "KAYNAK_BEKLİYOR"
-    assert judge(1, 1, suite_status="REVIEW")[1] == "KAPSAM_DIŞI"
+    assert judge(1, 1, suite_status="REVIEW REQUIRED")[1] == "DOĞRULANDI"  # REVIEW sayı üretir, kıyaslanır
+    assert judge(1, 1, suite_status="BLOCKED MISSING INPUT")[1] == "KAPSAM_DIŞI"
+    assert judge(1, 1, suite_status="OUT OF SCOPE")[1] == "KAPSAM_DIŞI"
     source = tmp_path / "families"; (source / "f01").mkdir(parents=True); (source / "f02").mkdir()
     item = CaseResult("C1", "F01", {}, "t", "mm", 1, 1, "oracle", 0, "DOĞRULANDI")
     write_results(source / "f01", "F01", [item], {})

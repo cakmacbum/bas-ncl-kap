@@ -22,7 +22,11 @@ class CaseResult:
     suite_status: str | None = None
 
 def judge(suite, reference, *, rel_tol=0.01, suite_status=None, formulation_note=None):
-    if suite_status in ("REVIEW", "BLOCKED", "NOT_CALCULATED"):
+    # Gerçek durumlar: "REVIEW REQUIRED", "BLOCKED CODE DATA", "BLOCKED MISSING INPUT",
+    # "NOT CALCULATED", "OUT OF SCOPE" (domain.enums.CalculationStatus).
+    # REVIEW REQUIRED sayı üretir (yalnız mühendis onayı ister) → normal kıyaslanır.
+    st = str(suite_status or "").upper().replace("_", " ")
+    if st.startswith(("BLOCKED", "NOT CALCULATED", "OUT OF SCOPE")):
         return None, "KAPSAM_DIŞI"
     if reference is None:
         return None, "KAYNAK_BEKLİYOR"

@@ -39,8 +39,11 @@ uyduğunu beyan et. Okumak zorunda kaldıysan hangi dosyayı neden okuduğunu a�
 - Oracle dayanağı: rüzgâr q=0.613·V² (N/m²), F=q·Cf·A, M=F·h/2; deprem V=Cs·W; faktörlü kombinasyon; devrilme
 - Kıyaslanacak büyüklükler: taban kesme, taban momenti, kombinasyon sonucu
 - **En az 30 vaka.** Eksenlerin tam ızgarasını kurma, akıllı örnekle: sınırlar, orta değerler,
-  köşe durumları ve geçersiz girdiler. Geçersiz girdide suite REVIEW/BLOCKED dönmeli; bunu
-  KAPSAM_DIŞI say, ama K4 uyarısının verildiğini kontrol et.
+  köşe durumları ve geçersiz girdiler. Geçersiz/eksik girdide suite BLOCKED dönmeli → KAPSAM_DIŞI
+  (K4 uyarısını kontrol et). **REVIEW REQUIRED sonuçlar sayı üretir ve NORMAL kıyaslanır**
+  (`judge(..., suite_status=...)` bunu zaten yapar); destek ailelerinde çoğu sonuç REVIEW'dur.
+- Temel tanklar `bases.py`'de: dikey ayaklı tankta TEK destek kaydı = tüm ayak takımı (`leg_count`);
+  her ayak için ayrı destek kaydı açma. Saddle'da Zick K katsayıları girilmezse BLOCKED döner.
 
 ## Kapsam
 - Yazacağın yerler: `pressure-vessel-suite/tools/campaign/families/f18_ruzgar_deprem/` (`__init__.py`,

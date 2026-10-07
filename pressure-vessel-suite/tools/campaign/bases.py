@@ -1,4 +1,4 @@
-﻿"""Reusable valid vessel project templates."""
+"""Reusable valid vessel project templates."""
 from __future__ import annotations
 from copy import deepcopy
 from pathlib import Path
@@ -21,19 +21,28 @@ def _base(name, orientation, supports, **overrides):
     # optional multi-component ordering so list overrides remain valid.
     p["component_sequence"] = []
     p["cones"] = []
+    p["junctions"] = []
+    # Tek gövde kesiti: CAD ve 1/8 simetri yalnız shell_sections[0]'ı modelliyor.
+    p["shell_sections"] = p["shell_sections"][:1]
+    keep = {p["shell_sections"][0]["section_id"]} | {h["head_id"] for h in p["heads"]}
+    p["nozzles"] = [n for n in p.get("nozzles", []) if n.get("host_component_id") in keep]
+    p["welds"] = [w for w in p.get("welds", [])
+                  if not set(map(str, w.values())) & {"SHELL-02"}]
+    for m in p.get("materials", []):
+        m.setdefault("ucs66_curve_group", "B")  # MDMT BLOCKED olmasın; aileler override eder
     p["supports"] = supports
     return _merge(p, overrides)
 
 def vertical_leg_tank(**overrides):
-    legs = [{"support_id": f"LEG-{i}", "host_component_id": "SHELL-01", "type": "leg",
-             "location_mm": 500 + (i-1)*300, "width_mm": 100, "height_mm": 600,
-             "material_id": "M1", "leg_count": 4, "leg_diameter_mm": 100,
+    # Tek destek kaydı = tüm ayak takımı (leg_count ayak); her ayak için ayrı kayıt AÇMA.
+    legs = [{"support_id": "LEGS", "host_component_id": "SHELL-01", "type": "leg",
+             "location_mm": 500, "width_mm": 100, "height_mm": 600,
+             "material_id": "M1", "leg_count": 4, "leg_diameter_mm": 114.3,
              "leg_thickness_mm": 8, "leg_pad_length_mm": 250, "leg_pad_width_mm": 180,
              "leg_pad_thickness_mm": 12, "leg_base_plate_length_mm": 250,
              "leg_base_plate_width_mm": 200, "leg_base_plate_thickness_mm": 16,
              "leg_anchor_bolt_count": 4, "leg_anchor_bolt_diameter_mm": 20,
-             "leg_anchor_circle_diameter_mm": 150, "leg_weld_size_mm": 6,
-             "ucs66_curve_group": "A"} for i in range(1, 5)]
+             "leg_anchor_circle_diameter_mm": 150, "leg_weld_size_mm": 6}]
     project = _base("vertical-leg", "vertical", legs, **overrides)
     project.setdefault("nozzles", []).append({"tag": "N1", "host_component_id": "SHELL-01",
         "axial_position": 1000, "outside_diameter": 60.3, "inside_diameter": 52.5,

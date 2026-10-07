@@ -39,8 +39,11 @@ uyduğunu beyan et. Okumak zorunda kaldıysan hangi dosyayı neden okuduğunu a�
 - Oracle dayanağı: EN 13445-3 7.4.2 e=P·Di/(2f·z−P); 7.5.3 bombe β; EN 13445-5 10.2.3.3 test basıncı; ASME aynı tank — fark beklenen yönde mi (fark ≠ hata)
 - Kıyaslanacak büyüklükler: EN e, ASME t, EN/ASME oranı, test basıncı
 - **En az 30 vaka.** Eksenlerin tam ızgarasını kurma, akıllı örnekle: sınırlar, orta değerler,
-  köşe durumları ve geçersiz girdiler. Geçersiz girdide suite REVIEW/BLOCKED dönmeli; bunu
-  KAPSAM_DIŞI say, ama K4 uyarısının verildiğini kontrol et.
+  köşe durumları ve geçersiz girdiler. Geçersiz/eksik girdide suite BLOCKED dönmeli → KAPSAM_DIŞI
+  (K4 uyarısını kontrol et). **REVIEW REQUIRED sonuçlar sayı üretir ve NORMAL kıyaslanır**
+  (`judge(..., suite_status=...)` bunu zaten yapar); destek ailelerinde çoğu sonuç REVIEW'dur.
+- Temel tanklar `bases.py`'de: dikey ayaklı tankta TEK destek kaydı = tüm ayak takımı (`leg_count`);
+  her ayak için ayrı destek kaydı açma. Saddle'da Zick K katsayıları girilmezse BLOCKED döner.
 
 ## Kapsam
 - Yazacağın yerler: `pressure-vessel-suite/tools/campaign/families/f19_en13445_capraz/` (`__init__.py`,
