@@ -55,22 +55,60 @@ those checks. Cone results need explicit cone/junction connectivity. Flange
 factor fields are dimensionless and must be provided with flange geometry and
 bolt/gasket data; the standard vessel fixture has no flange. Zick K1–K7 cannot
 be demonstrated unless the solver receives complete saddle location, dimensions
-and vessel/support loads. The current campaign base constructors do not model
-flanges or a complete cone junction; those rows therefore have no verified
-working example in this package.
+and vessel/support loads. The examples below provide complete saddle geometry,
+flange factors and connected cone topology where the calculation route supports
+them.
+
+## Deep input/output contracts
+
+| Type / case | Required trigger fields (units) | Common intermediate_values (units) and limit |
+|---|---|---|
+| `saddle_stress` | `orientation="horizontal"`; exactly two saddle supports on one shell; `location_mm`, `width_mm`, `contact_angle_deg`, `saddle_stiffened`; table values `zick_K1`, `zick_K2`, `zick_K6`, `zick_K7` (-) when not internally fixed; shell `tangent_length`, thickness and material; design pressure; two heads and positive vessel mass. | `D_i_mm`, `R_m_mm`, `t_corroded_mm`, `L_mm`, `H_mm`, `A_mm`, `b_mm` (mm); `theta_deg`, applicable K1..K7 (-); `W_total_N`, `Q_left_N`, `Q_right_N` (N); stresses (MPa). Missing required geometry/load/table input blocks. |
+| `leg_section_check` | Leg support with `leg_section_type="pipe"`, positive `leg_diameter_mm`, `leg_thickness_mm`, `leg_count`, shell host/material and resolved vessel/test weight. | `n_legs` (-), `N_max`, `N_min`, `H_per_leg` (N), section area/modulus (mm2/mm3), stresses/capacity (MPa/N); final status. |
+| `leg_weld_check` | Above plus `leg_to_pad_weld_leg_mm`, `pad_to_shell_weld_leg_mm`, `leg_to_base_plate_weld_leg_mm`, `weld_electrode_strength_MPa`, pad dimensions and positive weld sizes. | Weld group area (mm2), reactions (N), demand/allowable (MPa), final utilization/status. |
+| `base_plate_check` | Above plus exact solver fields `base_plate_length_mm`, `base_plate_width_mm`, `base_plate_thickness_mm`, `base_plate_yield_MPa` (mm/MPa). `leg_base_plate_*` fixture-style names are not read by this check. | Plate dimensions (mm), reaction (N), bearing pressure (MPa), required/provided thickness (mm), final status. |
+| `wrc_local_stress` | Leg attached to shell (`leg_attachment="shell"`); shell geometry/material and loads; `wrc_coefficients` for needed point/load pairs A/B/C/D x P/ML/MC/VL/VC with explicit `Nx`, `Ny`, `Mx`, `My` (-). Values are user-read from the licensed bulletin. | Coefficients (-), membrane/bending/local stress (MPa), final status. Missing is not treated as zero. |
+| `flange_stress` | ASME integral flange: `inside_diameter`, `outside_diameter`, flange/hub dimensions (mm), material; positive `bolt_load_W_N` (N), `moment_M_Nmm` (N-mm), and `flange_factor_Y/f/F/V/T/U` (-). | `A`, `B`, `t`, `g0`, `g1`, `h0` (mm); `K`, `Z`, `L`, factors (-); `W` (N), `M` (N-mm), `S_H`, `S_R`, `S_T`, `S_f` (MPa); Appendix 2 stress status. |
+| `junction_check` | `cones[]` and `junctions[]` connecting cone and shell/head; valid ordered `component_sequence` ending in heads; `cone_end`, resolvable `weld_joint_id`, `weld_efficiency`, end diameters (mm). | Resolved component ids/types, junction/weld metadata (-), diameters/thickness (mm), apex angle (deg). Current result is topology/input review, not numeric adequacy. |
+| `global_load_case` | `load_cases[]` with unique id/name and wind (`wind_speed_m_s`, m/s) or seismic (`seismic_zone_factor`, -); optional external forces (N), moments (N-mm), component and elevation (mm). | `axial_force`, `resultant_shear` (N), `overturning_moment`, `torsional_moment` (N-mm), source snapshot; `REVIEW REQUIRED`. |
+| `global_load_combination` | Two or more known case ids and matching `load_factors` (-); concurrent cases. Wind and seismic cannot be combined by current domain validation. | Case ids/factors (-), axial/shear (N), overturning/torsional moments (N-mm); `REVIEW REQUIRED`. |
+| `load_combination` (EN) | EN project, known load cases and combination ids/factors; optional standard and edition. | Intended combined forces/moments (N/N-mm); EN route is unsupported and returns `NOT CALCULATED`. |
+| `external_pressure` | ASME shell/head; external pressure >0 MPa or vacuum; positive component `ug28_strain_factor_a` (-) and `ug28_allowable_stress_b` (MPa), geometry/material. | `D_mm`, `L_mm`, `t_mm`, `P_external_MPa`, A (-), B (MPa); preliminary allowable/status, `REVIEW REQUIRED`. |
+| `external_pressure_check`, `vacuum_stability` | Vacuum route needs `vacuum_condition=true`, shell geometry and A/B data; delegated shell pressure is 0.101325 MPa. | Wrapper returns shell calculation as `external_pressure`; `external_pressure_check` appears only in missing-module fallback. Normal connected route cannot emit these requested type names. |
+| MDMT coincident ratio | Existing UCS-66 inputs: minimum design temperature, component material/thickness and optional `impact_test_temperature_C`. No coincident load-ratio field exists in domain/project models or the ASME MDMT input assembly. | MDMT rows include thickness (mm), curve group (-), impact temperature and allowable MDMT (degC); ratio is not consumed/emitted. |
+| Static liquid head | `design_conditions.fluid_density_kg_m3` (kg/m3), load-case `fluid_density_kg_m3` and `fluid_level_mm` (mm); component reference elevation must be positive for MAWP correction. | `static_head_delta_P`, `MAWP_corrected` (MPa). Fixture elevations default to zero, so the campaign example can verify input fields but not a corrected value. |
+| `pressure_consistency` | `operating_pressure` > `design_pressure` (MPa) triggers review. | Pressure fields (MPa), review status; consistent inputs produce no row. |
+| `material_check` | Emitted only when a component material id is absent from `materials[]`. | Missing material/component identity; implementation marks the result `NOT CALCULATED`, so no qualifying example is possible. |
+| `fatigue` | EN `design_cycles` (cycles), `material_fatigue_data`, component/detail stress ranges and category. | Input snapshot includes cycles/material data; current implementation returns `NOT CALCULATED` because fatigue curves and cycle assessment are unimplemented. |
 
 ## Examples
 
-`tools.campaign.examples` supplies runnable projects for thickness, MAWP, nozzle
-reinforcement, clash, weld validation, hydrotest, pneumatic test, MDMT, leg,
-and skirt stress. `tests/campaign/test_examples.py` executes each through
-`harness.run_case` and rejects missing, blocked or not-calculated target rows.
-The other documented types are supported result contracts discovered in source,
-but do not currently have verified examples using the available project base
-schema/fixture; they are intentionally identified here rather than presented as
-working examples. In particular, the harness horizontal base emits
-`saddle_stress` as `BLOCKED MISSING INPUT`: its Zick call does not receive
-`saddle_positions_mm`, `vessel_length`, `tangent_start_mm`, `head_depth_mm`,
-`head_thickness_mm`, and explicit `zick_K1`, `zick_K2`, `zick_K3`, `zick_K6`,
-`zick_K7` data. Wind/seismic cases, a populated flange, connected cone junction,
-and MDMT coincident ratio likewise have no passing verified base example.
+`tools.campaign.examples` supplies verified projects for every connected route
+that can produce a result other than `BLOCKED` / `NOT CALCULATED`, including
+saddle, leg details, flange stress, junction input review, global loads, external
+pressure, and pressure consistency. Tests execute every example with
+`harness.run_case`. No example is claimed for `flange` and `load_combination`
+(EN methods return unsupported `NOT CALCULATED`), `external_pressure_check`
+(normal wrapper emits `external_pressure`), `vacuum_stability` (delegation
+returns the shell row type), `material_check` (the only trigger is
+`NOT CALCULATED`), or `fatigue` (unsupported even with inputs). `junction_check`
+is triggerable as an input/topology review only, not numerical adequacy. The
+coincident MDMT ratio is absent from the model and solver input contract.
+
+**TETİKLENEMEZ evidence (source lines):** `flange` and EN `load_combination`
+are explicitly returned as unsupported in
+`packages/code-en-13445/src/code_en_13445/design_code.py:737-769`;
+`external_pressure_check` exists only in the import-failure branch at
+`packages/code-asme-viii-1/src/code_asme_viii_1/design_code.py:2029-2041`, while
+the connected solver produces `external_pressure` at
+`packages/external-pressure/src/external_pressure/ext_pressure.py:47-73`;
+vacuum delegates to the shell external-pressure solver at
+`packages/external-pressure/src/external_pressure/ext_pressure.py:325-358`;
+`material_check` is created only for an unresolved material and set
+`NOT CALCULATED` at `packages/calc-core/src/calc_core/orchestrator.py:490-507`;
+fatigue remains unsupported with populated inputs at
+`packages/code-en-13445/src/code_en_13445/design_code.py:749-769`. MDMT
+assembles only component, conditions, materials, curve group, thickness and
+impact temperature at `packages/code-asme-viii-1/src/code_asme_viii_1/design_code.py:1320-1340`;
+no coincident-ratio field is modeled. The global-load validator rejects
+wind+seismic concurrency at `packages/domain/src/domain/load_cases.py:351-369`.
