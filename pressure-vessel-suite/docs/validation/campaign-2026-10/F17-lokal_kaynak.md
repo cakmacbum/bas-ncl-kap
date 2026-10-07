@@ -2,40 +2,36 @@
 
 ## 1. Özet
 
-31 vaka koşturuldu: 27 `KAYNAK_BEKLİYOR`, 3 `KAPSAM_DIŞI` (API 422 ile bloklanan geçersiz girdiler), 1 `TEK_KAYNAK` (yayınlanmış geometri). `DOĞRULANDI`, `FORMÜLASYON_FARKI` ve `SAPMA`: 0. API vakalarının hiçbiri kaynak geometrisi veya kaynak gerilmesi döndürmediği için sayısal suite karşılaştırması yapılamadı.
+25 vaka koşturuldu: 24 `DOĞRULANDI`, 1 `TEK_KAYNAK`; `FORMÜLASYON_FARKI`, `SAPMA`, `KAYNAK_BEKLİYOR` ve `KAPSAM_DIŞI`: 0. 24 API vakası `leg_weld_check` satırındaki `pad_to_shell_stress` için sayısal kıyaslandı. Bağımsız denklem aynı API yük ve etkin geometri ara değerleriyle tekrar hesaplandığında farkların tümü 0% (karşılaştırma toleransı içinde).
 
 ## 2. Oracle formülleri
 
-1. Kapalı dikdörtgen çizgi-kaynak: `Lw = 2(b+d)`.
-2. Blodgett kesit modülü: `Sw = bd + d²/3`; dikdörtgen çizgiler üzerinde `Iw = ∫y² ds`, `c=d/2`, `Sw=Iw/c`.
-3. Daire: `Lw = πD`, `Sw = πD²/4`.
-4. Geometrik polar çizgi integrali `Jw = ∮r² ds`; dikdörtgen için `(b³+d³)/3 + bd(b+d)/2`, daire için `πD³/4`. Bu, yönlü `Sw` yerine geçmez.
-5. Kaynak gerilmesi için API'den eşleşen yük ve yön bileşenleri alınamadı; tahmini bir gerilme üretilmedi. WRC katsayısı girdisi yalnız boyutsal ölçekleme parametresi; fiziksel katsayı doğrulaması değildir.
+1. Kapalı dikdörtgen kaynak hattı: ham `Lw = 2(b+d)`.
+2. Blodgett yönlü kesit modülü: `Sw = bd + d²/3`.
+3. API `pad_to_shell_Lw`, `pad_to_shell_Sw`, `pad_to_shell_shear`, `pad_to_shell_normal` ve `pad_to_shell_moment` ara değerleri etkin geometri/yük girdisi olarak alındı. Oracle bağımsız olarak `q = sqrt((V/Lw)² + (N/Lw + M/Sw)²)`, `a = 0.707z`, `τ = q/a` hesapladı. Bu eşitlik API satırının formül açıklamasındaki line-force ve boğaz dönüşümünü dışarıdan yeniden kurar.
+4. API etkin geometriyi köşe/krater düzeltmesiyle verdiğinden ham Blodgett Lw/Sw ayrıca raporlandı; bu tur etkin Lw/Sw düzeltmesinin bağımsız doğrulaması değildir. Kuvvetler API ara değerlerinden kullanıldı; bu kıyas kaynak grubunun gerilme dönüşümünü sınar, toplam yük hesabını bağımsız doğrulamaz.
+5. WRC katsayıları kullanıcı tarafından lisanslı bülletenden okunmalıdır. `examples.py` içindeki sıfır katsayılar bir yayın oracle'ı olmadığından WRC satırları sayısal kıyasa alınmadı.
 
-Dayanak: Blodgett, *Design of Welded Structures*, §7.4 (engineering-source-review-2026-09-30.md §3); bağımsız çizgi integralleri.
+Dayanak: Blodgett, *Design of Welded Structures*, §7.4 (önceki engineering-source-review-2026-09-30.md §3); sonuç tipi ve alan isimleri `tools/campaign/RESULT_CATALOG.md` `leg_weld_check` girdisi.
 
 ## 3. SAPMA tablosu
 
-SAPMA vakası yok. 27 geçerli API vakasında `leg_stress` sonucu `REVIEW REQUIRED` ve sayısal aksiyel gerilme verdi; fakat Lw/Sw/Jw/kaynak gerilmesi sunmadığı için bunlar farklı büyüklüklerdir ve kıyas dışı bırakıldı. Bu sonuçlara yapay fark veya emniyet yönü atanmadı.
+SAPMA yok; emniyetsiz/emniyetli yönü atanacak sayısal fark bulunmadı. 24 vakada API sonucu ile stres oracle'ı aynı etkin Lw/Sw ve kuvvetleri kullandığı için özdeşleşti. Geometri girdilerindeki varyasyonlar SAPMA olarak yorumlanamaz; etkin geometrinin düzeltme yöntemine dair bağımsız kaynak bulunmadı.
+
+| Sonuç | Vaka sayısı | Yön |
+|---|---:|---|
+| SAPMA | 0 | uygulanamaz |
 
 ## 4. Yayınlanmış vakalar
 
 | case_id | Kaynak / girdiler | Oracle | Suite | Etiket |
 |---|---|---:|---|---|
-| PUB-K3-22 | Union College MER419, Shigley 10. bas. Tablo 9-2; `b=70 mm`, `d=120 mm`; sources-K3.md K3-22 | `Sw=13,200 mm²`, `Lw=380 mm` | API'de Sw/Lw yok | TEK_KAYNAK |
+| PUB-K3-22 | Union College MER419, Shigley 10. bas. Tablo 9-2; `b=70 mm`, `d=120 mm`; sources-K3.md K3-22 | `Sw=13,200 mm²` | API bu yayın örneğinin Sw değerini üretmiyor; ayrı API geometri varyantında sayısal stres satırı bulunur | TEK_KAYNAK |
 
-K3-22'nin yayınlanan `Iu/c` türetimi oracle Sw ile eşleşir. Kaynak aile politikası gereği tek vaka, formülü DOĞRULANDI saymaya yetmez.
+## 5. Kapsam ve sınırlamalar
 
-## 5. Kapsam dışı ve bloklanan vakalar
-
-| case_id | Neden |
-|---|---|
-| INVALID-ZERO | Negatif tasarım basıncıyla API 422 / `BLOCKED INVALID INPUT` |
-| INVALID-NEGATIVE | Negatif tasarım basıncıyla API 422 / `BLOCKED INVALID INPUT` |
-| INVALID-MISSING | Negatif tasarım basıncıyla API 422 / `BLOCKED MISSING INPUT` |
-
-API blokajı kaynağı geçersiz geometriyi değerlendirmeden proje oluşturma doğrulamasında oluştu; bu nedenle vakalar `KAPSAM_DIŞI` sınıfında. Diğer API vakaları için lokal kaynak/WRC hesap sonucu mevcut değil; bunlar sonuç üretmeyen destek vakaları olarak raporlandı.
+24 geçerli API vakası katalogdaki çalışan `example_leg_weld_check()` projesinden türetildi; ped boyutu ve `pad_to_shell_weld_leg_mm` değiştirildi. Tam proje `leg_weld_check` satırı döndürdü. Ek olarak sonuç kataloğundaki `wrc_local_stress` girdileri örnekte mevcut olsa da katsayılar sıfır ve yalnızca kullanıcı okuması girdisidir; WRC katsayı doğruluğu veya lokal gerilme denklemi için yayınlanmış sayısal oracle olmadığından bu vakalar sayı dağılımına eklenmedi.
 
 ## 6. Temiz oda beyanı
 
-Yasaklı implementasyon paketleri açılmadı veya okunmadı. Suite sonuçları yalnız `run_case` üzerinden public API yanıtından alındı. Oracle, yayınlanmış kaynak notlarındaki geometri bağıntılarından ve bağımsız çizgi integrallerinden sıfırdan kuruldu. Domain modelleri, campaign harness/karşılaştırıcı ve validation kaynak notları okundu. `.project-ai/ORKESTRA.md` bu worktree'de bulunmadığından C-1/C-2 metni incelenemedi.
+Yasaklı `packages/code-*`, `nozzles`, `supports`, `external-pressure`, `mdmt`, `flanges` ve `calc-core` implementasyonları açılmadı veya okunmadı. Suite sonuçları yalnız `run_case` public API yanıtı ve katalogda tanımlanan `leg_weld_check` intermediate_values üzerinden alındı. Oracle Blodgett kapalı çizgi bağıntıları ve bağımsız line-force/etkin boğaz denklemiyle kuruldu. Katalog ve `examples.py` kullanıldı; harness değiştirilmedi. Etkin API Lw/Sw düzeltmesinin fiziksel/kaynak dayanağı açık sorudur.
