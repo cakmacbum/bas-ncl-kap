@@ -1,3138 +1,2546 @@
 {
   "family": "F13-saddle_zick",
   "meta": {
-    "code": "Zick 1951 / ASME VIII-2 4.15 mapping",
-    "oracle": "F13-local equations; external K values not tabulated",
+    "code": "Zick longitudinal saddle/midspan bending forms",
+    "oracle": "independent abs(M)/(K1 Rm^2 t) and abs(M2)/(pi Rm^2 t); no K table",
     "api_ok_cases": 32
   },
   "results": [
     {
-      "case_id": "R1-base",
+      "case_id": "catalog-01",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
+        "span_mm": 900,
+        "width_mm": 150,
         "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
+        "stiffened": false,
+        "support_id": "SAD-1"
       },
       "quantity": "S1_saddle",
       "unit": "MPa",
       "suite": null,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "R1-base",
+      "case_id": "catalog-01",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
+        "span_mm": 900,
+        "width_mm": 150,
         "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
+        "stiffened": false,
+        "support_id": "SAD-1"
       },
       "quantity": "S1_midspan",
       "unit": "MPa",
-      "suite": null,
+      "suite": 0.11867125880692028,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "R1-base",
+      "case_id": "catalog-01",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
+        "span_mm": 900,
+        "width_mm": 150,
         "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S3_shell",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-base",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-short_L",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 3500,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          4500
-        ],
-        "weight_scale_label": 0.85
+        "stiffened": false,
+        "support_id": "SAD-2"
       },
       "quantity": "S1_saddle",
       "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "suite": 3.2953767650070334,
+      "reference": 3.2953767650070334,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
     },
     {
-      "case_id": "R1-short_L",
+      "case_id": "catalog-01",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 3500,
-        "b_mm": 250,
+        "span_mm": 900,
+        "width_mm": 150,
         "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          4500
-        ],
-        "weight_scale_label": 0.85
+        "stiffened": false,
+        "support_id": "SAD-2"
       },
       "quantity": "S1_midspan",
       "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "suite": 1.0229742619241882,
+      "reference": 1.0229742619241882,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
     },
     {
-      "case_id": "R1-short_L",
+      "case_id": "catalog-02",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 3500,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          4500
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S3_shell",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-short_L",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 3500,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          4500
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-long_L",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 7000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          6000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S1_saddle",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-long_L",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 7000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          6000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S1_midspan",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-long_L",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 7000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          6000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S3_shell",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-long_L",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 7000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          6000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-a_low",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 300,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S1_saddle",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-a_low",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 300,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S1_midspan",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-a_low",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 300,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S3_shell",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-a_low",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 300,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-a_high",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1400,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S1_saddle",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-a_high",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1400,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S1_midspan",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-a_high",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1400,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S3_shell",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-a_high",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1400,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-theta_150",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 150,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S1_saddle",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-theta_150",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 150,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S1_midspan",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-theta_150",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 150,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S3_shell",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-theta_150",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 150,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-theta_135",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
+        "span_mm": 1100,
+        "width_mm": 150,
         "theta_deg": 135,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
+        "stiffened": false,
+        "support_id": "SAD-1"
       },
       "quantity": "S1_saddle",
       "unit": "MPa",
       "suite": null,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "R1-theta_135",
+      "case_id": "catalog-02",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
+        "span_mm": 1100,
+        "width_mm": 150,
         "theta_deg": 135,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
+        "stiffened": false,
+        "support_id": "SAD-1"
       },
       "quantity": "S1_midspan",
       "unit": "MPa",
-      "suite": null,
+      "suite": 0.226554221358666,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "R1-theta_135",
+      "case_id": "catalog-02",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
+        "span_mm": 1100,
+        "width_mm": 150,
         "theta_deg": 135,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
+        "stiffened": false,
+        "support_id": "SAD-2"
       },
-      "quantity": "S3_shell",
+      "quantity": "S1_saddle",
       "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "suite": 1.608106167393393,
+      "reference": 1.608106167393393,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
     },
     {
-      "case_id": "R1-theta_135",
+      "case_id": "catalog-02",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
+        "span_mm": 1100,
+        "width_mm": 150,
         "theta_deg": 135,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-width_narrow",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 150,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S1_saddle",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-width_narrow",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 150,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
+        "stiffened": false,
+        "support_id": "SAD-2"
       },
       "quantity": "S1_midspan",
       "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "suite": 0.39616151722193865,
+      "reference": 0.3961615172219386,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.4012252280465504e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
     },
     {
-      "case_id": "R1-width_narrow",
+      "case_id": "catalog-03",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 150,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S3_shell",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-width_narrow",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 150,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-width_wide",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 400,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S1_saddle",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-width_wide",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 400,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S1_midspan",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-width_wide",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 400,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S3_shell",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-width_wide",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 400,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-ring",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": true,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S1_saddle",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-ring",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": true,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S1_midspan",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-ring",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": true,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S3_shell",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R1-ring",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": true,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 0.85
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-base",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S1_saddle",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-base",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S1_midspan",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-base",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S3_shell",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-base",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-short_L",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 3500,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          4500
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S1_saddle",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-short_L",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 3500,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          4500
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S1_midspan",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-short_L",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 3500,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          4500
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S3_shell",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-short_L",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 3500,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          4500
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-long_L",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 7000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          6000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S1_saddle",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-long_L",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 7000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          6000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S1_midspan",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-long_L",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 7000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          6000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S3_shell",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-long_L",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 7000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          6000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-a_low",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 300,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S1_saddle",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-a_low",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 300,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S1_midspan",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-a_low",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 300,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S3_shell",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-a_low",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 300,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-a_high",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1400,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S1_saddle",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-a_high",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1400,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S1_midspan",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-a_high",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1400,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S3_shell",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-a_high",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1400,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-theta_150",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
+        "span_mm": 1200,
+        "width_mm": 150,
         "theta_deg": 150,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
+        "stiffened": false,
+        "support_id": "SAD-1"
       },
       "quantity": "S1_saddle",
       "unit": "MPa",
       "suite": null,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "R2-theta_150",
+      "case_id": "catalog-03",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
+        "span_mm": 1200,
+        "width_mm": 150,
         "theta_deg": 150,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
+        "stiffened": false,
+        "support_id": "SAD-1"
       },
       "quantity": "S1_midspan",
       "unit": "MPa",
-      "suite": null,
+      "suite": 0.26701033231557064,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "R2-theta_150",
+      "case_id": "catalog-03",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
+        "span_mm": 1200,
+        "width_mm": 150,
         "theta_deg": 150,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
+        "stiffened": false,
+        "support_id": "SAD-2"
       },
-      "quantity": "S3_shell",
+      "quantity": "S1_saddle",
       "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "suite": 1.056988032222841,
+      "reference": 1.056988032222841,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
     },
     {
-      "case_id": "R2-theta_150",
+      "case_id": "catalog-03",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
+        "span_mm": 1200,
+        "width_mm": 150,
         "theta_deg": 150,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
+        "stiffened": false,
+        "support_id": "SAD-2"
       },
-      "quantity": "S4",
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.16110673795859515,
+      "reference": 0.16110673795859515,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "catalog-04",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1300,
+        "width_mm": 250,
+        "theta_deg": 120,
+        "stiffened": false,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_saddle",
       "unit": "MPa",
       "suite": null,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "R2-theta_135",
+      "case_id": "catalog-04",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
+        "span_mm": 1300,
+        "width_mm": 250,
+        "theta_deg": 120,
+        "stiffened": false,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.3012424262021822,
+      "reference": null,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
+    },
+    {
+      "case_id": "catalog-04",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1300,
+        "width_mm": 250,
+        "theta_deg": 120,
+        "stiffened": false,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.6408778187305672,
+      "reference": 0.6408778187305672,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "catalog-04",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1300,
+        "width_mm": 250,
+        "theta_deg": 120,
+        "stiffened": false,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.03778576757192643,
+      "reference": 0.03778576757192643,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "catalog-05",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1500,
+        "width_mm": 250,
         "theta_deg": 135,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
+        "stiffened": false,
+        "support_id": "SAD-1"
       },
       "quantity": "S1_saddle",
       "unit": "MPa",
       "suite": null,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "R2-theta_135",
+      "case_id": "catalog-05",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
+        "span_mm": 1500,
+        "width_mm": 250,
         "theta_deg": 135,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
+        "stiffened": false,
+        "support_id": "SAD-1"
       },
       "quantity": "S1_midspan",
       "unit": "MPa",
-      "suite": null,
+      "suite": 0.35601377642076093,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "R2-theta_135",
+      "case_id": "catalog-05",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
+        "span_mm": 1500,
+        "width_mm": 250,
         "theta_deg": 135,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
+        "stiffened": false,
+        "support_id": "SAD-2"
       },
-      "quantity": "S3_shell",
+      "quantity": "S1_saddle",
       "unit": "MPa",
       "suite": null,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "R2-theta_135",
+      "case_id": "catalog-05",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
+        "span_mm": 1500,
+        "width_mm": 250,
         "theta_deg": 135,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-width_narrow",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 150,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S1_saddle",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-width_narrow",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 150,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
+        "stiffened": false,
+        "support_id": "SAD-2"
       },
       "quantity": "S1_midspan",
       "unit": "MPa",
-      "suite": null,
+      "suite": 0.3560137764207608,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "R2-width_narrow",
+      "case_id": "catalog-06",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 150,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S3_shell",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-width_narrow",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 150,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-width_wide",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 400,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S1_saddle",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-width_wide",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 400,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S1_midspan",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-width_wide",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 400,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S3_shell",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-width_wide",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 400,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-ring",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": true,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S1_saddle",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-ring",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": true,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S1_midspan",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-ring",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": true,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S3_shell",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R2-ring",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": true,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.0
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R3-base",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
-      },
-      "quantity": "S1_saddle",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R3-base",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
-      },
-      "quantity": "S1_midspan",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R3-base",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
-      },
-      "quantity": "S3_shell",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R3-base",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R3-short_L",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 3500,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          4500
-        ],
-        "weight_scale_label": 1.15
-      },
-      "quantity": "S1_saddle",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R3-short_L",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 3500,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          4500
-        ],
-        "weight_scale_label": 1.15
-      },
-      "quantity": "S1_midspan",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R3-short_L",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 3500,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          4500
-        ],
-        "weight_scale_label": 1.15
-      },
-      "quantity": "S3_shell",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R3-short_L",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 3500,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          4500
-        ],
-        "weight_scale_label": 1.15
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R3-long_L",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 7000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          6000
-        ],
-        "weight_scale_label": 1.15
-      },
-      "quantity": "S1_saddle",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R3-long_L",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 7000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          6000
-        ],
-        "weight_scale_label": 1.15
-      },
-      "quantity": "S1_midspan",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R3-long_L",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 7000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          6000
-        ],
-        "weight_scale_label": 1.15
-      },
-      "quantity": "S3_shell",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R3-long_L",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 7000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          3000,
-          6000
-        ],
-        "weight_scale_label": 1.15
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R3-a_low",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 300,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
-      },
-      "quantity": "S1_saddle",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R3-a_low",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 300,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
-      },
-      "quantity": "S1_midspan",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R3-a_low",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 300,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
-      },
-      "quantity": "S3_shell",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R3-a_low",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 300,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R3-a_high",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1400,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
-      },
-      "quantity": "S1_saddle",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R3-a_high",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1400,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
-      },
-      "quantity": "S1_midspan",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R3-a_high",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1400,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
-      },
-      "quantity": "S3_shell",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R3-a_high",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1400,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R3-theta_150",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
+        "span_mm": 900,
+        "width_mm": 250,
         "theta_deg": 150,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
+        "stiffened": false,
+        "support_id": "SAD-1"
       },
       "quantity": "S1_saddle",
       "unit": "MPa",
       "suite": null,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "R3-theta_150",
+      "case_id": "catalog-06",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
+        "span_mm": 900,
+        "width_mm": 250,
         "theta_deg": 150,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
+        "stiffened": false,
+        "support_id": "SAD-1"
       },
       "quantity": "S1_midspan",
       "unit": "MPa",
-      "suite": null,
+      "suite": 0.11867125880692028,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "R3-theta_150",
+      "case_id": "catalog-06",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
+        "span_mm": 900,
+        "width_mm": 250,
         "theta_deg": 150,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
+        "stiffened": false,
+        "support_id": "SAD-2"
       },
-      "quantity": "S3_shell",
+      "quantity": "S1_saddle",
       "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "suite": 3.2953767650070334,
+      "reference": 3.2953767650070334,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
     },
     {
-      "case_id": "R3-theta_150",
+      "case_id": "catalog-06",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
+        "span_mm": 900,
+        "width_mm": 250,
         "theta_deg": 150,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
+        "stiffened": false,
+        "support_id": "SAD-2"
       },
-      "quantity": "S4",
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 1.0229742619241882,
+      "reference": 1.0229742619241882,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "catalog-07",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1100,
+        "width_mm": 400,
+        "theta_deg": 120,
+        "stiffened": false,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_saddle",
       "unit": "MPa",
       "suite": null,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "R3-theta_135",
+      "case_id": "catalog-07",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
+        "span_mm": 1100,
+        "width_mm": 400,
+        "theta_deg": 120,
+        "stiffened": false,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.226554221358666,
+      "reference": null,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
+    },
+    {
+      "case_id": "catalog-07",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1100,
+        "width_mm": 400,
+        "theta_deg": 120,
+        "stiffened": false,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 1.608106167393393,
+      "reference": 1.608106167393393,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "catalog-07",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1100,
+        "width_mm": 400,
+        "theta_deg": 120,
+        "stiffened": false,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.39616151722193865,
+      "reference": 0.3961615172219386,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.4012252280465504e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "catalog-08",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1200,
+        "width_mm": 400,
         "theta_deg": 135,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
+        "stiffened": false,
+        "support_id": "SAD-1"
       },
       "quantity": "S1_saddle",
       "unit": "MPa",
       "suite": null,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "R3-theta_135",
+      "case_id": "catalog-08",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
+        "span_mm": 1200,
+        "width_mm": 400,
         "theta_deg": 135,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
+        "stiffened": false,
+        "support_id": "SAD-1"
       },
       "quantity": "S1_midspan",
       "unit": "MPa",
-      "suite": null,
+      "suite": 0.26701033231557064,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "R3-theta_135",
+      "case_id": "catalog-08",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
+        "span_mm": 1200,
+        "width_mm": 400,
         "theta_deg": 135,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
+        "stiffened": false,
+        "support_id": "SAD-2"
       },
-      "quantity": "S3_shell",
+      "quantity": "S1_saddle",
       "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "suite": 1.056988032222841,
+      "reference": 1.056988032222841,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
     },
     {
-      "case_id": "R3-theta_135",
+      "case_id": "catalog-08",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
+        "span_mm": 1200,
+        "width_mm": 400,
         "theta_deg": 135,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
+        "stiffened": false,
+        "support_id": "SAD-2"
       },
-      "quantity": "S4",
+      "quantity": "S1_midspan",
       "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "suite": 0.16110673795859515,
+      "reference": 0.16110673795859515,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
     },
     {
-      "case_id": "R3-width_narrow",
+      "case_id": "catalog-09",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 150,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
+        "span_mm": 1300,
+        "width_mm": 400,
+        "theta_deg": 150,
+        "stiffened": false,
+        "support_id": "SAD-1"
       },
       "quantity": "S1_saddle",
       "unit": "MPa",
       "suite": null,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "R3-width_narrow",
+      "case_id": "catalog-09",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 150,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
+        "span_mm": 1300,
+        "width_mm": 400,
+        "theta_deg": 150,
+        "stiffened": false,
+        "support_id": "SAD-1"
       },
       "quantity": "S1_midspan",
       "unit": "MPa",
-      "suite": null,
+      "suite": 0.3012424262021822,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "R3-width_narrow",
+      "case_id": "catalog-09",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 150,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
+        "span_mm": 1300,
+        "width_mm": 400,
+        "theta_deg": 150,
+        "stiffened": false,
+        "support_id": "SAD-2"
       },
-      "quantity": "S3_shell",
+      "quantity": "S1_saddle",
       "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "suite": 0.6408778187305672,
+      "reference": 0.6408778187305672,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
     },
     {
-      "case_id": "R3-width_narrow",
+      "case_id": "catalog-09",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 150,
-        "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
+        "span_mm": 1300,
+        "width_mm": 400,
+        "theta_deg": 150,
+        "stiffened": false,
+        "support_id": "SAD-2"
       },
-      "quantity": "S4",
+      "quantity": "S1_midspan",
       "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "suite": 0.03778576757192643,
+      "reference": 0.03778576757192643,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
     },
     {
-      "case_id": "R3-width_wide",
+      "case_id": "catalog-10",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 400,
+        "span_mm": 1500,
+        "width_mm": 150,
         "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.03363733974787582,
+      "reference": 0.03363733974787581,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 2.062854540792102e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-10",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1500,
+        "width_mm": 150,
+        "theta_deg": 120,
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.35601377642076093,
+      "reference": 0.3560137764207609,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.5592416616387068e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-10",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1500,
+        "width_mm": 150,
+        "theta_deg": 120,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.03363733974787581,
+      "reference": 0.033637339747875805,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 2.0628545407921028e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-10",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1500,
+        "width_mm": 150,
+        "theta_deg": 120,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.3560137764207608,
+      "reference": 0.35601377642076076,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.5592416616387074e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-11",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 900,
+        "width_mm": 150,
+        "theta_deg": 135,
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.011212446582625272,
+      "reference": 0.01121244658262527,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.547140905594077e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-11",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 900,
+        "width_mm": 150,
+        "theta_deg": 135,
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.11867125880692028,
+      "reference": 0.11867125880692027,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.1694312462290303e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-11",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 900,
+        "width_mm": 150,
+        "theta_deg": 135,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 1.0489510030020972,
+      "reference": 1.048951003002097,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 2.1168253263454616e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-11",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 900,
+        "width_mm": 150,
+        "theta_deg": 135,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 1.0229742619241882,
+      "reference": 1.0229742619241882,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-12",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1100,
+        "width_mm": 150,
+        "theta_deg": 150,
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.02140557983955734,
+      "reference": 0.021405579839557338,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.6208142820509372e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-12",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1100,
+        "width_mm": 150,
+        "theta_deg": 150,
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.226554221358666,
+      "reference": 0.226554221358666,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-12",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1100,
+        "width_mm": 150,
+        "theta_deg": 150,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.5118760911144428,
+      "reference": 0.5118760911144428,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-12",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1100,
+        "width_mm": 150,
+        "theta_deg": 150,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.39616151722193865,
+      "reference": 0.3961615172219386,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.4012252280465504e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-13",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1200,
+        "width_mm": 250,
+        "theta_deg": 120,
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.02522800481090686,
+      "reference": 0.025228004810906857,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.3752363605280681e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-13",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1200,
+        "width_mm": 250,
+        "theta_deg": 120,
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.26701033231557064,
+      "reference": 0.2670103323155706,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 2.078988882184943e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-13",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1200,
+        "width_mm": 250,
+        "theta_deg": 120,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.33644974023448143,
+      "reference": 0.33644974023448143,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-13",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1200,
+        "width_mm": 250,
+        "theta_deg": 120,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.16110673795859515,
+      "reference": 0.16110673795859515,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-14",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1300,
+        "width_mm": 250,
+        "theta_deg": 135,
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.028462364402048763,
+      "reference": 0.02846236440204876,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.2189595013771516e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-14",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1300,
+        "width_mm": 250,
+        "theta_deg": 135,
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.3012424262021822,
+      "reference": 0.30124242620218217,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.8427401455730178e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-14",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1300,
+        "width_mm": 250,
+        "theta_deg": 135,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.2039977455378429,
+      "reference": 0.2039977455378429,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-14",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1300,
+        "width_mm": 250,
+        "theta_deg": 135,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.03778576757192643,
+      "reference": 0.03778576757192643,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-15",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1500,
+        "width_mm": 250,
+        "theta_deg": 150,
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.03363733974787582,
+      "reference": 0.03363733974787581,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 2.062854540792102e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-15",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1500,
+        "width_mm": 250,
+        "theta_deg": 150,
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.35601377642076093,
+      "reference": 0.3560137764207609,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.5592416616387068e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-15",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1500,
+        "width_mm": 250,
+        "theta_deg": 150,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.03363733974787581,
+      "reference": 0.033637339747875805,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 2.0628545407921028e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-15",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1500,
+        "width_mm": 250,
+        "theta_deg": 150,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.3560137764207608,
+      "reference": 0.35601377642076076,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.5592416616387074e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-16",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 900,
+        "width_mm": 400,
+        "theta_deg": 120,
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.011212446582625272,
+      "reference": 0.01121244658262527,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.547140905594077e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-16",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 900,
+        "width_mm": 400,
+        "theta_deg": 120,
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.11867125880692028,
+      "reference": 0.11867125880692027,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.1694312462290303e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-16",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 900,
+        "width_mm": 400,
+        "theta_deg": 120,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 1.0489510030020972,
+      "reference": 1.048951003002097,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 2.1168253263454616e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-16",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 900,
+        "width_mm": 400,
+        "theta_deg": 120,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 1.0229742619241882,
+      "reference": 1.0229742619241882,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-17",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1100,
+        "width_mm": 400,
+        "theta_deg": 135,
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.02140557983955734,
+      "reference": 0.021405579839557338,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.6208142820509372e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-17",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1100,
+        "width_mm": 400,
+        "theta_deg": 135,
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.226554221358666,
+      "reference": 0.226554221358666,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-17",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1100,
+        "width_mm": 400,
+        "theta_deg": 135,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.5118760911144428,
+      "reference": 0.5118760911144428,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-17",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1100,
+        "width_mm": 400,
+        "theta_deg": 135,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.39616151722193865,
+      "reference": 0.3961615172219386,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.4012252280465504e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-18",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1200,
+        "width_mm": 400,
+        "theta_deg": 150,
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.02522800481090686,
+      "reference": 0.025228004810906857,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.3752363605280681e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-18",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1200,
+        "width_mm": 400,
+        "theta_deg": 150,
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.26701033231557064,
+      "reference": 0.2670103323155706,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 2.078988882184943e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-18",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1200,
+        "width_mm": 400,
+        "theta_deg": 150,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.33644974023448143,
+      "reference": 0.33644974023448143,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-18",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1200,
+        "width_mm": 400,
+        "theta_deg": 150,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.16110673795859515,
+      "reference": 0.16110673795859515,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-19",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1300,
+        "width_mm": 150,
+        "theta_deg": 120,
+        "stiffened": false,
+        "support_id": "SAD-1"
       },
       "quantity": "S1_saddle",
       "unit": "MPa",
       "suite": null,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "R3-width_wide",
+      "case_id": "catalog-19",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 400,
+        "span_mm": 1300,
+        "width_mm": 150,
         "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
+        "stiffened": false,
+        "support_id": "SAD-1"
       },
       "quantity": "S1_midspan",
       "unit": "MPa",
-      "suite": null,
+      "suite": 0.3012424262021822,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "R3-width_wide",
+      "case_id": "catalog-19",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 400,
+        "span_mm": 1300,
+        "width_mm": 150,
         "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
+        "stiffened": false,
+        "support_id": "SAD-2"
       },
-      "quantity": "S3_shell",
+      "quantity": "S1_saddle",
       "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "suite": 0.6408778187305672,
+      "reference": 0.6408778187305672,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
     },
     {
-      "case_id": "R3-width_wide",
+      "case_id": "catalog-19",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 400,
+        "span_mm": 1300,
+        "width_mm": 150,
         "theta_deg": 120,
-        "ring": false,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
+        "stiffened": false,
+        "support_id": "SAD-2"
       },
-      "quantity": "S4",
+      "quantity": "S1_midspan",
       "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "suite": 0.03778576757192643,
+      "reference": 0.03778576757192643,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
     },
     {
-      "case_id": "R3-ring",
+      "case_id": "catalog-20",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": true,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
+        "span_mm": 1500,
+        "width_mm": 150,
+        "theta_deg": 135,
+        "stiffened": false,
+        "support_id": "SAD-1"
       },
       "quantity": "S1_saddle",
       "unit": "MPa",
       "suite": null,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "R3-ring",
+      "case_id": "catalog-20",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": true,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
+        "span_mm": 1500,
+        "width_mm": 150,
+        "theta_deg": 135,
+        "stiffened": false,
+        "support_id": "SAD-1"
       },
       "quantity": "S1_midspan",
       "unit": "MPa",
-      "suite": null,
+      "suite": 0.35601377642076093,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "R3-ring",
+      "case_id": "catalog-20",
       "family": "F13-saddle_zick",
       "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": true,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
-      },
-      "quantity": "S3_shell",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "R3-ring",
-      "family": "F13-saddle_zick",
-      "params": {
-        "L_mm": 5000,
-        "b_mm": 250,
-        "theta_deg": 120,
-        "ring": true,
-        "A_mm": 1000,
-        "saddle_positions_mm": [
-          4000,
-          5000
-        ],
-        "weight_scale_label": 1.15
-      },
-      "quantity": "S4",
-      "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
-    },
-    {
-      "case_id": "invalid-missing-K",
-      "family": "F13-saddle_zick",
-      "params": {
-        "invalid": "K1 missing"
+        "span_mm": 1500,
+        "width_mm": 150,
+        "theta_deg": 135,
+        "stiffened": false,
+        "support_id": "SAD-2"
       },
       "quantity": "S1_saddle",
       "unit": "MPa",
       "suite": null,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "invalid-missing-K",
+      "case_id": "catalog-20",
       "family": "F13-saddle_zick",
       "params": {
-        "invalid": "K1 missing"
+        "span_mm": 1500,
+        "width_mm": 150,
+        "theta_deg": 135,
+        "stiffened": false,
+        "support_id": "SAD-2"
       },
       "quantity": "S1_midspan",
       "unit": "MPa",
-      "suite": null,
+      "suite": 0.3560137764207608,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "invalid-missing-K",
+      "case_id": "catalog-21",
       "family": "F13-saddle_zick",
       "params": {
-        "invalid": "K1 missing"
+        "span_mm": 900,
+        "width_mm": 150,
+        "theta_deg": 150,
+        "stiffened": false,
+        "support_id": "SAD-1"
       },
-      "quantity": "S3_shell",
+      "quantity": "S1_saddle",
       "unit": "MPa",
       "suite": null,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
-      "case_id": "invalid-missing-K",
+      "case_id": "catalog-21",
       "family": "F13-saddle_zick",
       "params": {
-        "invalid": "K1 missing"
+        "span_mm": 900,
+        "width_mm": 150,
+        "theta_deg": 150,
+        "stiffened": false,
+        "support_id": "SAD-1"
       },
-      "quantity": "S4",
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.11867125880692028,
+      "reference": null,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
+    },
+    {
+      "case_id": "catalog-21",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 900,
+        "width_mm": 150,
+        "theta_deg": 150,
+        "stiffened": false,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 3.2953767650070334,
+      "reference": 3.2953767650070334,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "catalog-21",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 900,
+        "width_mm": 150,
+        "theta_deg": 150,
+        "stiffened": false,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 1.0229742619241882,
+      "reference": 1.0229742619241882,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "catalog-22",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1100,
+        "width_mm": 250,
+        "theta_deg": 120,
+        "stiffened": false,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_saddle",
       "unit": "MPa",
       "suite": null,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
+    },
+    {
+      "case_id": "catalog-22",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1100,
+        "width_mm": 250,
+        "theta_deg": 120,
+        "stiffened": false,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.226554221358666,
+      "reference": null,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
+    },
+    {
+      "case_id": "catalog-22",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1100,
+        "width_mm": 250,
+        "theta_deg": 120,
+        "stiffened": false,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 1.608106167393393,
+      "reference": 1.608106167393393,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "catalog-22",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1100,
+        "width_mm": 250,
+        "theta_deg": 120,
+        "stiffened": false,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.39616151722193865,
+      "reference": 0.3961615172219386,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.4012252280465504e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "catalog-23",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1200,
+        "width_mm": 250,
+        "theta_deg": 135,
+        "stiffened": false,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
+    },
+    {
+      "case_id": "catalog-23",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1200,
+        "width_mm": 250,
+        "theta_deg": 135,
+        "stiffened": false,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.26701033231557064,
+      "reference": null,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
+    },
+    {
+      "case_id": "catalog-23",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1200,
+        "width_mm": 250,
+        "theta_deg": 135,
+        "stiffened": false,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 1.056988032222841,
+      "reference": 1.056988032222841,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "catalog-23",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1200,
+        "width_mm": 250,
+        "theta_deg": 135,
+        "stiffened": false,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.16110673795859515,
+      "reference": 0.16110673795859515,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "catalog-24",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1300,
+        "width_mm": 250,
+        "theta_deg": 150,
+        "stiffened": false,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
+    },
+    {
+      "case_id": "catalog-24",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1300,
+        "width_mm": 250,
+        "theta_deg": 150,
+        "stiffened": false,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.3012424262021822,
+      "reference": null,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
+    },
+    {
+      "case_id": "catalog-24",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1300,
+        "width_mm": 250,
+        "theta_deg": 150,
+        "stiffened": false,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.6408778187305672,
+      "reference": 0.6408778187305672,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "catalog-24",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1300,
+        "width_mm": 250,
+        "theta_deg": 150,
+        "stiffened": false,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.03778576757192643,
+      "reference": 0.03778576757192643,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "catalog-25",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1500,
+        "width_mm": 400,
+        "theta_deg": 120,
+        "stiffened": false,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
+    },
+    {
+      "case_id": "catalog-25",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1500,
+        "width_mm": 400,
+        "theta_deg": 120,
+        "stiffened": false,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.35601377642076093,
+      "reference": null,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
+    },
+    {
+      "case_id": "catalog-25",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1500,
+        "width_mm": 400,
+        "theta_deg": 120,
+        "stiffened": false,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
+    },
+    {
+      "case_id": "catalog-25",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1500,
+        "width_mm": 400,
+        "theta_deg": 120,
+        "stiffened": false,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.3560137764207608,
+      "reference": null,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
+    },
+    {
+      "case_id": "catalog-26",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 900,
+        "width_mm": 400,
+        "theta_deg": 135,
+        "stiffened": false,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
+    },
+    {
+      "case_id": "catalog-26",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 900,
+        "width_mm": 400,
+        "theta_deg": 135,
+        "stiffened": false,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.11867125880692028,
+      "reference": null,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
+    },
+    {
+      "case_id": "catalog-26",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 900,
+        "width_mm": 400,
+        "theta_deg": 135,
+        "stiffened": false,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 3.2953767650070334,
+      "reference": 3.2953767650070334,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "catalog-26",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 900,
+        "width_mm": 400,
+        "theta_deg": 135,
+        "stiffened": false,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 1.0229742619241882,
+      "reference": 1.0229742619241882,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "catalog-27",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1100,
+        "width_mm": 400,
+        "theta_deg": 150,
+        "stiffened": false,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
+    },
+    {
+      "case_id": "catalog-27",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1100,
+        "width_mm": 400,
+        "theta_deg": 150,
+        "stiffened": false,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.226554221358666,
+      "reference": null,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
+    },
+    {
+      "case_id": "catalog-27",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1100,
+        "width_mm": 400,
+        "theta_deg": 150,
+        "stiffened": false,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 1.608106167393393,
+      "reference": 1.608106167393393,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "catalog-27",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1100,
+        "width_mm": 400,
+        "theta_deg": 150,
+        "stiffened": false,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.39616151722193865,
+      "reference": 0.3961615172219386,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.4012252280465504e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "catalog-28",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1200,
+        "width_mm": 150,
+        "theta_deg": 120,
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.02522800481090686,
+      "reference": 0.025228004810906857,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.3752363605280681e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-28",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1200,
+        "width_mm": 150,
+        "theta_deg": 120,
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.26701033231557064,
+      "reference": 0.2670103323155706,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 2.078988882184943e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-28",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1200,
+        "width_mm": 150,
+        "theta_deg": 120,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.33644974023448143,
+      "reference": 0.33644974023448143,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-28",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1200,
+        "width_mm": 150,
+        "theta_deg": 120,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.16110673795859515,
+      "reference": 0.16110673795859515,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-29",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1300,
+        "width_mm": 150,
+        "theta_deg": 135,
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.028462364402048763,
+      "reference": 0.02846236440204876,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.2189595013771516e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-29",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1300,
+        "width_mm": 150,
+        "theta_deg": 135,
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.3012424262021822,
+      "reference": 0.30124242620218217,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.8427401455730178e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-29",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1300,
+        "width_mm": 150,
+        "theta_deg": 135,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.2039977455378429,
+      "reference": 0.2039977455378429,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-29",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1300,
+        "width_mm": 150,
+        "theta_deg": 135,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.03778576757192643,
+      "reference": 0.03778576757192643,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-30",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1500,
+        "width_mm": 150,
+        "theta_deg": 150,
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.03363733974787582,
+      "reference": 0.03363733974787581,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 2.062854540792102e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-30",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1500,
+        "width_mm": 150,
+        "theta_deg": 150,
+        "stiffened": true,
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.35601377642076093,
+      "reference": 0.3560137764207609,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.5592416616387068e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-30",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1500,
+        "width_mm": 150,
+        "theta_deg": 150,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 0.03363733974787581,
+      "reference": 0.033637339747875805,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 2.0628545407921028e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "catalog-30",
+      "family": "F13-saddle_zick",
+      "params": {
+        "span_mm": 1500,
+        "width_mm": 150,
+        "theta_deg": 150,
+        "stiffened": true,
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.3560137764207608,
+      "reference": 0.35601377642076076,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 1.5592416616387074e-14,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "REVIEW REQUIRED"
+    },
+    {
+      "case_id": "invalid-missing-K1",
+      "family": "F13-saddle_zick",
+      "params": {
+        "invalid": "missing zick_K1",
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": null,
+      "reference": null,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
+    },
+    {
+      "case_id": "invalid-missing-K1",
+      "family": "F13-saddle_zick",
+      "params": {
+        "invalid": "missing zick_K1",
+        "support_id": "SAD-1"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 0.11867125880692028,
+      "reference": null,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": null,
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
+    },
+    {
+      "case_id": "invalid-missing-K1",
+      "family": "F13-saddle_zick",
+      "params": {
+        "invalid": "missing zick_K1",
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_saddle",
+      "unit": "MPa",
+      "suite": 3.2953767650070334,
+      "reference": 3.2953767650070334,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
+    },
+    {
+      "case_id": "invalid-missing-K1",
+      "family": "F13-saddle_zick",
+      "params": {
+        "invalid": "missing zick_K1",
+        "support_id": "SAD-2"
+      },
+      "quantity": "S1_midspan",
+      "unit": "MPa",
+      "suite": 1.0229742619241882,
+      "reference": 1.0229742619241882,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
     },
     {
       "case_id": "invalid-angle",
       "family": "F13-saddle_zick",
       "params": {
-        "invalid": "angle 160 deg"
+        "invalid": "160 degrees",
+        "support_id": "SAD-1"
       },
       "quantity": "S1_saddle",
       "unit": "MPa",
       "suite": null,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
       "case_id": "invalid-angle",
       "family": "F13-saddle_zick",
       "params": {
-        "invalid": "angle 160 deg"
+        "invalid": "160 degrees",
+        "support_id": "SAD-1"
       },
       "quantity": "S1_midspan",
       "unit": "MPa",
-      "suite": null,
+      "suite": 0.11867125880692028,
       "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
       "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "verdict": "KAPSAM_DIŞI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "BLOCKED CODE DATA"
     },
     {
       "case_id": "invalid-angle",
       "family": "F13-saddle_zick",
       "params": {
-        "invalid": "angle 160 deg"
+        "invalid": "160 degrees",
+        "support_id": "SAD-2"
       },
-      "quantity": "S3_shell",
+      "quantity": "S1_saddle",
       "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "suite": 3.2953767650070334,
+      "reference": 3.2953767650070334,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
     },
     {
       "case_id": "invalid-angle",
       "family": "F13-saddle_zick",
       "params": {
-        "invalid": "angle 160 deg"
+        "invalid": "160 degrees",
+        "support_id": "SAD-2"
       },
-      "quantity": "S4",
+      "quantity": "S1_midspan",
       "unit": "MPa",
-      "suite": null,
-      "reference": null,
-      "ref_source": "K3-01: PVE-4293 (published subset only)",
-      "diff_pct": null,
-      "verdict": "KAYNAK_BEKLİYOR",
-      "note": "Independent reaction/load not published for this variant.",
-      "suite_status": null
+      "suite": 1.0229742619241882,
+      "reference": 1.0229742619241882,
+      "ref_source": "Independent beam/shell equation check; catalog API intermediates",
+      "diff_pct": 0.0,
+      "verdict": "DOĞRULANDI",
+      "note": "Formula check uses the API-reported moments, radius, thickness, and explicit K1.",
+      "suite_status": "FAIL"
     }
   ]
 }
