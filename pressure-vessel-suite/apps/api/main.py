@@ -16,7 +16,7 @@ import threading
 from pathlib import Path
 from urllib.parse import unquote
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
 from starlette.concurrency import run_in_threadpool
@@ -24,6 +24,7 @@ from starlette.concurrency import run_in_threadpool
 from domain import VesselProject, compute_input_hash  # type: ignore
 
 from apps.api import services
+from apps.api.auth import auth_disabled, require_user
 from apps.api.geometry_agent import (
     AgentNotConfiguredError,
     AgentProviderError,
@@ -42,23 +43,31 @@ app = FastAPI(
 )
 
 
+@app.on_event("startup")
+def _warn_if_auth_disabled() -> None:
+    if auth_disabled():
+        logger.warning("AUTH_DISABLED=true — kimlik doğrulama KAPALI (yalnızca yerel geliştirme!)")
+
+
 @app.exception_handler(Exception)
 async def unhandled_exception_handler(request: Request, exc: Exception) -> JSONResponse:
-    """Beklenmeyen sunucu hatalarında jenerik 'Internal Server Error' yerine
-    gerçek hata tipini/mesajını döndür — böylece frontend'de teşhis edilebilir."""
-    logger.exception("Beklenmeyen hata (%s %s): %s", request.method, request.url.path, exc)
-    return JSONResponse(
-        status_code=500,
-        content={"detail": f"Sunucu hatası: {type(exc).__name__}: {exc}"},
-    )
+    """Beklenmeyen hatayı sunucuda logla; istemciye ayrıntı verme."""
+    logger.exception("Beklenmeyen hata (%s %s)", request.method, request.url.path)
+    return JSONResponse(status_code=500, content={"detail": "Internal server error"})
 
-# Vite geliştirme sunucusuna CORS izni
+
+def _cors_origins() -> list[str]:
+    raw = os.environ.get("CORS_ORIGINS", "")
+    origins = [o.strip() for o in raw.split(",") if o.strip()]
+    return origins or ["http://localhost:5173", "http://127.0.0.1:5173"]
+
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=_cors_origins(),
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"],
+    allow_headers=["Authorization", "Content-Type", "X-Filename"],
 )
 
 
@@ -67,9 +76,11 @@ def health() -> dict:
     return {"status": "ok", "cad_available": services.CADQUERY_AVAILABLE}
 
 
-@app.post("/api/agent/geometry/interpret", response_model=GeometryAgentResponse)
+@app.post("/api/agent/geometry/interpret", response_model=GeometryAgentResponse, dependencies=[Depends(require_user)])
 def geometry_agent_interpret(payload: GeometryAgentRequest) -> GeometryAgentResponse:
     """Interpret a sentence as a safe, review-only basic geometry patch."""
+    if os.environ.get("GEOMETRY_AGENT_ENABLED", "").strip().lower() not in {"1", "true", "yes"}:
+        raise HTTPException(status_code=503, detail="AI assistant is not available yet")
     try:
         return interpret_geometry_command(payload)
     except AgentNotConfiguredError as exc:
@@ -78,18 +89,18 @@ def geometry_agent_interpret(payload: GeometryAgentRequest) -> GeometryAgentResp
         raise HTTPException(status_code=502, detail=str(exc)) from exc
 
 
-@app.get("/api/projects")
+@app.get("/api/projects", dependencies=[Depends(require_user)])
 def list_projects() -> list:
     return store.summaries()
 
 
-@app.post("/api/projects", status_code=201)
+@app.post("/api/projects", status_code=201, dependencies=[Depends(require_user)])
 def create_project(project: VesselProject) -> dict:
     project_id = store.create(project)
     return {"id": project_id, "input_file_hash": compute_input_hash(project)}
 
 
-@app.get("/api/projects/{project_id}")
+@app.get("/api/projects/{project_id}", dependencies=[Depends(require_user)])
 def get_project(project_id: str) -> VesselProject:
     project = store.get(project_id)
     if project is None:
@@ -97,14 +108,14 @@ def get_project(project_id: str) -> VesselProject:
     return project
 
 
-@app.put("/api/projects/{project_id}")
+@app.put("/api/projects/{project_id}", dependencies=[Depends(require_user)])
 def update_project(project_id: str, project: VesselProject) -> dict:
     if not store.update(project_id, project):
         raise HTTPException(status_code=404, detail="Proje bulunamadı.")
     return {"id": project_id, "input_file_hash": compute_input_hash(project)}
 
 
-@app.post("/api/projects/{project_id}/calculate")
+@app.post("/api/projects/{project_id}/calculate", dependencies=[Depends(require_user)])
 def calculate(project_id: str) -> dict:
     project = store.get(project_id)
     if project is None:
@@ -112,7 +123,7 @@ def calculate(project_id: str) -> dict:
     return services.calculation_payload(project)
 
 
-@app.get("/api/projects/{project_id}/report.html", response_class=HTMLResponse)
+@app.get("/api/projects/{project_id}/report.html", response_class=HTMLResponse, dependencies=[Depends(require_user)])
 def report_html(project_id: str) -> HTMLResponse:
     project = store.get(project_id)
     if project is None:
@@ -120,7 +131,7 @@ def report_html(project_id: str) -> HTMLResponse:
     return HTMLResponse(content=services.generate_report_html(project))
 
 
-@app.get("/api/projects/{project_id}/model.step")
+@app.get("/api/projects/{project_id}/model.step", dependencies=[Depends(require_user)])
 def model_step(project_id: str) -> FileResponse:
     project = store.get(project_id)
     if project is None:
@@ -135,7 +146,7 @@ def model_step(project_id: str) -> FileResponse:
     return FileResponse(path, filename=filename, media_type="application/step")
 
 
-@app.get("/api/projects/{project_id}/model.stl")
+@app.get("/api/projects/{project_id}/model.stl", dependencies=[Depends(require_user)])
 def model_stl(project_id: str) -> FileResponse:
     project = store.get(project_id)
     if project is None:
@@ -200,7 +211,7 @@ async def _receive_step(request: Request, dest: str) -> None:
         _check_step_header(head)
 
 
-@app.post("/api/import/step")
+@app.post("/api/import/step", dependencies=[Depends(require_user)])
 async def import_step(request: Request) -> dict:
     """Ham STEP baytlarını al, tanıyıcıya (ayrı süreçte) ver, ölçü önerilerini döndür."""
     if services.recognize_step is None:
