@@ -13,6 +13,8 @@ services:
         sync: false
       - key: CORS_ORIGINS
         sync: false
+      - key: AUTH_MODE
+        value: anonymous
       - key: AUTH_DISABLED
         sync: false
       - key: GEOMETRY_AGENT_ENABLED

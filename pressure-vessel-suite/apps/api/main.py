@@ -24,7 +24,7 @@ from starlette.concurrency import run_in_threadpool
 from domain import VesselProject, compute_input_hash  # type: ignore
 
 from apps.api import services
-from apps.api.auth import auth_disabled, require_user
+from apps.api.auth import auth_mode, require_owner
 from apps.api.geometry_agent import (
     AgentNotConfiguredError,
     AgentProviderError,
@@ -32,7 +32,7 @@ from apps.api.geometry_agent import (
     GeometryAgentResponse,
     interpret_geometry_command,
 )
-from apps.api.store import store
+from apps.api.store import ProjectLimitReached, store
 
 logger = logging.getLogger("basincli-kap.api")
 
@@ -44,9 +44,8 @@ app = FastAPI(
 
 
 @app.on_event("startup")
-def _warn_if_auth_disabled() -> None:
-    if auth_disabled():
-        logger.warning("AUTH_DISABLED=true — kimlik doğrulama KAPALI (yalnızca yerel geliştirme!)")
+def _log_auth_mode() -> None:
+    logger.info("AUTH_MODE=%s", auth_mode())
 
 
 @app.exception_handler(Exception)
@@ -67,7 +66,7 @@ app.add_middleware(
     allow_origins=_cors_origins(),
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["Authorization", "Content-Type", "X-Filename"],
+    allow_headers=["Authorization", "Content-Type", "X-Filename", "X-Client-Id"],
 )
 
 
@@ -76,7 +75,7 @@ def health() -> dict:
     return {"status": "ok", "cad_available": services.CADQUERY_AVAILABLE}
 
 
-@app.post("/api/agent/geometry/interpret", response_model=GeometryAgentResponse, dependencies=[Depends(require_user)])
+@app.post("/api/agent/geometry/interpret", response_model=GeometryAgentResponse, dependencies=[Depends(require_owner)])
 def geometry_agent_interpret(payload: GeometryAgentRequest) -> GeometryAgentResponse:
     """Interpret a sentence as a safe, review-only basic geometry patch."""
     if os.environ.get("GEOMETRY_AGENT_ENABLED", "").strip().lower() not in {"1", "true", "yes"}:
@@ -89,51 +88,54 @@ def geometry_agent_interpret(payload: GeometryAgentRequest) -> GeometryAgentResp
         raise HTTPException(status_code=502, detail=str(exc)) from exc
 
 
-@app.get("/api/projects", dependencies=[Depends(require_user)])
-def list_projects() -> list:
-    return store.summaries()
+@app.get("/api/projects")
+def list_projects(owner: str = Depends(require_owner)) -> list:
+    return store.summaries(owner)
 
 
-@app.post("/api/projects", status_code=201, dependencies=[Depends(require_user)])
-def create_project(project: VesselProject) -> dict:
-    project_id = store.create(project)
+@app.post("/api/projects", status_code=201)
+def create_project(project: VesselProject, owner: str = Depends(require_owner)) -> dict:
+    try:
+        project_id = store.create(owner, project)
+    except ProjectLimitReached:
+        raise HTTPException(status_code=429, detail="Project limit reached") from None
     return {"id": project_id, "input_file_hash": compute_input_hash(project)}
 
 
-@app.get("/api/projects/{project_id}", dependencies=[Depends(require_user)])
-def get_project(project_id: str) -> VesselProject:
-    project = store.get(project_id)
+@app.get("/api/projects/{project_id}")
+def get_project(project_id: str, owner: str = Depends(require_owner)) -> VesselProject:
+    project = store.get(owner, project_id)
     if project is None:
         raise HTTPException(status_code=404, detail="Proje bulunamadı.")
     return project
 
 
-@app.put("/api/projects/{project_id}", dependencies=[Depends(require_user)])
-def update_project(project_id: str, project: VesselProject) -> dict:
-    if not store.update(project_id, project):
+@app.put("/api/projects/{project_id}")
+def update_project(project_id: str, project: VesselProject, owner: str = Depends(require_owner)) -> dict:
+    if not store.update(owner, project_id, project):
         raise HTTPException(status_code=404, detail="Proje bulunamadı.")
     return {"id": project_id, "input_file_hash": compute_input_hash(project)}
 
 
-@app.post("/api/projects/{project_id}/calculate", dependencies=[Depends(require_user)])
-def calculate(project_id: str) -> dict:
-    project = store.get(project_id)
+@app.post("/api/projects/{project_id}/calculate")
+def calculate(project_id: str, owner: str = Depends(require_owner)) -> dict:
+    project = store.get(owner, project_id)
     if project is None:
         raise HTTPException(status_code=404, detail="Proje bulunamadı.")
     return services.calculation_payload(project)
 
 
-@app.get("/api/projects/{project_id}/report.html", response_class=HTMLResponse, dependencies=[Depends(require_user)])
-def report_html(project_id: str) -> HTMLResponse:
-    project = store.get(project_id)
+@app.get("/api/projects/{project_id}/report.html", response_class=HTMLResponse)
+def report_html(project_id: str, owner: str = Depends(require_owner)) -> HTMLResponse:
+    project = store.get(owner, project_id)
     if project is None:
         raise HTTPException(status_code=404, detail="Proje bulunamadı.")
     return HTMLResponse(content=services.generate_report_html(project))
 
 
-@app.get("/api/projects/{project_id}/model.step", dependencies=[Depends(require_user)])
-def model_step(project_id: str) -> FileResponse:
-    project = store.get(project_id)
+@app.get("/api/projects/{project_id}/model.step")
+def model_step(project_id: str, owner: str = Depends(require_owner)) -> FileResponse:
+    project = store.get(owner, project_id)
     if project is None:
         raise HTTPException(status_code=404, detail="Proje bulunamadı.")
     path = services.generate_step(project)
@@ -146,9 +148,9 @@ def model_step(project_id: str) -> FileResponse:
     return FileResponse(path, filename=filename, media_type="application/step")
 
 
-@app.get("/api/projects/{project_id}/model.stl", dependencies=[Depends(require_user)])
-def model_stl(project_id: str) -> FileResponse:
-    project = store.get(project_id)
+@app.get("/api/projects/{project_id}/model.stl")
+def model_stl(project_id: str, owner: str = Depends(require_owner)) -> FileResponse:
+    project = store.get(owner, project_id)
     if project is None:
         raise HTTPException(status_code=404, detail="Proje bulunamadı.")
     path = services.generate_stl(project)
@@ -211,7 +213,7 @@ async def _receive_step(request: Request, dest: str) -> None:
         _check_step_header(head)
 
 
-@app.post("/api/import/step", dependencies=[Depends(require_user)])
+@app.post("/api/import/step", dependencies=[Depends(require_owner)])
 async def import_step(request: Request) -> dict:
     """Ham STEP baytlarını al, tanıyıcıya (ayrı süreçte) ver, ölçü önerilerini döndür."""
     if services.recognize_step is None:

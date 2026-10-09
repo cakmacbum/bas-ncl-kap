@@ -2,7 +2,8 @@
 
 - Asimetrik anahtarlar: ${SUPABASE_URL}/auth/v1/.well-known/jwks.json (önbellekli).
 - Yedek: SUPABASE_JWT_SECRET ile HS256.
-- AUTH_DISABLED=true yalnızca yerel geliştirme/test içindir.
+- AUTH_MODE=anonymous (varsayılan) | supabase. AUTH_DISABLED=true => anonymous (geriye uyum).
+- `require_owner`: proje sahibi kimliği (`user:<sub>` veya `anon:<uuid>`).
 Ortam değişkenleri istek anında okunur (testlerde monkeypatch edilebilsin diye).
 """
 
@@ -10,6 +11,7 @@ from __future__ import annotations
 
 import logging
 import os
+import uuid
 from typing import Any
 
 import jwt
@@ -26,6 +28,14 @@ _jwks_clients: dict[str, PyJWKClient] = {}
 
 def auth_disabled() -> bool:
     return os.environ.get("AUTH_DISABLED", "").strip().lower() in {"1", "true", "yes"}
+
+
+def auth_mode() -> str:
+    """'supabase' yalnızca AUTH_MODE=supabase ve AUTH_DISABLED kapalıyken; aksi halde 'anonymous'."""
+    if auth_disabled():
+        return "anonymous"
+    mode = os.environ.get("AUTH_MODE", "anonymous").strip().lower()
+    return "supabase" if mode == "supabase" else "anonymous"
 
 
 def _supabase_url() -> str:
@@ -92,3 +102,18 @@ def require_user(request: Request) -> dict[str, Any]:
     if scheme.lower() != "bearer" or not token.strip():
         raise _unauthorized()
     return verify_token(token.strip())
+
+
+def require_owner(request: Request) -> str:
+    """Proje sahibi dizgesi döndürür: supabase => `user:<sub>`, anonymous => `anon:<uuid>`."""
+    if auth_mode() == "supabase":
+        claims = require_user(request)
+        return f"user:{claims['sub']}"
+    raw = request.headers.get("x-client-id", "")
+    try:
+        client_id = str(uuid.UUID(raw))
+    except ValueError:
+        client_id = ""
+    if not client_id or client_id != raw.lower():  # yalnızca kanonik tireli biçim
+        raise HTTPException(status_code=400, detail="Missing or invalid X-Client-Id")
+    return f"anon:{client_id}"

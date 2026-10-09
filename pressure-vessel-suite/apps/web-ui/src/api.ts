@@ -10,6 +10,7 @@ import type {
 } from "./types";
 
 import { getAccessToken, signOut } from "./auth/useSession";
+import { getClientId } from "./clientId";
 
 const BASE = ((import.meta.env.VITE_API_URL as string | undefined) || "").replace(/\/$/, "") + "/api";
 
@@ -17,6 +18,7 @@ const BASE = ((import.meta.env.VITE_API_URL as string | undefined) || "").replac
 export async function authFetch(input: RequestInfo | URL, init: RequestInit = {}): Promise<Response> {
   const token = await getAccessToken();
   const headers = new Headers(init.headers);
+  headers.set("X-Client-Id", getClientId());
   if (token) headers.set("Authorization", `Bearer ${token}`);
   const res = await fetch(input, { ...init, headers });
   if (res.status === 401 && token) void signOut();

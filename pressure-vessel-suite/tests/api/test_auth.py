@@ -17,6 +17,7 @@ SUPA = "https://example.supabase.co"
 @pytest.fixture
 def client(monkeypatch):
     monkeypatch.setenv("AUTH_DISABLED", "false")
+    monkeypatch.setenv("AUTH_MODE", "supabase")
     monkeypatch.setenv("SUPABASE_JWT_SECRET", SECRET)
     monkeypatch.setenv("SUPABASE_URL", SUPA)
     monkeypatch.setenv("GEOMETRY_AGENT_ENABLED", "false")
