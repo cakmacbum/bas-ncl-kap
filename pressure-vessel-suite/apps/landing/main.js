@@ -1,4 +1,4 @@
-const APP_URL = "https://app.example.com";
+const APP_URL = "https://pv-suite-app.vercel.app";
 
 document.querySelectorAll("[data-app-link]").forEach((link) => {
   link.href = link.dataset.appLink === "signup" ? `${APP_URL}/?signup=1` : APP_URL;
