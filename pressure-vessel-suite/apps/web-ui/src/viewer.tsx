@@ -73,6 +73,8 @@ interface ViewerProps {
   onManual?: () => void;
 }
 
+import { authFetch } from "./api";
+
 export function VesselViewer({ url, autoRotate, dims, section, onManual }: ViewerProps) {
   const [geometry, setGeometry] = useState<THREE.BufferGeometry | null>(null);
   const [err, setErr] = useState<string | null>(null);
@@ -87,7 +89,7 @@ export function VesselViewer({ url, autoRotate, dims, section, onManual }: Viewe
     let alive = true;
     setLoading(true);
     setErr(null);
-    fetch(url)
+    authFetch(url)
       .then((r) => {
         if (!r.ok) throw new Error(`STL alınamadı (${r.status})`);
         return r.arrayBuffer();

@@ -10,6 +10,8 @@ import {
 } from "./pages";
 import { geometryIssues } from "./geometryValidation";
 import { GeometryAgentDrawer } from "./GeometryAgentDrawer";
+import { AI_AGENT_ENABLED } from "./features";
+import { AccountMenu } from "./auth/AccountMenu";
 
 const STEPS = [
   { title: "Yeni Proje", sub: "Kimlik & rota", note: "Proje kimliği ve hesap standardı (ASME VIII-1)." },
@@ -80,12 +82,19 @@ export function App() {
               MAWP {calc.global_mawp_mpa.toFixed(2)} MPa
             </span>
           )}
-          <button className="btn agent-open-btn" type="button" onClick={() => setAgentOpen(true)} aria-haspopup="dialog">
-            <span aria-hidden="true">✦</span> Ajan
-          </button>
+          {AI_AGENT_ENABLED ? (
+            <button className="btn agent-open-btn" type="button" onClick={() => setAgentOpen(true)} aria-haspopup="dialog">
+              <span aria-hidden="true">✦</span> Ajan
+            </button>
+          ) : (
+            <span className="agent-soon" aria-disabled="true">
+              AI assistant — coming soon: bring your own Claude API key
+            </span>
+          )}
           <button className="icon-btn" onClick={toggleTheme} title="Tema değiştir" aria-label={theme === "dark" ? "Açık temaya geç" : "Koyu temaya geç"}>
             {theme === "dark" ? "☀" : "☾"}
           </button>
+          <AccountMenu />
         </div>
       </div>
 
@@ -119,7 +128,7 @@ export function App() {
         {pages[step]}
         <footer className="workspace-footer"><span>Basınçlı Kap Suite</span><span>Hesap çıktıları mühendislik incelemesi gerektirir.</span><span>SI · mm / MPa / °C</span></footer>
       </main>
-      <GeometryAgentDrawer open={agentOpen} onClose={() => setAgentOpen(false)} />
+      {AI_AGENT_ENABLED && <GeometryAgentDrawer open={agentOpen} onClose={() => setAgentOpen(false)} />}
     </div>
   );
 }

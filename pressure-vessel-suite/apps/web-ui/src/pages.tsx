@@ -1723,7 +1723,7 @@ export function ViewerPage() {
                   {autoRotate ? "⏸ Döndürmeyi Durdur" : "↻ Otomatik Döndür"}
                 </button>
                 <button className="btn" onClick={prepare} disabled={busy}>↻ Yenile</button>
-                {id && <a className="btn" href={api.stepUrl(id)}>⬇ STEP</a>}
+                {id && <button className="btn" onClick={() => api.downloadStep(id).catch((e) => window.alert(e.message))}>⬇ STEP</button>}
               </div>
             }
           >
@@ -1779,6 +1779,27 @@ export function ReportPage() {
 
   const id = useStore.getState().projectId ?? projectId;
 
+  // Rapor Authorization başlığı gerektirir → blob URL ile göster.
+  const [reportSrc, setReportSrc] = useState<string | null>(null);
+  useEffect(() => {
+    if (!ready || !id) return;
+    let alive = true;
+    let created: string | null = null;
+    api.reportBlobUrl(id).then(
+      (u) => {
+        created = u;
+        if (alive) setReportSrc(u);
+        else URL.revokeObjectURL(u);
+      },
+      (e) => alive && setErr(e.message ?? "Rapor yüklenemedi")
+    );
+    return () => {
+      alive = false;
+      if (created) URL.revokeObjectURL(created);
+    };
+  }, [ready, id]);
+  const downloadStep = () => api.downloadStep(id!).catch((e) => setErr(e.message ?? "STEP indirilemedi"));
+
   return (
     <div className="page">
       <PageHead
@@ -1812,14 +1833,14 @@ export function ReportPage() {
             meta="HTML — izlenebilirlik bloğu dahil"
             right={
               <div style={{ display: "flex", gap: 8 }}>
-                <a className="btn btn--ghost" href={api.reportUrl(id!)} target="_blank" rel="noreferrer">
+                <a className="btn btn--ghost" href={reportSrc ?? undefined} aria-disabled={!reportSrc} target="_blank" rel="noreferrer">
                   ↗ Yeni Sekmede
                 </a>
-                <a className="btn" href={api.stepUrl(id!)}>⬇ STEP indir</a>
+                <button className="btn" onClick={downloadStep}>⬇ STEP indir</button>
               </div>
             }
           >
-            <iframe className="report-frame" src={api.reportUrl(id!)} title="Hesap Raporu" />
+            {reportSrc && <iframe className="report-frame" src={reportSrc} title="Hesap Raporu" />}
           </Panel>
           <div className="alert alert--info">
             ℹ PDF çıktısı, sunucuda WeasyPrint native kütüphaneleri kurulduğunda etkinleşir.
