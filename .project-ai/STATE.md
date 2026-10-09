@@ -14,6 +14,8 @@ Canlı (2026-10-09, Vercel yusufsaglamci11): landing https://pv-suite-landing.ve
 Bloke / Yusuf'ta:
   - Supabase Google provider + Google Cloud OAuth client + Site URL
   - Render hesabı (backend) · eski ajan anahtarını sağlayıcıda iptal · domain
-Açık risk: API STORE bellek içi ve ortak → giriş yapan herkes tüm projeleri görür (yayın öncesi düzeltilmeli)
+W04 (41e84a3): sahip bazlı depo — AUTH_MODE=anonymous, X-Client-Id; 404-only, 50/sahip, 5000 LRU; 65/65 test.
+Giriş kapalı (AUTH_ENABLED=false, Yusuf 2026-10-09). render.yaml kökte (71d9d6d), Render hesabı bekleniyor.
+Açık risk: X-Client-Id sır değil; depo bellek içi (restart = veri kaybı); rate limit yok; free plan 512 MB bellek CadQuery için riskli
 Bilinmeyen: Dockerfile derlenmedi (Docker daemon kapalı); cadquery pip wheel slim imajda doğrulanmadı
 Sıradaki: kullanıcı-bazlı proje izolasyonu (W04) · Vercel deploy (landing + pv-suite-app) · Render
