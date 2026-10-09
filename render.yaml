@@ -1,0 +1,18 @@
+# Render Blueprint — Basınçlı Kap / Pressure Vessel Suite API (FastAPI + CadQuery)
+services:
+  - type: web
+    name: pv-suite-api
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./pressure-vessel-suite/Dockerfile
+    dockerContext: ./pressure-vessel-suite
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: AUTH_MODE
+        value: anonymous
+      - key: CORS_ORIGINS
+        value: https://pv-suite-app.vercel.app
+      - key: GEOMETRY_AGENT_ENABLED
+        value: "false"
