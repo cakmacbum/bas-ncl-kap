@@ -5,8 +5,8 @@ services:
     runtime: docker
     plan: free
     region: frankfurt
-    dockerfilePath: ./pressure-vessel-suite/Dockerfile
-    dockerContext: ./pressure-vessel-suite
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
     healthCheckPath: /api/health
     autoDeploy: true
     envVars:

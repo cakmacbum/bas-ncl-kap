@@ -1,0 +1,8 @@
+*
+!pressure-vessel-suite/requirements-api.txt
+!pressure-vessel-suite/apps/__init__.py
+!pressure-vessel-suite/apps/api
+!pressure-vessel-suite/packages
+**/__pycache__
+**/*.pyc
+**/node_modules
