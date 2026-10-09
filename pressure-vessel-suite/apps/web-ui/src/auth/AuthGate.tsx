@@ -2,6 +2,7 @@ import React from "react";
 import { authConfigured, supabase } from "./supabase";
 import { useSession } from "./useSession";
 import "./auth.css";
+import { AUTH_ENABLED } from "../features";
 
 const LANDING_URL = import.meta.env.VITE_LANDING_URL as string | undefined;
 
@@ -40,6 +41,11 @@ function SignIn() {
 }
 
 export function AuthGate({ children }: { children: React.ReactNode }) {
+  if (!AUTH_ENABLED) return <>{children}</>;
+  return <Gate>{children}</Gate>;
+}
+
+function Gate({ children }: { children: React.ReactNode }) {
   const { session, loading } = useSession();
 
   if (!authConfigured) {

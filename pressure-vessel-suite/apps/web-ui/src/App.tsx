@@ -10,7 +10,7 @@ import {
 } from "./pages";
 import { geometryIssues } from "./geometryValidation";
 import { GeometryAgentDrawer } from "./GeometryAgentDrawer";
-import { AI_AGENT_ENABLED } from "./features";
+import { AI_AGENT_ENABLED, AUTH_ENABLED } from "./features";
 import { AccountMenu } from "./auth/AccountMenu";
 
 const STEPS = [
@@ -94,7 +94,7 @@ export function App() {
           <button className="icon-btn" onClick={toggleTheme} title="Tema değiştir" aria-label={theme === "dark" ? "Açık temaya geç" : "Koyu temaya geç"}>
             {theme === "dark" ? "☀" : "☾"}
           </button>
-          <AccountMenu />
+          {AUTH_ENABLED && <AccountMenu />}
         </div>
       </div>
 

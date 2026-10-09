@@ -1,7 +1,7 @@
 const APP_URL = "https://pv-suite-app.vercel.app";
 
 document.querySelectorAll("[data-app-link]").forEach((link) => {
-  link.href = link.dataset.appLink === "signup" ? `${APP_URL}/?signup=1` : APP_URL;
+  link.href = APP_URL;
 });
 
 const menuButton = document.querySelector(".menu-toggle");
