@@ -10,9 +10,12 @@ import "@fontsource/jetbrains-mono/600.css";
 import "./theme.css";
 import "./workspace.css";
 import { App } from "./App";
+import { AuthGate } from "./auth/AuthGate";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
+    <AuthGate>
+      <App />
+    </AuthGate>
   </React.StrictMode>
 );

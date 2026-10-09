@@ -9,7 +9,25 @@ import type {
   StepRecognition,
 } from "./types";
 
-const BASE = "/api";
+import { getAccessToken, signOut } from "./auth/useSession";
+
+const BASE = ((import.meta.env.VITE_API_URL as string | undefined) || "").replace(/\/$/, "") + "/api";
+
+// Her istekte Bearer token ekler; 401'de oturumu kapatır (AuthGate giriş ekranına döner).
+export async function authFetch(input: RequestInfo | URL, init: RequestInit = {}): Promise<Response> {
+  const token = await getAccessToken();
+  const headers = new Headers(init.headers);
+  if (token) headers.set("Authorization", `Bearer ${token}`);
+  const res = await fetch(input, { ...init, headers });
+  if (res.status === 401 && token) void signOut();
+  return res;
+}
+
+async function blobUrl(url: string): Promise<string> {
+  const res = await authFetch(url);
+  if (!res.ok) throw new Error(`İndirilemedi (${res.status})`);
+  return URL.createObjectURL(await res.blob());
+}
 
 async function jsonOrThrow<T>(res: Response): Promise<T> {
   if (!res.ok) {
@@ -34,7 +52,7 @@ async function jsonOrThrow<T>(res: Response): Promise<T> {
 async function fetchJson<T>(input: RequestInfo, init?: RequestInit): Promise<T> {
   let res: Response;
   try {
-    res = await fetch(input, init);
+    res = await authFetch(input, init);
   } catch {
     throw new Error(
       "API sunucusuna bağlanılamadı. Backend çalışıyor mu? " +
@@ -48,7 +66,7 @@ export const api = {
   async importStep(file: File): Promise<StepRecognition> {
     let res: Response;
     try {
-      res = await fetch(`${BASE}/import/step`, {
+      res = await authFetch(`${BASE}/import/step`, {
         method: "POST",
         headers: { "Content-Type": "application/octet-stream", "X-Filename": encodeURIComponent(file.name) },
         body: file,
@@ -106,6 +124,20 @@ export const api = {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
+  },
+
+  // Başlık gerektiren dosyalar için blob URL (iframe / yeni sekme / indirme).
+  reportBlobUrl(id: string): Promise<string> {
+    return blobUrl(`${BASE}/projects/${id}/report.html`);
+  },
+
+  async downloadStep(id: string): Promise<void> {
+    const href = await blobUrl(`${BASE}/projects/${id}/model.step`);
+    const a = document.createElement("a");
+    a.href = href;
+    a.download = `${id}.step`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(href), 10_000);
   },
 
   reportUrl(id: string): string {
