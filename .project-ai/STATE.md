@@ -19,3 +19,9 @@ Giriş kapalı (AUTH_ENABLED=false, Yusuf 2026-10-09). render.yaml kökte (71d9d
 Açık risk: X-Client-Id sır değil; depo bellek içi (restart = veri kaybı); rate limit yok; free plan 512 MB bellek CadQuery için riskli
 Bilinmeyen: Dockerfile derlenmedi (Docker daemon kapalı); cadquery pip wheel slim imajda doğrulanmadı
 Sıradaki: kullanıcı-bazlı proje izolasyonu (W04) · Vercel deploy (landing + pv-suite-app) · Render
+
+## 2026-10-11 — Domain canlı
+zeyslabs-vessela.com (+www) → pv-suite-landing · app.zeyslabs-vessela.com → pv-suite-app.
+Kayıt: turkticaret.net, nameserver → ns1/ns2.vercel-dns.com; SSL Vercel, tüm adresler 200.
+Açık: Render deploy (root Dockerfile d9a6dd9 sonrası sonuç bekleniyor) → VITE_API_URL ile app yeniden build.
+Açık: ICANN RAA e-posta onayı (turkticaret panelinde uyarı) — yapılmazsa domain askıya alınır.
