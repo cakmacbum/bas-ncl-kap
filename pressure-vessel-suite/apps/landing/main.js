@@ -1,4 +1,4 @@
-const APP_URL = "https://pv-suite-app.vercel.app";
+const APP_URL = "https://app.zeyslabs-vessela.com";
 
 document.querySelectorAll("[data-app-link]").forEach((link) => {
   link.href = APP_URL;

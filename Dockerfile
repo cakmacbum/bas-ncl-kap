@@ -5,7 +5,7 @@ FROM python:3.12-slim
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     AUTH_MODE=anonymous \
-    CORS_ORIGINS=https://pv-suite-app.vercel.app \
+    CORS_ORIGINS=https://app.zeyslabs-vessela.com,https://pv-suite-app.vercel.app \
     GEOMETRY_AGENT_ENABLED=false
 
 # OCP (OpenCASCADE) için gereken paylaşımlı kütüphaneler
