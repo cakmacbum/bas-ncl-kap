@@ -25,3 +25,9 @@ zeyslabs-vessela.com (+www) → pv-suite-landing · app.zeyslabs-vessela.com →
 Kayıt: turkticaret.net, nameserver → ns1/ns2.vercel-dns.com; SSL Vercel, tüm adresler 200.
 Açık: Render deploy (root Dockerfile d9a6dd9 sonrası sonuç bekleniyor) → VITE_API_URL ile app yeniden build.
 Açık: ICANN RAA e-posta onayı (turkticaret panelinde uyarı) — yapılmazsa domain askıya alınır.
+
+## 2026-10-11 — Claude Startups başvurusu gönderildi
+Console org: ZeysLAB (info@zeyslab.com). Kredi alınmadı (Skip). Ürün: Pressure Vessel Suite, site zeyslabs-vessela.com.
+Metin "open-source" diyor → repo cakmacbum/bas-ncl-kap hâlâ private: public kararı Yusuf'ta.
+Sitedeki iletişim adresi contact@zeyslabs.com ≠ info@zeyslab.com → düzeltilmeli.
+İnceleme öncesi öncelik: Render backend (hesaplama canlı değil).
