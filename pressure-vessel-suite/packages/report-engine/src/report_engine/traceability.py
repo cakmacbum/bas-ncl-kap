@@ -14,6 +14,7 @@ Her raporda şu bilgiler bulunmalıdır:
 from __future__ import annotations
 
 import hashlib
+import html as _html
 import json
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -68,7 +69,7 @@ class TraceabilityBlock:
         html = '<table class="traceability">\n'
         html += '<tr><th colspan="2">İzlenebilirlik Bilgileri</th></tr>\n'
         for label, value in rows:
-            html += f'<tr><td><strong>{label}</strong></td><td>{value}</td></tr>\n'
+            html += f'<tr><td><strong>{label}</strong></td><td>{_html.escape(str(value), quote=True)}</td></tr>\n'
         html += '</table>\n'
         return html
 

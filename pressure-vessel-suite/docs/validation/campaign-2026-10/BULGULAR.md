@@ -208,3 +208,12 @@ A1 (Sonnet) izole worktree'de düzeltti, şef diff'i okudu ve ana ağaçta test 
   **Kalan boşluk (karar gerekli):** Sıvı dolu işletmede ve hidrotestte alt bileşenler MAWP'den daha yüksek basınç görür; gerçek düzeltme için `DesignConditions` veya bileşene sıvı seviyesi (üst) ve bileşen taban kotu alanları eklenip `reference_elevation_mm` atanmalı. Domain değişikliği: onay bekliyor.
 - **B-12 · ORTA-DÜŞÜK · GÜVENLİK (yeni, şef doğruladı):** `report-engine/generator.py` kullanıcı metinlerini (bileşen kimlikleri, proje adı, nozul etiketleri) HTML'e kaçışsız yazıyor; dosyada hiç `escape` yok (A6'nın yeni koni kodu aynı stili sürdürüyor). Rapor yalnız proje sahibine sunulduğundan etki sınırlı (self-XSS), ama kimlik/etiket STEP veya başka içe aktarmadan geliyorsa risk artar. Düzeltme önerisi: tüm kullanıcı kaynaklı alanlarda `html.escape`. Onay bekliyor.
 - **Test durumu:** tam paket 943 geçti / 1 atlandı (önce 934 → 938 → 940 → 943).
+
+## W. B-12 düzeltildi (2026-10-17)
+
+A7 (Sonnet) izole worktree'de uyguladı; şef diff'i okudu, ana ağaçta tam paketi çalıştırdı ve gerçek API yolundan uçtan uca doğruladı.
+- **Değişiklik:** `report-engine/generator.py` içine `_esc()` yardımcısı (`html.escape`, quote=True; enum için `.value`) ve yaklaşık 87 `_esc(` çağrısı: kapak, proje bilgisi, malzeme, geometri (gövde/bombe/koni), hesap tabloları, kaynak, MAWP, hidrotest, nozul etiketleri, uyarı/varsayım, `<title>` vb. `traceability.py` `to_html` değerleri de kaçırılıyor. Sayısal alanlar ve kodun kendi HTML'i kaçırılmıyor (çifte kaçış yok).
+- **Test:** +3 test (düşmanca proje/müşteri/revizyon/gövde/bombe/nozul/malzeme/kaynak alanları; `&lt;script&gt;` ve `&quot;` var, ham `<script>` yok; normal projede `&amp;` yok). Tam paket 946 geçti / 1 atlandı.
+- **Uçtan uca (şef):** `POST /api/projects` ile proje adı `<script>alert(1)</script>` ve müşteri `"><img src=x onerror=alert(2)>` → `GET /api/projects/{id}/report.html` 200, 20128 bayt; ham `<script>` ve `<img` yok, kaçışlı `&lt;script&gt;` var.
+- **Kalan (B-12b, DÜŞÜK):** `compliance.to_html()` çıktısı (ESR matrisi, rapor bölüm 19) kendi HTML'ini üretiyor ve kapsam dışı kaldı; o modülde de kaçış gerekebilir. PDF/WeasyPrint yolu bu ortamda test edilemedi (skip). Domain doğrulamasının bu karakterleri girdi aşamasında engelleyip engellemediğine bakılmadı.
+- **Test durumu:** 934 → 938 → 940 → 943 → 946 geçti.

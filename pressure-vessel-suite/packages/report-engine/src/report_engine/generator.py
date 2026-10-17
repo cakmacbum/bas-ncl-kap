@@ -14,6 +14,7 @@ Bölüm yapısı:
 
 from __future__ import annotations
 
+import html as _html
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -34,6 +35,17 @@ except Exception:
     # (ör. Windows'ta sistem bağımlılıkları eksik) → HTML-only path'e düş.
     WeasyHTML = None  # type: ignore
     WEASYPRINT_AVAILABLE = False
+
+
+def _esc(value: Any) -> str:
+    """Kullanıcı kaynaklı metni HTML için kaçır (XSS / HTML enjeksiyonu önlemi).
+
+    Yalnızca metin alanlarında kullanılır; sayısal değerler ve kodun kendi
+    ürettiği HTML kaçırılmaz (çifte kaçış olmaz). Enum için .value kullanılır.
+    """
+    if hasattr(value, "value") and not isinstance(value, (str, int, float)):
+        value = value.value
+    return _html.escape(str(value), quote=True)
 
 
 @dataclass
@@ -178,7 +190,7 @@ class ReportGenerator:
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Basınçlı Kap Hesap Raporu — {project.project_number}</title>
+<title>Basınçlı Kap Hesap Raporu — {_esc(project.project_number)}</title>
 <style>
 body {{ font-family: Arial, sans-serif; font-size: 11pt; margin: 20mm; color: #222; }}
 h1 {{ font-size: 18pt; color: #1a3a5c; border-bottom: 2px solid #1a3a5c; padding-bottom: 6px; }}
@@ -214,11 +226,11 @@ th {{ background: #f0f4f8; font-weight: bold; }}
         return f"""
 <div class="cover">
 <h1>BASINÇLI KAP HESAP RAPORU</h1>
-<h2>{project.project_name}</h2>
-<p>Proje No: {project.project_number}</p>
-<p>Revizyon: {project.revision}</p>
-<p>Müşteri: {customer}</p>
-<p>Hesap Standardı: {project.calculation_code.value} — {project.code_edition}</p>
+<h2>{_esc(project.project_name)}</h2>
+<p>Proje No: {_esc(project.project_number)}</p>
+<p>Revizyon: {_esc(project.revision)}</p>
+<p>Müşteri: {_esc(customer)}</p>
+<p>Hesap Standardı: {_esc(project.calculation_code.value)} — {_esc(project.code_edition)}</p>
 </div>"""
 
     def _section_project_info(self, project: VesselProject) -> str:
@@ -227,14 +239,14 @@ th {{ background: #f0f4f8; font-weight: bold; }}
 <h2>2. Proje ve Revizyon Bilgileri</h2>
 <table>
 <tr><th>Özellik</th><th>Değer</th></tr>
-<tr><td>Proje Numarası</td><td>{project.project_number}</td></tr>
-<tr><td>Proje Adı</td><td>{project.project_name}</td></tr>
-<tr><td>Müşteri</td><td>{project.customer or '—'}</td></tr>
-<tr><td>Revizyon</td><td>{project.revision}</td></tr>
-<tr><td>Hesap Standardı</td><td>{project.calculation_code.value}</td></tr>
-<tr><td>Standart Sürümü</td><td>{project.code_edition}</td></tr>
-<tr><td>Birim Sistemi</td><td>{project.unit_system}</td></tr>
-<tr><td>Yön</td><td>{project.orientation.value}</td></tr>
+<tr><td>Proje Numarası</td><td>{_esc(project.project_number)}</td></tr>
+<tr><td>Proje Adı</td><td>{_esc(project.project_name)}</td></tr>
+<tr><td>Müşteri</td><td>{_esc(project.customer or '—')}</td></tr>
+<tr><td>Revizyon</td><td>{_esc(project.revision)}</td></tr>
+<tr><td>Hesap Standardı</td><td>{_esc(project.calculation_code.value)}</td></tr>
+<tr><td>Standart Sürümü</td><td>{_esc(project.code_edition)}</td></tr>
+<tr><td>Birim Sistemi</td><td>{_esc(project.unit_system)}</td></tr>
+<tr><td>Yön</td><td>{_esc(project.orientation.value)}</td></tr>
 </table>
 </div>"""
 
@@ -244,7 +256,7 @@ th {{ background: #f0f4f8; font-weight: bold; }}
 <h2>3. Kullanılan Standartlar ve Sürümleri</h2>
 <table>
 <tr><th>Standart</th><th>Sürüm</th></tr>
-<tr><td>{project.calculation_code.value}</td><td>{project.code_edition}</td></tr>
+<tr><td>{_esc(project.calculation_code.value)}</td><td>{_esc(project.code_edition)}</td></tr>
 <tr><td>ASME Section II (Malzeme)</td><td>2025</td></tr>
 </table>
 <p><em>Not: Standart metinleri telif hakları nedeniyle bu raporda yer almamaktadır (K6).
@@ -278,9 +290,9 @@ Yalnızca madde referansları ve formül sonuçları gösterilmiştir.</em></p>
 <h2>5. Akışkan ve Çalışma Koşulları</h2>
 <table>
 <tr><th>Parametre</th><th>Değer</th></tr>
-<tr><td>Akışkan</td><td>{fluid.name}</td></tr>
-<tr><td>Faz</td><td>{fluid.phase}</td></tr>
-<tr><td>Grup</td><td>{fluid.group}</td></tr>
+<tr><td>Akışkan</td><td>{_esc(fluid.name)}</td></tr>
+<tr><td>Faz</td><td>{_esc(fluid.phase)}</td></tr>
+<tr><td>Grup</td><td>{_esc(fluid.group)}</td></tr>
 </table>
 </div>"""
         return """
@@ -304,22 +316,22 @@ PED değerlendirmesi için projeyi PED sınıflandırma motoruyla çalıştırı
         def _val(x):
             return x.value if hasattr(x, "value") else x
 
-        modules = ", ".join(_val(m) for m in ped_result.conformity_modules)
+        modules = ", ".join(_esc(_val(m)) for m in ped_result.conformity_modules)
         return f"""
 <div class="section">
 <h2>6. PED Kapsam ve Kategori Hesabı</h2>
 <table>
 <tr><th>Parametre</th><th>Değer</th></tr>
-<tr><td>PED Kapsamı</td><td>{'Evet' if ped_result.in_scope else 'Hayır — ' + ped_result.scope_reason}</td></tr>
-<tr><td>Ekipman Türü</td><td>{_val(ped_result.equipment_type)}</td></tr>
-<tr><td>Akışkan Fazı</td><td>{_val(ped_result.fluid_phase)}</td></tr>
-<tr><td>Akışkan Grubu</td><td>{_val(ped_result.fluid_group)}</td></tr>
-<tr><td>Sınıflandırma Tablosu</td><td>{_val(ped_result.classification_table)}</td></tr>
+<tr><td>PED Kapsamı</td><td>{'Evet' if ped_result.in_scope else 'Hayır — ' + _esc(ped_result.scope_reason)}</td></tr>
+<tr><td>Ekipman Türü</td><td>{_esc(_val(ped_result.equipment_type))}</td></tr>
+<tr><td>Akışkan Fazı</td><td>{_esc(_val(ped_result.fluid_phase))}</td></tr>
+<tr><td>Akışkan Grubu</td><td>{_esc(_val(ped_result.fluid_group))}</td></tr>
+<tr><td>Sınıflandırma Tablosu</td><td>{_esc(_val(ped_result.classification_table))}</td></tr>
 <tr><td>Hesapta kullanılan toplam iç hacim</td><td>{f'{volume_mass.total_inner_volume_liters:.2f} litre' if volume_mass else '—'}</td></tr>
 <tr><td>PS × V</td><td>{ped_result.ps_x_v:.1f} MPa·litre</td></tr>
-<tr><td><strong>PED Kategorisi</strong></td><td><strong>{_val(ped_result.category)}</strong></td></tr>
+<tr><td><strong>PED Kategorisi</strong></td><td><strong>{_esc(_val(ped_result.category))}</strong></td></tr>
 <tr><td>Uygunluk Modülleri</td><td>{modules}</td></tr>
-<tr><td>Onaylanmış Kuruluş</td><td>{_val(ped_result.notify_body_required)}</td></tr>
+<tr><td>Onaylanmış Kuruluş</td><td>{_esc(_val(ped_result.notify_body_required))}</td></tr>
 <tr><td>CE İşareti</td><td>{'Uygulanabilir' if ped_result.ce_marking_applicable else 'Uygulanamaz'}</td></tr>
 </table>
 </div>"""
@@ -328,10 +340,10 @@ PED değerlendirmesi için projeyi PED sınıflandırma motoruyla çalıştırı
         rows = ""
         for mat in project.materials:
             rows += f"""
-<tr><td>{mat.material_id}</td><td>{mat.material_designation}</td>
-<td>{mat.product_form.value}</td><td>{mat.allowable_stress} MPa</td>
+<tr><td>{_esc(mat.material_id)}</td><td>{_esc(mat.material_designation)}</td>
+<td>{_esc(mat.product_form.value)}</td><td>{mat.allowable_stress} MPa</td>
 <td>{mat.yield_strength} MPa</td><td>{mat.tensile_strength} MPa</td>
-<td>{mat.source_reference}</td></tr>"""
+<td>{_esc(mat.source_reference)}</td></tr>"""
         return f"""
 <div class="section">
 <h2>7. Malzeme Listesi</h2>
@@ -346,14 +358,14 @@ PED değerlendirmesi için projeyi PED sınıflandırma motoruyla çalıştırı
         shell_rows = ""
         for s in project.shell_sections:
             shell_rows += f"""
-<tr><td>{s.section_id}</td><td>{s.inside_diameter or '—'}</td>
+<tr><td>{_esc(s.section_id)}</td><td>{s.inside_diameter or '—'}</td>
 <td>{s.outside_diameter or '—'}</td><td>{s.tangent_length}</td>
 <td>{s.nominal_thickness}</td><td>{s.internal_corrosion_allowance}</td></tr>"""
 
         head_rows = ""
         for h in project.heads:
             head_rows += f"""
-<tr><td>{h.head_id}</td><td>{h.type.value}</td><td>{h.inside_diameter}</td>
+<tr><td>{_esc(h.head_id)}</td><td>{_esc(h.type.value)}</td><td>{h.inside_diameter}</td>
 <td>{h.nominal_thickness}</td><td>{h.straight_flange_length}</td></tr>"""
 
         cone_block = ""
@@ -361,7 +373,7 @@ PED değerlendirmesi için projeyi PED sınıflandırma motoruyla çalıştırı
             cone_rows = ""
             for c in project.cones:
                 cone_rows += f"""
-<tr><td>{c.cone_id}</td><td>{c.large_diameter}</td><td>{c.small_diameter}</td>
+<tr><td>{_esc(c.cone_id)}</td><td>{c.large_diameter}</td><td>{c.small_diameter}</td>
 <td>{c.half_apex_angle}</td><td>{c.length}</td>
 <td>{c.nominal_thickness}</td><td>{c.internal_corrosion_allowance}</td></tr>"""
             cone_block = f"""
@@ -394,11 +406,11 @@ PED değerlendirmesi için projeyi PED sınıflandırma motoruyla çalıştırı
             if r.component_type == "shell" and r.calculation_type == "thickness":
                 status_class = self._status_class(r.status.value)
                 rows += f"""
-<tr><td>{r.component_id}</td><td>{r.clause_reference}</td>
-<td>{r.final_result:.2f} {r.final_result_unit}</td>
-<td>{r.allowable_limit:.2f} {r.allowable_limit_unit}</td>
+<tr><td>{_esc(r.component_id)}</td><td>{_esc(r.clause_reference)}</td>
+<td>{r.final_result:.2f} {_esc(r.final_result_unit)}</td>
+<td>{r.allowable_limit:.2f} {_esc(r.allowable_limit_unit)}</td>
 <td>{r.utilization_ratio*100:.1f}%</td>
-<td class="{status_class}">{r.status.value}</td></tr>"""
+<td class="{status_class}">{_esc(r.status.value)}</td></tr>"""
         return f"""
 <div class="section">
 <h2>9. Gövde Hesapları</h2>
@@ -415,11 +427,11 @@ PED değerlendirmesi için projeyi PED sınıflandırma motoruyla çalıştırı
             if r.component_type == "head" and r.calculation_type == "thickness":
                 status_class = self._status_class(r.status.value)
                 rows += f"""
-<tr><td>{r.component_id}</td><td>{r.clause_reference}</td>
-<td>{r.final_result:.2f} {r.final_result_unit}</td>
-<td>{r.allowable_limit:.2f} {r.allowable_limit_unit}</td>
+<tr><td>{_esc(r.component_id)}</td><td>{_esc(r.clause_reference)}</td>
+<td>{r.final_result:.2f} {_esc(r.final_result_unit)}</td>
+<td>{r.allowable_limit:.2f} {_esc(r.allowable_limit_unit)}</td>
 <td>{r.utilization_ratio*100:.1f}%</td>
-<td class="{status_class}">{r.status.value}</td></tr>"""
+<td class="{status_class}">{_esc(r.status.value)}</td></tr>"""
         return f"""
 <div class="section">
 <h2>10. Bombe Hesapları</h2>
@@ -444,21 +456,21 @@ PED değerlendirmesi için projeyi PED sınıflandırma motoruyla çalıştırı
             if r.calculation_type not in ("thickness", "mawp"):
                 continue
             status_class = self._status_class(r.status.value)
-            unit = r.final_result_unit or ""
+            unit = _esc(r.final_result_unit or "")
             if r.calculation_type == "thickness":
                 util = (f"{r.utilization_ratio*100:.1f}%"
                         if isinstance(r.utilization_ratio, (int, float)) else "—")
                 rows += f"""
-<tr><td>{r.component_id}</td><td>Kalınlık</td><td>{r.clause_reference}</td>
+<tr><td>{_esc(r.component_id)}</td><td>Kalınlık</td><td>{_esc(r.clause_reference)}</td>
 <td>{_num(r.final_result, '.2f')} {unit}</td>
-<td>{_num(r.allowable_limit, '.2f')} {r.allowable_limit_unit or ''}</td>
+<td>{_num(r.allowable_limit, '.2f')} {_esc(r.allowable_limit_unit or '')}</td>
 <td>{util}</td>
-<td class="{status_class}">{r.status.value}</td></tr>"""
+<td class="{status_class}">{_esc(r.status.value)}</td></tr>"""
             else:
                 rows += f"""
-<tr><td>{r.component_id}</td><td>MAWP</td><td>{r.clause_reference}</td>
+<tr><td>{_esc(r.component_id)}</td><td>MAWP</td><td>{_esc(r.clause_reference)}</td>
 <td>{_num(r.final_result, '.3f')} {unit}</td><td>—</td><td>—</td>
-<td class="{status_class}">{r.status.value}</td></tr>"""
+<td class="{status_class}">{_esc(r.status.value)}</td></tr>"""
         return f"""
 <div class="section">
 <h2>10A. Koni Hesapları</h2>
@@ -483,16 +495,16 @@ PED değerlendirmesi için projeyi PED sınıflandırma motoruyla çalıştırı
                 if name in iv:
                     item = iv[name]
                     area_rows += f"""
-<tr><td>{name}</td><td>{item.get('description', '')}</td>
-<td style="text-align:right">{item['value']:.1f} {item.get('unit', 'mm²')}</td></tr>"""
+<tr><td>{name}</td><td>{_esc(item.get('description', ''))}</td>
+<td style="text-align:right">{item['value']:.1f} {_esc(item.get('unit', 'mm²'))}</td></tr>"""
             required = iv.get("A_required", {}).get("value")
             total = iv.get("A_total", {}).get("value")
             util = f"{r.utilization_ratio*100:.1f}%" if r.utilization_ratio else "—"
             req_txt = f"{required:.1f} mm²" if required is not None else "—"
             tot_txt = f"{total:.1f} mm²" if total is not None else "—"
-            warn = ("<div class='warning'>⚠ " + "; ".join(r.warnings) + "</div>") if r.warnings else ""
+            warn = ("<div class='warning'>⚠ " + "; ".join(_esc(w) for w in r.warnings) + "</div>") if r.warnings else ""
             blocks += f"""
-<h3>Nozul {r.component_id} — Takviye Alan Analizi ({r.clause_reference})</h3>
+<h3>Nozul {_esc(r.component_id)} — Takviye Alan Analizi ({_esc(r.clause_reference)})</h3>
 <table>
 <tr><th>Kalem</th><th>Açıklama</th><th>Alan</th></tr>
 <tr><td><strong>Gerekli alan</strong></td><td>A_required = d × t_required</td>
@@ -501,7 +513,7 @@ PED değerlendirmesi için projeyi PED sınıflandırma motoruyla çalıştırı
 <tr><td><strong>Toplam mevcut</strong></td><td>A1+A2+A3+A4</td>
 <td style="text-align:right"><strong>{tot_txt}</strong></td></tr>
 <tr><td colspan="2">Kullanım / Sonuç</td>
-<td style="text-align:right" class="{status_class}">{util} — {r.status.value}</td></tr>
+<td style="text-align:right" class="{status_class}">{util} — {_esc(r.status.value)}</td></tr>
 </table>
 {warn}"""
         if not blocks:
@@ -516,9 +528,9 @@ PED değerlendirmesi için projeyi PED sınıflandırma motoruyla çalıştırı
         rows = ""
         for w in project.welds:
             rows += f"""
-<tr><td>{w.joint_id}</td><td>{w.joint_type}</td><td>{w.weld_category or '—'}</td>
-<td>{w.joint_efficiency}</td><td>{w.nde_method or '—'}</td>
-<td>{w.nde_extent or '—'}</td></tr>"""
+<tr><td>{_esc(w.joint_id)}</td><td>{_esc(w.joint_type)}</td><td>{_esc(w.weld_category or '—')}</td>
+<td>{w.joint_efficiency}</td><td>{_esc(w.nde_method or '—')}</td>
+<td>{_esc(w.nde_extent or '—')}</td></tr>"""
         return f"""
 <div class="section">
 <h2>12. Kaynak ve NDT Özeti</h2>
@@ -533,8 +545,8 @@ PED değerlendirmesi için projeyi PED sınıflandırma motoruyla çalıştırı
         for r in calc_result.results:
             if r.calculation_type == "mawp":
                 rows += f"""
-<tr><td>{r.component_id}</td><td>{r.component_type}</td>
-<td>{r.clause_reference}</td><td>{r.final_result:.3f} {r.final_result_unit}</td></tr>"""
+<tr><td>{_esc(r.component_id)}</td><td>{_esc(r.component_type)}</td>
+<td>{_esc(r.clause_reference)}</td><td>{r.final_result:.3f} {_esc(r.final_result_unit)}</td></tr>"""
         global_mawp = calc_result.get_global_mawp()
         return f"""
 <div class="section">
@@ -554,9 +566,9 @@ PED değerlendirmesi için projeyi PED sınıflandırma motoruyla çalıştırı
 <h2>14. Hidrostatik Test Basıncı</h2>
 <table>
 <tr><th>Parametre</th><th>Değer</th></tr>
-<tr><td>Referans</td><td>{r.clause_reference}</td></tr>
-<tr><td>Tasarım Basıncı</td><td>{r.input_snapshot.get('P_design_MPa', '—')} MPa</td></tr>
-<tr><td>Test Basıncı</td><td>{r.final_result:.3f} {r.final_result_unit}</td></tr>
+<tr><td>Referans</td><td>{_esc(r.clause_reference)}</td></tr>
+<tr><td>Tasarım Basıncı</td><td>{_esc(r.input_snapshot.get('P_design_MPa', '—'))} MPa</td></tr>
+<tr><td>Test Basıncı</td><td>{r.final_result:.3f} {_esc(r.final_result_unit)}</td></tr>
 </table>
 </div>"""
         return """
@@ -570,8 +582,8 @@ PED değerlendirmesi için projeyi PED sınıflandırma motoruyla çalıştırı
         for r in calc_result.results:
             if r.calculation_type != "pressure_relief":
                 continue
-            pressure = "—" if r.final_result is None else f"{r.final_result:.3f} {r.final_result_unit}"
-            rows += f"<tr><td>{r.component_id}</td><td>{pressure}</td><td>{r.status.value}</td></tr>"
+            pressure = "—" if r.final_result is None else f"{r.final_result:.3f} {_esc(r.final_result_unit)}"
+            rows += f"<tr><td>{_esc(r.component_id)}</td><td>{pressure}</td><td>{_esc(r.status.value)}</td></tr>"
         if not rows:
             rows = '<tr><td colspan="3"><em>Basınç tahliye sistemi tanımlanmamış.</em></td></tr>'
         return f"""
@@ -600,7 +612,7 @@ PED değerlendirmesi için projeyi PED sınıflandırma motoruyla çalıştırı
 <h3>Bileşen Bazında</h3>
 <table>
 <tr><th>Bileşen</th><th>Tip</th><th>İç Hacim (mm³)</th><th>Metal Hacmi (mm³)</th></tr>
-{''.join(f"<tr><td>{v.component_id}</td><td>{v.component_type}</td><td>{v.inner_volume_mm3:.0f}</td><td>{v.metal_volume_mm3:.0f}</td></tr>" for v in volume_mass.volume_results)}
+{''.join(f"<tr><td>{_esc(v.component_id)}</td><td>{_esc(v.component_type)}</td><td>{v.inner_volume_mm3:.0f}</td><td>{v.metal_volume_mm3:.0f}</td></tr>" for v in volume_mass.volume_results)}
 </table>
 </div>"""
 
@@ -608,7 +620,7 @@ PED değerlendirmesi için projeyi PED sınıflandırma motoruyla çalıştırı
         rows = ""
         for n in project.nozzles:
             rows += f"""
-<tr><td>{n.tag}</td><td>{n.nozzle_type.value}</td><td>{n.axial_position} mm</td>
+<tr><td>{_esc(n.tag)}</td><td>{_esc(n.nozzle_type.value)}</td><td>{n.axial_position} mm</td>
 <td>{n.circumferential_angle}°</td><td>{n.outside_diameter} mm</td>
 <td>{n.inside_diameter} mm</td><td>{n.neck_thickness} mm</td></tr>"""
         return f"""
@@ -636,14 +648,14 @@ PED değerlendirmesi için projeyi PED sınıflandırma motoruyla çalıştırı
             vr = weld_results.get(w.joint_id)
             if vr is not None:
                 status_class = self._status_class(vr.status.value)
-                status_txt = f'<span class="{status_class}">{vr.status.value}</span>'
-                note = "; ".join(vr.warnings) if vr.warnings else "—"
+                status_txt = f'<span class="{status_class}">{_esc(vr.status.value)}</span>'
+                note = "; ".join(_esc(w) for w in vr.warnings) if vr.warnings else "—"
             else:
                 status_txt = "—"
                 note = "—"
             rows += f"""
-<tr><td>{w.joint_id}</td><td>{w.joint_type}</td><td>{w.weld_category or '—'}</td>
-<td>{w.joint_efficiency}</td><td>{w.nde_method or '—'} / {w.nde_extent or '—'}</td>
+<tr><td>{_esc(w.joint_id)}</td><td>{_esc(w.joint_type)}</td><td>{_esc(w.weld_category or '—')}</td>
+<td>{w.joint_efficiency}</td><td>{_esc(w.nde_method or '—')} / {_esc(w.nde_extent or '—')}</td>
 <td>{status_txt}</td><td>{note}</td></tr>"""
         if not rows:
             rows = '<tr><td colspan="7"><em>Kaynak tanımlanmamış.</em></td></tr>'
@@ -667,7 +679,7 @@ PED değerlendirmesi için projeyi PED sınıflandırma motoruyla çalıştırı
 <tr><td>Tasarım Basıncı</td><td>{dc.design_pressure} MPa</td></tr>
 <tr><td>Azami İzin Verilen Basınç (PS)</td><td>{dc.maximum_allowable_pressure_ps} MPa</td></tr>
 <tr><td>Tasarım Sıcaklığı</td><td>{dc.design_temperature} °C</td></tr>
-<tr><td>Hesap Standardı</td><td>{project.calculation_code.value} {project.code_edition}</td></tr>
+<tr><td>Hesap Standardı</td><td>{_esc(project.calculation_code.value)} {_esc(project.code_edition)}</td></tr>
 </table>
 </div>"""
 
@@ -700,9 +712,9 @@ modülünden bir ESR matrisi geçirin.</em></p>
         warnings_html = ""
         for r in calc_result.results:
             for w in r.warnings:
-                warnings_html += f'<div class="warning">⚠ [{r.component_id or r.component_type}] {w}</div>\n'
+                warnings_html += f'<div class="warning">⚠ [{_esc(r.component_id or r.component_type)}] {_esc(w)}</div>\n'
             for a in r.assumptions:
-                warnings_html += f'<div class="warning">ℹ [{r.component_id or r.component_type}] {a}</div>\n'
+                warnings_html += f'<div class="warning">ℹ [{_esc(r.component_id or r.component_type)}] {_esc(a)}</div>\n'
 
         if not warnings_html:
             warnings_html = "<p>Uyarı yok.</p>"
@@ -743,9 +755,9 @@ modülünden bir ESR matrisi geçirin.</em></p>
         """Faz E3: yöneten sonuç ve kapatılması gereken eksikleri tek tabloda göster."""
         governing = [r for r in calc_result.results if r.governing]
         governing_rows = "".join(
-            f"<tr><td>{r.component_id or r.component_type}</td><td>{r.calculation_type}</td>"
-            f"<td>{r.final_result if r.final_result is not None else '—'} {r.final_result_unit}</td>"
-            f"<td>{r.status.value}</td><td>{r.clause_reference or '—'}</td></tr>"
+            f"<tr><td>{_esc(r.component_id or r.component_type)}</td><td>{_esc(r.calculation_type)}</td>"
+            f"<td>{r.final_result if r.final_result is not None else '—'} {_esc(r.final_result_unit)}</td>"
+            f"<td>{_esc(r.status.value)}</td><td>{_esc(r.clause_reference or '—')}</td></tr>"
             for r in governing
         ) or '<tr><td colspan="5"><em>Yöneten sonuç işaretlenmedi.</em></td></tr>'
         deficiencies = []
@@ -755,7 +767,7 @@ modülünden bir ESR matrisi geçirin.</em></p>
             for r in calc_result.results
             if r.status.value != "PASS"
         )
-        deficiency_rows = "".join(f"<li>{item}</li>" for item in deficiencies)
+        deficiency_rows = "".join(f"<li>{_esc(item)}</li>" for item in deficiencies)
         if not deficiency_rows:
             deficiency_rows = "<li>Eksiklik bulunmadı.</li>"
         return f"""
@@ -782,34 +794,34 @@ modülünden bir ESR matrisi geçirin.</em></p>
             if r.calculation_type == "mdmt_check" and r.component_id == "MDMT-GOVERNING"
         ), None)
         mdmt_candidate = (mdmt.input_snapshot or {}) if mdmt else {}
-        mdmt_component = mdmt_candidate.get("governing_component_id", "")
-        mdmt_material = mdmt_candidate.get("governing_material", "")
+        mdmt_component = _esc(mdmt_candidate.get("governing_component_id", ""))
+        mdmt_material = _esc(mdmt_candidate.get("governing_material", ""))
         mawp_txt = (
-            f"{mawp.component_id} — {mawp.final_result:.3f} {mawp.final_result_unit}"
+            f"{_esc(mawp.component_id)} — {mawp.final_result:.3f} {_esc(mawp.final_result_unit)}"
             if mawp and mawp.final_result is not None else "—"
         )
         if mdmt and mdmt.final_result is not None:
             mdmt_txt = (
-                f"{mdmt.final_result:.1f} {mdmt.final_result_unit} — {mdmt_component}"
-                f" ({mdmt_material or 'malzeme belirtilmemiş'}); {mdmt.status.value}"
+                f"{mdmt.final_result:.1f} {_esc(mdmt.final_result_unit)} — {mdmt_component}"
+                f" ({mdmt_material or 'malzeme belirtilmemiş'}); {_esc(mdmt.status.value)}"
             )
         elif mdmt and mdmt_candidate.get("provisional_governing_mdmt_C") is not None:
             mdmt_txt = (
                 f"Doğrulanamadı; aday {mdmt_candidate['provisional_governing_mdmt_C']:.1f} °C — "
-                f"{mdmt_component} ({mdmt_material or 'malzeme belirtilmemiş'}); {mdmt.status.value}"
+                f"{mdmt_component} ({mdmt_material or 'malzeme belirtilmemiş'}); {_esc(mdmt.status.value)}"
             )
         else:
-            mdmt_txt = f"Hesaplanmadı{'; ' + mdmt.status.value if mdmt else ''}"
+            mdmt_txt = f"Hesaplanmadı{'; ' + _esc(mdmt.status.value) if mdmt else ''}"
 
         junction_rows = "".join(
-            f"<tr><td>{j.junction_id}</td><td>{j.junction_type}</td><td>{j.left_component_id} → {j.right_component_id}</td>"
-            f"<td>{next((r.status.value for r in calc_result.results if r.component_id == j.junction_id and r.calculation_type == 'junction_check'), j.analysis_status)}</td></tr>"
+            f"<tr><td>{_esc(j.junction_id)}</td><td>{_esc(j.junction_type)}</td><td>{_esc(j.left_component_id)} → {_esc(j.right_component_id)}</td>"
+            f"<td>{_esc(next((r.status.value for r in calc_result.results if r.component_id == j.junction_id and r.calculation_type == 'junction_check'), j.analysis_status))}</td></tr>"
             for j in getattr(project, "junctions", [])
         )
         if not junction_rows:
             junction_rows = "".join(
-                f"<tr><td>{w.joint_id}</td><td>{w.joint_type}</td><td>{w.weld_category or '—'}</td>"
-                f"<td>{next((r.status.value for r in calc_result.results if r.component_id == w.joint_id and r.calculation_type == 'weld_validation'), 'NOT CALCULATED')}</td></tr>"
+                f"<tr><td>{_esc(w.joint_id)}</td><td>{_esc(w.joint_type)}</td><td>{_esc(w.weld_category or '—')}</td>"
+                f"<td>{_esc(next((r.status.value for r in calc_result.results if r.component_id == w.joint_id and r.calculation_type == 'weld_validation'), 'NOT CALCULATED'))}</td></tr>"
                 for w in project.welds
             ) or '<tr><td colspan="4"><em>Junction/kaynak tanımlanmamış.</em></td></tr>'
 
@@ -818,7 +830,7 @@ modülünden bir ESR matrisi geçirin.</em></p>
             key = r.component_id or r.component_type or "global"
             grouped.setdefault(key, []).append(r)
         applicability_rows = "".join(
-            f"<tr><td>{component_id}</td><td>{'<br>'.join(sorted({r.component_type for r in rows}))}</td>"
+            f"<tr><td>{_esc(component_id)}</td><td>{'<br>'.join(_esc(t) for t in sorted({r.component_type for r in rows}))}</td>"
             f"<td>{len(rows)}</td><td>{'Uygulanabilir / hesaplandı' if any(r.status.value not in ('NOT CALCULATED', 'OUT OF SCOPE', 'BLOCKED_MISSING_INPUT', 'BLOCKED_CODE_DATA') for r in rows) else 'Uygulanmadı / veri eksik'}</td></tr>"
             for component_id, rows in grouped.items()
         ) or '<tr><td colspan="4"><em>Hesap sonucu yok.</em></td></tr>'

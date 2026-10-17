@@ -23,7 +23,7 @@ Bu dosya, hedefin kapanmasını engelleyen tüm açık maddeleri toplar. Her mad
 | G-05 | ORTA | Etekli kolonda taban halkası sonucu API'de yok (T14) | Açık |
 | G-06 | ORTA | Yatay tankta 216 saddle sonucu OUT OF SCOPE; kapsam belgelenmedi | Açık |
 | B-11 | ORTA | HTML rapor koni bileşenini içermiyor | DÜZELTİLDİ (A6, `6611dc3`) |
-| B-12 | ORTA-DÜŞÜK, güvenlik | Rapor HTML'i kullanıcı metinlerini kaçışsız yazıyor (`html.escape` yok) | Teyitli (şef). Düzeltme onay bekliyor |
+| B-12 | ORTA-DÜŞÜK, güvenlik | Rapor HTML'i kullanıcı metinlerini kaçışsız yazıyordu | DÜZELTİLDİ (A7); uçtan uca doğrulandı. Kalan: B-12b `compliance.to_html()` (ESR matrisi) kaçışsız olabilir |
 | D-03 | ORTA (altyapı) | Sahip başına 50 proje tavanı kampanyayı sessizce 429'a sokuyordu | Düzeltildi (harness uuid4 sahip) |
 | D-04 | ORTA (altyapı) | T32 satır durumu hatalı birleştirilmişti | Düzeltildi (kontrollerden türetme) |
 

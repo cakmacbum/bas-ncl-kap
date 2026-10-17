@@ -367,3 +367,54 @@ class TestReportCone:
         html = ReportGenerator().generate(full_project, calc_result, volume_mass).html_content
         assert "Koni Bölümleri" not in html
         assert "Koni Hesapları" not in html
+
+
+# ── HTML kaçış (B-12) ─────────────────────────────────────────────────────────
+
+class TestReportHtmlEscape:
+    """Kullanıcı kaynaklı metinler HTML'e kaçırılarak yazılmalı."""
+
+    XSS = "<script>alert(1)</script>"
+    ATTR = '"onmouseover="x'
+
+    def _hostile_project(self, full_project):
+        p = full_project.model_copy(deep=True)
+        p.project_name = self.XSS
+        p.customer = self.ATTR + self.XSS
+        p.revision = self.XSS
+        for lst, upd in (
+            (p.shell_sections, {"section_id": self.XSS}),
+            (p.heads, {"head_id": self.XSS}),
+            (p.nozzles, {"tag": self.XSS}),
+            (p.materials, {"material_designation": self.XSS, "source_reference": self.ATTR}),
+            (p.welds, {"joint_id": self.XSS, "nde_method": self.XSS}),
+        ):
+            lst[0] = lst[0].model_copy(update=upd)
+        return p
+
+    def test_hostile_fields_are_escaped(self, full_project):
+        p = self._hostile_project(full_project)
+        code = ASMEVIII1DesignCode(edition="2025")
+        res = CalculationOrchestrator(code).run(p)
+        html = ReportGenerator().generate(p, res, calculate_vessel_volume_mass(p)).html_content
+        assert "<script>" not in html
+        assert "</script>" not in html
+        assert "&lt;script&gt;" in html
+        assert '"onmouseover="x' not in html
+        assert "&quot;onmouseover=&quot;x" in html
+
+    def test_hostile_component_id_in_results(self, full_project, calc_result):
+        p = full_project
+        res = calc_result
+        res.results[0].component_id = self.XSS
+        res.results[0].warnings.append(self.XSS)
+        res.results[0].assumptions.append(self.XSS)
+        html = ReportGenerator().generate(p, res).html_content
+        assert "<script>" not in html
+        assert "&lt;script&gt;" in html
+
+    def test_normal_project_has_no_entities(self, full_project, calc_result, volume_mass):
+        html = ReportGenerator().generate(full_project, calc_result, volume_mass).html_content
+        assert "Report Test Vessel" in html
+        assert "SA-516 Gr.70" in html
+        assert "&amp;" not in html.split("<body>")[1].replace("&amp;amp;", "")
