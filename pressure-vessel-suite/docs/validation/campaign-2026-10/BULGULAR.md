@@ -155,3 +155,9 @@ Luna plan, yazım, koşum ve kendi kontrolünü tek başına yaptı (240 vaka). 
 - **B (eliptik, 120):** 111 uyuşur, 9 uyuşmuyor. Şef yeniden hesabında Luna'nın bağımsız değerleri formülüyle tutarlı; API değerleri %1.0–1.6 büyük (muhafazakâr yön). Açık aday bulgu: API'deki ek terim henüz belirlenmedi (emniyetli yön, ORTA). Kod kontrolü gerekli.
 
 Sonuç: Luna'nın tam döngüsü mekanik olarak tamamlandı, ama kontrol kalitesi yetersiz; A kontrolü boş geçiş üretti. Bu, Luna'nın bağımsız doğrulama yeteneğinin kanıtlanmadığı anlamına gelir.
+
+## Q. Açık maddelerin kapanışı (T63 kontrolü, kod incelemesi)
+
+- **B-07 · YÜKSEK · EMNİYETSİZ (yeni):** Nozul takviye hesabında ev sahibi gövde/bombe gerekli kalınlığı `_host_required_thickness` ile hesaplanıyor ve `"welds": []` veriliyor (`code-asme-viii-1/design_code.py` ~1066–1088). Kaynak verimi görünmediği için E = 1 alınıyor; `t_r = P·R/(S·E − 0.6P)` E'siz kalıyor ve gerekli alan (A_required = d·t_r) olduğundan küçük çıkıyor. Kanıt: T63 nozul A-001: API A_required = 4065.14 mm²; E = 0.86196 ile bağımsız hesap 4720.43 mm² (fark %16.1 ≈ 1/E). Düşük verimli kaynaklarda (E = 0.7) fark ~%43. Varsayım: UG-37'de t_r, UG-27 formülüyle kabuğun kaynak verimini kullanır (madde numarası teyit edilmeli). Düzeltme önerisi: `_host_required_thickness` içinde ev sahibinin kaynak kayıtlarını (`materials`/`welds`) geçirmek; onay gelene kadar uygulanmadı.
+- **A (nozul) boş geçiş:** Kapandı. Gerçek bağımsız kontrol yapıldı ve B-07'yi yakaladı.
+- **B (eliptik 9 uyuşmazlık) · TEST TANIMI HATASI, kod hatası değil:** Üretici `crown_depth = d_i/4` (yeni çap) veriyor; kod ise korozyonlu çapla `K = (2 + (D_c/2h)²)/6` hesaplıyor. Luna'nın bağımsız formülü K = 1 (2:1) varsayıyordu. API değeri %1.0–1.6 büyük (muhafazakâr yön) ve kod, girdideki sabit `h` ile tutarlı. Test tanımı düzeltilmeli.
