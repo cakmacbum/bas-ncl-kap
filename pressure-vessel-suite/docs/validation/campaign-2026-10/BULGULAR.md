@@ -133,3 +133,7 @@ Sonuç: B-01 bağımsız rastgele örnekte deterministik olarak yeniden üretild
 ## L. Haiku tam doğrulaması (1000 satır, gövde kütle koşusu)
 
 Haiku bağımsız betikle 1000 satırın tamamını yeniden hesapladı: t_required 1000/1000 uyuştu; MAWP 359 uyuşur (CA_o=0), 641 CA_o düşülmemiş varyantla eşleşti (B-01), açıklanamayan sapma 0. Bu, şef kontrolündeki 1000 satır sonucunu bağımsız olarak doğrular. Betik ve çıktı: scratchpad `haiku_mass_tam.py` / `haiku_mass_tam.csv`.
+
+## M. Luna bombe toplu taraması (T60, 300 vaka)
+
+Luna (`gpt-6-luna`) paketi `tools/campaign/tur5/bombe_tarama/` altına 300 rastgele vaka üretti: 150 yarım küre (UG-32(f)), 150 torisferik (UG-32(e)). Her vaka API'den t_required alıp bağımsız formülle karşılaştırıldı. Şef ayrıca 300 vakanın tamamını kendi formülüyle yeniden hesapladı: 300/300 uyuştu (±%1). Bulgu yok; sonuç tutarlı.
