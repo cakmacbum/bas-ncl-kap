@@ -223,3 +223,18 @@ A7 (Sonnet) izole worktree'de uyguladı; şef diff'i okudu, ana ağaçta tam pak
 - **B-12b:** A8 (Sonnet) `compliance` paketinde yeni `_html.py` (`esc()`) ve `esr_matrix.py`, `risk_analysis.py`, `declaration.py` içindeki `to_html` çıktılarında yaklaşık 40 kullanıcı kaynaklı alanı kaçırıyor (ESR matrisi, risk analizi, isim plakası, uygunluk beyanı). +5 test. Markdown çıktıları HTML olmadığı için dokunulmadı.
 - **A8'in yan bulgusu (şef doğruladı): `report_engine/generator.py:_esc` str tabanlı enum'larda `.value` almıyordu** (`_esc(SE.A)` → `'SE.A'`). Koşul `hasattr(value,'value') and not isinstance(value,(str,int,float))` str-Enum'ları dışarıda bırakıyordu. Bu hata B-12 düzeltmesiyle (A7) girmişti ve şu anki rapor çağrı noktalarında sızıntı göstermiyor (denetlendi: `Sinif.UYE` deseni yok), ama gizli bir tuzaktı. `isinstance(value, Enum)` ile düzeltildi; +1 test.
 - Test durumu: tam paket 952 geçti / 1 atlandı.
+
+## Y. B-10 gerçek düzeltmesi (2026-10-17)
+
+A9 (Sonnet) izole worktree'de uyguladı; şef diff'i okudu, savunmacı koruma ekledi, tam paket ve uçtan uca API ile doğruladı.
+- **Alan:** `DesignConditions.liquid_level_mm: Optional[float]` (ge=0; datum = kabın en alt noktası) (`domain/conditions.py:78`).
+- **Kot hesabı:** `calc_core/hydrostatics.py` `component_bottom_elevations()`: DİKEY kapta `component_sequence` (alttan üste) ile kümülatif (alt bombe ucu datum 0; sonraki bileşen taban kotu = önceki bileşenlerin uzunluğu; bombe = derinlik + düz flanş); YATAY kapta gövde ve bombeler datumda. Hesaplanamayan bileşende kot uydurulmaz, "statik kafa uygulanmadı" uyarısı kalır.
+- **Orkestratör:** `_apply_static_head_correction` `reference_elevation_mm = max(0, seviye − taban kotu)` atıyor ve mevcut `MAWP − ρgh` yolu çalışıyor. Seviye taban kotunun altındaysa ayrı not. Seviye girilmemiş / yoğunluk 0 ise davranış birebir aynı.
+- **Şef eklemesi:** `component_bottom_elevations` çağrısı `try/except (KeyError, TypeError, AttributeError, ValueError)` ile korundu (tutarsız `component_sequence` hesabı çökertmez); +1 test.
+- **Uçtan uca kanıt (şef, API):** dikey kap, sıra HEAD-L → SHELL-01 → HEAD-R, ρ = 1000 kg/m³, seviye 3000 mm: HEAD-L MAWP 2.3327 → 2.3033 (Δ 0.02942 = ρ·g·3.0·1e-6 MPa), SHELL-01 2.3132 → 2.2866 (h 2710 mm), HEAD-R 1.7098 → 1.7029 (h 710 mm). Hepsi bağımsız formülle tutarlı.
+- **Test:** +6 (A9) +1 (şef) test; `tests/wiring/test_ui_parity.py` içinde yeni alan için ARAYUZDE_YOK kaydı. Tam paket 959 geçti / 1 atlandı.
+- **Açık riskler:**
+  1. **Arayüzde `liquid_level_mm` alanı yok;** yalnız API/JSON ile girilir (`apps/web-ui`, `apps/api` bilerek değiştirilmedi).
+  2. **Dikey kapta `component_sequence` boşsa kot hesaplanmaz** (kampanya taban tankı `vertical_leg_tank()` sıra içermiyor; bu durumda eski uyarı kalır). Sıra "alttan üste" varsayılıyor; ters girilirse kotlar ters çıkar.
+  3. Hidrotest (UG-99) statik kafası hâlâ uygulanmıyor (uyarı metninde belirtildi).
+  4. Yatay kapta koni için kot hesaplanmıyor (eksen kayması bilinmiyor).

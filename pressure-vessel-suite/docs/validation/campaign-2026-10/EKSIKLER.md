@@ -17,7 +17,7 @@ Bu dosya, hedefin kapanmasını engelleyen tüm açık maddeleri toplar. Her mad
 | B-08 | ORTA | Nozul yerleşim kontrolü sayısal çıktı vermiyor | Kod incelemesi |
 | B-09 | ORTA | MDMT için bağımsız sayısal kıyas yok (UCS-66 telifli, K6) | Açık |
 | G-01 | YANLIŞ ALARM | 0.8D, UG-37(a)'da t_r seçim dairesi; yerleşim yasağı değil | Kapandı (A4, güven orta) |
-| B-10 | YÜKSEK, emniyetsiz | Statik kafa düzeltmesi ölü kod: `reference_elevation_mm` hiç atanmıyor; hidrotestte statik kafa yok | KISMEN (A5): sessiz atlama kalktı, açık uyarı eklendi. Gerçek düzeltme için domain'e kot/sıvı seviyesi alanı gerek; karar bekliyor |
+| B-10 | YÜKSEK, emniyetsiz | Statik kafa düzeltmesi ölü kod: `reference_elevation_mm` hiç atanmıyor; hidrotestte statik kafa yok | DÜZELTİLDİ (A5+A9): `liquid_level_mm` + geometriden kot; uçtan uca doğrulandı. Açık: arayüz alanı yok, dikeyde `component_sequence` gerekli, hidrotest statik kafası yok |
 | G-03 | ORTA | Anlamsız girdi (ör. basınç 1e9) HTTP 200 PASS/FAIL dönüyor; bazı NaN'lar 500 veriyor | Gözlemlendi; şema üst sınırı yok |
 | G-04 | DÜŞÜK | Büyük harfli UUID kabul ediliyor (aynı sahibe normalleşiyor; sızıntı yok) | Bilgi |
 | G-05 | ORTA | Etekli kolonda taban halkası sonucu API'de yok (T14) | Açık |

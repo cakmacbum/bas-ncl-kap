@@ -75,6 +75,12 @@ class DesignConditions(BaseModel):
         default=0.0, ge=0,
         description="Akışkan yoğunluğu (kg/m³). Statik kafa düzeltmesi için. 0 = düzelleme yok.",
     )
+    liquid_level_mm: Optional[float] = Field(
+        default=None, ge=0,
+        description="Sıvı yüzeyinin kabın EN ALT noktasından yüksekliği (mm). Statik kafa "
+                    "için bileşen taban kotları geometriden hesaplanır. Boşsa statik kafa "
+                    "uygulanmaz (açık uyarı verilir).",
+    )
 
     # ── Darbe testi ────────────────────────────────────────────────────────
     impact_test_temperature_C: Optional[float] = Field(

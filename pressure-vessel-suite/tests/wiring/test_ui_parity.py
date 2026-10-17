@@ -62,6 +62,7 @@ def test_calculation_code_dropdown_exposes_asme_and_en():
 # KARARDIR — gerekçesiz eklenmemeli. (Aynı desen: test_no_ghost_features.py
 # içindeki UI_DE_GOSTERILMEYENLER.)
 ARAYUZDE_YOK = {
+    "DesignConditions.liquid_level_mm": "B-10: sıvı seviyesi girdisi arayüzde henüz yok (web-ui kapsam dışı bırakıldı); yalnız API/JSON ile verilir",
     "Head.crown_depth": "Head geometry UI field deferred to B-06 geometry completion",
     "Head.flat_z_factor": "Head geometry UI field deferred to B-06 geometry completion",
     "Support.anchor_bolt_count": "Phase C anchor input UI deferred",

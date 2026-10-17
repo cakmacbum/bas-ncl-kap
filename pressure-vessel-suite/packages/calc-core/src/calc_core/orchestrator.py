@@ -12,10 +12,10 @@ Hesap sırası:
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 from calc_core.code_interface import DesignCode
-from calc_core.hydrostatics import static_head_pressure
+from calc_core.hydrostatics import component_bottom_elevations, static_head_pressure
 from calc_core.result import CalculationResult
 from calc_core.load_engine import aggregate_load_case, combine_load_cases, governing_state
 from domain.enums import CalculationStatus
@@ -425,6 +425,17 @@ class CalculationOrchestrator:
             return
 
         mawp_results = [r for r in result.results if r.calculation_type == "mawp"]
+        liquid_level = dc.liquid_level_mm
+        bottoms: Dict[Tuple[str, str], float] = {}
+        if liquid_level is not None:
+            try:
+                bottoms = component_bottom_elevations(project)
+            except (KeyError, TypeError, AttributeError, ValueError):
+                # Tutarsız component_sequence / eksik uzunluk: kot uydurulmaz, hesap çökmez.
+                bottoms = {}
+        bottom_by_id: Dict[str, float] = {}
+        for (_ctype, cid), val in bottoms.items():
+            bottom_by_id[cid] = val
 
         for mawp_r in mawp_results:
             if mawp_r.final_result is None:
@@ -437,8 +448,14 @@ class CalculationOrchestrator:
             ):
                 continue
 
-            # Referans kota göre statik kafa hesabı
-            ref_elev = mawp_r.reference_elevation_mm
+            # Referans kot: sıvı seviyesi + geometriden hesaplanan bileşen taban kotu
+            level_below = False
+            if liquid_level is not None and mawp_r.component_id in bottom_by_id:
+                ref_elev = max(0.0, liquid_level - bottom_by_id[mawp_r.component_id])
+                mawp_r.reference_elevation_mm = ref_elev
+                level_below = ref_elev <= 0
+            else:
+                ref_elev = mawp_r.reference_elevation_mm
             if ref_elev > 0:
                 delta_p = static_head_pressure(fluid_density, ref_elev)
                 mawp_r.add_intermediate(
@@ -459,13 +476,20 @@ class CalculationOrchestrator:
                     mawp_r.set_fail(0.0)
                 else:
                     mawp_r.final_result = corrected_mawp
+            elif level_below:
+                mawp_r.add_assumption(
+                    f"Sıvı seviyesi ({liquid_level} mm) bileşen taban kotunun altında: "
+                    "statik kafa 0, MAWP düzeltilmedi. Hidrotest statik kafası bu "
+                    "sürümde uygulanmaz."
+                )
             else:
                 # K4: referans kot/sıvı seviyesi modelde yok → sessiz atlama yasak.
                 mawp_r.add_assumption(
                     "Statik kafa uygulanmadı: referans kot/sıvı seviyesi girdisi yok "
                     f"(ρ={fluid_density} kg/m³ girildi ancak bileşen kotu ve sıvı "
                     "seviyesi modelde tanımlı değil). Sıvı dolu işletmede ve "
-                    "hidrotestte alt bileşenler MAWP'den daha yüksek basınç görür."
+                    "hidrotestte alt bileşenler MAWP'den daha yüksek basınç görür. "
+                    "Hidrotest statik kafası bu sürümde uygulanmaz."
                 )
 
     def _pre_checks(self, project: VesselProject, result: OrchestratorResult) -> None:
