@@ -3,6 +3,8 @@
 > Proje: BASINCLI-KAP (kod `pressure-vessel-suite/`) · M2 Tur 5 · Yürütücü: codex:yaz · 2026-10-17
 > Mod: yaz → ≤10 satır rapor
 
+> YOL KURALI: Tüm yollar `pressure-vessel-suite/` köküne göredir. Örn. `tools/campaign/...` = `pressure-vessel-suite/tools/campaign/...`. Depo kökünde `tools/` yoktur.
+
 ## Bağlam
 - T01 (`tools/campaign/tur2/t01_metamorfik/results.json`, 240 satır): her satırın `observed` alanı None, `result` alanı KAPSAM_DIŞI. Gözlenen değer çıkarılamıyor; sınıflandırma yapılmamış.
 - T11 (`tools/campaign/tur2/t11_yatay_tank_tarama/results.json`, 144 vaka): `gozlenen.support_results` içinde 216 saddle sonucu var: 216 OUT OF SCOPE, 72 REVIEW REQUIRED, 54 FAIL, 18 BLOCKED CODE DATA. Hepsi tek satırda KAPSAM_DIŞI sayılmış. Sayısal (REVIEW/FAIL) sonuçlar sınıflandırılmalı.

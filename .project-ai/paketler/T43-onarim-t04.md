@@ -3,6 +3,8 @@
 > Proje: BASINCLI-KAP (kod `pressure-vessel-suite/`) · M2 Tur 4 (onarım) · Yürütücü: codex:yaz · 2026-10-17
 > Mod: yaz → ≤10 satır rapor
 
+> YOL KURALI: Tüm yollar `pressure-vessel-suite/` köküne göredir. Örn. `tools/campaign/...` = `pressure-vessel-suite/tools/campaign/...`. Depo kökünde `tools/` yoktur.
+
 ## Bağlam
 T04 (300 vaka) 250'si KAPSAM_DIŞI. Sebep çoğunlukla girdi üretici tarafında olabilir (geçersiz kombinasyon).
 

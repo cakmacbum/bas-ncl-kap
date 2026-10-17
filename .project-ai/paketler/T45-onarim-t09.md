@@ -3,6 +3,8 @@
 > Proje: BASINCLI-KAP (kod `pressure-vessel-suite/`) · M2 Tur 4 (onarım) · Yürütücü: codex:yaz · 2026-10-17
 > Mod: yaz → ≤10 satır rapor
 
+> YOL KURALI: Tüm yollar `pressure-vessel-suite/` köküne göredir. Örn. `tools/campaign/...` = `pressure-vessel-suite/tools/campaign/...`. Depo kökünde `tools/` yoktur.
+
 ## Bağlam
 T09 raporu yok; 60 karşılaştırmanın tamamı KAPSAM_DIŞI. Knuckle yarıçapı eksik vaka (BAD-MISSING-R) PASS dönüyor (F03 ile aynı bulgu).
 

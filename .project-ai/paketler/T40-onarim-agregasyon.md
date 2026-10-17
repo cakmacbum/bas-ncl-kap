@@ -3,6 +3,8 @@
 > Proje: BASINCLI-KAP (kod `pressure-vessel-suite/`) · M2 Tur 4 (onarım) · Yürütücü: codex:yaz · 2026-10-17
 > Mod: yaz → ≤10 satır rapor
 
+> YOL KURALI: Tüm yollar `pressure-vessel-suite/` köküne göredir. Örn. `tools/campaign/...` = `pressure-vessel-suite/tools/campaign/...`. Depo kökünde `tools/` yoktur.
+
 ## Bağlam
 T30, T31, T32, T33 çıktıları (`tools/campaign/tur3/mega_*/results.json`). T32'de 110/110 satır BULGU; oysa alt kontroller GEÇTİ/PASS. Satır durumu hatalı birleştirilmiş.
 
