@@ -123,3 +123,9 @@ Sonuç: B-01 bağımsız rastgele örnekte deterministik olarak yeniden üretild
 - **Tekrarlayan kural hatası:** Nozul takviyesinde `utilization_ratio = mevcut/gerekli`, PASS ⇔ ≥1 olmalı. Üç farklı koşuda (T32, T51, T04) test beklentisi bu oranı ters okudu ve yüzlerce PASS satırını sahte BULGU saydı. Düzeltildi; API tutarlı.
 - **T01 (240):** Yön ihlali yok. 120 GEÇTİ, 120 BLOCKED (düz kapak, bağlantı faktörü C test girdisinde yok; API doğru bloke ediyor).
 - **T11 (144):** Ana dalda yalnızca benim sınıflandırmam (81 KAPSAM, 36 SAYISAL_İNCELEME, 27 TASARIM_FAIL). Codex T42/T50 sonuçları ayrı ve birleşmedi.
+
+## K. Şef kararları (2026-10-17)
+
+- **T11 sınıflandırma kuralı:** `REVIEW REQUIRED` → SAYISAL_İNCELEME (ne GEÇTİ ne BULGU). `FAIL` → TASARIM_FAIL (sayısal yetersiz tasarım). `PASS` → GEÇTİ. `OUT OF SCOPE` / `BLOCKED CODE DATA` → KAPSAM_DIŞI. Kaynak: `tools/campaign/tur2/t11_yatay_tank_tarama/results_v2.json` (81 / 36 / 27).
+- **T42 ve T50 Codex dalları birleştirilmedi:** İkisi de T11 `results.json`/`run.py` ve `results_v2.json` dosyalarını benim sınıflandırmamla çakışacak şekilde değiştiriyor ve birbirleriyle uyuşmuyor (T42: "36 BULGU", T50: "63 GEÇTİ"). Tek kaynak olarak ana daldaki sınıflandırma kullanılır.
+- **Nozul kullanım kuralı:** `utilization_ratio` = mevcut/gerekli. PASS ⇔ oran ≥ 1. Gövde için PASS ⇔ kullanım ≤ 1.
