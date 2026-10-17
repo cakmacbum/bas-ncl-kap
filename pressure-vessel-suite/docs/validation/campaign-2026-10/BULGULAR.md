@@ -95,3 +95,16 @@ Yeni kapsam boşlukları:
 - **G-06:** Yatay tankta saddle sonuçlarının 216'sı OUT OF SCOPE. Hangi konfigürasyonların kapsam dışı kaldığı belgelenmeli.
 
 Açık işler: T01 ve T11 sınıflandırıcılarının yeniden yazımı; T40–T43 ve T45 Codex paketleri çıkış kodu 4 ile boş döndü (üretim yok); R04 oracle düzeltmesi bağımsız kanıt olmadığı için birleştirilmedi.
+
+## I. Kütle gövde koşusu (tur5, n=1000, tohum 20261017) — B-01 yeniden üretildi
+
+Koşu: `tools/campaign/tur5/mass_govde.py`. Bağımsız UG-27 formülü (script içinde yazılmış) API'nin `t_required` ve MAWP değerleriyle karşılaştırıldı.
+
+| Sonuç | Vaka | Not |
+|---|---:|---|
+| HTTP 200 | 1000 / 1000 | Hata yok |
+| t_required uyuşuyor (±%1) | 1000 / 1000 | Gerekli kalınlık hesabı tutarlı |
+| MAWP uyuşuyor, CA_o = 0 | 359 / 359 | Tam uyum |
+| MAWP sapıyor, CA_o > 0 | 641 / 641 | API değeri, dış korozyon payı düşülmemiş varyantla birebir eşleşiyor (B-01) |
+
+Sonuç: B-01 bağımsız rastgele örnekte deterministik olarak yeniden üretildi; sapma tüm CA_o > 0 vakalarında, istisnasız. Emniyetsiz yön (MAWP fazla). Kanıt: `tools/campaign/tur5/mass_govde_20261017.csv`.
