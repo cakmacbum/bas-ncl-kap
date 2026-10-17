@@ -4,9 +4,9 @@ Tohum: `1004`; vaka sayısı: `110`. Her vaka `harness.run_case` ile `/api/proje
 
 | Durum | Sayı |
 |---|---:|
-| GEÇTİ | 32 |
-| BULGU | 18 |
-| BLOCKED_BEKLENEN | 60 |
+| GEÇTİ | 72 |
+| BULGU | 38 |
+| BLOCKED_BEKLENEN | 0 |
 
 ## Bulgular
 
@@ -28,5 +28,25 @@ Tohum: `1004`; vaka sayısı: `110`. Her vaka `harness.run_case` ile `/api/proje
 - **T33-044** (vertical_wind): kontrol `TUTARLILIK_N1:PASS>7.17982`; girdi: tasarım basıncı 0.459844 MPa, yükler wind; sonuç HTTP 200, 20 satır.
 - **T33-049** (vertical_wind): kontrol `TUTARLILIK_N1:PASS>3.38341`; girdi: tasarım basıncı 0.712602 MPa, yükler wind; sonuç HTTP 200, 20 satır.
 - **T33-050** (vertical_wind): kontrol `TUTARLILIK_N1:PASS>4.26671`; girdi: tasarım basıncı 0.712602 MPa, yükler wind; sonuç HTTP 200, 20 satır.
+- **T33-055** (vertical_wind): kontrol `TUTARLILIK_N1:PASS>2.27659`; girdi: tasarım basıncı 0.950909 MPa, yükler wind; sonuç HTTP 200, 20 satır.
+- **T33-056** (vertical_wind): kontrol `TUTARLILIK_N1:PASS>2.93853`; girdi: tasarım basıncı 0.950909 MPa, yükler wind; sonuç HTTP 200, 20 satır.
+- **T33-061** (vertical_wind): kontrol `TUTARLILIK_N1:PASS>1.89975`; girdi: tasarım basıncı 1.07309 MPa, yükler wind; sonuç HTTP 200, 20 satır.
+- **T33-062** (vertical_wind): kontrol `TUTARLILIK_N1:PASS>2.48633`; girdi: tasarım basıncı 1.07309 MPa, yükler wind; sonuç HTTP 200, 20 satır.
+- **T33-067** (vertical_wind): kontrol `TUTARLILIK_N1:PASS>8.38215`; girdi: tasarım basıncı 0.334268 MPa, yükler wind; sonuç HTTP 200, 20 satır.
+- **T33-068** (vertical_wind): kontrol `TUTARLILIK_N1:PASS>10.2652`; girdi: tasarım basıncı 0.334268 MPa, yükler wind; sonuç HTTP 200, 20 satır.
+- **T33-073** (vertical_wind): kontrol `TUTARLILIK_N1:PASS>4.64074`; girdi: tasarım basıncı 0.554688 MPa, yükler wind; sonuç HTTP 200, 20 satır.
+- **T33-074** (vertical_wind): kontrol `TUTARLILIK_N1:PASS>5.77551`; girdi: tasarım basıncı 0.554688 MPa, yükler wind; sonuç HTTP 200, 20 satır.
+- **T33-079** (vertical_wind): kontrol `TUTARLILIK_N1:PASS>1.57722`; girdi: tasarım basıncı 1.20568 MPa, yükler wind; sonuç HTTP 200, 20 satır.
+- **T33-080** (vertical_wind): kontrol `TUTARLILIK_N1:PASS>2.09928`; girdi: tasarım basıncı 1.20568 MPa, yükler wind; sonuç HTTP 200, 20 satır.
+- **T33-085** (vertical_wind): kontrol `TUTARLILIK_N1:PASS>3.39259`; girdi: tasarım basıncı 0.711124 MPa, yükler wind; sonuç HTTP 200, 20 satır.
+- **T33-086** (vertical_wind): kontrol `TUTARLILIK_N1:PASS>4.27773`; girdi: tasarım basıncı 0.711124 MPa, yükler wind; sonuç HTTP 200, 20 satır.
+- **T33-091** (vertical_wind): kontrol `TUTARLILIK_N1:PASS>1.48795`; girdi: tasarım basıncı 1.24837 MPa, yükler wind; sonuç HTTP 200, 20 satır.
+- **T33-092** (vertical_wind): kontrol `TUTARLILIK_N1:PASS>1.99216`; girdi: tasarım basıncı 1.24837 MPa, yükler wind; sonuç HTTP 200, 20 satır.
+- **T33-097** (vertical_wind): kontrol `TUTARLILIK_N1:PASS>1.61536`; girdi: tasarım basıncı 1.18832 MPa, yükler wind; sonuç HTTP 200, 20 satır.
+- **T33-098** (vertical_wind): kontrol `TUTARLILIK_N1:PASS>2.14506`; girdi: tasarım basıncı 1.18832 MPa, yükler wind; sonuç HTTP 200, 20 satır.
+- **T33-103** (vertical_wind): kontrol `TUTARLILIK_N1:PASS>8.3252`; girdi: tasarım basıncı 0.336302 MPa, yükler wind; sonuç HTTP 200, 20 satır.
+- **T33-104** (vertical_wind): kontrol `TUTARLILIK_N1:PASS>10.1969`; girdi: tasarım basıncı 0.336302 MPa, yükler wind; sonuç HTTP 200, 20 satır.
+- **T33-109** (vertical_wind): kontrol `TUTARLILIK_N1:PASS>4.6727`; girdi: tasarım basıncı 0.551581 MPa, yükler wind; sonuç HTTP 200, 20 satır.
+- **T33-110** (vertical_wind): kontrol `TUTARLILIK_N1:PASS>5.81387`; girdi: tasarım basıncı 0.551581 MPa, yükler wind; sonuç HTTP 200, 20 satır.
 
-SONUÇ: vaka=110 · geçti=32 · bulgu=18 · blocked=60
+SONUÇ: vaka=110 · geçti=72 · bulgu=38 · blocked=0

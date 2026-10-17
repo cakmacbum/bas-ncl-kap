@@ -1,0 +1,3962 @@
+[
+ {
+  "id": "mega-01-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-01-0",
+   "D_i": 3247.609,
+   "P": 0.6572846154346697,
+   "S": 120.0,
+   "E": 0.7,
+   "CAi": 4.0,
+   "CAo": 0.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 12.797354252695994,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.8934762900370211
+   },
+   "independent_ug27": {
+    "expected": 12.797354252695994,
+    "actual": 12.797354252695994,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-01-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-01-1",
+   "D_i": 3247.609,
+   "P": 0.7887415385216036,
+   "S": 120.0,
+   "E": 0.7,
+   "CAi": 4.0,
+   "CAo": 0.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 15.371326523585571,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 1.0303897087013603
+   },
+   "independent_ug27": {
+    "expected": 15.371326523585571,
+    "actual": 15.371326523585571,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-02-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-02-0",
+   "D_i": 2971.326,
+   "P": 4.600899911391768,
+   "S": 150.0,
+   "E": 1.0,
+   "CAi": 1.0,
+   "CAo": 2.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 46.45485430671676,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 2.711705960383815
+   },
+   "independent_ug27": {
+    "expected": 46.45485430671676,
+    "actual": 46.45485430671676,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-02-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-02-1",
+   "D_i": 2971.326,
+   "P": 5.521079893670122,
+   "S": 150.0,
+   "E": 1.0,
+   "CAi": 1.0,
+   "CAo": 2.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 55.95564363581566,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 3.254608207760895
+   },
+   "independent_ug27": {
+    "expected": 55.95564363581566,
+    "actual": 55.95564363581566,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-03-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-03-0",
+   "D_i": 413.363,
+   "P": 7.604786668167962,
+   "S": 200.0,
+   "E": 0.85,
+   "CAi": 1.0,
+   "CAo": 2.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 9.54666900669192,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.6026668003823954
+   },
+   "independent_ug27": {
+    "expected": 9.54666900669192,
+    "actual": 9.54666900669192,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-03-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-03-1",
+   "D_i": 413.363,
+   "P": 9.125744001801554,
+   "S": 200.0,
+   "E": 0.85,
+   "CAi": 1.0,
+   "CAo": 2.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 11.51954624068101,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.7154026423246291
+   },
+   "independent_ug27": {
+    "expected": 11.51954624068101,
+    "actual": 11.51954624068101,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-04-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-04-0",
+   "D_i": 3611.61,
+   "P": 7.425594845111989,
+   "S": 100.0,
+   "E": 1.0,
+   "CAi": 0.0,
+   "CAo": 2.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 140.34461656039508,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 7.46513917874442
+   },
+   "independent_ug27": {
+    "expected": 140.34461656039508,
+    "actual": 140.34461656039508,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-04-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-04-1",
+   "D_i": 3611.61,
+   "P": 8.910713814134386,
+   "S": 100.0,
+   "E": 1.0,
+   "CAi": 0.0,
+   "CAo": 2.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 169.99898966490522,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 9.042499450260916
+   },
+   "independent_ug27": {
+    "expected": 169.99898966490522,
+    "actual": 169.99898966490522,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-05-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-05-0",
+   "D_i": 2841.783,
+   "P": 0.9773285368752873,
+   "S": 138.0,
+   "E": 0.85,
+   "CAi": 0.0,
+   "CAo": 2.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 11.898165907932752,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.6798951947390144
+   },
+   "independent_ug27": {
+    "expected": 11.898165907932752,
+    "actual": 11.898165907932752,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-05-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-05-1",
+   "D_i": 2841.783,
+   "P": 1.1727942442503447,
+   "S": 138.0,
+   "E": 0.85,
+   "CAi": 0.0,
+   "CAo": 2.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 14.292160537716628,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.8166948878695216
+   },
+   "independent_ug27": {
+    "expected": 14.292160537716628,
+    "actual": 14.292160537716628,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-06-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-06-0",
+   "D_i": 3230.562,
+   "P": 0.8962936639157941,
+   "S": 138.0,
+   "E": 0.7,
+   "CAi": 4.0,
+   "CAo": 0.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 15.108449950065534,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 1.0919114257180307
+   },
+   "independent_ug27": {
+    "expected": 15.108449950065534,
+    "actual": 15.108449950065534,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-06-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-06-1",
+   "D_i": 3230.562,
+   "P": 1.0755523966989529,
+   "S": 138.0,
+   "E": 0.7,
+   "CAi": 4.0,
+   "CAo": 0.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 18.150461948123972,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 1.2657406827499413
+   },
+   "independent_ug27": {
+    "expected": 18.150461948123972,
+    "actual": 18.150461948123972,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-07-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-07-0",
+   "D_i": 3531.61,
+   "P": 4.940788518250528,
+   "S": 100.0,
+   "E": 0.85,
+   "CAi": 2.0,
+   "CAo": 0.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 106.47034251780687,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 6.198305286731822
+   },
+   "independent_ug27": {
+    "expected": 106.47034251780687,
+    "actual": 106.47034251780687,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-07-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-07-1",
+   "D_i": 3531.61,
+   "P": 5.928946221900634,
+   "S": 100.0,
+   "E": 0.85,
+   "CAi": 2.0,
+   "CAo": 0.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 128.694523790239,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 7.468258502299372
+   },
+   "independent_ug27": {
+    "expected": 128.694523790239,
+    "actual": 128.694523790239,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-08-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-08-0",
+   "D_i": 2293.205,
+   "P": 7.909044479384414,
+   "S": 120.0,
+   "E": 1.0,
+   "CAi": 0.0,
+   "CAo": 0.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 78.68260592224252,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 4.185244995863964
+   },
+   "independent_ug27": {
+    "expected": 78.68260592224252,
+    "actual": 78.68260592224252,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-08-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-08-1",
+   "D_i": 2293.205,
+   "P": 9.490853375261295,
+   "S": 120.0,
+   "E": 1.0,
+   "CAi": 0.0,
+   "CAo": 0.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 95.20309479456527,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 5.063994403966238
+   },
+   "independent_ug27": {
+    "expected": 95.20309479456527,
+    "actual": 95.20309479456527,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-09-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-09-0",
+   "D_i": 1905.135,
+   "P": 6.69120537028194,
+   "S": 100.0,
+   "E": 1.0,
+   "CAi": 2.0,
+   "CAo": 2.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 66.54361373651655,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 3.9167779278009456
+   },
+   "independent_ug27": {
+    "expected": 66.54361373651655,
+    "actual": 66.54361373651655,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-09-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-09-1",
+   "D_i": 1905.135,
+   "P": 8.029446444338328,
+   "S": 100.0,
+   "E": 1.0,
+   "CAi": 2.0,
+   "CAo": 2.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 80.52595946077477,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 4.715769112044272
+   },
+   "independent_ug27": {
+    "expected": 80.52595946077477,
+    "actual": 80.52595946077477,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-10-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-10-0",
+   "D_i": 452.547,
+   "P": 0.8958351941775355,
+   "S": 175.0,
+   "E": 1.0,
+   "CAi": 2.0,
+   "CAo": 1.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 1.1721455126849252,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.18126545786771
+   },
+   "independent_ug27": {
+    "expected": 1.1721455126849252,
+    "actual": 1.1721455126849252,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-10-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-10-1",
+   "D_i": 452.547,
+   "P": 1.0750022330130427,
+   "S": 175.0,
+   "E": 1.0,
+   "CAi": 2.0,
+   "CAo": 1.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 1.4074418521029188,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.19471096297730967
+   },
+   "independent_ug27": {
+    "expected": 1.4074418521029188,
+    "actual": 1.4074418521029188,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-11-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-11-0",
+   "D_i": 2995.736,
+   "P": 6.0753534999766545,
+   "S": 150.0,
+   "E": 0.7,
+   "CAi": 1.0,
+   "CAo": 0.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 89.84432939454408,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 5.19110453683109
+   },
+   "independent_ug27": {
+    "expected": 89.84432939454408,
+    "actual": 89.84432939454408,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-11-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-11-1",
+   "D_i": 2995.736,
+   "P": 7.290424199971985,
+   "S": 150.0,
+   "E": 0.7,
+   "CAi": 1.0,
+   "CAo": 0.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 108.59431140247972,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 6.262532080141698
+   },
+   "independent_ug27": {
+    "expected": 108.59431140247972,
+    "actual": 108.59431140247972,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-12-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-12-0",
+   "D_i": 2964.808,
+   "P": 7.227811548643733,
+   "S": 138.0,
+   "E": 0.85,
+   "CAi": 0.0,
+   "CAo": 0.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 94.84970349832959,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 5.419983057047405
+   },
+   "independent_ug27": {
+    "expected": 94.84970349832959,
+    "actual": 94.84970349832959,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-12-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-12-1",
+   "D_i": 2964.808,
+   "P": 8.673373858372479,
+   "S": 138.0,
+   "E": 0.85,
+   "CAi": 0.0,
+   "CAo": 0.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 114.70031838859309,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 6.554303907919605
+   },
+   "independent_ug27": {
+    "expected": 114.70031838859309,
+    "actual": 114.70031838859309,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-13-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-13-0",
+   "D_i": 3183.57,
+   "P": 3.984626574597035,
+   "S": 175.0,
+   "E": 1.0,
+   "CAi": 2.0,
+   "CAo": 0.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 36.791997067095785,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 2.2166855466911874
+   },
+   "independent_ug27": {
+    "expected": 36.791997067095785,
+    "actual": 36.791997067095785,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-13-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-13-1",
+   "D_i": 3183.57,
+   "P": 4.781551889516441,
+   "S": 175.0,
+   "E": 1.0,
+   "CAi": 2.0,
+   "CAo": 0.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 44.27303989004277,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 2.6441737080024437
+   },
+   "independent_ug27": {
+    "expected": 44.27303989004277,
+    "actual": 44.27303989004277,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-14-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-14-0",
+   "D_i": 2560.773,
+   "P": 4.322882195175915,
+   "S": 150.0,
+   "E": 0.7,
+   "CAi": 4.0,
+   "CAo": 1.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 54.217886224634654,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 3.096696075778439
+   },
+   "independent_ug27": {
+    "expected": 54.217886224634654,
+    "actual": 54.217886224634654,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-14-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-14-1",
+   "D_i": 2560.773,
+   "P": 5.187458634211098,
+   "S": 150.0,
+   "E": 0.7,
+   "CAi": 4.0,
+   "CAo": 1.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 65.39271467134274,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 3.691101844220359
+   },
+   "independent_ug27": {
+    "expected": 65.39271467134274,
+    "actual": 65.39271467134274,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-15-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-15-0",
+   "D_i": 2111.295,
+   "P": 2.554009675375769,
+   "S": 175.0,
+   "E": 0.85,
+   "CAi": 1.0,
+   "CAo": 0.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 18.331286781464108,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 1.0282599351842612
+   },
+   "independent_ug27": {
+    "expected": 18.331286781464108,
+    "actual": 18.331286781464108,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-15-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-15-1",
+   "D_i": 2111.295,
+   "P": 3.0648116104509224,
+   "S": 175.0,
+   "E": 0.85,
+   "CAi": 1.0,
+   "CAo": 0.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 22.04343469517128,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 1.2257146114452808
+   },
+   "independent_ug27": {
+    "expected": 22.04343469517128,
+    "actual": 22.04343469517128,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-16-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-16-0",
+   "D_i": 766.889,
+   "P": 1.6356348199443194,
+   "S": 120.0,
+   "E": 0.85,
+   "CAi": 2.0,
+   "CAo": 0.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 6.240893519657037,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.4709082011232593
+   },
+   "independent_ug27": {
+    "expected": 6.240893519657037,
+    "actual": 6.240893519657037,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-16-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-16-1",
+   "D_i": 766.889,
+   "P": 1.9627617839331832,
+   "S": 120.0,
+   "E": 0.85,
+   "CAi": 2.0,
+   "CAo": 0.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 7.503651595908559,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.543065805480489
+   },
+   "independent_ug27": {
+    "expected": 7.503651595908559,
+    "actual": 7.503651595908559,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-17-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-17-0",
+   "D_i": 723.598,
+   "P": 0.9439402330056055,
+   "S": 100.0,
+   "E": 1.0,
+   "CAi": 1.0,
+   "CAo": 2.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 3.4441119409100063,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.2539492537662861
+   },
+   "independent_ug27": {
+    "expected": 3.4441119409100063,
+    "actual": 3.4441119409100063,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-17-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-17-1",
+   "D_i": 723.598,
+   "P": 1.1327282796067266,
+   "S": 100.0,
+   "E": 1.0,
+   "CAi": 1.0,
+   "CAo": 2.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 4.13764785555264,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.29357987746015085
+   },
+   "independent_ug27": {
+    "expected": 4.13764785555264,
+    "actual": 4.13764785555264,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-18-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-18-0",
+   "D_i": 1043.868,
+   "P": 3.842283184453429,
+   "S": 175.0,
+   "E": 1.0,
+   "CAi": 0.0,
+   "CAo": 1.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 11.612510652804863,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.663572037303135
+   },
+   "independent_ug27": {
+    "expected": 11.612510652804863,
+    "actual": 11.612510652804863,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-18-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-18-1",
+   "D_i": 1043.868,
+   "P": 4.610739821344115,
+   "S": 175.0,
+   "E": 1.0,
+   "CAi": 0.0,
+   "CAo": 1.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 13.972317197095306,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.7984181255483032
+   },
+   "independent_ug27": {
+    "expected": 13.972317197095306,
+    "actual": 13.972317197095306,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-19-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-19-0",
+   "D_i": 1076.915,
+   "P": 2.796239357431337,
+   "S": 175.0,
+   "E": 1.0,
+   "CAi": 0.0,
+   "CAo": 2.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 8.6870323823553,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.4964018504203028
+   },
+   "independent_ug27": {
+    "expected": 8.6870323823553,
+    "actual": 8.6870323823553,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-19-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-19-1",
+   "D_i": 1076.915,
+   "P": 3.355487228917604,
+   "S": 175.0,
+   "E": 1.0,
+   "CAi": 0.0,
+   "CAo": 2.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 10.44465952891833,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.5968376873667617
+   },
+   "independent_ug27": {
+    "expected": 10.44465952891833,
+    "actual": 10.44465952891833,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-20-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-20-0",
+   "D_i": 534.835,
+   "P": 2.078765779600039,
+   "S": 200.0,
+   "E": 1.0,
+   "CAi": 4.0,
+   "CAo": 0.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 2.8387704716608506,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.39078688409490575
+   },
+   "independent_ug27": {
+    "expected": 2.8387704716608506,
+    "actual": 2.8387704716608506,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-20-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-20-1",
+   "D_i": 534.835,
+   "P": 2.4945189355200466,
+   "S": 200.0,
+   "E": 1.0,
+   "CAi": 4.0,
+   "CAo": 0.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 3.410805422039518,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.4234745955451153
+   },
+   "independent_ug27": {
+    "expected": 3.410805422039518,
+    "actual": 3.410805422039518,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-21-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-21-0",
+   "D_i": 2506.619,
+   "P": 2.7921413241754607,
+   "S": 200.0,
+   "E": 1.0,
+   "CAi": 2.0,
+   "CAo": 1.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 17.673044562037155,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 1.1241739749735518
+   },
+   "independent_ug27": {
+    "expected": 17.673044562037155,
+    "actual": 17.673044562037155,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-21-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-21-1",
+   "D_i": 2506.619,
+   "P": 3.350569589010553,
+   "S": 200.0,
+   "E": 1.0,
+   "CAi": 2.0,
+   "CAo": 1.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 21.243543085758144,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 1.3282024620433224
+   },
+   "independent_ug27": {
+    "expected": 21.243543085758144,
+    "actual": 21.243543085758144,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-22-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-22-0",
+   "D_i": 580.824,
+   "P": 6.345273846203839,
+   "S": 100.0,
+   "E": 0.85,
+   "CAi": 2.0,
+   "CAo": 1.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 22.852191330627814,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 1.420125218893018
+   },
+   "independent_ug27": {
+    "expected": 22.852191330627814,
+    "actual": 22.852191330627814,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-22-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-22-1",
+   "D_i": 580.824,
+   "P": 7.614328615444607,
+   "S": 100.0,
+   "E": 0.85,
+   "CAi": 2.0,
+   "CAo": 1.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 27.68223580266368,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 1.6961277601522102
+   },
+   "independent_ug27": {
+    "expected": 27.68223580266368,
+    "actual": 27.68223580266368,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-23-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-23-0",
+   "D_i": 2025.433,
+   "P": 7.269115085258839,
+   "S": 150.0,
+   "E": 0.7,
+   "CAi": 4.0,
+   "CAo": 2.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 73.43737212676803,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 4.119009155679151
+   },
+   "independent_ug27": {
+    "expected": 73.43737212676803,
+    "actual": 73.43737212676803,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-23-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-23-1",
+   "D_i": 2025.433,
+   "P": 8.722938102310607,
+   "S": 150.0,
+   "E": 0.7,
+   "CAi": 4.0,
+   "CAo": 2.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 88.89535529716105,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 4.9412423030404815
+   },
+   "independent_ug27": {
+    "expected": 88.89535529716105,
+    "actual": 88.89535529716105,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-24-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-24-0",
+   "D_i": 3710.787,
+   "P": 5.575987328435657,
+   "S": 120.0,
+   "E": 0.7,
+   "CAi": 2.0,
+   "CAo": 2.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 128.40962977380306,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 7.451978844217318
+   },
+   "independent_ug27": {
+    "expected": 128.40962977380306,
+    "actual": 128.40962977380306,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-24-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-24-1",
+   "D_i": 3710.787,
+   "P": 6.691184794122788,
+   "S": 120.0,
+   "E": 0.7,
+   "CAi": 2.0,
+   "CAo": 2.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 155.380611611079,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 8.993177806347372
+   },
+   "independent_ug27": {
+    "expected": 155.380611611079,
+    "actual": 155.380611611079,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-25-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-25-0",
+   "D_i": 3154.919,
+   "P": 3.9641262252380884,
+   "S": 120.0,
+   "E": 1.0,
+   "CAi": 1.0,
+   "CAo": 0.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 53.1978542068233,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 3.097020240389903
+   },
+   "independent_ug27": {
+    "expected": 53.1978542068233,
+    "actual": 53.1978542068233,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-25-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-25-1",
+   "D_i": 3154.919,
+   "P": 4.756951470285706,
+   "S": 120.0,
+   "E": 1.0,
+   "CAi": 1.0,
+   "CAo": 0.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 64.09665026792395,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 3.719808586738511
+   },
+   "independent_ug27": {
+    "expected": 64.09665026792395,
+    "actual": 64.09665026792395,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-26-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-26-0",
+   "D_i": 859.949,
+   "P": 0.32977397907576733,
+   "S": 138.0,
+   "E": 0.85,
+   "CAi": 0.0,
+   "CAo": 0.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 1.2108609379700477,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.06919205359828844
+   },
+   "independent_ug27": {
+    "expected": 1.2108609379700477,
+    "actual": 1.2108609379700477,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-26-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-26-1",
+   "D_i": 859.949,
+   "P": 0.3957287748909208,
+   "S": 138.0,
+   "E": 0.85,
+   "CAi": 0.0,
+   "CAo": 0.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 1.453524321899778,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.08305853267998732
+   },
+   "independent_ug27": {
+    "expected": 1.453524321899778,
+    "actual": 1.453524321899778,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-27-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-27-0",
+   "D_i": 3514.95,
+   "P": 4.4458447585359755,
+   "S": 138.0,
+   "E": 1.0,
+   "CAi": 2.0,
+   "CAo": 1.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 57.80099460778403,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 3.4171996918733734
+   },
+   "independent_ug27": {
+    "expected": 57.80099460778403,
+    "actual": 57.80099460778403,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-27-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-27-1",
+   "D_i": 3514.95,
+   "P": 5.33501371024317,
+   "S": 138.0,
+   "E": 1.0,
+   "CAi": 2.0,
+   "CAo": 1.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 69.63570813332144,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 4.093469036189797
+   },
+   "independent_ug27": {
+    "expected": 69.63570813332144,
+    "actual": 69.63570813332144,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-28-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-28-0",
+   "D_i": 2377.276,
+   "P": 7.128808199101267,
+   "S": 175.0,
+   "E": 1.0,
+   "CAi": 4.0,
+   "CAo": 0.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 49.80056431827971,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 2.8617321445893467
+   },
+   "independent_ug27": {
+    "expected": 49.80056431827971,
+    "actual": 49.80056431827971,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-28-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-28-1",
+   "D_i": 2377.276,
+   "P": 8.55456983892152,
+   "S": 175.0,
+   "E": 1.0,
+   "CAi": 4.0,
+   "CAo": 0.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 60.061633877359114,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 3.407533716880804
+   },
+   "independent_ug27": {
+    "expected": 60.061633877359114,
+    "actual": 60.061633877359114,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-29-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-29-0",
+   "D_i": 1361.959,
+   "P": 1.523774414582779,
+   "S": 100.0,
+   "E": 1.0,
+   "CAi": 2.0,
+   "CAo": 2.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 10.503092943654545,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.7144624539231168
+   },
+   "independent_ug27": {
+    "expected": 10.503092943654545,
+    "actual": 10.503092943654545,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-29-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-29-1",
+   "D_i": 1361.959,
+   "P": 1.8285292974993346,
+   "S": 100.0,
+   "E": 1.0,
+   "CAi": 2.0,
+   "CAo": 2.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 12.627013437476531,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.8358293392843732
+   },
+   "independent_ug27": {
+    "expected": 12.627013437476531,
+    "actual": 12.627013437476531,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-30-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-30-0",
+   "D_i": 1754.081,
+   "P": 3.8466460002052765,
+   "S": 175.0,
+   "E": 0.7,
+   "CAi": 4.0,
+   "CAo": 0.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 28.196972890915088,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 1.7126049410061222
+   },
+   "independent_ug27": {
+    "expected": 28.196972890915088,
+    "actual": 28.196972890915088,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-30-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-30-1",
+   "D_i": 1754.081,
+   "P": 4.615975200246331,
+   "S": 175.0,
+   "E": 0.7,
+   "CAi": 4.0,
+   "CAo": 0.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 33.966817057250374,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 2.0195115455984243
+   },
+   "independent_ug27": {
+    "expected": 33.966817057250374,
+    "actual": 33.966817057250374,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-31-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-31-0",
+   "D_i": 3323.747,
+   "P": 3.003011894406237,
+   "S": 150.0,
+   "E": 0.7,
+   "CAi": 1.0,
+   "CAo": 1.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 48.38872426772963,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 2.822212815298836
+   },
+   "independent_ug27": {
+    "expected": 48.38872426772963,
+    "actual": 48.38872426772963,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-31-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-31-1",
+   "D_i": 3323.747,
+   "P": 3.603614273287484,
+   "S": 150.0,
+   "E": 0.7,
+   "CAi": 1.0,
+   "CAo": 1.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 58.269944004013624,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 3.386853943086493
+   },
+   "independent_ug27": {
+    "expected": 58.269944004013624,
+    "actual": 58.269944004013624,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-32-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-32-0",
+   "D_i": 2877.409,
+   "P": 7.7939515435532325,
+   "S": 150.0,
+   "E": 0.7,
+   "CAi": 0.0,
+   "CAo": 1.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 111.77021068721241,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 6.386869182126423
+   },
+   "independent_ug27": {
+    "expected": 111.77021068721241,
+    "actual": 111.77021068721241,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-32-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-32-1",
+   "D_i": 2877.409,
+   "P": 9.352741852263879,
+   "S": 150.0,
+   "E": 0.7,
+   "CAi": 0.0,
+   "CAo": 1.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 135.38640221248036,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 7.736365840713164
+   },
+   "independent_ug27": {
+    "expected": 135.38640221248036,
+    "actual": 135.38640221248036,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-33-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-33-0",
+   "D_i": 3601.659,
+   "P": 3.8728548953593367,
+   "S": 175.0,
+   "E": 0.7,
+   "CAi": 0.0,
+   "CAo": 0.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 58.0343386806322,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 3.086932908544266
+   },
+   "independent_ug27": {
+    "expected": 58.0343386806322,
+    "actual": 58.0343386806322,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-33-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-33-1",
+   "D_i": 3601.659,
+   "P": 4.647425874431204,
+   "S": 175.0,
+   "E": 0.7,
+   "CAi": 0.0,
+   "CAo": 0.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 69.91156659467323,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 3.718700350780491
+   },
+   "independent_ug27": {
+    "expected": 69.91156659467323,
+    "actual": 69.91156659467323,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-34-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-34-0",
+   "D_i": 488.819,
+   "P": 5.832231273047245,
+   "S": 138.0,
+   "E": 0.7,
+   "CAi": 0.0,
+   "CAo": 2.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 15.310876533023174,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.8144083262246371
+   },
+   "independent_ug27": {
+    "expected": 15.310876533023174,
+    "actual": 15.310876533023174,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-34-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-34-1",
+   "D_i": 488.819,
+   "P": 6.998677527656694,
+   "S": 138.0,
+   "E": 0.7,
+   "CAi": 0.0,
+   "CAo": 2.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 18.512214134860226,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.9846922412159695
+   },
+   "independent_ug27": {
+    "expected": 18.512214134860226,
+    "actual": 18.512214134860226,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-35-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-35-0",
+   "D_i": 2493.472,
+   "P": 0.4587522441101047,
+   "S": 120.0,
+   "E": 0.7,
+   "CAi": 0.0,
+   "CAo": 1.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 6.831229081136385,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.3903559474935077
+   },
+   "independent_ug27": {
+    "expected": 6.831229081136385,
+    "actual": 6.831229081136385,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-35-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-35-1",
+   "D_i": 2493.472,
+   "P": 0.5505026929321256,
+   "S": 120.0,
+   "E": 0.7,
+   "CAi": 0.0,
+   "CAo": 1.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 8.20286840551941,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.468735337458252
+   },
+   "independent_ug27": {
+    "expected": 8.20286840551941,
+    "actual": 8.20286840551941,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-36-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-36-0",
+   "D_i": 1584.953,
+   "P": 5.910649864032307,
+   "S": 138.0,
+   "E": 1.0,
+   "CAi": 0.0,
+   "CAo": 1.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 34.83767460116332,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 1.9907242629236184
+   },
+   "independent_ug27": {
+    "expected": 34.83767460116332,
+    "actual": 34.83767460116332,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-36-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-36-1",
+   "D_i": 1584.953,
+   "P": 7.092779836838768,
+   "S": 138.0,
+   "E": 1.0,
+   "CAi": 0.0,
+   "CAo": 1.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 42.026912484442775,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 2.401537856253873
+   },
+   "independent_ug27": {
+    "expected": 42.026912484442775,
+    "actual": 42.026912484442775,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-37-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-37-0",
+   "D_i": 3361.154,
+   "P": 6.51467954573116,
+   "S": 175.0,
+   "E": 0.85,
+   "CAi": 4.0,
+   "CAo": 1.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 75.76904852079268,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 4.5582313440452955
+   },
+   "independent_ug27": {
+    "expected": 75.76904852079268,
+    "actual": 75.76904852079268,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-37-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-37-1",
+   "D_i": 3361.154,
+   "P": 7.817615454877392,
+   "S": 175.0,
+   "E": 0.85,
+   "CAi": 4.0,
+   "CAo": 1.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 91.41626565969781,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 5.452358037697018
+   },
+   "independent_ug27": {
+    "expected": 91.41626565969781,
+    "actual": 91.41626565969781,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-38-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-38-0",
+   "D_i": 1045.409,
+   "P": 0.4322274104571403,
+   "S": 150.0,
+   "E": 0.7,
+   "CAi": 0.0,
+   "CAo": 0.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 2.157015287127784,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.12325801640730194
+   },
+   "independent_ug27": {
+    "expected": 2.157015287127784,
+    "actual": 2.157015287127784,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-38-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-38-1",
+   "D_i": 1045.409,
+   "P": 0.5186728925485683,
+   "S": 150.0,
+   "E": 0.7,
+   "CAi": 0.0,
+   "CAo": 0.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 2.5897007572639654,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.14798290041508372
+   },
+   "independent_ug27": {
+    "expected": 2.5897007572639654,
+    "actual": 2.5897007572639654,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-39-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-39-0",
+   "D_i": 3726.715,
+   "P": 4.466712542092641,
+   "S": 175.0,
+   "E": 1.0,
+   "CAi": 4.0,
+   "CAo": 2.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 48.403844580715834,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 2.9945054046123336
+   },
+   "independent_ug27": {
+    "expected": 48.403844580715834,
+    "actual": 48.403844580715834,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-39-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-39-1",
+   "D_i": 3726.715,
+   "P": 5.3600550505111695,
+   "S": 175.0,
+   "E": 1.0,
+   "CAi": 4.0,
+   "CAo": 2.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 58.265850856446676,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 3.558048620368381
+   },
+   "independent_ug27": {
+    "expected": 58.265850856446676,
+    "actual": 58.265850856446676,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-40-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-40-0",
+   "D_i": 1198.571,
+   "P": 5.52111894844065,
+   "S": 175.0,
+   "E": 0.7,
+   "CAi": 2.0,
+   "CAo": 0.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 27.85337003191252,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 1.7059068589664297
+   },
+   "independent_ug27": {
+    "expected": 27.85337003191252,
+    "actual": 27.85337003191252,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-40-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-40-1",
+   "D_i": 1198.571,
+   "P": 6.62534273812878,
+   "S": 175.0,
+   "E": 0.7,
+   "CAi": 2.0,
+   "CAo": 0.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 33.61087899434716,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 2.034907371105552
+   },
+   "independent_ug27": {
+    "expected": 33.61087899434716,
+    "actual": 33.61087899434716,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-41-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-41-0",
+   "D_i": 3363.453,
+   "P": 4.712834002295476,
+   "S": 175.0,
+   "E": 1.0,
+   "CAi": 0.0,
+   "CAo": 1.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 46.03352484829542,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 2.63048713418831
+   },
+   "independent_ug27": {
+    "expected": 46.03352484829542,
+    "actual": 46.03352484829542,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-41-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-41-1",
+   "D_i": 3363.453,
+   "P": 5.655400802754571,
+   "S": 175.0,
+   "E": 1.0,
+   "CAi": 0.0,
+   "CAo": 1.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 55.422277215699,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 3.1669872694685144
+   },
+   "independent_ug27": {
+    "expected": 55.422277215699,
+    "actual": 55.422277215699,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-42-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-42-0",
+   "D_i": 3309.389,
+   "P": 7.084841741889867,
+   "S": 200.0,
+   "E": 0.85,
+   "CAi": 0.0,
+   "CAo": 0.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 70.72888492614608,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 4.041650567208348
+   },
+   "independent_ug27": {
+    "expected": 70.72888492614608,
+    "actual": 70.72888492614608,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-42-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-42-1",
+   "D_i": 3309.389,
+   "P": 8.50181009026784,
+   "S": 200.0,
+   "E": 0.85,
+   "CAi": 0.0,
+   "CAo": 0.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 85.31225621674665,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 4.87498606952838
+   },
+   "independent_ug27": {
+    "expected": 85.31225621674665,
+    "actual": 85.31225621674665,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-43-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-43-0",
+   "D_i": 2158.026,
+   "P": 7.071233697641531,
+   "S": 120.0,
+   "E": 0.7,
+   "CAi": 4.0,
+   "CAo": 0.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 96.01932214787998,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 5.715389837021712
+   },
+   "independent_ug27": {
+    "expected": 96.01932214787998,
+    "actual": 96.01932214787998,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-43-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-43-1",
+   "D_i": 2158.026,
+   "P": 8.485480437169837,
+   "S": 120.0,
+   "E": 0.7,
+   "CAi": 4.0,
+   "CAo": 0.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 116.46224380457363,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 6.883556788832779
+   },
+   "independent_ug27": {
+    "expected": 116.46224380457363,
+    "actual": 116.46224380457363,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-44-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-44-0",
+   "D_i": 1331.851,
+   "P": 5.544668379949855,
+   "S": 175.0,
+   "E": 0.85,
+   "CAi": 1.0,
+   "CAo": 0.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 25.428410032043637,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 1.405766491066151
+   },
+   "independent_ug27": {
+    "expected": 25.428410032043637,
+    "actual": 25.428410032043637,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-44-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-44-1",
+   "D_i": 1331.851,
+   "P": 6.653602055939826,
+   "S": 175.0,
+   "E": 0.85,
+   "CAi": 1.0,
+   "CAo": 0.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 30.654346015198843,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 1.6837418093190877
+   },
+   "independent_ug27": {
+    "expected": 30.654346015198843,
+    "actual": 30.654346015198843,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-45-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-45-0",
+   "D_i": 3266.681,
+   "P": 4.399345192663938,
+   "S": 175.0,
+   "E": 0.85,
+   "CAi": 1.0,
+   "CAo": 1.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 49.20955915531294,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 2.670721231665582
+   },
+   "independent_ug27": {
+    "expected": 49.20955915531294,
+    "actual": 49.20955915531294,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-45-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-45-1",
+   "D_i": 3266.681,
+   "P": 5.279214231196726,
+   "S": 175.0,
+   "E": 0.85,
+   "CAi": 1.0,
+   "CAo": 1.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 59.26560759422072,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 3.2056174252245064
+   },
+   "independent_ug27": {
+    "expected": 59.26560759422072,
+    "actual": 59.26560759422072,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-46-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-46-0",
+   "D_i": 1340.729,
+   "P": 6.676152427219433,
+   "S": 200.0,
+   "E": 0.7,
+   "CAi": 1.0,
+   "CAo": 1.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 32.95823026876695,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 1.8062888440833482
+   },
+   "independent_ug27": {
+    "expected": 32.95823026876695,
+    "actual": 32.95823026876695,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-46-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-46-1",
+   "D_i": 1340.729,
+   "P": 8.01138291266332,
+   "S": 200.0,
+   "E": 0.7,
+   "CAi": 1.0,
+   "CAo": 1.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 39.78424408146603,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 2.1693746851843634
+   },
+   "independent_ug27": {
+    "expected": 39.78424408146603,
+    "actual": 39.78424408146603,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-47-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-47-0",
+   "D_i": 2294.307,
+   "P": 0.9665448661363927,
+   "S": 200.0,
+   "E": 0.85,
+   "CAi": 0.0,
+   "CAo": 0.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 6.544533395223773,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.3739733368699299
+   },
+   "independent_ug27": {
+    "expected": 6.544533395223773,
+    "actual": 6.544533395223773,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-47-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-47-1",
+   "D_i": 2294.307,
+   "P": 1.1598538393636713,
+   "S": 200.0,
+   "E": 0.85,
+   "CAi": 0.0,
+   "CAo": 0.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "PASS",
+   "t_required": 7.858820241248717,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "PASS",
+    "utilization": 0.4490754423570695
+   },
+   "independent_ug27": {
+    "expected": 7.858820241248717,
+    "actual": 7.858820241248717,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-48-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-48-0",
+   "D_i": 2053.789,
+   "P": 3.834697807880557,
+   "S": 100.0,
+   "E": 0.7,
+   "CAi": 1.0,
+   "CAo": 2.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 58.223226770296506,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 3.384184386874086
+   },
+   "independent_ug27": {
+    "expected": 58.223226770296506,
+    "actual": 58.223226770296506,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-48-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-48-1",
+   "D_i": 2053.789,
+   "P": 4.601637369456668,
+   "S": 100.0,
+   "E": 0.7,
+   "CAi": 1.0,
+   "CAo": 2.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 70.3460269559866,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 4.076915826056377
+   },
+   "independent_ug27": {
+    "expected": 70.3460269559866,
+    "actual": 70.3460269559866,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-49-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-49-0",
+   "D_i": 3016.584,
+   "P": 5.561237614961577,
+   "S": 175.0,
+   "E": 1.0,
+   "CAi": 4.0,
+   "CAo": 1.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 48.99251756646193,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 2.818750934386273
+   },
+   "independent_ug27": {
+    "expected": 48.99251756646193,
+    "actual": 48.99251756646193,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-49-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-49-1",
+   "D_i": 3016.584,
+   "P": 6.673485137953892,
+   "S": 175.0,
+   "E": 1.0,
+   "CAi": 4.0,
+   "CAo": 1.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 59.02046575355103,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 3.3521524336995228
+   },
+   "independent_ug27": {
+    "expected": 59.02046575355103,
+    "actual": 59.02046575355103,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-50-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-50-0",
+   "D_i": 2305.313,
+   "P": 5.097657968373562,
+   "S": 200.0,
+   "E": 0.85,
+   "CAi": 4.0,
+   "CAo": 2.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 35.31921404496398,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 2.2468122311407988
+   },
+   "independent_ug27": {
+    "expected": 35.31921404496398,
+    "actual": 35.31921404496398,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-50-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-50-1",
+   "D_i": 2305.313,
+   "P": 6.1171895620482735,
+   "S": 200.0,
+   "E": 0.85,
+   "CAi": 4.0,
+   "CAo": 2.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 42.538931129210994,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 2.659367493097771
+   },
+   "independent_ug27": {
+    "expected": 42.538931129210994,
+    "actual": 42.538931129210994,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-51-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-51-0",
+   "D_i": 3188.193,
+   "P": 7.648362668843786,
+   "S": 150.0,
+   "E": 0.85,
+   "CAi": 4.0,
+   "CAo": 2.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 99.4445034387734,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 5.502367204190074
+   },
+   "independent_ug27": {
+    "expected": 99.4445034387734,
+    "actual": 99.4445034387734,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-51-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-51-1",
+   "D_i": 3188.193,
+   "P": 9.178035202612543,
+   "S": 150.0,
+   "E": 0.85,
+   "CAi": 4.0,
+   "CAo": 2.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 120.23119709658607,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 6.608042398754579
+   },
+   "independent_ug27": {
+    "expected": 120.23119709658607,
+    "actual": 120.23119709658607,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-52-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-52-0",
+   "D_i": 1380.602,
+   "P": 3.187601369156817,
+   "S": 175.0,
+   "E": 0.7,
+   "CAi": 4.0,
+   "CAo": 1.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 18.353112341417322,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 1.277320705223847
+   },
+   "independent_ug27": {
+    "expected": 18.353112341417322,
+    "actual": 18.353112341417322,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-52-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-52-1",
+   "D_i": 1380.602,
+   "P": 3.8251216429881802,
+   "S": 175.0,
+   "E": 0.7,
+   "CAi": 4.0,
+   "CAo": 1.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 22.09381801408563,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 1.4910753150906075
+   },
+   "independent_ug27": {
+    "expected": 22.09381801408563,
+    "actual": 22.09381801408563,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-53-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-53-0",
+   "D_i": 1556.26,
+   "P": 2.204059328877729,
+   "S": 100.0,
+   "E": 1.0,
+   "CAi": 1.0,
+   "CAo": 0.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 17.402625969779017,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 1.0515786268445153
+   },
+   "independent_ug27": {
+    "expected": 17.402625969779017,
+    "actual": 17.402625969779017,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-53-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-53-1",
+   "D_i": 1556.26,
+   "P": 2.6448711946532746,
+   "S": 100.0,
+   "E": 1.0,
+   "CAi": 1.0,
+   "CAo": 0.0,
+   "mill_tolerance": 0.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 20.93927505142467,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 1.2536728600814098
+   },
+   "independent_ug27": {
+    "expected": 20.93927505142467,
+    "actual": 20.93927505142467,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-54-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-54-0",
+   "D_i": 2858.317,
+   "P": 1.9151846164740753,
+   "S": 138.0,
+   "E": 0.7,
+   "CAi": 4.0,
+   "CAo": 2.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 28.755762615808774,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 1.8717578637605015
+   },
+   "independent_ug27": {
+    "expected": 28.755762615808774,
+    "actual": 28.755762615808774,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-54-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-54-1",
+   "D_i": 2858.317,
+   "P": 2.2982215397688903,
+   "S": 138.0,
+   "E": 0.7,
+   "CAi": 4.0,
+   "CAo": 2.0,
+   "mill_tolerance": 12.5,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 34.59019979233399,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 2.205154273847657
+   },
+   "independent_ug27": {
+    "expected": 34.59019979233399,
+    "actual": 34.59019979233399,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-55-0",
+  "family": "govde-p-0",
+  "girdi": {
+   "project": "T30-MEGA-55-0",
+   "D_i": 960.801,
+   "P": 6.078959543277147,
+   "S": 175.0,
+   "E": 0.85,
+   "CAi": 0.0,
+   "CAo": 0.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 20.12599853848895,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 1.0705318371536676
+   },
+   "independent_ug27": {
+    "expected": 20.12599853848895,
+    "actual": 20.12599853848895,
+    "relative_error": 0.0
+   },
+   "monotonicity": "pending paired pressure case"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ },
+ {
+  "id": "mega-55-1",
+  "family": "govde-p-1",
+  "girdi": {
+   "project": "T30-MEGA-55-1",
+   "D_i": 960.801,
+   "P": 7.2947514519325765,
+   "S": 175.0,
+   "E": 0.85,
+   "CAi": 0.0,
+   "CAo": 0.0,
+   "mill_tolerance": 6.0,
+   "nominal_thickness": 20.0
+  },
+  "sonuc": {
+   "http_status": 200,
+   "component_status": "FAIL",
+   "t_required": 24.27322716190642,
+   "error": null
+  },
+  "kontrol": {
+   "robustness": "OK",
+   "consistency": {
+    "status": "FAIL",
+    "utilization": 1.2911291043567243
+   },
+   "independent_ug27": {
+    "expected": 24.27322716190642,
+    "actual": 24.27322716190642,
+    "relative_error": 0.0
+   },
+   "monotonicity": "OK"
+  },
+  "durum": "GEÇTİ",
+  "durum_v2": "GEÇTİ"
+ }
+]
