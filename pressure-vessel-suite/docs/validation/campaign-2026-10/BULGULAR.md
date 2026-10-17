@@ -72,3 +72,26 @@ DÜŞÜK (emniyetli yönde, kozmetik, altyapı).
 - R02, R04, R05, R09 oracle düzeltmeleri: R04 yarım küre sapmalarını 0 yaptı, ama bunu suite'in varsayılan %12.5 sac toleransına hizalayarak yaptı. Bu kontrol hesabını suite'e uydurmak olur; bağımsız kanıt sayılmaz. R09 hâlâ 2 SAPMA bırakıyor.
 
 Tur 3 (T30–T33, toplam ~440 vaka rastgele tank taraması) koşuyor; sonuçlar gelince aynı kontrol uygulanacak.
+
+## H. Yeniden koşu sonrası durum (2026-10-17, sahip tavanı düzeltildikten sonra)
+
+Geçerli sayılar, yalnız düzeltilmiş harness ile koşulan ve sınıflandırması doğrulanan vakalardır.
+
+| Koşu | Vaka | Geçerli | Sonuç | Not |
+|---|---:|---:|---|---|
+| T30 gövde (mega_govde) | 110 | 110 | 110 GEÇTİ | Kontroller: monotonluk, tutarlılık. Gövde bağımsız t_req karşılaştırması Haiku örnekleminde 12/12 uyuştu |
+| T31 destek (mega_destek) | 110 | 110 | 110 GEÇTİ | Satır durumu kontrollerden yeniden hesaplandı (eski üretici hatalıydı) |
+| T32 nozul (mega_nozul) | 110 | 110 | 89 PASS (oran≥1), 21 FAIL (oran<1) | Kullanım oranı = mevcut/gerekli alan. Test beklentisi tersti; API tutarlı, bulgu yok |
+| T33 yük (mega_yuk) | 110 | 110 | 110 GEÇTİ | |
+| T14 etekli kolon | 30 | 30 | 30 GEÇTİ | Taban halkası sonucu API'de yok: kapsam boşluğu (aşağıda) |
+| T04 fuzz | 300 | 300 | 300 GEÇTİ | Sınıflandırma yalnız "GEÇTİ" üretiyor; bulgu kontrolü zayıf, güvenilir sayılmaz |
+| T11 yatay tank | 144 | 0 | — | Sınıflandırıcı hatalı: 216 saddle sonucunun 72'si REVIEW REQUIRED, 54'ü FAIL (sayısal), 18'i BLOCKED; hepsi "kapsam dışı" sayılmış. 216 OUT OF SCOPE gerçek kapsam dışı |
+| T01 metamorfik | 240 | 0 | — | Gözlenen değerler None; sınıflandırma yapılmamış. Yeniden yazılmalı |
+
+**Toplam geçerli (doğrulanmış sınıflandırma): 110+110+110+110+30 = 470 vaka. Ayrıca T04 300 vaka ama zayıf kontrol.**
+
+Yeni kapsam boşlukları:
+- **G-05:** Taban halkası (ring) sonucu API'de yok; etekli kolonda ring gerilmesi hesaplanmıyor (T14, 30/30 vaka).
+- **G-06:** Yatay tankta saddle sonuçlarının 216'sı OUT OF SCOPE. Hangi konfigürasyonların kapsam dışı kaldığı belgelenmeli.
+
+Açık işler: T01 ve T11 sınıflandırıcılarının yeniden yazımı; T40–T43 ve T45 Codex paketleri çıkış kodu 4 ile boş döndü (üretim yok); R04 oracle düzeltmesi bağımsız kanıt olmadığı için birleştirilmedi.
