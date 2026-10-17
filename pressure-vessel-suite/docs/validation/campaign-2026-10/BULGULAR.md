@@ -129,3 +129,7 @@ Sonuç: B-01 bağımsız rastgele örnekte deterministik olarak yeniden üretild
 - **T11 sınıflandırma kuralı:** `REVIEW REQUIRED` → SAYISAL_İNCELEME (ne GEÇTİ ne BULGU). `FAIL` → TASARIM_FAIL (sayısal yetersiz tasarım). `PASS` → GEÇTİ. `OUT OF SCOPE` / `BLOCKED CODE DATA` → KAPSAM_DIŞI. Kaynak: `tools/campaign/tur2/t11_yatay_tank_tarama/results_v2.json` (81 / 36 / 27).
 - **T42 ve T50 Codex dalları birleştirilmedi:** İkisi de T11 `results.json`/`run.py` ve `results_v2.json` dosyalarını benim sınıflandırmamla çakışacak şekilde değiştiriyor ve birbirleriyle uyuşmuyor (T42: "36 BULGU", T50: "63 GEÇTİ"). Tek kaynak olarak ana daldaki sınıflandırma kullanılır.
 - **Nozul kullanım kuralı:** `utilization_ratio` = mevcut/gerekli. PASS ⇔ oran ≥ 1. Gövde için PASS ⇔ kullanım ≤ 1.
+
+## L. Haiku tam doğrulaması (1000 satır, gövde kütle koşusu)
+
+Haiku bağımsız betikle 1000 satırın tamamını yeniden hesapladı: t_required 1000/1000 uyuştu; MAWP 359 uyuşur (CA_o=0), 641 CA_o düşülmemiş varyantla eşleşti (B-01), açıklanamayan sapma 0. Bu, şef kontrolündeki 1000 satır sonucunu bağımsız olarak doğrular. Betik ve çıktı: scratchpad `haiku_mass_tam.py` / `haiku_mass_tam.csv`.
