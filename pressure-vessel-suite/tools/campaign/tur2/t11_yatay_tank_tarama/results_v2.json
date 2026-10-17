@@ -1,0 +1,1226 @@
+[
+ {
+  "vaka": "T11-001",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "BLOCKED CODE DATA",
+   "BLOCKED CODE DATA"
+  ]
+ },
+ {
+  "vaka": "T11-002",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "BLOCKED CODE DATA",
+   "BLOCKED CODE DATA"
+  ]
+ },
+ {
+  "vaka": "T11-003",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "BLOCKED CODE DATA",
+   "BLOCKED CODE DATA"
+  ]
+ },
+ {
+  "vaka": "T11-004",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-005",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-006",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-007",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "BLOCKED CODE DATA",
+   "BLOCKED CODE DATA"
+  ]
+ },
+ {
+  "vaka": "T11-008",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "BLOCKED CODE DATA",
+   "BLOCKED CODE DATA"
+  ]
+ },
+ {
+  "vaka": "T11-009",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "BLOCKED CODE DATA",
+   "BLOCKED CODE DATA"
+  ]
+ },
+ {
+  "vaka": "T11-010",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-011",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-012",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-013",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "BLOCKED CODE DATA",
+   "BLOCKED CODE DATA"
+  ]
+ },
+ {
+  "vaka": "T11-014",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "BLOCKED CODE DATA",
+   "BLOCKED CODE DATA"
+  ]
+ },
+ {
+  "vaka": "T11-015",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "BLOCKED CODE DATA",
+   "BLOCKED CODE DATA"
+  ]
+ },
+ {
+  "vaka": "T11-016",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-017",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-018",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-019",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-020",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-021",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-022",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-023",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-024",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-025",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-026",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-027",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-028",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-029",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-030",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-031",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-032",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-033",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-034",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-035",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-036",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-037",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-038",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-039",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-040",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-041",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-042",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-043",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-044",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-045",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-046",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-047",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-048",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-049",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-050",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-051",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-052",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-053",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-054",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-055",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-056",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-057",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-058",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-059",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-060",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-061",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-062",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-063",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-064",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-065",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-066",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-067",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-068",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-069",
+  "durum_v2": "TASARIM_FAIL",
+  "saddle_durumlar": [
+   "FAIL",
+   "FAIL"
+  ]
+ },
+ {
+  "vaka": "T11-070",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-071",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-072",
+  "durum_v2": "SAYISAL_INCELEME",
+  "saddle_durumlar": [
+   "REVIEW REQUIRED",
+   "REVIEW REQUIRED"
+  ]
+ },
+ {
+  "vaka": "T11-073",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-074",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-075",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-076",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-077",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-078",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-079",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-080",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-081",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-082",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-083",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-084",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-085",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-086",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-087",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-088",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-089",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-090",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-091",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-092",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-093",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-094",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-095",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-096",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-097",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-098",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-099",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-100",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-101",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-102",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-103",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-104",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-105",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-106",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-107",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-108",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-109",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-110",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-111",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-112",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-113",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-114",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-115",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-116",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-117",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-118",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-119",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-120",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-121",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-122",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-123",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-124",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-125",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-126",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-127",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-128",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-129",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-130",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-131",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-132",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-133",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-134",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-135",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-136",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-137",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-138",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-139",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-140",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-141",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-142",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-143",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ },
+ {
+  "vaka": "T11-144",
+  "durum_v2": "KAPSAM_DIŞI",
+  "saddle_durumlar": [
+   "OUT OF SCOPE",
+   "OUT OF SCOPE",
+   "OUT OF SCOPE"
+  ]
+ }
+]

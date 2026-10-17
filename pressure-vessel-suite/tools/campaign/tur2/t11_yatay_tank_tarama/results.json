@@ -2259,10 +2259,27 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 1.7521474195667897
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 1.7521474195667897
+            }
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2287,10 +2304,27 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 0.5577258456995274
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 0.5577258456995274
+            }
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2315,10 +2349,27 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 0.5577258456995274
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 0.5577258456995274
+            }
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2343,10 +2394,27 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 0.5577258456995274
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 0.5577258456995274
+            }
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2371,10 +2439,27 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 3.7725988878958074
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 3.7725988878958074
+            }
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2399,10 +2484,27 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 3.7725988878958074
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 3.7725988878958074
+            }
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2427,10 +2529,27 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 3.7725988878958074
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 3.7725988878958074
+            }
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2455,10 +2574,27 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 1.2008555226232098
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 1.2008555226232098
+            }
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2483,10 +2619,27 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 1.2008555226232098
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 1.2008555226232098
+            }
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2511,10 +2664,27 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 1.2008555226232098
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 1.2008555226232098
+            }
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2539,10 +2709,27 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 3.7725988878958074
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 3.7725988878958074
+            }
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2567,10 +2754,27 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 3.7725988878958074
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 3.7725988878958074
+            }
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2595,10 +2799,27 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 3.7725988878958074
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 3.7725988878958074
+            }
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2623,10 +2844,27 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 1.2008555226232098
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 1.2008555226232098
+            }
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2651,10 +2889,27 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 1.2008555226232098
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 1.2008555226232098
+            }
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2679,10 +2934,27 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 1.2008555226232098
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 1.2008555226232098
+            }
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2707,10 +2979,27 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 3.7725988878958074
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 3.7725988878958074
+            }
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2735,10 +3024,27 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 3.7725988878958074
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 3.7725988878958074
+            }
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2763,10 +3069,27 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 3.7725988878958074
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 3.7725988878958074
+            }
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2791,10 +3114,27 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 1.2008555226232098
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 1.2008555226232098
+            }
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2819,10 +3159,27 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 1.2008555226232098
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 1.2008555226232098
+            }
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2847,10 +3204,27 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 1.2008555226232098
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.7598523155898272,
+              "S1_saddle": 1.2008555226232098
+            }
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2875,10 +3249,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2903,10 +3293,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2931,10 +3337,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2959,10 +3381,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -2987,10 +3425,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3015,10 +3469,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3043,10 +3513,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3071,10 +3557,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3099,10 +3601,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3127,10 +3645,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3155,10 +3689,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3183,10 +3733,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3211,10 +3777,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3239,10 +3821,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3267,10 +3865,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3295,10 +3909,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3323,10 +3953,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3351,10 +3997,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3379,10 +4041,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3407,10 +4085,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3435,10 +4129,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3463,10 +4173,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3491,10 +4217,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3519,10 +4261,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3547,10 +4305,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3575,10 +4349,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3603,10 +4393,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3631,10 +4437,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3659,10 +4481,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3687,10 +4525,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3715,10 +4569,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3743,10 +4613,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3771,10 +4657,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3799,10 +4701,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3827,10 +4745,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3855,10 +4789,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3883,10 +4833,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3911,10 +4877,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3939,10 +4921,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3967,10 +4965,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -3995,10 +5009,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4023,10 +5053,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4051,10 +5097,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4079,10 +5141,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4107,10 +5185,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4135,10 +5229,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4163,10 +5273,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4191,10 +5317,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4219,10 +5361,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4247,10 +5405,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4275,10 +5449,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4303,10 +5493,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4331,10 +5537,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4359,10 +5581,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4387,10 +5625,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4415,10 +5669,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4443,10 +5713,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4471,10 +5757,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4499,10 +5801,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4527,10 +5845,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4555,10 +5889,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4583,10 +5933,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4611,10 +5977,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4639,10 +6021,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4667,10 +6065,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4695,10 +6109,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4723,10 +6153,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4751,10 +6197,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4779,10 +6241,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4807,10 +6285,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4835,10 +6329,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     },
@@ -4863,10 +6373,26 @@
         "ring_compression": "compressive around saddle contact"
       },
       "gozlenen": {
-        "api_ok": false,
-        "http_status": 429,
-        "support_results": [],
-        "hata": "{\"detail\":\"Project limit reached\"}"
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          },
+          {
+            "support_id": "SAD-3",
+            "status": "OUT OF SCOPE",
+            "stresses_MPa": {}
+          }
+        ],
+        "hata": null
       },
       "sonuc": "KAPSAM_DIŞI"
     }

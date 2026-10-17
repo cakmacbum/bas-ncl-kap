@@ -19,8 +19,11 @@ def extract(payload, component, relation):
     rows = [r for r in rows if r.get("component_type") == kind and r.get("calculation_type") in ("thickness", "mawp")]
     wanted = "mawp" if relation == RELATIONS[4] else "thickness"
     rows = [r for r in rows if r.get("calculation_type") == wanted]
-    key = "mawp" if wanted == "mawp" else "required_thickness"
-    return value_of(rows[0], key) if rows else None
+    if not rows:
+        return None
+    if wanted == "mawp":
+        return rows[0].get("final_result")
+    return value_of(rows[0], "t_required")
 
 def main():
     records = []
@@ -44,7 +47,7 @@ def main():
                         "intermediate_names":[v.get("name") for v in x.get("intermediate_values",[])]}
                         for x in (response.get("payload") or {}).get("results",[])],
                     "result":"KAPSAM_DIŞI" if observed is None or not response.get("ok") else "GEÇTİ"})
-            increasing = relation in (RELATIONS[0], RELATIONS[2], RELATIONS[3], RELATIONS[4])
+            increasing = relation in (RELATIONS[0], RELATIONS[2], RELATIONS[3], RELATIONS[4], RELATIONS[5])  # sıcaklık↑ → S↓ → t_required↑
             # CA drives a larger nominal required thickness; all sampled values must be available.
             for idx, rec in enumerate(records[-5:-1]):
                 a,b=samples[idx:idx+2]
