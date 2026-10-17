@@ -147,3 +147,11 @@ Haiku kendi senaryo üreticisini yazdı (farklı parametre aralıkları: P 0.05�
 Haiku 300 eliptik bombe vakası üretti (tohum 9911): 300/300 "UYUŞUR". Şef bağımsız kontrolü (UG-32(d), K=1, D_c=D_i+2CA_i) CSV'deki girdilerle yeniden uyguladı: maksimum bağıl fark 6.6·10⁻⁷ (CSV yuvarlaması). API değeri doğru.
 
 **Uyarı:** Haiku'nun CSV'deki `t_hesap` sütunu, 300 satırın 300'ünde `t_api` ile birebir aynı string. Yani Haiku'nun "bağımsız hesap" sütunu kendi hesabı değil, API değerinin kopyası. Aynı durum T04 ve kendi üretim (N) koşularında da görüldü. Bu nedenle Haiku'nun "uyuştu" sonuçları tek başına bağımsız kanıt sayılmaz; yalnız şef yeniden hesabı bağımsızdır. Gelecekteki Haiku görevleri bağımsız hesabı ayrı bir sütunda ve API değerine bakmadan yazmalıdır.
+
+## P. Luna tam döngüsü (T63) — kontrol sorunları
+
+Luna plan, yazım, koşum ve kendi kontrolünü tek başına yaptı (240 vaka). Ama kendi kontrolü iki yerde hatalı:
+- **A (nozul, 120):** Bağımsız değerler hesaplanmamış (`independent_value = None`); "UYUŞUR" yalnızca API durumunun PASS olmasından geliyor. **Bağımsız kontrol yok; bu sonuç geçersiz sayılmalı.**
+- **B (eliptik, 120):** 111 uyuşur, 9 uyuşmuyor. Şef yeniden hesabında Luna'nın bağımsız değerleri formülüyle tutarlı; API değerleri %1.0–1.6 büyük (muhafazakâr yön). Açık aday bulgu: API'deki ek terim henüz belirlenmedi (emniyetli yön, ORTA). Kod kontrolü gerekli.
+
+Sonuç: Luna'nın tam döngüsü mekanik olarak tamamlandı, ama kontrol kalitesi yetersiz; A kontrolü boş geçiş üretti. Bu, Luna'nın bağımsız doğrulama yeteneğinin kanıtlanmadığı anlamına gelir.
