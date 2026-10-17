@@ -323,3 +323,47 @@ class TestReportGenerator:
         assert result.success
         assert result.pdf_path is not None
         # PDF dosyası var mı kontrol et (geçici dosya)
+
+
+# ── Koni raporu (B-11) ────────────────────────────────────────────────────────
+
+class TestReportCone:
+    """Koni içeren projede koni geometri ve hesap sonuçları raporda görünmeli."""
+
+    @pytest.fixture
+    def cone_project(self, full_project):
+        from domain import Cone
+        cone = Cone(
+            cone_id="CONE-01",
+            large_diameter=1000.0,
+            small_diameter=600.0,
+            half_apex_angle=25.0,
+            length=429.0,
+            nominal_thickness=12.0,
+            material_id="MAT-01",
+            internal_corrosion_allowance=2.0,
+        )
+        return full_project.model_copy(update={"cones": [cone]})
+
+    def _html(self, project):
+        code = ASMEVIII1DesignCode(edition="2025")
+        res = CalculationOrchestrator(code).run(project)
+        gen = ReportGenerator()
+        return res, gen.generate(project, res, calculate_vessel_volume_mass(project)).html_content
+
+    def test_cone_geometry_and_results_visible(self, cone_project):
+        res, html = self._html(cone_project)
+        assert "Koni Bölümleri" in html
+        assert "CONE-01" in html
+        assert "Koni Hesapları" in html
+        thk = [r for r in res.results
+               if r.component_type == "cone" and r.calculation_type == "thickness"]
+        assert thk, "orkestra koni kalınlık sonucu üretmedi"
+        for r in thk:
+            assert f"{r.final_result:.2f} {r.final_result_unit}" in html
+            assert r.status.value in html
+
+    def test_no_cone_section_without_cones(self, full_project, calc_result, volume_mass):
+        html = ReportGenerator().generate(full_project, calc_result, volume_mass).html_content
+        assert "Koni Bölümleri" not in html
+        assert "Koni Hesapları" not in html

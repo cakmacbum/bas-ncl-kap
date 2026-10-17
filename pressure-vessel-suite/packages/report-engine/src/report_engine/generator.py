@@ -99,6 +99,7 @@ class ReportGenerator:
         sections.append(self._section_geometry(project))
         sections.append(self._section_shell_calculations(calc_result))
         sections.append(self._section_head_calculations(calc_result))
+        sections.append(self._section_cone_calculations(calc_result))
         sections.append(self._section_nozzle_calculations(calc_result))
         sections.append(self._section_welds(project))
         sections.append(self._section_mawp(calc_result))
@@ -355,6 +356,22 @@ PED değerlendirmesi için projeyi PED sınıflandırma motoruyla çalıştırı
 <tr><td>{h.head_id}</td><td>{h.type.value}</td><td>{h.inside_diameter}</td>
 <td>{h.nominal_thickness}</td><td>{h.straight_flange_length}</td></tr>"""
 
+        cone_block = ""
+        if project.cones:
+            cone_rows = ""
+            for c in project.cones:
+                cone_rows += f"""
+<tr><td>{c.cone_id}</td><td>{c.large_diameter}</td><td>{c.small_diameter}</td>
+<td>{c.half_apex_angle}</td><td>{c.length}</td>
+<td>{c.nominal_thickness}</td><td>{c.internal_corrosion_allowance}</td></tr>"""
+            cone_block = f"""
+<h3>Koni Bölümleri</h3>
+<table>
+<tr><th>ID</th><th>Büyük Çap (mm)</th><th>Küçük Çap (mm)</th><th>Yarı Tepe Açısı (°)</th>
+<th>Uzunluk (mm)</th><th>Kalınlık (mm)</th><th>Korozyon Payı (mm)</th></tr>
+{cone_rows}
+</table>"""
+
         return f"""
 <div class="section">
 <h2>8. Ana Geometri</h2>
@@ -368,7 +385,7 @@ PED değerlendirmesi için projeyi PED sınıflandırma motoruyla çalıştırı
 <table>
 <tr><th>ID</th><th>Tip</th><th>İç Çap (mm)</th><th>Kalınlık (mm)</th><th>Düz Flanş (mm)</th></tr>
 {head_rows}
-</table>
+</table>{cone_block}
 </div>"""
 
     def _section_shell_calculations(self, calc_result: OrchestratorResult) -> str:
@@ -408,6 +425,45 @@ PED değerlendirmesi için projeyi PED sınıflandırma motoruyla çalıştırı
 <h2>10. Bombe Hesapları</h2>
 <table>
 <tr><th>Bileşen</th><th>Madde Ref.</th><th>Gerekli Kalınlık</th>
+<th>Seçilen Kalınlık</th><th>Kullanım</th><th>Durum</th></tr>
+{rows}
+</table>
+</div>"""
+
+    def _section_cone_calculations(self, calc_result: OrchestratorResult) -> str:
+        """Koni hesapları (kalınlık + MAWP). Koni sonucu yoksa bölüm eklenmez."""
+        cone_results = [r for r in calc_result.results if r.component_type == "cone"]
+        if not cone_results:
+            return ""
+
+        def _num(value, fmt: str) -> str:
+            return format(value, fmt) if isinstance(value, (int, float)) else "—"
+
+        rows = ""
+        for r in cone_results:
+            if r.calculation_type not in ("thickness", "mawp"):
+                continue
+            status_class = self._status_class(r.status.value)
+            unit = r.final_result_unit or ""
+            if r.calculation_type == "thickness":
+                util = (f"{r.utilization_ratio*100:.1f}%"
+                        if isinstance(r.utilization_ratio, (int, float)) else "—")
+                rows += f"""
+<tr><td>{r.component_id}</td><td>Kalınlık</td><td>{r.clause_reference}</td>
+<td>{_num(r.final_result, '.2f')} {unit}</td>
+<td>{_num(r.allowable_limit, '.2f')} {r.allowable_limit_unit or ''}</td>
+<td>{util}</td>
+<td class="{status_class}">{r.status.value}</td></tr>"""
+            else:
+                rows += f"""
+<tr><td>{r.component_id}</td><td>MAWP</td><td>{r.clause_reference}</td>
+<td>{_num(r.final_result, '.3f')} {unit}</td><td>—</td><td>—</td>
+<td class="{status_class}">{r.status.value}</td></tr>"""
+        return f"""
+<div class="section">
+<h2>10A. Koni Hesapları</h2>
+<table>
+<tr><th>Bileşen</th><th>Hesap</th><th>Madde Ref.</th><th>Sonuç (Gerekli Kalınlık / MAWP)</th>
 <th>Seçilen Kalınlık</th><th>Kullanım</th><th>Durum</th></tr>
 {rows}
 </table>
