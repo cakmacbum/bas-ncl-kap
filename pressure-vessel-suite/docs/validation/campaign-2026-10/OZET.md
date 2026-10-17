@@ -11,7 +11,7 @@ Toplam vaka: 1302
 | F03-bombe-torisferik | 93 | 0 | 0 | 0 | 3 | 0 | 96 |
 | F04-bombe-yarimkure | 34 | 0 | 34 | 0 | 0 | 2 | 70 |
 | F05-duz_kapak_ug34 | 27 | 0 | 5 | 0 | 0 | 2 | 34 |
-| F06-koni | 20 | 12 | 0 | 0 | 0 | 16 | 48 |
+| F06-koni | 20 | 12 | 0 | 0 | 0 | 0 | 32 |
 | F07-mawp_statik_kafa | 28 | 0 | 0 | 1 | 0 | 1 | 30 |
 | F08-test-basinci | 30 | 0 | 0 | 1 | 0 | 2 | 33 |
 | F09-nozul-takviye | 0 | 0 | 30 | 0 | 0 | 2 | 32 |
@@ -27,7 +27,7 @@ Toplam vaka: 1302
 | F19-en13445_capraz | 26 | 0 | 0 | 0 | 0 | 4 | 30 |
 | F20-uctan_uca | 90 | 0 | 0 | 0 | 0 | 0 | 90 |
 | F21-flans_app2 | 60 | 0 | 0 | 0 | 16 | 0 | 76 |
-| **Toplam** | 893 | 40 | 80 | 6 | 155 | 128 | 1302 |
+| **Toplam** | 893 | 40 | 80 | 6 | 155 | 112 | 1286 |
 
 ## SAPMA aileleri
 
@@ -39,7 +39,38 @@ Toplam vaka: 1302
 
 ## KAPSAM_DIŞI nedenleri
 
-FNN-*.md raporları bu çalışma ağacında bulunamadı; nedenler aile bazında derlenemedi.
+| Aile | Neden |
+|---|---|
+| F01-govde_ug27 | Oracle kıyaslarında: **75 DOĞRULANDI, 9 SAPMA, 12 KAPSAM_DIŞI**.; 1-2 kalın cidar karşılaştırması bağımsız kaynak bulgusu olmadığından bu koşullar KAPSAM_DIŞI bırakıldı; formül doğrulaması iddia edilmedi.; `invalid-p-29`, `invalid-d-30`, `invalid-s-31`, `missing-mat-32` ile formül paydası/uygulanabilirliği başarısız olan köşe durumları API’de BLOCKED/NOT CALCULATED oldu ve KAPSAM_DIŞI tutuldu.; 1-2 için bu kampanyada bağımsız yayınlanmış sayısal vaka bulunmadığından sonuçlar KAPSAM_DIŞI olarak işaretlendi. |
+| F02-bombe_eliptik | Etiket dağılımı: **DOĞRULANDI 58 · FORMÜLASYON_FARKI 0 · SAPMA 2 · TEK_KAYNAK 0 · KAYNAK_BEKLİYOR 0 · KAPSAM_DIŞI 2**.; API bu başlık için karşılaştırılabilir UG-32(d) kalınlık ve MAWP satırı döndürmedi; her iki ölçüm `KAPSAM_DIŞI` olarak kaydedildi. |
+| F03-bombe_torisferik | Etiket dağılımı: DOĞRULANDI 93; KAYNAK_BEKLİYOR 3; FORMÜLASYON_FARKI 0; SAPMA 0; TEK_KAYNAK 0; KAPSAM_DIŞI 0.; Bu, eksik girdinin bloke edilmesi sözleşmesine sapmadır; üç sayısal kıyas kaynak olmadığı için KAYNAK_BEKLİYOR olarak bırakıldı, KAPSAM_DIŞI sayılmadı. |
+| F04-bombe_yarimkure | Etiket dağılımı: DOĞRULANDI 34, SAPMA 34, KAPSAM_DIŞI 2.; `invalid-zero-pressure`: API HTTP isteğini `design_pressure > 0` doğrulamasında reddetti; suite hesabı oluşmadı ve iki büyüklük KAPSAM_DIŞI olarak kaydedildi. |
+| F05-duz_kapak_ug34 | 34 vaka: **27 DOĞRULANDI**, **5 SAPMA**, **2 KAPSAM_DIŞI**.; \| INVALID-NEGATIVE-P \| KAPSAM_DIŞI \| Negatif tasarım basıncı geçersiz girdi; hesap sonucu üretilmedi.; \| BLOCKED-MISSING-C \| KAPSAM_DIŞI \| UG-34 bağlantı katsayısı C eksik; API `BLOCKED MISSING INPUT` döndürdü. |
+| F06-koni | 48 kayıt: 20 DOĞRULANDI, 12 FORMÜLASYON_FARKI, 0 SAPMA, 0 TEK_KAYNAK, 0 KAYNAK_BEKLİYOR, 16 KAPSAM_DIŞI.; 16 junction vakası `KAPSAM_DIŞI`: katalog `junction_check` için sonuçların topoloji/girdi incelemesi olduğunu, sayısal yeterlilik üretmediğini belirtir. |
+| F07-mawp_statik_kafa | Etiket dağılımı: DOĞRULANDI 28, FORMÜLASYON_FARKI 0, SAPMA 0, TEK_KAYNAK 1, KAYNAK_BEKLİYOR 0, KAPSAM_DIŞI 1.; \| INVALID-NO-MATERIAL \| KAPSAM_DIŞI \| Malzeme kaldırılınca API `NOT CALCULATED` döndürdü; sayısal referans üretilemez. |
+| F08-test_basinci | 33 sonuç satırı: **DOĞRULANDI 30**, **FORMÜLASYON_FARKI 0**, **SAPMA 0**, **TEK_KAYNAK 1**, **KAYNAK_BEKLİYOR 0**, **KAPSAM_DIŞI 2**.; \| INVALID-ZERO-PS/hydrotest ve pneumatic_test \| KAPSAM_DIŞI \| PS sıfır; domain `gt=0` doğrulaması isteği reddetti/sonuç üretmedi. |
+| F09-nozul_takviye | Toplam 32 vaka: 0 DOĞRULANDI, 0 FORMÜLASYON_FARKI, 30 SAPMA, 0 KAPSAM_DIŞI. |
+| F10-nozul_yerlesim | Etiket dağılımı: KAPSAM_DIŞI 30; DOĞRULANDI / FORMÜLASYON_FARKI / SAPMA 0.; Bu nedenle konum/çakışma nicelikleri için kıyas KAPSAM_DIŞI. |
+| F11-dis_basinc | `results.json` etiket dağılımı: DOĞRULANDI 32; FORMÜLASYON_FARKI 0; SAPMA 0; TEK_KAYNAK 0; KAYNAK_BEKLİYOR 0; KAPSAM_DIŞI 0. |
+| F12-mdmt | Etiket dağılımı: KAPSAM_DIŞI=3, KAYNAK_BEKLİYOR=136 |
+| F13-saddle_zick | \| KAPSAM_DIŞI \| 46 \| |
+| F14-etek_skirt | Etiket dağılımı: DOĞRULANDI 34 · FORMÜLASYON_FARKI 28 · SAPMA 0 · TEK_KAYNAK 0 · KAYNAK_BEKLİYOR 0 · KAPSAM_DIŞI 4.; \| MISSING-B \| BLOCKED → KAPSAM_DIŞI (2 nicelik) \| `skirt_allowable_compressive_MPa` eksik; B değeri standarttan tahmin edilmedi.; \| INVALID-THICKNESS \| HTTP 422 → KAPSAM_DIŞI (2 nicelik) \| Sıfır etek kalınlığı girdi kısıtını ihlal ediyor. |
+| F15-ayak_govde | İki yayın vakası `KAPSAM_DIŞI`; sayısal kıyas toplamı 84 olup hedef 20'yi aşar.; \| KAPSAM_DIŞI \| 2 \|; Yukarıdaki K3-13 ve K3-14 API örnek projeleri yürütüldü ancak beklenen `W_total`, `N_max`, `A_leg`, `P_base` değerlerinin tümü gelmedi; bu sebeple sayısal kayıt uydurulmadı ve `KAPSAM_DIŞI` bırakıldı. |
+| F16-ayak_bombe_taban_ankraj | Her projede doğru `base_plate_check` sonucu içinden `t_required` ve `bearing_pressure_q` ara değerleri çekildi; toplam 60 sayısal kıyasın dağılımı: DOĞRULANDI 60, FORMÜLASYON_FARKI 0, SAPMA 0, TEK_KAYNAK 0, KAYNAK_BEKLİYOR 0, KAPSAM_DIŞI 0. |
+| F17-lokal_kaynak | 25 vaka koşturuldu: 24 `DOĞRULANDI`, 1 `TEK_KAYNAK`; `FORMÜLASYON_FARKI`, `SAPMA`, `KAYNAK_BEKLİYOR` ve `KAPSAM_DIŞI`: 0. |
+| F18-ruzgar_deprem | Etiket dağılımı: **DOĞRULANDI 36 · FORMÜLASYON_FARKI 0 · SAPMA 0 · TEK_KAYNAK 1 · KAYNAK_BEKLİYOR 0 · KAPSAM_DIŞI 0**. |
+| F19-en13445_capraz | Yeni dağılım: **26 DOĞRULANDI, 0 FORMÜLASYON_FARKI, 0 SAPMA, 0 TEK_KAYNAK, 0 KAYNAK_BEKLİYOR, 4 KAPSAM_DIŞI**.; 4 vaka `KAPSAM_DIŞI`: sıfır tasarım basınçlı iki varyant zorunlu pozitif basınç girdisini sağlamıyor; eksik akma/izin verilebilir dayanım girdili iki varyantta sayısal kıyas yok. |
+| F20-uctan_uca | Etiket dağılımı: DOĞRULANDI 90, FORMÜLASYON_FARKI 0, SAPMA 0, TEK_KAYNAK 0, KAYNAK_BEKLİYOR 0, KAPSAM_DIŞI 0 |
+| F21-flans_app2 | \| KAPSAM_DIŞI \| 0 \| |
+
+## Teyit
+
+| Aile | Hüküm |
+|---|---|
+| V02-f02_bombe_eliptik | suite_hatası=0 (emniyetsiz=0) · oracle_hatası=1 · formülasyon=0 |
+| V04-f04_bombe_yarimkure | HÜKÜM satırı bulunamadı. |
+| V05-f05_duz_kapak_ug34 | suite_hatası=1 (emniyetsiz=1) · oracle_hatası=0 · formülasyon=0 |
+| V09-f09_nozul_takviye | suite_hatasi=0 (emniyetsiz=0) · oracle_hatasi=1 · formulasyon=0 |
 
 ## P00c bağlanmamış hesap yolları
 
@@ -415,52 +446,52 @@ P00c raporundaki desteklenmeyen veya normal akışta üretilemeyen yollar:
 | F05-duz_kapak_ug34 | PUBLISHED-K1-05 | required_thickness | 19.27724461638644 | 19.27606 | 0.006145531744760468 | DOĞRULANDI |
 | F06-koni | GRID-01 | required_thickness | 2.082829832022715 | 2.082829832022715 | 0.0 | DOĞRULANDI |
 | F06-koni | GRID-01-MAWP | mawp | 3.4396410013076393 | 3.4655546181705312 | -0.7477480437625239 | DOĞRULANDI |
-| F06-koni | GRID-01-APP15 | junction_check | None | None | None | KAPSAM_DIŞI |
+| F06-koni | GRID-01-APP15 | junction_check | None | None | None | KAPSAM_DIÅI |
 | F06-koni | GRID-02 | required_thickness | 5.325961643661609 | 4.174754990822821 | 27.57543030356115 | FORMÜLASYON_FARKI |
 | F06-koni | GRID-02-MAWP | mawp | 3.1662937314240613 | 3.1945713653786654 | -0.8851777193355068 | DOĞRULANDI |
-| F06-koni | GRID-02-APP15 | junction_check | None | None | None | KAPSAM_DIŞI |
+| F06-koni | GRID-02-APP15 | junction_check | None | None | None | KAPSAM_DIÅI |
 | F06-koni | GRID-03 | required_thickness | 10.705389447732001 | 8.386130639459877 | 27.655886939790154 | FORMÜLASYON_FARKI |
 | F06-koni | GRID-03-MAWP | mawp | 2.8933790499255254 | 2.923266228721933 | -1.0223899042364775 | FORMÜLASYON_FARKI |
-| F06-koni | GRID-03-APP15 | junction_check | None | None | None | KAPSAM_DIŞI |
+| F06-koni | GRID-03-APP15 | junction_check | None | None | None | KAPSAM_DIÅI |
 | F06-koni | GRID-04 | required_thickness | 2.148098724784901 | 2.148098724784901 | 0.0 | DOĞRULANDI |
 | F06-koni | GRID-04-MAWP | mawp | 3.336645418095034 | 3.361024870780235 | -0.7253576995858866 | DOĞRULANDI |
-| F06-koni | GRID-04-APP15 | junction_check | None | None | None | KAPSAM_DIŞI |
+| F06-koni | GRID-04-APP15 | junction_check | None | None | None | KAPSAM_DIÅI |
 | F06-koni | GRID-05 | required_thickness | 5.457046091789991 | 4.305577793346155 | 26.7436417064236 | FORMÜLASYON_FARKI |
 | F06-koni | GRID-05-MAWP | mawp | 3.0713722166623927 | 3.0981596792664985 | -0.8646249831270105 | DOĞRULANDI |
-| F06-koni | GRID-05-APP15 | junction_check | None | None | None | KAPSAM_DIŞI |
+| F06-koni | GRID-05-APP15 | junction_check | None | None | None | KAPSAM_DIÅI |
 | F06-koni | GRID-06 | required_thickness | 10.969233793915818 | 8.648923812949732 | 26.82773060726892 | FORMÜLASYON_FARKI |
 | F06-koni | GRID-06-MAWP | mawp | 2.806537946306842 | 2.8349916756317737 | -1.00366182975091 | FORMÜLASYON_FARKI |
-| F06-koni | GRID-06-APP15 | junction_check | None | None | None | KAPSAM_DIŞI |
+| F06-koni | GRID-06-APP15 | junction_check | None | None | None | KAPSAM_DIÅI |
 | F06-koni | GRID-07 | required_thickness | 2.3958928070946186 | 2.3958928070946186 | 0.0 | DOĞRULANDI |
 | F06-koni | GRID-07-MAWP | mawp | 2.9960497008299614 | 3.0156913555770744 | -0.6513151523543237 | DOĞRULANDI |
-| F06-koni | GRID-07-APP15 | junction_check | None | None | None | KAPSAM_DIŞI |
+| F06-koni | GRID-07-APP15 | junction_check | None | None | None | KAPSAM_DIÅI |
 | F06-koni | GRID-08 | required_thickness | 5.954709667107548 | 4.8022480281940165 | 23.998378095996394 | FORMÜLASYON_FARKI |
 | F06-koni | GRID-08-MAWP | mawp | 2.757525440375383 | 2.7796702333464345 | -0.7966697885738554 | DOĞRULANDI |
-| F06-koni | GRID-08-APP15 | junction_check | None | None | None | KAPSAM_DIŞI |
+| F06-koni | GRID-08-APP15 | junction_check | None | None | None | KAPSAM_DIÅI |
 | F06-koni | GRID-09 | required_thickness | 11.970921808962142 | 9.646621039091489 | 24.094455047542265 | FORMÜLASYON_FARKI |
 | F06-koni | GRID-09-MAWP | mawp | 2.5194526869168783 | 2.5434051869603653 | -0.9417492803068775 | DOĞRULANDI |
-| F06-koni | GRID-09-APP15 | junction_check | None | None | None | KAPSAM_DIŞI |
+| F06-koni | GRID-09-APP15 | junction_check | None | None | None | KAPSAM_DIÅI |
 | F06-koni | GRID-10 | required_thickness | 2.9343574278931324 | 2.9343574278931324 | 0.0 | DOĞRULANDI |
 | F06-koni | GRID-10-MAWP | mawp | 2.452125827844923 | 2.4652674495527354 | -0.5330708321402065 | DOĞRULANDI |
-| F06-koni | GRID-10-APP15 | junction_check | None | None | None | KAPSAM_DIŞI |
+| F06-koni | GRID-10-APP15 | junction_check | None | None | None | KAPSAM_DIÅI |
 | F06-koni | GRID-11 | required_thickness | 7.036148843825498 | 5.881528643680993 | 19.63129434700633 | FORMÜLASYON_FARKI |
 | F06-koni | GRID-11-MAWP | mawp | 2.256474488322719 | 2.272110711069942 | -0.6881804953887991 | DOĞRULANDI |
-| F06-koni | GRID-11-APP15 | junction_check | None | None | None | KAPSAM_DIŞI |
+| F06-koni | GRID-11-APP15 | junction_check | None | None | None | KAPSAM_DIÅI |
 | F06-koni | GRID-12 | required_thickness | 14.147622528175333 | 11.814649643885504 | 19.74644153326395 | FORMÜLASYON_FARKI |
 | F06-koni | GRID-12-MAWP | mawp | 2.0612679057375405 | 2.078790814336972 | -0.842937561517975 | DOĞRULANDI |
-| F06-koni | GRID-12-APP15 | junction_check | None | None | None | KAPSAM_DIŞI |
+| F06-koni | GRID-12-APP15 | junction_check | None | None | None | KAPSAM_DIÅI |
 | F06-koni | GRID-13 | required_thickness | 4.1498080713766985 | 4.1498080713766985 | 0.0 | DOĞRULANDI |
 | F06-koni | GRID-13-MAWP | mawp | 1.7393461820924558 | 1.7459479383548684 | -0.3781187352374952 | DOĞRULANDI |
-| F06-koni | GRID-13-APP15 | junction_check | None | None | None | KAPSAM_DIŞI |
+| F06-koni | GRID-13-APP15 | junction_check | None | None | None | KAPSAM_DIÅI |
 | F06-koni | GRID-14 | required_thickness | 9.477230193387397 | 8.317737575379494 | 13.940000000000015 | FORMÜLASYON_FARKI |
 | F06-koni | GRID-14-MAWP | mawp | 1.6001664981863593 | 1.6089525764566373 | -0.5460744088323222 | DOĞRULANDI |
-| F06-koni | GRID-14-APP15 | junction_check | None | None | None | KAPSAM_DIŞI |
+| F06-koni | GRID-14-APP15 | junction_check | None | None | None | KAPSAM_DIÅI |
 | F06-koni | GRID-15 | required_thickness | 19.0609857978279 | 16.708437761069337 | 14.08 | FORMÜLASYON_FARKI |
 | F06-koni | GRID-15-MAWP | mawp | 1.4613724985649534 | 1.4718752803500763 | -0.713564656281533 | DOĞRULANDI |
-| F06-koni | GRID-15-APP15 | junction_check | None | None | None | KAPSAM_DIŞI |
+| F06-koni | GRID-15-APP15 | junction_check | None | None | None | KAPSAM_DIÅI |
 | F06-koni | GRID-16 | required_thickness | 6.3842863961925564 | 6.3842863961925564 | 0.0 | DOĞRULANDI |
 | F06-koni | GRID-16-MAWP | mawp | 3.1259205382664015 | 3.1473080050779747 | -0.6795479431014043 | DOĞRULANDI |
-| F06-koni | GRID-16-APP15 | junction_check | None | None | None | KAPSAM_DIŞI |
+| F06-koni | GRID-16-APP15 | junction_check | None | None | None | KAPSAM_DIÅI |
 | F07-mawp_statik_kafa | V-P1 | global_mawp | 1.7098156081206928 | 1.7098156081206928 | 0.0 | DOĞRULANDI |
 | F07-mawp_statik_kafa | V-P2 | global_mawp | 1.7098156081206928 | 1.7098156081206928 | 0.0 | DOĞRULANDI |
 | F07-mawp_statik_kafa | V-P3 | global_mawp | 1.7098156081206928 | 1.7098156081206928 | 0.0 | DOĞRULANDI |
@@ -1355,7 +1386,3 @@ P00c raporundaki desteklenmeyen veya normal akışta üretilemeyen yollar:
 | F21-flans_app2 | K2-13 | SH | None | 19821 | None | KAYNAK_BEKLİYOR |
 | F21-flans_app2 | K2-13 | SR | None | 1180 | None | KAYNAK_BEKLİYOR |
 | F21-flans_app2 | K2-13 | ST | None | 8884 | None | KAYNAK_BEKLİYOR |
-
-## Regresyon testi
-
-python -m pytest tests -q -x --basetemp $env:TEMP/pv-p10 � 116 ge�ti, 1 kald� (935 topland�; ilk hata: tests/campaign/test_examples.py::test_each_example_reaches_its_calculation_type, Missing or invalid X-Client-Id).

@@ -361,52 +361,52 @@ F05-duz_kapak_ug34,BLOCKED-MISSING-C,required_thickness,mm,,,,KAPSAM_DIŞI,oracl
 F05-duz_kapak_ug34,PUBLISHED-K1-05,required_thickness,mm,19.27724461638644,19.27606,0.006145531744760468,DOĞRULANDI,"K1-05 Codeware COMPRESS Demo Vessel, 2022, pp. 16-17",Published output has C=.2 and zero corrosion allowance.
 F06-koni,GRID-01,required_thickness,mm,2.082829832022715,2.082829832022715,0.0,DOĞRULANDI,oracle,UG-32(g); koni MAWP oracle: 3.46555 MPa; App 1-5 Q/area oracle unavailable.
 F06-koni,GRID-01-MAWP,mawp,MPa,3.4396410013076393,3.4655546181705312,-0.7477480437625239,DOĞRULANDI,oracle,Nominal thickness based UG-32(g) pressure inversion.
-F06-koni,GRID-01-APP15,junction_check,status,,,,KAPSAM_DIŞI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
+F06-koni,GRID-01-APP15,junction_check,status,,,,KAPSAM_DIÅI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
 F06-koni,GRID-02,required_thickness,mm,5.325961643661609,4.174754990822821,27.57543030356115,FORMÜLASYON_FARKI,oracle,UG-32(g); koni MAWP oracle: 3.46555 MPa; App 1-5 Q/area oracle unavailable.
 F06-koni,GRID-02-MAWP,mawp,MPa,3.1662937314240613,3.1945713653786654,-0.8851777193355068,DOĞRULANDI,oracle,Nominal thickness based UG-32(g) pressure inversion.
-F06-koni,GRID-02-APP15,junction_check,status,,,,KAPSAM_DIŞI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
+F06-koni,GRID-02-APP15,junction_check,status,,,,KAPSAM_DIÅI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
 F06-koni,GRID-03,required_thickness,mm,10.705389447732001,8.386130639459877,27.655886939790154,FORMÜLASYON_FARKI,oracle,UG-32(g); koni MAWP oracle: 3.46555 MPa; App 1-5 Q/area oracle unavailable.
 F06-koni,GRID-03-MAWP,mawp,MPa,2.8933790499255254,2.923266228721933,-1.0223899042364775,FORMÜLASYON_FARKI,oracle,Nominal thickness based UG-32(g) pressure inversion.
-F06-koni,GRID-03-APP15,junction_check,status,,,,KAPSAM_DIŞI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
+F06-koni,GRID-03-APP15,junction_check,status,,,,KAPSAM_DIÅI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
 F06-koni,GRID-04,required_thickness,mm,2.148098724784901,2.148098724784901,0.0,DOĞRULANDI,oracle,UG-32(g); koni MAWP oracle: 3.36102 MPa; App 1-5 Q/area oracle unavailable.
 F06-koni,GRID-04-MAWP,mawp,MPa,3.336645418095034,3.361024870780235,-0.7253576995858866,DOĞRULANDI,oracle,Nominal thickness based UG-32(g) pressure inversion.
-F06-koni,GRID-04-APP15,junction_check,status,,,,KAPSAM_DIŞI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
+F06-koni,GRID-04-APP15,junction_check,status,,,,KAPSAM_DIÅI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
 F06-koni,GRID-05,required_thickness,mm,5.457046091789991,4.305577793346155,26.7436417064236,FORMÜLASYON_FARKI,oracle,UG-32(g); koni MAWP oracle: 3.36102 MPa; App 1-5 Q/area oracle unavailable.
 F06-koni,GRID-05-MAWP,mawp,MPa,3.0713722166623927,3.0981596792664985,-0.8646249831270105,DOĞRULANDI,oracle,Nominal thickness based UG-32(g) pressure inversion.
-F06-koni,GRID-05-APP15,junction_check,status,,,,KAPSAM_DIŞI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
+F06-koni,GRID-05-APP15,junction_check,status,,,,KAPSAM_DIÅI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
 F06-koni,GRID-06,required_thickness,mm,10.969233793915818,8.648923812949732,26.82773060726892,FORMÜLASYON_FARKI,oracle,UG-32(g); koni MAWP oracle: 3.36102 MPa; App 1-5 Q/area oracle unavailable.
 F06-koni,GRID-06-MAWP,mawp,MPa,2.806537946306842,2.8349916756317737,-1.00366182975091,FORMÜLASYON_FARKI,oracle,Nominal thickness based UG-32(g) pressure inversion.
-F06-koni,GRID-06-APP15,junction_check,status,,,,KAPSAM_DIŞI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
+F06-koni,GRID-06-APP15,junction_check,status,,,,KAPSAM_DIÅI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
 F06-koni,GRID-07,required_thickness,mm,2.3958928070946186,2.3958928070946186,0.0,DOĞRULANDI,oracle,UG-32(g); koni MAWP oracle: 3.01569 MPa; App 1-5 Q/area oracle unavailable.
 F06-koni,GRID-07-MAWP,mawp,MPa,2.9960497008299614,3.0156913555770744,-0.6513151523543237,DOĞRULANDI,oracle,Nominal thickness based UG-32(g) pressure inversion.
-F06-koni,GRID-07-APP15,junction_check,status,,,,KAPSAM_DIŞI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
+F06-koni,GRID-07-APP15,junction_check,status,,,,KAPSAM_DIÅI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
 F06-koni,GRID-08,required_thickness,mm,5.954709667107548,4.8022480281940165,23.998378095996394,FORMÜLASYON_FARKI,oracle,UG-32(g); koni MAWP oracle: 3.01569 MPa; App 1-5 Q/area oracle unavailable.
 F06-koni,GRID-08-MAWP,mawp,MPa,2.757525440375383,2.7796702333464345,-0.7966697885738554,DOĞRULANDI,oracle,Nominal thickness based UG-32(g) pressure inversion.
-F06-koni,GRID-08-APP15,junction_check,status,,,,KAPSAM_DIŞI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
+F06-koni,GRID-08-APP15,junction_check,status,,,,KAPSAM_DIÅI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
 F06-koni,GRID-09,required_thickness,mm,11.970921808962142,9.646621039091489,24.094455047542265,FORMÜLASYON_FARKI,oracle,UG-32(g); koni MAWP oracle: 3.01569 MPa; App 1-5 Q/area oracle unavailable.
 F06-koni,GRID-09-MAWP,mawp,MPa,2.5194526869168783,2.5434051869603653,-0.9417492803068775,DOĞRULANDI,oracle,Nominal thickness based UG-32(g) pressure inversion.
-F06-koni,GRID-09-APP15,junction_check,status,,,,KAPSAM_DIŞI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
+F06-koni,GRID-09-APP15,junction_check,status,,,,KAPSAM_DIÅI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
 F06-koni,GRID-10,required_thickness,mm,2.9343574278931324,2.9343574278931324,0.0,DOĞRULANDI,oracle,UG-32(g); koni MAWP oracle: 2.46527 MPa; App 1-5 Q/area oracle unavailable.
 F06-koni,GRID-10-MAWP,mawp,MPa,2.452125827844923,2.4652674495527354,-0.5330708321402065,DOĞRULANDI,oracle,Nominal thickness based UG-32(g) pressure inversion.
-F06-koni,GRID-10-APP15,junction_check,status,,,,KAPSAM_DIŞI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
+F06-koni,GRID-10-APP15,junction_check,status,,,,KAPSAM_DIÅI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
 F06-koni,GRID-11,required_thickness,mm,7.036148843825498,5.881528643680993,19.63129434700633,FORMÜLASYON_FARKI,oracle,UG-32(g); koni MAWP oracle: 2.46527 MPa; App 1-5 Q/area oracle unavailable.
 F06-koni,GRID-11-MAWP,mawp,MPa,2.256474488322719,2.272110711069942,-0.6881804953887991,DOĞRULANDI,oracle,Nominal thickness based UG-32(g) pressure inversion.
-F06-koni,GRID-11-APP15,junction_check,status,,,,KAPSAM_DIŞI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
+F06-koni,GRID-11-APP15,junction_check,status,,,,KAPSAM_DIÅI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
 F06-koni,GRID-12,required_thickness,mm,14.147622528175333,11.814649643885504,19.74644153326395,FORMÜLASYON_FARKI,oracle,UG-32(g); koni MAWP oracle: 2.46527 MPa; App 1-5 Q/area oracle unavailable.
 F06-koni,GRID-12-MAWP,mawp,MPa,2.0612679057375405,2.078790814336972,-0.842937561517975,DOĞRULANDI,oracle,Nominal thickness based UG-32(g) pressure inversion.
-F06-koni,GRID-12-APP15,junction_check,status,,,,KAPSAM_DIŞI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
+F06-koni,GRID-12-APP15,junction_check,status,,,,KAPSAM_DIÅI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
 F06-koni,GRID-13,required_thickness,mm,4.1498080713766985,4.1498080713766985,0.0,DOĞRULANDI,oracle,UG-32(g); koni MAWP oracle: 1.74595 MPa; App 1-5 Q/area oracle unavailable.
 F06-koni,GRID-13-MAWP,mawp,MPa,1.7393461820924558,1.7459479383548684,-0.3781187352374952,DOĞRULANDI,oracle,Nominal thickness based UG-32(g) pressure inversion.
-F06-koni,GRID-13-APP15,junction_check,status,,,,KAPSAM_DIŞI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
+F06-koni,GRID-13-APP15,junction_check,status,,,,KAPSAM_DIÅI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
 F06-koni,GRID-14,required_thickness,mm,9.477230193387397,8.317737575379494,13.940000000000015,FORMÜLASYON_FARKI,oracle,UG-32(g); koni MAWP oracle: 1.74595 MPa; App 1-5 Q/area oracle unavailable.
 F06-koni,GRID-14-MAWP,mawp,MPa,1.6001664981863593,1.6089525764566373,-0.5460744088323222,DOĞRULANDI,oracle,Nominal thickness based UG-32(g) pressure inversion.
-F06-koni,GRID-14-APP15,junction_check,status,,,,KAPSAM_DIŞI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
+F06-koni,GRID-14-APP15,junction_check,status,,,,KAPSAM_DIÅI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
 F06-koni,GRID-15,required_thickness,mm,19.0609857978279,16.708437761069337,14.08,FORMÜLASYON_FARKI,oracle,UG-32(g); koni MAWP oracle: 1.74595 MPa; App 1-5 Q/area oracle unavailable.
 F06-koni,GRID-15-MAWP,mawp,MPa,1.4613724985649534,1.4718752803500763,-0.713564656281533,DOĞRULANDI,oracle,Nominal thickness based UG-32(g) pressure inversion.
-F06-koni,GRID-15-APP15,junction_check,status,,,,KAPSAM_DIŞI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
+F06-koni,GRID-15-APP15,junction_check,status,,,,KAPSAM_DIÅI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
 F06-koni,GRID-16,required_thickness,mm,6.3842863961925564,6.3842863961925564,0.0,DOĞRULANDI,oracle,UG-32(g); koni MAWP oracle: 3.14731 MPa; App 1-5 Q/area oracle unavailable.
 F06-koni,GRID-16-MAWP,mawp,MPa,3.1259205382664015,3.1473080050779747,-0.6795479431014043,DOĞRULANDI,oracle,Nominal thickness based UG-32(g) pressure inversion.
-F06-koni,GRID-16-APP15,junction_check,status,,,,KAPSAM_DIŞI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
+F06-koni,GRID-16-APP15,junction_check,status,,,,KAPSAM_DIÅI,K2-18 only stress context,"Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle."
 F07-mawp_statik_kafa,V-P1,global_mawp,MPa,1.7098156081206928,1.7098156081206928,0.0,DOĞRULANDI,Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head,"suite_governing=HEAD-R; mawp_row=1.70981561 MPa; IV(t_corroded=6.75, S=120.0, E=0.85); oracle_governing=HEAD-R; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head"
 F07-mawp_statik_kafa,V-P2,global_mawp,MPa,1.7098156081206928,1.7098156081206928,0.0,DOĞRULANDI,Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head,"suite_governing=HEAD-R; mawp_row=1.70981561 MPa; IV(t_corroded=6.75, S=120.0, E=0.85); oracle_governing=HEAD-R; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head"
 F07-mawp_statik_kafa,V-P3,global_mawp,MPa,1.7098156081206928,1.7098156081206928,0.0,DOĞRULANDI,Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head,"suite_governing=HEAD-R; mawp_row=1.70981561 MPa; IV(t_corroded=6.75, S=120.0, E=0.85); oracle_governing=HEAD-R; Clean-room UG-27(c)(1)/UG-32(d) equations; zero datum head"

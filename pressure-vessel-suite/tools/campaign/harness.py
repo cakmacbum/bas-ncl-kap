@@ -1,7 +1,11 @@
 ﻿"""Run vessel projects through the public FastAPI calculation route."""
 from __future__ import annotations
 
+import uuid
+
 from fastapi.testclient import TestClient
+
+CAMPAIGN_CLIENT_ID = str(uuid.uuid5(uuid.NAMESPACE_URL, "pv-campaign"))
 
 
 def run_case(project: dict) -> dict:
@@ -9,12 +13,13 @@ def run_case(project: dict) -> dict:
     from apps.api.main import app
     try:
         with TestClient(app) as client:
-            created = client.post("/api/projects", json=project)
+            headers = {"X-Client-Id": CAMPAIGN_CLIENT_ID}
+            created = client.post("/api/projects", json=project, headers=headers)
             if created.status_code != 201:
                 return {"ok": False, "http_status": created.status_code, "payload": None,
                         "error": created.text}
             project_id = created.json()["id"]
-            response = client.post(f"/api/projects/{project_id}/calculate")
+            response = client.post(f"/api/projects/{project_id}/calculate", headers=headers)
             if response.status_code != 200:
                 return {"ok": False, "http_status": response.status_code, "payload": None,
                         "error": response.text}
