@@ -137,3 +137,7 @@ Haiku bağımsız betikle 1000 satırın tamamını yeniden hesapladı: t_requir
 ## M. Luna bombe toplu taraması (T60, 300 vaka)
 
 Luna (`gpt-6-luna`) paketi `tools/campaign/tur5/bombe_tarama/` altına 300 rastgele vaka üretti: 150 yarım küre (UG-32(f)), 150 torisferik (UG-32(e)). Her vaka API'den t_required alıp bağımsız formülle karşılaştırıldı. Şef ayrıca 300 vakanın tamamını kendi formülüyle yeniden hesapladı: 300/300 uyuştu (±%1). Bulgu yok; sonuç tutarlı.
+
+## N. Haiku kendi test üretimi (300 vaka, tohum 4242)
+
+Haiku kendi senaryo üreticisini yazdı (farklı parametre aralıkları: P 0.05–20 MPa, D_i 200–6000 mm, S 60–300 MPa, CA 0–6 mm), harness üzerinden API'yi çağırdı ve bağımsız UG-27 formülüyle karşılaştırdı: 300/300 UYUŞUR, VERİ_YOK 0, HTTP 200 hepsinde. En yüksek basınç (19.95 MPa) vakası da uyuştu. Betik ve CSV: scratchpad `haiku_uretim.py` / `haiku_uretim.csv`.
