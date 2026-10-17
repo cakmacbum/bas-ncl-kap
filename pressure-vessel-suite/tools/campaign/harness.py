@@ -13,7 +13,9 @@ def run_case(project: dict) -> dict:
     from apps.api.main import app
     try:
         with TestClient(app) as client:
-            headers = {"X-Client-Id": CAMPAIGN_CLIENT_ID}
+            # Her vaka kendi sahibiyle çalışır: sahip başına proje tavanı (50, store.py)
+            # kampanya boyunca sessizce 429 üretmesin.
+            headers = {"X-Client-Id": str(uuid.uuid4())}
             created = client.post("/api/projects", json=project, headers=headers)
             if created.status_code != 201:
                 return {"ok": False, "http_status": created.status_code, "payload": None,
