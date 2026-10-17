@@ -1,0 +1,4874 @@
+{
+  "vaka_sayisi": 144,
+  "dagilim": {
+    "GEÇTİ": 0,
+    "BULGU": 0,
+    "KAPSAM_DIŞI": 144
+  },
+  "results": [
+    {
+      "vaka": "T11-001",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "BLOCKED CODE DATA",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "BLOCKED CODE DATA",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-002",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "BLOCKED CODE DATA",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "BLOCKED CODE DATA",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-003",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "BLOCKED CODE DATA",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "BLOCKED CODE DATA",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-004",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974,
+              "S1_saddle": 0.006471836907800059
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974,
+              "S1_saddle": 0.006471836907800059
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-005",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974,
+              "S1_saddle": 0.006471836907800059
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974,
+              "S1_saddle": 0.006471836907800059
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-006",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974,
+              "S1_saddle": 0.006471836907800059
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974,
+              "S1_saddle": 0.006471836907800059
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-007",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "BLOCKED CODE DATA",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "BLOCKED CODE DATA",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-008",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "BLOCKED CODE DATA",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "BLOCKED CODE DATA",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-009",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "BLOCKED CODE DATA",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "BLOCKED CODE DATA",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-010",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974,
+              "S1_saddle": 0.006471836907800059
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974,
+              "S1_saddle": 0.006471836907800059
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-011",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974,
+              "S1_saddle": 0.006471836907800059
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974,
+              "S1_saddle": 0.006471836907800059
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-012",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974,
+              "S1_saddle": 0.006471836907800059
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974,
+              "S1_saddle": 0.006471836907800059
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-013",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "BLOCKED CODE DATA",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "BLOCKED CODE DATA",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-014",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "BLOCKED CODE DATA",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "BLOCKED CODE DATA",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-015",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "BLOCKED CODE DATA",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "BLOCKED CODE DATA",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-016",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974,
+              "S1_saddle": 0.006471836907800059
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974,
+              "S1_saddle": 0.006471836907800059
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-017",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974,
+              "S1_saddle": 0.006471836907800059
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974,
+              "S1_saddle": 0.006471836907800059
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-018",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974,
+              "S1_saddle": 0.006471836907800059
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 2.2261068986986974,
+              "S1_saddle": 0.006471836907800059
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-019",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.4244221689505792
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.4244221689505792
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-020",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.4244221689505792
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.4244221689505792
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-021",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.4244221689505792
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.4244221689505792
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-022",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.13509777229253644
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.13509777229253644
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-023",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.13509777229253644
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.13509777229253644
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-024",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.13509777229253644
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.13509777229253644
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-025",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.4244221689505792
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.4244221689505792
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-026",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.4244221689505792
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.4244221689505792
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-027",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.4244221689505792
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.4244221689505792
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-028",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.13509777229253644
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.13509777229253644
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-029",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.13509777229253644
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.13509777229253644
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-030",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.13509777229253644
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.13509777229253644
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-031",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.4244221689505792
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.4244221689505792
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-032",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.4244221689505792
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.4244221689505792
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-033",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.4244221689505792
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.4244221689505792
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-034",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.13509777229253644
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.13509777229253644
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-035",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.13509777229253644
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.13509777229253644
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-036",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.13509777229253644
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 1.6289150558409922,
+              "S1_saddle": 0.13509777229253644
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-037",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 1.7521474195667897
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 1.7521474195667897
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-038",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 1.7521474195667897
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 1.7521474195667897
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-039",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 1.7521474195667897
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 1.7521474195667897
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-040",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 0.5577258456995274
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 0.5577258456995274
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-041",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 0.5577258456995274
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 0.5577258456995274
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-042",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 0.5577258456995274
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 0.5577258456995274
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-043",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 1.7521474195667897
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 1.7521474195667897
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-044",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 1.7521474195667897
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 1.7521474195667897
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-045",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 1.7521474195667897
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 1.7521474195667897
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-046",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 0.5577258456995274
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 0.5577258456995274
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-047",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 0.5577258456995274
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 0.5577258456995274
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-048",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 0.5577258456995274
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "REVIEW REQUIRED",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 0.5577258456995274
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-049",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 1.7521474195667897
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 1.7521474195667897
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-050",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": true,
+        "http_status": 200,
+        "support_results": [
+          {
+            "support_id": "SAD-1",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 1.7521474195667897
+            }
+          },
+          {
+            "support_id": "SAD-2",
+            "status": "FAIL",
+            "stresses_MPa": {
+              "S1_midspan": 0.4345313701255823,
+              "S1_saddle": 1.7521474195667897
+            }
+          }
+        ],
+        "hata": null
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-051",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-052",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-053",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-054",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-055",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-056",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-057",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-058",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-059",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-060",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-061",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-062",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-063",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-064",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-065",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-066",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-067",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-068",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-069",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-070",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-071",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-072",
+      "girdi": {
+        "saddles": 2,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-073",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-074",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-075",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-076",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-077",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-078",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-079",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-080",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-081",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-082",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-083",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-084",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-085",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-086",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-087",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-088",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-089",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-090",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.05,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-091",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-092",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-093",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-094",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-095",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-096",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-097",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-098",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-099",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-100",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-101",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-102",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-103",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-104",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-105",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-106",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-107",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-108",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.1,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 400.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-109",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-110",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-111",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-112",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-113",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-114",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-115",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-116",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-117",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-118",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-119",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-120",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-121",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-122",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-123",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-124",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-125",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-126",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.2,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 800.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-127",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-128",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-129",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 120,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-130",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-131",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-132",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 120,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-133",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-134",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-135",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 135,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-136",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-137",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-138",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 135,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-139",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "empty",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-140",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "operating",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-141",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 150,
+        "wear_plate": false,
+        "state": "hydrotest",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-142",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "empty",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-143",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "operating",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    },
+    {
+      "vaka": "T11-144",
+      "girdi": {
+        "saddles": 3,
+        "A_over_L": 0.3,
+        "contact_angle_deg": 150,
+        "wear_plate": true,
+        "state": "hydrotest",
+        "A_mm": 1200.0,
+        "L_mm": 4000
+      },
+      "beklenen": {
+        "longitudinal": {
+          "saddle": "hogging; bottom compression",
+          "midspan": "sagging; bottom tension"
+        },
+        "tangential_shear": "signed direction follows saddle reaction",
+        "horn": "signed local direction requires contact coefficients",
+        "ring_compression": "compressive around saddle contact"
+      },
+      "gozlenen": {
+        "api_ok": false,
+        "http_status": 429,
+        "support_results": [],
+        "hata": "{\"detail\":\"Project limit reached\"}"
+      },
+      "sonuc": "KAPSAM_DIŞI"
+    }
+  ]
+}
