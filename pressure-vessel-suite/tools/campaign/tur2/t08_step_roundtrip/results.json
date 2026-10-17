@@ -1,0 +1,942 @@
+[
+  {
+    "case": "tank-01",
+    "input": {
+      "id": "tank-01",
+      "inside_diameter": 840,
+      "thickness": 9,
+      "tangent_length": 1720,
+      "head_type": "flat",
+      "nozzle_count": 0
+    },
+    "expected": {
+      "D": 840,
+      "t": 9,
+      "L": 1720,
+      "head_type": "flat",
+      "nozzle_count": 0
+    },
+    "observed": {
+      "status": "RECOGNIZED",
+      "shell": {
+        "inside_diameter": {
+          "value": 840.0,
+          "confidence": "high",
+          "note": null
+        },
+        "nominal_thickness": {
+          "value": 9.0,
+          "confidence": "high",
+          "note": null
+        },
+        "tangent_length": {
+          "value": 1720.0,
+          "confidence": "high",
+          "note": "Gövde iç silindirinin eksenel boyu (bombe başlangıçları arası)."
+        }
+      },
+      "heads": [
+        {
+          "side": "left",
+          "type": {
+            "value": "flat",
+            "confidence": "high",
+            "note": null
+          },
+          "inside_diameter": {
+            "value": 840.0,
+            "confidence": "high",
+            "note": null
+          },
+          "nominal_thickness": {
+            "value": 9.0,
+            "confidence": "high",
+            "note": null
+          },
+          "straight_flange_length": null,
+          "crown_radius": null,
+          "knuckle_radius": null
+        },
+        {
+          "side": "right",
+          "type": {
+            "value": "flat",
+            "confidence": "high",
+            "note": null
+          },
+          "inside_diameter": {
+            "value": 840.0,
+            "confidence": "high",
+            "note": null
+          },
+          "nominal_thickness": {
+            "value": 9.0,
+            "confidence": "high",
+            "note": null
+          },
+          "straight_flange_length": null,
+          "crown_radius": null,
+          "knuckle_radius": null
+        }
+      ],
+      "nozzle_count": 0
+    },
+    "result": "GEÇTİ"
+  },
+  {
+    "case": "tank-02",
+    "input": {
+      "id": "tank-02",
+      "inside_diameter": 880,
+      "thickness": 10,
+      "tangent_length": 1840,
+      "head_type": "flat",
+      "nozzle_count": 0
+    },
+    "expected": {
+      "D": 880,
+      "t": 10,
+      "L": 1840,
+      "head_type": "flat",
+      "nozzle_count": 0
+    },
+    "observed": {
+      "status": "RECOGNIZED",
+      "shell": {
+        "inside_diameter": {
+          "value": 880.0,
+          "confidence": "high",
+          "note": null
+        },
+        "nominal_thickness": {
+          "value": 10.0,
+          "confidence": "high",
+          "note": null
+        },
+        "tangent_length": {
+          "value": 1840.0,
+          "confidence": "high",
+          "note": "Gövde iç silindirinin eksenel boyu (bombe başlangıçları arası)."
+        }
+      },
+      "heads": [
+        {
+          "side": "left",
+          "type": {
+            "value": "flat",
+            "confidence": "high",
+            "note": null
+          },
+          "inside_diameter": {
+            "value": 880.0,
+            "confidence": "high",
+            "note": null
+          },
+          "nominal_thickness": {
+            "value": 10.0,
+            "confidence": "high",
+            "note": null
+          },
+          "straight_flange_length": null,
+          "crown_radius": null,
+          "knuckle_radius": null
+        },
+        {
+          "side": "right",
+          "type": {
+            "value": "flat",
+            "confidence": "high",
+            "note": null
+          },
+          "inside_diameter": {
+            "value": 880.0,
+            "confidence": "high",
+            "note": null
+          },
+          "nominal_thickness": {
+            "value": 10.0,
+            "confidence": "high",
+            "note": null
+          },
+          "straight_flange_length": null,
+          "crown_radius": null,
+          "knuckle_radius": null
+        }
+      ],
+      "nozzle_count": 0
+    },
+    "result": "GEÇTİ"
+  },
+  {
+    "case": "tank-03",
+    "input": {
+      "id": "tank-03",
+      "inside_diameter": 920,
+      "thickness": 11,
+      "tangent_length": 1960,
+      "head_type": "flat",
+      "nozzle_count": 0
+    },
+    "expected": {
+      "D": 920,
+      "t": 11,
+      "L": 1960,
+      "head_type": "flat",
+      "nozzle_count": 0
+    },
+    "observed": {
+      "status": "RECOGNIZED",
+      "shell": {
+        "inside_diameter": {
+          "value": 920.0,
+          "confidence": "high",
+          "note": null
+        },
+        "nominal_thickness": {
+          "value": 11.0,
+          "confidence": "high",
+          "note": null
+        },
+        "tangent_length": {
+          "value": 1960.0,
+          "confidence": "high",
+          "note": "Gövde iç silindirinin eksenel boyu (bombe başlangıçları arası)."
+        }
+      },
+      "heads": [
+        {
+          "side": "left",
+          "type": {
+            "value": "flat",
+            "confidence": "high",
+            "note": null
+          },
+          "inside_diameter": {
+            "value": 920.0,
+            "confidence": "high",
+            "note": null
+          },
+          "nominal_thickness": {
+            "value": 11.0,
+            "confidence": "high",
+            "note": null
+          },
+          "straight_flange_length": null,
+          "crown_radius": null,
+          "knuckle_radius": null
+        },
+        {
+          "side": "right",
+          "type": {
+            "value": "flat",
+            "confidence": "high",
+            "note": null
+          },
+          "inside_diameter": {
+            "value": 920.0,
+            "confidence": "high",
+            "note": null
+          },
+          "nominal_thickness": {
+            "value": 11.0,
+            "confidence": "high",
+            "note": null
+          },
+          "straight_flange_length": null,
+          "crown_radius": null,
+          "knuckle_radius": null
+        }
+      ],
+      "nozzle_count": 0
+    },
+    "result": "GEÇTİ"
+  },
+  {
+    "case": "tank-04",
+    "input": {
+      "id": "tank-04",
+      "inside_diameter": 960,
+      "thickness": 8,
+      "tangent_length": 2080,
+      "head_type": "flat",
+      "nozzle_count": 0
+    },
+    "expected": {
+      "D": 960,
+      "t": 8,
+      "L": 2080,
+      "head_type": "flat",
+      "nozzle_count": 0
+    },
+    "observed": {
+      "status": "RECOGNIZED",
+      "shell": {
+        "inside_diameter": {
+          "value": 960.0,
+          "confidence": "high",
+          "note": null
+        },
+        "nominal_thickness": {
+          "value": 8.0,
+          "confidence": "high",
+          "note": null
+        },
+        "tangent_length": {
+          "value": 2080.0,
+          "confidence": "high",
+          "note": "Gövde iç silindirinin eksenel boyu (bombe başlangıçları arası)."
+        }
+      },
+      "heads": [
+        {
+          "side": "left",
+          "type": {
+            "value": "flat",
+            "confidence": "high",
+            "note": null
+          },
+          "inside_diameter": {
+            "value": 960.0,
+            "confidence": "high",
+            "note": null
+          },
+          "nominal_thickness": {
+            "value": 8.0,
+            "confidence": "high",
+            "note": null
+          },
+          "straight_flange_length": null,
+          "crown_radius": null,
+          "knuckle_radius": null
+        },
+        {
+          "side": "right",
+          "type": {
+            "value": "flat",
+            "confidence": "high",
+            "note": null
+          },
+          "inside_diameter": {
+            "value": 960.0,
+            "confidence": "high",
+            "note": null
+          },
+          "nominal_thickness": {
+            "value": 8.0,
+            "confidence": "high",
+            "note": null
+          },
+          "straight_flange_length": null,
+          "crown_radius": null,
+          "knuckle_radius": null
+        }
+      ],
+      "nozzle_count": 0
+    },
+    "result": "GEÇTİ"
+  },
+  {
+    "case": "tank-05",
+    "input": {
+      "id": "tank-05",
+      "inside_diameter": 1000,
+      "thickness": 9,
+      "tangent_length": 2200,
+      "head_type": "flat",
+      "nozzle_count": 0
+    },
+    "expected": {
+      "D": 1000,
+      "t": 9,
+      "L": 2200,
+      "head_type": "flat",
+      "nozzle_count": 0
+    },
+    "observed": {
+      "status": "RECOGNIZED",
+      "shell": {
+        "inside_diameter": {
+          "value": 1000.0,
+          "confidence": "high",
+          "note": null
+        },
+        "nominal_thickness": {
+          "value": 9.0,
+          "confidence": "high",
+          "note": null
+        },
+        "tangent_length": {
+          "value": 2200.0,
+          "confidence": "high",
+          "note": "Gövde iç silindirinin eksenel boyu (bombe başlangıçları arası)."
+        }
+      },
+      "heads": [
+        {
+          "side": "left",
+          "type": {
+            "value": "flat",
+            "confidence": "high",
+            "note": null
+          },
+          "inside_diameter": {
+            "value": 1000.0,
+            "confidence": "high",
+            "note": null
+          },
+          "nominal_thickness": {
+            "value": 9.0,
+            "confidence": "high",
+            "note": null
+          },
+          "straight_flange_length": null,
+          "crown_radius": null,
+          "knuckle_radius": null
+        },
+        {
+          "side": "right",
+          "type": {
+            "value": "flat",
+            "confidence": "high",
+            "note": null
+          },
+          "inside_diameter": {
+            "value": 1000.0,
+            "confidence": "high",
+            "note": null
+          },
+          "nominal_thickness": {
+            "value": 9.0,
+            "confidence": "high",
+            "note": null
+          },
+          "straight_flange_length": null,
+          "crown_radius": null,
+          "knuckle_radius": null
+        }
+      ],
+      "nozzle_count": 0
+    },
+    "result": "GEÇTİ"
+  },
+  {
+    "case": "tank-06",
+    "input": {
+      "id": "tank-06",
+      "inside_diameter": 1040,
+      "thickness": 10,
+      "tangent_length": 2320,
+      "head_type": "flat",
+      "nozzle_count": 0
+    },
+    "expected": {
+      "D": 1040,
+      "t": 10,
+      "L": 2320,
+      "head_type": "flat",
+      "nozzle_count": 0
+    },
+    "observed": {
+      "status": "RECOGNIZED",
+      "shell": {
+        "inside_diameter": {
+          "value": 1040.0,
+          "confidence": "high",
+          "note": null
+        },
+        "nominal_thickness": {
+          "value": 10.0,
+          "confidence": "high",
+          "note": null
+        },
+        "tangent_length": {
+          "value": 2320.0,
+          "confidence": "high",
+          "note": "Gövde iç silindirinin eksenel boyu (bombe başlangıçları arası)."
+        }
+      },
+      "heads": [
+        {
+          "side": "left",
+          "type": {
+            "value": "flat",
+            "confidence": "high",
+            "note": null
+          },
+          "inside_diameter": {
+            "value": 1040.0,
+            "confidence": "high",
+            "note": null
+          },
+          "nominal_thickness": {
+            "value": 10.0,
+            "confidence": "high",
+            "note": null
+          },
+          "straight_flange_length": null,
+          "crown_radius": null,
+          "knuckle_radius": null
+        },
+        {
+          "side": "right",
+          "type": {
+            "value": "flat",
+            "confidence": "high",
+            "note": null
+          },
+          "inside_diameter": {
+            "value": 1040.0,
+            "confidence": "high",
+            "note": null
+          },
+          "nominal_thickness": {
+            "value": 10.0,
+            "confidence": "high",
+            "note": null
+          },
+          "straight_flange_length": null,
+          "crown_radius": null,
+          "knuckle_radius": null
+        }
+      ],
+      "nozzle_count": 0
+    },
+    "result": "GEÇTİ"
+  },
+  {
+    "case": "tank-07",
+    "input": {
+      "id": "tank-07",
+      "inside_diameter": 1080,
+      "thickness": 11,
+      "tangent_length": 2440,
+      "head_type": "flat",
+      "nozzle_count": 0
+    },
+    "expected": {
+      "D": 1080,
+      "t": 11,
+      "L": 2440,
+      "head_type": "flat",
+      "nozzle_count": 0
+    },
+    "observed": {
+      "status": "RECOGNIZED",
+      "shell": {
+        "inside_diameter": {
+          "value": 1080.0,
+          "confidence": "high",
+          "note": null
+        },
+        "nominal_thickness": {
+          "value": 11.0,
+          "confidence": "high",
+          "note": null
+        },
+        "tangent_length": {
+          "value": 2440.0,
+          "confidence": "high",
+          "note": "Gövde iç silindirinin eksenel boyu (bombe başlangıçları arası)."
+        }
+      },
+      "heads": [
+        {
+          "side": "left",
+          "type": {
+            "value": "flat",
+            "confidence": "high",
+            "note": null
+          },
+          "inside_diameter": {
+            "value": 1080.0,
+            "confidence": "high",
+            "note": null
+          },
+          "nominal_thickness": {
+            "value": 11.0,
+            "confidence": "high",
+            "note": null
+          },
+          "straight_flange_length": null,
+          "crown_radius": null,
+          "knuckle_radius": null
+        },
+        {
+          "side": "right",
+          "type": {
+            "value": "flat",
+            "confidence": "high",
+            "note": null
+          },
+          "inside_diameter": {
+            "value": 1080.0,
+            "confidence": "high",
+            "note": null
+          },
+          "nominal_thickness": {
+            "value": 11.0,
+            "confidence": "high",
+            "note": null
+          },
+          "straight_flange_length": null,
+          "crown_radius": null,
+          "knuckle_radius": null
+        }
+      ],
+      "nozzle_count": 0
+    },
+    "result": "GEÇTİ"
+  },
+  {
+    "case": "tank-08",
+    "input": {
+      "id": "tank-08",
+      "inside_diameter": 1120,
+      "thickness": 8,
+      "tangent_length": 2560,
+      "head_type": "flat",
+      "nozzle_count": 0
+    },
+    "expected": {
+      "D": 1120,
+      "t": 8,
+      "L": 2560,
+      "head_type": "flat",
+      "nozzle_count": 0
+    },
+    "observed": {
+      "status": "RECOGNIZED",
+      "shell": {
+        "inside_diameter": {
+          "value": 1120.0,
+          "confidence": "high",
+          "note": null
+        },
+        "nominal_thickness": {
+          "value": 8.0,
+          "confidence": "high",
+          "note": null
+        },
+        "tangent_length": {
+          "value": 2560.0,
+          "confidence": "high",
+          "note": "Gövde iç silindirinin eksenel boyu (bombe başlangıçları arası)."
+        }
+      },
+      "heads": [
+        {
+          "side": "left",
+          "type": {
+            "value": "flat",
+            "confidence": "high",
+            "note": null
+          },
+          "inside_diameter": {
+            "value": 1120.0,
+            "confidence": "high",
+            "note": null
+          },
+          "nominal_thickness": {
+            "value": 8.0,
+            "confidence": "high",
+            "note": null
+          },
+          "straight_flange_length": null,
+          "crown_radius": null,
+          "knuckle_radius": null
+        },
+        {
+          "side": "right",
+          "type": {
+            "value": "flat",
+            "confidence": "high",
+            "note": null
+          },
+          "inside_diameter": {
+            "value": 1120.0,
+            "confidence": "high",
+            "note": null
+          },
+          "nominal_thickness": {
+            "value": 8.0,
+            "confidence": "high",
+            "note": null
+          },
+          "straight_flange_length": null,
+          "crown_radius": null,
+          "knuckle_radius": null
+        }
+      ],
+      "nozzle_count": 0
+    },
+    "result": "GEÇTİ"
+  },
+  {
+    "case": "tank-09",
+    "input": {
+      "id": "tank-09",
+      "inside_diameter": 1160,
+      "thickness": 9,
+      "tangent_length": 2680,
+      "head_type": "flat",
+      "nozzle_count": 0
+    },
+    "expected": {
+      "D": 1160,
+      "t": 9,
+      "L": 2680,
+      "head_type": "flat",
+      "nozzle_count": 0
+    },
+    "observed": {
+      "status": "RECOGNIZED",
+      "shell": {
+        "inside_diameter": {
+          "value": 1160.0,
+          "confidence": "high",
+          "note": null
+        },
+        "nominal_thickness": {
+          "value": 9.0,
+          "confidence": "high",
+          "note": null
+        },
+        "tangent_length": {
+          "value": 2680.0,
+          "confidence": "high",
+          "note": "Gövde iç silindirinin eksenel boyu (bombe başlangıçları arası)."
+        }
+      },
+      "heads": [
+        {
+          "side": "left",
+          "type": {
+            "value": "flat",
+            "confidence": "high",
+            "note": null
+          },
+          "inside_diameter": {
+            "value": 1160.0,
+            "confidence": "high",
+            "note": null
+          },
+          "nominal_thickness": {
+            "value": 9.0,
+            "confidence": "high",
+            "note": null
+          },
+          "straight_flange_length": null,
+          "crown_radius": null,
+          "knuckle_radius": null
+        },
+        {
+          "side": "right",
+          "type": {
+            "value": "flat",
+            "confidence": "high",
+            "note": null
+          },
+          "inside_diameter": {
+            "value": 1160.0,
+            "confidence": "high",
+            "note": null
+          },
+          "nominal_thickness": {
+            "value": 9.0,
+            "confidence": "high",
+            "note": null
+          },
+          "straight_flange_length": null,
+          "crown_radius": null,
+          "knuckle_radius": null
+        }
+      ],
+      "nozzle_count": 0
+    },
+    "result": "GEÇTİ"
+  },
+  {
+    "case": "tank-10",
+    "input": {
+      "id": "tank-10",
+      "inside_diameter": 1200,
+      "thickness": 10,
+      "tangent_length": 2800,
+      "head_type": "flat",
+      "nozzle_count": 0
+    },
+    "expected": {
+      "D": 1200,
+      "t": 10,
+      "L": 2800,
+      "head_type": "flat",
+      "nozzle_count": 0
+    },
+    "observed": {
+      "status": "RECOGNIZED",
+      "shell": {
+        "inside_diameter": {
+          "value": 1200.0,
+          "confidence": "high",
+          "note": null
+        },
+        "nominal_thickness": {
+          "value": 10.0,
+          "confidence": "high",
+          "note": null
+        },
+        "tangent_length": {
+          "value": 2800.0,
+          "confidence": "high",
+          "note": "Gövde iç silindirinin eksenel boyu (bombe başlangıçları arası)."
+        }
+      },
+      "heads": [
+        {
+          "side": "left",
+          "type": {
+            "value": "flat",
+            "confidence": "high",
+            "note": null
+          },
+          "inside_diameter": {
+            "value": 1200.0,
+            "confidence": "high",
+            "note": null
+          },
+          "nominal_thickness": {
+            "value": 10.0,
+            "confidence": "high",
+            "note": null
+          },
+          "straight_flange_length": null,
+          "crown_radius": null,
+          "knuckle_radius": null
+        },
+        {
+          "side": "right",
+          "type": {
+            "value": "flat",
+            "confidence": "high",
+            "note": null
+          },
+          "inside_diameter": {
+            "value": 1200.0,
+            "confidence": "high",
+            "note": null
+          },
+          "nominal_thickness": {
+            "value": 10.0,
+            "confidence": "high",
+            "note": null
+          },
+          "straight_flange_length": null,
+          "crown_radius": null,
+          "knuckle_radius": null
+        }
+      ],
+      "nozzle_count": 0
+    },
+    "result": "GEÇTİ"
+  },
+  {
+    "case": "api-empty",
+    "input": {
+      "bytes": 0,
+      "prefix": ""
+    },
+    "expected": 415,
+    "observed": 415,
+    "result": "GEÇTİ"
+  },
+  {
+    "case": "api-malformed",
+    "input": {
+      "bytes": 23,
+      "prefix": "this is not a STEP file"
+    },
+    "expected": 415,
+    "observed": 415,
+    "result": "GEÇTİ"
+  },
+  {
+    "case": "api-oversized",
+    "input": {
+      "bytes": 20971535,
+      "prefix": "ISO-10303-21;\n          "
+    },
+    "expected": 413,
+    "observed": 413,
+    "result": "GEÇTİ"
+  },
+  {
+    "case": "api-malformed-2",
+    "input": {
+      "bytes": 18,
+      "prefix": "not STEP payload 2"
+    },
+    "expected": 415,
+    "observed": 415,
+    "result": "GEÇTİ"
+  },
+  {
+    "case": "api-malformed-3",
+    "input": {
+      "bytes": 18,
+      "prefix": "not STEP payload 3"
+    },
+    "expected": 415,
+    "observed": 415,
+    "result": "GEÇTİ"
+  },
+  {
+    "case": "api-malformed-4",
+    "input": {
+      "bytes": 18,
+      "prefix": "not STEP payload 4"
+    },
+    "expected": 415,
+    "observed": 415,
+    "result": "GEÇTİ"
+  },
+  {
+    "case": "api-malformed-5",
+    "input": {
+      "bytes": 18,
+      "prefix": "not STEP payload 5"
+    },
+    "expected": 415,
+    "observed": 415,
+    "result": "GEÇTİ"
+  },
+  {
+    "case": "api-malformed-6",
+    "input": {
+      "bytes": 18,
+      "prefix": "not STEP payload 6"
+    },
+    "expected": 415,
+    "observed": 415,
+    "result": "GEÇTİ"
+  },
+  {
+    "case": "api-malformed-7",
+    "input": {
+      "bytes": 18,
+      "prefix": "not STEP payload 7"
+    },
+    "expected": 415,
+    "observed": 415,
+    "result": "GEÇTİ"
+  },
+  {
+    "case": "api-malformed-8",
+    "input": {
+      "bytes": 18,
+      "prefix": "not STEP payload 8"
+    },
+    "expected": 415,
+    "observed": 415,
+    "result": "GEÇTİ"
+  }
+]
