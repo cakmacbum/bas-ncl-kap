@@ -11,19 +11,24 @@ def project_for(component):
     p = vertical_leg_tank()
     p["heads"] = [h for h in p["heads"] if h["head_id"] == "HEAD-L"]
     p["nozzles"] = []
+    # Taban kurgusunda tek bombe var; sıralama iki terminal bombe ister (koni vakası için).
     if component == "torisferik": p["heads"][0]["type"] = "torispherical"
     if component == "yarım küre": p["heads"][0]["type"] = "hemispherical"
-    if component == "düz kapak": p["heads"][0]["type"] = "flat"
+    if component == "düz kapak":
+        p["heads"][0]["type"] = "flat"
+        p["heads"][0]["flat_attachment_factor"] = 0.33  # UG-34 C (test girdisi eksikti)
     if component == "koni":
         p["cones"] = [{"cone_id":"C1", "large_diameter":1000, "small_diameter":800,
                        "half_apex_angle":15, "length":500, "nominal_thickness":12,
-                       "material_id":"M1", "internal_corrosion_allowance":2}]
+                       "material_id":"M1", "weld_joint_id":"WJ-01", "internal_corrosion_allowance":2}]
         p["junctions"] = [{"junction_id":"J1", "left_component_id":"SHELL-01", "right_component_id":"C1",
                             "junction_type":"cone_to_shell", "cone_end":"large", "weld_joint_id":"WJ-01",
                             "weld_efficiency":1.0, "large_end_diameter":1000, "small_end_diameter":800}]
         p["component_sequence"] = [{"component_type":"head","component_id":"HEAD-L"},
                                     {"component_type":"shell","component_id":"SHELL-01"},
-                                    {"component_type":"cone","component_id":"C1"}]
+                                    {"component_type":"cone","component_id":"C1"},
+                                    {"component_type":"head","component_id":"HEAD-R"}]
+        p["heads"].append({**p["heads"][0], "head_id":"HEAD-R"})
     if component == "nozul":
         p["nozzles"] = [{"tag":"N1", "host_component_id":"SHELL-01", "axial_position":800,
                          "outside_diameter":60.3, "inside_diameter":52.5, "neck_thickness":8,
@@ -51,5 +56,8 @@ def vary(p, relation, step):
     else:
         p["design_conditions"]["design_temperature"] = 100 + 100*x
         for m in p["materials"]: m["temperature"] = 100 + 100*x; m["allowable_stress"] = 160 - 40*x
+    for cone in p.get("cones", []):  # koni de aynı ilişkiye göre değişsin
+        if relation == RELATIONS[2]: cone["internal_corrosion_allowance"] = 1 + 4*x
+        elif relation == RELATIONS[4]: cone["nominal_thickness"] = 8 + 8*x
     return p
 

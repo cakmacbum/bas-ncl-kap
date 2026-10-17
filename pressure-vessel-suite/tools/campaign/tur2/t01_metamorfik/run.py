@@ -11,10 +11,11 @@ def extract(payload, component, relation):
     rows = payload.get("results", []) if payload else []
     if component == "nozul":
         rows = find_results(payload, calculation_type="nozzle_reinforcement") if payload else []
-        return value_of(rows[0], "required_area") if rows else None
+        return value_of(rows[0], "A_required") if rows else None
     if component == "dış basınç":
         rows = find_results(payload, calculation_type="external_pressure") if payload else []
-        return value_of(rows[0], "allowable_external_pressure") if rows else None
+        rows = [x for x in rows if x.get("component_type") == "shell"]
+        return value_of(rows[0], "P_allow") if rows else None
     kind = "shell" if component == "gövde" else "cone" if component == "koni" else "head"
     rows = [r for r in rows if r.get("component_type") == kind and r.get("calculation_type") in ("thickness", "mawp")]
     wanted = "mawp" if relation == RELATIONS[4] else "thickness"
@@ -24,6 +25,10 @@ def extract(payload, component, relation):
     if wanted == "mawp":
         return rows[0].get("final_result")
     return value_of(rows[0], "t_required")
+
+# Dış basınçta (UG-28) A/B kullanıcı girdisi sabit; yön beklentisi iç basınç ilişkilerinden farklıdır.
+# +1 artan, -1 azalan, 0 değişmez.
+EXT_DIR = {RELATIONS[0]: 0, RELATIONS[1]: 0, RELATIONS[2]: -1, RELATIONS[3]: 0, RELATIONS[4]: 1, RELATIONS[5]: 0}
 
 def main():
     records = []
@@ -51,7 +56,14 @@ def main():
             # CA drives a larger nominal required thickness; all sampled values must be available.
             for idx, rec in enumerate(records[-5:-1]):
                 a,b=samples[idx:idx+2]
-                if a is not None and b is not None and ((b < a) if increasing else (b > a)):
+                if a is None or b is None:
+                    continue
+                if component == "dış basınç":
+                    d = EXT_DIR[relation]
+                    bad = (b < a - 1e-9) if d > 0 else (b > a + 1e-9) if d < 0 else abs(b - a) > 1e-9
+                else:
+                    bad = (b < a) if increasing else (b > a)
+                if bad:
                     rec["result"]="BULGU"
                     rec["observed"]={"value":samples[idx], "next":b, "violation":"monotonicity"}
     (OUT / "results.json").write_text(json.dumps(records, ensure_ascii=False, indent=2), encoding="utf-8")

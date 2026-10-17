@@ -36,24 +36,27 @@ def _case(client: TestClient, spec: dict) -> dict:
                                  if r.get("component_id") and str(r["component_id"]) not in html})
     statuses = sorted({str(r.get("status")) for r in rows if r.get("status")})
     hidden_statuses = [s for s in statuses if s.casefold() not in html.casefold()]
-    # Numeric values are checked against rendered text in their exact representation.
-    missing_values = []
+    # Test hatası düzeltmesi (A3): önceki sürüm TÜM ara değerlerin (R=500, R_corroded=502 ...) raporda
+    # geçmesini bekliyordu; rapor yalnızca başlık sonuçlarını gösterir. Burada rapora basılması
+    # beklenen çekirdek hesap türlerinin başlık sonucu (final_result) kontrol edilir; diğerleri
+    # yalnızca gözlem olarak 'rapor_disi_basliklar'a yazılır.
+    CORE = {"thickness", "mawp", "nozzle_reinforcement", "hydrotest"}
+    numbers = [float(x.replace(",", "")) for x in re.findall(r"(?<![\w])[-+]?\d[\d,]*(?:\.\d+)?", html)]
+    missing_values, outside_report = [], []
     for row in rows:
-        vals = [x.get("value") for x in row.get("intermediate_values", []) if x.get("value") is not None]
         final = row.get("final_result")
-        if isinstance(final, (int, float)):
-            vals.append(final)
-        for value in vals:
-            if not isinstance(value, (int, float)):
-                continue
-            numbers = [float(x.replace(",", "")) for x in re.findall(r"(?<![\w])[-+]?\d[\d,]*(?:\.\d+)?", html)]
-            tolerance = max(0.011, abs(float(value)) * 1e-5)
-            if not any(abs(float(value) - candidate) <= tolerance for candidate in numbers):
-                missing_values.append({"component": row.get("component_id"), "value": value})
+        if not isinstance(final, (int, float)) or isinstance(final, bool):
+            continue
+        tolerance = max(0.006, abs(float(final)) * 1e-3)
+        found = any(abs(float(final) - c) <= tolerance for c in numbers)
+        entry = {"component": row.get("component_id"), "calculation_type": row.get("calculation_type"),
+                 "final_result": final}
+        if not found:
+            (missing_values if row.get("calculation_type") in CORE else outside_report).append(entry)
     ok = not missing_components and not hidden_statuses and not missing_values and not payload.get("errors")
     result["gozlenen"] = {"result_count": len(rows), "components_missing": missing_components,
                           "statuses": statuses, "hidden_statuses": hidden_statuses,
-                          "values_missing": missing_values[:20], "errors": payload.get("errors"),
+                          "values_missing": missing_values[:20], "rapor_disi_basliklar": outside_report[:30], "errors": payload.get("errors"),
                           "report_bytes": len(html)}
     result["sonuc"] = "GEÇTİ" if ok else "BULGU"
     return result

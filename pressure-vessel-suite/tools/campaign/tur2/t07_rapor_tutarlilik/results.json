@@ -157,92 +157,23 @@
         "REVIEW REQUIRED"
       ],
       "hidden_statuses": [],
-      "values_missing": [
+      "values_missing": [],
+      "rapor_disi_basliklar": [
         {
-          "component": "SHELL-01",
-          "value": 500.0
+          "component": "",
+          "calculation_type": "pneumatic_test",
+          "final_result": 1.8807971689327623
         },
         {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 2.178819444444444
-        },
-        {
-          "component": "SHELL-01",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-L",
-          "value": 4.369016536118364
-        },
-        {
-          "component": "HEAD-L",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-R",
-          "value": 4.734982332155477
-        },
-        {
-          "component": "HEAD-R",
-          "value": 0.875
-        },
-        {
-          "component": "N1",
-          "value": 230.37587412587413
-        },
-        {
-          "component": "N1",
-          "value": 294.62412587412587
-        },
-        {
-          "component": "N1",
-          "value": 71.57556818181818
-        },
-        {
-          "component": "SHELL-01",
-          "value": 12.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 10.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 8.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "HEAD-L",
-          "value": 12.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 10.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 8.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 1004.0
-        },
-        {
-          "component": "HEAD-R",
-          "value": 12.5
+          "component": "LEGS",
+          "calculation_type": "leg_stress",
+          "final_result": 2.442827805024993
         }
       ],
       "errors": [],
       "report_bytes": 19936
     },
-    "sonuc": "BULGU"
+    "sonuc": "GEÇTİ"
   },
   {
     "vaka": "R02",
@@ -412,92 +343,23 @@
         "REVIEW REQUIRED"
       ],
       "hidden_statuses": [],
-      "values_missing": [
+      "values_missing": [],
+      "rapor_disi_basliklar": [
         {
-          "component": "SHELL-01",
-          "value": 500.0
+          "component": "",
+          "calculation_type": "pneumatic_test",
+          "final_result": 1.8807971689327623
         },
         {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 2.178819444444444
-        },
-        {
-          "component": "SHELL-01",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-L",
-          "value": 4.369016536118364
-        },
-        {
-          "component": "HEAD-L",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-R",
-          "value": 4.734982332155477
-        },
-        {
-          "component": "HEAD-R",
-          "value": 0.875
-        },
-        {
-          "component": "N1",
-          "value": 230.37587412587413
-        },
-        {
-          "component": "N1",
-          "value": 294.62412587412587
-        },
-        {
-          "component": "N1",
-          "value": 71.57556818181818
-        },
-        {
-          "component": "SHELL-01",
-          "value": 12.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 10.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 8.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "HEAD-L",
-          "value": 12.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 10.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 8.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 1004.0
-        },
-        {
-          "component": "HEAD-R",
-          "value": 12.5
+          "component": "LEGS",
+          "calculation_type": "leg_stress",
+          "final_result": 2.442827805024993
         }
       ],
       "errors": [],
       "report_bytes": 19759
     },
-    "sonuc": "BULGU"
+    "sonuc": "GEÇTİ"
   },
   {
     "vaka": "R03",
@@ -657,92 +519,23 @@
         "REVIEW REQUIRED"
       ],
       "hidden_statuses": [],
-      "values_missing": [
+      "values_missing": [],
+      "rapor_disi_basliklar": [
         {
-          "component": "SHELL-01",
-          "value": 500.0
+          "component": "",
+          "calculation_type": "pneumatic_test",
+          "final_result": 1.8807971689327623
         },
         {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 2.178819444444444
-        },
-        {
-          "component": "SHELL-01",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-L",
-          "value": 4.369016536118364
-        },
-        {
-          "component": "HEAD-L",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-R",
-          "value": 4.734982332155477
-        },
-        {
-          "component": "HEAD-R",
-          "value": 0.875
-        },
-        {
-          "component": "N1",
-          "value": 230.37587412587413
-        },
-        {
-          "component": "N1",
-          "value": 294.62412587412587
-        },
-        {
-          "component": "N1",
-          "value": 71.57556818181818
-        },
-        {
-          "component": "SHELL-01",
-          "value": 12.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 10.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 8.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "HEAD-L",
-          "value": 12.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 10.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 8.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 1004.0
-        },
-        {
-          "component": "HEAD-R",
-          "value": 12.5
+          "component": "LEGS",
+          "calculation_type": "leg_stress",
+          "final_result": 2.442827805024993
         }
       ],
       "errors": [],
       "report_bytes": 19936
     },
-    "sonuc": "BULGU"
+    "sonuc": "GEÇTİ"
   },
   {
     "vaka": "R04",
@@ -902,92 +695,23 @@
         "REVIEW REQUIRED"
       ],
       "hidden_statuses": [],
-      "values_missing": [
+      "values_missing": [],
+      "rapor_disi_basliklar": [
         {
-          "component": "SHELL-01",
-          "value": 500.0
+          "component": "",
+          "calculation_type": "pneumatic_test",
+          "final_result": 1.8807971689327623
         },
         {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 2.178819444444444
-        },
-        {
-          "component": "SHELL-01",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-L",
-          "value": 4.369016536118364
-        },
-        {
-          "component": "HEAD-L",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-R",
-          "value": 4.734982332155477
-        },
-        {
-          "component": "HEAD-R",
-          "value": 0.875
-        },
-        {
-          "component": "N1",
-          "value": 230.37587412587413
-        },
-        {
-          "component": "N1",
-          "value": 294.62412587412587
-        },
-        {
-          "component": "N1",
-          "value": 71.57556818181818
-        },
-        {
-          "component": "SHELL-01",
-          "value": 12.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 10.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 8.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "HEAD-L",
-          "value": 12.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 10.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 8.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 1004.0
-        },
-        {
-          "component": "HEAD-R",
-          "value": 12.5
+          "component": "LEGS",
+          "calculation_type": "leg_stress",
+          "final_result": 2.442827805024993
         }
       ],
       "errors": [],
       "report_bytes": 19936
     },
-    "sonuc": "BULGU"
+    "sonuc": "GEÇTİ"
   },
   {
     "vaka": "R05",
@@ -1147,92 +871,23 @@
         "REVIEW REQUIRED"
       ],
       "hidden_statuses": [],
-      "values_missing": [
+      "values_missing": [],
+      "rapor_disi_basliklar": [
         {
-          "component": "SHELL-01",
-          "value": 500.0
+          "component": "",
+          "calculation_type": "pneumatic_test",
+          "final_result": 1.8807971689327623
         },
         {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 2.178819444444444
-        },
-        {
-          "component": "SHELL-01",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-L",
-          "value": 4.369016536118364
-        },
-        {
-          "component": "HEAD-L",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-R",
-          "value": 4.734982332155477
-        },
-        {
-          "component": "HEAD-R",
-          "value": 0.875
-        },
-        {
-          "component": "N1",
-          "value": 230.37587412587413
-        },
-        {
-          "component": "N1",
-          "value": 294.62412587412587
-        },
-        {
-          "component": "N1",
-          "value": 71.57556818181818
-        },
-        {
-          "component": "SHELL-01",
-          "value": 12.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 10.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 8.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "HEAD-L",
-          "value": 12.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 10.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 8.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 1004.0
-        },
-        {
-          "component": "HEAD-R",
-          "value": 12.5
+          "component": "LEGS",
+          "calculation_type": "leg_stress",
+          "final_result": 2.442827805024993
         }
       ],
       "errors": [],
       "report_bytes": 19936
     },
-    "sonuc": "BULGU"
+    "sonuc": "GEÇTİ"
   },
   {
     "vaka": "R06",
@@ -1536,92 +1191,43 @@
         "REVIEW REQUIRED"
       ],
       "hidden_statuses": [],
-      "values_missing": [
+      "values_missing": [],
+      "rapor_disi_basliklar": [
         {
-          "component": "SHELL-01",
-          "value": 500.0
+          "component": "",
+          "calculation_type": "pneumatic_test",
+          "final_result": 1.8807971689327623
         },
         {
-          "component": "SHELL-01",
-          "value": 502.0
+          "component": "LEGS",
+          "calculation_type": "leg_stress",
+          "final_result": 2.442827805024993
         },
         {
-          "component": "SHELL-01",
-          "value": 2.178819444444444
+          "component": "LEGS",
+          "calculation_type": "leg_section_check",
+          "final_result": 0.06762725969713661
         },
         {
-          "component": "SHELL-01",
-          "value": 0.875
+          "component": "LEGS",
+          "calculation_type": "leg_weld_check",
+          "final_result": 16.27710714129342
         },
         {
-          "component": "HEAD-L",
-          "value": 4.369016536118364
+          "component": "LEGS",
+          "calculation_type": "base_plate_check",
+          "final_result": 3.623027412961457
         },
         {
-          "component": "HEAD-L",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-R",
-          "value": 4.734982332155477
-        },
-        {
-          "component": "HEAD-R",
-          "value": 0.875
-        },
-        {
-          "component": "N1",
-          "value": 230.37587412587413
-        },
-        {
-          "component": "N1",
-          "value": 294.62412587412587
-        },
-        {
-          "component": "N1",
-          "value": 71.57556818181818
-        },
-        {
-          "component": "SHELL-01",
-          "value": 12.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 10.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 8.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "HEAD-L",
-          "value": 12.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 10.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 8.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 1004.0
-        },
-        {
-          "component": "HEAD-R",
-          "value": 12.5
+          "component": "LEGS",
+          "calculation_type": "wrc_local_stress",
+          "final_result": 52.68898556624524
         }
       ],
       "errors": [],
       "report_bytes": 25091
     },
-    "sonuc": "BULGU"
+    "sonuc": "GEÇTİ"
   },
   {
     "vaka": "R07",
@@ -1760,92 +1366,23 @@
         "REVIEW REQUIRED"
       ],
       "hidden_statuses": [],
-      "values_missing": [
+      "values_missing": [],
+      "rapor_disi_basliklar": [
         {
-          "component": "SHELL-01",
-          "value": 500.0
+          "component": "",
+          "calculation_type": "pneumatic_test",
+          "final_result": 1.8807971689327623
         },
         {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 4.388111888111888
-        },
-        {
-          "component": "SHELL-01",
-          "value": 2.178819444444444
-        },
-        {
-          "component": "SHELL-01",
-          "value": 4.388111888111888
-        },
-        {
-          "component": "SHELL-01",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-L",
-          "value": 4.369016536118364
-        },
-        {
-          "component": "HEAD-L",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-R",
-          "value": 4.734982332155477
-        },
-        {
-          "component": "HEAD-R",
-          "value": 0.875
-        },
-        {
-          "component": "SHELL-01",
-          "value": 12.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 10.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 8.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "HEAD-L",
-          "value": 12.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 10.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 8.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 1004.0
-        },
-        {
-          "component": "HEAD-R",
-          "value": 12.5
-        },
-        {
-          "component": "HEAD-R",
-          "value": 8.75
+          "component": "SKIRT-01",
+          "calculation_type": "skirt_stress",
+          "final_result": 1.0386903826966274
         }
       ],
       "errors": [],
       "report_bytes": 18865
     },
-    "sonuc": "BULGU"
+    "sonuc": "GEÇTİ"
   },
   {
     "vaka": "R08",
@@ -2026,92 +1563,28 @@
         "REVIEW REQUIRED"
       ],
       "hidden_statuses": [],
-      "values_missing": [
-        {
-          "component": "SHELL-01",
-          "value": 500.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 2.178819444444444
-        },
-        {
-          "component": "SHELL-01",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-L",
-          "value": 4.369016536118364
-        },
-        {
-          "component": "HEAD-L",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-R",
-          "value": 4.734982332155477
-        },
-        {
-          "component": "HEAD-R",
-          "value": 0.875
-        },
-        {
-          "component": "N1",
-          "value": 230.37587412587413
-        },
-        {
-          "component": "N1",
-          "value": 294.62412587412587
-        },
-        {
-          "component": "N1",
-          "value": 71.57556818181818
-        },
+      "values_missing": [],
+      "rapor_disi_basliklar": [
         {
           "component": "F1",
-          "value": 500.0
+          "calculation_type": "flange_stress",
+          "final_result": 0.37221065214424565
         },
         {
-          "component": "F1",
-          "value": 50.0
+          "component": "",
+          "calculation_type": "pneumatic_test",
+          "final_result": 1.8807971689327623
         },
         {
-          "component": "F1",
-          "value": 35.0
-        },
-        {
-          "component": "F1",
-          "value": 50.0
-        },
-        {
-          "component": "F1",
-          "value": 1.6
-        },
-        {
-          "component": "F1",
-          "value": 2.2820512820512815
-        },
-        {
-          "component": "F1",
-          "value": 132.28756555322954
-        },
-        {
-          "component": "F1",
-          "value": 162052.2678027062
-        },
-        {
-          "component": "F1",
-          "value": 2.149320540374997
+          "component": "LEGS",
+          "calculation_type": "leg_stress",
+          "final_result": 2.442827805024993
         }
       ],
       "errors": [],
       "report_bytes": 20897
     },
-    "sonuc": "BULGU"
+    "sonuc": "GEÇTİ"
   },
   {
     "vaka": "R09",
@@ -2312,84 +1785,21 @@
       "hidden_statuses": [],
       "values_missing": [
         {
-          "component": "SHELL-01",
-          "value": 500.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 2.178819444444444
-        },
-        {
-          "component": "SHELL-01",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-L",
-          "value": 4.369016536118364
-        },
-        {
-          "component": "HEAD-L",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-R",
-          "value": 4.734982332155477
-        },
-        {
-          "component": "HEAD-R",
-          "value": 0.875
-        },
-        {
           "component": "C1",
-          "value": 0.9659258262890683
+          "calculation_type": "thickness",
+          "final_result": 5.171209692358056
+        }
+      ],
+      "rapor_disi_basliklar": [
+        {
+          "component": "",
+          "calculation_type": "pneumatic_test",
+          "final_result": 1.8807971689327623
         },
         {
-          "component": "C1",
-          "value": 4.5248084808133
-        },
-        {
-          "component": "C1",
-          "value": 0.875
-        },
-        {
-          "component": "C1",
-          "value": 5.171209692358056
-        },
-        {
-          "component": "C1",
-          "value": 5.171209692358056
-        },
-        {
-          "component": "N1",
-          "value": 230.37587412587413
-        },
-        {
-          "component": "N1",
-          "value": 294.62412587412587
-        },
-        {
-          "component": "N1",
-          "value": 71.57556818181818
-        },
-        {
-          "component": "SHELL-01",
-          "value": 10.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 8.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "HEAD-L",
-          "value": 10.5
+          "component": "LEGS",
+          "calculation_type": "leg_stress",
+          "final_result": 2.859765725046944
         }
       ],
       "errors": [],
@@ -2571,92 +1981,18 @@
         "REVIEW REQUIRED"
       ],
       "hidden_statuses": [],
-      "values_missing": [
+      "values_missing": [],
+      "rapor_disi_basliklar": [
         {
-          "component": "WIND-1",
-          "value": 200000.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 2.178819444444444
-        },
-        {
-          "component": "SHELL-01",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-L",
-          "value": 4.369016536118364
-        },
-        {
-          "component": "HEAD-L",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-R",
-          "value": 4.734982332155477
-        },
-        {
-          "component": "HEAD-R",
-          "value": 0.875
-        },
-        {
-          "component": "N1",
-          "value": 230.37587412587413
-        },
-        {
-          "component": "N1",
-          "value": 294.62412587412587
-        },
-        {
-          "component": "N1",
-          "value": 71.57556818181818
-        },
-        {
-          "component": "SHELL-01",
-          "value": 12.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 10.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 8.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "HEAD-L",
-          "value": 12.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 10.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 8.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 1004.0
-        },
-        {
-          "component": "HEAD-R",
-          "value": 12.5
+          "component": "",
+          "calculation_type": "pneumatic_test",
+          "final_result": 1.8807971689327623
         }
       ],
       "errors": [],
       "report_bytes": 21064
     },
-    "sonuc": "BULGU"
+    "sonuc": "GEÇTİ"
   },
   {
     "vaka": "R11",
@@ -2816,92 +2152,23 @@
         "REVIEW REQUIRED"
       ],
       "hidden_statuses": [],
-      "values_missing": [
+      "values_missing": [],
+      "rapor_disi_basliklar": [
         {
-          "component": "SHELL-01",
-          "value": 500.0
+          "component": "",
+          "calculation_type": "pneumatic_test",
+          "final_result": 1.8807971689327623
         },
         {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 2.178819444444444
-        },
-        {
-          "component": "SHELL-01",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-L",
-          "value": 4.369016536118364
-        },
-        {
-          "component": "HEAD-L",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-R",
-          "value": 4.734982332155477
-        },
-        {
-          "component": "HEAD-R",
-          "value": 0.875
-        },
-        {
-          "component": "N1",
-          "value": 230.37587412587413
-        },
-        {
-          "component": "N1",
-          "value": 294.62412587412587
-        },
-        {
-          "component": "N1",
-          "value": 71.57556818181818
-        },
-        {
-          "component": "SHELL-01",
-          "value": 12.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 10.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 8.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "HEAD-L",
-          "value": 12.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 10.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 8.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 1004.0
-        },
-        {
-          "component": "HEAD-R",
-          "value": 12.5
+          "component": "LEGS",
+          "calculation_type": "leg_stress",
+          "final_result": 2.442827805024993
         }
       ],
       "errors": [],
       "report_bytes": 19936
     },
-    "sonuc": "BULGU"
+    "sonuc": "GEÇTİ"
   },
   {
     "vaka": "R12",
@@ -3071,92 +2338,23 @@
         "REVIEW REQUIRED"
       ],
       "hidden_statuses": [],
-      "values_missing": [
+      "values_missing": [],
+      "rapor_disi_basliklar": [
         {
-          "component": "SHELL-01",
-          "value": 500.0
+          "component": "",
+          "calculation_type": "pneumatic_test",
+          "final_result": 1.8807971689327623
         },
         {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 2.178819444444444
-        },
-        {
-          "component": "SHELL-01",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-L",
-          "value": 4.369016536118364
-        },
-        {
-          "component": "HEAD-L",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-R",
-          "value": 4.734982332155477
-        },
-        {
-          "component": "HEAD-R",
-          "value": 0.875
-        },
-        {
-          "component": "N1",
-          "value": 230.37587412587413
-        },
-        {
-          "component": "N1",
-          "value": 294.62412587412587
-        },
-        {
-          "component": "N1",
-          "value": 71.57556818181818
-        },
-        {
-          "component": "SHELL-01",
-          "value": 12.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 10.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 8.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "HEAD-L",
-          "value": 12.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 10.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 8.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 1004.0
-        },
-        {
-          "component": "HEAD-R",
-          "value": 12.5
+          "component": "LEGS",
+          "calculation_type": "leg_stress",
+          "final_result": 2.442827805024993
         }
       ],
       "errors": [],
       "report_bytes": 19759
     },
-    "sonuc": "BULGU"
+    "sonuc": "GEÇTİ"
   },
   {
     "vaka": "R13",
@@ -3316,92 +2514,23 @@
         "REVIEW REQUIRED"
       ],
       "hidden_statuses": [],
-      "values_missing": [
+      "values_missing": [],
+      "rapor_disi_basliklar": [
         {
-          "component": "SHELL-01",
-          "value": 500.0
+          "component": "",
+          "calculation_type": "pneumatic_test",
+          "final_result": 1.8807971689327623
         },
         {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 2.178819444444444
-        },
-        {
-          "component": "SHELL-01",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-L",
-          "value": 4.369016536118364
-        },
-        {
-          "component": "HEAD-L",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-R",
-          "value": 4.734982332155477
-        },
-        {
-          "component": "HEAD-R",
-          "value": 0.875
-        },
-        {
-          "component": "N1",
-          "value": 230.37587412587413
-        },
-        {
-          "component": "N1",
-          "value": 294.62412587412587
-        },
-        {
-          "component": "N1",
-          "value": 71.57556818181818
-        },
-        {
-          "component": "SHELL-01",
-          "value": 12.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 10.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 8.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "HEAD-L",
-          "value": 12.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 10.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 8.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 1004.0
-        },
-        {
-          "component": "HEAD-R",
-          "value": 12.5
+          "component": "LEGS",
+          "calculation_type": "leg_stress",
+          "final_result": 2.442827805024993
         }
       ],
       "errors": [],
       "report_bytes": 19936
     },
-    "sonuc": "BULGU"
+    "sonuc": "GEÇTİ"
   },
   {
     "vaka": "R14",
@@ -3561,92 +2690,23 @@
         "REVIEW REQUIRED"
       ],
       "hidden_statuses": [],
-      "values_missing": [
+      "values_missing": [],
+      "rapor_disi_basliklar": [
         {
-          "component": "SHELL-01",
-          "value": 500.0
+          "component": "",
+          "calculation_type": "pneumatic_test",
+          "final_result": 1.8807971689327623
         },
         {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 2.178819444444444
-        },
-        {
-          "component": "SHELL-01",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-L",
-          "value": 4.369016536118364
-        },
-        {
-          "component": "HEAD-L",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-R",
-          "value": 4.734982332155477
-        },
-        {
-          "component": "HEAD-R",
-          "value": 0.875
-        },
-        {
-          "component": "N1",
-          "value": 230.37587412587413
-        },
-        {
-          "component": "N1",
-          "value": 294.62412587412587
-        },
-        {
-          "component": "N1",
-          "value": 71.57556818181818
-        },
-        {
-          "component": "SHELL-01",
-          "value": 12.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 10.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 8.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "HEAD-L",
-          "value": 12.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 10.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 8.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 1004.0
-        },
-        {
-          "component": "HEAD-R",
-          "value": 12.5
+          "component": "LEGS",
+          "calculation_type": "leg_stress",
+          "final_result": 2.442827805024993
         }
       ],
       "errors": [],
       "report_bytes": 19936
     },
-    "sonuc": "BULGU"
+    "sonuc": "GEÇTİ"
   },
   {
     "vaka": "R15",
@@ -3806,92 +2866,23 @@
         "REVIEW REQUIRED"
       ],
       "hidden_statuses": [],
-      "values_missing": [
+      "values_missing": [],
+      "rapor_disi_basliklar": [
         {
-          "component": "SHELL-01",
-          "value": 500.0
+          "component": "",
+          "calculation_type": "pneumatic_test",
+          "final_result": 1.8807971689327623
         },
         {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 2.178819444444444
-        },
-        {
-          "component": "SHELL-01",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-L",
-          "value": 4.369016536118364
-        },
-        {
-          "component": "HEAD-L",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-R",
-          "value": 4.734982332155477
-        },
-        {
-          "component": "HEAD-R",
-          "value": 0.875
-        },
-        {
-          "component": "N1",
-          "value": 230.37587412587413
-        },
-        {
-          "component": "N1",
-          "value": 294.62412587412587
-        },
-        {
-          "component": "N1",
-          "value": 71.57556818181818
-        },
-        {
-          "component": "SHELL-01",
-          "value": 12.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 10.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 8.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "HEAD-L",
-          "value": 12.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 10.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 8.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 1004.0
-        },
-        {
-          "component": "HEAD-R",
-          "value": 12.5
+          "component": "LEGS",
+          "calculation_type": "leg_stress",
+          "final_result": 2.442827805024993
         }
       ],
       "errors": [],
       "report_bytes": 19936
     },
-    "sonuc": "BULGU"
+    "sonuc": "GEÇTİ"
   },
   {
     "vaka": "R16",
@@ -4195,92 +3186,43 @@
         "REVIEW REQUIRED"
       ],
       "hidden_statuses": [],
-      "values_missing": [
+      "values_missing": [],
+      "rapor_disi_basliklar": [
         {
-          "component": "SHELL-01",
-          "value": 500.0
+          "component": "",
+          "calculation_type": "pneumatic_test",
+          "final_result": 1.8807971689327623
         },
         {
-          "component": "SHELL-01",
-          "value": 502.0
+          "component": "LEGS",
+          "calculation_type": "leg_stress",
+          "final_result": 2.442827805024993
         },
         {
-          "component": "SHELL-01",
-          "value": 2.178819444444444
+          "component": "LEGS",
+          "calculation_type": "leg_section_check",
+          "final_result": 0.06762725969713661
         },
         {
-          "component": "SHELL-01",
-          "value": 0.875
+          "component": "LEGS",
+          "calculation_type": "leg_weld_check",
+          "final_result": 16.27710714129342
         },
         {
-          "component": "HEAD-L",
-          "value": 4.369016536118364
+          "component": "LEGS",
+          "calculation_type": "base_plate_check",
+          "final_result": 3.623027412961457
         },
         {
-          "component": "HEAD-L",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-R",
-          "value": 4.734982332155477
-        },
-        {
-          "component": "HEAD-R",
-          "value": 0.875
-        },
-        {
-          "component": "N1",
-          "value": 230.37587412587413
-        },
-        {
-          "component": "N1",
-          "value": 294.62412587412587
-        },
-        {
-          "component": "N1",
-          "value": 71.57556818181818
-        },
-        {
-          "component": "SHELL-01",
-          "value": 12.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 10.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 8.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "HEAD-L",
-          "value": 12.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 10.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 8.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 1004.0
-        },
-        {
-          "component": "HEAD-R",
-          "value": 12.5
+          "component": "LEGS",
+          "calculation_type": "wrc_local_stress",
+          "final_result": 52.68898556624524
         }
       ],
       "errors": [],
       "report_bytes": 25091
     },
-    "sonuc": "BULGU"
+    "sonuc": "GEÇTİ"
   },
   {
     "vaka": "R17",
@@ -4419,92 +3361,23 @@
         "REVIEW REQUIRED"
       ],
       "hidden_statuses": [],
-      "values_missing": [
+      "values_missing": [],
+      "rapor_disi_basliklar": [
         {
-          "component": "SHELL-01",
-          "value": 500.0
+          "component": "",
+          "calculation_type": "pneumatic_test",
+          "final_result": 1.8807971689327623
         },
         {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 4.388111888111888
-        },
-        {
-          "component": "SHELL-01",
-          "value": 2.178819444444444
-        },
-        {
-          "component": "SHELL-01",
-          "value": 4.388111888111888
-        },
-        {
-          "component": "SHELL-01",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-L",
-          "value": 4.369016536118364
-        },
-        {
-          "component": "HEAD-L",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-R",
-          "value": 4.734982332155477
-        },
-        {
-          "component": "HEAD-R",
-          "value": 0.875
-        },
-        {
-          "component": "SHELL-01",
-          "value": 12.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 10.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 8.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "HEAD-L",
-          "value": 12.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 10.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 8.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 1004.0
-        },
-        {
-          "component": "HEAD-R",
-          "value": 12.5
-        },
-        {
-          "component": "HEAD-R",
-          "value": 8.75
+          "component": "SKIRT-01",
+          "calculation_type": "skirt_stress",
+          "final_result": 1.0386903826966274
         }
       ],
       "errors": [],
       "report_bytes": 18865
     },
-    "sonuc": "BULGU"
+    "sonuc": "GEÇTİ"
   },
   {
     "vaka": "R18",
@@ -4685,92 +3558,28 @@
         "REVIEW REQUIRED"
       ],
       "hidden_statuses": [],
-      "values_missing": [
-        {
-          "component": "SHELL-01",
-          "value": 500.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 2.178819444444444
-        },
-        {
-          "component": "SHELL-01",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-L",
-          "value": 4.369016536118364
-        },
-        {
-          "component": "HEAD-L",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-R",
-          "value": 4.734982332155477
-        },
-        {
-          "component": "HEAD-R",
-          "value": 0.875
-        },
-        {
-          "component": "N1",
-          "value": 230.37587412587413
-        },
-        {
-          "component": "N1",
-          "value": 294.62412587412587
-        },
-        {
-          "component": "N1",
-          "value": 71.57556818181818
-        },
+      "values_missing": [],
+      "rapor_disi_basliklar": [
         {
           "component": "F1",
-          "value": 500.0
+          "calculation_type": "flange_stress",
+          "final_result": 0.37221065214424565
         },
         {
-          "component": "F1",
-          "value": 50.0
+          "component": "",
+          "calculation_type": "pneumatic_test",
+          "final_result": 1.8807971689327623
         },
         {
-          "component": "F1",
-          "value": 35.0
-        },
-        {
-          "component": "F1",
-          "value": 50.0
-        },
-        {
-          "component": "F1",
-          "value": 1.6
-        },
-        {
-          "component": "F1",
-          "value": 2.2820512820512815
-        },
-        {
-          "component": "F1",
-          "value": 132.28756555322954
-        },
-        {
-          "component": "F1",
-          "value": 162052.2678027062
-        },
-        {
-          "component": "F1",
-          "value": 2.149320540374997
+          "component": "LEGS",
+          "calculation_type": "leg_stress",
+          "final_result": 2.442827805024993
         }
       ],
       "errors": [],
       "report_bytes": 20897
     },
-    "sonuc": "BULGU"
+    "sonuc": "GEÇTİ"
   },
   {
     "vaka": "R19",
@@ -4971,84 +3780,21 @@
       "hidden_statuses": [],
       "values_missing": [
         {
-          "component": "SHELL-01",
-          "value": 500.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 2.178819444444444
-        },
-        {
-          "component": "SHELL-01",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-L",
-          "value": 4.369016536118364
-        },
-        {
-          "component": "HEAD-L",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-R",
-          "value": 4.734982332155477
-        },
-        {
-          "component": "HEAD-R",
-          "value": 0.875
-        },
-        {
           "component": "C1",
-          "value": 0.9659258262890683
+          "calculation_type": "thickness",
+          "final_result": 5.171209692358056
+        }
+      ],
+      "rapor_disi_basliklar": [
+        {
+          "component": "",
+          "calculation_type": "pneumatic_test",
+          "final_result": 1.8807971689327623
         },
         {
-          "component": "C1",
-          "value": 4.5248084808133
-        },
-        {
-          "component": "C1",
-          "value": 0.875
-        },
-        {
-          "component": "C1",
-          "value": 5.171209692358056
-        },
-        {
-          "component": "C1",
-          "value": 5.171209692358056
-        },
-        {
-          "component": "N1",
-          "value": 230.37587412587413
-        },
-        {
-          "component": "N1",
-          "value": 294.62412587412587
-        },
-        {
-          "component": "N1",
-          "value": 71.57556818181818
-        },
-        {
-          "component": "SHELL-01",
-          "value": 10.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 8.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "HEAD-L",
-          "value": 10.5
+          "component": "LEGS",
+          "calculation_type": "leg_stress",
+          "final_result": 2.859765725046944
         }
       ],
       "errors": [],
@@ -5230,91 +3976,17 @@
         "REVIEW REQUIRED"
       ],
       "hidden_statuses": [],
-      "values_missing": [
+      "values_missing": [],
+      "rapor_disi_basliklar": [
         {
-          "component": "WIND-1",
-          "value": 200000.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "SHELL-01",
-          "value": 2.178819444444444
-        },
-        {
-          "component": "SHELL-01",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-L",
-          "value": 4.369016536118364
-        },
-        {
-          "component": "HEAD-L",
-          "value": 0.875
-        },
-        {
-          "component": "HEAD-R",
-          "value": 4.734982332155477
-        },
-        {
-          "component": "HEAD-R",
-          "value": 0.875
-        },
-        {
-          "component": "N1",
-          "value": 230.37587412587413
-        },
-        {
-          "component": "N1",
-          "value": 294.62412587412587
-        },
-        {
-          "component": "N1",
-          "value": 71.57556818181818
-        },
-        {
-          "component": "SHELL-01",
-          "value": 12.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 10.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 8.5
-        },
-        {
-          "component": "SHELL-01",
-          "value": 502.0
-        },
-        {
-          "component": "HEAD-L",
-          "value": 12.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 10.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 8.5
-        },
-        {
-          "component": "HEAD-L",
-          "value": 1004.0
-        },
-        {
-          "component": "HEAD-R",
-          "value": 12.5
+          "component": "",
+          "calculation_type": "pneumatic_test",
+          "final_result": 1.8807971689327623
         }
       ],
       "errors": [],
       "report_bytes": 21064
     },
-    "sonuc": "BULGU"
+    "sonuc": "GEÇTİ"
   }
 ]

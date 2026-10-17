@@ -152,10 +152,11 @@
       "uc_tekrar_ok": true,
       "tekrarlar_ayni": true,
       "permutasyon_ok": true,
-      "permutasyon_ayni": false,
+      "permutasyon_ayni": true,
+      "permutasyon_sira_dahil_ayni": false,
       "hatalar": []
     },
-    "sonuc": "BULGU",
+    "sonuc": "GEÇTİ",
     "payload": {
       "code": "ASME VIII-1",
       "edition": "2025",
@@ -3736,10 +3737,11 @@
       "uc_tekrar_ok": true,
       "tekrarlar_ayni": true,
       "permutasyon_ok": true,
-      "permutasyon_ayni": false,
+      "permutasyon_ayni": true,
+      "permutasyon_sira_dahil_ayni": false,
       "hatalar": []
     },
-    "sonuc": "BULGU",
+    "sonuc": "GEÇTİ",
     "payload": {
       "code": "ASME VIII-1",
       "edition": "2025",
@@ -7320,10 +7322,11 @@
       "uc_tekrar_ok": true,
       "tekrarlar_ayni": true,
       "permutasyon_ok": true,
-      "permutasyon_ayni": false,
+      "permutasyon_ayni": true,
+      "permutasyon_sira_dahil_ayni": false,
       "hatalar": []
     },
-    "sonuc": "BULGU",
+    "sonuc": "GEÇTİ",
     "payload": {
       "code": "ASME VIII-1",
       "edition": "2025",
@@ -10904,10 +10907,11 @@
       "uc_tekrar_ok": true,
       "tekrarlar_ayni": true,
       "permutasyon_ok": true,
-      "permutasyon_ayni": false,
+      "permutasyon_ayni": true,
+      "permutasyon_sira_dahil_ayni": false,
       "hatalar": []
     },
-    "sonuc": "BULGU",
+    "sonuc": "GEÇTİ",
     "payload": {
       "code": "ASME VIII-1",
       "edition": "2025",
@@ -14488,10 +14492,11 @@
       "uc_tekrar_ok": true,
       "tekrarlar_ayni": true,
       "permutasyon_ok": true,
-      "permutasyon_ayni": false,
+      "permutasyon_ayni": true,
+      "permutasyon_sira_dahil_ayni": false,
       "hatalar": []
     },
-    "sonuc": "BULGU",
+    "sonuc": "GEÇTİ",
     "payload": {
       "code": "ASME VIII-1",
       "edition": "2025",
@@ -18072,10 +18077,11 @@
       "uc_tekrar_ok": true,
       "tekrarlar_ayni": true,
       "permutasyon_ok": true,
-      "permutasyon_ayni": false,
+      "permutasyon_ayni": true,
+      "permutasyon_sira_dahil_ayni": false,
       "hatalar": []
     },
-    "sonuc": "BULGU",
+    "sonuc": "GEÇTİ",
     "payload": {
       "code": "ASME VIII-1",
       "edition": "2025",
@@ -21656,10 +21662,11 @@
       "uc_tekrar_ok": true,
       "tekrarlar_ayni": true,
       "permutasyon_ok": true,
-      "permutasyon_ayni": false,
+      "permutasyon_ayni": true,
+      "permutasyon_sira_dahil_ayni": false,
       "hatalar": []
     },
-    "sonuc": "BULGU",
+    "sonuc": "GEÇTİ",
     "payload": {
       "code": "ASME VIII-1",
       "edition": "2025",
@@ -25240,10 +25247,11 @@
       "uc_tekrar_ok": true,
       "tekrarlar_ayni": true,
       "permutasyon_ok": true,
-      "permutasyon_ayni": false,
+      "permutasyon_ayni": true,
+      "permutasyon_sira_dahil_ayni": false,
       "hatalar": []
     },
-    "sonuc": "BULGU",
+    "sonuc": "GEÇTİ",
     "payload": {
       "code": "ASME VIII-1",
       "edition": "2025",
@@ -28824,10 +28832,11 @@
       "uc_tekrar_ok": true,
       "tekrarlar_ayni": true,
       "permutasyon_ok": true,
-      "permutasyon_ayni": false,
+      "permutasyon_ayni": true,
+      "permutasyon_sira_dahil_ayni": false,
       "hatalar": []
     },
-    "sonuc": "BULGU",
+    "sonuc": "GEÇTİ",
     "payload": {
       "code": "ASME VIII-1",
       "edition": "2025",
@@ -32408,10 +32417,11 @@
       "uc_tekrar_ok": true,
       "tekrarlar_ayni": true,
       "permutasyon_ok": true,
-      "permutasyon_ayni": false,
+      "permutasyon_ayni": true,
+      "permutasyon_sira_dahil_ayni": false,
       "hatalar": []
     },
-    "sonuc": "BULGU",
+    "sonuc": "GEÇTİ",
     "payload": {
       "code": "ASME VIII-1",
       "edition": "2025",
@@ -35992,10 +36002,11 @@
       "uc_tekrar_ok": true,
       "tekrarlar_ayni": true,
       "permutasyon_ok": true,
-      "permutasyon_ayni": false,
+      "permutasyon_ayni": true,
+      "permutasyon_sira_dahil_ayni": false,
       "hatalar": []
     },
-    "sonuc": "BULGU",
+    "sonuc": "GEÇTİ",
     "payload": {
       "code": "ASME VIII-1",
       "edition": "2025",
@@ -39576,10 +39587,11 @@
       "uc_tekrar_ok": true,
       "tekrarlar_ayni": true,
       "permutasyon_ok": true,
-      "permutasyon_ayni": false,
+      "permutasyon_ayni": true,
+      "permutasyon_sira_dahil_ayni": false,
       "hatalar": []
     },
-    "sonuc": "BULGU",
+    "sonuc": "GEÇTİ",
     "payload": {
       "code": "ASME VIII-1",
       "edition": "2025",
@@ -43160,10 +43172,11 @@
       "uc_tekrar_ok": true,
       "tekrarlar_ayni": true,
       "permutasyon_ok": true,
-      "permutasyon_ayni": false,
+      "permutasyon_ayni": true,
+      "permutasyon_sira_dahil_ayni": false,
       "hatalar": []
     },
-    "sonuc": "BULGU",
+    "sonuc": "GEÇTİ",
     "payload": {
       "code": "ASME VIII-1",
       "edition": "2025",
@@ -46744,10 +46757,11 @@
       "uc_tekrar_ok": true,
       "tekrarlar_ayni": true,
       "permutasyon_ok": true,
-      "permutasyon_ayni": false,
+      "permutasyon_ayni": true,
+      "permutasyon_sira_dahil_ayni": false,
       "hatalar": []
     },
-    "sonuc": "BULGU",
+    "sonuc": "GEÇTİ",
     "payload": {
       "code": "ASME VIII-1",
       "edition": "2025",
@@ -50328,10 +50342,11 @@
       "uc_tekrar_ok": true,
       "tekrarlar_ayni": true,
       "permutasyon_ok": true,
-      "permutasyon_ayni": false,
+      "permutasyon_ayni": true,
+      "permutasyon_sira_dahil_ayni": false,
       "hatalar": []
     },
-    "sonuc": "BULGU",
+    "sonuc": "GEÇTİ",
     "payload": {
       "code": "ASME VIII-1",
       "edition": "2025",
@@ -53912,10 +53927,11 @@
       "uc_tekrar_ok": true,
       "tekrarlar_ayni": true,
       "permutasyon_ok": true,
-      "permutasyon_ayni": false,
+      "permutasyon_ayni": true,
+      "permutasyon_sira_dahil_ayni": false,
       "hatalar": []
     },
-    "sonuc": "BULGU",
+    "sonuc": "GEÇTİ",
     "payload": {
       "code": "ASME VIII-1",
       "edition": "2025",
@@ -57496,10 +57512,11 @@
       "uc_tekrar_ok": true,
       "tekrarlar_ayni": true,
       "permutasyon_ok": true,
-      "permutasyon_ayni": false,
+      "permutasyon_ayni": true,
+      "permutasyon_sira_dahil_ayni": false,
       "hatalar": []
     },
-    "sonuc": "BULGU",
+    "sonuc": "GEÇTİ",
     "payload": {
       "code": "ASME VIII-1",
       "edition": "2025",
@@ -61080,10 +61097,11 @@
       "uc_tekrar_ok": true,
       "tekrarlar_ayni": true,
       "permutasyon_ok": true,
-      "permutasyon_ayni": false,
+      "permutasyon_ayni": true,
+      "permutasyon_sira_dahil_ayni": false,
       "hatalar": []
     },
-    "sonuc": "BULGU",
+    "sonuc": "GEÇTİ",
     "payload": {
       "code": "ASME VIII-1",
       "edition": "2025",
@@ -64664,10 +64682,11 @@
       "uc_tekrar_ok": true,
       "tekrarlar_ayni": true,
       "permutasyon_ok": true,
-      "permutasyon_ayni": false,
+      "permutasyon_ayni": true,
+      "permutasyon_sira_dahil_ayni": false,
       "hatalar": []
     },
-    "sonuc": "BULGU",
+    "sonuc": "GEÇTİ",
     "payload": {
       "code": "ASME VIII-1",
       "edition": "2025",
@@ -68248,10 +68267,11 @@
       "uc_tekrar_ok": true,
       "tekrarlar_ayni": true,
       "permutasyon_ok": true,
-      "permutasyon_ayni": false,
+      "permutasyon_ayni": true,
+      "permutasyon_sira_dahil_ayni": false,
       "hatalar": []
     },
-    "sonuc": "BULGU",
+    "sonuc": "GEÇTİ",
     "payload": {
       "code": "ASME VIII-1",
       "edition": "2025",

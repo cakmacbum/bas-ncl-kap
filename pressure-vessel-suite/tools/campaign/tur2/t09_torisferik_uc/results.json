@@ -1,0 +1,1086 @@
+{
+  "kampanya": "T09-torisferik-uc",
+  "oracle": "Bağımsız UG-32(e)/Appendix 1-4(d): M=1/4(3+sqrt(L/r)); t=PLM/(2SE-0.2P); MAWP=2SEt/(LM+0.2t)",
+  "sonuclar": [
+    {
+      "vaka": "r003",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 30.0,
+        "r_over_D": 0.03,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "required_thickness",
+      "beklenen": 8.3001555891498,
+      "gozlenen": 8.3001555891498,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r003",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 30.0,
+        "r_over_D": 0.03,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "mawp",
+      "beklenen": 2.887972177805202,
+      "gozlenen": 2.887972177805202,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r003",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 30.0,
+        "r_over_D": 0.03,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "M",
+      "beklenen": 2.1193063937629155,
+      "gozlenen": 2.1193063937629155,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r030",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 30.0,
+        "r_over_D": 0.03,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "required_thickness",
+      "beklenen": 8.3001555891498,
+      "gozlenen": 8.3001555891498,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r030",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 30.0,
+        "r_over_D": 0.03,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "mawp",
+      "beklenen": 2.887972177805202,
+      "gozlenen": 2.887972177805202,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r030",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 30.0,
+        "r_over_D": 0.03,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "M",
+      "beklenen": 2.1193063937629155,
+      "gozlenen": 2.1193063937629155,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r050",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 500.0,
+        "r_mm": 50.0,
+        "r_over_D": 0.05,
+        "L_over_D": 0.5,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "required_thickness",
+      "beklenen": 3.351978709839197,
+      "gozlenen": 3.351978709839197,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r050",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 500.0,
+        "r_mm": 50.0,
+        "r_over_D": 0.05,
+        "L_over_D": 0.5,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "mawp",
+      "beklenen": 7.129160561200867,
+      "gozlenen": 7.129160561200867,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r050",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 500.0,
+        "r_mm": 50.0,
+        "r_over_D": 0.05,
+        "L_over_D": 0.5,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "M",
+      "beklenen": 1.540569415042095,
+      "gozlenen": 1.540569415042095,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r120",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 1200.0,
+        "r_mm": 120.0,
+        "r_over_D": 0.12,
+        "L_over_D": 1.2,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "required_thickness",
+      "beklenen": 8.044748903614074,
+      "gozlenen": 8.044748903614074,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r120",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 1200.0,
+        "r_mm": 120.0,
+        "r_over_D": 0.12,
+        "L_over_D": 1.2,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "mawp",
+      "beklenen": 2.9794622782039544,
+      "gozlenen": 2.9794622782039544,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r120",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 1200.0,
+        "r_mm": 120.0,
+        "r_over_D": 0.12,
+        "L_over_D": 1.2,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "M",
+      "beklenen": 1.540569415042095,
+      "gozlenen": 1.540569415042095,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r200",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 200.0,
+        "r_over_D": 0.2,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "required_thickness",
+      "beklenen": 5.014347594869101,
+      "gozlenen": 5.014347594869101,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r200",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 200.0,
+        "r_over_D": 0.2,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "mawp",
+      "beklenen": 4.773859683953393,
+      "gozlenen": 4.773859683953393,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r200",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 200.0,
+        "r_over_D": 0.2,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "M",
+      "beklenen": 1.2803300858899105,
+      "gozlenen": 1.2803300858899105,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "L050",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 500.0,
+        "r_mm": 80.0,
+        "r_over_D": 0.08,
+        "L_over_D": 0.5,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "required_thickness",
+      "beklenen": 2.9917319408181027,
+      "gozlenen": 2.9917319408181027,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "L050",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 500.0,
+        "r_mm": 80.0,
+        "r_over_D": 0.08,
+        "L_over_D": 0.5,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "mawp",
+      "beklenen": 7.982646420824295,
+      "gozlenen": 7.982646420824295,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "L050",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 500.0,
+        "r_mm": 80.0,
+        "r_over_D": 0.08,
+        "L_over_D": 0.5,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "M",
+      "beklenen": 1.375,
+      "gozlenen": 1.375,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "L120",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 1200.0,
+        "r_mm": 80.0,
+        "r_over_D": 0.08,
+        "L_over_D": 1.2,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "required_thickness",
+      "beklenen": 8.972563115153287,
+      "gozlenen": 8.972563115153287,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "L120",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 1200.0,
+        "r_mm": 80.0,
+        "r_over_D": 0.08,
+        "L_over_D": 1.2,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "mawp",
+      "beklenen": 2.6719654143508107,
+      "gozlenen": 2.6719654143508107,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "L120",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 1200.0,
+        "r_mm": 80.0,
+        "r_over_D": 0.08,
+        "L_over_D": 1.2,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "M",
+      "beklenen": 1.7182458365518543,
+      "gozlenen": 1.7182458365518543,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "thin",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 80.0,
+        "r_over_D": 0.08,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 0.05
+      },
+      "nicelik": "required_thickness",
+      "beklenen": 6.221379209774495,
+      "gozlenen": 6.221379209774495,
+      "durum": "FAIL",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "thin",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 80.0,
+        "r_over_D": 0.08,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 0.05
+      },
+      "nicelik": "mawp",
+      "beklenen": 0.009652489786843495,
+      "gozlenen": 0.009652489786843495,
+      "durum": "FAIL",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "thin",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 80.0,
+        "r_over_D": 0.08,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 0.05
+      },
+      "nicelik": "M",
+      "beklenen": 1.5885254915624212,
+      "gozlenen": 1.5885254915624212,
+      "durum": "FAIL",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "thick",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 80.0,
+        "r_over_D": 0.08,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 500
+      },
+      "nicelik": "required_thickness",
+      "beklenen": 6.221379209774495,
+      "gozlenen": 6.221379209774495,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "thick",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 80.0,
+        "r_over_D": 0.08,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 500
+      },
+      "nicelik": "mawp",
+      "beklenen": 90.21536315006375,
+      "gozlenen": 90.21536315006375,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "thick",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 80.0,
+        "r_over_D": 0.08,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 500
+      },
+      "nicelik": "M",
+      "beklenen": 1.5885254915624212,
+      "gozlenen": 1.5885254915624212,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "p-low",
+      "girdi": {
+        "pressure_mpa": 0.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 80.0,
+        "r_over_D": 0.08,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "required_thickness",
+      "beklenen": 1.0361450517511084,
+      "gozlenen": 1.0361450517511084,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "p-low",
+      "girdi": {
+        "pressure_mpa": 0.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 80.0,
+        "r_over_D": 0.08,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "mawp",
+      "beklenen": 3.8502505255735717,
+      "gozlenen": 3.8502505255735717,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "p-low",
+      "girdi": {
+        "pressure_mpa": 0.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 80.0,
+        "r_over_D": 0.08,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "M",
+      "beklenen": 1.5885254915624212,
+      "gozlenen": 1.5885254915624212,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "p-high",
+      "girdi": {
+        "pressure_mpa": 8.0,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 80.0,
+        "r_over_D": 0.08,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "required_thickness",
+      "beklenen": 41.68142689230843,
+      "gozlenen": 41.68142689230843,
+      "durum": "FAIL",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "p-high",
+      "girdi": {
+        "pressure_mpa": 8.0,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 80.0,
+        "r_over_D": 0.08,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "mawp",
+      "beklenen": 3.8502505255735717,
+      "gozlenen": 3.8502505255735717,
+      "durum": "FAIL",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "p-high",
+      "girdi": {
+        "pressure_mpa": 8.0,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 80.0,
+        "r_over_D": 0.08,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "M",
+      "beklenen": 1.5885254915624212,
+      "gozlenen": 1.5885254915624212,
+      "durum": "FAIL",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r003-L050",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 500.0,
+        "r_mm": 30.0,
+        "r_over_D": 0.03,
+        "L_over_D": 0.5,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "required_thickness",
+      "beklenen": 3.8525255138373753,
+      "gozlenen": 3.8525255138373753,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r003-L050",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 500.0,
+        "r_mm": 30.0,
+        "r_over_D": 0.03,
+        "L_over_D": 0.5,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "mawp",
+      "beklenen": 6.207056871442864,
+      "gozlenen": 6.207056871442864,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r003-L050",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 500.0,
+        "r_mm": 30.0,
+        "r_over_D": 0.03,
+        "L_over_D": 0.5,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "M",
+      "beklenen": 1.7706207261596576,
+      "gozlenen": 1.7706207261596576,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r003-L120",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 1200.0,
+        "r_mm": 30.0,
+        "r_over_D": 0.03,
+        "L_over_D": 1.2,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "required_thickness",
+      "beklenen": 12.173048721066266,
+      "gozlenen": 12.173048721066266,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r003-L120",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 1200.0,
+        "r_mm": 30.0,
+        "r_over_D": 0.03,
+        "L_over_D": 1.2,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "mawp",
+      "beklenen": 1.9704668456041403,
+      "gozlenen": 1.9704668456041403,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r003-L120",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 1200.0,
+        "r_mm": 30.0,
+        "r_over_D": 0.03,
+        "L_over_D": 1.2,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "M",
+      "beklenen": 2.33113883008419,
+      "gozlenen": 2.33113883008419,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r200-L050",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 500.0,
+        "r_mm": 200.0,
+        "r_over_D": 0.2,
+        "L_over_D": 0.5,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "required_thickness",
+      "beklenen": 2.4919162478699906,
+      "gozlenen": 2.4919162478699906,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r200-L050",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 500.0,
+        "r_mm": 200.0,
+        "r_over_D": 0.2,
+        "L_over_D": 0.5,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "mawp",
+      "beklenen": 9.572657929133705,
+      "gozlenen": 9.572657929133705,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r200-L050",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 500.0,
+        "r_mm": 200.0,
+        "r_over_D": 0.2,
+        "L_over_D": 0.5,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "M",
+      "beklenen": 1.1452847075210475,
+      "gozlenen": 1.1452847075210475,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r200-L120",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 1200.0,
+        "r_mm": 200.0,
+        "r_over_D": 0.2,
+        "L_over_D": 1.2,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "required_thickness",
+      "beklenen": 7.114216374390572,
+      "gozlenen": 7.114216374390572,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r200-L120",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 1200.0,
+        "r_mm": 200.0,
+        "r_over_D": 0.2,
+        "L_over_D": 1.2,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "mawp",
+      "beklenen": 3.3682218412756013,
+      "gozlenen": 3.3682218412756013,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "r200-L120",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 1200.0,
+        "r_mm": 200.0,
+        "r_over_D": 0.2,
+        "L_over_D": 1.2,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "M",
+      "beklenen": 1.3623724356957945,
+      "gozlenen": 1.3623724356957945,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "thin-r003",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 30.0,
+        "r_over_D": 0.03,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 0.05
+      },
+      "nicelik": "required_thickness",
+      "beklenen": 8.3001555891498,
+      "gozlenen": 8.3001555891498,
+      "durum": "FAIL",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "thin-r003",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 30.0,
+        "r_over_D": 0.03,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 0.05
+      },
+      "nicelik": "mawp",
+      "beklenen": 0.007235033588912273,
+      "gozlenen": 0.007235033588912273,
+      "durum": "FAIL",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "thin-r003",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 30.0,
+        "r_over_D": 0.03,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 0.05
+      },
+      "nicelik": "M",
+      "beklenen": 2.1193063937629155,
+      "gozlenen": 2.1193063937629155,
+      "durum": "FAIL",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "thick-r200",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 200.0,
+        "r_over_D": 0.2,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 500
+      },
+      "nicelik": "required_thickness",
+      "beklenen": 5.014347594869101,
+      "gozlenen": 5.014347594869101,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "thick-r200",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 200.0,
+        "r_over_D": 0.2,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 500
+      },
+      "nicelik": "mawp",
+      "beklenen": 110.19749426983564,
+      "gozlenen": 110.19749426983564,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "thick-r200",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": 200.0,
+        "r_over_D": 0.2,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 500
+      },
+      "nicelik": "M",
+      "beklenen": 1.2803300858899105,
+      "gozlenen": 1.2803300858899105,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "missing-r",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": null,
+        "r_over_D": 0.08,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "required_thickness",
+      "beklenen": null,
+      "gozlenen": null,
+      "durum": "NOT CALCULATED",
+      "sonuc": "GEÇTİ",
+      "not": "knuckle_radius boş: API durumu='NOT CALCULATED'; hesap engellendi (güvenli); PASS/varsayılan yarıçap YOK."
+    },
+    {
+      "vaka": "missing-r",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": null,
+        "r_over_D": 0.08,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "mawp",
+      "beklenen": null,
+      "gozlenen": null,
+      "durum": "NOT CALCULATED",
+      "sonuc": "GEÇTİ",
+      "not": "knuckle_radius boş: API durumu='NOT CALCULATED'; hesap engellendi (güvenli); PASS/varsayılan yarıçap YOK."
+    },
+    {
+      "vaka": "missing-r",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 1000.0,
+        "L_mm": 900.0,
+        "r_mm": null,
+        "r_over_D": 0.08,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "M",
+      "beklenen": null,
+      "gozlenen": null,
+      "durum": "NOT CALCULATED",
+      "sonuc": "GEÇTİ",
+      "not": "knuckle_radius boş: API durumu='NOT CALCULATED'; hesap engellendi (güvenli); PASS/varsayılan yarıçap YOK."
+    },
+    {
+      "vaka": "small-D",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 500.0,
+        "L_mm": 450.0,
+        "r_mm": 40.0,
+        "r_over_D": 0.08,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "required_thickness",
+      "beklenen": 3.1106896048872477,
+      "gozlenen": 3.1106896048872477,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "small-D",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 500.0,
+        "L_mm": 450.0,
+        "r_mm": 40.0,
+        "r_over_D": 0.08,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "mawp",
+      "beklenen": 7.679076147543521,
+      "gozlenen": 7.679076147543521,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "small-D",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 500.0,
+        "L_mm": 450.0,
+        "r_mm": 40.0,
+        "r_over_D": 0.08,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "M",
+      "beklenen": 1.5885254915624212,
+      "gozlenen": 1.5885254915624212,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "large-D",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 2000.0,
+        "L_mm": 1800.0,
+        "r_mm": 160.0,
+        "r_over_D": 0.08,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "required_thickness",
+      "beklenen": 12.44275841954899,
+      "gozlenen": 12.44275841954899,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "large-D",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 2000.0,
+        "L_mm": 1800.0,
+        "r_mm": 160.0,
+        "r_over_D": 0.08,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "mawp",
+      "beklenen": 1.9278145994442926,
+      "gozlenen": 1.9278145994442926,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    },
+    {
+      "vaka": "large-D",
+      "girdi": {
+        "pressure_mpa": 1.2,
+        "D_mm": 2000.0,
+        "L_mm": 1800.0,
+        "r_mm": 160.0,
+        "r_over_D": 0.08,
+        "L_over_D": 0.9,
+        "nominal_thickness_mm": 20
+      },
+      "nicelik": "M",
+      "beklenen": 1.5885254915624212,
+      "gozlenen": 1.5885254915624212,
+      "durum": "PASS",
+      "sonuc": "GEÇTİ",
+      "not": ""
+    }
+  ]
+}

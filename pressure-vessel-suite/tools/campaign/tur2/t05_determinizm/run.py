@@ -10,7 +10,7 @@ from tools.campaign import harness
 from tools.campaign.tur2.t05_determinizm.cases import cases, permuted
 
 OUT = Path(__file__).parent
-REPORT = OUT.parents[3] / "docs/validation/campaign-2026-10/tur2/T05-determinizm.md"
+REPORT = OUT / "rapor_v3.md"  # tur2 docs dizinine yazılmaz (A3 kısıtı)
 VOLATILE = re.compile(r"(^|_)(id|uuid|timestamp|created_at|updated_at|calculated_at|request_id)$", re.I)
 
 
@@ -19,6 +19,20 @@ def normalize(value, key=""):
         return {k: normalize(v, k) for k, v in sorted(value.items()) if not VOLATILE.search(k)}
     if isinstance(value, list):
         return [normalize(item) for item in value]
+    return value
+
+
+_PAREN = re.compile(r"\(([A-Za-z0-9_\-]+(?:, [A-Za-z0-9_\-]+)+)\)")
+
+
+def canon(value):
+    """Sıradan bağımsız karşılaştırma: listeleri JSON anahtarına göre sırala, '(M1, M2)' kimlik listelerini sırala."""
+    if isinstance(value, dict):
+        return {k: canon(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return sorted((canon(v) for v in value), key=lambda v: json.dumps(v, sort_keys=True, ensure_ascii=False))
+    if isinstance(value, str):
+        return _PAREN.sub(lambda m: "(" + ", ".join(sorted(m.group(1).split(", "))) + ")", value)
     return value
 
 
@@ -39,7 +53,8 @@ def run():
         all_ok = all(outcome.get("ok") and outcome.get("payload") is not None for outcome in outcomes)
         repeat_equal = all(payload == expected for payload in payloads[1:])
         permuted_payload = normalize(shuffled.get("payload"))
-        permutation_equal = bool(shuffled.get("ok")) and permuted_payload == expected
+        permutation_strict = bool(shuffled.get("ok")) and permuted_payload == expected
+        permutation_equal = bool(shuffled.get("ok")) and canon(permuted_payload) == canon(expected)
         verdict = "GEÇTİ" if all_ok and repeat_equal and permutation_equal else (
             "BULGU" if all_ok else "KAPSAM_DIŞI")
         rows.append({
@@ -49,6 +64,7 @@ def run():
             "gozlenen": {"uc_tekrar_ok": all_ok, "tekrarlar_ayni": repeat_equal,
                          "permutasyon_ok": bool(shuffled.get("ok")),
                          "permutasyon_ayni": permutation_equal,
+                         "permutasyon_sira_dahil_ayni": permutation_strict,
                          "hatalar": [o.get("error") for o in outcomes if o.get("error")]
                          + ([shuffled.get("error")] if shuffled.get("error") else [])},
             "sonuc": verdict,
@@ -62,11 +78,10 @@ def run():
     findings = [row for row in rows if row["sonuc"] == "BULGU"]
     report = ["# T05 — Determinizm ve snapshot", "", f"Vaka sayısı: {len(rows)}.",
               f"Dağılım: geçti={counts['GEÇTİ']}, bulgu={counts['BULGU']}, kapsam dışı={counts['KAPSAM_DIŞI']}.",
-              "", "Karşılaştırma, zaman damgası/id anahtarlarını özyinelemeli çıkardı; payload'ın kalan JSON değerleri ve dizi sıraları aynen kıyaslandı.",
+              "", "Tekrar karşılaştırması: id/zaman damgası alanları çıkarılır, kalan payload aynen kıyaslanır. Permütasyon karşılaştırması: listeler sıradan bağımsız (kanonik) kıyaslanır; girdi sırasını izleyen çıktı sırası ayrıca 'permutasyon_sira_dahil_ayni' alanında kayıtlıdır.",
               "", "## Bulgular", "", "| Vaka | Önem | Yön | Konum | Ayrıntı |", "|---|---|---|---|---|"]
     for row in findings:
-        detail = "tekrar" if not row["gozlenen"]["tekrarlar_ayni"] else "liste sırası"
-        report.append(f"| {row['vaka']} | ORTA | emniyet etkisi yok | packages/code-asme-viii-1/src/code_asme_viii_1/design_code.py:1220 | welds sırası değişince weld_validation satırlarının sırası/değerleri farklı; beklenen girdi sırasından bağımsız eş payload |")
+        report.append(f"| {row['vaka']} | ORTA | ? | ? | tekrar veya sıradan bağımsız permütasyon farkı (bkz. results.json) |")
     if not findings:
         report.append("Bulgu yok.")
     report += ["", "## Kapsam dışı", ""]

@@ -184,3 +184,19 @@ A1 (Sonnet) izole worktree'de düzeltti, şef diff'i okudu ve ana ağaçta test 
 - **Koni notu:** Modelde `external_corrosion_allowance` alanı yok (yalnız ShellSection ve Head); koni için `getattr(..., 0.0)` kullanıldı. Koniye CA_o alanı eklemek ayrı karar.
 - **Kanıt:** tam test paketi 938 geçti / 1 atlandı (önce 934 + 4 yeni regresyon testi). 1000 vakalık kütle koşusu: önce 641 SAPMA_CAO_MAWP + 359 UYUŞUR; sonra 1000 / 1000 UYUŞUR.
 - **Kalan boşluk:** Düz kapak, torisferik, yarım küre ve koni MAWP dallarında CA_o>0 için bağımsız test yok (yalnız mevcut CA_o=0 testleri).
+
+## U. A3 (Sonnet) Tur 2 onarımları (2026-10-17) — şef çapraz kontrolüyle
+
+| Modül | Önce | Sonra | Kök neden |
+|---|---|---|---|
+| T01 metamorfik (240) | 120 GEÇTİ / 120 KAPSAM_DIŞI | 240 GEÇTİ | "120 düz kapak" aslında düz kapak + koni + nozul + dış basınç (4×30): düz kapakta `flat_attachment_factor=0.33` eksik (`geometry.py:121`), konide bombe sırası geçersiz, nozulda `A_required` adı yanlış, dış basınçta `P_allow` adı yanlış |
+| T05 determinizm (20) | 20 BULGU | 20 GEÇTİ | Test hatası; fark yalnız permütasyonda çıktı sırası (weld satırları, uyarıdaki malzeme listesi). Gözlem (DÜŞÜK): çıktı sırası girdi sırasına bağlı |
+| T07 rapor (20) | 20 BULGU | 18 GEÇTİ / 2 BULGU | 18'i test hatası (tüm ara değerleri bekliyordu, başlık sonuçlarına bakacak şekilde düzeltildi); 2'si gerçek ürün bulgusu (B-11) |
+| T09 torisferik (60) | 60 KAPSAM_DIŞI | 60 GEÇTİ | `component_sequence` yalnız `[HEAD-L]` olduğu için API 422 dönüyordu; sıra düzeltildi, oracle ile sapma 0 |
+| T14 etekli kolon (30) | 30 GEÇTİ | 30 | 30/30 vakada taban halkası sonucu yok (kapsam boşluğu G-05); `skirt_stress` hepsinde REVIEW REQUIRED |
+
+- **B-03 yeniden değerlendirme (T09):** `knuckle_radius` boş, `custom` geometri → API sonucu `NOT CALCULATED` ("knuckle_radius zorunludur"); güvenli yönde engelleniyor. Eski "varsayılanla PASS" iddiası bu girdi için doğrulanmadı. (A4: standart geometride 0.06·L uyarılı varsayılan.)
+- **B-11 · ORTA (yeni, şef doğruladı):** HTML rapor koni bileşenini içermiyor. `report-engine/src/report_engine/generator.py` içinde "cone" kelimesi hiç geçmiyor; yalnız shell ve head kalınlık bölümleri var (`_section_shell_calculations`, `_section_head_calculations`). Konili bir kapta koni kalınlığı (ör. C1, 5.17 mm) raporda görünmüyor. Düzeltme onay bekliyor.
+- **Gözlem (belirsiz, bulgu değil):** `skirt_stress`, `leg_stress`, `flange_stress` gibi başlık sonuçları raporda sayısal görünmüyor; eksiklik mi ürün kararı mı belirsiz.
+- **T01 boş doğrulama uyarısı:** A3'ün kendi notu: nozulun E ve nominal kalınlık ilişkileri sabit kalıyor; bu ilişkilerin "GEÇTİ"si etkisiz (monotonluk kontrolü bir şey ölçmüyor). T01'in 240 GEÇTİ'sinin tamamı eşit güçte kanıt değildir.
+- A3'ün yazdığı çıktılar: her modülde `results_v3.json`; T05 ve T09 raporları modül içinde `rapor_v3.md` (yazma kısıtı nedeniyle).

@@ -22,6 +22,7 @@ Bu dosya, hedefin kapanmasını engelleyen tüm açık maddeleri toplar. Her mad
 | G-04 | DÜŞÜK | Büyük harfli UUID kabul ediliyor (aynı sahibe normalleşiyor; sızıntı yok) | Bilgi |
 | G-05 | ORTA | Etekli kolonda taban halkası sonucu API'de yok (T14) | Açık |
 | G-06 | ORTA | Yatay tankta 216 saddle sonucu OUT OF SCOPE; kapsam belgelenmedi | Açık |
+| B-11 | ORTA | HTML rapor koni bileşenini içermiyor (`generator.py`'de 'cone' yok) | Teyitli (A3 + şef). Düzeltme onay bekliyor |
 | D-03 | ORTA (altyapı) | Sahip başına 50 proje tavanı kampanyayı sessizce 429'a sokuyordu | Düzeltildi (harness uuid4 sahip) |
 | D-04 | ORTA (altyapı) | T32 satır durumu hatalı birleştirilmişti | Düzeltildi (kontrollerden türetme) |
 
@@ -29,7 +30,7 @@ Bu dosya, hedefin kapanmasını engelleyen tüm açık maddeleri toplar. Her mad
 
 | ID | Eksik | Durum |
 |---|---|---|
-| T-01 | T01 düz kapak 120 vakası BLOCKED (test girdisinde bağlantı faktörü C yok) | Açık: üretici girdisi düzeltilmeli |
+| T-01 | T01 120 KAPSAM_DIŞI (düz kapak, koni, nozul, dış basınç; 4 ayrı test hatası) | KAPANDI (A3): 240 GEÇTİ. Not: nozul E/nominal ilişkileri etkisiz (boş doğrulama) |
 | T-02 | T11 saddle REVIEW/FAIL sonuçlarının sınıflandırma kuralı | Karar verildi (SAYISAL_İNCELEME / TASARIM_FAIL); benim sonuç dosyası tek kaynak |
 | T-03 | T42 ve T50 (Luna) T11 sınıflandırmaları ana dala girmedi (çakışıyor, uyuşmuyor) | Karar: birleştirilmedi |
 | T-04 | T04 fuzz: kontrol kuralları düzeltildi; nozul oranı ≥1 PASS | Düzeltildi; Haiku doğrulaması kopya çıktı (bağımsız değil) |
@@ -37,8 +38,8 @@ Bu dosya, hedefin kapanmasını engelleyen tüm açık maddeleri toplar. Her mad
 | T-06 | R04 (yarım küre oracle'ı suite'e hizalandı) birleştirilmedi | Karar: kanıt sayılmaz |
 | T-07 | T63 nozul kontrolü bağımsız değer yok ("UYUŞUR" boş geçiş) | Açık: Luna yeniden yazmalı |
 | T-08 | T63 eliptik: 9 "uyuşmazlık" test tanımı hatası (crown_depth) | Açık: Luna yeniden yazmalı |
-| T-09 | T05 determinizm ve T07 rapor: 20/20 BULGU, sebebi test hatası olabilir | Açık |
-| T-10 | T09 torisferik ve T14 halka kapsamı | Açık |
+| T-09 | T05 determinizm ve T07 rapor: 20/20 BULGU | KAPANDI (A3): T05 20 GEÇTİ, T07 18 GEÇTİ + 2 gerçek bulgu (B-11) |
+| T-10 | T09 torisferik ve T14 halka kapsamı | T09 KAPANDI (60 GEÇTİ). T14 halka sonucu API'de yok: kapsam boşluğu G-05 |
 
 ## C. Süreç (hedef kriterleri) eksikleri
 
