@@ -70,7 +70,7 @@ def inspect(outcome, project):
                 checks.append(_check(f"kullanim:{row.get('component_id', comp)}", {"available_required": ratio, "status": status}, (ratio >= 1 if status == "PASS" else ratio < 1)))
         elif status in ("PASS", "FAIL"):
             usage_rows += 1
-            checks.append(_check(f"kullanim:{row.get('component_id', comp)}", {"utilization": util, "status": status}, (util <= 1 if status == "PASS" else util > 1) if util is not None else None, scope=util is None))
+            checks.append(_check(f"kullanim:{row.get('component_id', comp)}", {"utilization": util, "status": status}, ((util >= 1 if status == "PASS" else util < 1) if "nozzle" in str(row.get("calculation_type", "")) or str(row.get("component_type", "")) == "nozzle" else (util <= 1 if status == "PASS" else util > 1)) if util is not None else None, scope=util is None))
         # Independent UG-27(c)(1) check for shell/body rows only.
         if ("shell" in comp or "cylindrical" in comp or str(row.get("component_id", "")).startswith("S")) and str(row.get("clause_reference", "")).startswith("UG-27(c)(1)"):
             shell = next((s for s in project.get("shell_sections", []) if s.get("section_id") == row.get("component_id")), None)
