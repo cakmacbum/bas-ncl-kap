@@ -1,0 +1,288 @@
+# T32 Mega Nozul — Gövde ve Bombe Rastgele Taraması
+
+Seed: `1003`; 55 geometri × düşük/yüksek basınç çifti; toplam 110 API vakası.
+
+| Durum | Adet |
+|---|---:|
+| GEÇTİ | 0 |
+| BULGU | 110 |
+| BLOCKED_BEKLENEN | 0 |
+
+## BULGU vakaları
+
+- `T32-000-low` — girdi özeti: host=shell, P=1.0074 MPa, nozul OD/ID/t=159.89999999999998/141.98/8.96 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.4403514431526667
+- `T32-000-low` — girdi özeti: host=shell, P=1.0074 MPa, nozul OD/ID/t=159.89999999999998/141.98/8.96 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-000-high` — girdi özeti: host=shell, P=1.20888 MPa, nozul OD/ID/t=159.89999999999998/141.98/8.96 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.856919137410134
+- `T32-000-high` — girdi özeti: host=shell, P=1.20888 MPa, nozul OD/ID/t=159.89999999999998/141.98/8.96 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-001-low` — girdi özeti: host=head, P=0.4774 MPa, nozul OD/ID/t=67.42/50.06/8.68 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=9.044717466166144
+- `T32-001-low` — girdi özeti: host=head, P=0.4774 MPa, nozul OD/ID/t=67.42/50.06/8.68 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-001-low` — girdi özeti: host=head, P=0.4774 MPa, nozul OD/ID/t=67.42/50.06/8.68 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-001-high` — girdi özeti: host=head, P=0.57288 MPa, nozul OD/ID/t=67.42/50.06/8.68 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=7.362490433788512
+- `T32-001-high` — girdi özeti: host=head, P=0.57288 MPa, nozul OD/ID/t=67.42/50.06/8.68 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-001-high` — girdi özeti: host=head, P=0.57288 MPa, nozul OD/ID/t=67.42/50.06/8.68 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-002-low` — girdi özeti: host=shell, P=1.653 MPa, nozul OD/ID/t=119.98/102.54/8.72 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.2198415512678846
+- `T32-002-low` — girdi özeti: host=shell, P=1.653 MPa, nozul OD/ID/t=119.98/102.54/8.72 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-002-high` — girdi özeti: host=shell, P=1.9836 MPa, nozul OD/ID/t=119.98/102.54/8.72 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=0.8398996174271524
+- `T32-002-high` — girdi özeti: host=shell, P=1.9836 MPa, nozul OD/ID/t=119.98/102.54/8.72 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-003-low` — girdi özeti: host=head, P=0.6826 MPa, nozul OD/ID/t=66.45/51.43/7.51 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=4.299887050177537
+- `T32-003-low` — girdi özeti: host=head, P=0.6826 MPa, nozul OD/ID/t=66.45/51.43/7.51 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-003-low` — girdi özeti: host=head, P=0.6826 MPa, nozul OD/ID/t=66.45/51.43/7.51 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-003-high` — girdi özeti: host=head, P=0.81912 MPa, nozul OD/ID/t=66.45/51.43/7.51 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=3.412559889249848
+- `T32-003-high` — girdi özeti: host=head, P=0.81912 MPa, nozul OD/ID/t=66.45/51.43/7.51 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-003-high` — girdi özeti: host=head, P=0.81912 MPa, nozul OD/ID/t=66.45/51.43/7.51 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-004-low` — girdi özeti: host=shell, P=0.6988 MPa, nozul OD/ID/t=164.18/154.16/5.01 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=3.0544777004620607
+- `T32-004-low` — girdi özeti: host=shell, P=0.6988 MPa, nozul OD/ID/t=164.18/154.16/5.01 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-004-high` — girdi özeti: host=shell, P=0.83856 MPa, nozul OD/ID/t=164.18/154.16/5.01 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.374631750591533
+- `T32-004-high` — girdi özeti: host=shell, P=0.83856 MPa, nozul OD/ID/t=164.18/154.16/5.01 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-005-low` — girdi özeti: host=head, P=1.5914 MPa, nozul OD/ID/t=238.1/219.6/9.25 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.0152238807717275
+- `T32-005-low` — girdi özeti: host=head, P=1.5914 MPa, nozul OD/ID/t=238.1/219.6/9.25 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-005-low` — girdi özeti: host=head, P=1.5914 MPa, nozul OD/ID/t=238.1/219.6/9.25 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-005-high` — girdi özeti: host=head, P=1.9096799999999998 MPa, nozul OD/ID/t=238.1/219.6/9.25 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=0.6711623926235502
+- `T32-005-high` — girdi özeti: host=head, P=1.9096799999999998 MPa, nozul OD/ID/t=238.1/219.6/9.25 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-005-high` — girdi özeti: host=head, P=1.9096799999999998 MPa, nozul OD/ID/t=238.1/219.6/9.25 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-006-low` — girdi özeti: host=shell, P=1.0086 MPa, nozul OD/ID/t=114.1/94.7/9.7 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=3.0133714173556907
+- `T32-006-low` — girdi özeti: host=shell, P=1.0086 MPa, nozul OD/ID/t=114.1/94.7/9.7 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-006-high` — girdi özeti: host=shell, P=1.2103199999999998 MPa, nozul OD/ID/t=114.1/94.7/9.7 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.3334995987017786
+- `T32-006-high` — girdi özeti: host=shell, P=1.2103199999999998 MPa, nozul OD/ID/t=114.1/94.7/9.7 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-007-low` — girdi özeti: host=head, P=1.4262 MPa, nozul OD/ID/t=221.78/195.18/13.3 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.5193738505024552
+- `T32-007-low` — girdi özeti: host=head, P=1.4262 MPa, nozul OD/ID/t=221.78/195.18/13.3 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-007-low` — girdi özeti: host=head, P=1.4262 MPa, nozul OD/ID/t=221.78/195.18/13.3 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-007-high` — girdi özeti: host=head, P=1.7114399999999999 MPa, nozul OD/ID/t=221.78/195.18/13.3 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.0908578742487
+- `T32-007-high` — girdi özeti: host=head, P=1.7114399999999999 MPa, nozul OD/ID/t=221.78/195.18/13.3 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-007-high` — girdi özeti: host=head, P=1.7114399999999999 MPa, nozul OD/ID/t=221.78/195.18/13.3 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-008-low` — girdi özeti: host=shell, P=0.8445 MPa, nozul OD/ID/t=228.82999999999998/214.85/6.99 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.577202181919273
+- `T32-008-low` — girdi özeti: host=shell, P=0.8445 MPa, nozul OD/ID/t=228.82999999999998/214.85/6.99 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-008-high` — girdi özeti: host=shell, P=1.0134 MPa, nozul OD/ID/t=228.82999999999998/214.85/6.99 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.9729814846598301
+- `T32-008-high` — girdi özeti: host=shell, P=1.0134 MPa, nozul OD/ID/t=228.82999999999998/214.85/6.99 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-009-low` — girdi özeti: host=head, P=0.4915 MPa, nozul OD/ID/t=182.54/169.26/6.64 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=5.286168871239672
+- `T32-009-low` — girdi özeti: host=head, P=0.4915 MPa, nozul OD/ID/t=182.54/169.26/6.64 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-009-low` — girdi özeti: host=head, P=0.4915 MPa, nozul OD/ID/t=182.54/169.26/6.64 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-009-high` — girdi özeti: host=head, P=0.5898 MPa, nozul OD/ID/t=182.54/169.26/6.64 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=4.232565856308454
+- `T32-009-high` — girdi özeti: host=head, P=0.5898 MPa, nozul OD/ID/t=182.54/169.26/6.64 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-009-high` — girdi özeti: host=head, P=0.5898 MPa, nozul OD/ID/t=182.54/169.26/6.64 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-010-low` — girdi özeti: host=shell, P=0.4429 MPa, nozul OD/ID/t=76.07000000000001/56.59/9.74 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=10.338920953514707
+- `T32-010-low` — girdi özeti: host=shell, P=0.4429 MPa, nozul OD/ID/t=76.07000000000001/56.59/9.74 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-010-high` — girdi özeti: host=shell, P=0.53148 MPa, nozul OD/ID/t=76.07000000000001/56.59/9.74 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=8.436996936558693
+- `T32-010-high` — girdi özeti: host=shell, P=0.53148 MPa, nozul OD/ID/t=76.07000000000001/56.59/9.74 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-011-low` — girdi özeti: host=head, P=1.3575 MPa, nozul OD/ID/t=160.68/129.18/15.75 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.2062945779589858
+- `T32-011-low` — girdi özeti: host=head, P=1.3575 MPa, nozul OD/ID/t=160.68/129.18/15.75 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-011-low` — girdi özeti: host=head, P=1.3575 MPa, nozul OD/ID/t=160.68/129.18/15.75 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-011-high` — girdi özeti: host=head, P=1.6289999999999998 MPa, nozul OD/ID/t=160.68/129.18/15.75 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.662986917328709
+- `T32-011-high` — girdi özeti: host=head, P=1.6289999999999998 MPa, nozul OD/ID/t=160.68/129.18/15.75 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-011-high` — girdi özeti: host=head, P=1.6289999999999998 MPa, nozul OD/ID/t=160.68/129.18/15.75 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-012-low` — girdi özeti: host=shell, P=1.3769 MPa, nozul OD/ID/t=144.76/122.22/11.27 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=0.9984076556375604
+- `T32-012-low` — girdi özeti: host=shell, P=1.3769 MPa, nozul OD/ID/t=144.76/122.22/11.27 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-012-high` — girdi özeti: host=shell, P=1.65228 MPa, nozul OD/ID/t=144.76/122.22/11.27 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=0.663179896765899
+- `T32-012-high` — girdi özeti: host=shell, P=1.65228 MPa, nozul OD/ID/t=144.76/122.22/11.27 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-013-low` — girdi özeti: host=head, P=0.6906 MPa, nozul OD/ID/t=145.98000000000002/134.9/5.54 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=3.4035456413099223
+- `T32-013-low` — girdi özeti: host=head, P=0.6906 MPa, nozul OD/ID/t=145.98000000000002/134.9/5.54 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-013-low` — girdi özeti: host=head, P=0.6906 MPa, nozul OD/ID/t=145.98000000000002/134.9/5.54 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-013-high` — girdi özeti: host=head, P=0.82872 MPa, nozul OD/ID/t=145.98000000000002/134.9/5.54 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.664717048416245
+- `T32-013-high` — girdi özeti: host=head, P=0.82872 MPa, nozul OD/ID/t=145.98000000000002/134.9/5.54 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-013-high` — girdi özeti: host=head, P=0.82872 MPa, nozul OD/ID/t=145.98000000000002/134.9/5.54 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-014-low` — girdi özeti: host=shell, P=0.361 MPa, nozul OD/ID/t=170.98000000000002/143.3/13.84 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=10.224736362381517
+- `T32-014-low` — girdi özeti: host=shell, P=0.361 MPa, nozul OD/ID/t=170.98000000000002/143.3/13.84 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-014-high` — girdi özeti: host=shell, P=0.4332 MPa, nozul OD/ID/t=170.98000000000002/143.3/13.84 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=8.342692845807909
+- `T32-014-high` — girdi özeti: host=shell, P=0.4332 MPa, nozul OD/ID/t=170.98000000000002/143.3/13.84 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-015-low` — girdi özeti: host=head, P=1.6175 MPa, nozul OD/ID/t=223.71999999999997/201.14/11.29 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.1238690249945358
+- `T32-015-low` — girdi özeti: host=head, P=1.6175 MPa, nozul OD/ID/t=223.71999999999997/201.14/11.29 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-015-low` — girdi özeti: host=head, P=1.6175 MPa, nozul OD/ID/t=223.71999999999997/201.14/11.29 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-015-high` — girdi özeti: host=head, P=1.9409999999999998 MPa, nozul OD/ID/t=223.71999999999997/201.14/11.29 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=0.7610572658468311
+- `T32-015-high` — girdi özeti: host=head, P=1.9409999999999998 MPa, nozul OD/ID/t=223.71999999999997/201.14/11.29 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-015-high` — girdi özeti: host=head, P=1.9409999999999998 MPa, nozul OD/ID/t=223.71999999999997/201.14/11.29 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-016-low` — girdi özeti: host=shell, P=1.1251 MPa, nozul OD/ID/t=245.35/228.69/8.33 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.7587706219666053
+- `T32-016-low` — girdi özeti: host=shell, P=1.1251 MPa, nozul OD/ID/t=245.35/228.69/8.33 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-016-high` — girdi özeti: host=shell, P=1.35012 MPa, nozul OD/ID/t=245.35/228.69/8.33 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.2898020040268872
+- `T32-016-high` — girdi özeti: host=shell, P=1.35012 MPa, nozul OD/ID/t=245.35/228.69/8.33 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-017-low` — girdi özeti: host=head, P=1.6669 MPa, nozul OD/ID/t=74.4/56.4/9.0 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.1270451882668815
+- `T32-017-low` — girdi özeti: host=head, P=1.6669 MPa, nozul OD/ID/t=74.4/56.4/9.0 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-017-low` — girdi özeti: host=head, P=1.6669 MPa, nozul OD/ID/t=74.4/56.4/9.0 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-017-high` — girdi özeti: host=head, P=2.00028 MPa, nozul OD/ID/t=74.4/56.4/9.0 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=0.768894090932259
+- `T32-017-high` — girdi özeti: host=head, P=2.00028 MPa, nozul OD/ID/t=74.4/56.4/9.0 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-017-high` — girdi özeti: host=head, P=2.00028 MPa, nozul OD/ID/t=74.4/56.4/9.0 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-018-low` — girdi özeti: host=shell, P=0.8987 MPa, nozul OD/ID/t=222.91/193.01/14.95 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=3.1771406679265763
+- `T32-018-low` — girdi özeti: host=shell, P=0.8987 MPa, nozul OD/ID/t=222.91/193.01/14.95 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-018-high` — girdi özeti: host=shell, P=1.07844 MPa, nozul OD/ID/t=222.91/193.01/14.95 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.470018073847007
+- `T32-018-high` — girdi özeti: host=shell, P=1.07844 MPa, nozul OD/ID/t=222.91/193.01/14.95 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-019-low` — girdi özeti: host=head, P=1.4787 MPa, nozul OD/ID/t=79.7/58.56/10.57 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.4830051783737694
+- `T32-019-low` — girdi özeti: host=head, P=1.4787 MPa, nozul OD/ID/t=79.7/58.56/10.57 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-019-low` — girdi özeti: host=head, P=1.4787 MPa, nozul OD/ID/t=79.7/58.56/10.57 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-019-high` — girdi özeti: host=head, P=1.7744399999999998 MPa, nozul OD/ID/t=79.7/58.56/10.57 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.8935401123307323
+- `T32-019-high` — girdi özeti: host=head, P=1.7744399999999998 MPa, nozul OD/ID/t=79.7/58.56/10.57 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-019-high` — girdi özeti: host=head, P=1.7744399999999998 MPa, nozul OD/ID/t=79.7/58.56/10.57 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-020-low` — girdi özeti: host=shell, P=0.5649 MPa, nozul OD/ID/t=209.09/177.49/15.8 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=5.965274963252964
+- `T32-020-low` — girdi özeti: host=shell, P=0.5649 MPa, nozul OD/ID/t=209.09/177.49/15.8 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-020-high` — girdi özeti: host=shell, P=0.6778799999999999 MPa, nozul OD/ID/t=209.09/177.49/15.8 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=4.793044098209346
+- `T32-020-high` — girdi özeti: host=shell, P=0.6778799999999999 MPa, nozul OD/ID/t=209.09/177.49/15.8 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-021-low` — girdi özeti: host=head, P=1.0995 MPa, nozul OD/ID/t=146.6/120.9/12.85 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.7758802963654516
+- `T32-021-low` — girdi özeti: host=head, P=1.0995 MPa, nozul OD/ID/t=146.6/120.9/12.85 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-021-low` — girdi özeti: host=head, P=1.0995 MPa, nozul OD/ID/t=146.6/120.9/12.85 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-021-high` — girdi özeti: host=head, P=1.3194 MPa, nozul OD/ID/t=146.6/120.9/12.85 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.137685014740197
+- `T32-021-high` — girdi özeti: host=head, P=1.3194 MPa, nozul OD/ID/t=146.6/120.9/12.85 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-021-high` — girdi özeti: host=head, P=1.3194 MPa, nozul OD/ID/t=146.6/120.9/12.85 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-022-low` — girdi özeti: host=shell, P=0.7192 MPa, nozul OD/ID/t=91.11/78.89/6.11 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=3.681490477955801
+- `T32-022-low` — girdi özeti: host=shell, P=0.7192 MPa, nozul OD/ID/t=91.11/78.89/6.11 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-022-high` — girdi özeti: host=shell, P=0.8630399999999999 MPa, nozul OD/ID/t=91.11/78.89/6.11 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.893889888656628
+- `T32-022-high` — girdi özeti: host=shell, P=0.8630399999999999 MPa, nozul OD/ID/t=91.11/78.89/6.11 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-023-low` — girdi özeti: host=head, P=1.3301 MPa, nozul OD/ID/t=138.77/109.25/14.76 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.409515447436502
+- `T32-023-low` — girdi özeti: host=head, P=1.3301 MPa, nozul OD/ID/t=138.77/109.25/14.76 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-023-low` — girdi özeti: host=head, P=1.3301 MPa, nozul OD/ID/t=138.77/109.25/14.76 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-023-high` — girdi özeti: host=head, P=1.59612 MPa, nozul OD/ID/t=138.77/109.25/14.76 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.832353774544867
+- `T32-023-high` — girdi özeti: host=head, P=1.59612 MPa, nozul OD/ID/t=138.77/109.25/14.76 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-023-high` — girdi özeti: host=head, P=1.59612 MPa, nozul OD/ID/t=138.77/109.25/14.76 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-024-low` — girdi özeti: host=shell, P=0.6167 MPa, nozul OD/ID/t=119.96/88.72/15.62 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=7.309346247780123
+- `T32-024-low` — girdi özeti: host=shell, P=0.6167 MPa, nozul OD/ID/t=119.96/88.72/15.62 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-024-high` — girdi özeti: host=shell, P=0.74004 MPa, nozul OD/ID/t=119.96/88.72/15.62 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=5.912787011484197
+- `T32-024-high` — girdi özeti: host=shell, P=0.74004 MPa, nozul OD/ID/t=119.96/88.72/15.62 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-025-low` — girdi özeti: host=head, P=1.5913 MPa, nozul OD/ID/t=118.93/103.45/7.74 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.0499134825052927
+- `T32-025-low` — girdi özeti: host=head, P=1.5913 MPa, nozul OD/ID/t=118.93/103.45/7.74 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-025-low` — girdi özeti: host=head, P=1.5913 MPa, nozul OD/ID/t=118.93/103.45/7.74 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-025-high` — girdi özeti: host=head, P=1.90956 MPa, nozul OD/ID/t=118.93/103.45/7.74 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=0.7032453276567052
+- `T32-025-high` — girdi özeti: host=head, P=1.90956 MPa, nozul OD/ID/t=118.93/103.45/7.74 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-025-high` — girdi özeti: host=head, P=1.90956 MPa, nozul OD/ID/t=118.93/103.45/7.74 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-026-low` — girdi özeti: host=shell, P=1.6371 MPa, nozul OD/ID/t=203.62/192.94/5.34 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=0.7638503654762303
+- `T32-026-low` — girdi özeti: host=shell, P=1.6371 MPa, nozul OD/ID/t=203.62/192.94/5.34 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-026-high` — girdi özeti: host=shell, P=1.9645199999999998 MPa, nozul OD/ID/t=203.62/192.94/5.34 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=0.4633190943142621
+- `T32-026-high` — girdi özeti: host=shell, P=1.9645199999999998 MPa, nozul OD/ID/t=203.62/192.94/5.34 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-027-low` — girdi özeti: host=head, P=1.1242 MPa, nozul OD/ID/t=134.45000000000002/106.65/13.9 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.985516614977799
+- `T32-027-low` — girdi özeti: host=head, P=1.1242 MPa, nozul OD/ID/t=134.45000000000002/106.65/13.9 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-027-low` — girdi özeti: host=head, P=1.1242 MPa, nozul OD/ID/t=134.45000000000002/106.65/13.9 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-027-high` — girdi özeti: host=head, P=1.34904 MPa, nozul OD/ID/t=134.45000000000002/106.65/13.9 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.3124401731727438
+- `T32-027-high` — girdi özeti: host=head, P=1.34904 MPa, nozul OD/ID/t=134.45000000000002/106.65/13.9 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-027-high` — girdi özeti: host=head, P=1.34904 MPa, nozul OD/ID/t=134.45000000000002/106.65/13.9 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-028-low` — girdi özeti: host=shell, P=1.7114 MPa, nozul OD/ID/t=200.3/181.58/9.36 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=0.9323456627122636
+- `T32-028-low` — girdi özeti: host=shell, P=1.7114 MPa, nozul OD/ID/t=200.3/181.58/9.36 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-028-high` — girdi özeti: host=shell, P=2.05368 MPa, nozul OD/ID/t=200.3/181.58/9.36 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=0.6000303529704052
+- `T32-028-high` — girdi özeti: host=shell, P=2.05368 MPa, nozul OD/ID/t=200.3/181.58/9.36 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-029-low` — girdi özeti: host=head, P=0.4138 MPa, nozul OD/ID/t=158.76/130.18/14.29 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=9.236574438658542
+- `T32-029-low` — girdi özeti: host=head, P=0.4138 MPa, nozul OD/ID/t=158.76/130.18/14.29 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-029-low` — girdi özeti: host=head, P=0.4138 MPa, nozul OD/ID/t=158.76/130.18/14.29 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-029-high` — girdi özeti: host=head, P=0.49656 MPa, nozul OD/ID/t=158.76/130.18/14.29 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=7.520946206129943
+- `T32-029-high` — girdi özeti: host=head, P=0.49656 MPa, nozul OD/ID/t=158.76/130.18/14.29 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-029-high` — girdi özeti: host=head, P=0.49656 MPa, nozul OD/ID/t=158.76/130.18/14.29 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-030-low` — girdi özeti: host=shell, P=0.7017 MPa, nozul OD/ID/t=150.88/123.52/13.68 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=5.0186780661469825
+- `T32-030-low` — girdi özeti: host=shell, P=0.7017 MPa, nozul OD/ID/t=150.88/123.52/13.68 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-030-high` — girdi özeti: host=shell, P=0.84204 MPa, nozul OD/ID/t=150.88/123.52/13.68 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=4.004410765734277
+- `T32-030-high` — girdi özeti: host=shell, P=0.84204 MPa, nozul OD/ID/t=150.88/123.52/13.68 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-031-low` — girdi özeti: host=head, P=0.6547 MPa, nozul OD/ID/t=240.76/222.94/8.91 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=3.603874703775778
+- `T32-031-low` — girdi özeti: host=head, P=0.6547 MPa, nozul OD/ID/t=240.76/222.94/8.91 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-031-low` — girdi özeti: host=head, P=0.6547 MPa, nozul OD/ID/t=240.76/222.94/8.91 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-031-high` — girdi özeti: host=head, P=0.7856399999999999 MPa, nozul OD/ID/t=240.76/222.94/8.91 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.8320872234103804
+- `T32-031-high` — girdi özeti: host=head, P=0.7856399999999999 MPa, nozul OD/ID/t=240.76/222.94/8.91 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-031-high` — girdi özeti: host=head, P=0.7856399999999999 MPa, nozul OD/ID/t=240.76/222.94/8.91 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-032-low` — girdi özeti: host=shell, P=1.5828 MPa, nozul OD/ID/t=84.75/71.09/6.83 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.256749523364727
+- `T32-032-low` — girdi özeti: host=shell, P=1.5828 MPa, nozul OD/ID/t=84.75/71.09/6.83 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-032-high` — girdi özeti: host=shell, P=1.89936 MPa, nozul OD/ID/t=84.75/71.09/6.83 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=0.8722695194845324
+- `T32-032-high` — girdi özeti: host=shell, P=1.89936 MPa, nozul OD/ID/t=84.75/71.09/6.83 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-033-low` — girdi özeti: host=head, P=0.8183 MPa, nozul OD/ID/t=144.21/112.29/15.96 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=4.693448756156414
+- `T32-033-low` — girdi özeti: host=head, P=0.8183 MPa, nozul OD/ID/t=144.21/112.29/15.96 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-033-low` — girdi özeti: host=head, P=0.8183 MPa, nozul OD/ID/t=144.21/112.29/15.96 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-033-high` — girdi özeti: host=head, P=0.9819599999999999 MPa, nozul OD/ID/t=144.21/112.29/15.96 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=3.7354230109133044
+- `T32-033-high` — girdi özeti: host=head, P=0.9819599999999999 MPa, nozul OD/ID/t=144.21/112.29/15.96 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-033-high` — girdi özeti: host=head, P=0.9819599999999999 MPa, nozul OD/ID/t=144.21/112.29/15.96 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-034-low` — girdi özeti: host=shell, P=1.033 MPa, nozul OD/ID/t=245.54/229.92/7.81 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.9617493301540363
+- `T32-034-low` — girdi özeti: host=shell, P=1.033 MPa, nozul OD/ID/t=245.54/229.92/7.81 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-034-high` — girdi özeti: host=shell, P=1.2395999999999998 MPa, nozul OD/ID/t=245.54/229.92/7.81 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.4593857704366213
+- `T32-034-high` — girdi özeti: host=shell, P=1.2395999999999998 MPa, nozul OD/ID/t=245.54/229.92/7.81 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-035-low` — girdi özeti: host=head, P=0.9069 MPa, nozul OD/ID/t=218.96/199.62/9.67 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.5494087129176135
+- `T32-035-low` — girdi özeti: host=head, P=0.9069 MPa, nozul OD/ID/t=218.96/199.62/9.67 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-035-low` — girdi özeti: host=head, P=0.9069 MPa, nozul OD/ID/t=218.96/199.62/9.67 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-035-high` — girdi özeti: host=head, P=1.08828 MPa, nozul OD/ID/t=218.96/199.62/9.67 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.9510317415630842
+- `T32-035-high` — girdi özeti: host=head, P=1.08828 MPa, nozul OD/ID/t=218.96/199.62/9.67 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-035-high` — girdi özeti: host=head, P=1.08828 MPa, nozul OD/ID/t=218.96/199.62/9.67 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-036-low` — girdi özeti: host=shell, P=1.7673 MPa, nozul OD/ID/t=257.27/228.25/14.51 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=0.9843454302910702
+- `T32-036-low` — girdi özeti: host=shell, P=1.7673 MPa, nozul OD/ID/t=257.27/228.25/14.51 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-036-high` — girdi özeti: host=shell, P=2.12076 MPa, nozul OD/ID/t=257.27/228.25/14.51 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=0.6426636345333819
+- `T32-036-high` — girdi özeti: host=shell, P=2.12076 MPa, nozul OD/ID/t=257.27/228.25/14.51 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-037-low` — girdi özeti: host=head, P=0.9749 MPa, nozul OD/ID/t=237.04000000000002/219.02/9.01 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.2949675666249614
+- `T32-037-low` — girdi özeti: host=head, P=0.9749 MPa, nozul OD/ID/t=237.04000000000002/219.02/9.01 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-037-low` — girdi özeti: host=head, P=0.9749 MPa, nozul OD/ID/t=237.04000000000002/219.02/9.01 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-037-high` — girdi özeti: host=head, P=1.16988 MPa, nozul OD/ID/t=237.04000000000002/219.02/9.01 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.7378282076246765
+- `T32-037-high` — girdi özeti: host=head, P=1.16988 MPa, nozul OD/ID/t=237.04000000000002/219.02/9.01 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-037-high` — girdi özeti: host=head, P=1.16988 MPa, nozul OD/ID/t=237.04000000000002/219.02/9.01 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-038-low` — girdi özeti: host=shell, P=0.9343 MPa, nozul OD/ID/t=241.13/220.59/10.27 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.562704730685137
+- `T32-038-low` — girdi özeti: host=shell, P=0.9343 MPa, nozul OD/ID/t=241.13/220.59/10.27 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-038-high` — girdi özeti: host=shell, P=1.12116 MPa, nozul OD/ID/t=241.13/220.59/10.27 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.9580568914489724
+- `T32-038-high` — girdi özeti: host=shell, P=1.12116 MPa, nozul OD/ID/t=241.13/220.59/10.27 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-039-low` — girdi özeti: host=head, P=1.5766 MPa, nozul OD/ID/t=143.08/123.28/9.9 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.384366922742737
+- `T32-039-low` — girdi özeti: host=head, P=1.5766 MPa, nozul OD/ID/t=143.08/123.28/9.9 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-039-low` — girdi özeti: host=head, P=1.5766 MPa, nozul OD/ID/t=143.08/123.28/9.9 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-039-high` — girdi özeti: host=head, P=1.8919199999999998 MPa, nozul OD/ID/t=143.08/123.28/9.9 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=0.9782083448548682
+- `T32-039-high` — girdi özeti: host=head, P=1.8919199999999998 MPa, nozul OD/ID/t=143.08/123.28/9.9 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-039-high` — girdi özeti: host=head, P=1.8919199999999998 MPa, nozul OD/ID/t=143.08/123.28/9.9 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-040-low` — girdi özeti: host=shell, P=1.2312 MPa, nozul OD/ID/t=181.10000000000002/159.52/10.79 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.9221213588148396
+- `T32-040-low` — girdi özeti: host=shell, P=1.2312 MPa, nozul OD/ID/t=181.10000000000002/159.52/10.79 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-040-high` — girdi özeti: host=shell, P=1.47744 MPa, nozul OD/ID/t=181.10000000000002/159.52/10.79 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.4242026721446515
+- `T32-040-high` — girdi özeti: host=shell, P=1.47744 MPa, nozul OD/ID/t=181.10000000000002/159.52/10.79 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-041-low` — girdi özeti: host=head, P=1.6796 MPa, nozul OD/ID/t=172.72/146.7/13.01 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.309469562410895
+- `T32-041-low` — girdi özeti: host=head, P=1.6796 MPa, nozul OD/ID/t=172.72/146.7/13.01 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-041-low` — girdi özeti: host=head, P=1.6796 MPa, nozul OD/ID/t=172.72/146.7/13.01 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-041-high` — girdi özeti: host=head, P=2.01552 MPa, nozul OD/ID/t=172.72/146.7/13.01 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=0.9156856710890151
+- `T32-041-high` — girdi özeti: host=head, P=2.01552 MPa, nozul OD/ID/t=172.72/146.7/13.01 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-041-high` — girdi özeti: host=head, P=2.01552 MPa, nozul OD/ID/t=172.72/146.7/13.01 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-042-low` — girdi özeti: host=shell, P=1.6766 MPa, nozul OD/ID/t=210.24/194.6/7.82 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=0.8444799680234284
+- `T32-042-low` — girdi özeti: host=shell, P=1.6766 MPa, nozul OD/ID/t=210.24/194.6/7.82 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-042-high` — girdi özeti: host=shell, P=2.01192 MPa, nozul OD/ID/t=210.24/194.6/7.82 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=0.5282866265518058
+- `T32-042-high` — girdi özeti: host=shell, P=2.01192 MPa, nozul OD/ID/t=210.24/194.6/7.82 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-043-low` — girdi özeti: host=head, P=0.4551 MPa, nozul OD/ID/t=217.95/188.45/14.75 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=7.3517136729134105
+- `T32-043-low` — girdi özeti: host=head, P=0.4551 MPa, nozul OD/ID/t=217.95/188.45/14.75 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-043-low` — girdi özeti: host=head, P=0.4551 MPa, nozul OD/ID/t=217.95/188.45/14.75 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-043-high` — girdi özeti: host=head, P=0.5461199999999999 MPa, nozul OD/ID/t=217.95/188.45/14.75 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=5.951225617291318
+- `T32-043-high` — girdi özeti: host=head, P=0.5461199999999999 MPa, nozul OD/ID/t=217.95/188.45/14.75 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-043-high` — girdi özeti: host=head, P=0.5461199999999999 MPa, nozul OD/ID/t=217.95/188.45/14.75 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-044-low` — girdi özeti: host=shell, P=0.5898 MPa, nozul OD/ID/t=171.82999999999998/158.97/6.43 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=4.221484706315879
+- `T32-044-low` — girdi özeti: host=shell, P=0.5898 MPa, nozul OD/ID/t=171.82999999999998/158.97/6.43 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-044-high` — girdi özeti: host=shell, P=0.70776 MPa, nozul OD/ID/t=171.82999999999998/158.97/6.43 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=3.343401148081637
+- `T32-044-high` — girdi özeti: host=shell, P=0.70776 MPa, nozul OD/ID/t=171.82999999999998/158.97/6.43 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-045-low` — girdi özeti: host=head, P=1.0481 MPa, nozul OD/ID/t=175.94/150.82/12.56 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.6621603909717426
+- `T32-045-low` — girdi özeti: host=head, P=1.0481 MPa, nozul OD/ID/t=175.94/150.82/12.56 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-045-low` — girdi özeti: host=head, P=1.0481 MPa, nozul OD/ID/t=175.94/150.82/12.56 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-045-high` — girdi özeti: host=head, P=1.25772 MPa, nozul OD/ID/t=175.94/150.82/12.56 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.0430093080764857
+- `T32-045-high` — girdi özeti: host=head, P=1.25772 MPa, nozul OD/ID/t=175.94/150.82/12.56 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-045-high` — girdi özeti: host=head, P=1.25772 MPa, nozul OD/ID/t=175.94/150.82/12.56 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-046-low` — girdi özeti: host=shell, P=1.517 MPa, nozul OD/ID/t=144.26/127.46/8.4 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.2566235851342908
+- `T32-046-low` — girdi özeti: host=shell, P=1.517 MPa, nozul OD/ID/t=144.26/127.46/8.4 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-046-high` — girdi özeti: host=shell, P=1.8203999999999998 MPa, nozul OD/ID/t=144.26/127.46/8.4 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=0.8710041309333874
+- `T32-046-high` — girdi özeti: host=shell, P=1.8203999999999998 MPa, nozul OD/ID/t=144.26/127.46/8.4 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-047-low` — girdi özeti: host=head, P=1.2692 MPa, nozul OD/ID/t=128.36/110.94/8.71 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.860249697194266
+- `T32-047-low` — girdi özeti: host=head, P=1.2692 MPa, nozul OD/ID/t=128.36/110.94/8.71 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-047-low` — girdi özeti: host=head, P=1.2692 MPa, nozul OD/ID/t=128.36/110.94/8.71 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-047-high` — girdi özeti: host=head, P=1.5230400000000002 MPa, nozul OD/ID/t=128.36/110.94/8.71 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.3758562837166628
+- `T32-047-high` — girdi özeti: host=head, P=1.5230400000000002 MPa, nozul OD/ID/t=128.36/110.94/8.71 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-047-high` — girdi özeti: host=head, P=1.5230400000000002 MPa, nozul OD/ID/t=128.36/110.94/8.71 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-048-low` — girdi özeti: host=shell, P=0.3897 MPa, nozul OD/ID/t=78.14/52.52/12.81 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=14.580616487618006
+- `T32-048-low` — girdi özeti: host=shell, P=0.3897 MPa, nozul OD/ID/t=78.14/52.52/12.81 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-048-high` — girdi özeti: host=shell, P=0.46763999999999994 MPa, nozul OD/ID/t=78.14/52.52/12.81 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=11.972241675938713
+- `T32-048-high` — girdi özeti: host=shell, P=0.46763999999999994 MPa, nozul OD/ID/t=78.14/52.52/12.81 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-049-low` — girdi özeti: host=head, P=1.7554 MPa, nozul OD/ID/t=122.28/106.0/8.14 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.0120692025515372
+- `T32-049-low` — girdi özeti: host=head, P=1.7554 MPa, nozul OD/ID/t=122.28/106.0/8.14 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-049-low` — girdi özeti: host=head, P=1.7554 MPa, nozul OD/ID/t=122.28/106.0/8.14 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-049-high` — girdi özeti: host=head, P=2.10648 MPa, nozul OD/ID/t=122.28/106.0/8.14 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=0.6694202455708004
+- `T32-049-high` — girdi özeti: host=head, P=2.10648 MPa, nozul OD/ID/t=122.28/106.0/8.14 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-049-high` — girdi özeti: host=head, P=2.10648 MPa, nozul OD/ID/t=122.28/106.0/8.14 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-050-low` — girdi özeti: host=shell, P=0.6187 MPa, nozul OD/ID/t=235.73/220.19/7.77 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=3.510301999542597
+- `T32-050-low` — girdi özeti: host=shell, P=0.6187 MPa, nozul OD/ID/t=235.73/220.19/7.77 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-050-high` — girdi özeti: host=shell, P=0.74244 MPa, nozul OD/ID/t=235.73/220.19/7.77 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.755861892847778
+- `T32-050-high` — girdi özeti: host=shell, P=0.74244 MPa, nozul OD/ID/t=235.73/220.19/7.77 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-051-low` — girdi özeti: host=head, P=1.5806 MPa, nozul OD/ID/t=102.83/71.25/15.79 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.61210096413834
+- `T32-051-low` — girdi özeti: host=head, P=1.5806 MPa, nozul OD/ID/t=102.83/71.25/15.79 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-051-low` — girdi özeti: host=head, P=1.5806 MPa, nozul OD/ID/t=102.83/71.25/15.79 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-051-high` — girdi özeti: host=head, P=1.89672 MPa, nozul OD/ID/t=102.83/71.25/15.79 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.001010559958467
+- `T32-051-high` — girdi özeti: host=head, P=1.89672 MPa, nozul OD/ID/t=102.83/71.25/15.79 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-051-high` — girdi özeti: host=head, P=1.89672 MPa, nozul OD/ID/t=102.83/71.25/15.79 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-052-low` — girdi özeti: host=shell, P=1.0778 MPa, nozul OD/ID/t=93.49/64.19/14.65 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=4.3857434543618385
+- `T32-052-low` — girdi özeti: host=shell, P=1.0778 MPa, nozul OD/ID/t=93.49/64.19/14.65 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-052-high` — girdi özeti: host=shell, P=1.29336 MPa, nozul OD/ID/t=93.49/64.19/14.65 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=3.475413442780156
+- `T32-052-high` — girdi özeti: host=shell, P=1.29336 MPa, nozul OD/ID/t=93.49/64.19/14.65 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-053-low` — girdi özeti: host=head, P=0.9704 MPa, nozul OD/ID/t=158.67000000000002/130.81/13.93 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=3.288186339996198
+- `T32-053-low` — girdi özeti: host=head, P=0.9704 MPa, nozul OD/ID/t=158.67000000000002/130.81/13.93 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-053-low` — girdi özeti: host=head, P=0.9704 MPa, nozul OD/ID/t=158.67000000000002/130.81/13.93 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-053-high` — girdi özeti: host=head, P=1.16448 MPa, nozul OD/ID/t=158.67000000000002/130.81/13.93 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=2.564552912260005
+- `T32-053-high` — girdi özeti: host=head, P=1.16448 MPa, nozul OD/ID/t=158.67000000000002/130.81/13.93 mm; kontrol: utilization; beklenen=tutarlılık şartı; gözlenen=None
+- `T32-053-high` — girdi özeti: host=head, P=1.16448 MPa, nozul OD/ID/t=158.67000000000002/130.81/13.93 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-054-low` — girdi özeti: host=shell, P=1.7969 MPa, nozul OD/ID/t=193.62/165.38/14.12 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=1.1160940774028234
+- `T32-054-low` — girdi özeti: host=shell, P=1.7969 MPa, nozul OD/ID/t=193.62/165.38/14.12 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+- `T32-054-high` — girdi özeti: host=shell, P=2.1562799999999998 MPa, nozul OD/ID/t=193.62/165.38/14.12 mm; kontrol: PASS/FAIL-utilization; beklenen=tutarlılık şartı; gözlenen=0.7522523041370109
+- `T32-054-high` — girdi özeti: host=shell, P=2.1562799999999998 MPa, nozul OD/ID/t=193.62/165.38/14.12 mm; kontrol: monotonluk-t_required; beklenen=P +%20 iken t_required artar/eşit; gözlenen=GEÇTİ
+
+SONUÇ: vaka=110 · geçti=0 · bulgu=110 · blocked=0
