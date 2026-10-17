@@ -1,0 +1,2823 @@
+{
+  "ozet": {
+    "vaka_sayisi": 100,
+    "seri_toplam_saniye": 18.622209,
+    "paralel_toplam_saniye": 4.423397,
+    "seri_ortalama_saniye": 0.186216,
+    "seri_p95_saniye": 0.046822,
+    "paralel_ortalama_saniye": 0.347143,
+    "paralel_p95_saniye": 0.418451,
+    "hata_orani": 0.0,
+    "seri_basarili": 100,
+    "seri_hata": 0,
+    "paralel_hata": 0,
+    "yanit_karismasi_sayisi": 0,
+    "bellek_baslangic_artik_bayt": 0,
+    "bellek_seri_sonrasi_artik_bayt": 127298146,
+    "bellek_seri_tepe_artis_bayt": 127723701,
+    "bellek_son_artik_bayt": 143279459,
+    "bellek_tepe_artis_bayt": 143495301
+  },
+  "vakalar": [
+    {
+      "vaka": "T15-000",
+      "girdi": {
+        "project_number": "T15-P000",
+        "design_pressure": 0.8,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "4f8972abc0b8a135f4a5e64fe1db978f03ab5db25de50281841d086c31d5ec1e"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "4f8972abc0b8a135f4a5e64fe1db978f03ab5db25de50281841d086c31d5ec1e"
+        },
+        "seri_saniye": 14.594101,
+        "paralel_saniye": 0.315088,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-001",
+      "girdi": {
+        "project_number": "T15-P001",
+        "design_pressure": 0.81,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "5e51b0a4340bea6b46971d0e7f322162b7bda5acc84894057decca5797b1c617"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "5e51b0a4340bea6b46971d0e7f322162b7bda5acc84894057decca5797b1c617"
+        },
+        "seri_saniye": 0.055565,
+        "paralel_saniye": 0.279506,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-002",
+      "girdi": {
+        "project_number": "T15-P002",
+        "design_pressure": 0.8200000000000001,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "c1a29df56c4104df78fcc037a988c93636405b49f4b4574cd3db550851ce6352"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "c1a29df56c4104df78fcc037a988c93636405b49f4b4574cd3db550851ce6352"
+        },
+        "seri_saniye": 0.037715,
+        "paralel_saniye": 0.313111,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-003",
+      "girdi": {
+        "project_number": "T15-P003",
+        "design_pressure": 0.8300000000000001,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "9234936892230f5a768bc0e1dba4b7eda2dd78909d397aea93b0a663e521e406"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "9234936892230f5a768bc0e1dba4b7eda2dd78909d397aea93b0a663e521e406"
+        },
+        "seri_saniye": 0.041594,
+        "paralel_saniye": 0.308776,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-004",
+      "girdi": {
+        "project_number": "T15-P004",
+        "design_pressure": 0.8400000000000001,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "2ea0c39166c2e06c9572eda4b07b15c4a52061eff9b6f6129c2547df4d61594a"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "2ea0c39166c2e06c9572eda4b07b15c4a52061eff9b6f6129c2547df4d61594a"
+        },
+        "seri_saniye": 0.037762,
+        "paralel_saniye": 0.272724,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-005",
+      "girdi": {
+        "project_number": "T15-P005",
+        "design_pressure": 0.8500000000000001,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "093d29a8b3b37e9ffd2aae6640774ac403974686aa9b733b3911b79c69b7468d"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "093d29a8b3b37e9ffd2aae6640774ac403974686aa9b733b3911b79c69b7468d"
+        },
+        "seri_saniye": 0.041809,
+        "paralel_saniye": 0.322762,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-006",
+      "girdi": {
+        "project_number": "T15-P006",
+        "design_pressure": 0.8600000000000001,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "02699a02344594d6b55464798801cb989f42fd1fe90f1a397833c4761fdfca04"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "02699a02344594d6b55464798801cb989f42fd1fe90f1a397833c4761fdfca04"
+        },
+        "seri_saniye": 0.035361,
+        "paralel_saniye": 0.328894,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-007",
+      "girdi": {
+        "project_number": "T15-P007",
+        "design_pressure": 0.8700000000000001,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "879dda93df9a8f63903ff3558541cd5e4393f98e8ac2e0a3be553adbbe4ab036"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "879dda93df9a8f63903ff3558541cd5e4393f98e8ac2e0a3be553adbbe4ab036"
+        },
+        "seri_saniye": 0.038288,
+        "paralel_saniye": 0.317131,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-008",
+      "girdi": {
+        "project_number": "T15-P008",
+        "design_pressure": 0.88,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "2cf3598a4c821005da37aacd09357cdf4296441e042cdd559882230069777d8e"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "2cf3598a4c821005da37aacd09357cdf4296441e042cdd559882230069777d8e"
+        },
+        "seri_saniye": 0.035592,
+        "paralel_saniye": 0.398127,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-009",
+      "girdi": {
+        "project_number": "T15-P009",
+        "design_pressure": 0.89,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "9fc6b96586745d6b30268636ff249d4f76452b6b80757a8ae94ec9c20fe4d013"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "9fc6b96586745d6b30268636ff249d4f76452b6b80757a8ae94ec9c20fe4d013"
+        },
+        "seri_saniye": 0.037873,
+        "paralel_saniye": 0.366444,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-010",
+      "girdi": {
+        "project_number": "T15-P010",
+        "design_pressure": 0.9,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "fd3fbfc263922571f963ee6e7476de194f04b602964a38a1823fb5fb971b57f5"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "fd3fbfc263922571f963ee6e7476de194f04b602964a38a1823fb5fb971b57f5"
+        },
+        "seri_saniye": 0.036008,
+        "paralel_saniye": 0.353815,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-011",
+      "girdi": {
+        "project_number": "T15-P011",
+        "design_pressure": 0.91,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "836025d893a325d53719c0cd97694db4120c56d43deaf67959d11fa0ec89806a"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "836025d893a325d53719c0cd97694db4120c56d43deaf67959d11fa0ec89806a"
+        },
+        "seri_saniye": 0.037192,
+        "paralel_saniye": 0.353789,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-012",
+      "girdi": {
+        "project_number": "T15-P012",
+        "design_pressure": 0.92,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "84ca5f950e688828cee450c30cecb7dcee3b37a8bc4dfa04a48186094ea369ec"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "84ca5f950e688828cee450c30cecb7dcee3b37a8bc4dfa04a48186094ea369ec"
+        },
+        "seri_saniye": 0.035347,
+        "paralel_saniye": 0.373609,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-013",
+      "girdi": {
+        "project_number": "T15-P013",
+        "design_pressure": 0.93,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "dcbf91d0ecbbae004520bee8d05b3447073582894fd3e476e607b5174b2cdc1a"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "dcbf91d0ecbbae004520bee8d05b3447073582894fd3e476e607b5174b2cdc1a"
+        },
+        "seri_saniye": 0.034824,
+        "paralel_saniye": 0.411199,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-014",
+      "girdi": {
+        "project_number": "T15-P014",
+        "design_pressure": 0.9400000000000001,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "4032c17e2d4fbddef51f580110dc0803b3dc66cdb8335723e71ac51fd44c1cbd"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "4032c17e2d4fbddef51f580110dc0803b3dc66cdb8335723e71ac51fd44c1cbd"
+        },
+        "seri_saniye": 0.03325,
+        "paralel_saniye": 0.368041,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-015",
+      "girdi": {
+        "project_number": "T15-P015",
+        "design_pressure": 0.9500000000000001,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "82a7200a0798309ac4ba4975af3b7caee8a83352c26522cd3a665295be888cab"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "82a7200a0798309ac4ba4975af3b7caee8a83352c26522cd3a665295be888cab"
+        },
+        "seri_saniye": 0.035568,
+        "paralel_saniye": 0.386094,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-016",
+      "girdi": {
+        "project_number": "T15-P016",
+        "design_pressure": 0.9600000000000001,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "f5c0a80b6e890390eb408694fd51b9ce2ee3b22f69bd29c2da34b032958efcb5"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "f5c0a80b6e890390eb408694fd51b9ce2ee3b22f69bd29c2da34b032958efcb5"
+        },
+        "seri_saniye": 0.038136,
+        "paralel_saniye": 0.389958,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-017",
+      "girdi": {
+        "project_number": "T15-P017",
+        "design_pressure": 0.9700000000000001,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "cf6ef47d63cfba3d2cd6f25b608d8d2c1f3c47bb293ffca66be71044688dcb09"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "cf6ef47d63cfba3d2cd6f25b608d8d2c1f3c47bb293ffca66be71044688dcb09"
+        },
+        "seri_saniye": 0.036999,
+        "paralel_saniye": 0.330875,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-018",
+      "girdi": {
+        "project_number": "T15-P018",
+        "design_pressure": 0.98,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "603a2c4ae228cc80ae9a9c1e7556c25cc138da490d712e72d704322cec4bf5aa"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "603a2c4ae228cc80ae9a9c1e7556c25cc138da490d712e72d704322cec4bf5aa"
+        },
+        "seri_saniye": 0.032406,
+        "paralel_saniye": 0.369875,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-019",
+      "girdi": {
+        "project_number": "T15-P019",
+        "design_pressure": 0.99,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "1b244643c78b7780a62d29e96b12826dcf7b46d34303e877990b019167cbff2c"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "1b244643c78b7780a62d29e96b12826dcf7b46d34303e877990b019167cbff2c"
+        },
+        "seri_saniye": 0.032127,
+        "paralel_saniye": 0.364864,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-020",
+      "girdi": {
+        "project_number": "T15-P020",
+        "design_pressure": 1.0,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "0b09098125d75c95ccf9276731e44b4770419afbe6ad1353fd5eb65e677408b6"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "0b09098125d75c95ccf9276731e44b4770419afbe6ad1353fd5eb65e677408b6"
+        },
+        "seri_saniye": 0.040901,
+        "paralel_saniye": 0.349928,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-021",
+      "girdi": {
+        "project_number": "T15-P021",
+        "design_pressure": 1.01,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "f92ab9f82d5f6fe8c24104f71d289da987c6ad441d8fac63c3342faa29742202"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "f92ab9f82d5f6fe8c24104f71d289da987c6ad441d8fac63c3342faa29742202"
+        },
+        "seri_saniye": 0.035276,
+        "paralel_saniye": 0.401378,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-022",
+      "girdi": {
+        "project_number": "T15-P022",
+        "design_pressure": 1.02,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "122826100839f48dcf0068b3e47f8d9aaa0c9191faacb0f236ecfb96c1ae874d"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "122826100839f48dcf0068b3e47f8d9aaa0c9191faacb0f236ecfb96c1ae874d"
+        },
+        "seri_saniye": 0.037046,
+        "paralel_saniye": 0.386521,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-023",
+      "girdi": {
+        "project_number": "T15-P023",
+        "design_pressure": 1.03,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "9699919093cf7875d45bd6a7ec6d66fdc096f2711aca91e899242d42a6e94172"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "9699919093cf7875d45bd6a7ec6d66fdc096f2711aca91e899242d42a6e94172"
+        },
+        "seri_saniye": 0.039537,
+        "paralel_saniye": 0.407742,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-024",
+      "girdi": {
+        "project_number": "T15-P024",
+        "design_pressure": 1.04,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "d1ed62d530573c0e3494333a8ced016f216fddb5074d24a18facc23e55ce1344"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "d1ed62d530573c0e3494333a8ced016f216fddb5074d24a18facc23e55ce1344"
+        },
+        "seri_saniye": 0.043205,
+        "paralel_saniye": 0.344571,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-025",
+      "girdi": {
+        "project_number": "T15-P025",
+        "design_pressure": 1.05,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "337f84f8ed53eeb6da01408c5ea03fa7cde3f517fac6f43c8e5ba6e7918de320"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "337f84f8ed53eeb6da01408c5ea03fa7cde3f517fac6f43c8e5ba6e7918de320"
+        },
+        "seri_saniye": 0.041016,
+        "paralel_saniye": 0.366057,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-026",
+      "girdi": {
+        "project_number": "T15-P026",
+        "design_pressure": 1.06,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "a067ea7d08becbf417e1bf774e77158f35443ada17d5c1c31349e7a639f07b61"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "a067ea7d08becbf417e1bf774e77158f35443ada17d5c1c31349e7a639f07b61"
+        },
+        "seri_saniye": 0.039775,
+        "paralel_saniye": 0.321928,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-027",
+      "girdi": {
+        "project_number": "T15-P027",
+        "design_pressure": 1.07,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "bb7410f38ab75404a1001c1e5b48a05b6d2afb3fa221234f3e410b2901767ff9"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "bb7410f38ab75404a1001c1e5b48a05b6d2afb3fa221234f3e410b2901767ff9"
+        },
+        "seri_saniye": 0.187368,
+        "paralel_saniye": 0.324739,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-028",
+      "girdi": {
+        "project_number": "T15-P028",
+        "design_pressure": 1.08,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "0db62a082e75ee502c0a622f6e3bb7bb6aeadd19ceac3aa2439aee3038e6d186"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "0db62a082e75ee502c0a622f6e3bb7bb6aeadd19ceac3aa2439aee3038e6d186"
+        },
+        "seri_saniye": 0.041977,
+        "paralel_saniye": 0.318845,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-029",
+      "girdi": {
+        "project_number": "T15-P029",
+        "design_pressure": 1.09,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "26aa500db5b829c2803996e4205609e28b3658110d210eb3d600f2e29b73d5d6"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "26aa500db5b829c2803996e4205609e28b3658110d210eb3d600f2e29b73d5d6"
+        },
+        "seri_saniye": 0.09794,
+        "paralel_saniye": 0.303687,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-030",
+      "girdi": {
+        "project_number": "T15-P030",
+        "design_pressure": 1.1,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "a694f87ace5a32cae15e7526b4f38100f08fdad4a95528faa27209e7242bb080"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "a694f87ace5a32cae15e7526b4f38100f08fdad4a95528faa27209e7242bb080"
+        },
+        "seri_saniye": 0.047416,
+        "paralel_saniye": 0.342385,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-031",
+      "girdi": {
+        "project_number": "T15-P031",
+        "design_pressure": 1.11,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "8609aa54b20ace1a2531ee1bb43c696f9f3bc7e99af4bcf5cee9ccd25e8679d3"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "8609aa54b20ace1a2531ee1bb43c696f9f3bc7e99af4bcf5cee9ccd25e8679d3"
+        },
+        "seri_saniye": 0.039583,
+        "paralel_saniye": 0.359827,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-032",
+      "girdi": {
+        "project_number": "T15-P032",
+        "design_pressure": 1.12,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "e3598a4c78309fb01cbd0815d0b81e52df3adcc258b1e2cbd6c7292d18a0449f"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "e3598a4c78309fb01cbd0815d0b81e52df3adcc258b1e2cbd6c7292d18a0449f"
+        },
+        "seri_saniye": 0.035038,
+        "paralel_saniye": 0.293901,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-033",
+      "girdi": {
+        "project_number": "T15-P033",
+        "design_pressure": 1.1300000000000001,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "cfa227fd0966dd3a86cb96616a1f6d8283021766bd798ed60f3e0108f98f7da1"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "cfa227fd0966dd3a86cb96616a1f6d8283021766bd798ed60f3e0108f98f7da1"
+        },
+        "seri_saniye": 0.043209,
+        "paralel_saniye": 0.351612,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-034",
+      "girdi": {
+        "project_number": "T15-P034",
+        "design_pressure": 1.1400000000000001,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "d0f901aef5930e4e933bd3b532f0e3c442b67a17958faeae967ba4cd43ab887e"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "d0f901aef5930e4e933bd3b532f0e3c442b67a17958faeae967ba4cd43ab887e"
+        },
+        "seri_saniye": 0.042885,
+        "paralel_saniye": 0.344381,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-035",
+      "girdi": {
+        "project_number": "T15-P035",
+        "design_pressure": 1.1500000000000001,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "84ad8df676144aacc5cd056c8ac9bb6a62ccc20be072dc9e101592f5991ea9b7"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "84ad8df676144aacc5cd056c8ac9bb6a62ccc20be072dc9e101592f5991ea9b7"
+        },
+        "seri_saniye": 0.038584,
+        "paralel_saniye": 0.373987,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-036",
+      "girdi": {
+        "project_number": "T15-P036",
+        "design_pressure": 1.1600000000000001,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "2c673a9763a467649176044c9ee87334732114e2b0d80aa06f9be7df90c8a1bc"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "2c673a9763a467649176044c9ee87334732114e2b0d80aa06f9be7df90c8a1bc"
+        },
+        "seri_saniye": 0.0381,
+        "paralel_saniye": 0.337938,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-037",
+      "girdi": {
+        "project_number": "T15-P037",
+        "design_pressure": 1.17,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "d63e46500882c07f6b8bab58dff4a93a5021d4e5e171c84742f513f003604d4c"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "d63e46500882c07f6b8bab58dff4a93a5021d4e5e171c84742f513f003604d4c"
+        },
+        "seri_saniye": 0.043623,
+        "paralel_saniye": 0.341792,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-038",
+      "girdi": {
+        "project_number": "T15-P038",
+        "design_pressure": 1.1800000000000002,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "c6b1ece52b82b95bf58a4f8e2eca9dab663d9a9ada22b13de0dae109e76b4b94"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "c6b1ece52b82b95bf58a4f8e2eca9dab663d9a9ada22b13de0dae109e76b4b94"
+        },
+        "seri_saniye": 0.042606,
+        "paralel_saniye": 0.309297,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-039",
+      "girdi": {
+        "project_number": "T15-P039",
+        "design_pressure": 1.19,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "31122b2dca5661e9e7398a39963f0d2f55b9cc1e2af0944728f137748d357319"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "31122b2dca5661e9e7398a39963f0d2f55b9cc1e2af0944728f137748d357319"
+        },
+        "seri_saniye": 0.043754,
+        "paralel_saniye": 0.432065,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-040",
+      "girdi": {
+        "project_number": "T15-P040",
+        "design_pressure": 1.2000000000000002,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "687be88db7361177c65932a963f9344d75c78f693fb3148786b4137f309472f2"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "687be88db7361177c65932a963f9344d75c78f693fb3148786b4137f309472f2"
+        },
+        "seri_saniye": 0.044269,
+        "paralel_saniye": 0.452925,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-041",
+      "girdi": {
+        "project_number": "T15-P041",
+        "design_pressure": 1.21,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "c33379c54b97255987d0398b30f465c2d6584c793a5cdb9cc21aecd38b52c5c0"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "c33379c54b97255987d0398b30f465c2d6584c793a5cdb9cc21aecd38b52c5c0"
+        },
+        "seri_saniye": 0.036619,
+        "paralel_saniye": 0.418451,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-042",
+      "girdi": {
+        "project_number": "T15-P042",
+        "design_pressure": 1.22,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "127ecd7c685507c9b5ebc6216945347046def5de84a1a8a45307bbef6bc29c76"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "127ecd7c685507c9b5ebc6216945347046def5de84a1a8a45307bbef6bc29c76"
+        },
+        "seri_saniye": 0.031945,
+        "paralel_saniye": 0.39115,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-043",
+      "girdi": {
+        "project_number": "T15-P043",
+        "design_pressure": 1.23,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "a3fe9963984de04caceb99ab9fc7c51a99169a2a79f24741d9ccb92661c7d759"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "a3fe9963984de04caceb99ab9fc7c51a99169a2a79f24741d9ccb92661c7d759"
+        },
+        "seri_saniye": 0.035402,
+        "paralel_saniye": 0.350354,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-044",
+      "girdi": {
+        "project_number": "T15-P044",
+        "design_pressure": 1.24,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "556ca0424298b73884bd590144be1bc8b06585d0cc063318257e4c507b0e067c"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "556ca0424298b73884bd590144be1bc8b06585d0cc063318257e4c507b0e067c"
+        },
+        "seri_saniye": 0.037919,
+        "paralel_saniye": 0.384406,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-045",
+      "girdi": {
+        "project_number": "T15-P045",
+        "design_pressure": 1.25,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "4cfae2d625abfa825f2d53732c59a561f12c0c87ff086fe642d85a7ce6516148"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "4cfae2d625abfa825f2d53732c59a561f12c0c87ff086fe642d85a7ce6516148"
+        },
+        "seri_saniye": 0.0405,
+        "paralel_saniye": 0.392734,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-046",
+      "girdi": {
+        "project_number": "T15-P046",
+        "design_pressure": 1.26,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "9d7e0e19905cfe741269bfb1d96d66b0e58e718bba084dc17494d8bdca2adbf2"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "9d7e0e19905cfe741269bfb1d96d66b0e58e718bba084dc17494d8bdca2adbf2"
+        },
+        "seri_saniye": 0.035847,
+        "paralel_saniye": 0.361841,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-047",
+      "girdi": {
+        "project_number": "T15-P047",
+        "design_pressure": 1.27,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "97ed616adfff0ca8996c2ba0175306fbcf797b61eaa0ed4c75514b537c35ac33"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "97ed616adfff0ca8996c2ba0175306fbcf797b61eaa0ed4c75514b537c35ac33"
+        },
+        "seri_saniye": 0.034454,
+        "paralel_saniye": 0.360818,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-048",
+      "girdi": {
+        "project_number": "T15-P048",
+        "design_pressure": 1.28,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "168c9776c16352668370a46bc8e87ed73f1728a0a9b3dc0d0292956bd5b66fa9"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "168c9776c16352668370a46bc8e87ed73f1728a0a9b3dc0d0292956bd5b66fa9"
+        },
+        "seri_saniye": 0.041571,
+        "paralel_saniye": 0.367253,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-049",
+      "girdi": {
+        "project_number": "T15-P049",
+        "design_pressure": 1.29,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "c19e04f807dfcb25a11404158820357ce2f68905b6faf1853c259c690bb281a3"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "c19e04f807dfcb25a11404158820357ce2f68905b6faf1853c259c690bb281a3"
+        },
+        "seri_saniye": 0.032239,
+        "paralel_saniye": 0.318039,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-050",
+      "girdi": {
+        "project_number": "T15-P050",
+        "design_pressure": 1.3,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "af78165b06c0caf4049c0d332d74964713fe0afe9f59a1089594dad25217422f"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "af78165b06c0caf4049c0d332d74964713fe0afe9f59a1089594dad25217422f"
+        },
+        "seri_saniye": 0.035129,
+        "paralel_saniye": 0.369226,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-051",
+      "girdi": {
+        "project_number": "T15-P051",
+        "design_pressure": 1.31,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "5e3365f6df3833f083fdef0629fc43955a1fd535d079b4e9a96b9cc73acf5f8a"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "5e3365f6df3833f083fdef0629fc43955a1fd535d079b4e9a96b9cc73acf5f8a"
+        },
+        "seri_saniye": 0.033102,
+        "paralel_saniye": 0.294321,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-052",
+      "girdi": {
+        "project_number": "T15-P052",
+        "design_pressure": 1.32,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "db5fc370074d11a73a7a77a6d0b6d5eefc8f252ef861b50e7cae25c64f04c528"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "db5fc370074d11a73a7a77a6d0b6d5eefc8f252ef861b50e7cae25c64f04c528"
+        },
+        "seri_saniye": 0.031937,
+        "paralel_saniye": 0.35,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-053",
+      "girdi": {
+        "project_number": "T15-P053",
+        "design_pressure": 1.33,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "ca2cdb379e1633dd070ea85539a8e94312057ffd1250ec219919b879e49ab5b7"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "ca2cdb379e1633dd070ea85539a8e94312057ffd1250ec219919b879e49ab5b7"
+        },
+        "seri_saniye": 0.032909,
+        "paralel_saniye": 0.409227,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-054",
+      "girdi": {
+        "project_number": "T15-P054",
+        "design_pressure": 1.34,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "32ce4cc3379a467a26377d11860c7755bc42647edd2c6436e8e4d2698e49bf36"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "32ce4cc3379a467a26377d11860c7755bc42647edd2c6436e8e4d2698e49bf36"
+        },
+        "seri_saniye": 0.035488,
+        "paralel_saniye": 0.366674,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-055",
+      "girdi": {
+        "project_number": "T15-P055",
+        "design_pressure": 1.35,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "8e84ec433b9a804f14bdf015204935ee1daf64ee832cfc179eac1f738939e0f3"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "8e84ec433b9a804f14bdf015204935ee1daf64ee832cfc179eac1f738939e0f3"
+        },
+        "seri_saniye": 0.035694,
+        "paralel_saniye": 0.284831,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-056",
+      "girdi": {
+        "project_number": "T15-P056",
+        "design_pressure": 1.36,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "afc11370a1debbec57c4bf8ec32da74ca8406483b3dbcc4018a70e057c82da73"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "afc11370a1debbec57c4bf8ec32da74ca8406483b3dbcc4018a70e057c82da73"
+        },
+        "seri_saniye": 0.037552,
+        "paralel_saniye": 0.398767,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-057",
+      "girdi": {
+        "project_number": "T15-P057",
+        "design_pressure": 1.37,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "4cb8845fa3240571eb255138d3ca76e7ddcf02a780d956383e7964e362c91391"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "4cb8845fa3240571eb255138d3ca76e7ddcf02a780d956383e7964e362c91391"
+        },
+        "seri_saniye": 0.035397,
+        "paralel_saniye": 0.437874,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-058",
+      "girdi": {
+        "project_number": "T15-P058",
+        "design_pressure": 1.38,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "c11937cf4d8cd036298bb921fa9f92c6f12be570049f577aa71339078bcb2cba"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "c11937cf4d8cd036298bb921fa9f92c6f12be570049f577aa71339078bcb2cba"
+        },
+        "seri_saniye": 0.042202,
+        "paralel_saniye": 0.410686,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-059",
+      "girdi": {
+        "project_number": "T15-P059",
+        "design_pressure": 1.3900000000000001,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "9f568cd63e7d784930be7e5751b6212e9bc6bd79fb111c514ca091c0cfd6e5f7"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "9f568cd63e7d784930be7e5751b6212e9bc6bd79fb111c514ca091c0cfd6e5f7"
+        },
+        "seri_saniye": 0.036002,
+        "paralel_saniye": 0.355294,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-060",
+      "girdi": {
+        "project_number": "T15-P060",
+        "design_pressure": 1.4,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "cce42e3b28ed8a22823c39d68eed38eea899bb2614a7198685ab612affce2813"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "cce42e3b28ed8a22823c39d68eed38eea899bb2614a7198685ab612affce2813"
+        },
+        "seri_saniye": 0.038669,
+        "paralel_saniye": 0.382183,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-061",
+      "girdi": {
+        "project_number": "T15-P061",
+        "design_pressure": 1.4100000000000001,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "c4efd424f6d0fe6784dcafd14527454d9d6aa3321e9e4c9a845a73626f54c9ca"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "c4efd424f6d0fe6784dcafd14527454d9d6aa3321e9e4c9a845a73626f54c9ca"
+        },
+        "seri_saniye": 0.038614,
+        "paralel_saniye": 0.36717,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-062",
+      "girdi": {
+        "project_number": "T15-P062",
+        "design_pressure": 1.42,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "3ce310240e6089cede78629370f54b948e7a628834a5c7187691d6075fc77f25"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "3ce310240e6089cede78629370f54b948e7a628834a5c7187691d6075fc77f25"
+        },
+        "seri_saniye": 0.037196,
+        "paralel_saniye": 0.353844,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-063",
+      "girdi": {
+        "project_number": "T15-P063",
+        "design_pressure": 1.4300000000000002,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "9e64600899c9ab2a88bd2bdbea83e6169dfdb7474b5101dd73c03760ba66eb7d"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "9e64600899c9ab2a88bd2bdbea83e6169dfdb7474b5101dd73c03760ba66eb7d"
+        },
+        "seri_saniye": 0.041764,
+        "paralel_saniye": 0.298906,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-064",
+      "girdi": {
+        "project_number": "T15-P064",
+        "design_pressure": 1.44,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "b502d27919305e9708f7197990e9b89a88bc5a881c0722fcdf17b17794f3b47f"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "b502d27919305e9708f7197990e9b89a88bc5a881c0722fcdf17b17794f3b47f"
+        },
+        "seri_saniye": 0.032142,
+        "paralel_saniye": 0.328376,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-065",
+      "girdi": {
+        "project_number": "T15-P065",
+        "design_pressure": 1.4500000000000002,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "72f98bb0145fe7733f12dbb82a596b6d122551163c01997d6b2d9b2f00e1f9ac"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "72f98bb0145fe7733f12dbb82a596b6d122551163c01997d6b2d9b2f00e1f9ac"
+        },
+        "seri_saniye": 0.03345,
+        "paralel_saniye": 0.277316,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-066",
+      "girdi": {
+        "project_number": "T15-P066",
+        "design_pressure": 1.46,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "5e63ef424f173bca28f20d070fa7ed92eaf88e439fd8217843a99a5e75a99019"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "5e63ef424f173bca28f20d070fa7ed92eaf88e439fd8217843a99a5e75a99019"
+        },
+        "seri_saniye": 0.037496,
+        "paralel_saniye": 0.393194,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-067",
+      "girdi": {
+        "project_number": "T15-P067",
+        "design_pressure": 1.4700000000000002,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "c5adac398aa17ca92f8a7d51bdfcb2ab6304fd18f9000d17d2fbfffdcccc7a76"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "c5adac398aa17ca92f8a7d51bdfcb2ab6304fd18f9000d17d2fbfffdcccc7a76"
+        },
+        "seri_saniye": 0.032886,
+        "paralel_saniye": 0.344403,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-068",
+      "girdi": {
+        "project_number": "T15-P068",
+        "design_pressure": 1.48,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "596d7b03aa382343b8afb89c4b733f7cd875db41cdec06deab34a25043c0f631"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "596d7b03aa382343b8afb89c4b733f7cd875db41cdec06deab34a25043c0f631"
+        },
+        "seri_saniye": 0.036133,
+        "paralel_saniye": 0.385477,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-069",
+      "girdi": {
+        "project_number": "T15-P069",
+        "design_pressure": 1.4900000000000002,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "3416c68fa2a587f9673db38e09cb40fbbe542de07578c739303a71b69bccdee7"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "3416c68fa2a587f9673db38e09cb40fbbe542de07578c739303a71b69bccdee7"
+        },
+        "seri_saniye": 0.039239,
+        "paralel_saniye": 0.348158,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-070",
+      "girdi": {
+        "project_number": "T15-P070",
+        "design_pressure": 1.5,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "799d7c774fd0be53d2923e9de9844cf31cc48494a4727ea424007d56ccd9ad7c"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "799d7c774fd0be53d2923e9de9844cf31cc48494a4727ea424007d56ccd9ad7c"
+        },
+        "seri_saniye": 0.037805,
+        "paralel_saniye": 0.369683,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-071",
+      "girdi": {
+        "project_number": "T15-P071",
+        "design_pressure": 1.51,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "625734b253d549767073bdcf1f68d984ae771e4b643b63c64a3f7221aca1bea0"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "625734b253d549767073bdcf1f68d984ae771e4b643b63c64a3f7221aca1bea0"
+        },
+        "seri_saniye": 0.03626,
+        "paralel_saniye": 0.367812,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-072",
+      "girdi": {
+        "project_number": "T15-P072",
+        "design_pressure": 1.52,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "b96eb679aaa2fbc2a112ccfca3f1c26b34eb2a8367d6ea99af6957d758e26d01"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "b96eb679aaa2fbc2a112ccfca3f1c26b34eb2a8367d6ea99af6957d758e26d01"
+        },
+        "seri_saniye": 0.042843,
+        "paralel_saniye": 0.456637,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-073",
+      "girdi": {
+        "project_number": "T15-P073",
+        "design_pressure": 1.53,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "2327c9794f6f20a2d9379c4dba768e262c947f07b678122452355d5baf508497"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "2327c9794f6f20a2d9379c4dba768e262c947f07b678122452355d5baf508497"
+        },
+        "seri_saniye": 0.04208,
+        "paralel_saniye": 0.480463,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-074",
+      "girdi": {
+        "project_number": "T15-P074",
+        "design_pressure": 1.54,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "dc3a6e019edc4d519d75cf7ff692b50efbf25bf0e5b071b8c49d0002b28ee767"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "dc3a6e019edc4d519d75cf7ff692b50efbf25bf0e5b071b8c49d0002b28ee767"
+        },
+        "seri_saniye": 0.04218,
+        "paralel_saniye": 0.407348,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-075",
+      "girdi": {
+        "project_number": "T15-P075",
+        "design_pressure": 1.55,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "f9527f9b39731e1fdd15e118958d1d236a0d729c32d854409e993a11c45805d8"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "f9527f9b39731e1fdd15e118958d1d236a0d729c32d854409e993a11c45805d8"
+        },
+        "seri_saniye": 0.04586,
+        "paralel_saniye": 0.387055,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-076",
+      "girdi": {
+        "project_number": "T15-P076",
+        "design_pressure": 1.56,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "6722bff781f48d1c9d75a8c9eaab9a964f807f4efc2f77c0b8a9138bf15d0626"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "6722bff781f48d1c9d75a8c9eaab9a964f807f4efc2f77c0b8a9138bf15d0626"
+        },
+        "seri_saniye": 0.042953,
+        "paralel_saniye": 0.399815,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-077",
+      "girdi": {
+        "project_number": "T15-P077",
+        "design_pressure": 1.57,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "85c5e12c8ad52678086ecf69edb98c878253fe2c2cdd51c81731056e388ae887"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "85c5e12c8ad52678086ecf69edb98c878253fe2c2cdd51c81731056e388ae887"
+        },
+        "seri_saniye": 0.046195,
+        "paralel_saniye": 0.399171,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-078",
+      "girdi": {
+        "project_number": "T15-P078",
+        "design_pressure": 1.58,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "97745a4350c32384ddbd547d7c6a98f09655baa6c8fc36fbf24af0a07d04f7ae"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "97745a4350c32384ddbd547d7c6a98f09655baa6c8fc36fbf24af0a07d04f7ae"
+        },
+        "seri_saniye": 0.043375,
+        "paralel_saniye": 0.376275,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-079",
+      "girdi": {
+        "project_number": "T15-P079",
+        "design_pressure": 1.59,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "88452e77da13322b4825a50335c3785e5c54e2ff7d0c04aac6d6cd58580af0d3"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "88452e77da13322b4825a50335c3785e5c54e2ff7d0c04aac6d6cd58580af0d3"
+        },
+        "seri_saniye": 0.040346,
+        "paralel_saniye": 0.386566,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-080",
+      "girdi": {
+        "project_number": "T15-P080",
+        "design_pressure": 1.6,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "b940afd064c80256010c3c5c0cea09730abae3891bea4baf6ad31e2af8b86934"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "b940afd064c80256010c3c5c0cea09730abae3891bea4baf6ad31e2af8b86934"
+        },
+        "seri_saniye": 0.036878,
+        "paralel_saniye": 0.315867,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-081",
+      "girdi": {
+        "project_number": "T15-P081",
+        "design_pressure": 1.61,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "3dcb61f1c0ec215fcce058c8738513047d323b3f5f72de8277b8e5df00b0f014"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "3dcb61f1c0ec215fcce058c8738513047d323b3f5f72de8277b8e5df00b0f014"
+        },
+        "seri_saniye": 0.035644,
+        "paralel_saniye": 0.3126,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-082",
+      "girdi": {
+        "project_number": "T15-P082",
+        "design_pressure": 1.62,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "32943942e285567ec406daef430fd970af6737376dd0e85165190f5befa56530"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "32943942e285567ec406daef430fd970af6737376dd0e85165190f5befa56530"
+        },
+        "seri_saniye": 0.042571,
+        "paralel_saniye": 0.218716,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-083",
+      "girdi": {
+        "project_number": "T15-P083",
+        "design_pressure": 1.6300000000000001,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "6e02838b65d7c3260efe3c8eff5c9479f644ec210c416bdb839f5a975eedae97"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "6e02838b65d7c3260efe3c8eff5c9479f644ec210c416bdb839f5a975eedae97"
+        },
+        "seri_saniye": 0.03762,
+        "paralel_saniye": 0.318,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-084",
+      "girdi": {
+        "project_number": "T15-P084",
+        "design_pressure": 1.6400000000000001,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "3e73389860261afce6cf9422e871faf32432abbf38f396a73de6ca94966badb5"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "3e73389860261afce6cf9422e871faf32432abbf38f396a73de6ca94966badb5"
+        },
+        "seri_saniye": 0.044572,
+        "paralel_saniye": 0.300284,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-085",
+      "girdi": {
+        "project_number": "T15-P085",
+        "design_pressure": 1.65,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "181917ed161587e5aecd6400d70c3585c7c3396de7a1f90c48893ee8987d7897"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "181917ed161587e5aecd6400d70c3585c7c3396de7a1f90c48893ee8987d7897"
+        },
+        "seri_saniye": 0.044274,
+        "paralel_saniye": 0.296999,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-086",
+      "girdi": {
+        "project_number": "T15-P086",
+        "design_pressure": 1.6600000000000001,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "c5f0e8eb65dd536e842e2b5d47e1d27c58db8fbf9de904b7590639cd3f9f8689"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "c5f0e8eb65dd536e842e2b5d47e1d27c58db8fbf9de904b7590639cd3f9f8689"
+        },
+        "seri_saniye": 0.038076,
+        "paralel_saniye": 0.289075,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-087",
+      "girdi": {
+        "project_number": "T15-P087",
+        "design_pressure": 1.67,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "300a0bcc37d0bb4a3309e766c91f73125130003868f73c111f5e26b887bb6454"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "300a0bcc37d0bb4a3309e766c91f73125130003868f73c111f5e26b887bb6454"
+        },
+        "seri_saniye": 0.037945,
+        "paralel_saniye": 0.296358,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-088",
+      "girdi": {
+        "project_number": "T15-P088",
+        "design_pressure": 1.6800000000000002,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "be21461c178602d640dce1b32a7f8e52c77f7cf2b0e60c0f81a6a6b804769a75"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "be21461c178602d640dce1b32a7f8e52c77f7cf2b0e60c0f81a6a6b804769a75"
+        },
+        "seri_saniye": 0.039927,
+        "paralel_saniye": 0.414587,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-089",
+      "girdi": {
+        "project_number": "T15-P089",
+        "design_pressure": 1.69,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "a712946f0dc46115b283691e5e8322ec71bf6f7488b827ebb6b4516df17b91d2"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "a712946f0dc46115b283691e5e8322ec71bf6f7488b827ebb6b4516df17b91d2"
+        },
+        "seri_saniye": 0.046822,
+        "paralel_saniye": 0.361248,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-090",
+      "girdi": {
+        "project_number": "T15-P090",
+        "design_pressure": 1.7000000000000002,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "41804418f4d47b71027f524232c00751ac452aeabd9ee65724a6edb4e236c099"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "41804418f4d47b71027f524232c00751ac452aeabd9ee65724a6edb4e236c099"
+        },
+        "seri_saniye": 0.038479,
+        "paralel_saniye": 0.326501,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-091",
+      "girdi": {
+        "project_number": "T15-P091",
+        "design_pressure": 1.71,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "eb7a9aaea34ddc2702a0c6aeb313dd8ca38d775d15b89fcb832cafae6ed38563"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "eb7a9aaea34ddc2702a0c6aeb313dd8ca38d775d15b89fcb832cafae6ed38563"
+        },
+        "seri_saniye": 0.038917,
+        "paralel_saniye": 0.334388,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-092",
+      "girdi": {
+        "project_number": "T15-P092",
+        "design_pressure": 1.7200000000000002,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "c532304c0bb7d1fa5e6a0c1f7306f344b831922ecbe40fee22ac34ec89e09383"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "c532304c0bb7d1fa5e6a0c1f7306f344b831922ecbe40fee22ac34ec89e09383"
+        },
+        "seri_saniye": 0.035676,
+        "paralel_saniye": 0.333601,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-093",
+      "girdi": {
+        "project_number": "T15-P093",
+        "design_pressure": 1.73,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "3e3bbaa663f72b869bfa90c3f80a7fcb249b8d643a96b85f015fdea22fea88c5"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "3e3bbaa663f72b869bfa90c3f80a7fcb249b8d643a96b85f015fdea22fea88c5"
+        },
+        "seri_saniye": 0.037925,
+        "paralel_saniye": 0.32509,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-094",
+      "girdi": {
+        "project_number": "T15-P094",
+        "design_pressure": 1.7400000000000002,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "a4e712b486d907c686f9a87cd15687c97bc7b1b30d9752e272736f6dc96dd5f2"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "a4e712b486d907c686f9a87cd15687c97bc7b1b30d9752e272736f6dc96dd5f2"
+        },
+        "seri_saniye": 0.036671,
+        "paralel_saniye": 0.328615,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-095",
+      "girdi": {
+        "project_number": "T15-P095",
+        "design_pressure": 1.75,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "2a55617ebc10b6974fd17ac5348896bb82842589cb3981107ef7eb7e2949d7e0"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "2a55617ebc10b6974fd17ac5348896bb82842589cb3981107ef7eb7e2949d7e0"
+        },
+        "seri_saniye": 0.038543,
+        "paralel_saniye": 0.336079,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-096",
+      "girdi": {
+        "project_number": "T15-P096",
+        "design_pressure": 1.76,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "7a06c4d2435002c2458f36cf3cb6872c272b71b58297b21998d4bc5e41bf0d6b"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "7a06c4d2435002c2458f36cf3cb6872c272b71b58297b21998d4bc5e41bf0d6b"
+        },
+        "seri_saniye": 0.035917,
+        "paralel_saniye": 0.181161,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-097",
+      "girdi": {
+        "project_number": "T15-P097",
+        "design_pressure": 1.77,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "a139ef9c2693ae7064efabf3740c153c61d94d6dd6968e779e209f6f073f6af2"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "a139ef9c2693ae7064efabf3740c153c61d94d6dd6968e779e209f6f073f6af2"
+        },
+        "seri_saniye": 0.037329,
+        "paralel_saniye": 0.175017,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-098",
+      "girdi": {
+        "project_number": "T15-P098",
+        "design_pressure": 1.78,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "dfb41b5c5ffb81469aca1bd0e23e5defb5f5687ee4fee0f96fdf8ec70b3f8237"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "dfb41b5c5ffb81469aca1bd0e23e5defb5f5687ee4fee0f96fdf8ec70b3f8237"
+        },
+        "seri_saniye": 0.037594,
+        "paralel_saniye": 0.172023,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    },
+    {
+      "vaka": "T15-099",
+      "girdi": {
+        "project_number": "T15-P099",
+        "design_pressure": 1.79,
+        "is_paralel": true,
+        "worker_count": 8
+      },
+      "beklenen": "Seri/paralel yanıt özeti eşit; API çağrısı başarılı",
+      "gözlenen": {
+        "seri": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "46b489adb9ff5dd193589bf43cffbb82680f42e54a1da8f626b58fbeb7f3474c"
+        },
+        "paralel": {
+          "ok": true,
+          "http_status": 200,
+          "error": null,
+          "payload_signature": "46b489adb9ff5dd193589bf43cffbb82680f42e54a1da8f626b58fbeb7f3474c"
+        },
+        "seri_saniye": 0.040226,
+        "paralel_saniye": 0.156138,
+        "yanıt_karışması": false
+      },
+      "sonuç": "GEÇTİ"
+    }
+  ]
+}
