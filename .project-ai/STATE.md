@@ -31,3 +31,27 @@ Console org: ZeysLAB (info@zeyslab.com). Kredi alınmadı (Skip). Ürün: Pressu
 Metin "open-source" diyor → repo cakmacbum/bas-ncl-kap hâlâ private: public kararı Yusuf'ta.
 Sitedeki iletişim adresi contact@zeyslabs.com ≠ info@zeyslab.com → düzeltilmeli.
 İnceleme öncesi öncelik: Render backend (hesaplama canlı değil).
+
+## 2026-10-18 — M2 doğrulama kampanyası: kaldığımız yer
+M2 askıda değil, bu turda büyük ölçüde kapandı. Tam paket **959 geçti / 1 atlandı** (M1: 902, kampanya başı 934).
+Kayıt dosyaları (tek doğruluk kaynağı): `pressure-vessel-suite/docs/validation/campaign-2026-10/`
+  `BULGULAR.md` (bölüm A…Y, tüm bulgular + hükümler) · `EKSIKLER.md` (açık madde tablosu) · `OZET.md` · `F01…F21-*.md` · `tur7/A2,A3,A4.md`
+Kampanya: 21 aile (F01–F21), 2.000+ doğrulanmış vaka (1000 gövde kütle koşusu, 440 Tur 3, 300 bombe, 300 A2 bağımsız, 300 T04 …).
+**Düzeltilen (main):** B-01 dış korozyon payı MAWP (`085e799`) · B-02 nominal gereksinim CA_o (aynı) · B-10 statik kafa
+  (`8dd3270` uyarı + `5b339ff` `liquid_level_mm` + geometriden kot) · B-11 raporda koni (`6611dc3`) · B-12 rapor HTML kaçışı
+  (`de9456d`) · B-12b uyumluluk HTML kaçışı + `_esc` str-Enum (`880ebdd`).
+**Yanlış alarm (kapandı):** B-07 (nozul t_r E=1: UG-37(a) dikişsiz kabuk; birincil metne erişilemedi, güven orta-yüksek) · G-01 (0.8D = t_r seçim dairesi) · B-03 (uyarılı varsayılan).
+**Açık / sıradaki:**
+  1. Arayüze `liquid_level_mm` alanı (apps/web-ui; şu an yalnız API/JSON; `test_ui_parity` ARAYUZDE_YOK kaydı var)
+  2. Dikey kapta `component_sequence` boşsa statik kafa kotu hesaplanmaz (kampanya taban tankı sırasız) · hidrotest (UG-99) statik kafası yok
+  3. Koni modelinde `external_corrosion_allowance` alanı yok (CA_o koni için 0 kabul)
+  4. Kapsam boşlukları: EN 13445 flanş/yük kombinasyonu/yorulma tetiklenemiyor (B-06) · MDMT coincident ratio bağlı değil (B-04) ·
+     taban halkası sonucu yok (G-05) · yatay tankta 216 saddle sonucu OUT OF SCOPE (G-06) · nozulda E1<1 (Kategori B dışı dikiş) uygulanmıyor (`reinforcement.py:265`)
+  5. Girdi doğrulama: basınç 1e9 / NaN → HTTP 200 PASS/FAIL ya da 500 (G-03; şemada üst sınır yok)
+  6. Test boşlukları: düz kapak/torisferik/yarım küre/koni MAWP'de CA_o>0 bağımsız test yok · T01 nozul E/nominal ilişkileri etkisiz (boş doğrulama)
+  7. Luna paketleri: yol kuralı eklenince çalıştı; T42/T50 T11 çıktıları birleştirilmedi (tek kaynak: `t11_*/results_v2.json`)
+**Push yapılmadı:** main origin'in **116 commit** ilerisinde (yerel commit'ler); `git push` kararı Yusuf'ta. Çalışma ağacında commit'lenmemiş: `.claude/launch.json`, `tsbuildinfo`, `.claude/worktrees/`, `W01-landing.RAPOR.md`.
+**Araç durumu:** OpenCode 1.14.28 kurulu ama API anahtarı süresi dolmuş (OpenCode Console'dan yenilenmeli; ücretsiz katman 1.18.0+ ister).
+  Gemini CLI kişisel hesapla kapalı (Antigravity'ye taşınmış, dışarıdan iş verilemez).
+**Yürütücüler:** Codex luna (paket yazar → worktree) · Sonnet ajanları (izole worktree, şef diff'i okur, yalnız ilgili dosyaları ana ağaca kopyalar) · Haiku (örnek doğrulama; **`t_hesap` sütunları API kopyası çıktı → bağımsız kanıt sayılmaz**).
+**Kaldığım yerden devam:** önce `EKSIKLER.md` oku; açık madde yoksa M3 (Render backend, repo public kararı, iletişim e-postası) ya da arayüz `liquid_level_mm`.

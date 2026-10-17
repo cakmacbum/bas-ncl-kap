@@ -1,12 +1,15 @@
 # TASKS — M2 Tank doğrulama kampanyası (M1: arsiv/TASKS-M1.md)
 
-## IN_PROGRESS
-- T-2.0 P00 harness (Codex pilot) — kabul: `pytest tests/campaign` + V-01 eşleşmesi
-- T-2.1 K1–K4 kaynak avı (Claude ×4) — kabul: her kümede atıf+URL+sayılar, K6 uyumlu
+## DONE (2026-10-18)
+- T-2.0 harness · T-2.1 kaynak avı K1–K4 · T-2.2 F01–F21 aileleri · T-2.3 aggregate (OZET.md) · T-2.4 SAPMA teyidi (V*/A2/A4)
+- T-2.6 bulgu listesi (BULGULAR.md) → Yusuf onayı alındı → B-01/B-02/B-10/B-11/B-12/B-12b düzeltildi (959 test)
 
-## BACKLOG
-- T-2.2 F01–F20 Codex (20 paralel) — kabul: aile başına ≥30 vaka, results.json + FNN.md
-- T-2.3 Entegrasyon + aggregate → OZET.md
-- T-2.4 SAPMA teyidi (bulan ≠ doğrulayan, Opus)
-- T-2.5 Browser e2e: 3 temel tank UI'dan
-- T-2.6 Bulgu listesi → Yusuf onayı (düzeltme ayrı tur)
+## BACKLOG (açık, öncelik sırasıyla — ayrıntı `campaign-2026-10/EKSIKLER.md`)
+- T-2.7 Arayüze `liquid_level_mm` alanı (web-ui) + `component_sequence` yoksa kullanıcıya açık uyarı
+- T-2.8 Hidrotest (UG-99) statik kafası · koni `external_corrosion_allowance` alanı
+- T-2.9 Girdi doğrulama üst sınırları (basınç/çap/kalınlık, NaN/inf → 422)
+- T-2.10 CA_o>0 bağımsız testleri: düz kapak, torisferik, yarım küre, koni MAWP
+- T-2.11 Kapsam boşlukları: EN 13445 flanş/yük/yorulma · MDMT coincident ratio · taban halkası · yatay saddle OUT OF SCOPE
+- T-2.12 Browser e2e: 3 temel tank UI'dan (görsel kanıt) — yapılmadı
+- T-2.13 Luna'nın kendi kontrolünü bağımsız kılmak (T63 dersi) · Haiku doğrulamasında referans/API ayrımı
+- T-2.14 Nozulda E1 < 1 (açıklık Kategori B dışı dikişten geçerse) — uygulanmıyor, ayrı inceleme
