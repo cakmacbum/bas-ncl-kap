@@ -116,3 +116,10 @@ Sonuç: B-01 bağımsız rastgele örnekte deterministik olarak yeniden üretild
 - T11 (144): sınıflandırıcı yeniden yazılmalı (216 sayısal saddle sonucu kapsam dışı sayılmış).
 - T50 Codex paketi iki kez boş döndü (çıkış 4); bu iş Codex'e değil doğrudan yazılmalı.
 - T04 (300): yalnızca "GEÇTİ" üretiyor; kontroller zayıf.
+
+## J. Son tur (2026-10-17): T04 ve T01
+
+- **T04 (300 vaka, tur2/t04_fuzz):** Gerçek kontroller eklendi (sonlu sayı, kullanım tutarlılığı, gövde bağımsız UG-27). Kullanım: 806 kontrol tutarlı, 0 BULGU. Gövde bağımsız: 300/300 uyuştu. Satır durumu: 300 GEÇTİ. Haiku bağımsız yeniden hesabı: 40/40 uyuştu.
+- **Tekrarlayan kural hatası:** Nozul takviyesinde `utilization_ratio = mevcut/gerekli`, PASS ⇔ ≥1 olmalı. Üç farklı koşuda (T32, T51, T04) test beklentisi bu oranı ters okudu ve yüzlerce PASS satırını sahte BULGU saydı. Düzeltildi; API tutarlı.
+- **T01 (240):** Yön ihlali yok. 120 GEÇTİ, 120 BLOCKED (düz kapak, bağlantı faktörü C test girdisinde yok; API doğru bloke ediyor).
+- **T11 (144):** Ana dalda yalnızca benim sınıflandırmam (81 KAPSAM, 36 SAYISAL_İNCELEME, 27 TASARIM_FAIL). Codex T42/T50 sonuçları ayrı ve birleşmedi.
