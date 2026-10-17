@@ -1,0 +1,628 @@
+{
+  "endpoints": [
+    {
+      "method": "GET",
+      "path": "/api/health",
+      "owner_required": false
+    },
+    {
+      "method": "POST",
+      "path": "/api/agent/geometry/interpret",
+      "owner_required": true
+    },
+    {
+      "method": "GET",
+      "path": "/api/projects",
+      "owner_required": true
+    },
+    {
+      "method": "POST",
+      "path": "/api/projects",
+      "owner_required": true
+    },
+    {
+      "method": "GET",
+      "path": "/api/projects/{project_id}",
+      "owner_required": true
+    },
+    {
+      "method": "PUT",
+      "path": "/api/projects/{project_id}",
+      "owner_required": true
+    },
+    {
+      "method": "POST",
+      "path": "/api/projects/{project_id}/calculate",
+      "owner_required": true
+    },
+    {
+      "method": "GET",
+      "path": "/api/projects/{project_id}/report.html",
+      "owner_required": true
+    },
+    {
+      "method": "GET",
+      "path": "/api/projects/{project_id}/model.step",
+      "owner_required": true
+    },
+    {
+      "method": "GET",
+      "path": "/api/projects/{project_id}/model.stl",
+      "owner_required": true
+    },
+    {
+      "method": "POST",
+      "path": "/api/import/step",
+      "owner_required": true
+    }
+  ],
+  "vaka_sonuclari": [
+    {
+      "vaka": "owner-create",
+      "girdi": {
+        "yontem": "create",
+        "proje_id": "150a32204996",
+        "istemci": "A",
+        "başlık": "X-Client-Id present"
+      },
+      "beklenen": {
+        "http_status": 201,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 201,
+        "body": "{\"id\":\"150a32204996\",\"input_file_hash\":\"46906cba4a4acf0922247f9bdab920f53d9c30d77895cd10bb470532a3323e3b\"}"
+      },
+      "sonuç": "GEÇTİ",
+      "önem": null,
+      "yön": null,
+      "dosya_satır": null
+    },
+    {
+      "vaka": "owner-list",
+      "girdi": {
+        "yontem": "list",
+        "proje_id": "150a32204996",
+        "istemci": "A",
+        "başlık": "X-Client-Id present"
+      },
+      "beklenen": {
+        "http_status": 200,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 200,
+        "body": "[{\"id\":\"150a32204996\",\"project_number\":\"CAMPAIGN-VERTICAL-LEG\",\"project_name\":\"vertical-leg\",\"customer\":\"Basincli QA\",\"revision\":\"A\",\"calculation_code\":\"ASME VIII-1\"}]"
+      },
+      "sonuç": "GEÇTİ",
+      "önem": null,
+      "yön": null,
+      "dosya_satır": null
+    },
+    {
+      "vaka": "other-list",
+      "girdi": {
+        "yontem": "other-list",
+        "proje_id": "150a32204996",
+        "istemci": "B",
+        "başlık": "X-Client-Id present"
+      },
+      "beklenen": {
+        "http_status": 200,
+        "değişmez": "created id absent"
+      },
+      "gözlenen": {
+        "http_status": 200,
+        "body": "[]"
+      },
+      "sonuç": "GEÇTİ",
+      "önem": null,
+      "yön": null,
+      "dosya_satır": null
+    },
+    {
+      "vaka": "other-read",
+      "girdi": {
+        "yontem": "read",
+        "proje_id": "150a32204996",
+        "istemci": "B",
+        "başlık": "X-Client-Id present"
+      },
+      "beklenen": {
+        "http_status": 404,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 404,
+        "body": "{\"detail\":\"Proje bulunamadı.\"}"
+      },
+      "sonuç": "GEÇTİ",
+      "önem": null,
+      "yön": "B->A",
+      "dosya_satır": null
+    },
+    {
+      "vaka": "other-update",
+      "girdi": {
+        "yontem": "update",
+        "proje_id": "150a32204996",
+        "istemci": "B",
+        "başlık": "X-Client-Id present"
+      },
+      "beklenen": {
+        "http_status": 404,
+        "değişmez": "original unchanged"
+      },
+      "gözlenen": {
+        "http_status": 404,
+        "body": "{\"detail\":\"Proje bulunamadı.\"}"
+      },
+      "sonuç": "GEÇTİ",
+      "önem": null,
+      "yön": "B->A",
+      "dosya_satır": null
+    },
+    {
+      "vaka": "other-calculate",
+      "girdi": {
+        "yontem": "calculate",
+        "proje_id": "150a32204996",
+        "istemci": "B",
+        "başlık": "X-Client-Id present"
+      },
+      "beklenen": {
+        "http_status": 404,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 404,
+        "body": "{\"detail\":\"Proje bulunamadı.\"}"
+      },
+      "sonuç": "GEÇTİ",
+      "önem": null,
+      "yön": "B->A",
+      "dosya_satır": null
+    },
+    {
+      "vaka": "other-report",
+      "girdi": {
+        "yontem": "report",
+        "proje_id": "150a32204996",
+        "istemci": "B",
+        "başlık": "X-Client-Id present"
+      },
+      "beklenen": {
+        "http_status": 404,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 404,
+        "body": "{\"detail\":\"Proje bulunamadı.\"}"
+      },
+      "sonuç": "GEÇTİ",
+      "önem": null,
+      "yön": "B->A",
+      "dosya_satır": null
+    },
+    {
+      "vaka": "other-step",
+      "girdi": {
+        "yontem": "step",
+        "proje_id": "150a32204996",
+        "istemci": "B",
+        "başlık": "X-Client-Id present"
+      },
+      "beklenen": {
+        "http_status": 404,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 404,
+        "body": "{\"detail\":\"Proje bulunamadı.\"}"
+      },
+      "sonuç": "GEÇTİ",
+      "önem": null,
+      "yön": "B->A",
+      "dosya_satır": null
+    },
+    {
+      "vaka": "other-stl",
+      "girdi": {
+        "yontem": "stl",
+        "proje_id": "150a32204996",
+        "istemci": "B",
+        "başlık": "X-Client-Id present"
+      },
+      "beklenen": {
+        "http_status": 404,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 404,
+        "body": "{\"detail\":\"Proje bulunamadı.\"}"
+      },
+      "sonuç": "GEÇTİ",
+      "önem": null,
+      "yön": "B->A",
+      "dosya_satır": null
+    },
+    {
+      "vaka": "owner-read",
+      "girdi": {
+        "yontem": "owner-read",
+        "proje_id": "150a32204996",
+        "istemci": "A",
+        "başlık": "X-Client-Id present"
+      },
+      "beklenen": {
+        "http_status": 200,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 200,
+        "body": "{\"project_number\":\"CAMPAIGN-VERTICAL-LEG\",\"project_name\":\"vertical-leg\",\"customer\":\"Basincli QA\",\"revision\":\"A\",\"calculation_code\":\"ASME VIII-1\",\"code_edition\":\"2025\",\"unit_system\":\"SI\",\"design_life\":null,\"design_cycles\":null,\"orientation\":\"vertical\",\"diameter_relation\":\"independent\",\"design_conditions\":{\"operating_pressure\":1.0,\"design_pressure\":1.2,\"maximum_allowable_pressure_ps\":1.5,\"operating_temperature\":150.0,\"design_temperature\":200.0,\"minimum_design_temperature\":-10.0,\"external_pressure\""
+      },
+      "sonuç": "GEÇTİ",
+      "önem": null,
+      "yön": null,
+      "dosya_satır": null
+    },
+    {
+      "vaka": "owner-update",
+      "girdi": {
+        "yontem": "owner-update",
+        "proje_id": "150a32204996",
+        "istemci": "A",
+        "başlık": "X-Client-Id present"
+      },
+      "beklenen": {
+        "http_status": 200,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 200,
+        "body": "{\"id\":\"150a32204996\",\"input_file_hash\":\"46906cba4a4acf0922247f9bdab920f53d9c30d77895cd10bb470532a3323e3b\"}"
+      },
+      "sonuç": "GEÇTİ",
+      "önem": null,
+      "yön": null,
+      "dosya_satır": null
+    },
+    {
+      "vaka": "owner-calculate",
+      "girdi": {
+        "yontem": "owner-calculate",
+        "proje_id": "150a32204996",
+        "istemci": "A",
+        "başlık": "X-Client-Id present"
+      },
+      "beklenen": {
+        "http_status": 200,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 200,
+        "body": "{\"project_number\":\"CAMPAIGN-VERTICAL-LEG\",\"project_name\":\"vertical-leg\",\"code\":\"ASME VIII-1\",\"edition\":\"2025\",\"global_mawp_mpa\":1.7098156081206928,\"results\":[{\"calculation_id\":\"5c595b17\",\"component_id\":\"SHELL-01\",\"component_type\":\"shell\",\"calculation_type\":\"thickness\",\"code\":\"ASME VIII-1\",\"edition\":\"2025\",\"clause_reference\":\"UG-27(c)(1)\",\"formula_reference\":\"UG-27(c)(1) Eq. (1)\",\"input_snapshot\":{\"P_MPa\":1.2,\"R_mm\":500.0,\"R_corroded_mm\":502.0,\"S_MPa\":138.0,\"E\":1.0,\"C_mm\":2.0,\"mill_tolerance_pct\""
+      },
+      "sonuç": "GEÇTİ",
+      "önem": null,
+      "yön": null,
+      "dosya_satır": null
+    },
+    {
+      "vaka": "invalid-uuid",
+      "girdi": {
+        "yontem": "bad-header",
+        "proje_id": "150a32204996",
+        "istemci": "A",
+        "başlık": "not-a-uuid"
+      },
+      "beklenen": {
+        "http_status": 400,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 400,
+        "body": "{\"detail\":\"Missing or invalid X-Client-Id\"}"
+      },
+      "sonuç": "GEÇTİ",
+      "önem": null,
+      "yön": null,
+      "dosya_satır": null
+    },
+    {
+      "vaka": "uppercase-uuid",
+      "girdi": {
+        "yontem": "bad-header",
+        "proje_id": "150a32204996",
+        "istemci": "A",
+        "başlık": "70902F0A-2FCB-56AE-83DC-4C7A52AA0005"
+      },
+      "beklenen": {
+        "http_status": 400,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 200,
+        "body": "[{\"id\":\"150a32204996\",\"project_number\":\"CAMPAIGN-VERTICAL-LEG\",\"project_name\":\"vertical-leg\",\"customer\":\"Basincli QA\",\"revision\":\"A\",\"calculation_code\":\"ASME VIII-1\"}]"
+      },
+      "sonuç": "BULGU",
+      "önem": "ORTA",
+      "yön": null,
+      "dosya_satır": null
+    },
+    {
+      "vaka": "empty-header",
+      "girdi": {
+        "yontem": "bad-header",
+        "proje_id": "150a32204996",
+        "istemci": "A",
+        "başlık": ""
+      },
+      "beklenen": {
+        "http_status": 400,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 400,
+        "body": "{\"detail\":\"Missing or invalid X-Client-Id\"}"
+      },
+      "sonuç": "GEÇTİ",
+      "önem": null,
+      "yön": null,
+      "dosya_satır": null
+    },
+    {
+      "vaka": "uppercase-list",
+      "girdi": {
+        "yontem": "bad-route-header",
+        "proje_id": "150a32204996",
+        "istemci": "A",
+        "başlık": "70902F0A-2FCB-56AE-83DC-4C7A52AA0005"
+      },
+      "beklenen": {
+        "http_status": 400,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 200,
+        "body": "[{\"id\":\"150a32204996\",\"project_number\":\"CAMPAIGN-VERTICAL-LEG\",\"project_name\":\"vertical-leg\",\"customer\":\"Basincli QA\",\"revision\":\"A\",\"calculation_code\":\"ASME VIII-1\"}]"
+      },
+      "sonuç": "BULGU",
+      "önem": "ORTA",
+      "yön": null,
+      "dosya_satır": null
+    },
+    {
+      "vaka": "uppercase-create",
+      "girdi": {
+        "yontem": "bad-route-header",
+        "proje_id": "150a32204996",
+        "istemci": "A",
+        "başlık": "70902F0A-2FCB-56AE-83DC-4C7A52AA0005"
+      },
+      "beklenen": {
+        "http_status": 400,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 201,
+        "body": "{\"id\":\"9c66ee9e4e0b\",\"input_file_hash\":\"46906cba4a4acf0922247f9bdab920f53d9c30d77895cd10bb470532a3323e3b\"}"
+      },
+      "sonuç": "BULGU",
+      "önem": "ORTA",
+      "yön": null,
+      "dosya_satır": null
+    },
+    {
+      "vaka": "uppercase-read",
+      "girdi": {
+        "yontem": "bad-route-header",
+        "proje_id": "150a32204996",
+        "istemci": "A",
+        "başlık": "70902F0A-2FCB-56AE-83DC-4C7A52AA0005"
+      },
+      "beklenen": {
+        "http_status": 400,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 200,
+        "body": "{\"project_number\":\"CAMPAIGN-VERTICAL-LEG\",\"project_name\":\"vertical-leg\",\"customer\":\"Basincli QA\",\"revision\":\"A\",\"calculation_code\":\"ASME VIII-1\",\"code_edition\":\"2025\",\"unit_system\":\"SI\",\"design_life\":null,\"design_cycles\":null,\"orientation\":\"vertical\",\"diameter_relation\":\"independent\",\"design_conditions\":{\"operating_pressure\":1.0,\"design_pressure\":1.2,\"maximum_allowable_pressure_ps\":1.5,\"operating_temperature\":150.0,\"design_temperature\":200.0,\"minimum_design_temperature\":-10.0,\"external_pressure\""
+      },
+      "sonuç": "BULGU",
+      "önem": "ORTA",
+      "yön": null,
+      "dosya_satır": null
+    },
+    {
+      "vaka": "uppercase-update",
+      "girdi": {
+        "yontem": "bad-route-header",
+        "proje_id": "150a32204996",
+        "istemci": "A",
+        "başlık": "70902F0A-2FCB-56AE-83DC-4C7A52AA0005"
+      },
+      "beklenen": {
+        "http_status": 400,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 200,
+        "body": "{\"id\":\"150a32204996\",\"input_file_hash\":\"46906cba4a4acf0922247f9bdab920f53d9c30d77895cd10bb470532a3323e3b\"}"
+      },
+      "sonuç": "BULGU",
+      "önem": "ORTA",
+      "yön": null,
+      "dosya_satır": null
+    },
+    {
+      "vaka": "uppercase-calculate",
+      "girdi": {
+        "yontem": "bad-route-header",
+        "proje_id": "150a32204996",
+        "istemci": "A",
+        "başlık": "70902F0A-2FCB-56AE-83DC-4C7A52AA0005"
+      },
+      "beklenen": {
+        "http_status": 400,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 200,
+        "body": "{\"project_number\":\"CAMPAIGN-VERTICAL-LEG\",\"project_name\":\"vertical-leg\",\"code\":\"ASME VIII-1\",\"edition\":\"2025\",\"global_mawp_mpa\":1.7098156081206928,\"results\":[{\"calculation_id\":\"9f8b12d7\",\"component_id\":\"SHELL-01\",\"component_type\":\"shell\",\"calculation_type\":\"thickness\",\"code\":\"ASME VIII-1\",\"edition\":\"2025\",\"clause_reference\":\"UG-27(c)(1)\",\"formula_reference\":\"UG-27(c)(1) Eq. (1)\",\"input_snapshot\":{\"P_MPa\":1.2,\"R_mm\":500.0,\"R_corroded_mm\":502.0,\"S_MPa\":138.0,\"E\":1.0,\"C_mm\":2.0,\"mill_tolerance_pct\""
+      },
+      "sonuç": "BULGU",
+      "önem": "ORTA",
+      "yön": null,
+      "dosya_satır": null
+    },
+    {
+      "vaka": "uppercase-report",
+      "girdi": {
+        "yontem": "bad-route-header",
+        "proje_id": "150a32204996",
+        "istemci": "A",
+        "başlık": "70902F0A-2FCB-56AE-83DC-4C7A52AA0005"
+      },
+      "beklenen": {
+        "http_status": 400,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 200,
+        "body": "<!DOCTYPE html>\n<html lang=\"tr\">\n<head>\n<meta charset=\"UTF-8\">\n<title>Basınçlı Kap Hesap Raporu — CAMPAIGN-VERTICAL-LEG</title>\n<style>\nbody { font-family: Arial, sans-serif; font-size: 11pt; margin: 20mm; color: #222; }\nh1 { font-size: 18pt; color: #1a3a5c; border-bottom: 2px solid #1a3a5c; padding-bottom: 6px; }\nh2 { font-size: 14pt; color: #1a3a5c; margin-top: 24px; }\nh3 { font-size: 12pt; color: #333; }\ntable { border-collapse: collapse; width: 100%; margin: 10px 0; }\nth, td { border: 1px so"
+      },
+      "sonuç": "BULGU",
+      "önem": "ORTA",
+      "yön": null,
+      "dosya_satır": null
+    },
+    {
+      "vaka": "uppercase-step",
+      "girdi": {
+        "yontem": "bad-route-header",
+        "proje_id": "150a32204996",
+        "istemci": "A",
+        "başlık": "70902F0A-2FCB-56AE-83DC-4C7A52AA0005"
+      },
+      "beklenen": {
+        "http_status": 400,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 200,
+        "body": "ISO-10303-21;\nHEADER;\nFILE_DESCRIPTION(('Open CASCADE Model'),'2;1');\nFILE_NAME('Open CASCADE Shape Model','2026-10-17T18:22:20',('Author'),(\n    'Open CASCADE'),'Open CASCADE STEP processor 7.9','Open CASCADE 7.9'\n  ,'Unknown');\nFILE_SCHEMA(('AUTOMOTIVE_DESIGN { 1 0 10303 214 1 1 1 1 }'));\nENDSEC;\nDATA;\n#1 = APPLICATION_PROTOCOL_DEFINITION('international standard',\n  'automotive_design',2000,#2);\n#2 = APPLICATION_CONTEXT(\n  'core data for automotive mechanical design processes');\n#3 = SHAPE_DEF"
+      },
+      "sonuç": "BULGU",
+      "önem": "ORTA",
+      "yön": null,
+      "dosya_satır": null
+    },
+    {
+      "vaka": "uppercase-stl",
+      "girdi": {
+        "yontem": "bad-route-header",
+        "proje_id": "150a32204996",
+        "istemci": "A",
+        "başlık": "70902F0A-2FCB-56AE-83DC-4C7A52AA0005"
+      },
+      "beklenen": {
+        "http_status": 400,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 200,
+        "body": "STL Exported by Open CASCADE Technology [dev.opencascade.org]\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000�:\u0000\u0000d�?^p�;\u0000\u0000\u0000\u0000���C\tp�@0\u0001�D\u0000\u0000\u0000D\u0000\u0000\u0000\u0000\u0000\u0000�D\u0000\u0000\u0000D\u0000\u0000\u0000\u0000�\u0007�D\u0000\u0000��?H\u000bS<��&8f��C�;\fA��D\u0000\u0000\u0000D\u0000\u0000\u0000\u0000\u0000\u0000�D���C\tp�@0\u0001�D\u0000\u0000>�?���<\u0018�\u00009���CɊZA�ȂD\u0000\u0000\u0000D\u0000\u0000\u0000\u0000\u0000\u0000�Df��C�;\fA��D\u0000\u0000��?� \u0000=���97��C�=�A���D\u0000\u0000\u0000D\u0000\u0000\u0000\u0000\u0000\u0000�D���CɊZA�ȂD\u0000\u0000H�?�?$=�F�9@��C\u0005��A,T�D\u0000\u0000\u0000D\u0000\u0000\u0000\u0000\u0000\u0000�D7��C�=�A���D\u0000\u0000��?��E=�[\":%��C+\u0005�A�\t�D\u0000\u0000\u0000D\u0000\u0000\u0000\u0000\u0000\u0000�D@��C\u0005��A,T�D\u0000\u0000e�?��i=ӄa:\u0014��C\u0007��A瘁D\u0000\u0000\u0000D\u0000\u0000\u0000\u0000\u0000\u0000�D%��C+\u0005�A�\t�D\u0000\u0000�H?\r\f�=\u001c��:\bd�C�5\rB\u0007\u001c�D\u0004$�C���B\u0000\u0000�D\u0000\u0000\u0000D\u0000\u0000\u0000\u0000\u0000\u0000�D\u0000\u0000�p?_I�=cE�:\bd�C�5\rB\u0007\u001c�D\u0000"
+      },
+      "sonuç": "BULGU",
+      "önem": "ORTA",
+      "yön": null,
+      "dosya_satır": null
+    },
+    {
+      "vaka": "uppercase-import",
+      "girdi": {
+        "yontem": "bad-route-header",
+        "proje_id": "150a32204996",
+        "istemci": "A",
+        "başlık": "70902F0A-2FCB-56AE-83DC-4C7A52AA0005"
+      },
+      "beklenen": {
+        "http_status": 400,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 415,
+        "body": "{\"detail\":\"Geçerli bir STEP dosyası değil (ISO-10303-21 başlığı yok).\"}"
+      },
+      "sonuç": "BULGU",
+      "önem": "ORTA",
+      "yön": null,
+      "dosya_satır": null
+    },
+    {
+      "vaka": "health-no-header",
+      "girdi": {
+        "yontem": "health",
+        "proje_id": "150a32204996",
+        "istemci": "A",
+        "başlık": "X-Client-Id present"
+      },
+      "beklenen": {
+        "http_status": 200,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 200,
+        "body": "{\"status\":\"ok\",\"cad_available\":true}"
+      },
+      "sonuç": "GEÇTİ",
+      "önem": null,
+      "yön": null,
+      "dosya_satır": null
+    },
+    {
+      "vaka": "agent-missing-header",
+      "girdi": {
+        "yontem": "agent-no-header",
+        "proje_id": "150a32204996",
+        "istemci": "A",
+        "başlık": "X-Client-Id present"
+      },
+      "beklenen": {
+        "http_status": 400,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 400,
+        "body": "{\"detail\":\"Missing or invalid X-Client-Id\"}"
+      },
+      "sonuç": "GEÇTİ",
+      "önem": null,
+      "yön": null,
+      "dosya_satır": null
+    },
+    {
+      "vaka": "import-missing-header",
+      "girdi": {
+        "yontem": "import-no-header",
+        "proje_id": "150a32204996",
+        "istemci": "A",
+        "başlık": "X-Client-Id present"
+      },
+      "beklenen": {
+        "http_status": 400,
+        "değişmez": null
+      },
+      "gözlenen": {
+        "http_status": 400,
+        "body": "{\"detail\":\"Missing or invalid X-Client-Id\"}"
+      },
+      "sonuç": "GEÇTİ",
+      "önem": null,
+      "yön": null,
+      "dosya_satır": null
+    }
+  ]
+}
