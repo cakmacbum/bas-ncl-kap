@@ -141,3 +141,9 @@ Luna (`gpt-6-luna`) paketi `tools/campaign/tur5/bombe_tarama/` altına 300 rastg
 ## N. Haiku kendi test üretimi (300 vaka, tohum 4242)
 
 Haiku kendi senaryo üreticisini yazdı (farklı parametre aralıkları: P 0.05–20 MPa, D_i 200–6000 mm, S 60–300 MPa, CA 0–6 mm), harness üzerinden API'yi çağırdı ve bağımsız UG-27 formülüyle karşılaştırdı: 300/300 UYUŞUR, VERİ_YOK 0, HTTP 200 hepsinde. En yüksek basınç (19.95 MPa) vakası da uyuştu. Betik ve CSV: scratchpad `haiku_uretim.py` / `haiku_uretim.csv`.
+
+## O. Haiku eliptik bombe üretimi (300) ve bağımsızlık uyarısı
+
+Haiku 300 eliptik bombe vakası üretti (tohum 9911): 300/300 "UYUŞUR". Şef bağımsız kontrolü (UG-32(d), K=1, D_c=D_i+2CA_i) CSV'deki girdilerle yeniden uyguladı: maksimum bağıl fark 6.6·10⁻⁷ (CSV yuvarlaması). API değeri doğru.
+
+**Uyarı:** Haiku'nun CSV'deki `t_hesap` sütunu, 300 satırın 300'ünde `t_api` ile birebir aynı string. Yani Haiku'nun "bağımsız hesap" sütunu kendi hesabı değil, API değerinin kopyası. Aynı durum T04 ve kendi üretim (N) koşularında da görüldü. Bu nedenle Haiku'nun "uyuştu" sonuçları tek başına bağımsız kanıt sayılmaz; yalnız şef yeniden hesabı bağımsızdır. Gelecekteki Haiku görevleri bağımsız hesabı ayrı bir sütunda ve API değerine bakmadan yazmalıdır.
