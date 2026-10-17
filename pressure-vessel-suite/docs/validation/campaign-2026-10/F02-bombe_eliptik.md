@@ -32,3 +32,14 @@ Kaynak notu: `sources-K1.md`, K1-19 Pmax değerinin kendi girdileriyle yaklaşı
 ## 6. Temiz oda beyanı
 
 Oracle, UG-32(d), UG-27(c)(1) ve ters MAWP denklemlerinden bağımsız yazıldı. Yasaklı implementasyon paketleri açılmadı/okunmadı; suite sonuçları yalnızca `run_case` API çıktısından alındı. Domain modelleri ve izin verilen kampanya harness'i incelendi.
+
+
+## Tur 2 d?zeltmesi
+
+Oracle, UG-32(d) gerekli kal?nl?k ve MAWP hesaplar?nda korozyon sonras? i? ?ap? `D_i + 2?CA` kullanacak ?ekilde g?ncellendi. Net kullan?labilir kal?nl?k hesab? (nominal kal?nl?ktan tolerans, ?ekillendirme incelmesi ve CA d???lmesi) ayn? kald?. `results.json`, API harness'i ile yeniden ?retildi.
+
+Etiket da??l?m?: ?nceki **DO?RULANDI 58 ? FORM?LASYON_FARKI 0 ? SAPMA 2 ? TEK_KAYNAK 0 ? KAYNAK_BEKL?YOR 0 ? KAPSAM_DI?I 2**; yeni **DO?RULANDI 60 ? FORM?LASYON_FARKI 0 ? SAPMA 0 ? TEK_KAYNAK 0 ? KAYNAK_BEKL?YOR 0 ? KAPSAM_DI?I 2** (62 k?yas).
+
+?nceki sapmalar bu oracle geometri d?zeltmesiyle kapand?. Yeni SAPMA bulunmad???ndan vaka bazl? a??k sapma girdisi/de?eri yoktur. Ge?ersiz malzeme vakas? iki ?l??mde KAPSAM_DI?I kalm??t?r.
+
+SONU?: DO?RULANDI=60 ? SAPMA=0 ? FORM?LASYON_FARKI=0 ? KAPSAM_DI?I=2
