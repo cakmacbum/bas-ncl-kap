@@ -108,3 +108,11 @@ Koşu: `tools/campaign/tur5/mass_govde.py`. Bağımsız UG-27 formülü (script 
 | MAWP sapıyor, CA_o > 0 | 641 / 641 | API değeri, dış korozyon payı düşülmemiş varyantla birebir eşleşiyor (B-01) |
 
 Sonuç: B-01 bağımsız rastgele örnekte deterministik olarak yeniden üretildi; sapma tüm CA_o > 0 vakalarında, istisnasız. Emniyetsiz yön (MAWP fazla). Kanıt: `tools/campaign/tur5/mass_govde_20261017.csv`.
+
+**Haiku bağımsız doğrulaması (ikinci gözlemci, 60 satır, tohum 7):** t_required 60/60 uyuştu. MAWP: 25 uyuşur (CA_o=0), 35 "CA_o düşülmemiş" varyantıyla birebir eşleşti (B-01), açıklanamayan sapma 0. Bu, kütle koşusunun sonucunu bağımsız olarak doğrular.
+
+**Açık kalan işler (bu oturumda tamamlanmadı):**
+- T01 (240): üretici `observed` değerini doğru bileşenden okumuyor; yeniden yazılıp koşulmalı.
+- T11 (144): sınıflandırıcı yeniden yazılmalı (216 sayısal saddle sonucu kapsam dışı sayılmış).
+- T50 Codex paketi iki kez boş döndü (çıkış 4); bu iş Codex'e değil doğrudan yazılmalı.
+- T04 (300): yalnızca "GEÇTİ" üretiyor; kontroller zayıf.
