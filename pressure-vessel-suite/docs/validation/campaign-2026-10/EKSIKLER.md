@@ -1,0 +1,56 @@
+# M2 kampanyası — açık eksikler (2026-10-17)
+
+Bu dosya, hedefin kapanmasını engelleyen tüm açık maddeleri toplar. Her madde kapandığında
+"Durum" sütunu güncellenir.
+
+## A. Ürün / hesap bulguları
+
+| ID | Önem | Eksik | Durum |
+|---|---|---|---|
+| B-01 | YÜKSEK, emniyetsiz | Gövde MAWP'de dış korozyon payı (CA_o) düşülmüyor (1000 vakada 641'i etkilenmiş) | Teyitli; düzeltme onay bekliyor |
+| B-02 | YÜKSEK, emniyetsiz | Gövde/bombe/koni/nozul gerekli kalınlık hesaplarının çoğu CA_o'yu kullanmıyor | Kod taraması yapıldı; düzeltme B-01 ile birlikte |
+| B-03 | ORTA | Torisferik bombede knuckle yarıçapı eksikken BLOCKED yerine PASS | Teyitli değil (T09 raporu eksik) |
+| B-07 | YÜKSEK, emniyetsiz | Nozul takviyesi: ev sahibi gerekli kalınlık `"welds": []` ile hesaplanıyor, E = 1 alınıyor; A_required ~%16 (E=0.86) düşük | Kanıtlı (T63 A-001). Düzeltme onayınızı bekliyor. UG-37'de t_r'nin kaynak verimini kullandığı madde numarası teyit edilmeli |
+| B-04 | ORTA | MDMT coincident ratio alanı hesaba bağlı değil | Kod incelemesi; test yok |
+| B-05 | DÜŞÜK | Vakum sonucu `external_pressure` adıyla dönüyor | Kod incelemesi |
+| B-06 | ORTA | EN 13445 flanş, yük kombinasyonu, yorulma tetiklenemiyor | Kod incelemesi |
+| B-08 | ORTA | Nozul yerleşim kontrolü sayısal çıktı vermiyor | Kod incelemesi |
+| B-09 | ORTA | MDMT için bağımsız sayısal kıyas yok (UCS-66 telifli, K6) | Açık |
+| G-01 | YÜKSEK (aday) | Nozul merkezi >0.8D PASS dönüyor (T13); 0.8D sınırının normatif kaynağı teyit edilmedi | Açık: kaynak gerekli |
+| G-02 | — | Statik kafa farkı (T16) teyit edilmedi | Açık: vaka bazında kontrol gerekli |
+| G-03 | ORTA | Anlamsız girdi (ör. basınç 1e9) HTTP 200 PASS/FAIL dönüyor; bazı NaN'lar 500 veriyor | Gözlemlendi; şema üst sınırı yok |
+| G-04 | DÜŞÜK | Büyük harfli UUID kabul ediliyor (aynı sahibe normalleşiyor; sızıntı yok) | Bilgi |
+| G-05 | ORTA | Etekli kolonda taban halkası sonucu API'de yok (T14) | Açık |
+| G-06 | ORTA | Yatay tankta 216 saddle sonucu OUT OF SCOPE; kapsam belgelenmedi | Açık |
+| D-03 | ORTA (altyapı) | Sahip başına 50 proje tavanı kampanyayı sessizce 429'a sokuyordu | Düzeltildi (harness uuid4 sahip) |
+| D-04 | ORTA (altyapı) | T32 satır durumu hatalı birleştirilmişti | Düzeltildi (kontrollerden türetme) |
+
+## B. Test ve sınıflandırma eksikleri
+
+| ID | Eksik | Durum |
+|---|---|---|
+| T-01 | T01 düz kapak 120 vakası BLOCKED (test girdisinde bağlantı faktörü C yok) | Açık: üretici girdisi düzeltilmeli |
+| T-02 | T11 saddle REVIEW/FAIL sonuçlarının sınıflandırma kuralı | Karar verildi (SAYISAL_İNCELEME / TASARIM_FAIL); benim sonuç dosyası tek kaynak |
+| T-03 | T42 ve T50 (Luna) T11 sınıflandırmaları ana dala girmedi (çakışıyor, uyuşmuyor) | Karar: birleştirilmedi |
+| T-04 | T04 fuzz: kontrol kuralları düzeltildi; nozul oranı ≥1 PASS | Düzeltildi; Haiku doğrulaması kopya çıktı (bağımsız değil) |
+| T-05 | T40 (agregasyon), T45 (T09 torisferik) Luna çıktısı yok / boş | Açık |
+| T-06 | R04 (yarım küre oracle'ı suite'e hizalandı) birleştirilmedi | Karar: kanıt sayılmaz |
+| T-07 | T63 nozul kontrolü bağımsız değer yok ("UYUŞUR" boş geçiş) | Açık: Luna yeniden yazmalı |
+| T-08 | T63 eliptik: 9 "uyuşmazlık" test tanımı hatası (crown_depth) | Açık: Luna yeniden yazmalı |
+| T-09 | T05 determinizm ve T07 rapor: 20/20 BULGU, sebebi test hatası olabilir | Açık |
+| T-10 | T09 torisferik ve T14 halka kapsamı | Açık |
+
+## C. Süreç (hedef kriterleri) eksikleri
+
+| ID | Gereklilik | Durum |
+|---|---|---|
+| P-01 | Haiku'nun bağımsız doğrulaması | Kanıtlanmadı: t_hesap sütunları API değerinin kopyası (300 eliptik, 300 T04/üretim; 1000 gövde için şef yeniden hesabı var). Haiku'ya "API değerine bakmadan" kuralıyla yeniden iş verilmeli |
+| P-02 | Luna'nın tam döngüsü (plan, yaz, koş, kendi kontrol) | T63 kendi kontrolünde hatalı; kabul edilmedi |
+| P-03 | Opus'un yönetici rolü | Büyük ölçüde şef tarafından doğrudan yapıldı; kanıtlanmadı |
+| P-04 | "Yüzlerce test": Luna + Haiku birlikte | Kısmen: 1000 gövde (Haiku doğrulama), 300 bombe (Luna), 300 üretim (Haiku), 300 T04 (Luna), 440 Tur 3, 240 T63, 240 T01; fakat tek bir birleşik Luna+Haiku döngüsü yok |
+| P-05 | Hedef kararı | Kullanıcı kararı bekleniyor: B-07 onayı / bu haliyle kapat / yeni tur |
+
+## D. Kullanıcı kararı bekleyenler
+
+1. B-01/B-02/B-07 düzeltmelerinin onayı (kalkülasyon çekirdeği; DEC-005 gereği onaysız değişmez).
+2. Hedefin kapatılması ya da yeni tur.
