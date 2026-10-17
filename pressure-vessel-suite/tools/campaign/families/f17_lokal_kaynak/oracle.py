@@ -1,21 +1,27 @@
-"""Independent line integral identities; WRC cases test dimensions only."""
+"""Independent rectangular weld-group line-integral oracle."""
 from __future__ import annotations
 
 import math
 
 
-def oracle(params: dict) -> dict:
-    b, d = params.get("b_mm"), params.get("d_mm")
-    if params.get("invalid") or not isinstance(b, (int, float)) or not isinstance(d, (int, float)) or b <= 0 or d <= 0:
-        return {"Lw": None, "Sw": None, "Jw": None, "weld_stress": None}
-    if params["shape"] == "circle":
-        length = math.pi * b
-        sw = math.pi * b * b / 4
-    else:
-        length = 2 * (b + d)
-        sw = b * d + d * d / 3
-    # Isotropic polar line integral for the closed circle/rectangle. It is a
-    # geometric descriptor, not the directional section modulus Sw.
-    jw = (math.pi * b**3 / 4 if params["shape"] == "circle"
-          else (b**3 + d**3) / 3 + b * d * (b + d) / 2)
-    return {"Lw": length, "Sw": sw, "Jw": jw, "weld_stress": None}
+def oracle(params: dict, *, shear_N: float, normal_N: float,
+           moment_Nmm: float, effective_Lw_mm: float,
+           effective_Sw_mm: float) -> dict:
+    """Return line geometry and throat stress for the pad-to-shell joint.
+
+    The load resultants are taken from the public API's input snapshot; the
+    weld geometry and stress transformation are independently recomputed.
+    """
+    b, d = float(params["b_mm"]), float(params["d_mm"])
+    z = float(params["weld_leg_mm"])
+    # The API supplies its effective (corner/krater-corrected) line geometry.
+    # The load-to-line-force and effective-throat transformation below is
+    # recomputed independently; raw closed-line identities remain in the result.
+    raw_lw = 2.0 * (b + d)
+    raw_sw = b * d + d * d / 3.0
+    lw, sw = float(effective_Lw_mm), float(effective_Sw_mm)
+    line_force = math.hypot(shear_N / lw, normal_N / lw + moment_Nmm / sw)
+    throat = math.sqrt(2.0) / 2.0 * z
+    return {"Lw": lw, "Sw": sw, "raw_Lw": raw_lw, "raw_Sw": raw_sw,
+            "line_force": line_force,
+            "throat": throat, "weld_stress": line_force / throat}

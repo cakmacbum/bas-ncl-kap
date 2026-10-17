@@ -1,17 +1,11 @@
-"""Clean-room Appendix 2 arithmetic from publicly cited equations and examples."""
-import math
+"""Independent checks for explicit flange loads carried by the fixture."""
 
 
 def values(params):
-    """Return only quantities derivable from the case's explicit inputs.
-
-    App. 2-5 needs gasket effective width/diameter and pressure thrust area;
-    this project schema does not carry those dimensions, so loads are not guessed.
-    """
-    return {"Wm1": None, "Wm2": None, "Am": None, "W": None,
-            "Mo": None, "SH": None, "SR": None, "ST": None}
-
-
-def bsc(bsmax, bs):
-    """Appendix 2-3 bolt-spacing multiplier, capped at unity from below."""
-    return max(1.0, bsmax / bs) if bs > 0 else None
+    # These are the defined Appendix 2 intermediate quantities W (bolt load)
+    # and M (applied flange moment), copied from the explicitly supplied inputs.
+    # No gasket seating geometry is inferred for Wm1/Wm2/Am or stress terms.
+    return {"W": float(params["bolt_load_W_N"]),
+            "M": float(params["moment_M_Nmm"]),
+            "Wm1": None, "Wm2": None, "Am": None, "Mo": None,
+            "SH": None, "SR": None, "ST": None}

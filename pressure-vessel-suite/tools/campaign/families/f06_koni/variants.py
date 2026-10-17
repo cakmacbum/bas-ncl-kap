@@ -1,5 +1,6 @@
 from copy import deepcopy
-from tools.campaign.bases import vertical_leg_tank, with_code
+from tools.campaign.examples import example_junction_check
+from tools.campaign.bases import with_code
 
 
 def variants():
@@ -9,7 +10,7 @@ def variants():
     # K2-05 yayınlanmış geometri/basınç koşulu, ayrıca yeniden üretilebilir.
     specs.append((25.3, 10.39/12.75, 200.953*0.006894757293168, 0.0))
     for i, (angle, ratio, pressure, ca) in enumerate(specs, 1):
-        p = with_code(vertical_leg_tank(), "ASME VIII-1")
+        p = with_code(example_junction_check(), "ASME VIII-1")
         large = 1000.0
         small = large * ratio
         p["design_conditions"].update(operating_pressure=pressure, design_pressure=pressure,
@@ -20,9 +21,14 @@ def variants():
             "length":(large-small)/(2*__import__('math').tan(__import__('math').radians(angle))),
             "nominal_thickness":12.7, "material_id":"M1",
             "internal_corrosion_allowance":ca}]
+        p["component_sequence"] = [
+            {"component_type":"head", "component_id":p["heads"][0]["head_id"]},
+            {"component_type":"shell", "component_id":"SHELL-01"},
+            {"component_type":"cone", "component_id":"CONE-01"},
+            {"component_type":"head", "component_id":p["heads"][1]["head_id"]}]
         p["junctions"] = [{"junction_id":"J-L", "left_component_id":"CONE-01",
             "right_component_id":"SHELL-01", "junction_type":"cone_to_shell",
             "cone_end":"large", "large_end_diameter":large,
-            "small_end_diameter":small, "analysis_status":"REVIEW_REQUIRED"}]
-        p["component_sequence"] = []
+            "small_end_diameter":small, "weld_joint_id":"WJ-01", "weld_efficiency":1.0,
+            "analysis_status":"REVIEW_REQUIRED"}]
         yield f"GRID-{i:02d}", p

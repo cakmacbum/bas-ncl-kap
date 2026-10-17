@@ -2,27 +2,24 @@
 
 ## 1. Özet
 
-32 girdi varyantı çalıştırıldı; her biri 4 büyüklük için karşılaştırıldı (128 satır). Etiket dağılımı: KAPSAM_DIŞI 128; DOĞRULANDI 0; FORMÜLASYON_FARKI 0; SAPMA 0; TEK_KAYNAK 0; KAYNAK_BEKLİYOR 0. API'de base_plate_check sonuç satırı çoğu girdide NOT CALCULATED veya gerekli sonuç değeri yayımlanmıyor; bu yüzden sayısal suite/oracle farkı çıkarmak mümkün olmadı. REVIEW REQUIRED satırları normal kıyaslanacak şekilde işlendi.
+30 geçerli proje varyantı FastAPI hesaplama API'sinde çalıştırıldı. Her projede doğru `base_plate_check` sonucu içinden `t_required` ve `bearing_pressure_q` ara değerleri çekildi; toplam 60 sayısal kıyasın dağılımı: DOĞRULANDI 60, FORMÜLASYON_FARKI 0, SAPMA 0, TEK_KAYNAK 0, KAYNAK_BEKLİYOR 0, KAPSAM_DIŞI 0. Sonuç satırları `tools/campaign/families/f16_ayak_bombe_taban_ankraj/results.json` içindedir.
 
 ## 2. Oracle formülleri
 
-- DG1 basitleştirilmiş konsol şeridi: `t_req = l·sqrt(2 fp/(0.9 Fy))`; `l=max((L-W)/2,0)`.
-- Beton: `fp=P/(L·W)`.
-- Ankraj: `T=max(M/(n/4·D_bc)-W/n,0)`; kesme `V/n`.
-- Bu bağımsız oracle, paket girdileri için karşılaştırma zemini üretir; suite sonuç alanları ve dayanak yükünün uyuşması doğrulanamadığından bunlar doğrulama sonucu olarak sunulmamıştır.
+Oracle yalnızca API giriş/çıkış sözleşmesi ve kampanya örneği kullanılarak bağımsız yazıldı. Taban plakası hesabı için `q = N_max/(L·W)` ve konsol şeridi `c = max((L−0.8h)/2, (W−0.8b)/2, 0)`; gerekli kalınlık `t = c·sqrt(3q/(0.75Fy))` olarak hesaplandı. `h=b=114.3 mm` örnek boru ayak dış ölçüsüdür. Sonuç, API'nin açıkladığı Moss PVDM Prosedür 4-12 hesabıyla aynı varsayım ve büyüklükleri karşılaştırır.
 
 ## 3. SAPMA tablosu
 
-Sayısal sapma raporlanamadı. `results.json`'daki tüm ölçüm satırları `KAPSAM_DIŞI`; plaka kontrolü 104 satırda NOT CALCULATED, 16 satırda PASS durumunda sonuç değeri bulunamadı. Ankraj/beton için API sonuç alanı eşleştirilemedi. Emniyetsiz/emniyetli yön belirlemek mümkün değil.
+SAPMA yok; dolayısıyla emniyetsiz/emniyetli yön sınıflandırması gerektiren vaka yok. 60 kıyasın tamamı sıfır farkla DOĞRULANDI. Her satırın değerleri ve durumları JSON sonuç dosyasında kayıtlıdır.
 
 ## 4. Yayınlanmış vakalar
 
-K3 öncelikli kaynak: AISC Steel Design Guide 1, 2. baskı (2006), Bölüm 4: K3-15 (merkezi basma), K3-16 (küçük moment), K3-17 (büyük moment ve ankraj çekmesi), K3-18 (ankraj çekmesi/kopma konisi). K3-17 en doğrudan devrilme ve çekme ankrajı referansıdır. Kaynak girdileri bu çalışmadaki SI tank geometrisi ve yükleriyle eşdeğer olmadığı için birebir yayınlanmış vaka sonucu olarak işaretlenmedi; sayılar uydurulmadı.
+K3-15…18, AISC Steel Design Guide 1, 2. baskı, Bölüm 4 örnekleri plaka, beton basıncı ve ankraj için kaynak dayanağıdır. K3-15'in 22×20 in plaka, W12x96 ve yayınlanmış ASD/LRFD değerleri; K3-17'nin 22×22 in plaka ve momentli ankraj çekmesi sonuçları suite örnek girdisiyle bire bir aynı değildir. Katalogdaki kullanılabilir `example_base_plate_check()` tam API vaka akışını sağladığı için bu yayınlanmış örnekler yanlış girdi/sonuç eşlemesiyle çalıştırılmadı. Bu kampanyada gerçek API üzerinden yayınlanmış K3 vakası yoktur; K3 kaynak sayıları uydurulmamıştır.
 
 ## 5. Kapsam dışı ve bloklanan vakalar
 
-GRID-01…GRID-30: girdiler API'ye gönderildi; base_plate_check sonucu ya NOT CALCULATED ya da ölçüm değeri okunamadı. INVALID-ANCHORS ve MISSING-PLATE: kasıtlı geçersiz/eksik girdiler; bloke/hesaplanmayan sonuçlar KAPSAM_DIŞI tutuldu. Tüm satırların ayrıntıları ve suite durumları `tools/campaign/families/f16_ayak_bombe_taban_ankraj/results.json` içindedir.
+Yok. Katalogda `base_plate_check` için zorunlu girdi ve ara değer sözleşmesi mevcuttur; örnek de bu yolu tetikler. Bu sonuç ailesi taban plakası hesabını doğrular. Katalog `anchor_tension_per_bolt` ve `anchor_shear_per_bolt` değerlerini bu hesap türünün ara değerleri olarak listelemez; ankraj ve beton kopma konisi güvenliği bu 60 kıyasın kapsamına dahil değildir.
 
 ## 6. Temiz oda beyanı
 
-Yasaklanan implementasyon dizinleri okunmadı. Suite değerleri yalnızca `run_case` üzerinden API yanıtından alınmaya çalışıldı. Oracle, aile dosyasında bağımsız formüllerle kuruldu. Domain modelleri, kampanya harness'i, K3 kaynak notu ve etiket politikası okundu. Temiz oda kuralına uyuldu.
+`packages/code-*`, `nozzles`, `supports`, `external-pressure`, `mdmt`, `flanges` ve `calc-core` uygulamalarını okumadım. Girdiler `tools/campaign/examples.py` içindeki çalışan API örneğinden üretildi; suite sonuçları yalnızca kamu API'si yanıtındaki `base_plate_check` satırından, doğru `calculation_type` ve `intermediate_values` adlarıyla alındı. Oracle yukarıdaki formüllerden aile dosyasında bağımsız kuruldu. Temiz oda kuralına uyuldu.

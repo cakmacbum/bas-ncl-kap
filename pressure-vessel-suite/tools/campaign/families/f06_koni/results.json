@@ -50,15 +50,15 @@
         "angle_deg": 5,
         "junction": "large"
       },
-      "quantity": "reinforcement_area",
-      "unit": "mm2",
+      "quantity": "junction_check",
+      "unit": "status",
       "suite": null,
       "reference": null,
-      "ref_source": "",
+      "ref_source": "K2-18 only stress context",
       "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
-      "suite_status": "BLOCKED MISSING INPUT"
+      "verdict": "KAPSAM_DIÅI",
+      "note": "Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle.",
+      "suite_status": "OUT OF SCOPE"
     },
     {
       "case_id": "GRID-02",
@@ -91,10 +91,10 @@
       "quantity": "mawp",
       "unit": "MPa",
       "suite": 3.1662937314240613,
-      "reference": 3.4655546181705312,
+      "reference": 3.1945713653786654,
       "ref_source": "oracle",
-      "diff_pct": -8.635295637165573,
-      "verdict": "FORMÜLASYON_FARKI",
+      "diff_pct": -0.8851777193355068,
+      "verdict": "DOĞRULANDI",
       "note": "Nominal thickness based UG-32(g) pressure inversion.",
       "suite_status": "REVIEW REQUIRED"
     },
@@ -105,15 +105,15 @@
         "angle_deg": 5,
         "junction": "large"
       },
-      "quantity": "reinforcement_area",
-      "unit": "mm2",
+      "quantity": "junction_check",
+      "unit": "status",
       "suite": null,
       "reference": null,
-      "ref_source": "",
+      "ref_source": "K2-18 only stress context",
       "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
-      "suite_status": "BLOCKED MISSING INPUT"
+      "verdict": "KAPSAM_DIÅI",
+      "note": "Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle.",
+      "suite_status": "OUT OF SCOPE"
     },
     {
       "case_id": "GRID-03",
@@ -146,9 +146,9 @@
       "quantity": "mawp",
       "unit": "MPa",
       "suite": 2.8933790499255254,
-      "reference": 3.4655546181705312,
+      "reference": 2.923266228721933,
       "ref_source": "oracle",
-      "diff_pct": -16.510360715280193,
+      "diff_pct": -1.0223899042364775,
       "verdict": "FORMÜLASYON_FARKI",
       "note": "Nominal thickness based UG-32(g) pressure inversion.",
       "suite_status": "REVIEW REQUIRED"
@@ -160,15 +160,15 @@
         "angle_deg": 5,
         "junction": "large"
       },
-      "quantity": "reinforcement_area",
-      "unit": "mm2",
+      "quantity": "junction_check",
+      "unit": "status",
       "suite": null,
       "reference": null,
-      "ref_source": "",
+      "ref_source": "K2-18 only stress context",
       "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
-      "suite_status": "BLOCKED MISSING INPUT"
+      "verdict": "KAPSAM_DIÅI",
+      "note": "Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle.",
+      "suite_status": "OUT OF SCOPE"
     },
     {
       "case_id": "GRID-04",
@@ -215,15 +215,15 @@
         "angle_deg": 15,
         "junction": "large"
       },
-      "quantity": "reinforcement_area",
-      "unit": "mm2",
+      "quantity": "junction_check",
+      "unit": "status",
       "suite": null,
       "reference": null,
-      "ref_source": "",
+      "ref_source": "K2-18 only stress context",
       "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
-      "suite_status": "BLOCKED MISSING INPUT"
+      "verdict": "KAPSAM_DIÅI",
+      "note": "Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle.",
+      "suite_status": "OUT OF SCOPE"
     },
     {
       "case_id": "GRID-05",
@@ -256,10 +256,10 @@
       "quantity": "mawp",
       "unit": "MPa",
       "suite": 3.0713722166623927,
-      "reference": 3.361024870780235,
+      "reference": 3.0981596792664985,
       "ref_source": "oracle",
-      "diff_pct": -8.617986038603808,
-      "verdict": "FORMÜLASYON_FARKI",
+      "diff_pct": -0.8646249831270105,
+      "verdict": "DOĞRULANDI",
       "note": "Nominal thickness based UG-32(g) pressure inversion.",
       "suite_status": "REVIEW REQUIRED"
     },
@@ -270,15 +270,15 @@
         "angle_deg": 15,
         "junction": "large"
       },
-      "quantity": "reinforcement_area",
-      "unit": "mm2",
+      "quantity": "junction_check",
+      "unit": "status",
       "suite": null,
       "reference": null,
-      "ref_source": "",
+      "ref_source": "K2-18 only stress context",
       "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
-      "suite_status": "BLOCKED MISSING INPUT"
+      "verdict": "KAPSAM_DIÅI",
+      "note": "Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle.",
+      "suite_status": "OUT OF SCOPE"
     },
     {
       "case_id": "GRID-06",
@@ -311,9 +311,9 @@
       "quantity": "mawp",
       "unit": "MPa",
       "suite": 2.806537946306842,
-      "reference": 3.361024870780235,
+      "reference": 2.8349916756317737,
       "ref_source": "oracle",
-      "diff_pct": -16.497554936113087,
+      "diff_pct": -1.00366182975091,
       "verdict": "FORMÜLASYON_FARKI",
       "note": "Nominal thickness based UG-32(g) pressure inversion.",
       "suite_status": "REVIEW REQUIRED"
@@ -325,15 +325,15 @@
         "angle_deg": 15,
         "junction": "large"
       },
-      "quantity": "reinforcement_area",
-      "unit": "mm2",
+      "quantity": "junction_check",
+      "unit": "status",
       "suite": null,
       "reference": null,
-      "ref_source": "",
+      "ref_source": "K2-18 only stress context",
       "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
-      "suite_status": "BLOCKED MISSING INPUT"
+      "verdict": "KAPSAM_DIÅI",
+      "note": "Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle.",
+      "suite_status": "OUT OF SCOPE"
     },
     {
       "case_id": "GRID-07",
@@ -380,15 +380,15 @@
         "angle_deg": 30,
         "junction": "large"
       },
-      "quantity": "reinforcement_area",
-      "unit": "mm2",
+      "quantity": "junction_check",
+      "unit": "status",
       "suite": null,
       "reference": null,
-      "ref_source": "",
+      "ref_source": "K2-18 only stress context",
       "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
-      "suite_status": "BLOCKED MISSING INPUT"
+      "verdict": "KAPSAM_DIÅI",
+      "note": "Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle.",
+      "suite_status": "OUT OF SCOPE"
     },
     {
       "case_id": "GRID-08",
@@ -421,10 +421,10 @@
       "quantity": "mawp",
       "unit": "MPa",
       "suite": 2.757525440375383,
-      "reference": 3.0156913555770744,
+      "reference": 2.7796702333464345,
       "ref_source": "oracle",
-      "diff_pct": -8.560753895595175,
-      "verdict": "FORMÜLASYON_FARKI",
+      "diff_pct": -0.7966697885738554,
+      "verdict": "DOĞRULANDI",
       "note": "Nominal thickness based UG-32(g) pressure inversion.",
       "suite_status": "REVIEW REQUIRED"
     },
@@ -435,15 +435,15 @@
         "angle_deg": 30,
         "junction": "large"
       },
-      "quantity": "reinforcement_area",
-      "unit": "mm2",
+      "quantity": "junction_check",
+      "unit": "status",
       "suite": null,
       "reference": null,
-      "ref_source": "",
+      "ref_source": "K2-18 only stress context",
       "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
-      "suite_status": "BLOCKED MISSING INPUT"
+      "verdict": "KAPSAM_DIÅI",
+      "note": "Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle.",
+      "suite_status": "OUT OF SCOPE"
     },
     {
       "case_id": "GRID-09",
@@ -476,10 +476,10 @@
       "quantity": "mawp",
       "unit": "MPa",
       "suite": 2.5194526869168783,
-      "reference": 3.0156913555770744,
+      "reference": 2.5434051869603653,
       "ref_source": "oracle",
-      "diff_pct": -16.455220715557516,
-      "verdict": "FORMÜLASYON_FARKI",
+      "diff_pct": -0.9417492803068775,
+      "verdict": "DOĞRULANDI",
       "note": "Nominal thickness based UG-32(g) pressure inversion.",
       "suite_status": "REVIEW REQUIRED"
     },
@@ -490,15 +490,15 @@
         "angle_deg": 30,
         "junction": "large"
       },
-      "quantity": "reinforcement_area",
-      "unit": "mm2",
+      "quantity": "junction_check",
+      "unit": "status",
       "suite": null,
       "reference": null,
-      "ref_source": "",
+      "ref_source": "K2-18 only stress context",
       "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
-      "suite_status": "BLOCKED MISSING INPUT"
+      "verdict": "KAPSAM_DIÅI",
+      "note": "Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle.",
+      "suite_status": "OUT OF SCOPE"
     },
     {
       "case_id": "GRID-10",
@@ -545,14 +545,14 @@
         "angle_deg": 45,
         "junction": "large"
       },
-      "quantity": "reinforcement_area",
-      "unit": "mm2",
+      "quantity": "junction_check",
+      "unit": "status",
       "suite": null,
       "reference": null,
-      "ref_source": "",
+      "ref_source": "K2-18 only stress context",
       "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
+      "verdict": "KAPSAM_DIÅI",
+      "note": "Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle.",
       "suite_status": "BLOCKED MISSING INPUT"
     },
     {
@@ -586,10 +586,10 @@
       "quantity": "mawp",
       "unit": "MPa",
       "suite": 2.256474488322719,
-      "reference": 2.4652674495527354,
+      "reference": 2.272110711069942,
       "ref_source": "oracle",
-      "diff_pct": -8.469383768803539,
-      "verdict": "FORMÜLASYON_FARKI",
+      "diff_pct": -0.6881804953887991,
+      "verdict": "DOĞRULANDI",
       "note": "Nominal thickness based UG-32(g) pressure inversion.",
       "suite_status": "REVIEW REQUIRED"
     },
@@ -600,14 +600,14 @@
         "angle_deg": 45,
         "junction": "large"
       },
-      "quantity": "reinforcement_area",
-      "unit": "mm2",
+      "quantity": "junction_check",
+      "unit": "status",
       "suite": null,
       "reference": null,
-      "ref_source": "",
+      "ref_source": "K2-18 only stress context",
       "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
+      "verdict": "KAPSAM_DIÅI",
+      "note": "Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle.",
       "suite_status": "BLOCKED MISSING INPUT"
     },
     {
@@ -641,10 +641,10 @@
       "quantity": "mawp",
       "unit": "MPa",
       "suite": 2.0612679057375405,
-      "reference": 2.4652674495527354,
+      "reference": 2.078790814336972,
       "ref_source": "oracle",
-      "diff_pct": -16.387655785115367,
-      "verdict": "FORMÜLASYON_FARKI",
+      "diff_pct": -0.842937561517975,
+      "verdict": "DOĞRULANDI",
       "note": "Nominal thickness based UG-32(g) pressure inversion.",
       "suite_status": "REVIEW REQUIRED"
     },
@@ -655,14 +655,14 @@
         "angle_deg": 45,
         "junction": "large"
       },
-      "quantity": "reinforcement_area",
-      "unit": "mm2",
+      "quantity": "junction_check",
+      "unit": "status",
       "suite": null,
       "reference": null,
-      "ref_source": "",
+      "ref_source": "K2-18 only stress context",
       "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
+      "verdict": "KAPSAM_DIÅI",
+      "note": "Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle.",
       "suite_status": "BLOCKED MISSING INPUT"
     },
     {
@@ -710,14 +710,14 @@
         "angle_deg": 60,
         "junction": "large"
       },
-      "quantity": "reinforcement_area",
-      "unit": "mm2",
+      "quantity": "junction_check",
+      "unit": "status",
       "suite": null,
       "reference": null,
-      "ref_source": "",
+      "ref_source": "K2-18 only stress context",
       "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
+      "verdict": "KAPSAM_DIÅI",
+      "note": "Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle.",
       "suite_status": "BLOCKED MISSING INPUT"
     },
     {
@@ -751,10 +751,10 @@
       "quantity": "mawp",
       "unit": "MPa",
       "suite": 1.6001664981863593,
-      "reference": 1.7459479383548684,
+      "reference": 1.6089525764566373,
       "ref_source": "oracle",
-      "diff_pct": -8.349701441033385,
-      "verdict": "FORMÜLASYON_FARKI",
+      "diff_pct": -0.5460744088323222,
+      "verdict": "DOĞRULANDI",
       "note": "Nominal thickness based UG-32(g) pressure inversion.",
       "suite_status": "REVIEW REQUIRED"
     },
@@ -765,14 +765,14 @@
         "angle_deg": 60,
         "junction": "large"
       },
-      "quantity": "reinforcement_area",
-      "unit": "mm2",
+      "quantity": "junction_check",
+      "unit": "status",
       "suite": null,
       "reference": null,
-      "ref_source": "",
+      "ref_source": "K2-18 only stress context",
       "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
+      "verdict": "KAPSAM_DIÅI",
+      "note": "Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle.",
       "suite_status": "BLOCKED MISSING INPUT"
     },
     {
@@ -806,10 +806,10 @@
       "quantity": "mawp",
       "unit": "MPa",
       "suite": 1.4613724985649534,
-      "reference": 1.7459479383548684,
+      "reference": 1.4718752803500763,
       "ref_source": "oracle",
-      "diff_pct": -16.299193895670115,
-      "verdict": "FORMÜLASYON_FARKI",
+      "diff_pct": -0.713564656281533,
+      "verdict": "DOĞRULANDI",
       "note": "Nominal thickness based UG-32(g) pressure inversion.",
       "suite_status": "REVIEW REQUIRED"
     },
@@ -820,14 +820,14 @@
         "angle_deg": 60,
         "junction": "large"
       },
-      "quantity": "reinforcement_area",
-      "unit": "mm2",
+      "quantity": "junction_check",
+      "unit": "status",
       "suite": null,
       "reference": null,
-      "ref_source": "",
+      "ref_source": "K2-18 only stress context",
       "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
+      "verdict": "KAPSAM_DIÅI",
+      "note": "Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle.",
       "suite_status": "BLOCKED MISSING INPUT"
     },
     {
@@ -875,15 +875,15 @@
         "angle_deg": 25.3,
         "junction": "large"
       },
-      "quantity": "reinforcement_area",
-      "unit": "mm2",
+      "quantity": "junction_check",
+      "unit": "status",
       "suite": null,
       "reference": null,
-      "ref_source": "",
+      "ref_source": "K2-18 only stress context",
       "diff_pct": null,
-      "verdict": "KAPSAM_DIŞI",
-      "note": "Junction API status BLOCKED MISSING INPUT; K2-18 Bednar gerilmesidir, App. 1-5 alan vakası değildir.",
-      "suite_status": "BLOCKED MISSING INPUT"
+      "verdict": "KAPSAM_DIÅI",
+      "note": "Catalog: junction_check is topology/input review, not numerical adequacy; no published App. 1-5 numerical oracle.",
+      "suite_status": "OUT OF SCOPE"
     }
   ]
 }

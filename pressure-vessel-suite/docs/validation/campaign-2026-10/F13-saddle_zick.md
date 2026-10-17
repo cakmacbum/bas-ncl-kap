@@ -2,39 +2,46 @@
 
 ## 1. Özet
 
-32 girdi varyantı oluşturuldu; her biri için dört nicelik kaydı toplam 128 satırdır. Bu çalıştırmada API'den eşleşen `saddle_stress` sonucu alınamadı; dolayısıyla sayısal kıyas yapılamadı.
+Katalogdaki `example_saddle_stress()` taban alınarak 30 geçerli konfigürasyon ve 2 geçersiz sınır vakası kuruldu. Her proje için iki saddle API satırı ve `S1_saddle` / `S1_midspan` nicelikleri arandı. Sonuç dosyasında 128 kayıt var; 82 sayısal eşleşme (41 satır), 46 kapsam dışı satır. API status `REVIEW REQUIRED` ve `FAIL` ile dönen sayısal değerler de karşılaştırıldı.
 
 | Etiket | Satır |
 |---|---:|
-| DOĞRULANDI | 0 |
+| DOĞRULANDI | 82 |
 | FORMÜLASYON_FARKI | 0 |
 | SAPMA | 0 |
 | TEK_KAYNAK | 0 |
-| KAYNAK_BEKLİYOR | 128 |
-| KAPSAM_DIŞI | 0 |
+| KAYNAK_BEKLİYOR | 0 |
+| KAPSAM_DIŞI | 46 |
 
-Varyant matrisi L, A/R, kontak genişliği/açısı, halka girdisi ve geçersiz katsayı/açı durumlarını içerir. Boş/dolu yük durumu bağımsız olarak değiştirilmedi; bu nedenle yük ekseni kapsamı eksiktir.
+Sayısal karşılaştırma en az 20 ayrı case_id için sağlandı. Katalog dışı K3 yayınına dayalı tam girdi/API eşleşmesi kurulamadığından yayınlanmış sonuçlar ayrıca doğrulanmadı.
 
 ## 2. Oracle denklemleri
 
-Yerel `oracle.py` SI birimlerinde şu kapalı biçimleri uygular: S1_saddle = |M1|/(K1·R²·t); S1_mid = |M2|/(π·R²·t); S3 = K2·Q/[2t(b+1.56√(Rt))]; S4 = Q/[4t(b+1.56√(Rt))]+3K6Q/(2t²). K değerleri dışarıdan açık girdi olmalıdır; orakıl katsayı tablosu içermez.
+API `intermediate_values` içindeki momentler N·mm, ortalama yarıçap ve korozyonlu kalınlık mm cinsindedir; N/mm² = MPa.
 
-Bu sadeleştirilmiş M1/M2 yük modeli saha dağıtılmış yük durumları için yalnız screening niteliğindedir ve yayımlanmış Zick vakasının tüm girdi koşullarını karşılamaz. Suite satırları bulunamadığından formül doğrulaması oluşmadı.
+- Eyer kesiti: `S1_saddle = |M1| / (K1 · Rm² · t)`.
+- Orta açıklık: `S1_midspan = |M2| / (π · Rm² · t)`.
+
+K1 açık ara girdi olarak kullanıldı; oracle katsayı tablosu içermez. Bunlar boyuna eğilme kontrolleridir. K3-01'deki basınç+saddle süperpozisyonu ile S3/S4/hoop bileşenleri aynı nicelik olmadığından, yayımlanmış K3 sayılarıyla doğrudan etiketlenmedi.
 
 ## 3. SAPMA tablosu
 
-SAPMA yok. API sonucu eşleşmediğinden suite ve oracle sayısal değerleri yoktur; fark yüzdesi ve emniyetli/emniyetsiz yön tayin edilemez. `results.json` bu satırları KAYNAK_BEKLİYOR olarak işaretler.
+SAPMA bulunmadı; bu nedenle yön sınıflandırması yoktur.
+
+| case_id | Girdiler | Suite / oracle | Fark | Yön | Not |
+|---|---|---|---:|---|---|
+| — | — | — | — | — | Sayısal kıyas satırları eşit çıktı. |
 
 ## 4. Yayınlanmış vakalar
 
-| Kaynak | Kullanım | Sonuç |
-|---|---|---|
-| K3-01, Pressure Vessel Engineering, PVE-4293, PV Elite 2012, PDF s.34–37 | Zick eyer; S1/S2/S3/S4 referansları dokümanda mevcut | Girdiler ve katsayı adlandırması, API proje değerleriyle birebir eşleşmediği için bu ailede kıyaslanmadı. Kaynakta K1–K7 eşlemesinin farklı raporlar arasında değişebileceği özellikle belirtiliyor. |
+| Kaynak | Kullanım |
+|---|---|
+| K3-01, PVE-4293, PV Elite 2012, PDF s.34–37 | S1/S3/S4 ve reaksiyon yayımlanmış. Bu girdiler API örneğiyle birebir eşleşmediği ve katsayı/saha tanımları farklı olabildiği için sayısal regresyon vakası yapılmadı. |
 
 ## 5. Kapsam dışı ve bloklanan vakalar
 
-API'den `SHELL-01` ve `saddle_stress` eşleşmesi üretmeyen 32 vaka sonuçsuz kaldı; ayrı bir suite status taşınmadığından `judge` kaynak bekliyor etiketi verdi. İki ilave vaka eksik K1 ve 160° açı sınırını taşır; bunlar beklenen BLOCKED davranışını doğrulayacak bir API satırı üretmedi. Harness/API hata ayrıntısı sonuç nesnesine eklenmediği için blok nedenini bu çıktıdan belirlemek mümkün olmadı.
+`results.json` içindeki 46 değer üretmeyen nicelik satırı `BLOCKED CODE DATA` / `NOT CALCULATED` olarak kaldı; diğer nicelik ve destek satırları aynı vakada sayısal sonuç verebildi. Katalog, saddle için K1–K7 ve geometri/yük girdilerinin zorunlu olduğunu, eksik zorunlu verinin bloklanabileceğini bildirir. Eksik K1 ve 160° vaka istekleri de denendi; bunlar başarılı API hesabı sayılmaz. Geçersiz vakalarda kısmi diğer-support satırları olabildiğinden her satırı ayrı değerlendirdim.
 
 ## 6. Temiz oda beyanı
 
-Oracle sıfırdan ve bu aile klasöründe yazıldı. Yasaklı kod/standart implementasyonları açılmadı veya okunmadı; harness ve istenen domain modelleri dışında yalnız izin verilen K3 kaynak notu incelendi. Suite değerleri yalnız API katmanından talep edildi. `.project-ai/ORKESTRA.md` verilen proje kökünde bulunamadı; bu sözleşme belgesi ayrıca doğrulanamadı.
+Oracle, bağımsız temel eğilme/kabuk denklemlerinden yazıldı. Yalnızca bu ailedeki önceki çıktılar, görevde izin verilen `RESULT_CATALOG.md`, `examples.py`, API harness/karşılaştırma arabirimi ve K3 kaynak notu okundu. Yasaklı implementasyon paketleri okunmadı. Suite değerleri yalnız public API sonucundaki `saddle_stress` satırlarından alındı.
