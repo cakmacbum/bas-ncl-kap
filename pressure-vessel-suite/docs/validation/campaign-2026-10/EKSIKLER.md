@@ -10,7 +10,7 @@ Bu dosya, hedefin kapanmasını engelleyen tüm açık maddeleri toplar. Her mad
 | B-01 | YÜKSEK, emniyetsiz | Gövde MAWP'de dış korozyon payı (CA_o) düşülmüyor (1000 vakada 641'i etkilenmiş) | Teyitli; düzeltme onay bekliyor |
 | B-02 | YÜKSEK, emniyetsiz | Gövde/bombe/koni/nozul gerekli kalınlık hesaplarının çoğu CA_o'yu kullanmıyor | Kod taraması yapıldı; düzeltme B-01 ile birlikte |
 | B-03 | ORTA | Torisferik bombede knuckle yarıçapı eksikken BLOCKED yerine PASS | Teyitli değil (T09 raporu eksik) |
-| B-07 | YÜKSEK, emniyetsiz | Nozul takviyesi: ev sahibi gerekli kalınlık `"welds": []` ile hesaplanıyor, E = 1 alınıyor; A_required ~%16 (E=0.86) düşük | Kanıtlı (T63 A-001). Düzeltme onayınızı bekliyor. UG-37'de t_r'nin kaynak verimini kullandığı madde numarası teyit edilmeli |
+| B-07 | KAYNAK_BEKLİYOR (olası yanlış alarm) | Nozul takviyesinde ev sahibi t_r E = 1 ile hesaplanıyor. UG-37(a) t_r'yi dikişsiz kabuk için tanımlıyorsa bu doğrudur; bağımsız doğrulama bir ajana atandı | Düzeltme uygulanmaz; doğrulama sonucu bekleniyor |
 | B-04 | ORTA | MDMT coincident ratio alanı hesaba bağlı değil | Kod incelemesi; test yok |
 | B-05 | DÜŞÜK | Vakum sonucu `external_pressure` adıyla dönüyor | Kod incelemesi |
 | B-06 | ORTA | EN 13445 flanş, yük kombinasyonu, yorulma tetiklenemiyor | Kod incelemesi |
