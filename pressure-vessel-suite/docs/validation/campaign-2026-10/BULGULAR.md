@@ -49,6 +49,10 @@ DÜŞÜK (emniyetli yönde, kozmetik, altyapı).
 | F02 eliptik sapmaları | V02 | Oracle korozyonlu çapı kullanmıyor; suite emniyetli. |
 | F09 nozul 30 sapma | V09 | Oracle gövde t_r'yi UG-27 dışı formülle hesaplıyor; suite doğru. |
 
+| D-03 | ORTA (test altyapısı) | **DÜZELTİLDİ** (harness) | Kampanya tüm vakaları tek sahip kimliğiyle gönderiyordu; sahip başına proje tavanı 50 (`apps/api/store.py:18`). Tavan aşılınca 429 "Project limit reached" sessizce dönüyordu. Sonuç: T01 160/240, T04 250/300, T11 94/144, T30 60/110, T31 85/110 satır bu hatayla "KAPSAM_DIŞI" ya da "BLOCKED" sayılmıştı. | Harness her vakaya `uuid4` sahip veriyor (`tools/campaign/harness.py`). Bu, Tur 2'deki kapsam dışı sayılarının büyük kısmının sebebiydi; yeniden koşu gerekiyor. Aile sonuçları (F01–F21) etkilenmemiş (0 hata). |
+| D-04 | ORTA | **DÜZELTİLDİ** (paket) | T32 satır durumu hatalı birleştirilmiş: 110/110 BULGU, oysa alt kontroller GEÇTİ. | Satır durumu kontroller üzerinden yeniden hesaplanacak (T40). |
+| D-05 | — | **HAİKU DOĞRULAMASI** | T30 gövde sonuçlarından 30 rastgele vakanın bağımsız t_req hesabı: 12 UYUŞUR, 0 UYUŞMUYOR, 18 VERİ_YOK (VERİ_YOK hepsi D-03 kaynaklı). | Sonuç payload'ıyla çelişki yok. Yeniden koşudan sonra VERİ_YOK sıfırlanmalı; yeniden doğrulama yapılacak. |
+
 ## F. Tur 2 sonuçları (2026-10-17) — kısmen teyitli
 
 | ID | Önem | Durum | Bulgu | Kanıt / karar |
