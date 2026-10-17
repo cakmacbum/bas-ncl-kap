@@ -1,0 +1,224 @@
+[
+  {
+    "vaka": "M1-temperature-monotonic",
+    "girdi": {
+      "material": "M1",
+      "kind": "temperature",
+      "behavior": "monotonic"
+    },
+    "beklenen": null,
+    "gözlenen": "eğri verisi yok",
+    "sonuç": "KAPSAM_DIŞI"
+  },
+  {
+    "vaka": "M1-temperature-outside-low",
+    "girdi": {
+      "material": "M1",
+      "kind": "temperature",
+      "behavior": "outside-low"
+    },
+    "beklenen": null,
+    "gözlenen": "eğri verisi yok",
+    "sonuç": "KAPSAM_DIŞI"
+  },
+  {
+    "vaka": "M1-temperature-outside-high",
+    "girdi": {
+      "material": "M1",
+      "kind": "temperature",
+      "behavior": "outside-high"
+    },
+    "beklenen": null,
+    "gözlenen": "eğri verisi yok",
+    "sonuç": "KAPSAM_DIŞI"
+  },
+  {
+    "vaka": "M1-temperature-linear",
+    "girdi": {
+      "material": "M1",
+      "kind": "temperature",
+      "behavior": "linear"
+    },
+    "beklenen": null,
+    "gözlenen": "eğri verisi yok",
+    "sonuç": "KAPSAM_DIŞI"
+  },
+  {
+    "vaka": "M1-temperature-boundary",
+    "girdi": {
+      "material": "M1",
+      "kind": "temperature",
+      "behavior": "boundary"
+    },
+    "beklenen": null,
+    "gözlenen": "eğri verisi yok",
+    "sonuç": "KAPSAM_DIŞI"
+  },
+  {
+    "vaka": "M1-temperature-range",
+    "girdi": {
+      "material": "M1",
+      "kind": "temperature",
+      "behavior": "range"
+    },
+    "beklenen": null,
+    "gözlenen": "eğri verisi yok",
+    "sonuç": "KAPSAM_DIŞI"
+  },
+  {
+    "vaka": "M1-temperature-midpoint",
+    "girdi": {
+      "material": "M1",
+      "kind": "temperature",
+      "behavior": "midpoint"
+    },
+    "beklenen": null,
+    "gözlenen": "eğri verisi yok",
+    "sonuç": "KAPSAM_DIŞI"
+  },
+  {
+    "vaka": "M1-temperature-endpoint-low",
+    "girdi": {
+      "material": "M1",
+      "kind": "temperature",
+      "behavior": "endpoint-low"
+    },
+    "beklenen": null,
+    "gözlenen": "eğri verisi yok",
+    "sonuç": "KAPSAM_DIŞI"
+  },
+  {
+    "vaka": "M1-temperature-endpoint-high",
+    "girdi": {
+      "material": "M1",
+      "kind": "temperature",
+      "behavior": "endpoint-high"
+    },
+    "beklenen": null,
+    "gözlenen": "eğri verisi yok",
+    "sonuç": "KAPSAM_DIŞI"
+  },
+  {
+    "vaka": "M1-thickness-limits",
+    "girdi": {
+      "material": "M1",
+      "kind": "thickness",
+      "minimum": 0,
+      "maximum": 999
+    },
+    "beklenen": true,
+    "gözlenen": true,
+    "sonuç": "GEÇTİ"
+  },
+  {
+    "vaka": "M2-temperature-monotonic",
+    "girdi": {
+      "material": "M2",
+      "kind": "temperature",
+      "behavior": "monotonic"
+    },
+    "beklenen": null,
+    "gözlenen": "eğri verisi yok",
+    "sonuç": "KAPSAM_DIŞI"
+  },
+  {
+    "vaka": "M2-temperature-outside-low",
+    "girdi": {
+      "material": "M2",
+      "kind": "temperature",
+      "behavior": "outside-low"
+    },
+    "beklenen": null,
+    "gözlenen": "eğri verisi yok",
+    "sonuç": "KAPSAM_DIŞI"
+  },
+  {
+    "vaka": "M2-temperature-outside-high",
+    "girdi": {
+      "material": "M2",
+      "kind": "temperature",
+      "behavior": "outside-high"
+    },
+    "beklenen": null,
+    "gözlenen": "eğri verisi yok",
+    "sonuç": "KAPSAM_DIŞI"
+  },
+  {
+    "vaka": "M2-temperature-linear",
+    "girdi": {
+      "material": "M2",
+      "kind": "temperature",
+      "behavior": "linear"
+    },
+    "beklenen": null,
+    "gözlenen": "eğri verisi yok",
+    "sonuç": "KAPSAM_DIŞI"
+  },
+  {
+    "vaka": "M2-temperature-boundary",
+    "girdi": {
+      "material": "M2",
+      "kind": "temperature",
+      "behavior": "boundary"
+    },
+    "beklenen": null,
+    "gözlenen": "eğri verisi yok",
+    "sonuç": "KAPSAM_DIŞI"
+  },
+  {
+    "vaka": "M2-temperature-range",
+    "girdi": {
+      "material": "M2",
+      "kind": "temperature",
+      "behavior": "range"
+    },
+    "beklenen": null,
+    "gözlenen": "eğri verisi yok",
+    "sonuç": "KAPSAM_DIŞI"
+  },
+  {
+    "vaka": "M2-temperature-midpoint",
+    "girdi": {
+      "material": "M2",
+      "kind": "temperature",
+      "behavior": "midpoint"
+    },
+    "beklenen": null,
+    "gözlenen": "eğri verisi yok",
+    "sonuç": "KAPSAM_DIŞI"
+  },
+  {
+    "vaka": "M2-temperature-endpoint-low",
+    "girdi": {
+      "material": "M2",
+      "kind": "temperature",
+      "behavior": "endpoint-low"
+    },
+    "beklenen": null,
+    "gözlenen": "eğri verisi yok",
+    "sonuç": "KAPSAM_DIŞI"
+  },
+  {
+    "vaka": "M2-temperature-endpoint-high",
+    "girdi": {
+      "material": "M2",
+      "kind": "temperature",
+      "behavior": "endpoint-high"
+    },
+    "beklenen": null,
+    "gözlenen": "eğri verisi yok",
+    "sonuç": "KAPSAM_DIŞI"
+  },
+  {
+    "vaka": "M2-thickness-limits",
+    "girdi": {
+      "material": "M2",
+      "kind": "thickness",
+      "minimum": 0,
+      "maximum": 999
+    },
+    "beklenen": true,
+    "gözlenen": true,
+    "sonuç": "GEÇTİ"
+  }
+]
