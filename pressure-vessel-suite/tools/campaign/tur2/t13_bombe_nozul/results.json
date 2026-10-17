@@ -1,0 +1,3962 @@
+[
+  {
+    "vaka": "elliptical-000",
+    "girdi": {
+      "shape": "elliptical",
+      "offset_mm": 0,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 0,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "elliptical",
+      "offset_mm": 0,
+      "zone": "center",
+      "head_spherical_radius_mm": 500.0,
+      "t_r_mm": 2.175805047867711,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 436.9016536118364,
+      "result_row": {
+        "calculation_id": "2b68055c",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 436.9016536118364,
+          "total_available_area": 1199.6326121224292
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 436.9016536118364,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 963.0983463881636,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 4.37)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 1199.6326121224292,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 1199.6326121224292,
+        "final_result_unit": "mm²",
+        "allowable_limit": 436.9016536118364,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 2.7457726520491454,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.073590+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "elliptical-100",
+    "girdi": {
+      "shape": "elliptical",
+      "offset_mm": 100,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 100,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "elliptical",
+      "offset_mm": 100,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 500.0,
+      "t_r_mm": 2.175805047867711,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 436.9016536118364,
+      "result_row": {
+        "calculation_id": "8af14461",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 436.9016536118364,
+          "total_available_area": 1199.6326121224292
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 436.9016536118364,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 963.0983463881636,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 4.37)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 1199.6326121224292,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 1199.6326121224292,
+        "final_result_unit": "mm²",
+        "allowable_limit": 436.9016536118364,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 2.7457726520491454,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.100140+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "elliptical-300",
+    "girdi": {
+      "shape": "elliptical",
+      "offset_mm": 300,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 300,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "elliptical",
+      "offset_mm": 300,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 500.0,
+      "t_r_mm": 2.175805047867711,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 436.9016536118364,
+      "result_row": {
+        "calculation_id": "df0b8ac2",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 436.9016536118364,
+          "total_available_area": 1199.6326121224292
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 436.9016536118364,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 963.0983463881636,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 4.37)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 1199.6326121224292,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 1199.6326121224292,
+        "final_result_unit": "mm²",
+        "allowable_limit": 436.9016536118364,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 2.7457726520491454,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.125993+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "elliptical-399",
+    "girdi": {
+      "shape": "elliptical",
+      "offset_mm": 399,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 399,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "elliptical",
+      "offset_mm": 399,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 500.0,
+      "t_r_mm": 2.175805047867711,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 436.9016536118364,
+      "result_row": {
+        "calculation_id": "3ca4bc28",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 436.9016536118364,
+          "total_available_area": 1199.6326121224292
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 436.9016536118364,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 963.0983463881636,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 4.37)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 1199.6326121224292,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 1199.6326121224292,
+        "final_result_unit": "mm²",
+        "allowable_limit": 436.9016536118364,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 2.7457726520491454,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.170380+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "elliptical-400",
+    "girdi": {
+      "shape": "elliptical",
+      "offset_mm": 400,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 400,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "elliptical",
+      "offset_mm": 400,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 500.0,
+      "t_r_mm": 2.175805047867711,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 436.9016536118364,
+      "result_row": {
+        "calculation_id": "bc9ffc5d",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 436.9016536118364,
+          "total_available_area": 1199.6326121224292
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 436.9016536118364,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 963.0983463881636,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 4.37)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 1199.6326121224292,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 1199.6326121224292,
+        "final_result_unit": "mm²",
+        "allowable_limit": 436.9016536118364,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 2.7457726520491454,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.200816+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "elliptical-401",
+    "girdi": {
+      "shape": "elliptical",
+      "offset_mm": 401,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 401,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "elliptical",
+      "offset_mm": 401,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 500.0,
+      "t_r_mm": 2.175805047867711,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 436.9016536118364,
+      "result_row": {
+        "calculation_id": "46670b97",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 436.9016536118364,
+          "total_available_area": 1199.6326121224292
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 436.9016536118364,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 963.0983463881636,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 4.37)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 1199.6326121224292,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 1199.6326121224292,
+        "final_result_unit": "mm²",
+        "allowable_limit": 436.9016536118364,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 2.7457726520491454,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.235854+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "elliptical-450",
+    "girdi": {
+      "shape": "elliptical",
+      "offset_mm": 450,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 450,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "elliptical",
+      "offset_mm": 450,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 500.0,
+      "t_r_mm": 2.175805047867711,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 436.9016536118364,
+      "result_row": {
+        "calculation_id": "cce61c08",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 436.9016536118364,
+          "total_available_area": 1199.6326121224292
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 436.9016536118364,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 963.0983463881636,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 4.37)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 1199.6326121224292,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 1199.6326121224292,
+        "final_result_unit": "mm²",
+        "allowable_limit": 436.9016536118364,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 2.7457726520491454,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.273337+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "elliptical-500",
+    "girdi": {
+      "shape": "elliptical",
+      "offset_mm": 500,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 500,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "elliptical",
+      "offset_mm": 500,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 500.0,
+      "t_r_mm": 2.175805047867711,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 436.9016536118364,
+      "result_row": {
+        "calculation_id": "e0a61478",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 436.9016536118364,
+          "total_available_area": 1199.6326121224292
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 436.9016536118364,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 963.0983463881636,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 4.37)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 1199.6326121224292,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 1199.6326121224292,
+        "final_result_unit": "mm²",
+        "allowable_limit": 436.9016536118364,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 2.7457726520491454,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.311704+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "elliptical-600",
+    "girdi": {
+      "shape": "elliptical",
+      "offset_mm": 600,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 600,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "elliptical",
+      "offset_mm": 600,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 500.0,
+      "t_r_mm": 2.175805047867711,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 436.9016536118364,
+      "result_row": {
+        "calculation_id": "707d0e65",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 436.9016536118364,
+          "total_available_area": 1199.6326121224292
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 436.9016536118364,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 963.0983463881636,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 4.37)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 1199.6326121224292,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 1199.6326121224292,
+        "final_result_unit": "mm²",
+        "allowable_limit": 436.9016536118364,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 2.7457726520491454,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.341176+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "elliptical-800",
+    "girdi": {
+      "shape": "elliptical",
+      "offset_mm": 800,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 800,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "elliptical",
+      "offset_mm": 800,
+      "zone": "on_80_percent",
+      "head_spherical_radius_mm": 500.0,
+      "t_r_mm": 2.175805047867711,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 436.9016536118364,
+      "result_row": {
+        "calculation_id": "53898633",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 436.9016536118364,
+          "total_available_area": 1199.6326121224292
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 436.9016536118364,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 963.0983463881636,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 4.37)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 1199.6326121224292,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 1199.6326121224292,
+        "final_result_unit": "mm²",
+        "allowable_limit": 436.9016536118364,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 2.7457726520491454,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.371187+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "elliptical-801",
+    "girdi": {
+      "shape": "elliptical",
+      "offset_mm": 801,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 801,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "elliptical",
+      "offset_mm": 801,
+      "zone": "outside_80_percent",
+      "head_spherical_radius_mm": 500.0,
+      "t_r_mm": 2.175805047867711,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 436.9016536118364,
+      "result_row": {
+        "calculation_id": "1eb38b76",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 436.9016536118364,
+          "total_available_area": 1199.6326121224292
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 436.9016536118364,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 963.0983463881636,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 4.37)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 1199.6326121224292,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 1199.6326121224292,
+        "final_result_unit": "mm²",
+        "allowable_limit": 436.9016536118364,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 2.7457726520491454,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.404017+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "torispherical-000",
+    "girdi": {
+      "shape": "torispherical",
+      "offset_mm": 0,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 0,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "torispherical",
+      "offset_mm": 0,
+      "zone": "center",
+      "head_spherical_radius_mm": 1000.0,
+      "t_r_mm": 4.351610095735422,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 770.505102767475,
+      "result_row": {
+        "calculation_id": "197d17e6",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 770.505102767475,
+          "total_available_area": 866.0291629667908
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 770.505102767475,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 629.494897232525,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 7.71)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 866.0291629667908,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 866.0291629667908,
+        "final_result_unit": "mm²",
+        "allowable_limit": 770.505102767475,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 1.1239758956251107,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.432541+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "torispherical-100",
+    "girdi": {
+      "shape": "torispherical",
+      "offset_mm": 100,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 100,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "torispherical",
+      "offset_mm": 100,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 1000.0,
+      "t_r_mm": 4.351610095735422,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 770.505102767475,
+      "result_row": {
+        "calculation_id": "2d4265f6",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 770.505102767475,
+          "total_available_area": 866.0291629667908
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 770.505102767475,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 629.494897232525,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 7.71)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 866.0291629667908,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 866.0291629667908,
+        "final_result_unit": "mm²",
+        "allowable_limit": 770.505102767475,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 1.1239758956251107,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.460365+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "torispherical-300",
+    "girdi": {
+      "shape": "torispherical",
+      "offset_mm": 300,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 300,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "torispherical",
+      "offset_mm": 300,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 1000.0,
+      "t_r_mm": 4.351610095735422,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 770.505102767475,
+      "result_row": {
+        "calculation_id": "68ec86eb",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 770.505102767475,
+          "total_available_area": 866.0291629667908
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 770.505102767475,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 629.494897232525,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 7.71)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 866.0291629667908,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 866.0291629667908,
+        "final_result_unit": "mm²",
+        "allowable_limit": 770.505102767475,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 1.1239758956251107,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.490818+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "torispherical-399",
+    "girdi": {
+      "shape": "torispherical",
+      "offset_mm": 399,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 399,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "torispherical",
+      "offset_mm": 399,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 1000.0,
+      "t_r_mm": 4.351610095735422,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 770.505102767475,
+      "result_row": {
+        "calculation_id": "fb3891b1",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 770.505102767475,
+          "total_available_area": 866.0291629667908
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 770.505102767475,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 629.494897232525,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 7.71)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 866.0291629667908,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 866.0291629667908,
+        "final_result_unit": "mm²",
+        "allowable_limit": 770.505102767475,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 1.1239758956251107,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.517633+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "torispherical-400",
+    "girdi": {
+      "shape": "torispherical",
+      "offset_mm": 400,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 400,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "torispherical",
+      "offset_mm": 400,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 1000.0,
+      "t_r_mm": 4.351610095735422,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 770.505102767475,
+      "result_row": {
+        "calculation_id": "246c1886",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 770.505102767475,
+          "total_available_area": 866.0291629667908
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 770.505102767475,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 629.494897232525,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 7.71)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 866.0291629667908,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 866.0291629667908,
+        "final_result_unit": "mm²",
+        "allowable_limit": 770.505102767475,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 1.1239758956251107,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.543590+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "torispherical-401",
+    "girdi": {
+      "shape": "torispherical",
+      "offset_mm": 401,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 401,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "torispherical",
+      "offset_mm": 401,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 1000.0,
+      "t_r_mm": 4.351610095735422,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 770.505102767475,
+      "result_row": {
+        "calculation_id": "1153a082",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 770.505102767475,
+          "total_available_area": 866.0291629667908
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 770.505102767475,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 629.494897232525,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 7.71)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 866.0291629667908,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 866.0291629667908,
+        "final_result_unit": "mm²",
+        "allowable_limit": 770.505102767475,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 1.1239758956251107,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.566187+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "torispherical-450",
+    "girdi": {
+      "shape": "torispherical",
+      "offset_mm": 450,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 450,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "torispherical",
+      "offset_mm": 450,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 1000.0,
+      "t_r_mm": 4.351610095735422,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 770.505102767475,
+      "result_row": {
+        "calculation_id": "0642cc4a",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 770.505102767475,
+          "total_available_area": 866.0291629667908
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 770.505102767475,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 629.494897232525,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 7.71)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 866.0291629667908,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 866.0291629667908,
+        "final_result_unit": "mm²",
+        "allowable_limit": 770.505102767475,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 1.1239758956251107,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.591307+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "torispherical-500",
+    "girdi": {
+      "shape": "torispherical",
+      "offset_mm": 500,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 500,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "torispherical",
+      "offset_mm": 500,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 1000.0,
+      "t_r_mm": 4.351610095735422,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 770.505102767475,
+      "result_row": {
+        "calculation_id": "9f3d788d",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 770.505102767475,
+          "total_available_area": 866.0291629667908
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 770.505102767475,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 629.494897232525,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 7.71)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 866.0291629667908,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 866.0291629667908,
+        "final_result_unit": "mm²",
+        "allowable_limit": 770.505102767475,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 1.1239758956251107,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.616605+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "torispherical-600",
+    "girdi": {
+      "shape": "torispherical",
+      "offset_mm": 600,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 600,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "torispherical",
+      "offset_mm": 600,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 1000.0,
+      "t_r_mm": 4.351610095735422,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 770.505102767475,
+      "result_row": {
+        "calculation_id": "5a2b741d",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 770.505102767475,
+          "total_available_area": 866.0291629667908
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 770.505102767475,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 629.494897232525,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 7.71)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 866.0291629667908,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 866.0291629667908,
+        "final_result_unit": "mm²",
+        "allowable_limit": 770.505102767475,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 1.1239758956251107,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.642482+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "torispherical-800",
+    "girdi": {
+      "shape": "torispherical",
+      "offset_mm": 800,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 800,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "torispherical",
+      "offset_mm": 800,
+      "zone": "on_80_percent",
+      "head_spherical_radius_mm": 1000.0,
+      "t_r_mm": 4.351610095735422,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 770.505102767475,
+      "result_row": {
+        "calculation_id": "e4af4d7e",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 770.505102767475,
+          "total_available_area": 866.0291629667908
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 770.505102767475,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 629.494897232525,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 7.71)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 866.0291629667908,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 866.0291629667908,
+        "final_result_unit": "mm²",
+        "allowable_limit": 770.505102767475,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 1.1239758956251107,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.669868+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "torispherical-801",
+    "girdi": {
+      "shape": "torispherical",
+      "offset_mm": 801,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 801,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "torispherical",
+      "offset_mm": 801,
+      "zone": "outside_80_percent",
+      "head_spherical_radius_mm": 1000.0,
+      "t_r_mm": 4.351610095735422,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 770.505102767475,
+      "result_row": {
+        "calculation_id": "778b925c",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 770.505102767475,
+          "total_available_area": 866.0291629667908
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 770.505102767475,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 629.494897232525,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 7.71)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 866.0291629667908,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 866.0291629667908,
+        "final_result_unit": "mm²",
+        "allowable_limit": 770.505102767475,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 1.1239758956251107,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.714934+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "hemispherical-000",
+    "girdi": {
+      "shape": "hemispherical",
+      "offset_mm": 0,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 0,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "hemispherical",
+      "offset_mm": 0,
+      "zone": "center",
+      "head_spherical_radius_mm": 500.0,
+      "t_r_mm": 2.175805047867711,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 218.4508268059182,
+      "result_row": {
+        "calculation_id": "72041a62",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 218.4508268059182,
+          "total_available_area": 1418.0834389283475
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 218.4508268059182,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 1181.5491731940817,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 2.18)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 1418.0834389283475,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 1418.0834389283475,
+        "final_result_unit": "mm²",
+        "allowable_limit": 218.4508268059182,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 6.491545304098291,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.742755+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "hemispherical-100",
+    "girdi": {
+      "shape": "hemispherical",
+      "offset_mm": 100,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 100,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "hemispherical",
+      "offset_mm": 100,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 500.0,
+      "t_r_mm": 2.175805047867711,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 218.4508268059182,
+      "result_row": {
+        "calculation_id": "7efad3e9",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 218.4508268059182,
+          "total_available_area": 1418.0834389283475
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 218.4508268059182,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 1181.5491731940817,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 2.18)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 1418.0834389283475,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 1418.0834389283475,
+        "final_result_unit": "mm²",
+        "allowable_limit": 218.4508268059182,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 6.491545304098291,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.779763+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "hemispherical-300",
+    "girdi": {
+      "shape": "hemispherical",
+      "offset_mm": 300,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 300,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "hemispherical",
+      "offset_mm": 300,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 500.0,
+      "t_r_mm": 2.175805047867711,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 218.4508268059182,
+      "result_row": {
+        "calculation_id": "bd1a8875",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 218.4508268059182,
+          "total_available_area": 1418.0834389283475
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 218.4508268059182,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 1181.5491731940817,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 2.18)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 1418.0834389283475,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 1418.0834389283475,
+        "final_result_unit": "mm²",
+        "allowable_limit": 218.4508268059182,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 6.491545304098291,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.817403+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "hemispherical-399",
+    "girdi": {
+      "shape": "hemispherical",
+      "offset_mm": 399,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 399,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "hemispherical",
+      "offset_mm": 399,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 500.0,
+      "t_r_mm": 2.175805047867711,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 218.4508268059182,
+      "result_row": {
+        "calculation_id": "a64405ac",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 218.4508268059182,
+          "total_available_area": 1418.0834389283475
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 218.4508268059182,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 1181.5491731940817,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 2.18)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 1418.0834389283475,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 1418.0834389283475,
+        "final_result_unit": "mm²",
+        "allowable_limit": 218.4508268059182,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 6.491545304098291,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.856417+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "hemispherical-400",
+    "girdi": {
+      "shape": "hemispherical",
+      "offset_mm": 400,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 400,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "hemispherical",
+      "offset_mm": 400,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 500.0,
+      "t_r_mm": 2.175805047867711,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 218.4508268059182,
+      "result_row": {
+        "calculation_id": "f38c6d6c",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 218.4508268059182,
+          "total_available_area": 1418.0834389283475
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 218.4508268059182,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 1181.5491731940817,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 2.18)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 1418.0834389283475,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 1418.0834389283475,
+        "final_result_unit": "mm²",
+        "allowable_limit": 218.4508268059182,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 6.491545304098291,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.922538+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "hemispherical-401",
+    "girdi": {
+      "shape": "hemispherical",
+      "offset_mm": 401,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 401,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "hemispherical",
+      "offset_mm": 401,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 500.0,
+      "t_r_mm": 2.175805047867711,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 218.4508268059182,
+      "result_row": {
+        "calculation_id": "8323fdbe",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 218.4508268059182,
+          "total_available_area": 1418.0834389283475
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 218.4508268059182,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 1181.5491731940817,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 2.18)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 1418.0834389283475,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 1418.0834389283475,
+        "final_result_unit": "mm²",
+        "allowable_limit": 218.4508268059182,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 6.491545304098291,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:41.980937+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "hemispherical-450",
+    "girdi": {
+      "shape": "hemispherical",
+      "offset_mm": 450,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 450,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "hemispherical",
+      "offset_mm": 450,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 500.0,
+      "t_r_mm": 2.175805047867711,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 218.4508268059182,
+      "result_row": {
+        "calculation_id": "7ddf34ac",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 218.4508268059182,
+          "total_available_area": 1418.0834389283475
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 218.4508268059182,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 1181.5491731940817,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 2.18)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 1418.0834389283475,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 1418.0834389283475,
+        "final_result_unit": "mm²",
+        "allowable_limit": 218.4508268059182,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 6.491545304098291,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:42.015908+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "hemispherical-500",
+    "girdi": {
+      "shape": "hemispherical",
+      "offset_mm": 500,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 500,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "hemispherical",
+      "offset_mm": 500,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 500.0,
+      "t_r_mm": 2.175805047867711,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 218.4508268059182,
+      "result_row": {
+        "calculation_id": "57cfd105",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 218.4508268059182,
+          "total_available_area": 1418.0834389283475
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 218.4508268059182,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 1181.5491731940817,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 2.18)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 1418.0834389283475,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 1418.0834389283475,
+        "final_result_unit": "mm²",
+        "allowable_limit": 218.4508268059182,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 6.491545304098291,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:42.046983+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "hemispherical-600",
+    "girdi": {
+      "shape": "hemispherical",
+      "offset_mm": 600,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 600,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "hemispherical",
+      "offset_mm": 600,
+      "zone": "inside_80_percent",
+      "head_spherical_radius_mm": 500.0,
+      "t_r_mm": 2.175805047867711,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 218.4508268059182,
+      "result_row": {
+        "calculation_id": "346ca5db",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 218.4508268059182,
+          "total_available_area": 1418.0834389283475
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 218.4508268059182,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 1181.5491731940817,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 2.18)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 1418.0834389283475,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 1418.0834389283475,
+        "final_result_unit": "mm²",
+        "allowable_limit": 218.4508268059182,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 6.491545304098291,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:42.076415+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "hemispherical-800",
+    "girdi": {
+      "shape": "hemispherical",
+      "offset_mm": 800,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 800,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "hemispherical",
+      "offset_mm": 800,
+      "zone": "on_80_percent",
+      "head_spherical_radius_mm": 500.0,
+      "t_r_mm": 2.175805047867711,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 218.4508268059182,
+      "result_row": {
+        "calculation_id": "ea64a4d9",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 218.4508268059182,
+          "total_available_area": 1418.0834389283475
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 218.4508268059182,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 1181.5491731940817,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 2.18)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 1418.0834389283475,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 1418.0834389283475,
+        "final_result_unit": "mm²",
+        "allowable_limit": 218.4508268059182,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 6.491545304098291,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:42.115018+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "hemispherical-801",
+    "girdi": {
+      "shape": "hemispherical",
+      "offset_mm": 801,
+      "nozzle": {
+        "tag": "T13-N1",
+        "host_component_id": "HEAD-T13",
+        "axial_position": 801,
+        "circumferential_angle": 0,
+        "outside_diameter": 114.3,
+        "inside_diameter": 100.0,
+        "neck_thickness": 7.1,
+        "material_id": "M1",
+        "reinforcement_pad": false
+      }
+    },
+    "beklenen": {
+      "shape": "hemispherical",
+      "offset_mm": 801,
+      "zone": "outside_80_percent",
+      "head_spherical_radius_mm": 500.0,
+      "t_r_mm": 2.175805047867711,
+      "placement_rule": "boundary is 0.8D; outside requires review/block"
+    },
+    "gozlenen": {
+      "api_ok": true,
+      "error": null,
+      "status": "PASS",
+      "component_id": "T13-N1",
+      "A_required_mm2": 218.4508268059182,
+      "result_row": {
+        "calculation_id": "c12853df",
+        "component_id": "T13-N1",
+        "component_type": "nozzle",
+        "calculation_type": "nozzle_reinforcement",
+        "code": "ASME VIII-1",
+        "edition": "2025",
+        "clause_reference": "UG-37/UG-40",
+        "formula_reference": "Area Replacement Method",
+        "input_snapshot": {
+          "nozzle_tag": "T13-N1",
+          "effective_diameter": 100.0,
+          "required_area": 218.4508268059182,
+          "total_available_area": 1418.0834389283475
+        },
+        "material_properties_used": {},
+        "intermediate_values": [
+          {
+            "name": "d",
+            "value": 100.0,
+            "unit": "mm",
+            "description": "Etkin açıklık çapı"
+          },
+          {
+            "name": "A_required",
+            "value": 218.4508268059182,
+            "unit": "mm²",
+            "description": "Gerekli takviye alanı"
+          },
+          {
+            "name": "A1",
+            "value": 1181.5491731940817,
+            "unit": "mm²",
+            "description": "Gövde/bombe fazlası: (2×100.0 − 100.0) × (1.00×14.00 − 2.18)"
+          },
+          {
+            "name": "A2",
+            "value": 236.53426573426574,
+            "unit": "mm²",
+            "description": "Nozul boynu (dışa): 2 × 17.8 × (7.10 − 0.44) × 1.00"
+          },
+          {
+            "name": "A3",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Nozul boynu (içe): 2 × 0.0 × 7.10 × 1.00"
+          },
+          {
+            "name": "A4",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Kaynak metali: yok"
+          },
+          {
+            "name": "A5",
+            "value": 0.0,
+            "unit": "mm²",
+            "description": "Takviye pedi: 0.0 × 0.00 × 1.00"
+          },
+          {
+            "name": "A_total",
+            "value": 1418.0834389283475,
+            "unit": "mm²",
+            "description": "Toplam mevcut alan"
+          }
+        ],
+        "final_result": 1418.0834389283475,
+        "final_result_unit": "mm²",
+        "allowable_limit": 218.4508268059182,
+        "allowable_limit_unit": "mm²",
+        "utilization_ratio": 6.491545304098291,
+        "status": "PASS",
+        "warnings": [],
+        "notices": [],
+        "assumptions": [],
+        "rounding_rule": "",
+        "engine_version": "",
+        "formula_key": "",
+        "load_case_id": "",
+        "reference_elevation_mm": 0.0,
+        "input_snapshot_hash": "",
+        "governing": false,
+        "verified_by": null,
+        "created_at": "2026-10-17T15:22:42.159429+00:00",
+        "validity_checks": []
+      }
+    },
+    "sonuc": "BULGU"
+  }
+]
