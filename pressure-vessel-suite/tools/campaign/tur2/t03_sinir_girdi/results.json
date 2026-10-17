@@ -1,0 +1,1272 @@
+[
+  {
+    "vaka": "pressure-design-1",
+    "girdi": {
+      "path": "design_conditions.design_pressure",
+      "value": -1
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"greater_than\",\"loc\":[\"body\",\"design_conditions\",\"design_pressure\"],\"msg\":\"Input should be greater than 0\",\"input\":-1,\"ctx\":{\"gt\":0.0}}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "pressure-design-2",
+    "girdi": {
+      "path": "design_conditions.design_pressure",
+      "value": 0
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"greater_than\",\"loc\":[\"body\",\"design_conditions\",\"design_pressure\"],\"msg\":\"Input should be greater than 0\",\"input\":0,\"ctx\":{\"gt\":0.0}}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "pressure-design-3",
+    "girdi": {
+      "path": "design_conditions.design_pressure",
+      "value": 1000000000.0
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 200,
+      "status": [
+        "NOT CALCULATED",
+        "NOT CALCULATED",
+        "NOT CALCULATED",
+        "NOT CALCULATED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "PASS",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "OUT OF SCOPE"
+      ],
+      "error": null
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "pressure-design-4",
+    "girdi": {
+      "path": "design_conditions.design_pressure",
+      "value": "1.2"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 200,
+      "status": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "PASS",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "OUT OF SCOPE"
+      ],
+      "error": null
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "pressure-design-5",
+    "girdi": {
+      "path": "design_conditions.design_pressure",
+      "value": "bad"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"float_parsing\",\"loc\":[\"body\",\"design_conditions\",\"design_pressure\"],\"msg\":\"Input should be a valid number, unable to parse string as a number\",\"input\":\"bad\"}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "pressure-design-6",
+    "girdi": {
+      "path": "design_conditions.design_pressure",
+      "value": null
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"float_type\",\"loc\":[\"body\",\"design_conditions\",\"design_pressure\"],\"msg\":\"Input should be a valid number\",\"input\":null}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "pressure-design-7",
+    "girdi": {
+      "path": "design_conditions.design_pressure",
+      "value": "NaN"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 500,
+      "status": [
+        "HTTP 500/yanıtsız"
+      ],
+      "error": "ValueError: Out of range float values are not JSON compliant: nan"
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "pressure-design-8",
+    "girdi": {
+      "path": "design_conditions.design_pressure",
+      "value": "Infinity"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 500,
+      "status": [
+        "HTTP 500/yanıtsız"
+      ],
+      "error": "ValueError: Out of range float values are not JSON compliant: inf"
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "pressure-operating-1",
+    "girdi": {
+      "path": "design_conditions.operating_pressure",
+      "value": -1
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"greater_than\",\"loc\":[\"body\",\"design_conditions\",\"operating_pressure\"],\"msg\":\"Input should be greater than 0\",\"input\":-1,\"ctx\":{\"gt\":0.0}}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "pressure-operating-2",
+    "girdi": {
+      "path": "design_conditions.operating_pressure",
+      "value": 0
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"greater_than\",\"loc\":[\"body\",\"design_conditions\",\"operating_pressure\"],\"msg\":\"Input should be greater than 0\",\"input\":0,\"ctx\":{\"gt\":0.0}}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "pressure-operating-3",
+    "girdi": {
+      "path": "design_conditions.operating_pressure",
+      "value": 1000000000.0
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 200,
+      "status": [
+        "REVIEW REQUIRED",
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "PASS",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "OUT OF SCOPE"
+      ],
+      "error": null
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "pressure-operating-4",
+    "girdi": {
+      "path": "design_conditions.operating_pressure",
+      "value": "1.0"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 200,
+      "status": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "PASS",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "OUT OF SCOPE"
+      ],
+      "error": null
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "pressure-operating-5",
+    "girdi": {
+      "path": "design_conditions.operating_pressure",
+      "value": "bad"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"float_parsing\",\"loc\":[\"body\",\"design_conditions\",\"operating_pressure\"],\"msg\":\"Input should be a valid number, unable to parse string as a number\",\"input\":\"bad\"}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "pressure-operating-6",
+    "girdi": {
+      "path": "design_conditions.operating_pressure",
+      "value": null
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"float_type\",\"loc\":[\"body\",\"design_conditions\",\"operating_pressure\"],\"msg\":\"Input should be a valid number\",\"input\":null}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "pressure-operating-7",
+    "girdi": {
+      "path": "design_conditions.operating_pressure",
+      "value": "NaN"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 500,
+      "status": [
+        "HTTP 500/yanıtsız"
+      ],
+      "error": "ValueError: Out of range float values are not JSON compliant: nan"
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "temperature-1",
+    "girdi": {
+      "path": "design_conditions.design_temperature",
+      "value": -1
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 200,
+      "status": [
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "OUT OF SCOPE"
+      ],
+      "error": null
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "temperature-2",
+    "girdi": {
+      "path": "design_conditions.design_temperature",
+      "value": 0
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 200,
+      "status": [
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "OUT OF SCOPE"
+      ],
+      "error": null
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "temperature-3",
+    "girdi": {
+      "path": "design_conditions.design_temperature",
+      "value": 1000000000.0
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 200,
+      "status": [
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "OUT OF SCOPE"
+      ],
+      "error": null
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "temperature-4",
+    "girdi": {
+      "path": "design_conditions.design_temperature",
+      "value": "200"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 200,
+      "status": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "PASS",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "OUT OF SCOPE"
+      ],
+      "error": null
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "temperature-5",
+    "girdi": {
+      "path": "design_conditions.design_temperature",
+      "value": "bad"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"float_parsing\",\"loc\":[\"body\",\"design_conditions\",\"design_temperature\"],\"msg\":\"Input should be a valid number, unable to parse string as a number\",\"input\":\"bad\"}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "temperature-6",
+    "girdi": {
+      "path": "design_conditions.design_temperature",
+      "value": null
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"float_type\",\"loc\":[\"body\",\"design_conditions\",\"design_temperature\"],\"msg\":\"Input should be a valid number\",\"input\":null}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "temperature-7",
+    "girdi": {
+      "path": "design_conditions.design_temperature",
+      "value": "NaN"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 500,
+      "status": [
+        "HTTP 500/yanıtsız"
+      ],
+      "error": "ValueError: Out of range float values are not JSON compliant: nan"
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "shell-thickness-1",
+    "girdi": {
+      "path": "shell_sections.0.nominal_thickness",
+      "value": -12
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"greater_than\",\"loc\":[\"body\",\"shell_sections\",0,\"nominal_thickness\"],\"msg\":\"Input should be greater than 0\",\"input\":-12,\"ctx\":{\"gt\":0.0}}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "shell-thickness-2",
+    "girdi": {
+      "path": "shell_sections.0.nominal_thickness",
+      "value": 0
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"greater_than\",\"loc\":[\"body\",\"shell_sections\",0,\"nominal_thickness\"],\"msg\":\"Input should be greater than 0\",\"input\":0,\"ctx\":{\"gt\":0.0}}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "shell-thickness-3",
+    "girdi": {
+      "path": "shell_sections.0.nominal_thickness",
+      "value": 1000000000.0
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 200,
+      "status": [
+        "REVIEW REQUIRED",
+        "PASS",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "FAIL",
+        "OUT OF SCOPE"
+      ],
+      "error": null
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "shell-thickness-4",
+    "girdi": {
+      "path": "shell_sections.0.nominal_thickness",
+      "value": "12"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 200,
+      "status": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "PASS",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "OUT OF SCOPE"
+      ],
+      "error": null
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "shell-thickness-5",
+    "girdi": {
+      "path": "shell_sections.0.nominal_thickness",
+      "value": "bad"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"float_parsing\",\"loc\":[\"body\",\"shell_sections\",0,\"nominal_thickness\"],\"msg\":\"Input should be a valid number, unable to parse string as a number\",\"input\":\"bad\"}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "shell-thickness-6",
+    "girdi": {
+      "path": "shell_sections.0.nominal_thickness",
+      "value": null
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"float_type\",\"loc\":[\"body\",\"shell_sections\",0,\"nominal_thickness\"],\"msg\":\"Input should be a valid number\",\"input\":null}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "shell-thickness-7",
+    "girdi": {
+      "path": "shell_sections.0.nominal_thickness",
+      "value": "NaN"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 500,
+      "status": [
+        "HTTP 500/yanıtsız"
+      ],
+      "error": "ValueError: Out of range float values are not JSON compliant: nan"
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "shell-diameter-1",
+    "girdi": {
+      "path": "shell_sections.0.inside_diameter",
+      "value": -1000
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"greater_than\",\"loc\":[\"body\",\"shell_sections\",0,\"inside_diameter\"],\"msg\":\"Input should be greater than 0\",\"input\":-1000,\"ctx\":{\"gt\":0.0}}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "shell-diameter-2",
+    "girdi": {
+      "path": "shell_sections.0.inside_diameter",
+      "value": 0
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"greater_than\",\"loc\":[\"body\",\"shell_sections\",0,\"inside_diameter\"],\"msg\":\"Input should be greater than 0\",\"input\":0,\"ctx\":{\"gt\":0.0}}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "shell-diameter-3",
+    "girdi": {
+      "path": "shell_sections.0.inside_diameter",
+      "value": 1000000000.0
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 200,
+      "status": [
+        "FAIL",
+        "PASS",
+        "PASS",
+        "FAIL",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "PASS",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "FAIL",
+        "OUT OF SCOPE"
+      ],
+      "error": null
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "shell-diameter-4",
+    "girdi": {
+      "path": "shell_sections.0.inside_diameter",
+      "value": "1000"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 200,
+      "status": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "PASS",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "OUT OF SCOPE"
+      ],
+      "error": null
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "shell-diameter-5",
+    "girdi": {
+      "path": "shell_sections.0.inside_diameter",
+      "value": "bad"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"float_parsing\",\"loc\":[\"body\",\"shell_sections\",0,\"inside_diameter\"],\"msg\":\"Input should be a valid number, unable to parse string as a number\",\"input\":\"bad\"}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "shell-diameter-6",
+    "girdi": {
+      "path": "shell_sections.0.inside_diameter",
+      "value": null
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"value_error\",\"loc\":[\"body\",\"shell_sections\",0],\"msg\":\"Value error, inside_diameter veya outside_diameter'dan en az biri girilmeli.\",\"input\":{\"section_id\":\"SHELL-01\",\"inside_diameter\":null,\"tangent_length\":2000,\"nominal_thickness\":12,\"material_id\":\"M1\",\"weld_joint_id\":\"WJ-01\",\"internal_corrosion_allowance\":2,\"mill_tolerance\":12.5},\"ctx\":{\"error\":{}}}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "shape-enum-01",
+    "girdi": {
+      "path": "project_number",
+      "value": "<missing>"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 200,
+      "status": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "PASS",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "OUT OF SCOPE"
+      ],
+      "error": null
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "shape-enum-02",
+    "girdi": {
+      "path": "calculation_code",
+      "value": "<missing>"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"calculation_code\"],\"msg\":\"Field required\",\"input\":{\"project_number\":\"T03-shape-enum-02\",\"project_name\":\"vertical-leg\",\"customer\":\"Basincli QA\",\"revision\":\"A\",\"code_edition\":\"2025\",\"unit_system\":\"SI\",\"orientation\":\"vertical\",\"diameter_relation\":\"independent\",\"design_conditions\":{\"operating_pressure\":1.0,\"design_pressure\":1.2,\"maximum_allowable_pressure_ps\":1.5,\"operating_temperature\":150,\"design_temperature\":200,\"minimum_design_temperature\":-10,\"corrosion_allowance_internal\":2.0},\"shell_sections\":[{\"section_id\":\"SHELL-01\",\"inside_diameter\":1000,\"tangent_length\":2000,\"nominal_thickness\":12,\"material_id\":\"M1\",\"weld_joint_id\":\"WJ-01\",\"internal_corrosion_allowance\":2,\"mill_tolerance\":12.5}],\"heads\":[{\"head_id\":\"HEAD-L\",\"type\":\"elliptical\",\"inside_diameter\":1000,\"straight_flange_length\":40,\"nominal_thickness\":12,\"material_id\":\"M1\",\"weld_joint_id\":\"WJ-01\",\"internal_corrosion_allowance\":2,\"mill_tolerance\":12.5},{\"head_id\":\"HEAD-R\",\"type\":\"elliptical\",\"inside_diameter\":800,\"straight_flange_length\":40,\"nominal_thickness\":10,\"material_id\":\"M2\",\"weld_joint_id\":\"WJ-02\",\"internal_corrosion_allowance\":2,\"mill_tolerance\":12.5}],\"cones\":[],\"component_sequence\":[],\"materials\":[{\"material_id\":\"M1\",\"standard_pack\":\"ASME II-D 2025\",\"material_designation\":\"SA-516 Gr.70\",\"product_form\":\"plate\",\"temperature\":200,\"allowable_stress\":138,\"yield_strength\":260,\"tensile_strength\":485,\"source_reference\":\"ASME II-D Table 1A\",\"source_revision\":\"2025\",\"density\":7850,\"ucs66_curve_group\":\"B\"},{\"material_id\":\"M2\",\"standard_pack\":\"ASME II-D 2025\",\"material_designation\":\"SA-516 Gr.60\",\"product_form\":\"plate\",\"temperature\":200,\"allowable_stress\":120,\"yield_strength\":220,\"tensile_strength\":415,\"source_reference\":\"ASME II-D Table 1A\",\"source_revision\":\"2025\",\"density\":7850,\"ucs66_curve_group\":\"B\"}],\"welds\":[{\"joint_id\":\"WJ-01\",\"joint_type\":\"longitudinal\",\"weld_category\":\"A\",\"joint_efficiency\":1.0,\"nde_method\":\"RT-1\",\"nde_extent\":\"100%\"},{\"joint_id\":\"WJ-02\",\"joint_type\":\"circumferential\",\"weld_category\":\"B\",\"joint_efficiency\":0.85,\"nde_method\":\"RT-2\",\"nde_extent\":\"spot\"}],\"junctions\":[],\"nozzles\":[{\"tag\":\"N1\",\"host_component_id\":\"SHELL-01\",\"axial_position\":1000,\"outside_diameter\":60.3,\"inside_diameter\":52.5,\"neck_thickness\":3.9,\"material_id\":\"M1\",\"reinforcement_pad\":false}],\"supports\":[{\"support_id\":\"LEGS\",\"host_component_id\":\"SHELL-01\",\"type\":\"leg\",\"location_mm\":500,\"width_mm\":100,\"height_mm\":600,\"material_id\":\"M1\",\"leg_count\":4,\"leg_diameter_mm\":114.3,\"leg_thickness_mm\":8,\"leg_pad_length_mm\":250,\"leg_pad_width_mm\":180,\"leg_pad_thickness_mm\":12,\"leg_base_plate_length_mm\":250,\"leg_base_plate_width_mm\":200,\"leg_base_plate_thickness_mm\":16,\"leg_anchor_bolt_count\":4,\"leg_anchor_bolt_diameter_mm\":20,\"leg_anchor_circle_diameter_mm\":150,\"leg_weld_size_mm\":6}]}}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "shape-enum-03",
+    "girdi": {
+      "path": "code_edition",
+      "value": "<missing>"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"code_edition\"],\"msg\":\"Field required\",\"input\":{\"project_number\":\"T03-shape-enum-03\",\"project_name\":\"vertical-leg\",\"customer\":\"Basincli QA\",\"revision\":\"A\",\"calculation_code\":\"ASME VIII-1\",\"unit_system\":\"SI\",\"orientation\":\"vertical\",\"diameter_relation\":\"independent\",\"design_conditions\":{\"operating_pressure\":1.0,\"design_pressure\":1.2,\"maximum_allowable_pressure_ps\":1.5,\"operating_temperature\":150,\"design_temperature\":200,\"minimum_design_temperature\":-10,\"corrosion_allowance_internal\":2.0},\"shell_sections\":[{\"section_id\":\"SHELL-01\",\"inside_diameter\":1000,\"tangent_length\":2000,\"nominal_thickness\":12,\"material_id\":\"M1\",\"weld_joint_id\":\"WJ-01\",\"internal_corrosion_allowance\":2,\"mill_tolerance\":12.5}],\"heads\":[{\"head_id\":\"HEAD-L\",\"type\":\"elliptical\",\"inside_diameter\":1000,\"straight_flange_length\":40,\"nominal_thickness\":12,\"material_id\":\"M1\",\"weld_joint_id\":\"WJ-01\",\"internal_corrosion_allowance\":2,\"mill_tolerance\":12.5},{\"head_id\":\"HEAD-R\",\"type\":\"elliptical\",\"inside_diameter\":800,\"straight_flange_length\":40,\"nominal_thickness\":10,\"material_id\":\"M2\",\"weld_joint_id\":\"WJ-02\",\"internal_corrosion_allowance\":2,\"mill_tolerance\":12.5}],\"cones\":[],\"component_sequence\":[],\"materials\":[{\"material_id\":\"M1\",\"standard_pack\":\"ASME II-D 2025\",\"material_designation\":\"SA-516 Gr.70\",\"product_form\":\"plate\",\"temperature\":200,\"allowable_stress\":138,\"yield_strength\":260,\"tensile_strength\":485,\"source_reference\":\"ASME II-D Table 1A\",\"source_revision\":\"2025\",\"density\":7850,\"ucs66_curve_group\":\"B\"},{\"material_id\":\"M2\",\"standard_pack\":\"ASME II-D 2025\",\"material_designation\":\"SA-516 Gr.60\",\"product_form\":\"plate\",\"temperature\":200,\"allowable_stress\":120,\"yield_strength\":220,\"tensile_strength\":415,\"source_reference\":\"ASME II-D Table 1A\",\"source_revision\":\"2025\",\"density\":7850,\"ucs66_curve_group\":\"B\"}],\"welds\":[{\"joint_id\":\"WJ-01\",\"joint_type\":\"longitudinal\",\"weld_category\":\"A\",\"joint_efficiency\":1.0,\"nde_method\":\"RT-1\",\"nde_extent\":\"100%\"},{\"joint_id\":\"WJ-02\",\"joint_type\":\"circumferential\",\"weld_category\":\"B\",\"joint_efficiency\":0.85,\"nde_method\":\"RT-2\",\"nde_extent\":\"spot\"}],\"junctions\":[],\"nozzles\":[{\"tag\":\"N1\",\"host_component_id\":\"SHELL-01\",\"axial_position\":1000,\"outside_diameter\":60.3,\"inside_diameter\":52.5,\"neck_thickness\":3.9,\"material_id\":\"M1\",\"reinforcement_pad\":false}],\"supports\":[{\"support_id\":\"LEGS\",\"host_component_id\":\"SHELL-01\",\"type\":\"leg\",\"location_mm\":500,\"width_mm\":100,\"height_mm\":600,\"material_id\":\"M1\",\"leg_count\":4,\"leg_diameter_mm\":114.3,\"leg_thickness_mm\":8,\"leg_pad_length_mm\":250,\"leg_pad_width_mm\":180,\"leg_pad_thickness_mm\":12,\"leg_base_plate_length_mm\":250,\"leg_base_plate_width_mm\":200,\"leg_base_plate_thickness_mm\":16,\"leg_anchor_bolt_count\":4,\"leg_anchor_bolt_diameter_mm\":20,\"leg_anchor_circle_diameter_mm\":150,\"leg_weld_size_mm\":6}]}}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "shape-enum-04",
+    "girdi": {
+      "path": "design_conditions",
+      "value": "<missing>"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"design_conditions\"],\"msg\":\"Field required\",\"input\":{\"project_number\":\"T03-shape-enum-04\",\"project_name\":\"vertical-leg\",\"customer\":\"Basincli QA\",\"revision\":\"A\",\"calculation_code\":\"ASME VIII-1\",\"code_edition\":\"2025\",\"unit_system\":\"SI\",\"orientation\":\"vertical\",\"diameter_relation\":\"independent\",\"shell_sections\":[{\"section_id\":\"SHELL-01\",\"inside_diameter\":1000,\"tangent_length\":2000,\"nominal_thickness\":12,\"material_id\":\"M1\",\"weld_joint_id\":\"WJ-01\",\"internal_corrosion_allowance\":2,\"mill_tolerance\":12.5}],\"heads\":[{\"head_id\":\"HEAD-L\",\"type\":\"elliptical\",\"inside_diameter\":1000,\"straight_flange_length\":40,\"nominal_thickness\":12,\"material_id\":\"M1\",\"weld_joint_id\":\"WJ-01\",\"internal_corrosion_allowance\":2,\"mill_tolerance\":12.5},{\"head_id\":\"HEAD-R\",\"type\":\"elliptical\",\"inside_diameter\":800,\"straight_flange_length\":40,\"nominal_thickness\":10,\"material_id\":\"M2\",\"weld_joint_id\":\"WJ-02\",\"internal_corrosion_allowance\":2,\"mill_tolerance\":12.5}],\"cones\":[],\"component_sequence\":[],\"materials\":[{\"material_id\":\"M1\",\"standard_pack\":\"ASME II-D 2025\",\"material_designation\":\"SA-516 Gr.70\",\"product_form\":\"plate\",\"temperature\":200,\"allowable_stress\":138,\"yield_strength\":260,\"tensile_strength\":485,\"source_reference\":\"ASME II-D Table 1A\",\"source_revision\":\"2025\",\"density\":7850,\"ucs66_curve_group\":\"B\"},{\"material_id\":\"M2\",\"standard_pack\":\"ASME II-D 2025\",\"material_designation\":\"SA-516 Gr.60\",\"product_form\":\"plate\",\"temperature\":200,\"allowable_stress\":120,\"yield_strength\":220,\"tensile_strength\":415,\"source_reference\":\"ASME II-D Table 1A\",\"source_revision\":\"2025\",\"density\":7850,\"ucs66_curve_group\":\"B\"}],\"welds\":[{\"joint_id\":\"WJ-01\",\"joint_type\":\"longitudinal\",\"weld_category\":\"A\",\"joint_efficiency\":1.0,\"nde_method\":\"RT-1\",\"nde_extent\":\"100%\"},{\"joint_id\":\"WJ-02\",\"joint_type\":\"circumferential\",\"weld_category\":\"B\",\"joint_efficiency\":0.85,\"nde_method\":\"RT-2\",\"nde_extent\":\"spot\"}],\"junctions\":[],\"nozzles\":[{\"tag\":\"N1\",\"host_component_id\":\"SHELL-01\",\"axial_position\":1000,\"outside_diameter\":60.3,\"inside_diameter\":52.5,\"neck_thickness\":3.9,\"material_id\":\"M1\",\"reinforcement_pad\":false}],\"supports\":[{\"support_id\":\"LEGS\",\"host_component_id\":\"SHELL-01\",\"type\":\"leg\",\"location_mm\":500,\"width_mm\":100,\"height_mm\":600,\"material_id\":\"M1\",\"leg_count\":4,\"leg_diameter_mm\":114.3,\"leg_thickness_mm\":8,\"leg_pad_length_mm\":250,\"leg_pad_width_mm\":180,\"leg_pad_thickness_mm\":12,\"leg_base_plate_length_mm\":250,\"leg_base_plate_width_mm\":200,\"leg_base_plate_thickness_mm\":16,\"leg_anchor_bolt_count\":4,\"leg_anchor_bolt_diameter_mm\":20,\"leg_anchor_circle_diameter_mm\":150,\"leg_weld_size_mm\":6}]}}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "shape-enum-05",
+    "girdi": {
+      "path": "design_conditions.design_pressure",
+      "value": "<missing>"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"design_conditions\",\"design_pressure\"],\"msg\":\"Field required\",\"input\":{\"operating_pressure\":1.0,\"maximum_allowable_pressure_ps\":1.5,\"operating_temperature\":150,\"design_temperature\":200,\"minimum_design_temperature\":-10,\"corrosion_allowance_internal\":2.0}}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "shape-enum-06",
+    "girdi": {
+      "path": "design_conditions.operating_pressure",
+      "value": "<missing>"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"missing\",\"loc\":[\"body\",\"design_conditions\",\"operating_pressure\"],\"msg\":\"Field required\",\"input\":{\"design_pressure\":1.2,\"maximum_allowable_pressure_ps\":1.5,\"operating_temperature\":150,\"design_temperature\":200,\"minimum_design_temperature\":-10,\"corrosion_allowance_internal\":2.0}}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "shape-enum-07",
+    "girdi": {
+      "path": "shell_sections",
+      "value": []
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 200,
+      "status": [
+        "PASS",
+        "PASS",
+        "NOT CALCULATED",
+        "NOT CALCULATED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "NOT CALCULATED",
+        "OUT OF SCOPE"
+      ],
+      "error": null
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "shape-enum-08",
+    "girdi": {
+      "path": "heads",
+      "value": []
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 200,
+      "status": [
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "OUT OF SCOPE"
+      ],
+      "error": null
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "shape-enum-09",
+    "girdi": {
+      "path": "materials",
+      "value": []
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 200,
+      "status": [
+        "NOT CALCULATED",
+        "NOT CALCULATED",
+        "NOT CALCULATED",
+        "NOT CALCULATED",
+        "NOT CALCULATED",
+        "NOT CALCULATED",
+        "NOT CALCULATED",
+        "NOT CALCULATED",
+        "NOT CALCULATED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "NOT CALCULATED",
+        "NOT CALCULATED",
+        "NOT CALCULATED",
+        "NOT CALCULATED",
+        "NOT CALCULATED",
+        "BLOCKED MISSING INPUT",
+        "BLOCKED MISSING INPUT",
+        "BLOCKED MISSING INPUT",
+        "NOT CALCULATED",
+        "OUT OF SCOPE"
+      ],
+      "error": null
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "shape-enum-10",
+    "girdi": {
+      "path": "supports",
+      "value": []
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 200,
+      "status": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "PASS",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "OUT OF SCOPE"
+      ],
+      "error": null
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "shape-enum-11",
+    "girdi": {
+      "path": "calculation_code",
+      "value": "NOT-A-CODE"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"enum\",\"loc\":[\"body\",\"calculation_code\"],\"msg\":\"Input should be 'ASME VIII-1' or 'EN 13445'\",\"input\":\"NOT-A-CODE\",\"ctx\":{\"expected\":\"'ASME VIII-1' or 'EN 13445'\"}}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "shape-enum-12",
+    "girdi": {
+      "path": "orientation",
+      "value": "diagonal"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"enum\",\"loc\":[\"body\",\"orientation\"],\"msg\":\"Input should be 'horizontal' or 'vertical'\",\"input\":\"diagonal\",\"ctx\":{\"expected\":\"'horizontal' or 'vertical'\"}}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "shape-enum-13",
+    "girdi": {
+      "path": "diameter_relation",
+      "value": "coupled-ish"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"literal_error\",\"loc\":[\"body\",\"diameter_relation\"],\"msg\":\"Input should be 'linked' or 'independent'\",\"input\":\"coupled-ish\",\"ctx\":{\"expected\":\"'linked' or 'independent'\"}}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "shape-enum-14",
+    "girdi": {
+      "path": "design_conditions",
+      "value": "not-an-object"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"model_attributes_type\",\"loc\":[\"body\",\"design_conditions\"],\"msg\":\"Input should be a valid dictionary or object to extract fields from\",\"input\":\"not-an-object\"}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "shape-enum-15",
+    "girdi": {
+      "path": "shell_sections",
+      "value": "not-a-list"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"list_type\",\"loc\":[\"body\",\"shell_sections\"],\"msg\":\"Input should be a valid list\",\"input\":\"not-a-list\"}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "shape-enum-16",
+    "girdi": {
+      "path": "shell_sections.0.material_id",
+      "value": "UNKNOWN"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 200,
+      "status": [
+        "NOT CALCULATED",
+        "NOT CALCULATED",
+        "PASS",
+        "PASS",
+        "NOT CALCULATED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "NOT CALCULATED",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "BLOCKED MISSING INPUT",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "BLOCKED MISSING INPUT",
+        "REVIEW REQUIRED",
+        "OUT OF SCOPE"
+      ],
+      "error": null
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "shape-enum-17",
+    "girdi": {
+      "path": "shell_sections.0.section_id",
+      "value": ""
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 200,
+      "status": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "NOT CALCULATED",
+        "NOT CALCULATED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "PASS",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "NOT CALCULATED",
+        "OUT OF SCOPE"
+      ],
+      "error": null
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "shape-enum-18",
+    "girdi": {
+      "path": "shell_sections.0.nominal_thickness",
+      "value": {
+        "value": 12
+      }
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"float_type\",\"loc\":[\"body\",\"shell_sections\",0,\"nominal_thickness\"],\"msg\":\"Input should be a valid number\",\"input\":{\"value\":12}}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "shape-enum-19",
+    "girdi": {
+      "path": "design_conditions.vacuum_condition",
+      "value": "false"
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 200,
+      "status": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "PASS",
+        "PASS",
+        "PASS",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "REVIEW REQUIRED",
+        "OUT OF SCOPE"
+      ],
+      "error": null
+    },
+    "sonuc": "BULGU"
+  },
+  {
+    "vaka": "shape-enum-20",
+    "girdi": {
+      "path": "design_conditions.external_pressure",
+      "value": -1
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"greater_than_equal\",\"loc\":[\"body\",\"design_conditions\",\"external_pressure\"],\"msg\":\"Input should be greater than or equal to 0\",\"input\":-1,\"ctx\":{\"ge\":0.0}}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "shape-enum-21",
+    "girdi": {
+      "path": "design_conditions.corrosion_allowance_internal",
+      "value": -1
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"greater_than_equal\",\"loc\":[\"body\",\"design_conditions\",\"corrosion_allowance_internal\"],\"msg\":\"Input should be greater than or equal to 0\",\"input\":-1,\"ctx\":{\"ge\":0.0}}]}"
+    },
+    "sonuc": "GEÇTİ"
+  },
+  {
+    "vaka": "shape-enum-22",
+    "girdi": {
+      "path": "design_conditions.fluid_density_kg_m3",
+      "value": -1
+    },
+    "beklenen": "422 veya BLOCKED/NOT CALCULATED",
+    "gozlenen": {
+      "http": 422,
+      "status": [
+        "422"
+      ],
+      "error": "{\"detail\":[{\"type\":\"greater_than_equal\",\"loc\":[\"body\",\"design_conditions\",\"fluid_density_kg_m3\"],\"msg\":\"Input should be greater than or equal to 0\",\"input\":-1,\"ctx\":{\"ge\":0.0}}]}"
+    },
+    "sonuc": "GEÇTİ"
+  }
+]
