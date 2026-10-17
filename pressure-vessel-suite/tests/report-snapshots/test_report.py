@@ -418,3 +418,17 @@ class TestReportHtmlEscape:
         assert "Report Test Vessel" in html
         assert "SA-516 Gr.70" in html
         assert "&amp;" not in html.split("<body>")[1].replace("&amp;amp;", "")
+
+
+class TestEscStrEnum:
+    """_esc, str tabanlı enum'larda 'Sinif.UYE' değil değerin kendisini yazmalı."""
+
+    def test_esc_str_enum_uses_value(self):
+        from enum import Enum
+
+        from report_engine.generator import _esc
+
+        class _Mode(str, Enum):
+            A = "deger<1>"
+
+        assert _esc(_Mode.A) == "deger&lt;1&gt;"

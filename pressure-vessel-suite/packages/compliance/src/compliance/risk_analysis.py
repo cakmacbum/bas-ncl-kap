@@ -9,6 +9,8 @@ K6 kuralı: Standart telifli metni kopyalanmaz.
 
 from __future__ import annotations
 
+from compliance._html import esc
+
 from enum import Enum
 from typing import List, Optional
 
@@ -191,13 +193,13 @@ class RiskAnalysis(BaseModel):
         for item in self.items:
             rows += (
                 f'<tr>'
-                f'<td>{item.hazard_id}</td>'
-                f'<td>{item.hazard_description}</td>'
-                f'<td>{item.severity.value}</td>'
-                f'<td>{item.probability.value}</td>'
-                f'<td>{item.risk_level.value}</td>'
-                f'<td>{"; ".join(item.mitigation_measures)}</td>'
-                f'<td>{item.residual_risk.value}</td>'
+                f'<td>{esc(item.hazard_id)}</td>'
+                f'<td>{esc(item.hazard_description)}</td>'
+                f'<td>{esc(item.severity)}</td>'
+                f'<td>{esc(item.probability)}</td>'
+                f'<td>{esc(item.risk_level)}</td>'
+                f'<td>{esc("; ".join(item.mitigation_measures))}</td>'
+                f'<td>{esc(item.residual_risk)}</td>'
                 f'</tr>\n'
             )
         return f"""

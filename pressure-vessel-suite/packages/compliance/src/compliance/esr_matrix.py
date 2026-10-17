@@ -8,6 +8,8 @@ K6 kuralı: Standart telifli metni kopyalanmaz; yalnızca madde numaraları kull
 
 from __future__ import annotations
 
+from compliance._html import esc
+
 from enum import Enum
 from typing import List, Optional
 
@@ -305,11 +307,11 @@ class ESRMatrix(BaseModel):
 
             rows += (
                 f'<tr>'
-                f'<td>{item.clause}</td>'
-                f'<td>{item.title}</td>'
-                f'<td class="{status_class}">{item.status.value}</td>'
-                f'<td>{item.evidence or "—"}</td>'
-                f'<td>{item.standard_reference or "—"}</td>'
+                f'<td>{esc(item.clause)}</td>'
+                f'<td>{esc(item.title)}</td>'
+                f'<td class="{status_class}">{esc(item.status)}</td>'
+                f'<td>{esc(item.evidence or "—")}</td>'
+                f'<td>{esc(item.standard_reference or "—")}</td>'
                 f'</tr>\n'
             )
 

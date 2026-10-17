@@ -7,6 +7,8 @@ K6 kuralı: Standart telifli metni kopyalanmaz.
 
 from __future__ import annotations
 
+from compliance._html import esc
+
 from datetime import date
 from typing import Any, List, Optional
 import hashlib
@@ -151,24 +153,24 @@ class NameplateInfo(BaseModel):
         return f"""
 <table>
 <tr><th>Alan</th><th>Değer</th></tr>
-<tr><td>İmalatçı</td><td>{self.manufacturer_name}</td></tr>
-<tr><td>Adres</td><td>{self.manufacturer_address}</td></tr>
-<tr><td>İmalat Yılı</td><td>{self.year_of_manufacture}</td></tr>
-<tr><td>Ekipman Türü</td><td>{self.equipment_type}</td></tr>
-<tr><td>Seri No</td><td>{self.serial_number}</td></tr>
-<tr><td>PS</td><td>{self.maximum_allowable_pressure_ps} MPa</td></tr>
-<tr><td>TS max</td><td>{self.maximum_allowable_temperature_ts_max} °C</td></tr>
-<tr><td>TS min</td><td>{self.minimum_allowable_temperature_ts_min} °C</td></tr>
-<tr><td>Hacim</td><td>{self.volume_liters} L</td></tr>
-<tr><td>Test Basıncı</td><td>{self.test_pressure} MPa ({self.test_type})</td></tr>
-<tr><td>Tasarım Standardı</td><td>{self.design_code} {self.design_code_edition}</td></tr>
-<tr><td>PED Kategorisi</td><td>{self.ped_category}</td></tr>
-<tr><td>Akışkan Grubu</td><td>{self.fluid_group}</td></tr>
-<tr><td>Uygunluk Modülü</td><td>{self.conformity_module}</td></tr>
-<tr><td>Hesap Revizyonu</td><td>{self.calculation_revision or '—'}</td></tr>
-<tr><td>Girdi Hash'i</td><td>{self.input_snapshot_hash or '—'}</td></tr>
-<tr><td>Sonuç Hash'i</td><td>{self.calculation_result_hash or '—'}</td></tr>
-<tr><td>CE</td><td>{ce_line}</td></tr>
+<tr><td>İmalatçı</td><td>{esc(self.manufacturer_name)}</td></tr>
+<tr><td>Adres</td><td>{esc(self.manufacturer_address)}</td></tr>
+<tr><td>İmalat Yılı</td><td>{esc(self.year_of_manufacture)}</td></tr>
+<tr><td>Ekipman Türü</td><td>{esc(self.equipment_type)}</td></tr>
+<tr><td>Seri No</td><td>{esc(self.serial_number)}</td></tr>
+<tr><td>PS</td><td>{esc(self.maximum_allowable_pressure_ps)} MPa</td></tr>
+<tr><td>TS max</td><td>{esc(self.maximum_allowable_temperature_ts_max)} °C</td></tr>
+<tr><td>TS min</td><td>{esc(self.minimum_allowable_temperature_ts_min)} °C</td></tr>
+<tr><td>Hacim</td><td>{esc(self.volume_liters)} L</td></tr>
+<tr><td>Test Basıncı</td><td>{esc(self.test_pressure)} MPa ({esc(self.test_type)})</td></tr>
+<tr><td>Tasarım Standardı</td><td>{esc(self.design_code)} {esc(self.design_code_edition)}</td></tr>
+<tr><td>PED Kategorisi</td><td>{esc(self.ped_category)}</td></tr>
+<tr><td>Akışkan Grubu</td><td>{esc(self.fluid_group)}</td></tr>
+<tr><td>Uygunluk Modülü</td><td>{esc(self.conformity_module)}</td></tr>
+<tr><td>Hesap Revizyonu</td><td>{esc(self.calculation_revision or '—')}</td></tr>
+<tr><td>Girdi Hash'i</td><td>{esc(self.input_snapshot_hash or '—')}</td></tr>
+<tr><td>Sonuç Hash'i</td><td>{esc(self.calculation_result_hash or '—')}</td></tr>
+<tr><td>CE</td><td>{esc(ce_line)}</td></tr>
 </table>
 """
 
@@ -284,7 +286,7 @@ incelemesi ve hukuki değerlendirme sonrasında imzalanmalıdır.*
 
     def to_html(self) -> str:
         """DoC taslağını HTML olarak üret."""
-        standards_str = "<br>".join(self.harmonised_standards) if self.harmonised_standards else "—"
+        standards_str = "<br>".join(esc(x) for x in self.harmonised_standards) if self.harmonised_standards else "—"
         nb_str = f"{self.notify_body_name} (No: {self.notify_body_number})" if self.notify_body_name else "—"
 
         return f"""
@@ -293,17 +295,17 @@ incelemesi ve hukuki değerlendirme sonrasında imzalanmalıdır.*
 <p><em>Pursuant to Article 14(2) of Directive 2014/68/EU</em></p>
 <table>
 <tr><th>Alan</th><th>Değer</th></tr>
-<tr><td>Beyan No</td><td>{self.declaration_number or '—'}</td></tr>
-<tr><td>Tarih</td><td>{self.issue_date or '—'}</td></tr>
-<tr><td>İmalatçı</td><td>{self.manufacturer_name}</td></tr>
-<tr><td>Adres</td><td>{self.manufacturer_address}</td></tr>
-<tr><td>Ekipman Tanımı</td><td>{self.equipment_description}</td></tr>
-<tr><td>Ekipman Türü</td><td>{self.equipment_type}</td></tr>
-<tr><td>Seri No</td><td>{self.serial_number}</td></tr>
-<tr><td>PED Kategorisi</td><td>{self.ped_category}</td></tr>
-<tr><td>Uygunluk Modülü</td><td>{self.conformity_module}</td></tr>
+<tr><td>Beyan No</td><td>{esc(self.declaration_number or '—')}</td></tr>
+<tr><td>Tarih</td><td>{esc(self.issue_date or '—')}</td></tr>
+<tr><td>İmalatçı</td><td>{esc(self.manufacturer_name)}</td></tr>
+<tr><td>Adres</td><td>{esc(self.manufacturer_address)}</td></tr>
+<tr><td>Ekipman Tanımı</td><td>{esc(self.equipment_description)}</td></tr>
+<tr><td>Ekipman Türü</td><td>{esc(self.equipment_type)}</td></tr>
+<tr><td>Seri No</td><td>{esc(self.serial_number)}</td></tr>
+<tr><td>PED Kategorisi</td><td>{esc(self.ped_category)}</td></tr>
+<tr><td>Uygunluk Modülü</td><td>{esc(self.conformity_module)}</td></tr>
 <tr><td>Harmonize Standartlar</td><td>{standards_str}</td></tr>
-<tr><td>Onaylanmış Kuruluş</td><td>{nb_str}</td></tr>
+<tr><td>Onaylanmış Kuruluş</td><td>{esc(nb_str)}</td></tr>
 </table>
 <p><em>Bu belge bir taslaktır. Nihai DoC, onaylanmış kuruluş incelemesi sonrası imzalanmalıdır.</em></p>
 </div>

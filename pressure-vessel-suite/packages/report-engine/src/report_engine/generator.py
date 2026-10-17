@@ -15,6 +15,7 @@ Bölüm yapısı:
 from __future__ import annotations
 
 import html as _html
+from enum import Enum
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -43,7 +44,7 @@ def _esc(value: Any) -> str:
     Yalnızca metin alanlarında kullanılır; sayısal değerler ve kodun kendi
     ürettiği HTML kaçırılmaz (çifte kaçış olmaz). Enum için .value kullanılır.
     """
-    if hasattr(value, "value") and not isinstance(value, (str, int, float)):
+    if isinstance(value, Enum):
         value = value.value
     return _html.escape(str(value), quote=True)
 

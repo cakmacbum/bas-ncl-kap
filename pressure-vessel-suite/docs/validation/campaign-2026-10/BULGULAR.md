@@ -217,3 +217,9 @@ A7 (Sonnet) izole worktree'de uyguladı; şef diff'i okudu, ana ağaçta tam pak
 - **Uçtan uca (şef):** `POST /api/projects` ile proje adı `<script>alert(1)</script>` ve müşteri `"><img src=x onerror=alert(2)>` → `GET /api/projects/{id}/report.html` 200, 20128 bayt; ham `<script>` ve `<img` yok, kaçışlı `&lt;script&gt;` var.
 - **Kalan (B-12b, DÜŞÜK):** `compliance.to_html()` çıktısı (ESR matrisi, rapor bölüm 19) kendi HTML'ini üretiyor ve kapsam dışı kaldı; o modülde de kaçış gerekebilir. PDF/WeasyPrint yolu bu ortamda test edilemedi (skip). Domain doğrulamasının bu karakterleri girdi aşamasında engelleyip engellemediğine bakılmadı.
 - **Test durumu:** 934 → 938 → 940 → 943 → 946 geçti.
+
+## X. B-12b düzeltildi; `_esc` str-Enum hatası kapatıldı (2026-10-17)
+
+- **B-12b:** A8 (Sonnet) `compliance` paketinde yeni `_html.py` (`esc()`) ve `esr_matrix.py`, `risk_analysis.py`, `declaration.py` içindeki `to_html` çıktılarında yaklaşık 40 kullanıcı kaynaklı alanı kaçırıyor (ESR matrisi, risk analizi, isim plakası, uygunluk beyanı). +5 test. Markdown çıktıları HTML olmadığı için dokunulmadı.
+- **A8'in yan bulgusu (şef doğruladı): `report_engine/generator.py:_esc` str tabanlı enum'larda `.value` almıyordu** (`_esc(SE.A)` → `'SE.A'`). Koşul `hasattr(value,'value') and not isinstance(value,(str,int,float))` str-Enum'ları dışarıda bırakıyordu. Bu hata B-12 düzeltmesiyle (A7) girmişti ve şu anki rapor çağrı noktalarında sızıntı göstermiyor (denetlendi: `Sinif.UYE` deseni yok), ama gizli bir tuzaktı. `isinstance(value, Enum)` ile düzeltildi; +1 test.
+- Test durumu: tam paket 952 geçti / 1 atlandı.
