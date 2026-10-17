@@ -7,6 +7,7 @@
 T14 modül bulunamadı; deneme dosyaları `pressure-vessel-suite/pressure-vessel-suite/` altına yanlış yazılmış. Rapor yok.
 
 ## Görev
+0. ÖN ADIM (zorunlu): harness sahip tavanı düzeltildi. Mevcut results.json dosyalarındaki 'Project limit reached' satırları hesap değil, eski harness artefaktıdır. Bu paketin ilk işi: ilgili run.py'yi YENİDEN koştur, ardından aşağıdaki adımlara geç.
 1. Yanlış yoldaki dosyaları KALDIRMA; yalnız görmezden gel ve raporda belirt.
 2. `tools/campaign/tur2/t14_dikey_kolon_yuk/` içine doğru modülü yaz (`__init__.py`, `run.py`, `cases.py`). Etekli kolon temel tankını `bases.py` `skirt_column` ile kur.
 3. 30 vaka: H/D 3–20, rüzgâr hızı ve deprem bölgesi değişimi. Her vaka için etek gerilmesi ve taban halkası sonucunun var olup olmadığını kontrol et.

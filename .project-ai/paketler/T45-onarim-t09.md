@@ -7,6 +7,7 @@
 T09 raporu yok; 60 karşılaştırmanın tamamı KAPSAM_DIŞI. Knuckle yarıçapı eksik vaka (BAD-MISSING-R) PASS dönüyor (F03 ile aynı bulgu).
 
 ## Görev
+0. ÖN ADIM (zorunlu): harness sahip tavanı düzeltildi. Mevcut results.json dosyalarındaki 'Project limit reached' satırları hesap değil, eski harness artefaktıdır. Bu paketin ilk işi: ilgili run.py'yi YENİDEN koştur, ardından aşağıdaki adımlara geç.
 1. Neden KAPSAM_DIŞI: `results.json`'daki ilk 5 satırın `sonuc` ve `beklenen` alanlarını karşılaştır.
 2. Karşılaştırma anahtarı (t_required, M, MAWP) suite çıktısında doğru adlarla alınıyor mu? Yanlışsa düzelt.
 3. BAD-MISSING-R vakasının sonucunu raporla (PASS mı BLOCKED mı).

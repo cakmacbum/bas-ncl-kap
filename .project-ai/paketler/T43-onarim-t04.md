@@ -7,6 +7,7 @@
 T04 (300 vaka) 250'si KAPSAM_DIŞI. Sebep çoğunlukla girdi üretici tarafında olabilir (geçersiz kombinasyon).
 
 ## Görev
+0. ÖN ADIM (zorunlu): harness sahip tavanı düzeltildi. Mevcut results.json dosyalarındaki 'Project limit reached' satırları hesap değil, eski harness artefaktıdır. Bu paketin ilk işi: ilgili run.py'yi YENİDEN koştur, ardından aşağıdaki adımlara geç.
 1. Kapsam dışı satırların `sonuc` mesajlarını grupla (ilk 80 karakter).
 2. Üreticinin fiziksel olarak geçersiz kombinasyon üretip üretmediğini kontrol et (ör. nozul çapı > gövde çapı, eksik malzeme).
 3. Üretici düzeltilmeli: geçerli girdi üret, geçersiz girdi üretiyorsa BLOCKED beklentisi ile ayrı say.

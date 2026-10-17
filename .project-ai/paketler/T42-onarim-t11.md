@@ -7,6 +7,7 @@
 T11 (`tools/campaign/tur2/t11_yatay_tank_tarama/`) 144 vakanın tamamı KAPSAM_DIŞI. Zick sonuçları (saddle_stress) varsa bağla.
 
 ## Görev
+0. ÖN ADIM (zorunlu): harness sahip tavanı düzeltildi. Mevcut results.json dosyalarındaki 'Project limit reached' satırları hesap değil, eski harness artefaktıdır. Bu paketin ilk işi: ilgili run.py'yi YENİDEN koştur, ardından aşağıdaki adımlara geç.
 1. Sonuç kataloğunu (`tools/campaign/RESULT_CATALOG.md`) kullanarak saddle sonuç tipini bul. Vakalardan gelen `available_results` listesini incele.
 2. Yatay tank temel vakasının saddle ile hesaplandığından emin ol; `supports` girdileri (saddle sayısı, konum, kontak açısı) eksik mi?
 3. Düzelt, yeniden koştur. Hâlâ kapsam dışı kalanlar için neden (girdi eksik / sonuç tipi yok) tablo halinde yaz.
