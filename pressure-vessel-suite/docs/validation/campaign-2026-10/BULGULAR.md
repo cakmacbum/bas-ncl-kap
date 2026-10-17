@@ -49,6 +49,22 @@ DÜŞÜK (emniyetli yönde, kozmetik, altyapı).
 | F02 eliptik sapmaları | V02 | Oracle korozyonlu çapı kullanmıyor; suite emniyetli. |
 | F09 nozul 30 sapma | V09 | Oracle gövde t_r'yi UG-27 dışı formülle hesaplıyor; suite doğru. |
 
-## F. Tur 2 (T01–T16, R02–R09) — koşuyor
+## F. Tur 2 sonuçları (2026-10-17) — kısmen teyitli
 
-Sonuçlar `docs/validation/campaign-2026-10/tur2/` altına gelecek; teyit edilen bulgular bu kayda eklenecek.
+| ID | Önem | Durum | Bulgu | Kanıt / karar |
+|---|---|---|---|---|
+| G-01 | YÜKSEK (aday) | **KAYNAK_BEKLİYOR** | Nozul merkezi 801 mm (>0.8D) PASS dönüyor, uyarı yok (T13). | Kodda 0.8D merkez sınırı yok (`nozzles/` ve `code-asme-viii-1/` tarandı). Ama bu sınırın normatif dayanağı teyit edilmedi; kaynak olmadan bulgu sayılmaz. |
+| G-02 | — | **TEYİT EDİLMEDİ** | Statik kafa MAWP'den eksik düşülüyor (T16, 18 vaka). | Düzeltme kodu var (`calc-core/orchestrator.py:405-460`). Sapma ~0.0123 MPa, ρgh ile tam örtüşmüyor; referans kota konvansiyonu farkı olabilir. Vaka bazında yeniden kontrol gerek. |
+| G-03 | ORTA | **TEYİTLİ (gözlem)** | Anlamsız girdiler (ör. basınç 1e9, NaN) HTTP 200 PASS/FAIL dönüyor; bazıları 500 veriyor (T03, 25 vaka). | Şema `conditions.py:24-29` yalnız `gt=0` koyuyor; üst sınır ve sonlu sayı kontrolü yok. 500 hatası gözlemlendi. |
+| G-04 | DÜŞÜK | **DÜZELTİLDİ AYRICA** | Büyük harfli UUID kabul ediliyor (T06, 10 vaka). | Aynı sahibe normalleşiyor, sızıntı yok. Sahiplik izolasyonu (B, A'nın projesine 404) geçti. |
+
+**İyi haber:** Sahiplik izolasyonu testi (T06) sızıntı bulmadı. Bir kullanıcı başka birinin projesini okuyamıyor, güncelleyemiyor ya da hesaplatamıyor.
+
+**Eksik / bozuk test sonuçları (test hatası, bulgu değil):**
+- T01 (240 vaka) ve T11 (144 vaka) tamamen KAPSAM_DIŞI: harness/üretici eşleşmesi yanlış, yeniden yazılmalı.
+- T04 fuzz: 250 vakanın 250'si KAPSAM_DIŞI; yalnız 50 vaka anlamlı.
+- T05 determinizm ve T07 rapor: 20/20 BULGU, ama sebebi test hatası olabilir; kontrol edilmeli.
+- T09 (torisferik) ve T14 (etekli kolon): rapor yok, T14 modül bulunamadı; yeniden paketlenmeli.
+- R02, R04, R05, R09 oracle düzeltmeleri: R04 yarım küre sapmalarını 0 yaptı, ama bunu suite'in varsayılan %12.5 sac toleransına hizalayarak yaptı. Bu kontrol hesabını suite'e uydurmak olur; bağımsız kanıt sayılmaz. R09 hâlâ 2 SAPMA bırakıyor.
+
+Tur 3 (T30–T33, toplam ~440 vaka rastgele tank taraması) koşuyor; sonuçlar gelince aynı kontrol uygulanacak.
