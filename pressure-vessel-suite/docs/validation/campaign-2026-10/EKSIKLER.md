@@ -17,12 +17,13 @@ Bu dosya, hedefin kapanmasını engelleyen tüm açık maddeleri toplar. Her mad
 | B-08 | ORTA | Nozul yerleşim kontrolü sayısal çıktı vermiyor | Kod incelemesi |
 | B-09 | ORTA | MDMT için bağımsız sayısal kıyas yok (UCS-66 telifli, K6) | Açık |
 | G-01 | YANLIŞ ALARM | 0.8D, UG-37(a)'da t_r seçim dairesi; yerleşim yasağı değil | Kapandı (A4, güven orta) |
-| B-10 | YÜKSEK, emniyetsiz | Statik kafa düzeltmesi ölü kod: `reference_elevation_mm` hiç atanmıyor; hidrotestte statik kafa yok | Teyitli (şef + A4). Düzeltme onay bekliyor |
+| B-10 | YÜKSEK, emniyetsiz | Statik kafa düzeltmesi ölü kod: `reference_elevation_mm` hiç atanmıyor; hidrotestte statik kafa yok | KISMEN (A5): sessiz atlama kalktı, açık uyarı eklendi. Gerçek düzeltme için domain'e kot/sıvı seviyesi alanı gerek; karar bekliyor |
 | G-03 | ORTA | Anlamsız girdi (ör. basınç 1e9) HTTP 200 PASS/FAIL dönüyor; bazı NaN'lar 500 veriyor | Gözlemlendi; şema üst sınırı yok |
 | G-04 | DÜŞÜK | Büyük harfli UUID kabul ediliyor (aynı sahibe normalleşiyor; sızıntı yok) | Bilgi |
 | G-05 | ORTA | Etekli kolonda taban halkası sonucu API'de yok (T14) | Açık |
 | G-06 | ORTA | Yatay tankta 216 saddle sonucu OUT OF SCOPE; kapsam belgelenmedi | Açık |
-| B-11 | ORTA | HTML rapor koni bileşenini içermiyor (`generator.py`'de 'cone' yok) | Teyitli (A3 + şef). Düzeltme onay bekliyor |
+| B-11 | ORTA | HTML rapor koni bileşenini içermiyor | DÜZELTİLDİ (A6, `6611dc3`) |
+| B-12 | ORTA-DÜŞÜK, güvenlik | Rapor HTML'i kullanıcı metinlerini kaçışsız yazıyor (`html.escape` yok) | Teyitli (şef). Düzeltme onay bekliyor |
 | D-03 | ORTA (altyapı) | Sahip başına 50 proje tavanı kampanyayı sessizce 429'a sokuyordu | Düzeltildi (harness uuid4 sahip) |
 | D-04 | ORTA (altyapı) | T32 satır durumu hatalı birleştirilmişti | Düzeltildi (kontrollerden türetme) |
 

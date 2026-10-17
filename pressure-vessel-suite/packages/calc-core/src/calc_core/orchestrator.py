@@ -459,6 +459,14 @@ class CalculationOrchestrator:
                     mawp_r.set_fail(0.0)
                 else:
                     mawp_r.final_result = corrected_mawp
+            else:
+                # K4: referans kot/sıvı seviyesi modelde yok → sessiz atlama yasak.
+                mawp_r.add_assumption(
+                    "Statik kafa uygulanmadı: referans kot/sıvı seviyesi girdisi yok "
+                    f"(ρ={fluid_density} kg/m³ girildi ancak bileşen kotu ve sıvı "
+                    "seviyesi modelde tanımlı değil). Sıvı dolu işletmede ve "
+                    "hidrotestte alt bileşenler MAWP'den daha yüksek basınç görür."
+                )
 
     def _pre_checks(self, project: VesselProject, result: OrchestratorResult) -> None:
         """A) Ön kontroller."""
