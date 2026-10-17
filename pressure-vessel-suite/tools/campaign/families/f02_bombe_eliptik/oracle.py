@@ -3,15 +3,17 @@
 
 def required_thickness(pressure_mpa, inside_diameter_mm, allowable_mpa, efficiency,
                        corrosion_mm=0.0):
-    """UG-32(d), K=1: pressure thickness plus the explicit corrosion allowance."""
+    """UG-32(d), K=1, on the post-corrosion inside diameter."""
     p = pressure_mpa
-    t_pressure = p * inside_diameter_mm / (2 * allowable_mpa * efficiency - 0.2 * p)
-    return t_pressure + corrosion_mm
+    corroded_diameter = inside_diameter_mm + 2 * corrosion_mm
+    return p * corroded_diameter / (2 * allowable_mpa * efficiency - 0.2 * p)
 
 
-def mawp(inside_diameter_mm, net_thickness_mm, allowable_mpa, efficiency):
-    """Inverse UG-32(d), using net available thickness."""
-    return 2 * allowable_mpa * efficiency * net_thickness_mm / (inside_diameter_mm + 0.2 * net_thickness_mm)
+def mawp(inside_diameter_mm, net_thickness_mm, allowable_mpa, efficiency,
+         corrosion_mm=0.0):
+    """Inverse UG-32(d), using net thickness and post-corrosion diameter."""
+    corroded_diameter = inside_diameter_mm + 2 * corrosion_mm
+    return 2 * allowable_mpa * efficiency * net_thickness_mm / (corroded_diameter + 0.2 * net_thickness_mm)
 
 
 def flat_flange_ug27(pressure_mpa, inside_radius_mm, allowable_mpa, efficiency):

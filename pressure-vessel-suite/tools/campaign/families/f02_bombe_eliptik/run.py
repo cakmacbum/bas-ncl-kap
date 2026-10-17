@@ -27,10 +27,12 @@ def run():
         material = next(m for m in project["materials"] if m["material_id"] == "M1")
         p = project["design_conditions"]["design_pressure"]
         ref_t = required_thickness(p, inp["inside_diameter"], material["allowable_stress"],
-                                   next(w["joint_efficiency"] for w in project["welds"]))
+                                   next(w["joint_efficiency"] for w in project["welds"]),
+                                   inp["internal_corrosion_allowance"])
         available = inp["nominal_thickness"] * (1 - inp["mill_tolerance"] / 100) - inp["forming_thinning"] - inp["internal_corrosion_allowance"]
         ref_m = mawp(inp["inside_diameter"], max(available, 0), material["allowable_stress"],
-                     next(w["joint_efficiency"] for w in project["welds"])) if available > 0 else None
+                     next(w["joint_efficiency"] for w in project["welds"]),
+                     inp["internal_corrosion_allowance"]) if available > 0 else None
         for quantity, suite, ref, unit in (("required_thickness", suite_t, ref_t, "mm"),
                                            ("mawp", suite_m, ref_m, "MPa")):
             diff, verdict = judge(suite, ref, suite_status=status)
