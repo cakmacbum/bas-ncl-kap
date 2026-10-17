@@ -46,7 +46,9 @@ def run():
                                   1.0, c_factor,
                                   head.get("internal_corrosion_allowance", 0))
                if p > 0 and c_factor is not None else None)
-        diff, verdict = judge(suite, ref, suite_status=status)
+        diff, verdict = judge(suite, ref, rel_tol=0.001, suite_status=status,
+                              formulation_note=("Suite uses corroded diameter d+2CA; oracle uses d."
+                                                if head.get("internal_corrosion_allowance", 0) else None))
         note = "" if result else f"API/result missing: {outcome.get('error') or 'UG-34 row not returned'}"
         rows.append(CaseResult(case_id, FAMILY, {"d_mm":head.get("inside_diameter"),
             "P_MPa":p, "C":head.get("flat_attachment_factor"), "CA_mm":head.get("internal_corrosion_allowance",0),

@@ -5,11 +5,13 @@ from __future__ import annotations
 def required_thickness(d_mm: float, pressure_mpa: float, allowable_mpa: float,
                        efficiency: float, c_factor: float, corrosion_mm: float = 0.0,
                        *, bolt_load_n: float = 0.0, gasket_reaction_diameter_mm: float = 0.0) -> float:
-    # t = d*sqrt(CP/SE + 1.9 W hG/(S E d^3)) + CA
+    # Compare required thickness only; CA is added later by nominal selection.
+    # This base formulation uses nominal d. The suite's d+2CA treatment is
+    # reported explicitly as a conservative formulation difference.
     term = c_factor * pressure_mpa / (allowable_mpa * efficiency)
     term += 1.9 * bolt_load_n * gasket_reaction_diameter_mm / (
         allowable_mpa * efficiency * d_mm**3)
-    return d_mm * term**0.5 + corrosion_mm
+    return d_mm * term**0.5
 
 
 def reference_cases() -> dict:
