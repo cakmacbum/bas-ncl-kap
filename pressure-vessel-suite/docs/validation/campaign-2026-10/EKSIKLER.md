@@ -7,8 +7,8 @@ Bu dosya, hedefin kapanmasını engelleyen tüm açık maddeleri toplar. Her mad
 
 | ID | Önem | Eksik | Durum |
 |---|---|---|---|
-| B-01 | YÜKSEK, emniyetsiz | Gövde MAWP'de dış korozyon payı (CA_o) düşülmüyor (1000 vakada 641'i etkilenmiş) | Teyitli; düzeltme onay bekliyor |
-| B-02 | YÜKSEK, emniyetsiz | Gövde/bombe/koni/nozul gerekli kalınlık hesaplarının çoğu CA_o'yu kullanmıyor | Kod taraması yapıldı; düzeltme B-01 ile birlikte |
+| B-01 | YÜKSEK, emniyetsiz | Gövde MAWP'de dış korozyon payı (CA_o) düşülmüyor (1000 vakada 641'i etkilenmiş) | DÜZELTİLDİ (A1+şef); 1000/1000 uyuşuyor, 938 test geçti |
+| B-02 | YÜKSEK, emniyetsiz | Gövde/bombe/koni gerekli nominal kalınlık CA_o'yu kullanmıyordu | DÜZELTİLDİ (shell, head, koni); nozul/EN ayrı kontrol edilecek |
 | B-03 | UYARILI VARSAYILAN | Boş knuckle için 0.06·L varsayılıyor; K4 uyarısı var | Sorun değil (A4, güven yüksek) |
 | B-07 | YANLIŞ ALARM (A2+A4, güven orta-yüksek; birincil metin erişilemedi) | Nozul takviyesinde ev sahibi t_r E = 1 ile hesaplanıyor. UG-37(a) t_r'yi dikişsiz kabuk için tanımlıyorsa bu doğrudur; bağımsız doğrulama bir ajana atandı | Düzeltme uygulanmaz; doğrulama sonucu bekleniyor |
 | B-04 | ORTA | MDMT coincident ratio alanı hesaba bağlı değil | Kod incelemesi; test yok |

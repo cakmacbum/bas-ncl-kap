@@ -175,3 +175,12 @@ B-07 (nozul takviyesinde ev sahibi `t_r`'nin E = 1 ile hesaplanması) hata olara
 - **Nozul `d` ve korozyon:** Aday kapandı. Kod `d = iç çap + 2·nozul_CA` hesaplıyor (`reinforcement.py:239`); taban tankta nozul CA = 0. A2'nin `d_corr` varyantı gövde CA'sını kullanmıştı (test tanımı hatası).
 - **G-02 → B-10 · YÜKSEK · EMNİYETSİZ (yeni ürün bulgusu, şef doğruladı):** Statik kafa düzeltmesi ölü kod. `reference_elevation_mm` yalnız `result.py:69` içinde `0.0` varsayılanıyla tanımlı; `orchestrator.py:441` yalnız okuyor, hiçbir yerde atanmıyor. `if ref_elev > 0` koşulu hiç sağlanmıyor; MAWP hiçbir zaman statik kafa kadar düşürülmüyor. Sıvı yoğunluğu girilince de uyarı çıkmıyor (uyarı yalnız yoğunluk = 0 iken var). Hidrotestte de statik kafa yok (A4: 4 yeniden üretimde P_test sabit 2.22276 MPa). Düzeltme onay bekliyor.
 - **A2 kırmızı bayrak açıklaması:** 300 satırın 221'inde ref ve api string'i birebir aynı; A2 nedenini kanıtladı (ref.csv api.csv'den 10 sn önce yazıldı; nozul V1 78 vakada farklı; 40 haneli Decimal yeniden hesabı). Bit uyumu iki tarafın aynı formülü kullandığını gösterir; formülün doğruluğunu ayrıca kanıtlamaz.
+
+## T. B-01 ve B-02 düzeltildi (2026-10-17)
+
+A1 (Sonnet) izole worktree'de düzeltti, şef diff'i okudu ve ana ağaçta test etti.
+- **B-01 (MAWP):** `calculate_mawp` net cidarı `C_wall = CA_i + CA_o` ile kuruyor (shell, eliptik, torisferik, yarım küre, düz kapak, koni). Yarıçap/çap yalnız CA_i ile (çift sayım yok; tüm formüller C'yi yalnız `t = t_actual − C` için kullanıyor).
+- **B-02 (nominal gereksinim):** `shell_required_nominal_thickness(C = CA_i + CA_o)` (shell, head, koni). `t_required` yalnız CA_i.
+- **Koni notu:** Modelde `external_corrosion_allowance` alanı yok (yalnız ShellSection ve Head); koni için `getattr(..., 0.0)` kullanıldı. Koniye CA_o alanı eklemek ayrı karar.
+- **Kanıt:** tam test paketi 938 geçti / 1 atlandı (önce 934 + 4 yeni regresyon testi). 1000 vakalık kütle koşusu: önce 641 SAPMA_CAO_MAWP + 359 UYUŞUR; sonra 1000 / 1000 UYUŞUR.
+- **Kalan boşluk:** Düz kapak, torisferik, yarım küre ve koni MAWP dallarında CA_o>0 için bağımsız test yok (yalnız mevcut CA_o=0 testleri).

@@ -1311,3 +1311,74 @@ class TestASMEFailScenarios:
         # Chart verisi girilmediği için NOT_CALCULATED döner (A/B = 0)
         for r in ext_results:
             assert r.status.value in ("NOT CALCULATED", "BLOCKED CODE DATA")
+
+
+# ── Dış korozyon payı (CA_o) regresyonu — B-01 / B-02 ────────────────────────
+
+class TestExternalCorrosionAllowance:
+    """MAWP net cidarı ve gerekli nominal kalınlık CA_o'yu içermeli;
+    basınç kalınlığı / yarıçap yalnız CA_i kullanmalı. CA_o=0 → eski değer."""
+
+    def _inp(self, sample_project, comp, kind, **upd):
+        comp = comp.model_copy(update=upd)
+        key = {"shell": "shell", "head": "head"}[kind]
+        return {
+            key: comp, "component_type": kind, "component": comp,
+            "design_conditions": sample_project.design_conditions,
+            "materials": sample_project.materials, "welds": sample_project.welds,
+            "nominal_thickness": comp.nominal_thickness,
+            "code_edition": sample_project.code_edition,
+        }
+
+    def test_shell_mawp_uses_ca_o(self, asme_code, sample_project):
+        from code_asme_viii_1 import formulas
+        sh = sample_project.shell_sections[0]
+        S = sample_project.materials[0].allowable_stress
+        r0 = asme_code.calculate_mawp(self._inp(sample_project, sh, "shell", external_corrosion_allowance=0.0))
+        r3 = asme_code.calculate_mawp(self._inp(sample_project, sh, "shell", external_corrosion_allowance=3.0))
+        ca_i = sh.internal_corrosion_allowance
+        t_act = sh.nominal_thickness * (1 - sh.mill_tolerance / 100.0) - sh.forming_thinning
+        R = sh.inside_diameter / 2 + ca_i  # CA_o yarıçapa GİRMEZ
+        E = sample_project.welds[0].joint_efficiency
+        exp0 = S * E * (t_act - ca_i) / (R + 0.6 * (t_act - ca_i))
+        exp3 = S * E * (t_act - ca_i - 3.0) / (R + 0.6 * (t_act - ca_i - 3.0))
+        assert r0.final_result == pytest.approx(exp0, rel=1e-9)
+        assert r3.final_result == pytest.approx(exp3, rel=1e-9)
+        assert r3.final_result < r0.final_result
+
+    def test_head_mawp_uses_ca_o(self, asme_code, sample_project):
+        hd = sample_project.heads[0]
+        r0 = asme_code.calculate_mawp(self._inp(sample_project, hd, "head", external_corrosion_allowance=0.0))
+        r3 = asme_code.calculate_mawp(self._inp(sample_project, hd, "head", external_corrosion_allowance=3.0))
+        assert r3.final_result < r0.final_result
+        # Eşdeğer: CA_o=3 ≙ aynı geometri, 3 mm daha ince teslim kalınlığı DEĞİL
+        # (çap sabit) — elipsoidal: P = 2SEt/(D+0.2t), t = t_act - CA_i - CA_o
+        S = sample_project.materials[0].allowable_stress
+        E = sample_project.welds[0].joint_efficiency
+        ca_i = hd.internal_corrosion_allowance
+        t_act = hd.nominal_thickness * (1 - hd.mill_tolerance / 100.0) - hd.forming_thinning
+        D = hd.inside_diameter + 2 * ca_i
+        t = t_act - ca_i - 3.0
+        assert r3.final_result == pytest.approx(2 * S * E * t / (D + 0.2 * t), rel=1e-9)
+
+    def test_required_nominal_includes_ca_o(self, asme_code, sample_project):
+        from code_asme_viii_1 import formulas
+        sh = sample_project.shell_sections[0]
+        base = dict(shell=sh, design_conditions=sample_project.design_conditions,
+                    materials=sample_project.materials, welds=sample_project.welds,
+                    code_edition=sample_project.code_edition)
+        r0 = asme_code.calculate_shell_thickness({**base, "shell": sh.model_copy(update={"external_corrosion_allowance": 0.0})})
+        r3 = asme_code.calculate_shell_thickness({**base, "shell": sh.model_copy(update={"external_corrosion_allowance": 3.0})})
+        mt = 1 - sh.mill_tolerance / 100.0 if sh.mill_tolerance > 0 else 0.875
+        # t_nom = (t_req + CA_i + CA_o + thinning) / mt ; t_req (CA_i'li yarıçap) değişmez
+        assert r3.final_result - r0.final_result == pytest.approx(3.0 / mt, rel=1e-9)
+
+    def test_head_required_nominal_includes_ca_o(self, asme_code, sample_project):
+        hd = sample_project.heads[0]
+        base = dict(design_conditions=sample_project.design_conditions,
+                    materials=sample_project.materials, welds=sample_project.welds,
+                    code_edition=sample_project.code_edition)
+        r0 = asme_code.calculate_head_thickness({**base, "head": hd.model_copy(update={"external_corrosion_allowance": 0.0})})
+        r3 = asme_code.calculate_head_thickness({**base, "head": hd.model_copy(update={"external_corrosion_allowance": 3.0})})
+        mt = 1 - hd.mill_tolerance / 100.0 if hd.mill_tolerance > 0 else 0.875
+        assert r3.final_result - r0.final_result == pytest.approx(3.0 / mt, rel=1e-9)

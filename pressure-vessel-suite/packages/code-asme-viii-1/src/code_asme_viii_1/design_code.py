@@ -394,7 +394,7 @@ class ASMEVIII1DesignCode(DesignCode):
             )
         t_nominal = formulas.shell_required_nominal_thickness(
             t_required=t_required,
-            C=C,
+            C=C + float(getattr(shell, "external_corrosion_allowance", 0.0) or 0.0),
             mill_tolerance_factor=mt_factor,
             forming_thinning=shell.forming_thinning,
         )
@@ -581,7 +581,7 @@ class ASMEVIII1DesignCode(DesignCode):
             )
         t_nominal = formulas.shell_required_nominal_thickness(
             t_required=t,
-            C=C,
+            C=C + float(getattr(head, "external_corrosion_allowance", 0.0) or 0.0),
             mill_tolerance_factor=mt_factor,
             forming_thinning=head.forming_thinning,
         )
@@ -689,7 +689,10 @@ class ASMEVIII1DesignCode(DesignCode):
                     break
 
         S = mat.allowable_stress
-        C = component.internal_corrosion_allowance
+        C = component.internal_corrosion_allowance  # yalnız çap/yarıçap için (iç yüzey)
+        C_o = float(getattr(component, "external_corrosion_allowance", 0.0) or 0.0)
+        # Net cidar: iç + dış korozyon payının ikisi de düşülür (B-01).
+        C_wall = C + C_o
 
         result.input_snapshot = {
             "component_type": comp_type,
@@ -700,12 +703,13 @@ class ASMEVIII1DesignCode(DesignCode):
             "S_MPa": S,
             "E": E,
             "C_mm": C,
+            "C_external_mm": C_o,
         }
         result.add_intermediate("t_nominal", t_nominal, "mm", "Nominal thickness")
         result.add_intermediate("mill_tolerance_pct", mill_tolerance_pct, "%", "Negative mill tolerance")
         result.add_intermediate("forming_thinning", forming_thinning_mm, "mm", "Forming thinning")
         result.add_intermediate("t_min_delivered", t_actual, "mm", "Minimum delivered/formed thickness")
-        result.add_intermediate("t_corroded", t_actual - C, "mm", "Minimum thickness after corrosion allowance")
+        result.add_intermediate("t_corroded", t_actual - C_wall, "mm", "Minimum thickness after corrosion allowance")
 
         result.add_assumption(
             f"K4: Allowable stress S={S} MPa entered manually for "
@@ -721,7 +725,7 @@ class ASMEVIII1DesignCode(DesignCode):
                 # Korozyonlu iç yarıçap (bkz. calculate_shell_thickness, V-16).
                 R = R + C
                 result.clause_reference = "UG-27(c)(1)"
-                mawp = formulas.mawp_from_shell(R, t_actual, S, E, C)
+                mawp = formulas.mawp_from_shell(R, t_actual, S, E, C_wall)
                 result.add_intermediate("R", R, "mm", "Corroded inside radius")
                 result.add_intermediate("C", C, "mm", "Corrosion allowance")
 
@@ -733,7 +737,7 @@ class ASMEVIII1DesignCode(DesignCode):
                 cone = component
                 D = cone.large_diameter + 2 * C  # korozyonlu iç çap (V-16)
                 result.clause_reference = "UG-32(g)"
-                mawp = formulas.cone_mawp(D, t_actual, S, E, cone.half_apex_angle, C)
+                mawp = formulas.cone_mawp(D, t_actual, S, E, cone.half_apex_angle, C_wall)
                 result.add_intermediate("D_large_corroded", D, "mm", "Corroded large diameter")
                 result.add_intermediate("alpha_deg", cone.half_apex_angle, "deg", "Half apex angle")
 
@@ -744,15 +748,15 @@ class ASMEVIII1DesignCode(DesignCode):
                 D = head.inside_diameter + 2 * C
                 if head.type == HeadType.ELLIPTICAL:
                     result.clause_reference = "UG-32(d)"
-                    mawp = formulas.mawp_from_ellipsoidal_head(D, t_actual, S, E, C)
+                    mawp = formulas.mawp_from_ellipsoidal_head(D, t_actual, S, E, C_wall)
                 elif head.type == HeadType.TORISPHERICAL:
                     result.clause_reference = "UG-32(e)"
                     L, r = _torispherical_radii(head, D, result)
-                    mawp = formulas.mawp_from_torispherical_head(L, r, t_actual, S, E, C)
+                    mawp = formulas.mawp_from_torispherical_head(L, r, t_actual, S, E, C_wall)
                 elif head.type == HeadType.HEMISPHERICAL:
                     result.clause_reference = "UG-32(f)"
                     R = D / 2.0
-                    mawp = formulas.mawp_from_hemispherical_head(R, t_actual, S, E, C)
+                    mawp = formulas.mawp_from_hemispherical_head(R, t_actual, S, E, C_wall)
                 elif head.type == HeadType.FLAT:
                     result.clause_reference = "UG-34(c)(2)"
                     C_attach = head.flat_attachment_factor
@@ -762,7 +766,7 @@ class ASMEVIII1DesignCode(DesignCode):
                         )
                         return result
                     d = D - 2 * C  # korozyona uğramış çap
-                    mawp = formulas.flat_head_mawp(d, t_actual, S, E, C_attach, CA=C)
+                    mawp = formulas.flat_head_mawp(d, t_actual, S, E, C_attach, CA=C_wall)
                     result.add_intermediate("C_attach", C_attach, "-", "UG-34 attachment factor")
                     result.add_intermediate("d_corroded", d, "mm", "Corroded diameter")
                 else:
@@ -2229,7 +2233,7 @@ class ASMEVIII1DesignCode(DesignCode):
             )
         t_nominal = formulas.shell_required_nominal_thickness(
             t_required=t,
-            C=C,
+            C=C + float(getattr(cone, "external_corrosion_allowance", 0.0) or 0.0),
             mill_tolerance_factor=mt_factor,
         )
 

@@ -2,8 +2,7 @@
  "n": 1000,
  "seed": 20261017,
  "counts": {
-  "SAPMA_CAO_MAWP": 641,
-  "UYUŞUR": 359
+  "UYUŞUR": 1000
  },
  "csv": "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\Beyin-claude\\BASINCLI-KAP\\pressure-vessel-suite\\tools\\campaign\\tur5\\mass_govde_20261017.csv"
 }
