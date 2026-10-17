@@ -1,0 +1,6002 @@
+[
+  {
+    "id": "T60-001",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 900.1,
+      "nominal_thickness": 19.87,
+      "CA_i": 0.8,
+      "mill": 12.12,
+      "S": 132.05,
+      "E": 0.9,
+      "P": 2.931,
+      "crown_radius": 450.85,
+      "knuckle_radius": null
+    },
+    "api_t": 5.573260951532619,
+    "t_hesap": 5.573260951532619,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-002",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 553.5,
+      "nominal_thickness": 28.09,
+      "CA_i": 0.28,
+      "mill": 12.86,
+      "S": 103.86,
+      "E": 0.7,
+      "P": 0.87,
+      "crown_radius": 277.03,
+      "knuckle_radius": null
+    },
+    "api_t": 1.659547614129312,
+    "t_hesap": 1.659547614129312,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-003",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1531.1,
+      "nominal_thickness": 6.22,
+      "CA_i": 2.37,
+      "mill": 2.5,
+      "S": 117.55,
+      "E": 0.85,
+      "P": 1.635,
+      "crown_radius": 767.92,
+      "knuckle_radius": null
+    },
+    "api_t": 6.293227339254567,
+    "t_hesap": 6.293227339254567,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-004",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1223.1,
+      "nominal_thickness": 20.13,
+      "CA_i": 1.8,
+      "mill": 1.62,
+      "S": 117.17,
+      "E": 0.7,
+      "P": 2.872,
+      "crown_radius": 613.3499999999999,
+      "knuckle_radius": null
+    },
+    "api_t": 10.776351432367816,
+    "t_hesap": 10.776351432367816,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-005",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 784.7,
+      "nominal_thickness": 24.8,
+      "CA_i": 1.64,
+      "mill": 0.99,
+      "S": 110.02,
+      "E": 0.9,
+      "P": 2.729,
+      "crown_radius": 393.99,
+      "knuckle_radius": null
+    },
+    "api_t": 5.444314249517192,
+    "t_hesap": 5.444314249517192,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-006",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 764.9,
+      "nominal_thickness": 25.92,
+      "CA_i": 0.59,
+      "mill": 9.69,
+      "S": 100.98,
+      "E": 0.9,
+      "P": 2.467,
+      "crown_radius": 383.03999999999996,
+      "knuckle_radius": null
+    },
+    "api_t": 5.212978166343577,
+    "t_hesap": 5.212978166343577,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-007",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 977.0,
+      "nominal_thickness": 8.1,
+      "CA_i": 1.58,
+      "mill": 1.44,
+      "S": 92.23,
+      "E": 0.7,
+      "P": 0.427,
+      "crown_radius": 490.08,
+      "knuckle_radius": null
+    },
+    "api_t": 1.6217426683592095,
+    "t_hesap": 1.6217426683592095,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-008",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1608.3,
+      "nominal_thickness": 22.59,
+      "CA_i": 1.68,
+      "mill": 5.84,
+      "S": 156.3,
+      "E": 1.0,
+      "P": 1.727,
+      "crown_radius": 805.8299999999999,
+      "knuckle_radius": null
+    },
+    "api_t": 4.456838778355866,
+    "t_hesap": 4.456838778355866,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-009",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1591.3,
+      "nominal_thickness": 10.05,
+      "CA_i": 2.15,
+      "mill": 14.57,
+      "S": 174.78,
+      "E": 1.0,
+      "P": 0.268,
+      "crown_radius": 797.8,
+      "knuckle_radius": null
+    },
+    "api_t": 0.6117495988628534,
+    "t_hesap": 0.6117495988628534,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-010",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 831.6,
+      "nominal_thickness": 18.69,
+      "CA_i": 0.33,
+      "mill": 12.14,
+      "S": 127.52,
+      "E": 0.7,
+      "P": 1.736,
+      "crown_radius": 416.13,
+      "knuckle_radius": null
+    },
+    "api_t": 4.054318310390345,
+    "t_hesap": 4.054318310390345,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-011",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 559.9,
+      "nominal_thickness": 17.55,
+      "CA_i": 0.05,
+      "mill": 14.13,
+      "S": 174.47,
+      "E": 0.85,
+      "P": 2.691,
+      "crown_radius": 280.0,
+      "knuckle_radius": null
+    },
+    "api_t": 2.5450177801316487,
+    "t_hesap": 2.5450177801316487,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-012",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 741.7,
+      "nominal_thickness": 22.04,
+      "CA_i": 2.49,
+      "mill": 2.1,
+      "S": 153.72,
+      "E": 0.85,
+      "P": 1.777,
+      "crown_radius": 373.34000000000003,
+      "knuckle_radius": null
+    },
+    "api_t": 2.542164766182598,
+    "t_hesap": 2.542164766182598,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-013",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 502.8,
+      "nominal_thickness": 14.05,
+      "CA_i": 1.88,
+      "mill": 13.34,
+      "S": 91.37,
+      "E": 0.9,
+      "P": 1.533,
+      "crown_radius": 253.28,
+      "knuckle_radius": null
+    },
+    "api_t": 2.365251334982949,
+    "t_hesap": 2.365251334982949,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-014",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 941.0,
+      "nominal_thickness": 26.85,
+      "CA_i": 0.87,
+      "mill": 3.47,
+      "S": 139.66,
+      "E": 0.85,
+      "P": 2.792,
+      "crown_radius": 471.37,
+      "knuckle_radius": null
+    },
+    "api_t": 5.55621480041678,
+    "t_hesap": 5.55621480041678,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-015",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 949.6,
+      "nominal_thickness": 29.01,
+      "CA_i": 3.0,
+      "mill": 2.37,
+      "S": 125.89,
+      "E": 0.85,
+      "P": 1.675,
+      "crown_radius": 477.8,
+      "knuckle_radius": null
+    },
+    "api_t": 3.7454253596533102,
+    "t_hesap": 3.7454253596533102,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-016",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1565.6,
+      "nominal_thickness": 10.55,
+      "CA_i": 0.37,
+      "mill": 10.24,
+      "S": 112.34,
+      "E": 0.7,
+      "P": 1.694,
+      "crown_radius": 783.17,
+      "knuckle_radius": null
+    },
+    "api_t": 8.453636104123177,
+    "t_hesap": 8.453636104123177,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-017",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1397.8,
+      "nominal_thickness": 8.47,
+      "CA_i": 2.52,
+      "mill": 8.34,
+      "S": 165.27,
+      "E": 0.85,
+      "P": 1.38,
+      "crown_radius": 701.42,
+      "knuckle_radius": null
+    },
+    "api_t": 3.448586483684441,
+    "t_hesap": 3.448586483684441,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-018",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1568.6,
+      "nominal_thickness": 26.01,
+      "CA_i": 1.9,
+      "mill": 8.39,
+      "S": 140.58,
+      "E": 0.9,
+      "P": 0.25,
+      "crown_radius": 786.1999999999999,
+      "knuckle_radius": null
+    },
+    "api_t": 0.7768958947643025,
+    "t_hesap": 0.7768958947643025,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-019",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 734.0,
+      "nominal_thickness": 14.73,
+      "CA_i": 2.31,
+      "mill": 6.72,
+      "S": 149.95,
+      "E": 1.0,
+      "P": 0.668,
+      "crown_radius": 369.31,
+      "knuckle_radius": null
+    },
+    "api_t": 0.8229710868196036,
+    "t_hesap": 0.8229710868196036,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-020",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1731.9,
+      "nominal_thickness": 25.88,
+      "CA_i": 1.19,
+      "mill": 12.9,
+      "S": 103.8,
+      "E": 0.9,
+      "P": 1.429,
+      "crown_radius": 867.1400000000001,
+      "knuckle_radius": null
+    },
+    "api_t": 6.642268359543769,
+    "t_hesap": 6.642268359543769,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-021",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 648.9,
+      "nominal_thickness": 7.49,
+      "CA_i": 1.72,
+      "mill": 10.2,
+      "S": 160.15,
+      "E": 0.85,
+      "P": 1.545,
+      "crown_radius": 326.17,
+      "knuckle_radius": null
+    },
+    "api_t": 1.8530614533767735,
+    "t_hesap": 1.8530614533767735,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-022",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1461.9,
+      "nominal_thickness": 25.92,
+      "CA_i": 2.58,
+      "mill": 5.08,
+      "S": 90.97,
+      "E": 0.85,
+      "P": 1.957,
+      "crown_radius": 733.5300000000001,
+      "knuckle_radius": null
+    },
+    "api_t": 9.305980450882162,
+    "t_hesap": 9.305980450882162,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-023",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1564.1,
+      "nominal_thickness": 11.18,
+      "CA_i": 2.78,
+      "mill": 6.72,
+      "S": 154.17,
+      "E": 0.7,
+      "P": 1.852,
+      "crown_radius": 784.8299999999999,
+      "knuckle_radius": null
+    },
+    "api_t": 6.745817747076591,
+    "t_hesap": 6.745817747076591,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-024",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1269.9,
+      "nominal_thickness": 11.71,
+      "CA_i": 2.2,
+      "mill": 10.27,
+      "S": 138.77,
+      "E": 1.0,
+      "P": 2.516,
+      "crown_radius": 637.1500000000001,
+      "knuckle_radius": null
+    },
+    "api_t": 5.78648540554901,
+    "t_hesap": 5.78648540554901,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-025",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1527.6,
+      "nominal_thickness": 11.91,
+      "CA_i": 2.34,
+      "mill": 9.05,
+      "S": 98.51,
+      "E": 0.7,
+      "P": 2.293,
+      "crown_radius": 766.14,
+      "knuckle_radius": null
+    },
+    "api_t": 12.780574790077365,
+    "t_hesap": 12.780574790077365,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-026",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1031.2,
+      "nominal_thickness": 11.32,
+      "CA_i": 1.77,
+      "mill": 3.12,
+      "S": 142.45,
+      "E": 0.85,
+      "P": 1.712,
+      "crown_radius": 517.37,
+      "knuckle_radius": null
+    },
+    "api_t": 3.6627570789496104,
+    "t_hesap": 3.6627570789496104,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-027",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1225.5,
+      "nominal_thickness": 7.69,
+      "CA_i": 1.47,
+      "mill": 8.03,
+      "S": 108.58,
+      "E": 0.85,
+      "P": 2.461,
+      "crown_radius": 614.22,
+      "knuckle_radius": null
+    },
+    "api_t": 8.211006671598934,
+    "t_hesap": 8.211006671598934,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-028",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 671.6,
+      "nominal_thickness": 17.29,
+      "CA_i": 0.06,
+      "mill": 11.69,
+      "S": 167.43,
+      "E": 0.85,
+      "P": 1.071,
+      "crown_radius": 335.86,
+      "knuckle_radius": null
+    },
+    "api_t": 1.2647145316310426,
+    "t_hesap": 1.2647145316310426,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-029",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1755.8,
+      "nominal_thickness": 10.76,
+      "CA_i": 0.72,
+      "mill": 0.31,
+      "S": 104.68,
+      "E": 0.85,
+      "P": 0.474,
+      "crown_radius": 878.62,
+      "knuckle_radius": null
+    },
+    "api_t": 2.3415218158878943,
+    "t_hesap": 2.3415218158878943,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-030",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1280.2,
+      "nominal_thickness": 16.89,
+      "CA_i": 1.62,
+      "mill": 7.38,
+      "S": 140.44,
+      "E": 0.9,
+      "P": 2.372,
+      "crown_radius": 641.72,
+      "knuckle_radius": null
+    },
+    "api_t": 6.032713690998963,
+    "t_hesap": 6.032713690998963,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-031",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1397.8,
+      "nominal_thickness": 14.37,
+      "CA_i": 2.99,
+      "mill": 8.01,
+      "S": 106.38,
+      "E": 1.0,
+      "P": 1.286,
+      "crown_radius": 701.89,
+      "knuckle_radius": null
+    },
+    "api_t": 4.247617160809176,
+    "t_hesap": 4.247617160809176,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-032",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 504.9,
+      "nominal_thickness": 21.7,
+      "CA_i": 2.17,
+      "mill": 0.54,
+      "S": 138.23,
+      "E": 1.0,
+      "P": 0.398,
+      "crown_radius": 254.61999999999998,
+      "knuckle_radius": null
+    },
+    "api_t": 0.36666406156152903,
+    "t_hesap": 0.36666406156152903,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-033",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1436.4,
+      "nominal_thickness": 26.81,
+      "CA_i": 1.99,
+      "mill": 14.06,
+      "S": 140.48,
+      "E": 1.0,
+      "P": 2.248,
+      "crown_radius": 720.19,
+      "knuckle_radius": null
+    },
+    "api_t": 5.771576098426298,
+    "t_hesap": 5.771576098426298,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-034",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 768.4,
+      "nominal_thickness": 18.4,
+      "CA_i": 1.68,
+      "mill": 4.19,
+      "S": 158.3,
+      "E": 0.9,
+      "P": 0.315,
+      "crown_radius": 385.88,
+      "knuckle_radius": null
+    },
+    "api_t": 0.4266830948093387,
+    "t_hesap": 0.4266830948093387,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-035",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 771.0,
+      "nominal_thickness": 29.8,
+      "CA_i": 0.94,
+      "mill": 8.13,
+      "S": 101.3,
+      "E": 0.9,
+      "P": 2.968,
+      "crown_radius": 386.44,
+      "knuckle_radius": null
+    },
+    "api_t": 6.310738039377946,
+    "t_hesap": 6.310738039377946,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-036",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1631.4,
+      "nominal_thickness": 23.17,
+      "CA_i": 1.77,
+      "mill": 12.14,
+      "S": 154.92,
+      "E": 0.85,
+      "P": 0.277,
+      "crown_radius": 817.47,
+      "knuckle_radius": null
+    },
+    "api_t": 0.8599764306976683,
+    "t_hesap": 0.8599764306976683,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-037",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1098.0,
+      "nominal_thickness": 10.13,
+      "CA_i": 2.04,
+      "mill": 3.17,
+      "S": 107.48,
+      "E": 0.9,
+      "P": 0.35,
+      "crown_radius": 551.04,
+      "knuckle_radius": null
+    },
+    "api_t": 0.9972594806457282,
+    "t_hesap": 0.9972594806457282,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-038",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1702.7,
+      "nominal_thickness": 7.17,
+      "CA_i": 1.29,
+      "mill": 12.4,
+      "S": 163.2,
+      "E": 0.7,
+      "P": 1.924,
+      "crown_radius": 852.64,
+      "knuckle_radius": null
+    },
+    "api_t": 7.19208190264416,
+    "t_hesap": 7.19208190264416,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-039",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 975.7,
+      "nominal_thickness": 23.93,
+      "CA_i": 1.62,
+      "mill": 5.16,
+      "S": 96.6,
+      "E": 1.0,
+      "P": 2.674,
+      "crown_radius": 489.47,
+      "knuckle_radius": null
+    },
+    "api_t": 6.7933533404060515,
+    "t_hesap": 6.7933533404060515,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-040",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1093.7,
+      "nominal_thickness": 26.67,
+      "CA_i": 1.0,
+      "mill": 13.43,
+      "S": 114.06,
+      "E": 0.7,
+      "P": 0.528,
+      "crown_radius": 547.85,
+      "knuckle_radius": null
+    },
+    "api_t": 1.8126814155299218,
+    "t_hesap": 1.8126814155299218,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-041",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1152.4,
+      "nominal_thickness": 13.79,
+      "CA_i": 0.97,
+      "mill": 13.06,
+      "S": 131.82,
+      "E": 0.7,
+      "P": 0.454,
+      "crown_radius": 577.1700000000001,
+      "knuckle_radius": null
+    },
+    "api_t": 1.4205744205159792,
+    "t_hesap": 1.4205744205159792,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-042",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1437.3,
+      "nominal_thickness": 6.07,
+      "CA_i": 2.13,
+      "mill": 12.01,
+      "S": 119.04,
+      "E": 1.0,
+      "P": 2.038,
+      "crown_radius": 720.78,
+      "knuckle_radius": null
+    },
+    "api_t": 6.180564676420147,
+    "t_hesap": 6.180564676420147,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-043",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1350.0,
+      "nominal_thickness": 9.38,
+      "CA_i": 1.05,
+      "mill": 13.6,
+      "S": 158.75,
+      "E": 0.85,
+      "P": 0.399,
+      "crown_radius": 676.05,
+      "knuckle_radius": null
+    },
+    "api_t": 0.99981004109784,
+    "t_hesap": 0.99981004109784,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-044",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 685.0,
+      "nominal_thickness": 19.77,
+      "CA_i": 2.42,
+      "mill": 0.26,
+      "S": 135.76,
+      "E": 0.7,
+      "P": 1.899,
+      "crown_radius": 344.92,
+      "knuckle_radius": null
+    },
+    "api_t": 3.453124087298785,
+    "t_hesap": 3.453124087298785,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-045",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1304.4,
+      "nominal_thickness": 12.58,
+      "CA_i": 1.12,
+      "mill": 7.31,
+      "S": 160.81,
+      "E": 0.85,
+      "P": 1.552,
+      "crown_radius": 653.32,
+      "knuckle_radius": null
+    },
+    "api_t": 3.7132063752945257,
+    "t_hesap": 3.7132063752945257,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-046",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1650.6,
+      "nominal_thickness": 10.08,
+      "CA_i": 2.65,
+      "mill": 14.71,
+      "S": 111.19,
+      "E": 0.9,
+      "P": 0.208,
+      "crown_radius": 827.9499999999999,
+      "knuckle_radius": null
+    },
+    "api_t": 0.8606359607477045,
+    "t_hesap": 0.8606359607477045,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-047",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1651.9,
+      "nominal_thickness": 19.22,
+      "CA_i": 1.0,
+      "mill": 5.06,
+      "S": 161.49,
+      "E": 0.9,
+      "P": 1.6,
+      "crown_radius": 826.95,
+      "knuckle_radius": null
+    },
+    "api_t": 4.556794621885784,
+    "t_hesap": 4.556794621885784,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-048",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1415.7,
+      "nominal_thickness": 25.23,
+      "CA_i": 2.01,
+      "mill": 13.5,
+      "S": 149.89,
+      "E": 0.7,
+      "P": 2.442,
+      "crown_radius": 709.86,
+      "knuckle_radius": null
+    },
+    "api_t": 8.279986587542083,
+    "t_hesap": 8.279986587542083,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-049",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1187.1,
+      "nominal_thickness": 11.78,
+      "CA_i": 2.2,
+      "mill": 0.46,
+      "S": 103.27,
+      "E": 0.85,
+      "P": 2.673,
+      "crown_radius": 595.75,
+      "knuckle_radius": null
+    },
+    "api_t": 9.098387139164597,
+    "t_hesap": 9.098387139164597,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-050",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1757.4,
+      "nominal_thickness": 29.85,
+      "CA_i": 2.58,
+      "mill": 1.15,
+      "S": 116.93,
+      "E": 0.9,
+      "P": 2.977,
+      "crown_radius": 881.2800000000001,
+      "knuckle_radius": null
+    },
+    "api_t": 12.500419575888156,
+    "t_hesap": 12.500419575888156,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-051",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 803.3,
+      "nominal_thickness": 14.05,
+      "CA_i": 2.23,
+      "mill": 3.02,
+      "S": 167.86,
+      "E": 0.9,
+      "P": 0.955,
+      "crown_radius": 403.88,
+      "knuckle_radius": null
+    },
+    "api_t": 1.277352073308451,
+    "t_hesap": 1.277352073308451,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-052",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 830.1,
+      "nominal_thickness": 28.06,
+      "CA_i": 2.96,
+      "mill": 14.61,
+      "S": 156.36,
+      "E": 0.9,
+      "P": 2.418,
+      "crown_radius": 418.01,
+      "knuckle_radius": null
+    },
+    "api_t": 3.597424371201476,
+    "t_hesap": 3.597424371201476,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-053",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 629.2,
+      "nominal_thickness": 22.17,
+      "CA_i": 1.98,
+      "mill": 3.82,
+      "S": 123.11,
+      "E": 0.9,
+      "P": 1.214,
+      "crown_radius": 316.58000000000004,
+      "knuckle_radius": null
+    },
+    "api_t": 1.7362506957143993,
+    "t_hesap": 1.7362506957143993,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-054",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 950.3,
+      "nominal_thickness": 19.24,
+      "CA_i": 1.15,
+      "mill": 3.91,
+      "S": 149.76,
+      "E": 0.7,
+      "P": 1.614,
+      "crown_radius": 476.29999999999995,
+      "knuckle_radius": null
+    },
+    "api_t": 3.6722260118887253,
+    "t_hesap": 3.6722260118887253,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-055",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1072.3,
+      "nominal_thickness": 14.6,
+      "CA_i": 0.48,
+      "mill": 12.83,
+      "S": 107.67,
+      "E": 1.0,
+      "P": 1.292,
+      "crown_radius": 536.63,
+      "knuckle_radius": null
+    },
+    "api_t": 3.223548457887611,
+    "t_hesap": 3.223548457887611,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-056",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1503.9,
+      "nominal_thickness": 10.45,
+      "CA_i": 2.02,
+      "mill": 4.1,
+      "S": 147.52,
+      "E": 0.9,
+      "P": 0.229,
+      "crown_radius": 753.97,
+      "knuckle_radius": null
+    },
+    "api_t": 0.6503408788723651,
+    "t_hesap": 0.6503408788723651,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-057",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 982.9,
+      "nominal_thickness": 18.12,
+      "CA_i": 0.46,
+      "mill": 12.3,
+      "S": 168.07,
+      "E": 0.9,
+      "P": 2.101,
+      "crown_radius": 491.90999999999997,
+      "knuckle_radius": null
+    },
+    "api_t": 3.4209965846402155,
+    "t_hesap": 3.4209965846402155,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-058",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 782.7,
+      "nominal_thickness": 12.1,
+      "CA_i": 1.01,
+      "mill": 3.61,
+      "S": 160.21,
+      "E": 1.0,
+      "P": 2.647,
+      "crown_radius": 392.36,
+      "knuckle_radius": null
+    },
+    "api_t": 3.2466628278542724,
+    "t_hesap": 3.2466628278542724,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-059",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1272.1,
+      "nominal_thickness": 12.89,
+      "CA_i": 2.49,
+      "mill": 13.61,
+      "S": 145.06,
+      "E": 1.0,
+      "P": 0.335,
+      "crown_radius": 638.54,
+      "knuckle_radius": null
+    },
+    "api_t": 0.7374890106290919,
+    "t_hesap": 0.7374890106290919,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-060",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1312.8,
+      "nominal_thickness": 18.88,
+      "CA_i": 0.76,
+      "mill": 13.21,
+      "S": 138.19,
+      "E": 0.85,
+      "P": 1.339,
+      "crown_radius": 657.16,
+      "knuckle_radius": null
+    },
+    "api_t": 3.749915791339804,
+    "t_hesap": 3.749915791339804,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-061",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 992.9,
+      "nominal_thickness": 8.97,
+      "CA_i": 0.19,
+      "mill": 12.48,
+      "S": 104.25,
+      "E": 0.7,
+      "P": 0.445,
+      "crown_radius": 496.64,
+      "knuckle_radius": null
+    },
+    "api_t": 1.5151740355543977,
+    "t_hesap": 1.5151740355543977,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-062",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1076.3,
+      "nominal_thickness": 22.74,
+      "CA_i": 1.45,
+      "mill": 1.86,
+      "S": 129.12,
+      "E": 0.85,
+      "P": 0.63,
+      "crown_radius": 539.6,
+      "knuckle_radius": null
+    },
+    "api_t": 1.5495993217186776,
+    "t_hesap": 1.5495993217186776,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-063",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1004.2,
+      "nominal_thickness": 24.42,
+      "CA_i": 0.88,
+      "mill": 10.27,
+      "S": 170.87,
+      "E": 1.0,
+      "P": 0.665,
+      "crown_radius": 502.98,
+      "knuckle_radius": null
+    },
+    "api_t": 0.9791418208643267,
+    "t_hesap": 0.9791418208643267,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-064",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1035.9,
+      "nominal_thickness": 17.03,
+      "CA_i": 0.81,
+      "mill": 8.8,
+      "S": 127.28,
+      "E": 0.7,
+      "P": 2.716,
+      "crown_radius": 518.76,
+      "knuckle_radius": null
+    },
+    "api_t": 7.931109920247141,
+    "t_hesap": 7.931109920247141,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-065",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1571.7,
+      "nominal_thickness": 27.25,
+      "CA_i": 2.46,
+      "mill": 4.12,
+      "S": 127.95,
+      "E": 0.85,
+      "P": 1.237,
+      "crown_radius": 788.3100000000001,
+      "knuckle_radius": null
+    },
+    "api_t": 4.488195524781423,
+    "t_hesap": 4.488195524781423,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-066",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 596.5,
+      "nominal_thickness": 16.62,
+      "CA_i": 1.83,
+      "mill": 10.83,
+      "S": 134.16,
+      "E": 0.7,
+      "P": 2.081,
+      "crown_radius": 300.08,
+      "knuckle_radius": null
+    },
+    "api_t": 3.332126410960483,
+    "t_hesap": 3.332126410960483,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-067",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1530.6,
+      "nominal_thickness": 15.41,
+      "CA_i": 0.5,
+      "mill": 8.22,
+      "S": 174.2,
+      "E": 0.85,
+      "P": 2.138,
+      "crown_radius": 765.8,
+      "knuckle_radius": null
+    },
+    "api_t": 5.536732311529716,
+    "t_hesap": 5.536732311529716,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-068",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 991.8,
+      "nominal_thickness": 17.57,
+      "CA_i": 0.02,
+      "mill": 6.11,
+      "S": 121.67,
+      "E": 1.0,
+      "P": 0.787,
+      "crown_radius": 495.91999999999996,
+      "knuckle_radius": null
+    },
+    "api_t": 1.6049217337095663,
+    "t_hesap": 1.6049217337095663,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-069",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1151.8,
+      "nominal_thickness": 28.84,
+      "CA_i": 1.69,
+      "mill": 11.56,
+      "S": 90.94,
+      "E": 0.9,
+      "P": 2.147,
+      "crown_radius": 577.59,
+      "knuckle_radius": null
+    },
+    "api_t": 7.5956509941652275,
+    "t_hesap": 7.5956509941652275,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-070",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 832.3,
+      "nominal_thickness": 6.88,
+      "CA_i": 0.07,
+      "mill": 9.54,
+      "S": 137.98,
+      "E": 1.0,
+      "P": 1.22,
+      "crown_radius": 416.21999999999997,
+      "knuckle_radius": null
+    },
+    "api_t": 1.8417081344571953,
+    "t_hesap": 1.8417081344571953,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-071",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1337.6,
+      "nominal_thickness": 24.76,
+      "CA_i": 1.12,
+      "mill": 0.01,
+      "S": 133.43,
+      "E": 0.9,
+      "P": 0.819,
+      "crown_radius": 669.92,
+      "knuckle_radius": null
+    },
+    "api_t": 2.2860048447940957,
+    "t_hesap": 2.2860048447940957,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-072",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 613.5,
+      "nominal_thickness": 18.44,
+      "CA_i": 2.53,
+      "mill": 4.85,
+      "S": 174.53,
+      "E": 0.85,
+      "P": 0.267,
+      "crown_radius": 309.28,
+      "knuckle_radius": null
+    },
+    "api_t": 0.2783698907390452,
+    "t_hesap": 0.2783698907390452,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-073",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1234.6,
+      "nominal_thickness": 15.71,
+      "CA_i": 1.38,
+      "mill": 5.65,
+      "S": 166.73,
+      "E": 0.9,
+      "P": 2.307,
+      "crown_radius": 618.68,
+      "knuckle_radius": null
+    },
+    "api_t": 4.763164945006317,
+    "t_hesap": 4.763164945006317,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-074",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1151.0,
+      "nominal_thickness": 19.35,
+      "CA_i": 1.46,
+      "mill": 3.97,
+      "S": 98.54,
+      "E": 0.7,
+      "P": 2.78,
+      "crown_radius": 576.96,
+      "knuckle_radius": null
+    },
+    "api_t": 11.673572052401747,
+    "t_hesap": 11.673572052401747,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-075",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1578.8,
+      "nominal_thickness": 14.8,
+      "CA_i": 2.16,
+      "mill": 11.69,
+      "S": 111.18,
+      "E": 1.0,
+      "P": 0.888,
+      "crown_radius": 791.56,
+      "knuckle_radius": null
+    },
+    "api_t": 3.163640684410646,
+    "t_hesap": 3.163640684410646,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-076",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 879.9,
+      "nominal_thickness": 29.33,
+      "CA_i": 2.75,
+      "mill": 1.73,
+      "S": 116.81,
+      "E": 1.0,
+      "P": 2.466,
+      "crown_radius": 442.7,
+      "knuckle_radius": null
+    },
+    "api_t": 4.682851564041544,
+    "t_hesap": 4.682851564041544,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-077",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 822.2,
+      "nominal_thickness": 10.31,
+      "CA_i": 2.93,
+      "mill": 8.91,
+      "S": 116.26,
+      "E": 0.9,
+      "P": 2.44,
+      "crown_radius": 414.03000000000003,
+      "knuckle_radius": null
+    },
+    "api_t": 4.838745090525912,
+    "t_hesap": 4.838745090525912,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-078",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 637.8,
+      "nominal_thickness": 25.15,
+      "CA_i": 1.18,
+      "mill": 2.86,
+      "S": 142.46,
+      "E": 0.7,
+      "P": 1.327,
+      "crown_radius": 320.08,
+      "knuckle_radius": null
+    },
+    "api_t": 2.132488932043904,
+    "t_hesap": 2.132488932043904,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-079",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1273.5,
+      "nominal_thickness": 8.85,
+      "CA_i": 2.48,
+      "mill": 10.2,
+      "S": 111.88,
+      "E": 0.85,
+      "P": 2.605,
+      "crown_radius": 639.23,
+      "knuckle_radius": null
+    },
+    "api_t": 8.779196783972584,
+    "t_hesap": 8.779196783972584,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-080",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 848.5,
+      "nominal_thickness": 14.81,
+      "CA_i": 2.53,
+      "mill": 10.79,
+      "S": 111.08,
+      "E": 0.85,
+      "P": 1.37,
+      "crown_radius": 426.78,
+      "knuckle_radius": null
+    },
+    "api_t": 3.100776402456487,
+    "t_hesap": 3.100776402456487,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-081",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1220.6,
+      "nominal_thickness": 11.46,
+      "CA_i": 2.1,
+      "mill": 2.42,
+      "S": 140.32,
+      "E": 0.85,
+      "P": 0.222,
+      "crown_radius": 612.4,
+      "knuckle_radius": null
+    },
+    "api_t": 0.5700336604338121,
+    "t_hesap": 0.5700336604338121,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-082",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 996.9,
+      "nominal_thickness": 15.05,
+      "CA_i": 0.26,
+      "mill": 0.09,
+      "S": 107.74,
+      "E": 0.7,
+      "P": 1.149,
+      "crown_radius": 498.71,
+      "knuckle_radius": null
+    },
+    "api_t": 3.804742367844087,
+    "t_hesap": 3.804742367844087,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-083",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1617.9,
+      "nominal_thickness": 6.64,
+      "CA_i": 1.32,
+      "mill": 3.62,
+      "S": 164.85,
+      "E": 0.85,
+      "P": 2.883,
+      "crown_radius": 810.2700000000001,
+      "knuckle_radius": null
+    },
+    "api_t": 8.35277925571856,
+    "t_hesap": 8.35277925571856,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-084",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 947.0,
+      "nominal_thickness": 24.86,
+      "CA_i": 2.57,
+      "mill": 8.74,
+      "S": 173.15,
+      "E": 0.7,
+      "P": 0.654,
+      "crown_radius": 476.07,
+      "knuckle_radius": null
+    },
+    "api_t": 1.2850867098785204,
+    "t_hesap": 1.2850867098785204,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-085",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1110.6,
+      "nominal_thickness": 25.02,
+      "CA_i": 2.41,
+      "mill": 0.12,
+      "S": 171.45,
+      "E": 0.85,
+      "P": 0.919,
+      "crown_radius": 557.7099999999999,
+      "knuckle_radius": null
+    },
+    "api_t": 1.7595900113017937,
+    "t_hesap": 1.7595900113017937,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-086",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1302.3,
+      "nominal_thickness": 24.54,
+      "CA_i": 1.92,
+      "mill": 10.72,
+      "S": 91.25,
+      "E": 0.85,
+      "P": 1.879,
+      "crown_radius": 653.0699999999999,
+      "knuckle_radius": null
+    },
+    "api_t": 7.929724547849036,
+    "t_hesap": 7.929724547849036,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-087",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 944.6,
+      "nominal_thickness": 21.93,
+      "CA_i": 0.12,
+      "mill": 5.63,
+      "S": 138.55,
+      "E": 0.9,
+      "P": 1.42,
+      "crown_radius": 472.42,
+      "knuckle_radius": null
+    },
+    "api_t": 2.6929756810353824,
+    "t_hesap": 2.6929756810353824,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-088",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1384.1,
+      "nominal_thickness": 22.13,
+      "CA_i": 1.43,
+      "mill": 8.43,
+      "S": 138.15,
+      "E": 1.0,
+      "P": 2.365,
+      "crown_radius": 693.4799999999999,
+      "knuckle_radius": null
+    },
+    "api_t": 5.946046616176081,
+    "t_hesap": 5.946046616176081,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-089",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1617.5,
+      "nominal_thickness": 12.18,
+      "CA_i": 2.02,
+      "mill": 5.65,
+      "S": 104.66,
+      "E": 0.85,
+      "P": 1.921,
+      "crown_radius": 810.77,
+      "knuckle_radius": null
+    },
+    "api_t": 8.772718654844208,
+    "t_hesap": 8.772718654844208,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-090",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1067.0,
+      "nominal_thickness": 9.68,
+      "CA_i": 1.79,
+      "mill": 5.62,
+      "S": 91.28,
+      "E": 0.9,
+      "P": 2.664,
+      "crown_radius": 535.29,
+      "knuckle_radius": null
+    },
+    "api_t": 8.707346346610393,
+    "t_hesap": 8.707346346610393,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-091",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1590.0,
+      "nominal_thickness": 29.91,
+      "CA_i": 0.26,
+      "mill": 7.9,
+      "S": 125.64,
+      "E": 1.0,
+      "P": 0.842,
+      "crown_radius": 795.26,
+      "knuckle_radius": null
+    },
+    "api_t": 2.6665790031205248,
+    "t_hesap": 2.6665790031205248,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-092",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1249.2,
+      "nominal_thickness": 22.62,
+      "CA_i": 2.86,
+      "mill": 12.11,
+      "S": 91.9,
+      "E": 0.9,
+      "P": 2.627,
+      "crown_radius": 627.46,
+      "knuckle_radius": null
+    },
+    "api_t": 9.996309278775653,
+    "t_hesap": 9.996309278775653,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-093",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1506.7,
+      "nominal_thickness": 8.8,
+      "CA_i": 0.54,
+      "mill": 13.15,
+      "S": 158.19,
+      "E": 0.7,
+      "P": 1.2,
+      "crown_radius": 753.89,
+      "knuckle_radius": null
+    },
+    "api_t": 4.089338504515744,
+    "t_hesap": 4.089338504515744,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-094",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 847.7,
+      "nominal_thickness": 8.42,
+      "CA_i": 2.12,
+      "mill": 5.27,
+      "S": 165.37,
+      "E": 0.9,
+      "P": 1.783,
+      "crown_radius": 425.97,
+      "knuckle_radius": null
+    },
+    "api_t": 2.5545929930234297,
+    "t_hesap": 2.5545929930234297,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-095",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1734.0,
+      "nominal_thickness": 24.77,
+      "CA_i": 0.14,
+      "mill": 13.03,
+      "S": 161.58,
+      "E": 1.0,
+      "P": 1.44,
+      "crown_radius": 867.14,
+      "knuckle_radius": null
+    },
+    "api_t": 3.8674199063405927,
+    "t_hesap": 3.8674199063405927,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-096",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 612.1,
+      "nominal_thickness": 28.51,
+      "CA_i": 2.2,
+      "mill": 12.75,
+      "S": 122.42,
+      "E": 0.7,
+      "P": 1.688,
+      "crown_radius": 308.25,
+      "knuckle_radius": null
+    },
+    "api_t": 3.0419455318432465,
+    "t_hesap": 3.0419455318432465,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-097",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1522.6,
+      "nominal_thickness": 26.97,
+      "CA_i": 1.34,
+      "mill": 3.73,
+      "S": 94.26,
+      "E": 0.85,
+      "P": 2.25,
+      "crown_radius": 762.64,
+      "knuckle_radius": null
+    },
+    "api_t": 10.73858516070892,
+    "t_hesap": 10.73858516070892,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-098",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1203.9,
+      "nominal_thickness": 12.01,
+      "CA_i": 0.51,
+      "mill": 14.75,
+      "S": 115.57,
+      "E": 0.7,
+      "P": 2.861,
+      "crown_radius": 602.46,
+      "knuckle_radius": null
+    },
+    "api_t": 10.690832732726404,
+    "t_hesap": 10.690832732726404,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-099",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1074.4,
+      "nominal_thickness": 26.21,
+      "CA_i": 0.63,
+      "mill": 2.6,
+      "S": 94.33,
+      "E": 1.0,
+      "P": 2.903,
+      "crown_radius": 537.83,
+      "knuckle_radius": null
+    },
+    "api_t": 8.30139021073015,
+    "t_hesap": 8.30139021073015,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-100",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1481.0,
+      "nominal_thickness": 13.45,
+      "CA_i": 1.24,
+      "mill": 10.17,
+      "S": 177.26,
+      "E": 0.85,
+      "P": 2.859,
+      "crown_radius": 741.74,
+      "knuckle_radius": null
+    },
+    "api_t": 7.050680752281975,
+    "t_hesap": 7.050680752281975,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-101",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1569.4,
+      "nominal_thickness": 12.01,
+      "CA_i": 0.61,
+      "mill": 8.49,
+      "S": 125.95,
+      "E": 0.7,
+      "P": 2.137,
+      "crown_radius": 785.3100000000001,
+      "knuckle_radius": null
+    },
+    "api_t": 9.540549542758324,
+    "t_hesap": 9.540549542758324,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-102",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1385.2,
+      "nominal_thickness": 26.02,
+      "CA_i": 2.7,
+      "mill": 0.56,
+      "S": 137.26,
+      "E": 1.0,
+      "P": 2.035,
+      "crown_radius": 695.3000000000001,
+      "knuckle_radius": null
+    },
+    "api_t": 5.161869375038762,
+    "t_hesap": 5.161869375038762,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-103",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1469.5,
+      "nominal_thickness": 22.0,
+      "CA_i": 0.82,
+      "mill": 7.75,
+      "S": 103.68,
+      "E": 0.7,
+      "P": 0.559,
+      "crown_radius": 735.57,
+      "knuckle_radius": null
+    },
+    "api_t": 2.834963203305015,
+    "t_hesap": 2.834963203305015,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-104",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1609.2,
+      "nominal_thickness": 20.6,
+      "CA_i": 2.72,
+      "mill": 13.79,
+      "S": 146.38,
+      "E": 0.7,
+      "P": 1.946,
+      "crown_radius": 807.32,
+      "knuckle_radius": null
+    },
+    "api_t": 7.680762754787752,
+    "t_hesap": 7.680762754787752,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-105",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1576.8,
+      "nominal_thickness": 27.64,
+      "CA_i": 1.91,
+      "mill": 7.87,
+      "S": 146.19,
+      "E": 0.7,
+      "P": 1.643,
+      "crown_radius": 790.31,
+      "knuckle_radius": null
+    },
+    "api_t": 6.354584770091035,
+    "t_hesap": 6.354584770091035,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-106",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1193.6,
+      "nominal_thickness": 14.05,
+      "CA_i": 1.59,
+      "mill": 3.14,
+      "S": 124.83,
+      "E": 1.0,
+      "P": 0.578,
+      "crown_radius": 598.39,
+      "knuckle_radius": null
+    },
+    "api_t": 1.3860035328382445,
+    "t_hesap": 1.3860035328382445,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-107",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1130.7,
+      "nominal_thickness": 23.42,
+      "CA_i": 0.87,
+      "mill": 1.95,
+      "S": 152.87,
+      "E": 0.85,
+      "P": 2.773,
+      "crown_radius": 566.22,
+      "knuckle_radius": null
+    },
+    "api_t": 6.054686948085101,
+    "t_hesap": 6.054686948085101,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-108",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 621.1,
+      "nominal_thickness": 28.96,
+      "CA_i": 1.66,
+      "mill": 10.8,
+      "S": 120.57,
+      "E": 1.0,
+      "P": 0.389,
+      "crown_radius": 312.21000000000004,
+      "knuckle_radius": null
+    },
+    "api_t": 0.5038105932825637,
+    "t_hesap": 0.5038105932825637,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-109",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1453.4,
+      "nominal_thickness": 10.93,
+      "CA_i": 0.15,
+      "mill": 11.67,
+      "S": 170.61,
+      "E": 0.9,
+      "P": 0.581,
+      "crown_radius": 726.85,
+      "knuckle_radius": null
+    },
+    "api_t": 1.3756510972311713,
+    "t_hesap": 1.3756510972311713,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-110",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1561.5,
+      "nominal_thickness": 13.93,
+      "CA_i": 0.11,
+      "mill": 9.75,
+      "S": 145.5,
+      "E": 0.7,
+      "P": 0.341,
+      "crown_radius": 780.86,
+      "knuckle_radius": null
+    },
+    "api_t": 1.3076212065109676,
+    "t_hesap": 1.3076212065109676,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-111",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1156.1,
+      "nominal_thickness": 11.99,
+      "CA_i": 2.4,
+      "mill": 9.79,
+      "S": 115.93,
+      "E": 1.0,
+      "P": 1.542,
+      "crown_radius": 580.4499999999999,
+      "knuckle_radius": null
+    },
+    "api_t": 3.8654619531888352,
+    "t_hesap": 3.8654619531888352,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-112",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 706.1,
+      "nominal_thickness": 26.91,
+      "CA_i": 2.02,
+      "mill": 4.81,
+      "S": 132.17,
+      "E": 0.9,
+      "P": 2.595,
+      "crown_radius": 355.07,
+      "knuckle_radius": null
+    },
+    "api_t": 3.8814537021825126,
+    "t_hesap": 3.8814537021825126,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-113",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1338.6,
+      "nominal_thickness": 9.62,
+      "CA_i": 0.9,
+      "mill": 8.92,
+      "S": 119.63,
+      "E": 0.85,
+      "P": 0.526,
+      "crown_radius": 670.1999999999999,
+      "knuckle_radius": null
+    },
+    "api_t": 1.7343065090143055,
+    "t_hesap": 1.7343065090143055,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-114",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1778.7,
+      "nominal_thickness": 28.29,
+      "CA_i": 0.81,
+      "mill": 4.35,
+      "S": 125.21,
+      "E": 0.85,
+      "P": 1.541,
+      "crown_radius": 890.16,
+      "knuckle_radius": null
+    },
+    "api_t": 6.453748786161108,
+    "t_hesap": 6.453748786161108,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-115",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1491.9,
+      "nominal_thickness": 29.02,
+      "CA_i": 2.03,
+      "mill": 9.42,
+      "S": 173.38,
+      "E": 0.85,
+      "P": 2.098,
+      "crown_radius": 747.98,
+      "knuckle_radius": null
+    },
+    "api_t": 5.331706703849876,
+    "t_hesap": 5.331706703849876,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-116",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1211.6,
+      "nominal_thickness": 19.79,
+      "CA_i": 1.9,
+      "mill": 5.91,
+      "S": 162.38,
+      "E": 0.7,
+      "P": 1.047,
+      "crown_radius": 607.6999999999999,
+      "knuckle_radius": null
+    },
+    "api_t": 2.8014028546696803,
+    "t_hesap": 2.8014028546696803,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-117",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1269.1,
+      "nominal_thickness": 19.3,
+      "CA_i": 2.66,
+      "mill": 2.58,
+      "S": 143.14,
+      "E": 1.0,
+      "P": 1.068,
+      "crown_radius": 637.2099999999999,
+      "knuckle_radius": null
+    },
+    "api_t": 2.3789591507426247,
+    "t_hesap": 2.3789591507426247,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-118",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1785.4,
+      "nominal_thickness": 24.55,
+      "CA_i": 0.66,
+      "mill": 10.74,
+      "S": 126.91,
+      "E": 0.85,
+      "P": 1.363,
+      "crown_radius": 893.36,
+      "knuckle_radius": null
+    },
+    "api_t": 5.651017847131725,
+    "t_hesap": 5.651017847131725,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-119",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1435.2,
+      "nominal_thickness": 29.91,
+      "CA_i": 1.34,
+      "mill": 13.05,
+      "S": 150.3,
+      "E": 0.7,
+      "P": 1.118,
+      "crown_radius": 718.94,
+      "knuckle_radius": null
+    },
+    "api_t": 3.8239233402665325,
+    "t_hesap": 3.8239233402665325,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-120",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1377.8,
+      "nominal_thickness": 26.34,
+      "CA_i": 2.57,
+      "mill": 5.63,
+      "S": 95.2,
+      "E": 0.7,
+      "P": 1.64,
+      "crown_radius": 691.47,
+      "knuckle_radius": null
+    },
+    "api_t": 8.52947529935616,
+    "t_hesap": 8.52947529935616,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-121",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1196.4,
+      "nominal_thickness": 22.39,
+      "CA_i": 1.56,
+      "mill": 7.41,
+      "S": 126.34,
+      "E": 0.85,
+      "P": 1.108,
+      "crown_radius": 599.76,
+      "knuckle_radius": null
+    },
+    "api_t": 3.0972465980972834,
+    "t_hesap": 3.0972465980972834,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-122",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1075.0,
+      "nominal_thickness": 10.32,
+      "CA_i": 0.25,
+      "mill": 3.18,
+      "S": 161.23,
+      "E": 0.9,
+      "P": 2.949,
+      "crown_radius": 537.75,
+      "knuckle_radius": null
+    },
+    "api_t": 5.475456643471092,
+    "t_hesap": 5.475456643471092,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-123",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1207.7,
+      "nominal_thickness": 26.74,
+      "CA_i": 1.14,
+      "mill": 14.69,
+      "S": 175.59,
+      "E": 0.7,
+      "P": 1.104,
+      "crown_radius": 604.99,
+      "knuckle_radius": null
+    },
+    "api_t": 2.719441445050838,
+    "t_hesap": 2.719441445050838,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-124",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1024.4,
+      "nominal_thickness": 14.8,
+      "CA_i": 0.61,
+      "mill": 13.06,
+      "S": 128.24,
+      "E": 0.9,
+      "P": 1.361,
+      "crown_radius": 512.8100000000001,
+      "knuckle_radius": null
+    },
+    "api_t": 3.027129664408106,
+    "t_hesap": 3.027129664408106,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-125",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1765.9,
+      "nominal_thickness": 16.55,
+      "CA_i": 2.93,
+      "mill": 2.87,
+      "S": 155.94,
+      "E": 0.7,
+      "P": 2.169,
+      "crown_radius": 885.88,
+      "knuckle_radius": null
+    },
+    "api_t": 8.818865056438755,
+    "t_hesap": 8.818865056438755,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-126",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1016.3,
+      "nominal_thickness": 19.77,
+      "CA_i": 2.87,
+      "mill": 14.18,
+      "S": 117.36,
+      "E": 1.0,
+      "P": 1.585,
+      "crown_radius": 511.02,
+      "knuckle_radius": null
+    },
+    "api_t": 3.4554451094909195,
+    "t_hesap": 3.4554451094909195,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-127",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 656.0,
+      "nominal_thickness": 29.81,
+      "CA_i": 1.7,
+      "mill": 14.15,
+      "S": 125.86,
+      "E": 1.0,
+      "P": 0.419,
+      "crown_radius": 329.7,
+      "knuckle_radius": null
+    },
+    "api_t": 0.5489842081544706,
+    "t_hesap": 0.5489842081544706,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-128",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 804.4,
+      "nominal_thickness": 10.42,
+      "CA_i": 2.62,
+      "mill": 2.64,
+      "S": 179.6,
+      "E": 0.9,
+      "P": 2.117,
+      "crown_radius": 404.82,
+      "knuckle_radius": null
+    },
+    "api_t": 2.6544414455210146,
+    "t_hesap": 2.6544414455210146,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-129",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1053.5,
+      "nominal_thickness": 25.17,
+      "CA_i": 1.98,
+      "mill": 14.43,
+      "S": 109.88,
+      "E": 1.0,
+      "P": 0.843,
+      "crown_radius": 528.73,
+      "knuckle_radius": null
+    },
+    "api_t": 2.029767058272774,
+    "t_hesap": 2.029767058272774,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-130",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 575.3,
+      "nominal_thickness": 8.14,
+      "CA_i": 0.75,
+      "mill": 4.05,
+      "S": 121.76,
+      "E": 0.7,
+      "P": 1.224,
+      "crown_radius": 288.4,
+      "knuckle_radius": null
+    },
+    "api_t": 2.0738060101328166,
+    "t_hesap": 2.0738060101328166,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-131",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 549.4,
+      "nominal_thickness": 22.49,
+      "CA_i": 1.42,
+      "mill": 12.68,
+      "S": 159.14,
+      "E": 0.85,
+      "P": 0.482,
+      "crown_radius": 276.12,
+      "knuckle_radius": null
+    },
+    "api_t": 0.492120443008768,
+    "t_hesap": 0.492120443008768,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-132",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 589.1,
+      "nominal_thickness": 7.98,
+      "CA_i": 1.61,
+      "mill": 3.6,
+      "S": 110.38,
+      "E": 1.0,
+      "P": 1.56,
+      "crown_radius": 296.16,
+      "knuckle_radius": null
+    },
+    "api_t": 2.0957758745826682,
+    "t_hesap": 2.0957758745826682,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-133",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1561.6,
+      "nominal_thickness": 25.67,
+      "CA_i": 1.68,
+      "mill": 8.8,
+      "S": 138.52,
+      "E": 0.85,
+      "P": 1.433,
+      "crown_radius": 782.4799999999999,
+      "knuckle_radius": null
+    },
+    "api_t": 4.767458483809769,
+    "t_hesap": 4.767458483809769,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-134",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 959.8,
+      "nominal_thickness": 6.78,
+      "CA_i": 2.72,
+      "mill": 12.51,
+      "S": 97.76,
+      "E": 1.0,
+      "P": 2.349,
+      "crown_radius": 482.62,
+      "knuckle_radius": null
+    },
+    "api_t": 5.812218495546275,
+    "t_hesap": 5.812218495546275,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-135",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1228.1,
+      "nominal_thickness": 25.46,
+      "CA_i": 2.34,
+      "mill": 1.08,
+      "S": 157.09,
+      "E": 0.85,
+      "P": 0.236,
+      "crown_radius": 616.39,
+      "knuckle_radius": null
+    },
+    "api_t": 0.544812284976581,
+    "t_hesap": 0.544812284976581,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-136",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1547.4,
+      "nominal_thickness": 10.74,
+      "CA_i": 1.31,
+      "mill": 14.04,
+      "S": 100.66,
+      "E": 0.9,
+      "P": 2.598,
+      "crown_radius": 775.01,
+      "knuckle_radius": null
+    },
+    "api_t": 11.144594074005195,
+    "t_hesap": 11.144594074005195,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-137",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 816.3,
+      "nominal_thickness": 26.29,
+      "CA_i": 1.73,
+      "mill": 10.45,
+      "S": 123.87,
+      "E": 0.9,
+      "P": 1.416,
+      "crown_radius": 409.88,
+      "knuckle_radius": null
+    },
+    "api_t": 2.6063534318770913,
+    "t_hesap": 2.6063534318770913,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-138",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1204.1,
+      "nominal_thickness": 23.64,
+      "CA_i": 1.71,
+      "mill": 2.75,
+      "S": 166.14,
+      "E": 1.0,
+      "P": 1.369,
+      "crown_radius": 603.76,
+      "knuckle_radius": null
+    },
+    "api_t": 2.489554231216164,
+    "t_hesap": 2.489554231216164,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-139",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1783.4,
+      "nominal_thickness": 24.5,
+      "CA_i": 1.0,
+      "mill": 2.08,
+      "S": 154.08,
+      "E": 0.85,
+      "P": 0.53,
+      "crown_radius": 892.7,
+      "knuckle_radius": null
+    },
+    "api_t": 1.8070160027498756,
+    "t_hesap": 1.8070160027498756,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-140",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1234.7,
+      "nominal_thickness": 23.22,
+      "CA_i": 2.35,
+      "mill": 7.38,
+      "S": 95.35,
+      "E": 0.7,
+      "P": 1.416,
+      "crown_radius": 619.7,
+      "knuckle_radius": null
+    },
+    "api_t": 6.5874655047640225,
+    "t_hesap": 6.5874655047640225,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-141",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1058.1,
+      "nominal_thickness": 6.57,
+      "CA_i": 2.82,
+      "mill": 9.19,
+      "S": 99.53,
+      "E": 0.7,
+      "P": 1.588,
+      "crown_radius": 531.87,
+      "knuckle_radius": null
+    },
+    "api_t": 6.0752613210342945,
+    "t_hesap": 6.0752613210342945,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-142",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 945.4,
+      "nominal_thickness": 21.79,
+      "CA_i": 2.21,
+      "mill": 13.31,
+      "S": 93.66,
+      "E": 0.7,
+      "P": 1.489,
+      "crown_radius": 474.90999999999997,
+      "knuckle_radius": null
+    },
+    "api_t": 5.405193990194625,
+    "t_hesap": 5.405193990194625,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-143",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1137.2,
+      "nominal_thickness": 23.11,
+      "CA_i": 0.24,
+      "mill": 11.57,
+      "S": 172.95,
+      "E": 1.0,
+      "P": 1.248,
+      "crown_radius": 568.84,
+      "knuckle_radius": null
+    },
+    "api_t": 2.053844925392825,
+    "t_hesap": 2.053844925392825,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-144",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1414.8,
+      "nominal_thickness": 26.61,
+      "CA_i": 1.45,
+      "mill": 12.65,
+      "S": 130.77,
+      "E": 0.85,
+      "P": 0.4,
+      "crown_radius": 708.85,
+      "knuckle_radius": null
+    },
+    "api_t": 1.2758910853218979,
+    "t_hesap": 1.2758910853218979,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-145",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1210.2,
+      "nominal_thickness": 6.2,
+      "CA_i": 0.37,
+      "mill": 0.87,
+      "S": 157.9,
+      "E": 0.85,
+      "P": 1.735,
+      "crown_radius": 605.47,
+      "knuckle_radius": null
+    },
+    "api_t": 3.9185269114416053,
+    "t_hesap": 3.9185269114416053,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-146",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1499.9,
+      "nominal_thickness": 26.89,
+      "CA_i": 2.56,
+      "mill": 8.19,
+      "S": 178.51,
+      "E": 0.85,
+      "P": 2.715,
+      "crown_radius": 752.51,
+      "knuckle_radius": null
+    },
+    "api_t": 6.744479308341366,
+    "t_hesap": 6.744479308341366,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-147",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1094.8,
+      "nominal_thickness": 22.7,
+      "CA_i": 0.49,
+      "mill": 3.91,
+      "S": 142.87,
+      "E": 0.7,
+      "P": 2.632,
+      "crown_radius": 547.89,
+      "knuckle_radius": null
+    },
+    "api_t": 7.228607520316644,
+    "t_hesap": 7.228607520316644,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-148",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1221.5,
+      "nominal_thickness": 9.56,
+      "CA_i": 2.4,
+      "mill": 13.22,
+      "S": 149.39,
+      "E": 1.0,
+      "P": 1.078,
+      "crown_radius": 613.15,
+      "knuckle_radius": null
+    },
+    "api_t": 2.2138463259517884,
+    "t_hesap": 2.2138463259517884,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-149",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1525.4,
+      "nominal_thickness": 29.09,
+      "CA_i": 1.73,
+      "mill": 13.7,
+      "S": 121.07,
+      "E": 0.7,
+      "P": 2.121,
+      "crown_radius": 764.4300000000001,
+      "knuckle_radius": null
+    },
+    "api_t": 9.589634999627384,
+    "t_hesap": 9.589634999627384,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-150",
+    "tip": "hemispherical",
+    "girdi": {
+      "D_i": 1551.4,
+      "nominal_thickness": 26.88,
+      "CA_i": 0.34,
+      "mill": 5.13,
+      "S": 142.97,
+      "E": 0.7,
+      "P": 2.869,
+      "crown_radius": 776.0400000000001,
+      "knuckle_radius": null
+    },
+    "api_t": 11.155486055509407,
+    "t_hesap": 11.155486055509407,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-151",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 953.5,
+      "nominal_thickness": 16.43,
+      "CA_i": 1.65,
+      "mill": 1.3,
+      "S": 99.52,
+      "E": 1.0,
+      "P": 1.696,
+      "crown_radius": 942.52,
+      "knuckle_radius": 155.45
+    },
+    "api_t": 10.985919258718239,
+    "t_hesap": 10.985919258718239,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-152",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1290.8,
+      "nominal_thickness": 24.05,
+      "CA_i": 0.21,
+      "mill": 11.65,
+      "S": 145.85,
+      "E": 0.85,
+      "P": 2.678,
+      "crown_radius": 1077.85,
+      "knuckle_radius": 107.07
+    },
+    "api_t": 18.00429978382231,
+    "t_hesap": 18.00429978382231,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-153",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 698.8,
+      "nominal_thickness": 10.47,
+      "CA_i": 1.34,
+      "mill": 10.6,
+      "S": 145.21,
+      "E": 0.85,
+      "P": 0.285,
+      "crown_radius": 628.7,
+      "knuckle_radius": 103.73
+    },
+    "api_t": 0.9913488961864723,
+    "t_hesap": 0.9913488961864723,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-154",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 548.8,
+      "nominal_thickness": 11.68,
+      "CA_i": 1.64,
+      "mill": 7.01,
+      "S": 105.35,
+      "E": 0.9,
+      "P": 1.531,
+      "crown_radius": 533.09,
+      "knuckle_radius": 76.15
+    },
+    "api_t": 6.084710252549465,
+    "t_hesap": 6.084710252549465,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-155",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1364.4,
+      "nominal_thickness": 12.11,
+      "CA_i": 2.12,
+      "mill": 2.62,
+      "S": 132.21,
+      "E": 0.9,
+      "P": 2.528,
+      "crown_radius": 1176.69,
+      "knuckle_radius": 206.1
+    },
+    "api_t": 16.877488690761478,
+    "t_hesap": 16.877488690761478,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-156",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 821.6,
+      "nominal_thickness": 6.96,
+      "CA_i": 1.71,
+      "mill": 3.61,
+      "S": 104.61,
+      "E": 1.0,
+      "P": 1.497,
+      "crown_radius": 738.17,
+      "knuckle_radius": 120.31
+    },
+    "api_t": 7.2423627900578555,
+    "t_hesap": 7.2423627900578555,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-157",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 553.8,
+      "nominal_thickness": 22.3,
+      "CA_i": 2.22,
+      "mill": 7.79,
+      "S": 150.8,
+      "E": 0.9,
+      "P": 2.241,
+      "crown_radius": 500.64,
+      "knuckle_radius": 82.64
+    },
+    "api_t": 5.652605508593681,
+    "t_hesap": 5.652605508593681,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-158",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1443.7,
+      "nominal_thickness": 8.0,
+      "CA_i": 0.74,
+      "mill": 11.74,
+      "S": 98.5,
+      "E": 0.7,
+      "P": 2.984,
+      "crown_radius": 1416.12,
+      "knuckle_radius": 253.39
+    },
+    "api_t": 41.27151777669338,
+    "t_hesap": 41.27151777669338,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-159",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1221.8,
+      "nominal_thickness": 15.11,
+      "CA_i": 2.15,
+      "mill": 13.19,
+      "S": 169.32,
+      "E": 1.0,
+      "P": 1.633,
+      "crown_radius": 1061.52,
+      "knuckle_radius": 142.49
+    },
+    "api_t": 7.339163489159937,
+    "t_hesap": 7.339163489159937,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-160",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1467.2,
+      "nominal_thickness": 7.22,
+      "CA_i": 0.3,
+      "mill": 13.29,
+      "S": 153.65,
+      "E": 0.7,
+      "P": 1.303,
+      "crown_radius": 1422.51,
+      "knuckle_radius": 258.45
+    },
+    "api_t": 11.530272178577777,
+    "t_hesap": 11.530272178577777,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-161",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 564.8,
+      "nominal_thickness": 24.57,
+      "CA_i": 2.37,
+      "mill": 6.02,
+      "S": 176.59,
+      "E": 0.9,
+      "P": 2.461,
+      "crown_radius": 460.23,
+      "knuckle_radius": 42.66
+    },
+    "api_t": 5.607066935633477,
+    "t_hesap": 5.607066935633477,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-162",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1367.4,
+      "nominal_thickness": 22.77,
+      "CA_i": 1.03,
+      "mill": 8.56,
+      "S": 122.23,
+      "E": 0.85,
+      "P": 1.414,
+      "crown_radius": 1292.59,
+      "knuckle_radius": 216.34
+    },
+    "api_t": 11.988375879609952,
+    "t_hesap": 11.988375879609952,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-163",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 570.5,
+      "nominal_thickness": 7.59,
+      "CA_i": 0.41,
+      "mill": 5.16,
+      "S": 104.29,
+      "E": 0.85,
+      "P": 2.985,
+      "crown_radius": 500.7,
+      "knuckle_radius": 61.84
+    },
+    "api_t": 12.36103040838986,
+    "t_hesap": 12.36103040838986,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-164",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1262.1,
+      "nominal_thickness": 27.15,
+      "CA_i": 2.71,
+      "mill": 7.1,
+      "S": 131.11,
+      "E": 0.85,
+      "P": 1.69,
+      "crown_radius": 1239.01,
+      "knuckle_radius": 181.3
+    },
+    "api_t": 13.205766525250002,
+    "t_hesap": 13.205766525250002,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-165",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 674.7,
+      "nominal_thickness": 9.18,
+      "CA_i": 2.92,
+      "mill": 13.03,
+      "S": 134.58,
+      "E": 1.0,
+      "P": 2.297,
+      "crown_radius": 583.24,
+      "knuckle_radius": 77.09
+    },
+    "api_t": 7.167892518148243,
+    "t_hesap": 7.167892518148243,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-166",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1425.6,
+      "nominal_thickness": 18.67,
+      "CA_i": 0.9,
+      "mill": 5.21,
+      "S": 110.85,
+      "E": 0.7,
+      "P": 2.022,
+      "crown_radius": 1301.24,
+      "knuckle_radius": 215.13
+    },
+    "api_t": 23.200240942586586,
+    "t_hesap": 23.200240942586586,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-167",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1473.0,
+      "nominal_thickness": 8.45,
+      "CA_i": 2.3,
+      "mill": 2.25,
+      "S": 152.23,
+      "E": 0.85,
+      "P": 2.269,
+      "crown_radius": 1381.33,
+      "knuckle_radius": 110.41
+    },
+    "api_t": 19.82752939842296,
+    "t_hesap": 19.82752939842296,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-168",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1708.6,
+      "nominal_thickness": 7.51,
+      "CA_i": 1.38,
+      "mill": 11.73,
+      "S": 150.8,
+      "E": 0.7,
+      "P": 2.457,
+      "crown_radius": 1396.31,
+      "knuckle_radius": 106.88
+    },
+    "api_t": 26.93417469815465,
+    "t_hesap": 26.93417469815465,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-169",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 604.9,
+      "nominal_thickness": 15.26,
+      "CA_i": 1.07,
+      "mill": 2.48,
+      "S": 137.83,
+      "E": 0.9,
+      "P": 1.397,
+      "crown_radius": 590.5,
+      "knuckle_radius": 93.75
+    },
+    "api_t": 4.5852024903373385,
+    "t_hesap": 4.5852024903373385,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-170",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 976.0,
+      "nominal_thickness": 24.18,
+      "CA_i": 0.36,
+      "mill": 8.57,
+      "S": 98.24,
+      "E": 0.85,
+      "P": 2.354,
+      "crown_radius": 838.16,
+      "knuckle_radius": 171.1
+    },
+    "api_t": 15.440952344238882,
+    "t_hesap": 15.440952344238882,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-171",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 538.3,
+      "nominal_thickness": 19.82,
+      "CA_i": 1.35,
+      "mill": 4.24,
+      "S": 177.73,
+      "E": 0.7,
+      "P": 2.356,
+      "crown_radius": 467.2,
+      "knuckle_radius": 44.76
+    },
+    "api_t": 6.9038994935060405,
+    "t_hesap": 6.9038994935060405,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-172",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1084.7,
+      "nominal_thickness": 29.77,
+      "CA_i": 1.98,
+      "mill": 6.36,
+      "S": 166.34,
+      "E": 0.9,
+      "P": 2.368,
+      "crown_radius": 1051.78,
+      "knuckle_radius": 190.73
+    },
+    "api_t": 11.13987694146599,
+    "t_hesap": 11.13987694146599,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-173",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1099.5,
+      "nominal_thickness": 18.79,
+      "CA_i": 0.5,
+      "mill": 7.52,
+      "S": 165.79,
+      "E": 0.85,
+      "P": 1.789,
+      "crown_radius": 863.32,
+      "knuckle_radius": 85.42
+    },
+    "api_t": 8.47603618004223,
+    "t_hesap": 8.47603618004223,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-174",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 955.9,
+      "nominal_thickness": 17.95,
+      "CA_i": 0.53,
+      "mill": 8.24,
+      "S": 95.65,
+      "E": 0.7,
+      "P": 0.948,
+      "crown_radius": 949.13,
+      "knuckle_radius": 86.73
+    },
+    "api_t": 10.61144951099359,
+    "t_hesap": 10.61144951099359,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-175",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 706.5,
+      "nominal_thickness": 28.87,
+      "CA_i": 2.95,
+      "mill": 9.98,
+      "S": 95.05,
+      "E": 1.0,
+      "P": 2.855,
+      "crown_radius": 625.67,
+      "knuckle_radius": 56.44
+    },
+    "api_t": 14.913695159370278,
+    "t_hesap": 14.913695159370278,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-176",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 538.1,
+      "nominal_thickness": 9.97,
+      "CA_i": 0.13,
+      "mill": 4.84,
+      "S": 95.25,
+      "E": 1.0,
+      "P": 2.646,
+      "crown_radius": 446.96,
+      "knuckle_radius": 80.58
+    },
+    "api_t": 8.334589794657894,
+    "t_hesap": 8.334589794657894,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-177",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 553.9,
+      "nominal_thickness": 17.42,
+      "CA_i": 0.3,
+      "mill": 10.24,
+      "S": 114.69,
+      "E": 0.7,
+      "P": 2.192,
+      "crown_radius": 462.44,
+      "knuckle_radius": 82.46
+    },
+    "api_t": 8.495579297307074,
+    "t_hesap": 8.495579297307074,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-178",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1054.2,
+      "nominal_thickness": 8.2,
+      "CA_i": 2.59,
+      "mill": 7.58,
+      "S": 113.21,
+      "E": 0.7,
+      "P": 0.642,
+      "crown_radius": 1031.94,
+      "knuckle_radius": 129.83
+    },
+    "api_t": 6.08609330846567,
+    "t_hesap": 6.08609330846567,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-179",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1026.9,
+      "nominal_thickness": 8.27,
+      "CA_i": 2.44,
+      "mill": 13.89,
+      "S": 101.74,
+      "E": 1.0,
+      "P": 1.275,
+      "crown_radius": 919.09,
+      "knuckle_radius": 83.25
+    },
+    "api_t": 9.114470715229526,
+    "t_hesap": 9.114470715229526,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-180",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1146.6,
+      "nominal_thickness": 13.65,
+      "CA_i": 0.75,
+      "mill": 0.32,
+      "S": 129.58,
+      "E": 0.9,
+      "P": 2.94,
+      "crown_radius": 993.95,
+      "knuckle_radius": 152.01
+    },
+    "api_t": 17.449586151799437,
+    "t_hesap": 17.449586151799437,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-181",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1389.6,
+      "nominal_thickness": 27.35,
+      "CA_i": 0.71,
+      "mill": 7.71,
+      "S": 138.36,
+      "E": 0.9,
+      "P": 0.994,
+      "crown_radius": 1140.61,
+      "knuckle_radius": 134.0
+    },
+    "api_t": 6.740129025179305,
+    "t_hesap": 6.740129025179305,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-182",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1021.2,
+      "nominal_thickness": 21.87,
+      "CA_i": 1.82,
+      "mill": 3.56,
+      "S": 156.61,
+      "E": 0.9,
+      "P": 2.283,
+      "crown_radius": 897.06,
+      "knuckle_radius": 123.86
+    },
+    "api_t": 10.353398141128139,
+    "t_hesap": 10.353398141128139,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-183",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1226.1,
+      "nominal_thickness": 29.4,
+      "CA_i": 0.26,
+      "mill": 2.39,
+      "S": 127.5,
+      "E": 0.7,
+      "P": 2.524,
+      "crown_radius": 1080.63,
+      "knuckle_radius": 137.58
+    },
+    "api_t": 22.22903432595097,
+    "t_hesap": 22.22903432595097,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-184",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1243.0,
+      "nominal_thickness": 11.65,
+      "CA_i": 0.47,
+      "mill": 2.17,
+      "S": 168.3,
+      "E": 0.7,
+      "P": 0.796,
+      "crown_radius": 1021.17,
+      "knuckle_radius": 177.79
+    },
+    "api_t": 4.657497716853853,
+    "t_hesap": 4.657497716853853,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-185",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 623.4,
+      "nominal_thickness": 14.7,
+      "CA_i": 1.12,
+      "mill": 9.05,
+      "S": 102.3,
+      "E": 1.0,
+      "P": 1.742,
+      "crown_radius": 577.07,
+      "knuckle_radius": 64.47
+    },
+    "api_t": 7.372417544634706,
+    "t_hesap": 7.372417544634706,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-186",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1297.3,
+      "nominal_thickness": 9.85,
+      "CA_i": 1.35,
+      "mill": 2.13,
+      "S": 140.96,
+      "E": 0.7,
+      "P": 2.213,
+      "crown_radius": 1225.12,
+      "knuckle_radius": 151.8
+    },
+    "api_t": 20.10619057417994,
+    "t_hesap": 20.10619057417994,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-187",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1084.3,
+      "nominal_thickness": 9.37,
+      "CA_i": 2.31,
+      "mill": 4.35,
+      "S": 131.13,
+      "E": 0.85,
+      "P": 1.284,
+      "crown_radius": 962.47,
+      "knuckle_radius": 192.49
+    },
+    "api_t": 7.2652245266806705,
+    "t_hesap": 7.2652245266806705,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-188",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 695.3,
+      "nominal_thickness": 16.9,
+      "CA_i": 2.35,
+      "mill": 5.83,
+      "S": 104.31,
+      "E": 0.7,
+      "P": 2.736,
+      "crown_radius": 601.61,
+      "knuckle_radius": 47.9
+    },
+    "api_t": 18.509245249211638,
+    "t_hesap": 18.509245249211638,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-189",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1653.1,
+      "nominal_thickness": 27.78,
+      "CA_i": 2.21,
+      "mill": 5.68,
+      "S": 137.3,
+      "E": 0.7,
+      "P": 1.762,
+      "crown_radius": 1300.36,
+      "knuckle_radius": 155.3
+    },
+    "api_t": 17.595120624717342,
+    "t_hesap": 17.595120624717342,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-190",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1365.1,
+      "nominal_thickness": 12.88,
+      "CA_i": 1.78,
+      "mill": 11.84,
+      "S": 101.65,
+      "E": 0.7,
+      "P": 2.658,
+      "crown_radius": 1320.49,
+      "knuckle_radius": 112.11
+    },
+    "api_t": 39.807513813269615,
+    "t_hesap": 39.807513813269615,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-191",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1769.4,
+      "nominal_thickness": 27.3,
+      "CA_i": 0.66,
+      "mill": 1.46,
+      "S": 114.59,
+      "E": 0.85,
+      "P": 0.271,
+      "crown_radius": 1747.42,
+      "knuckle_radius": 256.66
+    },
+    "api_t": 3.4098745800407277,
+    "t_hesap": 3.4098745800407277,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-192",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1571.9,
+      "nominal_thickness": 6.06,
+      "CA_i": 1.15,
+      "mill": 6.79,
+      "S": 175.06,
+      "E": 0.7,
+      "P": 2.048,
+      "crown_radius": 1522.67,
+      "knuckle_radius": 162.1
+    },
+    "api_t": 19.32450498624912,
+    "t_hesap": 19.32450498624912,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-193",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1600.2,
+      "nominal_thickness": 13.63,
+      "CA_i": 2.52,
+      "mill": 13.24,
+      "S": 167.09,
+      "E": 0.7,
+      "P": 2.63,
+      "crown_radius": 1494.06,
+      "knuckle_radius": 226.31
+    },
+    "api_t": 23.440752625785905,
+    "t_hesap": 23.440752625785905,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-194",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1176.2,
+      "nominal_thickness": 24.66,
+      "CA_i": 1.65,
+      "mill": 6.02,
+      "S": 176.74,
+      "E": 0.85,
+      "P": 1.673,
+      "crown_radius": 1025.18,
+      "knuckle_radius": 127.19
+    },
+    "api_t": 8.342163020492166,
+    "t_hesap": 8.342163020492166,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-195",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1375.0,
+      "nominal_thickness": 29.76,
+      "CA_i": 0.61,
+      "mill": 6.31,
+      "S": 95.49,
+      "E": 1.0,
+      "P": 0.247,
+      "crown_radius": 1167.43,
+      "knuckle_radius": 163.46
+    },
+    "api_t": 2.141721479705477,
+    "t_hesap": 2.141721479705477,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-196",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1694.0,
+      "nominal_thickness": 19.28,
+      "CA_i": 2.69,
+      "mill": 5.12,
+      "S": 107.53,
+      "E": 0.7,
+      "P": 0.995,
+      "crown_radius": 1402.7,
+      "knuckle_radius": 191.31
+    },
+    "api_t": 13.246830769808717,
+    "t_hesap": 13.246830769808717,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-197",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1634.1,
+      "nominal_thickness": 29.88,
+      "CA_i": 1.04,
+      "mill": 3.85,
+      "S": 149.72,
+      "E": 0.7,
+      "P": 1.749,
+      "crown_radius": 1367.93,
+      "knuckle_radius": 119.18
+    },
+    "api_t": 18.258669917079395,
+    "t_hesap": 18.258669917079395,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-198",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 849.8,
+      "nominal_thickness": 21.02,
+      "CA_i": 0.03,
+      "mill": 9.27,
+      "S": 159.65,
+      "E": 1.0,
+      "P": 2.722,
+      "crown_radius": 812.02,
+      "knuckle_radius": 86.98
+    },
+    "api_t": 10.497422760932636,
+    "t_hesap": 10.497422760932636,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-199",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1467.8,
+      "nominal_thickness": 15.56,
+      "CA_i": 0.5,
+      "mill": 14.47,
+      "S": 111.6,
+      "E": 1.0,
+      "P": 1.527,
+      "crown_radius": 1346.01,
+      "knuckle_radius": 122.72
+    },
+    "api_t": 14.550645387411532,
+    "t_hesap": 14.550645387411532,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-200",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1520.9,
+      "nominal_thickness": 27.58,
+      "CA_i": 1.23,
+      "mill": 10.23,
+      "S": 104.17,
+      "E": 0.85,
+      "P": 0.263,
+      "crown_radius": 1482.93,
+      "knuckle_radius": 93.73
+    },
+    "api_t": 3.8429068423882184,
+    "t_hesap": 3.8429068423882184,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-201",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1649.1,
+      "nominal_thickness": 14.8,
+      "CA_i": 2.36,
+      "mill": 2.14,
+      "S": 128.01,
+      "E": 0.9,
+      "P": 2.506,
+      "crown_radius": 1628.53,
+      "knuckle_radius": 108.09
+    },
+    "api_t": 30.537421764635653,
+    "t_hesap": 30.537421764635653,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-202",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1358.2,
+      "nominal_thickness": 14.14,
+      "CA_i": 2.35,
+      "mill": 12.45,
+      "S": 128.22,
+      "E": 0.9,
+      "P": 1.363,
+      "crown_radius": 1272.03,
+      "knuckle_radius": 107.56
+    },
+    "api_t": 12.106869918188899,
+    "t_hesap": 12.106869918188899,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-203",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1147.3,
+      "nominal_thickness": 28.52,
+      "CA_i": 0.08,
+      "mill": 12.88,
+      "S": 100.13,
+      "E": 0.85,
+      "P": 2.04,
+      "crown_radius": 1060.36,
+      "knuckle_radius": 92.62
+    },
+    "api_t": 20.32898678810912,
+    "t_hesap": 20.32898678810912,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-204",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 517.6,
+      "nominal_thickness": 16.72,
+      "CA_i": 2.58,
+      "mill": 13.11,
+      "S": 151.3,
+      "E": 0.85,
+      "P": 1.957,
+      "crown_radius": 449.29,
+      "knuckle_radius": 65.77
+    },
+    "api_t": 4.804822930008717,
+    "t_hesap": 4.804822930008717,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-205",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 942.2,
+      "nominal_thickness": 29.6,
+      "CA_i": 2.1,
+      "mill": 3.48,
+      "S": 113.51,
+      "E": 0.85,
+      "P": 1.066,
+      "crown_radius": 795.5,
+      "knuckle_radius": 119.51
+    },
+    "api_t": 6.1371656339090945,
+    "t_hesap": 6.1371656339090945,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-206",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 855.6,
+      "nominal_thickness": 20.23,
+      "CA_i": 2.04,
+      "mill": 4.41,
+      "S": 153.97,
+      "E": 0.7,
+      "P": 2.753,
+      "crown_radius": 679.55,
+      "knuckle_radius": 114.9
+    },
+    "api_t": 11.815938603298626,
+    "t_hesap": 11.815938603298626,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-207",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1176.0,
+      "nominal_thickness": 21.92,
+      "CA_i": 0.41,
+      "mill": 12.41,
+      "S": 132.76,
+      "E": 0.85,
+      "P": 2.767,
+      "crown_radius": 967.65,
+      "knuckle_radius": 92.52
+    },
+    "api_t": 18.534675708566308,
+    "t_hesap": 18.534675708566308,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-208",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1099.3,
+      "nominal_thickness": 27.92,
+      "CA_i": 2.75,
+      "mill": 8.99,
+      "S": 125.9,
+      "E": 1.0,
+      "P": 0.544,
+      "crown_radius": 999.56,
+      "knuckle_radius": 90.21
+    },
+    "api_t": 3.4181847817366737,
+    "t_hesap": 3.4181847817366737,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-209",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1183.4,
+      "nominal_thickness": 26.19,
+      "CA_i": 1.44,
+      "mill": 4.45,
+      "S": 127.05,
+      "E": 0.7,
+      "P": 2.088,
+      "crown_radius": 1172.67,
+      "knuckle_radius": 176.09
+    },
+    "api_t": 19.25064450251034,
+    "t_hesap": 19.25064450251034,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-210",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1602.2,
+      "nominal_thickness": 8.94,
+      "CA_i": 0.42,
+      "mill": 0.72,
+      "S": 95.31,
+      "E": 0.7,
+      "P": 1.295,
+      "crown_radius": 1309.38,
+      "knuckle_radius": 236.87
+    },
+    "api_t": 17.03329995135903,
+    "t_hesap": 17.03329995135903,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-211",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 902.5,
+      "nominal_thickness": 22.85,
+      "CA_i": 2.03,
+      "mill": 6.04,
+      "S": 98.2,
+      "E": 0.9,
+      "P": 1.673,
+      "crown_radius": 798.46,
+      "knuckle_radius": 116.05
+    },
+    "api_t": 10.64385022368915,
+    "t_hesap": 10.64385022368915,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-212",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1136.2,
+      "nominal_thickness": 20.56,
+      "CA_i": 2.96,
+      "mill": 9.7,
+      "S": 155.47,
+      "E": 0.9,
+      "P": 1.071,
+      "crown_radius": 1026.96,
+      "knuckle_radius": 124.57
+    },
+    "api_t": 5.773332166115214,
+    "t_hesap": 5.773332166115214,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-213",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 713.1,
+      "nominal_thickness": 9.09,
+      "CA_i": 1.45,
+      "mill": 7.75,
+      "S": 167.25,
+      "E": 1.0,
+      "P": 1.14,
+      "crown_radius": 573.66,
+      "knuckle_radius": 73.32
+    },
+    "api_t": 2.835398538362399,
+    "t_hesap": 2.835398538362399,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-214",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1036.3,
+      "nominal_thickness": 20.24,
+      "CA_i": 1.24,
+      "mill": 2.4,
+      "S": 139.23,
+      "E": 0.9,
+      "P": 1.299,
+      "crown_radius": 881.89,
+      "knuckle_radius": 69.37
+    },
+    "api_t": 7.510640970496466,
+    "t_hesap": 7.510640970496466,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-215",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1734.8,
+      "nominal_thickness": 16.93,
+      "CA_i": 1.1,
+      "mill": 13.67,
+      "S": 124.97,
+      "E": 1.0,
+      "P": 2.518,
+      "crown_radius": 1513.15,
+      "knuckle_radius": 152.6
+    },
+    "api_t": 23.481065679999517,
+    "t_hesap": 23.481065679999517,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-216",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 631.4,
+      "nominal_thickness": 24.71,
+      "CA_i": 2.37,
+      "mill": 14.63,
+      "S": 130.81,
+      "E": 1.0,
+      "P": 1.26,
+      "crown_radius": 625.8,
+      "knuckle_radius": 53.11
+    },
+    "api_t": 4.851585348894849,
+    "t_hesap": 4.851585348894849,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-217",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1100.6,
+      "nominal_thickness": 28.21,
+      "CA_i": 2.91,
+      "mill": 8.05,
+      "S": 137.76,
+      "E": 1.0,
+      "P": 0.576,
+      "crown_radius": 859.0,
+      "knuckle_radius": 197.02
+    },
+    "api_t": 2.2852606357662095,
+    "t_hesap": 2.2852606357662095,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-218",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1710.7,
+      "nominal_thickness": 14.89,
+      "CA_i": 1.54,
+      "mill": 6.86,
+      "S": 161.61,
+      "E": 1.0,
+      "P": 2.819,
+      "crown_radius": 1478.9,
+      "knuckle_radius": 286.76
+    },
+    "api_t": 17.02644078552595,
+    "t_hesap": 17.02644078552595,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-219",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1091.7,
+      "nominal_thickness": 29.62,
+      "CA_i": 0.8,
+      "mill": 1.83,
+      "S": 150.74,
+      "E": 1.0,
+      "P": 1.244,
+      "crown_radius": 907.35,
+      "knuckle_radius": 72.14
+    },
+    "api_t": 6.132592700065037,
+    "t_hesap": 6.132592700065037,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-220",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1338.5,
+      "nominal_thickness": 15.45,
+      "CA_i": 0.75,
+      "mill": 0.6,
+      "S": 150.54,
+      "E": 0.85,
+      "P": 1.848,
+      "crown_radius": 1121.23,
+      "knuckle_radius": 188.3
+    },
+    "api_t": 11.027496710791507,
+    "t_hesap": 11.027496710791507,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-221",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1173.6,
+      "nominal_thickness": 21.49,
+      "CA_i": 2.19,
+      "mill": 5.68,
+      "S": 174.79,
+      "E": 0.7,
+      "P": 2.079,
+      "crown_radius": 1013.32,
+      "knuckle_radius": 99.25
+    },
+    "api_t": 13.356588843442122,
+    "t_hesap": 13.356588843442122,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-222",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1075.6,
+      "nominal_thickness": 14.9,
+      "CA_i": 2.18,
+      "mill": 11.41,
+      "S": 102.92,
+      "E": 1.0,
+      "P": 2.558,
+      "crown_radius": 854.59,
+      "knuckle_radius": 105.61
+    },
+    "api_t": 15.556312024013884,
+    "t_hesap": 15.556312024013884,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-223",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 896.8,
+      "nominal_thickness": 7.04,
+      "CA_i": 1.6,
+      "mill": 14.63,
+      "S": 118.03,
+      "E": 1.0,
+      "P": 0.811,
+      "crown_radius": 811.51,
+      "knuckle_radius": 67.27
+    },
+    "api_t": 4.514953944124768,
+    "t_hesap": 4.514953944124768,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-224",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1602.6,
+      "nominal_thickness": 24.01,
+      "CA_i": 2.65,
+      "mill": 0.84,
+      "S": 153.42,
+      "E": 1.0,
+      "P": 0.686,
+      "crown_radius": 1284.9,
+      "knuckle_radius": 269.32
+    },
+    "api_t": 3.724781603133368,
+    "t_hesap": 3.724781603133368,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-225",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1559.0,
+      "nominal_thickness": 15.5,
+      "CA_i": 2.74,
+      "mill": 9.32,
+      "S": 103.13,
+      "E": 0.85,
+      "P": 2.214,
+      "crown_radius": 1324.72,
+      "knuckle_radius": 210.22
+    },
+    "api_t": 23.103672336240237,
+    "t_hesap": 23.103672336240237,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-226",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1610.3,
+      "nominal_thickness": 23.57,
+      "CA_i": 0.93,
+      "mill": 1.7,
+      "S": 179.32,
+      "E": 0.85,
+      "P": 1.423,
+      "crown_radius": 1456.29,
+      "knuckle_radius": 115.56
+    },
+    "api_t": 11.141858307959021,
+    "t_hesap": 11.141858307959021,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-227",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1041.2,
+      "nominal_thickness": 8.17,
+      "CA_i": 2.39,
+      "mill": 11.18,
+      "S": 166.23,
+      "E": 0.9,
+      "P": 2.581,
+      "crown_radius": 1007.53,
+      "knuckle_radius": 69.19
+    },
+    "api_t": 14.834843747752885,
+    "t_hesap": 14.834843747752885,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-228",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1167.9,
+      "nominal_thickness": 11.52,
+      "CA_i": 2.48,
+      "mill": 0.17,
+      "S": 125.36,
+      "E": 0.85,
+      "P": 0.337,
+      "crown_radius": 1109.64,
+      "knuckle_radius": 139.75
+    },
+    "api_t": 2.552952187441436,
+    "t_hesap": 2.552952187441436,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-229",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1791.7,
+      "nominal_thickness": 8.49,
+      "CA_i": 1.59,
+      "mill": 4.87,
+      "S": 134.49,
+      "E": 0.9,
+      "P": 2.465,
+      "crown_radius": 1536.58,
+      "knuckle_radius": 220.49
+    },
+    "api_t": 22.10570275899295,
+    "t_hesap": 22.10570275899295,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-230",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1515.5,
+      "nominal_thickness": 22.64,
+      "CA_i": 0.78,
+      "mill": 10.42,
+      "S": 159.93,
+      "E": 1.0,
+      "P": 0.537,
+      "crown_radius": 1292.08,
+      "knuckle_radius": 237.93
+    },
+    "api_t": 2.891644368280707,
+    "t_hesap": 2.891644368280707,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-231",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1400.0,
+      "nominal_thickness": 20.74,
+      "CA_i": 0.96,
+      "mill": 9.34,
+      "S": 168.87,
+      "E": 0.85,
+      "P": 1.026,
+      "crown_radius": 1168.14,
+      "knuckle_radius": 204.87
+    },
+    "api_t": 5.627395211535461,
+    "t_hesap": 5.627395211535461,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-232",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 657.3,
+      "nominal_thickness": 17.05,
+      "CA_i": 2.47,
+      "mill": 1.51,
+      "S": 160.19,
+      "E": 1.0,
+      "P": 0.536,
+      "crown_radius": 563.43,
+      "knuckle_radius": 66.7
+    },
+    "api_t": 1.3923499134587398,
+    "t_hesap": 1.3923499134587398,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-233",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1589.9,
+      "nominal_thickness": 10.7,
+      "CA_i": 1.04,
+      "mill": 7.18,
+      "S": 112.19,
+      "E": 1.0,
+      "P": 2.8,
+      "crown_radius": 1401.86,
+      "knuckle_radius": 165.49
+    },
+    "api_t": 25.9135816502185,
+    "t_hesap": 25.9135816502185,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-234",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1631.1,
+      "nominal_thickness": 21.55,
+      "CA_i": 2.39,
+      "mill": 12.83,
+      "S": 167.08,
+      "E": 0.7,
+      "P": 2.698,
+      "crown_radius": 1571.2,
+      "knuckle_radius": 133.51
+    },
+    "api_t": 29.20178698412312,
+    "t_hesap": 29.20178698412312,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-235",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1203.6,
+      "nominal_thickness": 26.41,
+      "CA_i": 2.09,
+      "mill": 12.7,
+      "S": 158.62,
+      "E": 0.85,
+      "P": 0.435,
+      "crown_radius": 996.64,
+      "knuckle_radius": 181.44
+    },
+    "api_t": 2.148538762423596,
+    "t_hesap": 2.148538762423596,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-236",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1746.7,
+      "nominal_thickness": 10.39,
+      "CA_i": 0.43,
+      "mill": 2.26,
+      "S": 138.77,
+      "E": 0.9,
+      "P": 1.867,
+      "crown_radius": 1675.26,
+      "knuckle_radius": 244.42
+    },
+    "api_t": 17.612918853633833,
+    "t_hesap": 17.612918853633833,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-237",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 760.0,
+      "nominal_thickness": 20.47,
+      "CA_i": 0.68,
+      "mill": 13.95,
+      "S": 172.16,
+      "E": 0.9,
+      "P": 0.248,
+      "crown_radius": 711.9,
+      "knuckle_radius": 133.98
+    },
+    "api_t": 0.7557338975384907,
+    "t_hesap": 0.7557338975384907,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-238",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 780.4,
+      "nominal_thickness": 10.04,
+      "CA_i": 1.61,
+      "mill": 12.18,
+      "S": 122.42,
+      "E": 1.0,
+      "P": 2.842,
+      "crown_radius": 610.22,
+      "knuckle_radius": 105.57
+    },
+    "api_t": 9.592018508536357,
+    "t_hesap": 9.592018508536357,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-239",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 870.8,
+      "nominal_thickness": 20.66,
+      "CA_i": 2.48,
+      "mill": 7.05,
+      "S": 162.19,
+      "E": 1.0,
+      "P": 1.215,
+      "crown_radius": 718.54,
+      "knuckle_radius": 128.32
+    },
+    "api_t": 3.613410666326605,
+    "t_hesap": 3.613410666326605,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-240",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1724.1,
+      "nominal_thickness": 29.76,
+      "CA_i": 0.59,
+      "mill": 13.12,
+      "S": 129.37,
+      "E": 0.9,
+      "P": 0.509,
+      "crown_radius": 1416.33,
+      "knuckle_radius": 209.9
+    },
+    "api_t": 4.334207039095765,
+    "t_hesap": 4.334207039095765,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-241",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 853.3,
+      "nominal_thickness": 17.51,
+      "CA_i": 2.11,
+      "mill": 11.81,
+      "S": 149.82,
+      "E": 0.9,
+      "P": 0.612,
+      "crown_radius": 772.85,
+      "knuckle_radius": 137.83
+    },
+    "api_t": 2.354785641942355,
+    "t_hesap": 2.354785641942355,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-242",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1415.5,
+      "nominal_thickness": 29.29,
+      "CA_i": 2.39,
+      "mill": 13.65,
+      "S": 153.6,
+      "E": 1.0,
+      "P": 1.922,
+      "crown_radius": 1112.29,
+      "knuckle_radius": 185.22
+    },
+    "api_t": 9.494563279690757,
+    "t_hesap": 9.494563279690757,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-243",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1580.3,
+      "nominal_thickness": 7.69,
+      "CA_i": 2.87,
+      "mill": 7.3,
+      "S": 152.18,
+      "E": 0.9,
+      "P": 2.348,
+      "crown_radius": 1319.52,
+      "knuckle_radius": 207.96
+    },
+    "api_t": 15.632374637127775,
+    "t_hesap": 15.632374637127775,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-244",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1051.2,
+      "nominal_thickness": 12.61,
+      "CA_i": 1.91,
+      "mill": 13.3,
+      "S": 171.66,
+      "E": 0.7,
+      "P": 2.967,
+      "crown_radius": 846.36,
+      "knuckle_radius": 150.48
+    },
+    "api_t": 14.06667439511252,
+    "t_hesap": 14.06667439511252,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-245",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 750.1,
+      "nominal_thickness": 21.2,
+      "CA_i": 2.53,
+      "mill": 12.03,
+      "S": 164.33,
+      "E": 0.85,
+      "P": 2.773,
+      "crown_radius": 635.73,
+      "knuckle_radius": 75.75
+    },
+    "api_t": 9.321574466648233,
+    "t_hesap": 9.321574466648233,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-246",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1032.5,
+      "nominal_thickness": 7.73,
+      "CA_i": 2.18,
+      "mill": 11.55,
+      "S": 131.99,
+      "E": 0.7,
+      "P": 1.76,
+      "crown_radius": 960.95,
+      "knuckle_radius": 184.49
+    },
+    "api_t": 12.109654829916172,
+    "t_hesap": 12.109654829916172,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-247",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1709.8,
+      "nominal_thickness": 27.14,
+      "CA_i": 2.8,
+      "mill": 8.15,
+      "S": 179.86,
+      "E": 1.0,
+      "P": 2.977,
+      "crown_radius": 1393.75,
+      "knuckle_radius": 109.24
+    },
+    "api_t": 18.982384517179355,
+    "t_hesap": 18.982384517179355,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-248",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1625.0,
+      "nominal_thickness": 18.09,
+      "CA_i": 0.92,
+      "mill": 4.18,
+      "S": 154.06,
+      "E": 1.0,
+      "P": 1.358,
+      "crown_radius": 1440.9,
+      "knuckle_radius": 225.12
+    },
+    "api_t": 8.787330935529233,
+    "t_hesap": 8.787330935529233,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-249",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1772.1,
+      "nominal_thickness": 25.68,
+      "CA_i": 1.21,
+      "mill": 0.49,
+      "S": 162.24,
+      "E": 0.9,
+      "P": 0.262,
+      "crown_radius": 1630.71,
+      "knuckle_radius": 313.11
+    },
+    "api_t": 1.9322993263784651,
+    "t_hesap": 1.9322993263784651,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-250",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 529.2,
+      "nominal_thickness": 15.31,
+      "CA_i": 0.82,
+      "mill": 3.71,
+      "S": 152.62,
+      "E": 0.7,
+      "P": 1.445,
+      "crown_radius": 515.81,
+      "knuckle_radius": 84.8
+    },
+    "api_t": 4.773532395996958,
+    "t_hesap": 4.773532395996958,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-251",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1265.8,
+      "nominal_thickness": 20.77,
+      "CA_i": 0.27,
+      "mill": 9.32,
+      "S": 131.17,
+      "E": 0.7,
+      "P": 2.106,
+      "crown_radius": 1025.88,
+      "knuckle_radius": 121.84
+    },
+    "api_t": 17.39831464796471,
+    "t_hesap": 17.39831464796471,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-252",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1419.6,
+      "nominal_thickness": 23.0,
+      "CA_i": 2.6,
+      "mill": 7.72,
+      "S": 165.89,
+      "E": 0.7,
+      "P": 2.207,
+      "crown_radius": 1206.73,
+      "knuckle_radius": 151.42
+    },
+    "api_t": 16.72547385197325,
+    "t_hesap": 16.72547385197325,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-253",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1634.8,
+      "nominal_thickness": 29.58,
+      "CA_i": 1.15,
+      "mill": 0.44,
+      "S": 120.91,
+      "E": 0.9,
+      "P": 0.573,
+      "crown_radius": 1416.37,
+      "knuckle_radius": 193.82
+    },
+    "api_t": 5.3197243453393614,
+    "t_hesap": 5.3197243453393614,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-254",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1044.5,
+      "nominal_thickness": 23.8,
+      "CA_i": 1.12,
+      "mill": 3.95,
+      "S": 160.17,
+      "E": 1.0,
+      "P": 1.348,
+      "crown_radius": 829.96,
+      "knuckle_radius": 187.76
+    },
+    "api_t": 4.45882955326499,
+    "t_hesap": 4.45882955326499,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-255",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 574.2,
+      "nominal_thickness": 9.11,
+      "CA_i": 1.1,
+      "mill": 11.47,
+      "S": 121.98,
+      "E": 0.7,
+      "P": 1.963,
+      "crown_radius": 571.78,
+      "knuckle_radius": 53.4
+    },
+    "api_t": 10.329853799932886,
+    "t_hesap": 10.329853799932886,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-256",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1541.7,
+      "nominal_thickness": 9.69,
+      "CA_i": 2.97,
+      "mill": 14.49,
+      "S": 130.55,
+      "E": 0.85,
+      "P": 1.254,
+      "crown_radius": 1383.83,
+      "knuckle_radius": 239.5
+    },
+    "api_t": 10.575002757752946,
+    "t_hesap": 10.575002757752946,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-257",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1492.7,
+      "nominal_thickness": 15.71,
+      "CA_i": 2.45,
+      "mill": 13.1,
+      "S": 133.74,
+      "E": 0.7,
+      "P": 1.025,
+      "crown_radius": 1333.09,
+      "knuckle_radius": 99.98
+    },
+    "api_t": 12.148715660541802,
+    "t_hesap": 12.148715660541802,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-258",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 548.4,
+      "nominal_thickness": 23.73,
+      "CA_i": 1.81,
+      "mill": 4.63,
+      "S": 177.07,
+      "E": 0.7,
+      "P": 2.279,
+      "crown_radius": 530.92,
+      "knuckle_radius": 48.63
+    },
+    "api_t": 7.706684499598454,
+    "t_hesap": 7.706684499598454,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-259",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 919.1,
+      "nominal_thickness": 11.27,
+      "CA_i": 2.68,
+      "mill": 4.04,
+      "S": 96.91,
+      "E": 0.7,
+      "P": 0.868,
+      "crown_radius": 756.01,
+      "knuckle_radius": 156.44
+    },
+    "api_t": 6.293746774881583,
+    "t_hesap": 6.293746774881583,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-260",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 661.1,
+      "nominal_thickness": 6.73,
+      "CA_i": 2.31,
+      "mill": 7.74,
+      "S": 109.41,
+      "E": 0.85,
+      "P": 1.242,
+      "crown_radius": 625.49,
+      "knuckle_radius": 108.68
+    },
+    "api_t": 5.645105072090451,
+    "t_hesap": 5.645105072090451,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-261",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1580.5,
+      "nominal_thickness": 13.16,
+      "CA_i": 0.99,
+      "mill": 3.22,
+      "S": 170.98,
+      "E": 0.85,
+      "P": 2.059,
+      "crown_radius": 1328.52,
+      "knuckle_radius": 133.09
+    },
+    "api_t": 14.512017589033091,
+    "t_hesap": 14.512017589033091,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-262",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1772.9,
+      "nominal_thickness": 15.43,
+      "CA_i": 1.5,
+      "mill": 11.9,
+      "S": 169.01,
+      "E": 0.7,
+      "P": 2.995,
+      "crown_radius": 1522.85,
+      "knuckle_radius": 290.49
+    },
+    "api_t": 25.555162165691165,
+    "t_hesap": 25.555162165691165,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-263",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1480.0,
+      "nominal_thickness": 23.56,
+      "CA_i": 0.7,
+      "mill": 14.37,
+      "S": 173.02,
+      "E": 0.9,
+      "P": 0.821,
+      "crown_radius": 1201.61,
+      "knuckle_radius": 123.89
+    },
+    "api_t": 4.844570648120592,
+    "t_hesap": 4.844570648120592,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-264",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1689.3,
+      "nominal_thickness": 16.33,
+      "CA_i": 0.43,
+      "mill": 6.41,
+      "S": 121.45,
+      "E": 0.7,
+      "P": 0.701,
+      "crown_radius": 1482.71,
+      "knuckle_radius": 178.79
+    },
+    "api_t": 8.993042297880537,
+    "t_hesap": 8.993042297880537,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-265",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1061.1,
+      "nominal_thickness": 10.31,
+      "CA_i": 1.35,
+      "mill": 5.97,
+      "S": 147.98,
+      "E": 1.0,
+      "P": 1.364,
+      "crown_radius": 970.56,
+      "knuckle_radius": 179.49
+    },
+    "api_t": 5.960649618795894,
+    "t_hesap": 5.960649618795894,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-266",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 732.7,
+      "nominal_thickness": 19.65,
+      "CA_i": 0.24,
+      "mill": 9.57,
+      "S": 162.7,
+      "E": 0.85,
+      "P": 1.831,
+      "crown_radius": 581.06,
+      "knuckle_radius": 97.54
+    },
+    "api_t": 5.238960585139545,
+    "t_hesap": 5.238960585139545,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-267",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 870.8,
+      "nominal_thickness": 15.46,
+      "CA_i": 2.26,
+      "mill": 5.22,
+      "S": 127.6,
+      "E": 0.9,
+      "P": 1.285,
+      "crown_radius": 820.92,
+      "knuckle_radius": 149.35
+    },
+    "api_t": 6.14345996990295,
+    "t_hesap": 6.14345996990295,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-268",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1702.5,
+      "nominal_thickness": 8.93,
+      "CA_i": 2.72,
+      "mill": 10.39,
+      "S": 98.52,
+      "E": 0.7,
+      "P": 1.5,
+      "crown_radius": 1634.76,
+      "knuckle_radius": 296.53
+    },
+    "api_t": 23.821411699217958,
+    "t_hesap": 23.821411699217958,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-269",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1091.5,
+      "nominal_thickness": 29.61,
+      "CA_i": 0.25,
+      "mill": 10.29,
+      "S": 94.5,
+      "E": 0.9,
+      "P": 0.318,
+      "crown_radius": 954.5,
+      "knuckle_radius": 91.75
+    },
+    "api_t": 2.7782359053532293,
+    "t_hesap": 2.7782359053532293,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-270",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1717.6,
+      "nominal_thickness": 16.61,
+      "CA_i": 2.76,
+      "mill": 5.77,
+      "S": 96.77,
+      "E": 0.7,
+      "P": 1.754,
+      "crown_radius": 1585.91,
+      "knuckle_radius": 138.12
+    },
+    "api_t": 32.87805441357513,
+    "t_hesap": 32.87805441357513,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-271",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 907.5,
+      "nominal_thickness": 15.36,
+      "CA_i": 0.84,
+      "mill": 5.38,
+      "S": 133.86,
+      "E": 0.9,
+      "P": 1.291,
+      "crown_radius": 901.09,
+      "knuckle_radius": 107.06
+    },
+    "api_t": 7.130393988418314,
+    "t_hesap": 7.130393988418314,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-272",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1114.0,
+      "nominal_thickness": 26.01,
+      "CA_i": 0.49,
+      "mill": 4.91,
+      "S": 92.51,
+      "E": 0.9,
+      "P": 2.954,
+      "crown_radius": 1076.1,
+      "knuckle_radius": 162.09
+    },
+    "api_t": 26.70887504441781,
+    "t_hesap": 26.70887504441781,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-273",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1570.9,
+      "nominal_thickness": 25.93,
+      "CA_i": 1.86,
+      "mill": 10.07,
+      "S": 113.14,
+      "E": 1.0,
+      "P": 1.409,
+      "crown_radius": 1396.5,
+      "knuckle_radius": 273.94
+    },
+    "api_t": 11.44442949708685,
+    "t_hesap": 11.44442949708685,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-274",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1003.6,
+      "nominal_thickness": 24.66,
+      "CA_i": 0.33,
+      "mill": 10.72,
+      "S": 111.09,
+      "E": 1.0,
+      "P": 2.124,
+      "crown_radius": 810.14,
+      "knuckle_radius": 104.14
+    },
+    "api_t": 11.23040162724348,
+    "t_hesap": 11.23040162724348,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-275",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1094.7,
+      "nominal_thickness": 13.52,
+      "CA_i": 0.92,
+      "mill": 11.89,
+      "S": 112.37,
+      "E": 0.85,
+      "P": 1.771,
+      "crown_radius": 871.63,
+      "knuckle_radius": 121.74
+    },
+    "api_t": 11.487420985385878,
+    "t_hesap": 11.487420985385878,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-276",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1203.5,
+      "nominal_thickness": 11.5,
+      "CA_i": 0.33,
+      "mill": 10.0,
+      "S": 149.54,
+      "E": 0.85,
+      "P": 0.274,
+      "crown_radius": 956.54,
+      "knuckle_radius": 141.99
+    },
+    "api_t": 1.4425162205310724,
+    "t_hesap": 1.4425162205310724,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-277",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1153.2,
+      "nominal_thickness": 10.18,
+      "CA_i": 0.01,
+      "mill": 9.75,
+      "S": 164.19,
+      "E": 1.0,
+      "P": 1.349,
+      "crown_radius": 901.84,
+      "knuckle_radius": 122.11
+    },
+    "api_t": 5.300016233243563,
+    "t_hesap": 5.300016233243563,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-278",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1785.5,
+      "nominal_thickness": 27.75,
+      "CA_i": 2.2,
+      "mill": 10.92,
+      "S": 121.09,
+      "E": 0.9,
+      "P": 2.197,
+      "crown_radius": 1694.02,
+      "knuckle_radius": 262.31
+    },
+    "api_t": 23.7024914771307,
+    "t_hesap": 23.7024914771307,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-279",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 522.2,
+      "nominal_thickness": 6.14,
+      "CA_i": 0.33,
+      "mill": 2.63,
+      "S": 149.42,
+      "E": 0.9,
+      "P": 2.394,
+      "crown_radius": 426.67,
+      "knuckle_radius": 78.88
+    },
+    "api_t": 5.065583078871432,
+    "t_hesap": 5.065583078871432,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-280",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1648.7,
+      "nominal_thickness": 8.69,
+      "CA_i": 0.45,
+      "mill": 10.91,
+      "S": 163.18,
+      "E": 0.7,
+      "P": 2.153,
+      "crown_radius": 1450.14,
+      "knuckle_radius": 267.2
+    },
+    "api_t": 18.243801169168197,
+    "t_hesap": 18.243801169168197,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-281",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 534.1,
+      "nominal_thickness": 15.89,
+      "CA_i": 0.69,
+      "mill": 11.79,
+      "S": 176.6,
+      "E": 0.85,
+      "P": 1.208,
+      "crown_radius": 441.59,
+      "knuckle_radius": 43.58
+    },
+    "api_t": 2.7488468974735696,
+    "t_hesap": 2.7488468974735696,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-282",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 991.3,
+      "nominal_thickness": 21.28,
+      "CA_i": 1.15,
+      "mill": 3.54,
+      "S": 163.85,
+      "E": 0.85,
+      "P": 2.459,
+      "crown_radius": 860.27,
+      "knuckle_radius": 143.15
+    },
+    "api_t": 10.368522022228715,
+    "t_hesap": 10.368522022228715,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-283",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 529.0,
+      "nominal_thickness": 26.75,
+      "CA_i": 0.37,
+      "mill": 5.05,
+      "S": 178.01,
+      "E": 0.85,
+      "P": 2.6,
+      "crown_radius": 478.56,
+      "knuckle_radius": 34.98
+    },
+    "api_t": 6.897614864825578,
+    "t_hesap": 6.897614864825578,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-284",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 686.1,
+      "nominal_thickness": 20.39,
+      "CA_i": 2.87,
+      "mill": 6.33,
+      "S": 93.68,
+      "E": 0.85,
+      "P": 2.268,
+      "crown_radius": 668.25,
+      "knuckle_radius": 68.55
+    },
+    "api_t": 14.607471420733418,
+    "t_hesap": 14.607471420733418,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-285",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 934.9,
+      "nominal_thickness": 15.37,
+      "CA_i": 1.29,
+      "mill": 1.46,
+      "S": 118.88,
+      "E": 0.9,
+      "P": 1.63,
+      "crown_radius": 932.22,
+      "knuckle_radius": 103.55
+    },
+    "api_t": 10.668652581970541,
+    "t_hesap": 10.668652581970541,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-286",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1399.8,
+      "nominal_thickness": 12.42,
+      "CA_i": 2.58,
+      "mill": 10.36,
+      "S": 163.53,
+      "E": 0.7,
+      "P": 1.709,
+      "crown_radius": 1329.11,
+      "knuckle_radius": 122.25
+    },
+    "api_t": 15.642980358712444,
+    "t_hesap": 15.642980358712444,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-287",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1372.3,
+      "nominal_thickness": 24.03,
+      "CA_i": 1.04,
+      "mill": 10.54,
+      "S": 97.5,
+      "E": 1.0,
+      "P": 1.26,
+      "crown_radius": 1358.83,
+      "knuckle_radius": 229.18
+    },
+    "api_t": 11.945383304712877,
+    "t_hesap": 11.945383304712877,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-288",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 628.4,
+      "nominal_thickness": 11.91,
+      "CA_i": 1.83,
+      "mill": 13.43,
+      "S": 153.79,
+      "E": 1.0,
+      "P": 0.392,
+      "crown_radius": 552.8,
+      "knuckle_radius": 46.8
+    },
+    "api_t": 1.134019161031977,
+    "t_hesap": 1.134019161031977,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-289",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1577.6,
+      "nominal_thickness": 19.47,
+      "CA_i": 0.61,
+      "mill": 10.93,
+      "S": 99.79,
+      "E": 1.0,
+      "P": 0.526,
+      "crown_radius": 1498.23,
+      "knuckle_radius": 280.35
+    },
+    "api_t": 5.246298562168841,
+    "t_hesap": 5.246298562168841,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-290",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1281.0,
+      "nominal_thickness": 29.48,
+      "CA_i": 0.83,
+      "mill": 1.95,
+      "S": 136.7,
+      "E": 1.0,
+      "P": 2.914,
+      "crown_radius": 1041.93,
+      "knuckle_radius": 142.75
+    },
+    "api_t": 15.863459858027252,
+    "t_hesap": 15.863459858027252,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-291",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 591.7,
+      "nominal_thickness": 7.66,
+      "CA_i": 0.54,
+      "mill": 14.91,
+      "S": 98.26,
+      "E": 0.85,
+      "P": 1.169,
+      "crown_radius": 481.57,
+      "knuckle_radius": 55.59
+    },
+    "api_t": 5.014442297058372,
+    "t_hesap": 5.014442297058372,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-292",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 788.8,
+      "nominal_thickness": 23.58,
+      "CA_i": 2.29,
+      "mill": 13.83,
+      "S": 154.81,
+      "E": 1.0,
+      "P": 0.629,
+      "crown_radius": 648.51,
+      "knuckle_radius": 111.05
+    },
+    "api_t": 1.7847567489664058,
+    "t_hesap": 1.7847567489664058,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-293",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 695.9,
+      "nominal_thickness": 7.33,
+      "CA_i": 1.96,
+      "mill": 13.67,
+      "S": 158.16,
+      "E": 0.85,
+      "P": 1.18,
+      "crown_radius": 611.32,
+      "knuckle_radius": 62.24
+    },
+    "api_t": 4.117849260123159,
+    "t_hesap": 4.117849260123159,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-294",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 557.3,
+      "nominal_thickness": 20.76,
+      "CA_i": 0.69,
+      "mill": 10.87,
+      "S": 137.02,
+      "E": 0.85,
+      "P": 0.231,
+      "crown_radius": 449.12,
+      "knuckle_radius": 92.91
+    },
+    "api_t": 0.5789694275395059,
+    "t_hesap": 0.5789694275395059,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-295",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1064.9,
+      "nominal_thickness": 7.48,
+      "CA_i": 1.28,
+      "mill": 5.84,
+      "S": 171.14,
+      "E": 0.7,
+      "P": 2.819,
+      "crown_radius": 908.68,
+      "knuckle_radius": 154.05
+    },
+    "api_t": 14.54406570613098,
+    "t_hesap": 14.54406570613098,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-296",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1312.0,
+      "nominal_thickness": 24.77,
+      "CA_i": 2.52,
+      "mill": 7.24,
+      "S": 97.3,
+      "E": 0.9,
+      "P": 0.223,
+      "crown_radius": 1104.76,
+      "knuckle_radius": 145.16
+    },
+    "api_t": 2.025654685365778,
+    "t_hesap": 2.025654685365778,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-297",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 956.7,
+      "nominal_thickness": 15.46,
+      "CA_i": 0.48,
+      "mill": 6.35,
+      "S": 146.42,
+      "E": 1.0,
+      "P": 2.806,
+      "crown_radius": 931.91,
+      "knuckle_radius": 91.77
+    },
+    "api_t": 13.837608525410202,
+    "t_hesap": 13.837608525410202,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-298",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1496.7,
+      "nominal_thickness": 17.79,
+      "CA_i": 1.9,
+      "mill": 10.72,
+      "S": 114.15,
+      "E": 1.0,
+      "P": 2.668,
+      "crown_radius": 1315.61,
+      "knuckle_radius": 157.8
+    },
+    "api_t": 22.682369534607805,
+    "t_hesap": 22.682369534607805,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-299",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 896.2,
+      "nominal_thickness": 17.01,
+      "CA_i": 2.85,
+      "mill": 13.91,
+      "S": 133.35,
+      "E": 0.9,
+      "P": 1.899,
+      "crown_radius": 737.81,
+      "knuckle_radius": 69.81
+    },
+    "api_t": 9.13648999803077,
+    "t_hesap": 9.13648999803077,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  },
+  {
+    "id": "T60-300",
+    "tip": "torispherical",
+    "girdi": {
+      "D_i": 1543.8,
+      "nominal_thickness": 7.78,
+      "CA_i": 2.72,
+      "mill": 9.75,
+      "S": 100.36,
+      "E": 0.85,
+      "P": 2.511,
+      "crown_radius": 1422.43,
+      "knuckle_radius": 168.05
+    },
+    "api_t": 31.0190229012249,
+    "t_hesap": 31.0190229012249,
+    "durum": "UYUŞUR",
+    "api_ok": true,
+    "api_error": null
+  }
+]
