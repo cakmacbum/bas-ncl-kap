@@ -7,6 +7,7 @@
 T30, T31, T32, T33 çıktıları (`tools/campaign/tur3/mega_*/results.json`). T32'de 110/110 satır BULGU; oysa alt kontroller GEÇTİ/PASS. Satır durumu hatalı birleştirilmiş.
 
 ## Görev
+0. ÖN ADIM (zorunlu): sahip tavanı düzeltildi (harness her vakaya ayrı X-Client-Id verir). T30–T33 sonuçlarında 'Project limit reached' hatası var; bunlar hesap değil, eski harness artefaktı. Önce `python -m tools.campaign.tur3.mega_govde.run`, `mega_destek.run`, `mega_nozul.run`, `mega_yuk.run` komutlarını yeniden koştur. Sonra aşağıdaki adımlara geç.
 1. `results.json` içindeki her satır için `kontrol` listesini oku.
 2. Satır durumunu şöyle yeniden hesapla: herhangi bir kontrolün durumu `BULGU` ise `BULGU`; `BLOCKED` ise `BLOCKED_BEKLENEN`; tümü `PASS`/`GEÇTİ` ise `GEÇTİ`.
 3. Bu kural ile hâlâ BULGU çıkan satırları tek tek incele: hangi kontrol başarısız, neden? Gerçek bir uygulama hatası mı, yoksa kontrol tanımı mı yanlış? Her grup için 2 örnekle raporla.
