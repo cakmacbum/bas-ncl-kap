@@ -9,15 +9,15 @@ Bu dosya, hedefin kapanmasını engelleyen tüm açık maddeleri toplar. Her mad
 |---|---|---|---|
 | B-01 | YÜKSEK, emniyetsiz | Gövde MAWP'de dış korozyon payı (CA_o) düşülmüyor (1000 vakada 641'i etkilenmiş) | Teyitli; düzeltme onay bekliyor |
 | B-02 | YÜKSEK, emniyetsiz | Gövde/bombe/koni/nozul gerekli kalınlık hesaplarının çoğu CA_o'yu kullanmıyor | Kod taraması yapıldı; düzeltme B-01 ile birlikte |
-| B-03 | ORTA | Torisferik bombede knuckle yarıçapı eksikken BLOCKED yerine PASS | Teyitli değil (T09 raporu eksik) |
-| B-07 | KAYNAK_BEKLİYOR (olası yanlış alarm) | Nozul takviyesinde ev sahibi t_r E = 1 ile hesaplanıyor. UG-37(a) t_r'yi dikişsiz kabuk için tanımlıyorsa bu doğrudur; bağımsız doğrulama bir ajana atandı | Düzeltme uygulanmaz; doğrulama sonucu bekleniyor |
+| B-03 | UYARILI VARSAYILAN | Boş knuckle için 0.06·L varsayılıyor; K4 uyarısı var | Sorun değil (A4, güven yüksek) |
+| B-07 | YANLIŞ ALARM (A2+A4, güven orta-yüksek; birincil metin erişilemedi) | Nozul takviyesinde ev sahibi t_r E = 1 ile hesaplanıyor. UG-37(a) t_r'yi dikişsiz kabuk için tanımlıyorsa bu doğrudur; bağımsız doğrulama bir ajana atandı | Düzeltme uygulanmaz; doğrulama sonucu bekleniyor |
 | B-04 | ORTA | MDMT coincident ratio alanı hesaba bağlı değil | Kod incelemesi; test yok |
 | B-05 | DÜŞÜK | Vakum sonucu `external_pressure` adıyla dönüyor | Kod incelemesi |
 | B-06 | ORTA | EN 13445 flanş, yük kombinasyonu, yorulma tetiklenemiyor | Kod incelemesi |
 | B-08 | ORTA | Nozul yerleşim kontrolü sayısal çıktı vermiyor | Kod incelemesi |
 | B-09 | ORTA | MDMT için bağımsız sayısal kıyas yok (UCS-66 telifli, K6) | Açık |
-| G-01 | YÜKSEK (aday) | Nozul merkezi >0.8D PASS dönüyor (T13); 0.8D sınırının normatif kaynağı teyit edilmedi | Açık: kaynak gerekli |
-| G-02 | — | Statik kafa farkı (T16) teyit edilmedi | Açık: vaka bazında kontrol gerekli |
+| G-01 | YANLIŞ ALARM | 0.8D, UG-37(a)'da t_r seçim dairesi; yerleşim yasağı değil | Kapandı (A4, güven orta) |
+| B-10 | YÜKSEK, emniyetsiz | Statik kafa düzeltmesi ölü kod: `reference_elevation_mm` hiç atanmıyor; hidrotestte statik kafa yok | Teyitli (şef + A4). Düzeltme onay bekliyor |
 | G-03 | ORTA | Anlamsız girdi (ör. basınç 1e9) HTTP 200 PASS/FAIL dönüyor; bazı NaN'lar 500 veriyor | Gözlemlendi; şema üst sınırı yok |
 | G-04 | DÜŞÜK | Büyük harfli UUID kabul ediliyor (aynı sahibe normalleşiyor; sızıntı yok) | Bilgi |
 | G-05 | ORTA | Etekli kolonda taban halkası sonucu API'de yok (T14) | Açık |
