@@ -1,0 +1,354 @@
+{
+  "paket": "T02-birim-tutarlilik",
+  "metrik": "SHELL-01 required_thickness",
+  "tolerans_yuzde": 0.1,
+  "baseline_hata": null,
+  "vakalar": [
+    {
+      "vaka": "BASE",
+      "girdi": {
+        "scale": 1.0,
+        "unit_system": "SI",
+        "design_pressure_mpa": 1.2,
+        "shell_inside_diameter_mm": 1000,
+        "shell_nominal_thickness_mm": 12
+      },
+      "beklenen": 4.388111888111888,
+      "gozlenen": 4.388111888111888,
+      "sonuc": "GEÇTİ",
+      "birim": "mm t_required (Imperial vakada beklenen inç)",
+      "durum": "PASS",
+      "hata": null
+    },
+    {
+      "vaka": "SCALE-01",
+      "girdi": {
+        "scale": 0.25,
+        "unit_system": "SI",
+        "design_pressure_mpa": 1.2,
+        "shell_inside_diameter_mm": 250.0,
+        "shell_nominal_thickness_mm": 3.0
+      },
+      "beklenen": 1.097027972027972,
+      "gozlenen": 1.097027972027972,
+      "sonuc": "GEÇTİ",
+      "birim": "mm t_required (Imperial vakada beklenen inç)",
+      "durum": "PASS",
+      "hata": null
+    },
+    {
+      "vaka": "SCALE-02",
+      "girdi": {
+        "scale": 0.5,
+        "unit_system": "SI",
+        "design_pressure_mpa": 1.2,
+        "shell_inside_diameter_mm": 500.0,
+        "shell_nominal_thickness_mm": 6.0
+      },
+      "beklenen": 2.194055944055944,
+      "gozlenen": 2.194055944055944,
+      "sonuc": "GEÇTİ",
+      "birim": "mm t_required (Imperial vakada beklenen inç)",
+      "durum": "PASS",
+      "hata": null
+    },
+    {
+      "vaka": "SCALE-03",
+      "girdi": {
+        "scale": 0.75,
+        "unit_system": "SI",
+        "design_pressure_mpa": 1.2,
+        "shell_inside_diameter_mm": 750.0,
+        "shell_nominal_thickness_mm": 9.0
+      },
+      "beklenen": 3.2910839160839163,
+      "gozlenen": 3.2910839160839163,
+      "sonuc": "GEÇTİ",
+      "birim": "mm t_required (Imperial vakada beklenen inç)",
+      "durum": "PASS",
+      "hata": null
+    },
+    {
+      "vaka": "SCALE-04",
+      "girdi": {
+        "scale": 1.25,
+        "unit_system": "SI",
+        "design_pressure_mpa": 1.2,
+        "shell_inside_diameter_mm": 1250.0,
+        "shell_nominal_thickness_mm": 15.0
+      },
+      "beklenen": 5.48513986013986,
+      "gozlenen": 5.48513986013986,
+      "sonuc": "GEÇTİ",
+      "birim": "mm t_required (Imperial vakada beklenen inç)",
+      "durum": "PASS",
+      "hata": null
+    },
+    {
+      "vaka": "SCALE-05",
+      "girdi": {
+        "scale": 1.5,
+        "unit_system": "SI",
+        "design_pressure_mpa": 1.2,
+        "shell_inside_diameter_mm": 1500.0,
+        "shell_nominal_thickness_mm": 18.0
+      },
+      "beklenen": 6.5821678321678325,
+      "gozlenen": 6.5821678321678325,
+      "sonuc": "GEÇTİ",
+      "birim": "mm t_required (Imperial vakada beklenen inç)",
+      "durum": "PASS",
+      "hata": null
+    },
+    {
+      "vaka": "SCALE-06",
+      "girdi": {
+        "scale": 2.0,
+        "unit_system": "SI",
+        "design_pressure_mpa": 1.2,
+        "shell_inside_diameter_mm": 2000.0,
+        "shell_nominal_thickness_mm": 24.0
+      },
+      "beklenen": 8.776223776223777,
+      "gozlenen": 8.776223776223777,
+      "sonuc": "GEÇTİ",
+      "birim": "mm t_required (Imperial vakada beklenen inç)",
+      "durum": "PASS",
+      "hata": null
+    },
+    {
+      "vaka": "SCALE-07",
+      "girdi": {
+        "scale": 3.0,
+        "unit_system": "SI",
+        "design_pressure_mpa": 1.2,
+        "shell_inside_diameter_mm": 3000.0,
+        "shell_nominal_thickness_mm": 36.0
+      },
+      "beklenen": 13.164335664335665,
+      "gozlenen": 13.164335664335665,
+      "sonuc": "GEÇTİ",
+      "birim": "mm t_required (Imperial vakada beklenen inç)",
+      "durum": "PASS",
+      "hata": null
+    },
+    {
+      "vaka": "SCALE-08",
+      "girdi": {
+        "scale": 4.0,
+        "unit_system": "SI",
+        "design_pressure_mpa": 1.2,
+        "shell_inside_diameter_mm": 4000.0,
+        "shell_nominal_thickness_mm": 48.0
+      },
+      "beklenen": 17.552447552447553,
+      "gozlenen": 17.552447552447553,
+      "sonuc": "GEÇTİ",
+      "birim": "mm t_required (Imperial vakada beklenen inç)",
+      "durum": "PASS",
+      "hata": null
+    },
+    {
+      "vaka": "SCALE-09",
+      "girdi": {
+        "scale": 5.0,
+        "unit_system": "SI",
+        "design_pressure_mpa": 1.2,
+        "shell_inside_diameter_mm": 5000.0,
+        "shell_nominal_thickness_mm": 60.0
+      },
+      "beklenen": 21.94055944055944,
+      "gozlenen": 21.94055944055944,
+      "sonuc": "GEÇTİ",
+      "birim": "mm t_required (Imperial vakada beklenen inç)",
+      "durum": "PASS",
+      "hata": null
+    },
+    {
+      "vaka": "SCALE-10",
+      "girdi": {
+        "scale": 10.0,
+        "unit_system": "SI",
+        "design_pressure_mpa": 1.2,
+        "shell_inside_diameter_mm": 10000.0,
+        "shell_nominal_thickness_mm": 120.0
+      },
+      "beklenen": 43.88111888111888,
+      "gozlenen": 43.88111888111888,
+      "sonuc": "GEÇTİ",
+      "birim": "mm t_required (Imperial vakada beklenen inç)",
+      "durum": "PASS",
+      "hata": null
+    },
+    {
+      "vaka": "IMPERIAL-01",
+      "girdi": {
+        "scale": 1.0,
+        "unit_system": "Imperial",
+        "conversion": "mm→in, MPa→psi",
+        "design_pressure_mpa": 174.04528524,
+        "shell_inside_diameter_mm": 9.84251968503937,
+        "shell_nominal_thickness_mm": 0.11811023622047245
+      },
+      "beklenen": 0.17276031055558616,
+      "gozlenen": 25.614408753343273,
+      "sonuc": "BULGU",
+      "birim": "mm t_required (Imperial vakada beklenen inç)",
+      "durum": "FAIL",
+      "hata": null
+    },
+    {
+      "vaka": "IMPERIAL-02",
+      "girdi": {
+        "scale": 1.0,
+        "unit_system": "Imperial",
+        "conversion": "mm→in, MPa→psi",
+        "design_pressure_mpa": 174.04528524,
+        "shell_inside_diameter_mm": 19.68503937007874,
+        "shell_nominal_thickness_mm": 0.2362204724409449
+      },
+      "beklenen": 0.17276031055558616,
+      "gozlenen": 51.228817506686546,
+      "sonuc": "BULGU",
+      "birim": "mm t_required (Imperial vakada beklenen inç)",
+      "durum": "FAIL",
+      "hata": null
+    },
+    {
+      "vaka": "IMPERIAL-03",
+      "girdi": {
+        "scale": 1.0,
+        "unit_system": "Imperial",
+        "conversion": "mm→in, MPa→psi",
+        "design_pressure_mpa": 174.04528524,
+        "shell_inside_diameter_mm": 29.52755905511811,
+        "shell_nominal_thickness_mm": 0.35433070866141736
+      },
+      "beklenen": 0.17276031055558616,
+      "gozlenen": 76.84322626002982,
+      "sonuc": "BULGU",
+      "birim": "mm t_required (Imperial vakada beklenen inç)",
+      "durum": "FAIL",
+      "hata": null
+    },
+    {
+      "vaka": "IMPERIAL-04",
+      "girdi": {
+        "scale": 1.0,
+        "unit_system": "Imperial",
+        "conversion": "mm→in, MPa→psi",
+        "design_pressure_mpa": 174.04528524,
+        "shell_inside_diameter_mm": 49.21259842519685,
+        "shell_nominal_thickness_mm": 0.5905511811023623
+      },
+      "beklenen": 0.17276031055558616,
+      "gozlenen": 128.07204376671638,
+      "sonuc": "BULGU",
+      "birim": "mm t_required (Imperial vakada beklenen inç)",
+      "durum": "FAIL",
+      "hata": null
+    },
+    {
+      "vaka": "IMPERIAL-05",
+      "girdi": {
+        "scale": 1.0,
+        "unit_system": "Imperial",
+        "conversion": "mm→in, MPa→psi",
+        "design_pressure_mpa": 174.04528524,
+        "shell_inside_diameter_mm": 59.05511811023622,
+        "shell_nominal_thickness_mm": 0.7086614173228347
+      },
+      "beklenen": 0.17276031055558616,
+      "gozlenen": 153.68645252005965,
+      "sonuc": "BULGU",
+      "birim": "mm t_required (Imperial vakada beklenen inç)",
+      "durum": "FAIL",
+      "hata": null
+    },
+    {
+      "vaka": "IMPERIAL-06",
+      "girdi": {
+        "scale": 1.0,
+        "unit_system": "Imperial",
+        "conversion": "mm→in, MPa→psi",
+        "design_pressure_mpa": 174.04528524,
+        "shell_inside_diameter_mm": 78.74015748031496,
+        "shell_nominal_thickness_mm": 0.9448818897637796
+      },
+      "beklenen": 0.17276031055558616,
+      "gozlenen": 204.91527002674619,
+      "sonuc": "BULGU",
+      "birim": "mm t_required (Imperial vakada beklenen inç)",
+      "durum": "FAIL",
+      "hata": null
+    },
+    {
+      "vaka": "IMPERIAL-07",
+      "girdi": {
+        "scale": 1.0,
+        "unit_system": "Imperial",
+        "conversion": "mm→in, MPa→psi",
+        "design_pressure_mpa": 174.04528524,
+        "shell_inside_diameter_mm": 118.11023622047244,
+        "shell_nominal_thickness_mm": 1.4173228346456694
+      },
+      "beklenen": 0.17276031055558616,
+      "gozlenen": 307.3729050401193,
+      "sonuc": "BULGU",
+      "birim": "mm t_required (Imperial vakada beklenen inç)",
+      "durum": "FAIL",
+      "hata": null
+    },
+    {
+      "vaka": "IMPERIAL-08",
+      "girdi": {
+        "scale": 1.0,
+        "unit_system": "Imperial",
+        "conversion": "mm→in, MPa→psi",
+        "design_pressure_mpa": 174.04528524,
+        "shell_inside_diameter_mm": 157.48031496062993,
+        "shell_nominal_thickness_mm": 1.8897637795275593
+      },
+      "beklenen": 0.17276031055558616,
+      "gozlenen": 409.83054005349237,
+      "sonuc": "BULGU",
+      "birim": "mm t_required (Imperial vakada beklenen inç)",
+      "durum": "FAIL",
+      "hata": null
+    },
+    {
+      "vaka": "IMPERIAL-09",
+      "girdi": {
+        "scale": 1.0,
+        "unit_system": "Imperial",
+        "conversion": "mm→in, MPa→psi",
+        "design_pressure_mpa": 174.04528524,
+        "shell_inside_diameter_mm": 196.8503937007874,
+        "shell_nominal_thickness_mm": 2.362204724409449
+      },
+      "beklenen": 0.17276031055558616,
+      "gozlenen": 512.2881750668655,
+      "sonuc": "BULGU",
+      "birim": "mm t_required (Imperial vakada beklenen inç)",
+      "durum": "FAIL",
+      "hata": null
+    },
+    {
+      "vaka": "IMPERIAL-10",
+      "girdi": {
+        "scale": 1.0,
+        "unit_system": "Imperial",
+        "conversion": "mm→in, MPa→psi",
+        "design_pressure_mpa": 174.04528524,
+        "shell_inside_diameter_mm": 393.7007874015748,
+        "shell_nominal_thickness_mm": 4.724409448818898
+      },
+      "beklenen": 0.17276031055558616,
+      "gozlenen": 1024.576350133731,
+      "sonuc": "BULGU",
+      "birim": "mm t_required (Imperial vakada beklenen inç)",
+      "durum": "FAIL",
+      "hata": null
+    }
+  ]
+}
