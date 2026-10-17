@@ -1,8 +1,11 @@
 ﻿"""Temiz oda UG-37(c)/UG-40/UG-45 alan hesabı (mm, MPa)."""
 
-def calculate(*, d, host_d, t, tn, pressure, allowable, efficiency=1.0, pad_od=0.0, pad_t=0.0, projection=0.0):
+def calculate(*, d, host_d, ca=0.0, t, tn, pressure, allowable, efficiency=1.0, pad_od=0.0, pad_t=0.0, projection=0.0):
     # UG-37(c): required area; UG-40: limits for available shell/nozzle/pad area.
-    tr = pressure * host_d / (2 * allowable * efficiency + 0.8 * pressure)
+    # UG-27(c)(1): cylindrical shell required thickness from corroded inside radius.
+    # UG-37(c)'s required area uses this thickness times the opening diameter.
+    radius_corroded = host_d / 2 + ca
+    tr = pressure * radius_corroded / (allowable * efficiency - 0.6 * pressure)
     trn = pressure * d / (2 * allowable + 0.8 * pressure)
     A = d * tr
     L = min(max(d, (d/2 + tn + t)), 2.5*t, 2.5*tn)

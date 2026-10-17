@@ -17,9 +17,12 @@ def run():
         status=(row or {}).get("status")
         suite=value_of(row or {}, "A_required")
         n=project["nozzles"][0]
+        shell=project["shell_sections"][0]
+        material=next((m for m in project.get("materials",[]) if m.get("material_id")==shell.get("material_id")),{})
         # Oracle uses explicit conservative material value; tr-area comparisons are input-normalized.
-        ref=calculate(d=n["inside_diameter"],host_d=project["shell_sections"][0]["inside_diameter"],t=project["shell_sections"][0]["nominal_thickness"],tn=n["neck_thickness"],
+        ref=calculate(d=n["inside_diameter"],host_d=shell["inside_diameter"],ca=shell.get("internal_corrosion_allowance",0),t=shell["nominal_thickness"],tn=n["neck_thickness"],
                       pressure=project["design_conditions"]["design_pressure"],allowable=138.0,
+                      efficiency=material.get("weld_joint_efficiency",1.0),
                       pad_od=n.get("reinforcement_pad_od") or 0,pad_t=n.get("reinforcement_pad_thickness") or 0,
                       projection=n.get("outside_projection",0))
         diff, verdict=judge(suite,ref["A"],suite_status=status)

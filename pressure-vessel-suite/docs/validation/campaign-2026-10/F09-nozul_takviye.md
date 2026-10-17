@@ -1,56 +1,26 @@
-# F09b ? Nozul takviyesi katalog k?yas?
+﻿# F09 — Nozul takviyesi katalog kıyası
 
-## Sonu?
+## Sonuç
 
-Toplam 32 vaka: 0 DO?RULANDI, 0 FORM?LASYON_FARKI, 30 SAPMA, 0 KAPSAM_DI?I. 30 vaka say?sal k?yasland?; hedef 20 a??ld?.
+Toplam 32 vaka: 28 DOĞRULANDI, 2 SAPMA, 0 FORMÜLASYON_FARKI, 2 KAPSAM_DIŞI. 30 vaka sayısal kıyaslandı; hedef 20 aşıldı.
 
-Katalog s?zle?mesiyle `nozzle_reinforcement` sat?r? ve `A_required` ara de?eri kullan?ld?. Varyantlar `example_nozzle_reinforcement()` tabanl?d?r. Oracle, UG-37(c) gerekli alan?n? ba??ms?z bas?n?/izin verilebilir gerilme ba??nt?s?yla hesaplar.
+Katalog sözleşmesine göre `nozzle_reinforcement` satırındaki `A_required` alanı kıyaslandı. Harness çalışması hatasız tamamlandı. İki kapsam dışı vaka `type-socket_weld` ve `type-threaded`; hedef hesap satırı oluşmadı.
 
-## SAPMA tablosu
+## Tur 2 düzeltmesi
 
-K?yas y?n?: fark y?zdesi = (suite ? oracle) / oracle. Gerekli alan?n suite de?eri daha y?ksek oldu?unda sonu? emniyetli y?nde muhafazak?rd?r. T?m k?yaslanabilir vakalarda SAPMA emniyetli y?ndedir; farklar %1,278?%2,158 aral???ndad?r.
+Önceki dağılım: 0 DOĞRULANDI, 0 FORMÜLASYON_FARKI, 30 SAPMA, 2 KAPSAM_DIŞI. Oracle gövde gerekli kalınlığını UG-27(c)(1) yerine yanlış basınç/kalınlık bağıntısıyla buluyordu. Oracle, korozyonlu iç yarıçapı `R = D_i/2 + CA` alarak `t_r = P·R/(S·E − 0.6P)` biçiminde düzeltildi; run girdisinden CA ve malzeme için varsa kaynak verimi geçiriliyor. Yeni dağılım: 28 DOĞRULANDI, 2 SAPMA, 0 FORMÜLASYON_FARKI, 2 KAPSAM_DIŞI.
 
-| Vaka(lar) | Fark (%) | Y?n |
-|---|---:|---|
-| ratio-0.05-pad-0 | 1.278 | emniyetli (suite alan? y?ksek) |
-| ratio-0.05-pad-1 | 1.278 | emniyetli (suite alan? y?ksek) |
-| ratio-0.1-pad-0 | 1.278 | emniyetli (suite alan? y?ksek) |
-| ratio-0.1-pad-1 | 1.278 | emniyetli (suite alan? y?ksek) |
-| ratio-0.2-pad-0 | 1.278 | emniyetli (suite alan? y?ksek) |
-| ratio-0.2-pad-1 | 1.278 | emniyetli (suite alan? y?ksek) |
-| ratio-0.35-pad-0 | 1.278 | emniyetli (suite alan? y?ksek) |
-| ratio-0.35-pad-1 | 1.278 | emniyetli (suite alan? y?ksek) |
-| ratio-0.5-pad-0 | 1.278 | emniyetli (suite alan? y?ksek) |
-| ratio-0.5-pad-1 | 1.278 | emniyetli (suite alan? y?ksek) |
-| type-flanged | 1.278 | emniyetli (suite alan? y?ksek) |
-| type-slip_on | 1.278 | emniyetli (suite alan? y?ksek) |
-| type-manway | 1.278 | emniyetli (suite alan? y?ksek) |
-| eff-0.7 | 1.278 | emniyetli (suite alan? y?ksek) |
-| eff-0.85 | 1.278 | emniyetli (suite alan? y?ksek) |
-| eff-1.0 | 1.278 | emniyetli (suite alan? y?ksek) |
-| neck-4 | 1.278 | emniyetli (suite alan? y?ksek) |
-| neck-8 | 1.278 | emniyetli (suite alan? y?ksek) |
-| neck-15 | 1.278 | emniyetli (suite alan? y?ksek) |
-| pad-od-100 | 1.278 | emniyetli (suite alan? y?ksek) |
-| pad-od-250 | 1.278 | emniyetli (suite alan? y?ksek) |
-| pad-od-600 | 1.278 | emniyetli (suite alan? y?ksek) |
-| PUB-K2-02-PVE-S5 | 2.158 | emniyetli (suite alan? y?ksek) |
-| PUB-K2-17-IJERT | 1.278 | emniyetli (suite alan? y?ksek) |
-| proj-0 | 1.278 | emniyetli (suite alan? y?ksek) |
-| proj-10 | 1.278 | emniyetli (suite alan? y?ksek) |
-| proj-100 | 1.278 | emniyetli (suite alan? y?ksek) |
-| proj-250 | 1.278 | emniyetli (suite alan? y?ksek) |
-| proj-500 | 1.278 | emniyetli (suite alan? y?ksek) |
-| proj-1000 | 1.278 | emniyetli (suite alan? y?ksek) |
+## Kalan SAPMA'lar
 
-## Kapsam d??? vakalar
+Kıyas farkı `(suite − oracle) / oracle`; alanın büyük olması muhafazakâr yöndedir.
 
-`type-socket_weld` ve `type-threaded` i?in API hedef hesap sat?r? ?retmedi; katalog s?zle?mesine g?re say?sal k?yas yap?lamad?. Di?er 30 varyantta durum PASS ve ara de?er mevcut.
+| Vaka | Girdi | Suite A_required (mm²) | Oracle (mm²) | Fark | Muhtemel neden / yön |
+|---|---|---:|---:|---:|---|
+| eff-0.7 | M1 `weld_joint_efficiency=0.7`; temel gövde D_i=1000 mm, CA=2 mm, P=1.2 MPa | 230.376 | 329.850 | −30.157% | Suite alanı E=0.7'ye göre değişmiyor; verim girdisinin hesaba katılmaması olası. Suite daha düşük alan veriyor: emniyetsiz yön. |
+| eff-0.85 | M1 `weld_joint_efficiency=0.85`; temel gövde D_i=1000 mm, CA=2 mm, P=1.2 MPa | 230.376 | 271.282 | −15.079% | Suite alanı E=0.85'e göre değişmiyor; verim girdisinin hesaba katılmaması olası. Suite daha düşük alan veriyor: emniyetsiz yön. |
 
-## Yay?nlanm?? vakalar
+## Temiz oda
 
-`PUB-K2-02-PVE-S5` ve `PUB-K2-17-IJERT` API ?zerinden ?al??t?r?ld? ve say?sal k?yasland?. Kaynak girdileri `sources-K2.md` K2-02 ve K2-17 kay?tlar?d?r. Her ikisi de oracle fark? nedeniyle SAPMA s?n?f?nda, emniyetli y?ndedir.
+Oracle UG-27(c)(1) bağıntısı ve UG-37(c) gerekli alan tanımıyla bağımsız kuruldu. Suite hesap uygulaması okunmadı; yalnız sonuç kataloğu, izin verilen fixture/örnekler, harness ve API çıktısı kullanıldı.
 
-## Temiz oda beyan?
-
-Oracle ba??nt?s? UG-37(c) / UG-40 geometrik s?n?rlar? temel al?narak ba??ms?z yaz?ld?. Yasakl? hesap implementasyonlar? okunmad?; yaln?z g?revde izin verilen sonu? katalo?u, ?rnekler, harness ve API ??kt?lar? kullan?ld?.
+SONUÇ: DOĞRULANDI=28 · SAPMA=2 · FORMÜLASYON_FARKI=0 · KAPSAM_DIŞI=2
