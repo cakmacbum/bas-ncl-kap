@@ -1,0 +1,2171 @@
+{
+  "paket": "T16-test-basinci-kombine",
+  "vaka_sayisi": 48,
+  "dagilim": {
+    "GEÇTİ": 6,
+    "BULGU": 42,
+    "KAPSAM_DIŞI": 0
+  },
+  "results": [
+    {
+      "vaka": "T16-01-vertical-0-0.8-mawp",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 0.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 0.8
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 1.7782082324455208,
+        "static_head_mpa": 0.0,
+        "bottom_pressure_mpa": 1.7782082324455208
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 0.8,
+        "test_pressure_mpa": 1.7782082324455208,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "GEÇTİ"
+    },
+    {
+      "vaka": "T16-02-vertical-0-0.8-design",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 0.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 0.8
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.04,
+        "static_head_mpa": 0.0,
+        "bottom_pressure_mpa": 1.04
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 0.8,
+        "test_pressure_mpa": 1.7782082324455208,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-03-vertical-0-1.0-mawp",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 0.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 1.0
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 2.222760290556901,
+        "static_head_mpa": 0.0,
+        "bottom_pressure_mpa": 2.222760290556901
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.0,
+        "test_pressure_mpa": 2.222760290556901,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "GEÇTİ"
+    },
+    {
+      "vaka": "T16-04-vertical-0-1.0-design",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 0.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 1.0
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.3,
+        "static_head_mpa": 0.0,
+        "bottom_pressure_mpa": 1.3
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.0,
+        "test_pressure_mpa": 2.222760290556901,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-05-vertical-0-1.25-mawp",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 0.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 1.25
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 2.778450363196126,
+        "static_head_mpa": 0.0,
+        "bottom_pressure_mpa": 2.778450363196126
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.25,
+        "test_pressure_mpa": 2.778450363196126,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "GEÇTİ"
+    },
+    {
+      "vaka": "T16-06-vertical-0-1.25-design",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 0.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 1.25
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.625,
+        "static_head_mpa": 0.0,
+        "bottom_pressure_mpa": 1.625
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.25,
+        "test_pressure_mpa": 2.778450363196126,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-07-vertical-500-0.8-mawp",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 500.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 0.8
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 1.7782082324455208,
+        "static_head_mpa": 0.0122583125,
+        "bottom_pressure_mpa": 1.7904665449455208
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 0.8,
+        "test_pressure_mpa": 1.7782082324455208,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-08-vertical-500-0.8-design",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 500.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 0.8
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.04,
+        "static_head_mpa": 0.0122583125,
+        "bottom_pressure_mpa": 1.0522583125
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 0.8,
+        "test_pressure_mpa": 1.7782082324455208,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-09-vertical-500-1.0-mawp",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 500.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 1.0
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 2.222760290556901,
+        "static_head_mpa": 0.0122583125,
+        "bottom_pressure_mpa": 2.235018603056901
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.0,
+        "test_pressure_mpa": 2.222760290556901,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-10-vertical-500-1.0-design",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 500.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 1.0
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.3,
+        "static_head_mpa": 0.0122583125,
+        "bottom_pressure_mpa": 1.3122583125
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.0,
+        "test_pressure_mpa": 2.222760290556901,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-11-vertical-500-1.25-mawp",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 500.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 1.25
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 2.778450363196126,
+        "static_head_mpa": 0.0122583125,
+        "bottom_pressure_mpa": 2.790708675696126
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.25,
+        "test_pressure_mpa": 2.778450363196126,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-12-vertical-500-1.25-design",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 500.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 1.25
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.625,
+        "static_head_mpa": 0.0122583125,
+        "bottom_pressure_mpa": 1.6372583125
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.25,
+        "test_pressure_mpa": 2.778450363196126,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-13-vertical-1000-0.8-mawp",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1000.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 0.8
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 1.7782082324455208,
+        "static_head_mpa": 0.024516625,
+        "bottom_pressure_mpa": 1.8027248574455208
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 0.8,
+        "test_pressure_mpa": 1.7782082324455208,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-14-vertical-1000-0.8-design",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1000.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 0.8
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.04,
+        "static_head_mpa": 0.024516625,
+        "bottom_pressure_mpa": 1.064516625
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 0.8,
+        "test_pressure_mpa": 1.7782082324455208,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-15-vertical-1000-1.0-mawp",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1000.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 1.0
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 2.222760290556901,
+        "static_head_mpa": 0.024516625,
+        "bottom_pressure_mpa": 2.247276915556901
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.0,
+        "test_pressure_mpa": 2.222760290556901,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-16-vertical-1000-1.0-design",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1000.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 1.0
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.3,
+        "static_head_mpa": 0.024516625,
+        "bottom_pressure_mpa": 1.324516625
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.0,
+        "test_pressure_mpa": 2.222760290556901,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-17-vertical-1000-1.25-mawp",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1000.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 1.25
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 2.778450363196126,
+        "static_head_mpa": 0.024516625,
+        "bottom_pressure_mpa": 2.802966988196126
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.25,
+        "test_pressure_mpa": 2.778450363196126,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-18-vertical-1000-1.25-design",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1000.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 1.25
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.625,
+        "static_head_mpa": 0.024516625,
+        "bottom_pressure_mpa": 1.649516625
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.25,
+        "test_pressure_mpa": 2.778450363196126,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-19-vertical-1200-0.8-mawp",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1200.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 0.8
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 1.7782082324455208,
+        "static_head_mpa": 0.02941995,
+        "bottom_pressure_mpa": 1.807628182445521
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 0.8,
+        "test_pressure_mpa": 1.7782082324455208,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-20-vertical-1200-0.8-design",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1200.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 0.8
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.04,
+        "static_head_mpa": 0.02941995,
+        "bottom_pressure_mpa": 1.0694199500000001
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 0.8,
+        "test_pressure_mpa": 1.7782082324455208,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-21-vertical-1200-1.0-mawp",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1200.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 1.0
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 2.222760290556901,
+        "static_head_mpa": 0.02941995,
+        "bottom_pressure_mpa": 2.2521802405569007
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.0,
+        "test_pressure_mpa": 2.222760290556901,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-22-vertical-1200-1.0-design",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1200.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 1.0
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.3,
+        "static_head_mpa": 0.02941995,
+        "bottom_pressure_mpa": 1.3294199500000001
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.0,
+        "test_pressure_mpa": 2.222760290556901,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-23-vertical-1200-1.25-mawp",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1200.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 1.25
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 2.778450363196126,
+        "static_head_mpa": 0.02941995,
+        "bottom_pressure_mpa": 2.807870313196126
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.25,
+        "test_pressure_mpa": 2.778450363196126,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-24-vertical-1200-1.25-design",
+      "girdi": {
+        "orientation": "vertical",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1200.0,
+        "test_fluid_level_mm": 2500.0,
+        "ratio_input": 1.25
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.625,
+        "static_head_mpa": 0.02941995,
+        "bottom_pressure_mpa": 1.65441995
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.25,
+        "test_pressure_mpa": 2.778450363196126,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-25-horizontal-0-0.8-mawp",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 0.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 0.8
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 1.7782082324455208,
+        "static_head_mpa": 0.0,
+        "bottom_pressure_mpa": 1.7782082324455208
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 0.8,
+        "test_pressure_mpa": 1.7782082324455208,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "GEÇTİ"
+    },
+    {
+      "vaka": "T16-26-horizontal-0-0.8-design",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 0.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 0.8
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.04,
+        "static_head_mpa": 0.0,
+        "bottom_pressure_mpa": 1.04
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 0.8,
+        "test_pressure_mpa": 1.7782082324455208,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-27-horizontal-0-1.0-mawp",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 0.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 1.0
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 2.222760290556901,
+        "static_head_mpa": 0.0,
+        "bottom_pressure_mpa": 2.222760290556901
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.0,
+        "test_pressure_mpa": 2.222760290556901,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "GEÇTİ"
+    },
+    {
+      "vaka": "T16-28-horizontal-0-1.0-design",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 0.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 1.0
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.3,
+        "static_head_mpa": 0.0,
+        "bottom_pressure_mpa": 1.3
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.0,
+        "test_pressure_mpa": 2.222760290556901,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-29-horizontal-0-1.25-mawp",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 0.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 1.25
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 2.778450363196126,
+        "static_head_mpa": 0.0,
+        "bottom_pressure_mpa": 2.778450363196126
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.25,
+        "test_pressure_mpa": 2.778450363196126,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "GEÇTİ"
+    },
+    {
+      "vaka": "T16-30-horizontal-0-1.25-design",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 0.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 1.25
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.625,
+        "static_head_mpa": 0.0,
+        "bottom_pressure_mpa": 1.625
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.25,
+        "test_pressure_mpa": 2.778450363196126,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-31-horizontal-500-0.8-mawp",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 500.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 0.8
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 1.7782082324455208,
+        "static_head_mpa": 0.004903325,
+        "bottom_pressure_mpa": 1.7831115574455207
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 0.8,
+        "test_pressure_mpa": 1.7782082324455208,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-32-horizontal-500-0.8-design",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 500.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 0.8
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.04,
+        "static_head_mpa": 0.004903325,
+        "bottom_pressure_mpa": 1.044903325
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 0.8,
+        "test_pressure_mpa": 1.7782082324455208,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-33-horizontal-500-1.0-mawp",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 500.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 1.0
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 2.222760290556901,
+        "static_head_mpa": 0.004903325,
+        "bottom_pressure_mpa": 2.2276636155569007
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.0,
+        "test_pressure_mpa": 2.222760290556901,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-34-horizontal-500-1.0-design",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 500.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 1.0
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.3,
+        "static_head_mpa": 0.004903325,
+        "bottom_pressure_mpa": 1.304903325
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.0,
+        "test_pressure_mpa": 2.222760290556901,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-35-horizontal-500-1.25-mawp",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 500.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 1.25
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 2.778450363196126,
+        "static_head_mpa": 0.004903325,
+        "bottom_pressure_mpa": 2.783353688196126
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.25,
+        "test_pressure_mpa": 2.778450363196126,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-36-horizontal-500-1.25-design",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 500.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 1.25
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.625,
+        "static_head_mpa": 0.004903325,
+        "bottom_pressure_mpa": 1.629903325
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.25,
+        "test_pressure_mpa": 2.778450363196126,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-37-horizontal-1000-0.8-mawp",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1000.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 0.8
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 1.7782082324455208,
+        "static_head_mpa": 0.00980665,
+        "bottom_pressure_mpa": 1.7880148824455209
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 0.8,
+        "test_pressure_mpa": 1.7782082324455208,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-38-horizontal-1000-0.8-design",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1000.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 0.8
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.04,
+        "static_head_mpa": 0.00980665,
+        "bottom_pressure_mpa": 1.04980665
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 0.8,
+        "test_pressure_mpa": 1.7782082324455208,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-39-horizontal-1000-1.0-mawp",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1000.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 1.0
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 2.222760290556901,
+        "static_head_mpa": 0.00980665,
+        "bottom_pressure_mpa": 2.2325669405569006
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.0,
+        "test_pressure_mpa": 2.222760290556901,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-40-horizontal-1000-1.0-design",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1000.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 1.0
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.3,
+        "static_head_mpa": 0.00980665,
+        "bottom_pressure_mpa": 1.30980665
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.0,
+        "test_pressure_mpa": 2.222760290556901,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-41-horizontal-1000-1.25-mawp",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1000.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 1.25
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 2.778450363196126,
+        "static_head_mpa": 0.00980665,
+        "bottom_pressure_mpa": 2.7882570131961257
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.25,
+        "test_pressure_mpa": 2.778450363196126,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-42-horizontal-1000-1.25-design",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1000.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 1.25
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.625,
+        "static_head_mpa": 0.00980665,
+        "bottom_pressure_mpa": 1.63480665
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.25,
+        "test_pressure_mpa": 2.778450363196126,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-43-horizontal-1200-0.8-mawp",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1200.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 0.8
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 1.7782082324455208,
+        "static_head_mpa": 0.01176798,
+        "bottom_pressure_mpa": 1.7899762124455207
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 0.8,
+        "test_pressure_mpa": 1.7782082324455208,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-44-horizontal-1200-0.8-design",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1200.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 0.8
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.04,
+        "static_head_mpa": 0.01176798,
+        "bottom_pressure_mpa": 1.05176798
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 0.8,
+        "test_pressure_mpa": 1.7782082324455208,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-45-horizontal-1200-1.0-mawp",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1200.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 1.0
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 2.222760290556901,
+        "static_head_mpa": 0.01176798,
+        "bottom_pressure_mpa": 2.234528270556901
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.0,
+        "test_pressure_mpa": 2.222760290556901,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-46-horizontal-1200-1.0-design",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1200.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 1.0
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.3,
+        "static_head_mpa": 0.01176798,
+        "bottom_pressure_mpa": 1.31176798
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.0,
+        "test_pressure_mpa": 2.222760290556901,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-47-horizontal-1200-1.25-mawp",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "mawp",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1200.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 1.25
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "mawp",
+        "expected_pressure_basis_mpa": 1.7098156081206928,
+        "ug99_top_pressure_mpa": 2.778450363196126,
+        "static_head_mpa": 0.01176798,
+        "bottom_pressure_mpa": 2.790218343196126
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.25,
+        "test_pressure_mpa": 2.778450363196126,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    },
+    {
+      "vaka": "T16-48-horizontal-1200-1.25-design",
+      "girdi": {
+        "orientation": "horizontal",
+        "basis_mode": "design",
+        "design_pressure_mpa": 1.0,
+        "maximum_allowable_pressure_ps_mpa": 1.4,
+        "fluid_density_kg_m3": 1200.0,
+        "test_fluid_level_mm": 1000.0,
+        "ratio_input": 1.25
+      },
+      "beklenen": {
+        "governing_component": {
+          "component_id": "HEAD-R",
+          "mawp_mpa": 1.7098156081206928
+        },
+        "basis_mode": "design",
+        "expected_pressure_basis_mpa": 1.0,
+        "ug99_top_pressure_mpa": 1.625,
+        "static_head_mpa": 0.01176798,
+        "bottom_pressure_mpa": 1.63676798
+      },
+      "gozlenen": {
+        "pressure_basis_mpa": 1.7098156081206928,
+        "ratio": 1.25,
+        "test_pressure_mpa": 2.778450363196126,
+        "components_mawp": [
+          {
+            "component_id": "SHELL-01",
+            "mawp_mpa": 2.313153224216131
+          },
+          {
+            "component_id": "HEAD-L",
+            "mawp_mpa": 2.332703589539624
+          },
+          {
+            "component_id": "HEAD-R",
+            "mawp_mpa": 1.7098156081206928
+          }
+        ],
+        "status": "PASS",
+        "error": null
+      },
+      "sonuc": "BULGU"
+    }
+  ]
+}
