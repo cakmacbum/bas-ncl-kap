@@ -6,9 +6,9 @@
 
 ## BACKLOG (açık, öncelik sırasıyla — ayrıntı `campaign-2026-10/EKSIKLER.md`)
 - T-2.7 Arayüze `liquid_level_mm` alanı (web-ui) + `component_sequence` yoksa kullanıcıya açık uyarı
-- T-2.8 Hidrotest (UG-99) statik kafası · koni `external_corrosion_allowance` alanı
-- T-2.9 Girdi doğrulama üst sınırları (basınç/çap/kalınlık, NaN/inf → 422)
-- T-2.10 CA_o>0 bağımsız testleri: düz kapak, torisferik, yarım küre, koni MAWP
+- T-2.8 Hidrotest (UG-99) statik kafası (koni CA_o alanı KAPANDI)
+- ~~T-2.9 Girdi doğrulama üst sınırları~~ KAPANDI (tasarım koşulları; geometri sınırları açık)
+- ~~T-2.10 CA_o>0 bağımsız testleri~~ KAPANDI
 - T-2.11 Kapsam boşlukları: EN 13445 flanş/yük/yorulma · MDMT coincident ratio · taban halkası · yatay saddle OUT OF SCOPE
 - T-2.12 Browser e2e: 3 temel tank UI'dan (görsel kanıt) — yapılmadı
 - T-2.13 Luna'nın kendi kontrolünü bağımsız kılmak (T63 dersi) · Haiku doğrulamasında referans/API ayrımı
