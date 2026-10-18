@@ -1382,3 +1382,93 @@ class TestExternalCorrosionAllowance:
         r3 = asme_code.calculate_head_thickness({**base, "head": hd.model_copy(update={"external_corrosion_allowance": 3.0})})
         mt = 1 - hd.mill_tolerance / 100.0 if hd.mill_tolerance > 0 else 0.875
         assert r3.final_result - r0.final_result == pytest.approx(3.0 / mt, rel=1e-9)
+
+
+class TestExternalCorrosionAllowanceOtherHeads:
+    """T-2.10: CA_o > 0 için yarım küre / torisferik / düz kapak MAWP'inin bağımsız beklentisi.
+    Yarıçap/çap yalnız CA_i'yi, net cidar CA_i + CA_o'yu içerir (B-01)."""
+
+    CA_O = 3.0
+
+    def _mawp(self, asme_code, sample_project, hd):
+        return asme_code.calculate_mawp({
+            "head": hd, "component_type": "head", "component": hd,
+            "design_conditions": sample_project.design_conditions,
+            "materials": sample_project.materials, "welds": sample_project.welds,
+            "nominal_thickness": hd.nominal_thickness,
+            "code_edition": sample_project.code_edition,
+        }).final_result
+
+    def _common(self, sample_project, hd):
+        S = sample_project.materials[0].allowable_stress
+        E = sample_project.welds[0].joint_efficiency
+        ca_i = hd.internal_corrosion_allowance
+        t_act = hd.nominal_thickness * (1 - hd.mill_tolerance / 100.0) - hd.forming_thinning
+        D = hd.inside_diameter + 2 * ca_i
+        return S, E, ca_i, t_act, D
+
+    def test_hemispherical(self, asme_code, sample_project):
+        from domain.enums import HeadType
+        hd = sample_project.heads[0].model_copy(update={"type": HeadType.HEMISPHERICAL})
+        r0 = self._mawp(asme_code, sample_project, hd.model_copy(update={"external_corrosion_allowance": 0.0}))
+        r3 = self._mawp(asme_code, sample_project, hd.model_copy(update={"external_corrosion_allowance": self.CA_O}))
+        S, E, ca_i, t_act, D = self._common(sample_project, hd)
+        t = t_act - ca_i - self.CA_O
+        assert r3 == pytest.approx(2 * S * E * t / (D / 2 + 0.2 * t), rel=1e-9)
+        assert r3 < r0
+
+    def test_torispherical_custom(self, asme_code, sample_project):
+        import math
+        from domain.enums import HeadType
+        hd = sample_project.heads[0].model_copy(update={
+            "type": HeadType.TORISPHERICAL, "torispherical_geometry": "custom",
+            "crown_radius": 1000.0, "knuckle_radius": 100.0})
+        r0 = self._mawp(asme_code, sample_project, hd.model_copy(update={"external_corrosion_allowance": 0.0}))
+        r3 = self._mawp(asme_code, sample_project, hd.model_copy(update={"external_corrosion_allowance": self.CA_O}))
+        S, E, ca_i, t_act, D = self._common(sample_project, hd)
+        t = t_act - ca_i - self.CA_O
+        M = (3 + math.sqrt(1000.0 / 100.0)) / 4
+        assert r3 == pytest.approx(2 * S * E * t / (1000.0 * M + 0.2 * t), rel=1e-9)
+        assert r3 < r0
+
+    def test_flat(self, asme_code, sample_project):
+        from domain.enums import HeadType
+        hd = sample_project.heads[0].model_copy(update={"type": HeadType.FLAT, "flat_attachment_factor": 0.33})
+        r0 = self._mawp(asme_code, sample_project, hd.model_copy(update={"external_corrosion_allowance": 0.0}))
+        r3 = self._mawp(asme_code, sample_project, hd.model_copy(update={"external_corrosion_allowance": self.CA_O}))
+        S, E, ca_i, t_act, D = self._common(sample_project, hd)
+        d = D - 2 * ca_i
+        t = t_act - ca_i - self.CA_O
+        assert r3 == pytest.approx(S * E * (t / d) ** 2 / 0.33, rel=1e-9)
+        assert r3 < r0
+
+    def test_cone_mawp_uses_ca_o(self, asme_code, sample_project):
+        """T-2.10: koni MAWP'inde CA_o net cidardan düşülür, büyük çapa girmez."""
+        import math
+        from domain import Cone
+
+        def mk(ca_o):
+            return Cone(cone_id="CONE-01", large_diameter=1000.0, small_diameter=600.0,
+                        half_apex_angle=20.0, length=500.0, nominal_thickness=14.0,
+                        material_id="MAT-01", weld_joint_id="WJ-02",
+                        internal_corrosion_allowance=2.0, external_corrosion_allowance=ca_o,
+                        mill_tolerance=12.5)
+
+        def mawp(cone):
+            return asme_code.calculate_mawp({
+                "cone": cone, "component_type": "cone", "component": cone,
+                "design_conditions": sample_project.design_conditions,
+                "materials": sample_project.materials, "welds": sample_project.welds,
+                "nominal_thickness": cone.nominal_thickness,
+                "code_edition": sample_project.code_edition,
+            }).final_result
+
+        S = sample_project.materials[0].allowable_stress
+        E = sample_project.welds[0].joint_efficiency
+        c = mk(3.0)
+        t_act = 14.0 * (1 - 12.5 / 100.0)
+        t = t_act - 2.0 - 3.0
+        cosa = math.cos(math.radians(20.0))
+        D = 1000.0 + 2 * 2.0
+        assert mawp(c) == pytest.approx(2 * cosa * S * E * t / (D + 2 * cosa * 0.6 * t), rel=1e-9)
+        assert mawp(c) < mawp(mk(0.0))

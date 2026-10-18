@@ -77,6 +77,7 @@ ARAYUZDE_YOK = {
     "Cone.small_diameter": "aynı gerekçe",
     "Cone.half_apex_angle": "aynı gerekçe",
     "Cone.length": "aynı gerekçe",
+    "Cone.external_corrosion_allowance": "aynı gerekçe",
     "Cone.nominal_thickness": "aynı gerekçe",
     "Cone.material_id": "aynı gerekçe",
     "Cone.weld_joint_id": "aynı gerekçe",

@@ -236,6 +236,9 @@ class Cone(BaseModel):
     internal_corrosion_allowance: float = Field(
         default=0.0, ge=0, description="İç korozyon payı (mm)."
     )
+    external_corrosion_allowance: float = Field(
+        default=0.0, ge=0, description="Dış korozyon payı (mm). Yalnız net cidardan düşülür."
+    )
     mill_tolerance: float = Field(
         default=0.0, ge=0, description="Negatif sac toleransı (%)."
     )

@@ -56,3 +56,8 @@ Bu dosya, hedefin kapanmasını engelleyen tüm açık maddeleri toplar. Her mad
 
 1. B-01/B-02/B-07 düzeltmelerinin onayı (kalkülasyon çekirdeği; DEC-005 gereği onaysız değişmez).
 2. Hedefin kapatılması ya da yeni tur.
+
+## E. Kapanış turu (2026-10-18, ikinci oturum)
+- G-03 girdi üst sınırları: KAPANDI (`55df09b`).
+- T-2.10 CA_o>0 bağımsız MAWP testleri (yarım küre, torisferik, düz kapak, koni): KAPANDI.
+- Koni `external_corrosion_allowance` alanı eklendi (T-2.8 yarısı); hidrotest statik kafası hâlâ açık.
