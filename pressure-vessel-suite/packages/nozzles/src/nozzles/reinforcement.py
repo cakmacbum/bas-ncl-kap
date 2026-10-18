@@ -57,6 +57,9 @@ class NozzleReinforcementInput:
     design_pressure: float = 0.0  # MPa
     design_temperature: float = 0.0  # °C
     nozzle_inclination_angle: float = 0.0  # derece, 0=radyal
+    # UG-37(a) E1: açıklık Kategori B dışı dikişten geçiyorsa o dikişin verimi;
+    # None = dikişten geçmiyor (E1=1, K4 varsayımı uyarı olarak yazılır).
+    opening_weld_joint_efficiency: Optional[float] = None
 
 
 @dataclass
@@ -261,8 +264,19 @@ def calculate_reinforcement(inp: NozzleReinforcementInput) -> NozzleReinforcemen
     projection = 1.0 / math.cos(math.radians(angle))
     F = projection
 
-    # E1 = 1.0: açıklık kaynak dikişinden geçmiyor varsayımı.
-    E1 = 1.0
+    # UG-37(a): E1 yalnız açıklık Kategori B dışı dikişten geçiyorsa < 1 olur
+    # (dikişsiz kabukta tr zaten E=1 ile hesaplanır, B-07). Girdi yoksa E1=1.
+    E1 = inp.opening_weld_joint_efficiency
+    if E1 is None:
+        E1 = 1.0
+        result.warnings.append(
+            "K4: E1=1 varsayıldı (açıklık kaynak dikişinden geçmiyor kabulü, UG-37(a)); "
+            "dikişten geçiyorsa opening_weld_joint_efficiency girilmeli."
+        )
+    elif not (0 < E1 <= 1):
+        result.status = CalculationStatus.FAIL
+        result.warnings.append(f"opening_weld_joint_efficiency geçersiz ({E1}); (0, 1] olmalı.")
+        return result
 
     # ── 3. Gerekli takviye alanı — UG-37(c) ──────────────────────────────────
     # A = d·tr·F + 2·tn·tr·F·(1 - fr1)

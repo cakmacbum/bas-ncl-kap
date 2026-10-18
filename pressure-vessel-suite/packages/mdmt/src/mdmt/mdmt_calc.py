@@ -148,6 +148,30 @@ class MDMTCalculator:
                 "doğrusal yaklaşımdır — imalat öncesi Şekil UCS-66'dan doğrulanmalı."
             )
 
+        # Eşzamanlı gerilme oranı (UCS-66(b)/(c) azaltması). Azaltma eğrisi telifli
+        # (K6) olduğundan UYGULANMAZ; oran kaydedilir, yokluğu/varlığı açıkça uyarılır.
+        ratio = input_data.get("coincident_stress_ratio")
+        if ratio is None:
+            result.add_warning(
+                "UCS-66 coincident stress ratio girilmedi; gerilme oranı azaltması "
+                "uygulanmadı (konservatif: oran = 1.0 varsayıldı)."
+            )
+        elif not (0 < ratio <= 1):
+            result.set_blocked_missing_input(
+                f"coincident_stress_ratio geçersiz ({ratio}); (0, 1] aralığında olmalı."
+            )
+            return result
+        else:
+            result.add_intermediate(
+                "coincident_stress_ratio", ratio, "-", "Gerçek gerilme / izin verilen gerilme"
+            )
+            result.add_warning(
+                f"Coincident stress ratio {ratio:.3f} kaydedildi ancak UCS-66 azaltma "
+                "eğrisi (telifli, K6) gömülü olmadığından MDMT limitine uygulanmadı; "
+                "azaltma imalat öncesi koddan elle doğrulanmalı."
+            )
+            result.input_snapshot["coincident_stress_ratio"] = ratio
+
         result.add_intermediate("curve_group", curve_group.value, "-", "UCS-66 curve group")
         result.add_intermediate("t_nominal", t_nominal, "mm", "Nominal thickness")
         result.add_intermediate("mdmt_limit", mdmt_limit, "°C", "MDMT limit from UCS-66 Table")

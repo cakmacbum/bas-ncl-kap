@@ -99,4 +99,11 @@ class DesignConditions(BaseModel):
                     "UCS-66 muafiyet değerlendirmesinde kullanılır. Boş = test yok.",
     )
 
+    coincident_stress_ratio: Optional[float] = Field(
+        default=None, gt=0, le=1,
+        description="UCS-66 eşzamanlı gerilme oranı (gerçek gerilme / izin verilen, "
+                    "0-1]. Girilirse MDMT sonucuna kaydedilir; azaltma eğrisi telifli "
+                    "olduğundan otomatik uygulanmaz (K6). Boş = girilmedi.",
+    )
+
     model_config = {"frozen": True}

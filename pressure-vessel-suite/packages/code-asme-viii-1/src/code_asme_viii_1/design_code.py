@@ -1327,6 +1327,9 @@ class ASMEVIII1DesignCode(DesignCode):
                 "impact_test_temperature_C": getattr(
                     project.design_conditions, "impact_test_temperature_C", None
                 ),
+                "coincident_stress_ratio": getattr(
+                    project.design_conditions, "coincident_stress_ratio", None
+                ),
             }))
 
         calculated = [r for r in results if r.final_result is not None]
