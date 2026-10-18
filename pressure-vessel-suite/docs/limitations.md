@@ -470,3 +470,9 @@ seçilemezken üçüncü bir kod eklemek Faz 3/4'te kapatılan hayalet özellik 
 ---
 
 *Oluşturma tarihi: 2026-07-19 · Revizyon: 3.3 (2026-09-25 doküman tutarlılık düzeltmesi dahil: B-20/B-21/B-22 kapatıldı olarak işaretlendi, B-02/B-04/B-06/B-07/B-14 kod durumu notları, kapsam/paket tabloları, Phase C başlık/sıra) — 2026-09-25 emniyet denetimi: eğik nozul PASS (B-30) ve malzeme sıcaklık/kalınlık doğrulaması (B-31) kapatıldı; test basıncı LSR varsayımı (B-28) ve WRC eksik katsayı (B-29) kapatıldı, ayak kesit kusuru (B-27) kaydedildi; 2026-09-22: mill toleransı (B-26).*
+
+## Hidrotest statik kafası (UG-99) — kapsam sınırı (2026-10-18)
+`P_test = 1.3·MAWP·LSR` kabın **tepesindeki** basınç olarak hesaplanır; alt bileşenlerde su kolonu (ρ·g·h) kadar fazla basınç oluşur ve
+test gerilmesi kontrolü bileşen bazında yapılmaz. Bu kontrol (bileşen kotu + test gerilme sınırı) henüz uygulanmadı; kotlar
+`component_bottom_elevations` ile bilinen kaplarda eklenebilir. Çıktıdaki test basıncı bu nedenle alt bileşenler için asgari değerdir.
+Not: uyarı eklemek tüm hidrotest sonuçlarını REVIEW_REQUIRED yapacağından (validate_result uyarılı PASS'i yasaklar) kasıtlı olarak yapılmadı; karar Yusuf'ta.

@@ -66,3 +66,4 @@ Bu dosya, hedefin kapanmasını engelleyen tüm açık maddeleri toplar. Her mad
   2'si (T63-A-027, A-104) referansın R'yi korozyonsuz alması: API/referans oranı tam (R+CA_i)/R (1.01163, 1.01747) → FORMÜLASYON_FARKI, suite doğru. Ürün hatası yok.
 - B-04: `coincident_stress_ratio` girdisi bağlandı; UCS-66 azaltma eğrisi telifli (K6) olduğundan limite UYGULANMIYOR — açık uyarı verir. Otomatik oran hesabı yok.
 - T-2.14: nozulda `opening_weld_joint_efficiency` alanı var (A1 = d·(E1·t − F·tr)); varsayılan E1=1 K4 uyarılı; domain'den dikiş-geçişi çıkarımı yok → kısmen açık.
+- B-10 hidrotest statik kafası (K1): ajan eski tabanda tamamlayamadı; şef analizi: UG-99 basıncı tepede tanımlı, alt bileşen kontrolü yeni özellik; kapsam sınırı `docs/limitations.md`'ye yazıldı, uyarı/REVIEW_REQUIRED kararı Yusuf'ta.
