@@ -55,3 +55,7 @@ Kampanya: 21 aile (F01–F21), 2.000+ doğrulanmış vaka (1000 gövde kütle ko
   Gemini CLI kişisel hesapla kapalı (Antigravity'ye taşınmış, dışarıdan iş verilemez).
 **Yürütücüler:** Codex luna (paket yazar → worktree) · Sonnet ajanları (izole worktree, şef diff'i okur, yalnız ilgili dosyaları ana ağaca kopyalar) · Haiku (örnek doğrulama; **`t_hesap` sütunları API kopyası çıktı → bağımsız kanıt sayılmaz**).
 **Kaldığım yerden devam:** önce `EKSIKLER.md` oku; açık madde yoksa M3 (Render backend, repo public kararı, iletişim e-postası) ya da arayüz `liquid_level_mm`.
+
+## 2026-10-18 (akşam) — M2 kapanış turu, push ve deploy
+K2/K3/K4/C1 birleştirildi; tam paket 983 geçti / 1 atlandı. GitHub'a push edildi (`ee35425`, origin/main). Web arayüzü Vercel'e (pv-suite-app → https://app.zeyslabs-vessela.com, 200; dist hash canlıda eşleşti) CLI ile yüklendi.
+Backend (Render) hâlâ yok → canlı arayüz hesap API'sine ulaşamaz. Açık: B-06 EN 13445, B-09, hidrotest bileşen-bazlı kontrol, E1 domain çıkarımı, Browser e2e görsel kanıt, ajan worktree temizliği.
