@@ -1,18 +1,25 @@
 {
   "A": {
     "vaka": 120,
+    "UYUŞUR": 48,
+    "UYUŞMUYOR": 72,
+    "VERİ_YOK": 0,
+    "nedenler": {
+      "required_area farkı >%1 veya utilization_ratio <1/yok": 72
+    }
+  },
+  "B": {
+    "vaka": 120,
     "UYUŞUR": 120,
     "UYUŞMUYOR": 0,
     "VERİ_YOK": 0,
     "nedenler": {}
   },
-  "B": {
-    "vaka": 120,
-    "UYUŞUR": 111,
-    "UYUŞMUYOR": 9,
+  "C": {
+    "vaka": 60,
+    "UYUŞUR": 60,
+    "UYUŞMUYOR": 0,
     "VERİ_YOK": 0,
-    "nedenler": {
-      "API t_required bağımsız UG-32(d) sonucundan %1'den fazla farklı": 9
-    }
+    "nedenler": {}
   }
 }

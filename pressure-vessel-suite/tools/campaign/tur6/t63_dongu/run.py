@@ -1,6 +1,7 @@
-"""Run the T63 end-to-end campaign and write raw results plus independent counts."""
+"""Run T63/T45 cases with independent references persisted before API calls."""
 from __future__ import annotations
 
+import csv
 import json
 import math
 from pathlib import Path
@@ -8,83 +9,87 @@ from pathlib import Path
 from tools.campaign.harness import find_results, run_case, value_of
 from tools.campaign.tur6.t63_dongu.cases import cases
 
-
 OUT = Path(__file__).resolve().parent
 
 
-def _utilization(row):
-    for name in ("utilization_ratio", "utilization", "utilisation"):
-        v = row.get(name)
-        if isinstance(v, (int, float)):
-            return float(v)
-    for name in ("utilization_ratio", "utilization", "utilisation", "U"):
-        v = value_of(row, name)
-        if v is not None:
-            return v
-    return None
+def _reference(case):
+    x = case["inputs"]
+    if case["kind"] == "nozzle":
+        tr = x["P_MPa"] * x["R_mm"] / (x["S_MPa"] - 0.6 * x["P_MPa"])
+        return x["nozzle_d_mm"] * tr + 2 * x["neck_t_mm"] * tr * (1 - x["fr1"]), tr
+    if case["kind"] == "head":
+        dc = x["D_i_mm"] + 2 * x["CA_i_mm"]
+        return x["P_MPa"] * dc / (2 * x["S_MPa"] * x["E"] - 0.2 * x["P_MPa"]), None
+    m = 0.25 * (3 + math.sqrt(x["L_mm"] / x["r_mm"]))
+    return x["P_MPa"] * x["L_mm"] * m / (2 * x["S_MPa"] * x["E"] - 0.2 * x["P_MPa"]), None
 
 
 def run():
+    all_cases = list(cases())
+    refs = []
+    for case in all_cases:
+        x = case["inputs"]
+        if case["kind"] == "nozzle":
+            x.update(R_mm=x["D_i_mm"] / 2, fr1=1.0)
+        ref, tr = _reference(case)
+        case["reference"] = ref
+        refs.append({"id": case["id"], "kind": case["kind"],
+                     "required_area_or_thickness": ref, "t_r_mm": tr if tr is not None else ""})
+    with (OUT / "ref.csv").open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=refs[0].keys())
+        writer.writeheader()
+        writer.writerows(refs)
+
+    labels = ("UYUŞUR", "UYUŞMUYOR", "VERİ_YOK")
+    counts = {c: {"vaka": 0, **{label: 0 for label in labels}, "nedenler": {}} for c in ("A", "B", "C")}
     records = []
-    counts = {c: {"vaka": 0, "UYUŞUR": 0, "UYUŞMUYOR": 0, "VERİ_YOK": 0,
-                  "nedenler": {}} for c in ("A", "B")}
-    for case in cases():
+    for case in all_cases:
         outcome = run_case(case["project"])
         payload = outcome.get("payload") or {}
-        expected_kind = "nozzle_reinforcement" if case["kind"] == "nozzle" else "thickness"
-        rows = find_results(payload, component_id="N1" if case["kind"] == "nozzle" else "HEAD-L",
-                            calculation_type=expected_kind)
-        if case["kind"] == "head":
-            rows = [r for r in rows if str(r.get("clause_reference", "")).startswith("UG-32")]
+        kind = case["kind"]
+        rows = find_results(payload, component_id="N1" if kind == "nozzle" else "HEAD-L",
+                            calculation_type="nozzle_reinforcement" if kind == "nozzle" else "thickness")
+        clause = "UG-32(e)" if kind == "torispherical" else "UG-32(d)"
+        if kind != "nozzle":
+            rows = [r for r in rows if str(r.get("clause_reference", "")).startswith(clause)]
         row = rows[0] if rows else None
-        api_status = (row or {}).get("status")
-        api_value = None
-        independent = None
-        rc = None
+        api_val = None
+        utilization = None
+        if row:
+            if kind == "nozzle":
+                api_val = next((float(row[n]) for n in ("required_area", "area_required", "A_required")
+                                if isinstance(row.get(n), (int, float))), value_of(row, "A_required"))
+                u = row.get("utilization_ratio")
+                utilization = float(u) if isinstance(u, (int, float)) else value_of(row, "utilization_ratio")
+            else:
+                api_val = value_of(row, "t_required")
+        ref = case["reference"]
         reason = None
-        if row is None:
-            verdict, reason = "VERİ_YOK", "API bileşen sonucu yok"
-        elif case["kind"] == "nozzle":
-            api_value = _utilization(row)
-            if api_value is None or not math.isfinite(api_value):
-                verdict, reason = "VERİ_YOK", "utilization_ratio yok veya sonlu değil"
-            else:
-                state = str(api_status or "").upper().replace("_", " ").split()[0]
-                # Contract: API PASS precisely when current/required utilization >= 1.
-                verdict = "UYUŞUR" if ((state == "PASS") == (api_value >= 1.0)) else "UYUŞMUYOR"
-                if verdict == "UYUŞMUYOR":
-                    reason = "API PASS/FAIL durumu utilization_ratio ≥ 1 eşiğiyle çelişiyor"
+        if api_val is None or not math.isfinite(api_val):
+            verdict, reason = "VERİ_YOK", "API karşılaştırma değeri yok"
         else:
-            api_value = value_of(row, "t_required")
-            x = case["inputs"]
-            rc = x["D_i_mm"] / 2 + x["CA_i_mm"]
-            dc = x["D_i_mm"] + 2 * x["CA_i_mm"]
-            independent = x["P_MPa"] * dc / (2 * x["S_MPa"] * x["E"] - 0.2 * x["P_MPa"])
-            if api_value is None or not math.isfinite(api_value):
-                verdict, reason = "VERİ_YOK", "API t_required yok veya sonlu değil"
+            err = abs(api_val - ref) / abs(ref)
+            if kind == "nozzle":
+                passed = err <= 0.01 and utilization is not None and utilization >= 1
+                reason = None if passed else "required_area farkı >%1 veya utilization_ratio <1/yok"
             else:
-                relative_error = abs(api_value - independent) / abs(independent)
-                verdict = "UYUŞUR" if relative_error <= 0.01 else "UYUŞMUYOR"
-                if verdict == "UYUŞMUYOR":
-                    reason = "API t_required bağımsız UG-32(d) sonucundan %1'den fazla farklı"
+                passed = err <= 0.01
+                reason = None if passed else "t_required bağımsız referanstan %1'den fazla farklı"
+            verdict = "UYUŞUR" if passed else "UYUŞMUYOR"
         bucket = counts[case["component"]]
         bucket["vaka"] += 1
         bucket[verdict] += 1
         if reason:
             bucket["nedenler"][reason] = bucket["nedenler"].get(reason, 0) + 1
-        records.append({"id": case["id"], "component": case["component"], "kind": case["kind"],
+        records.append({"id": case["id"], "component": case["component"], "kind": kind,
                         "girdi": case["inputs"], "http_status": outcome.get("http_status"),
-                        "api_ok": outcome.get("ok"), "api_error": outcome.get("error"),
-                        "api_status": api_status, "api_value": api_value,
-                        "independent_value": independent, "R_c_mm": rc if case["kind"] == "head" else None,
-                        "relative_error": (abs(api_value - independent) / abs(independent)
-                                           if case["kind"] == "head" and api_value is not None else None),
+                        "api_error": outcome.get("error"), "api_status": (row or {}).get("status"),
+                        "api_value": api_val, "utilization_ratio": utilization, "independent_value": ref,
+                        "relative_error": abs(api_val-ref)/abs(ref) if api_val is not None else None,
                         "kontrol": verdict, "neden": reason, "api_payload": payload})
-    (OUT / "results.json").write_text(json.dumps(records, ensure_ascii=False, indent=2,
-                                                   allow_nan=False) + "\n", encoding="utf-8")
-    (OUT / "kontrol.json").write_text(json.dumps(counts, ensure_ascii=False, indent=2,
-                                                  allow_nan=False) + "\n", encoding="utf-8")
-    print("vaka=240 " + " ".join(f"{c}: uyuşur={counts[c]['UYUŞUR']} uyuşmaz={counts[c]['UYUŞMUYOR']} veri_yok={counts[c]['VERİ_YOK']}" for c in ("A", "B")))
+    (OUT / "results.json").write_text(json.dumps(records, ensure_ascii=False, indent=2, allow_nan=False)+"\n", encoding="utf-8")
+    (OUT / "kontrol.json").write_text(json.dumps(counts, ensure_ascii=False, indent=2, allow_nan=False)+"\n", encoding="utf-8")
+    print("vaka=300 " + " ".join(f"{c}: uyuşur={counts[c]['UYUŞUR']} uyuşmaz={counts[c]['UYUŞMUYOR']} veri_yok={counts[c]['VERİ_YOK']}" for c in counts))
     return records
 
 

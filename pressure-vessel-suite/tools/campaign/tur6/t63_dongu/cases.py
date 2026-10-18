@@ -1,4 +1,4 @@
-"""Seeded inputs for T63: 120 nozzle and 120 elliptical-head cases."""
+"""Seeded inputs for T63/T45: nozzle, elliptical and torispherical cases."""
 from __future__ import annotations
 
 import random
@@ -12,8 +12,8 @@ SEED = 630
 
 def cases():
     rng = random.Random(SEED)
-    for component, kind in (("A", "nozzle"), ("B", "head")):
-        for i in range(120):
+    for component, kind, count in (("A", "nozzle", 120), ("B", "head", 120), ("C", "torispherical", 60)):
+        for i in range(count):
             d_i = round(rng.uniform(300, 2500), 3)
             pressure = round(rng.uniform(0.2, 8.0), 5)
             allowable = round(rng.uniform(100, 200), 4)
@@ -27,9 +27,13 @@ def cases():
             shell.update(inside_diameter=d_i, outside_diameter=d_i + 40,
                          nominal_thickness=20, internal_corrosion_allowance=ca)
             for head in project["heads"]:
-                head.update(type="elliptical", inside_diameter=d_i, outside_diameter=d_i + 40,
-                            crown_depth=d_i / 4, straight_flange_length=25, nominal_thickness=20,
+                head.update(type="elliptical" if kind != "torispherical" else "torispherical",
+                            inside_diameter=d_i, outside_diameter=d_i + 40,
+                            straight_flange_length=25, nominal_thickness=20,
                             internal_corrosion_allowance=ca)
+                if kind == "torispherical":
+                    head.update(crown_radius=d_i + 40, knuckle_radius=(d_i + 40) * 0.06,
+                                torispherical_geometry="standard_asme_fd")
             for material in project["materials"]:
                 if material["material_id"] == "M1":
                     material["allowable_stress"] = allowable
@@ -52,10 +56,15 @@ def cases():
                 inputs = {"D_i_mm": d_i, "d_over_D": ratio, "P_MPa": pressure,
                           "S_MPa": allowable, "E": efficiency, "CA_i_mm": ca,
                           "nozzle_d_mm": nozzle_d, "neck_t_mm": neck_t}
-            else:
+            elif kind == "head":
                 case_id = f"T63-B-{i + 1:03d}"
                 inputs = {"D_i_mm": d_i, "P_MPa": pressure, "S_MPa": allowable,
                           "E": efficiency, "CA_i_mm": ca}
+            else:
+                case_id = f"T45-C-{i + 1:03d}"
+                inputs = {"D_i_mm": d_i, "D_o_mm": d_i + 40, "P_MPa": pressure,
+                          "S_MPa": allowable, "E": efficiency, "CA_i_mm": ca,
+                          "L_mm": d_i + 40, "r_mm": (d_i + 40) * 0.06}
             project["project_number"] = case_id
             project["project_name"] = f"T63 campaign {case_id}"
             yield {"id": case_id, "component": component, "kind": kind,
