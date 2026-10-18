@@ -61,3 +61,8 @@ Bu dosya, hedefin kapanmasını engelleyen tüm açık maddeleri toplar. Her mad
 - G-03 girdi üst sınırları: KAPANDI (`55df09b`).
 - T-2.10 CA_o>0 bağımsız MAWP testleri (yarım küre, torisferik, düz kapak, koni): KAPANDI.
 - Koni `external_corrosion_allowance` alanı eklendi (T-2.8 yarısı); hidrotest statik kafası hâlâ açık.
+- T-07/T-08/P-02 (C1, Codex luna, `ork/C1`, birleştirildi): T63 yeniden yazıldı, referans API'den önce `ref.csv`'ye yazıldı. Eliptik 120/120 ve torisferik (T45) 60/60 UYUŞUR.
+  Nozul 48/120 "UYUŞUR", 72 "UYUŞMUYOR" — **şef incelemesi:** 70'i oranı <1 olan gerçek TASARIM_FAIL'dir (uyuşmazlık değil; DEC-008 sınıflandırma hatası C1'de tekrarlandı),
+  2'si (T63-A-027, A-104) referansın R'yi korozyonsuz alması: API/referans oranı tam (R+CA_i)/R (1.01163, 1.01747) → FORMÜLASYON_FARKI, suite doğru. Ürün hatası yok.
+- B-04: `coincident_stress_ratio` girdisi bağlandı; UCS-66 azaltma eğrisi telifli (K6) olduğundan limite UYGULANMIYOR — açık uyarı verir. Otomatik oran hesabı yok.
+- T-2.14: nozulda `opening_weld_joint_efficiency` alanı var (A1 = d·(E1·t − F·tr)); varsayılan E1=1 K4 uyarılı; domain'den dikiş-geçişi çıkarımı yok → kısmen açık.
