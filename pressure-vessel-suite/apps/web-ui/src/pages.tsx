@@ -1623,6 +1623,7 @@ export function ResultsPage() {
             rows={[
               ...byType("saddle_stress"),
               ...byType("skirt_stress"),
+              ...byType("skirt_base_ring"),
               ...byType("leg_stress"),
             ]}
             emptyNote="Destek tanımlanmadığı için Zick (eyer) / etek / ayak kontrolü YAPILMADI. Kap desteklenmiyor anlamına gelmez — kontrol hiç çalışmadı."

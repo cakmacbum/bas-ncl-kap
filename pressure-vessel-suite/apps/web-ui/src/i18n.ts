@@ -35,6 +35,7 @@ export const CALC_TYPE_TR: Record<string, string> = {
   flange_stress: "Flanş gerilmesi (Appendix 2)",
   saddle_stress: "Eyer gerilmesi (Zick)",
   skirt_stress: "Etek gerilmesi",
+  skirt_base_ring: "Etek taban halkası / ankraj (kapsam dışı)",
   leg_stress: "Ayak gerilmesi",
   leg_section_check: "Ayak profili kontrolü",
   leg_weld_check: "Ayak kaynak kontrolü",

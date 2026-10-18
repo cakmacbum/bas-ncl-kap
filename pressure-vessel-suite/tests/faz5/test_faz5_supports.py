@@ -82,7 +82,7 @@ def test_support_resolves_explicit_host_shell_in_multi_shell_project(support_mat
     )
 
     results = ASMEVIII1DesignCode().check_supports(project)
-    assert len(results) == 1
+    assert len(results) == 2  # skirt_stress + skirt_base_ring (G-05)
     host = next(v for v in results[0].intermediate_values if v["name"] == "host_component_id")
     start = next(v for v in results[0].intermediate_values if v["name"] == "host_axial_start")
     assert host["value"] == "SHELL-02"
@@ -579,11 +579,15 @@ class TestSupportCalculator:
 
         results = ASMEVIII1DesignCode().check_supports(project)
 
-        assert len(results) == 1
+        # skirt_stress + G-05 skirt_base_ring (kapsam dışı) satırı
+        assert len(results) == 2
         assert results[0].component_id == "SKIRT-01"
         # Üretim hattı destek sonucu, Faz C kapsamı eksikleri nedeniyle
         # nihai PASS değil; mühendis incelemesi gerektirir.
         assert results[0].status.value == "REVIEW REQUIRED"
+        assert results[1].calculation_type == "skirt_base_ring"
+        assert results[1].status.value == "OUT OF SCOPE"
+        assert results[1].component_id == "SKIRT-01"
 
     def test_production_support_payload_wires_leg_count_and_geometry(self, mat):
         """Leg sayısı ve ölçüler nested support sözleşmesiyle hesapçıya ulaşır."""

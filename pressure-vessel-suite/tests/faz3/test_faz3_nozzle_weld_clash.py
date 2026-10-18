@@ -1195,6 +1195,19 @@ class TestClashCheckIntegration:
         assert result.component_type == "nozzle"
         assert result.calculation_type == "clash_check"
 
+    def test_clash_result_exposes_numeric_distances(self, standard_project):
+        """B-08: mesafe/sınır sayıları ara değer olarak çıkmalı (rapordaki ile aynı)."""
+        nozzle = standard_project.nozzles[0]
+        report = validate_nozzle_clash(nozzle, standard_project)
+        result = build_clash_check_result(nozzle, standard_project)
+        by_name = {i["name"]: i["value"] for i in result.intermediate_values}
+        numeric = [c for c in report.checks if c.distance_mm is not None]
+        assert numeric
+        for c in numeric:
+            assert by_name[f"{c.check_name}_distance_mm"] == c.distance_mm
+            if c.limit_mm is not None:
+                assert by_name[f"{c.check_name}_limit_mm"] == c.limit_mm
+
     def test_report_dict(self, standard_project):
         """Rapor dict'e çevrilebilmeli."""
         nozzle = standard_project.nozzles[0]

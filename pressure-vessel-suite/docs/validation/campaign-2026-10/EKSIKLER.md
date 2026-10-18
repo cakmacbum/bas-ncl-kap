@@ -67,3 +67,7 @@ Bu dosya, hedefin kapanmasını engelleyen tüm açık maddeleri toplar. Her mad
 - B-04: `coincident_stress_ratio` girdisi bağlandı; UCS-66 azaltma eğrisi telifli (K6) olduğundan limite UYGULANMIYOR — açık uyarı verir. Otomatik oran hesabı yok.
 - T-2.14: nozulda `opening_weld_joint_efficiency` alanı var (A1 = d·(E1·t − F·tr)); varsayılan E1=1 K4 uyarılı; domain'den dikiş-geçişi çıkarımı yok → kısmen açık.
 - B-10 hidrotest statik kafası (K1): ajan eski tabanda tamamlayamadı; şef analizi: UG-99 basıncı tepede tanımlı, alt bileşen kontrolü yeni özellik; kapsam sınırı `docs/limitations.md`'ye yazıldı, uyarı/REVIEW_REQUIRED kararı Yusuf'ta.
+- G-05 (K4): etek için `skirt_base_ring` sonucu OUT OF SCOPE olarak görünür (hesap yok, formül uydurulmadı); arayüz etiketi eklendi.
+- G-06 (K4): saddle OUT OF SCOPE yalnız 2 koşulda (≥3 eyer; ağırlık merkezi orta noktada varsayımıyla bir reaksiyon ≤0). Kapsam `docs/limitations.md`'de. Koşul (b) dar olabilir → mühendis kararı.
+- B-08 (K4): nozul yerleşiminde `<kontrol>_distance_mm` / `_limit_mm` ara değerleri çıktıda.
+- Kalan açık: B-06 EN 13445 flanş/yük/yorulma tetiklenemiyor, B-09 MDMT bağımsız kıyas (telif), hidrotest bileşen-bazlı kontrol, E1 domain çıkarımı, Browser e2e görsel kanıt.

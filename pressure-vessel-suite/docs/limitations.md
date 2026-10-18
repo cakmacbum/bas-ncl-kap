@@ -467,6 +467,24 @@ seçilemezken üçüncü bir kod eklemek Faz 3/4'te kapatılan hayalet özellik 
 - Global hata işleyicisi (`apps/api/main.py`) 500 yanıtlarında `{tip}: {mesaj}` döndürüyor; ayrıntı sızıntısı
   riski — STEP ucunda kapatıldı, genel işleyicide açık.
 
+## Kampanya 2026-10 / K4 kapsam kayıtları
+
+- **G-05 — Etek (skirt) taban halkası / ankraj / beton yataklık hesabı YOK.** `supports` paketinde
+  taban plakası kontrolü (Blodgett) yalnız **ayak** (`leg`) içindir; etek için base ring hesabı
+  yazılmadı (formül uydurulmaz, K4/K6). Her etek için sonuç listesine `skirt_base_ring`
+  satırı `OUT OF SCOPE` olarak eklenir; etek çekme/uplift uyarısı bununla birlikte okunmalıdır.
+- **G-06 — Eyer (Zick) `OUT OF SCOPE` yalnız iki koşulda üretilir** (`SupportCalculator.check_saddle`):
+  (a) aynı gövdede **3 veya daha fazla eyer** (statik belirsiz); (b) iki eyer reaksiyonundan biri
+  `<= 0`: ağırlık merkezi teğet-teğet **orta noktada varsayıldığı** için eyerlerin ikisi de orta
+  noktanın aynı yanındaysa (ör. 400/1600 mm eyerleri uzun gövdede) kapsam dışı sayılır.
+  Koşul (b) gerçek ağırlık merkezi girdisi olmadığından fazla dar olabilir (yatay kap için ağırlık
+  merkezi girdisi yok); değiştirilmedi, mühendis kararına bırakıldı. Tek eyer `NOT CALCULATED`,
+  teğet-teğet dışı eyer `NOT CALCULATED`, eksik K/halka bilgisi `BLOCKED MISSING INPUT` verir.
+- **B-08 (kampanya) — Nozul yerleşim kontrolü sayısal çıktı.** `clash_check` sonucu artık her
+  kontrol için `<kontrol>_distance_mm` ve `<kontrol>_limit_mm` ara değerlerini taşır (mevcut
+  geometrik hesabın sayıları; yeni formül yok). Konum koordinatları hâlâ çıktıda yoktur.
+  Not: `hole_pad_relation` için `distance_mm` = delik çapı, `limit_mm` = ped iç çapıdır.
+
 ---
 
 *Oluşturma tarihi: 2026-07-19 · Revizyon: 3.3 (2026-09-25 doküman tutarlılık düzeltmesi dahil: B-20/B-21/B-22 kapatıldı olarak işaretlendi, B-02/B-04/B-06/B-07/B-14 kod durumu notları, kapsam/paket tabloları, Phase C başlık/sıra) — 2026-09-25 emniyet denetimi: eğik nozul PASS (B-30) ve malzeme sıcaklık/kalınlık doğrulaması (B-31) kapatıldı; test basıncı LSR varsayımı (B-28) ve WRC eksik katsayı (B-29) kapatıldı, ayak kesit kusuru (B-27) kaydedildi; 2026-09-22: mill toleransı (B-26).*

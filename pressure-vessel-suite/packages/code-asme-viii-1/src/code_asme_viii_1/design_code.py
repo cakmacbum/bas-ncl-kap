@@ -2018,6 +2018,24 @@ class ASMEVIII1DesignCode(DesignCode):
                 for _d in leg_details:
                     _d.add_intermediate("host_component_id", host_id, "-", f"Resolved support host ({host_type})")
                     results.append(_d)
+            if sup.type == "skirt":
+                # G-05: etek taban halkası / ankraj hesabı paketlerde YOK (yalnız ayak taban
+                # plakası var). Formül uydurulmaz (K4); eksik açıkça sonuç listesinde görünür.
+                _br = CalculationResult(
+                    component_id=sup.support_id,
+                    component_type="support",
+                    calculation_type="skirt_base_ring",
+                    code=self.code_name,
+                    edition=self.code_edition,
+                    clause_reference="Skirt base ring / anchor bolts",
+                )
+                _br.set_out_of_scope(
+                    "Etek taban halkası (base ring), ankraj cıvataları ve beton yataklık kontrolü "
+                    "hesaplanmadı: bu pakette etek için taban halkası hesabı yok (kapsam dışı). "
+                    "Ayrıca ele alınmalıdır."
+                )
+                _br.add_intermediate("host_component_id", host_id, "-", f"Resolved support host ({host_type})")
+                results.append(_br)
 
         return results
 

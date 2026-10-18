@@ -696,6 +696,17 @@ def build_clash_check_result(
             "-" if check.distance_mm is None else "mm",
             check.message,
         )
+        # B-08: mevcut geometrik hesabın sayıları (yeni formül yok) görünür kılınır.
+        if check.distance_mm is not None:
+            result.add_intermediate(
+                f"{check.check_name}_distance_mm", check.distance_mm, "mm",
+                f"{check.check_name}: hesaplanan mesafe",
+            )
+        if check.limit_mm is not None:
+            result.add_intermediate(
+                f"{check.check_name}_limit_mm", check.limit_mm, "mm",
+                f"{check.check_name}: izin verilen en küçük mesafe/sınır",
+            )
 
     result.status = report.status
 
