@@ -13,6 +13,7 @@ export interface DesignConditions {
   corrosion_allowance_internal: number;
   corrosion_allowance_external: number;
   fluid_density_kg_m3: number;
+  liquid_level_mm: number | null;
   impact_test_temperature_C: number | null;
 }
 

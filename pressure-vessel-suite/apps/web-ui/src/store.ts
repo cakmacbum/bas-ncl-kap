@@ -31,6 +31,7 @@ export function defaultProject(): VesselProject {
       corrosion_allowance_internal: 2.0,
       corrosion_allowance_external: 0,
       fluid_density_kg_m3: 0,
+      liquid_level_mm: null,
       impact_test_temperature_C: null,
     },
     materials: [

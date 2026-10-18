@@ -430,8 +430,24 @@ export function ConditionsPage() {
             onChange={(v) => patchConditions({ fluid_density_kg_m3: v })}
             hint="0 = statik kafa düzeltmesi uygulanmaz"
             help="Su için 1000. 0 bırakılırsa sıvı sütunu basıncı MAWP'den düşülmez ve bu varsayım sonuçlara yazılır." />
+          <label className="field">
+            <span className="field__label">
+              <span>Sıvı Seviyesi</span>
+              <span className="field__unit">mm</span>
+            </span>
+            <WrcCell label="Sıvı Seviyesi" value={dc.liquid_level_mm ?? null}
+              onChange={(v) => patchConditions({ liquid_level_mm: v !== null && v < 0 ? 0 : v })} />
+            <span className="field__hint">Kabın en alt noktasından sıvı yüzeyine yükseklik. Boşsa statik kafa uygulanmaz.</span>
+          </label>
         </div>
       </Panel>
+      {dc.liquid_level_mm != null && project.orientation === "vertical"
+        && (project.component_sequence ?? []).length === 0 && (
+        <div className="alert alert--warn" role="alert">
+          ⚠ Dikey kapta sıvı seviyesi girildi ancak bileşen sırası boş: kot hesabı için bileşen
+          sırası (Eleman Zinciri) gerekli. Aksi halde statik kafa doğru kotlara dağıtılamaz.
+        </div>
+      )}
       <Panel title="Korozyon Payı" meta="mm"
         desc="Ömür boyunca kaybolacağı varsayılan kalınlık payı.">
         <div className="grid">
