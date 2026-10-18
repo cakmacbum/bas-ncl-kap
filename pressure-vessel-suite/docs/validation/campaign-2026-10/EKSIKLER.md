@@ -18,7 +18,7 @@ Bu dosya, hedefin kapanmasını engelleyen tüm açık maddeleri toplar. Her mad
 | B-09 | ORTA | MDMT için bağımsız sayısal kıyas yok (UCS-66 telifli, K6) | Açık |
 | G-01 | YANLIŞ ALARM | 0.8D, UG-37(a)'da t_r seçim dairesi; yerleşim yasağı değil | Kapandı (A4, güven orta) |
 | B-10 | YÜKSEK, emniyetsiz | Statik kafa düzeltmesi ölü kod: `reference_elevation_mm` hiç atanmıyor; hidrotestte statik kafa yok | DÜZELTİLDİ (A5+A9): `liquid_level_mm` + geometriden kot; uçtan uca doğrulandı. Açık: arayüz alanı yok, dikeyde `component_sequence` gerekli, hidrotest statik kafası yok |
-| G-03 | ORTA | Anlamsız girdi (ör. basınç 1e9) HTTP 200 PASS/FAIL dönüyor; bazı NaN'lar 500 veriyor | Gözlemlendi; şema üst sınırı yok |
+| G-03 | ORTA | Anlamsız girdi (ör. basınç 1e9) HTTP 200 PASS/FAIL dönüyor; bazı NaN'lar 500 veriyor | DÜZELTİLDİ: şemaya akıl sağlığı üst sınırları + inf/NaN reddi (422); `tests/regression/test_girdi_sinirlari_g03.py`. inf/NaN 500'ü yalnız test istemcisi JSON kodlayıcısından |
 | G-04 | DÜŞÜK | Büyük harfli UUID kabul ediliyor (aynı sahibe normalleşiyor; sızıntı yok) | Bilgi |
 | G-05 | ORTA | Etekli kolonda taban halkası sonucu API'de yok (T14) | Açık |
 | G-06 | ORTA | Yatay tankta 216 saddle sonucu OUT OF SCOPE; kapsam belgelenmedi | Açık |
