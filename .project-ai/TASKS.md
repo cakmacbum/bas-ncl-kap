@@ -13,3 +13,5 @@
 - T-2.12 Browser e2e: 3 temel tank UI'dan (görsel kanıt) — yapılmadı
 - T-2.13 Luna'nın kendi kontrolünü bağımsız kılmak (T63 dersi) · Haiku doğrulamasında referans/API ayrımı
 - T-2.14 Nozulda E1 < 1 (açıklık Kategori B dışı dikişten geçerse) — uygulanmıyor, ayrı inceleme
+
+## 2026-10-24 — Teknik işler (Render hariç): ayrıntı `paketler/G-PLAN-teknik-isler.md` (G01–G12; Gemini yazar, Claude şef; Gemini CLI kapalı → dış paket akışı)
