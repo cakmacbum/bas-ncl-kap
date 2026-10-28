@@ -4,7 +4,6 @@ from __future__ import annotations
 # All HTTP routes declared in apps/api/main.py, including public and non-project routes.
 ENDPOINTS = [
     {"method": "GET", "path": "/api/health", "owner_required": False},
-    {"method": "POST", "path": "/api/agent/geometry/interpret", "owner_required": True},
     {"method": "GET", "path": "/api/projects", "owner_required": True},
     {"method": "POST", "path": "/api/projects", "owner_required": True},
     {"method": "GET", "path": "/api/projects/{project_id}", "owner_required": True},
@@ -42,6 +41,5 @@ CASES = [
     {"id": "uppercase-stl", "kind": "bad-route-header", "method": "GET", "path": "/api/projects/{id}/model.stl", "header": "OWNER_UPPER", "expected": 400},
     {"id": "uppercase-import", "kind": "bad-route-header", "method": "POST", "path": "/api/import/step", "header": "OWNER_UPPER", "expected": 400},
     {"id": "health-no-header", "kind": "health", "expected": 200},
-    {"id": "agent-missing-header", "kind": "agent-no-header", "expected": 400},
     {"id": "import-missing-header", "kind": "import-no-header", "expected": 400},
 ]

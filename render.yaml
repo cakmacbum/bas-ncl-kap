@@ -14,5 +14,3 @@ services:
         value: anonymous
       - key: CORS_ORIGINS
         value: https://app.zeyslabs-vessela.com,https://pv-suite-app.vercel.app
-      - key: GEOMETRY_AGENT_ENABLED
-        value: "false"

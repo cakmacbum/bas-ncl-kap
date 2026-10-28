@@ -25,13 +25,6 @@ from domain import VesselProject, compute_input_hash  # type: ignore
 
 from apps.api import services
 from apps.api.auth import auth_mode, require_owner
-from apps.api.geometry_agent import (
-    AgentNotConfiguredError,
-    AgentProviderError,
-    GeometryAgentRequest,
-    GeometryAgentResponse,
-    interpret_geometry_command,
-)
 from apps.api.store import ProjectLimitReached, store
 
 logger = logging.getLogger("basincli-kap.api")
@@ -73,19 +66,6 @@ app.add_middleware(
 @app.get("/api/health")
 def health() -> dict:
     return {"status": "ok", "cad_available": services.CADQUERY_AVAILABLE}
-
-
-@app.post("/api/agent/geometry/interpret", response_model=GeometryAgentResponse, dependencies=[Depends(require_owner)])
-def geometry_agent_interpret(payload: GeometryAgentRequest) -> GeometryAgentResponse:
-    """Interpret a sentence as a safe, review-only basic geometry patch."""
-    if os.environ.get("GEOMETRY_AGENT_ENABLED", "").strip().lower() not in {"1", "true", "yes"}:
-        raise HTTPException(status_code=503, detail="AI assistant is not available yet")
-    try:
-        return interpret_geometry_command(payload)
-    except AgentNotConfiguredError as exc:
-        raise HTTPException(status_code=503, detail=str(exc)) from exc
-    except AgentProviderError as exc:
-        raise HTTPException(status_code=502, detail=str(exc)) from exc
 
 
 @app.get("/api/projects")

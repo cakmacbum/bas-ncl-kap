@@ -1,4 +1,4 @@
-"""Supabase JWT auth, ajan kapısı ve 500 işleyicisi testleri."""
+"""Supabase JWT auth ve 500 işleyicisi testleri."""
 
 import time
 
@@ -20,7 +20,6 @@ def client(monkeypatch):
     monkeypatch.setenv("AUTH_MODE", "supabase")
     monkeypatch.setenv("SUPABASE_JWT_SECRET", SECRET)
     monkeypatch.setenv("SUPABASE_URL", SUPA)
-    monkeypatch.setenv("GEOMETRY_AGENT_ENABLED", "false")
     return TestClient(app, raise_server_exceptions=False)
 
 
@@ -56,30 +55,6 @@ def test_valid_token_passes(client):
 ])
 def test_bad_tokens_401(client, bad):
     assert client.get("/api/projects", headers=auth(bad())).status_code == 401
-
-
-def test_agent_disabled_503_no_outbound(client, monkeypatch):
-    from apps.api import main
-
-    def boom(*a, **k):
-        raise AssertionError("outbound call made")
-
-    monkeypatch.setattr(main, "interpret_geometry_command", boom)
-    r = client.post(
-        "/api/agent/geometry/interpret",
-        json={
-            "instruction": "Çapı 1200 mm olsun",
-            "context": {
-                "active_shell_id": "SHELL-01",
-                "shell_ids": ["SHELL-01"],
-                "heads": [{"head_id": "HEAD-L", "side": "left"}],
-                "diameter_relation": "linked",
-            },
-        },
-        headers=auth(token()),
-    )
-    assert r.status_code == 503
-    assert r.json() == {"detail": "AI assistant is not available yet"}
 
 
 def test_500_hides_details(client, monkeypatch):
