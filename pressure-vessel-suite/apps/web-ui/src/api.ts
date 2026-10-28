@@ -4,8 +4,6 @@ import type {
   VesselProject,
   CalcPayload,
   ProjectSummary,
-  GeometryAgentInterpretRequest,
-  GeometryAgentSuggestion,
   StepRecognition,
 } from "./types";
 
@@ -116,16 +114,6 @@ export const api = {
 
   async calculate(id: string): Promise<CalcPayload> {
     return fetchJson(`${BASE}/projects/${id}/calculate`, { method: "POST" });
-  },
-
-  async interpretGeometry(
-    payload: GeometryAgentInterpretRequest
-  ): Promise<GeometryAgentSuggestion> {
-    return fetchJson(`${BASE}/agent/geometry/interpret`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
   },
 
   // Başlık gerektiren dosyalar için blob URL (iframe / yeni sekme / indirme).

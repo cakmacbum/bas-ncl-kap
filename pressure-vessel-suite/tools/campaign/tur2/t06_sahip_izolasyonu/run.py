@@ -63,8 +63,6 @@ def main() -> None:
                 response = client.request(case["method"], path, headers={"X-Client-Id": header}, json=body)
             elif kind == "health":
                 response = client.get("/api/health")
-            elif kind == "agent-no-header":
-                response = client.post("/api/agent/geometry/interpret", json={})
             else:
                 response = client.post("/api/import/step", content=b"", headers={})
             observed = response.status_code
