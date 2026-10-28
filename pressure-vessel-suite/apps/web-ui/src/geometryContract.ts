@@ -140,9 +140,12 @@ export interface PartCtx {
   catalogs: Catalogs;
   orientation: "horizontal" | "vertical";
   frames: ComponentFrame[];
+  /** D06: parça uyarı kanalı (ör. CATALOG_MISS); worker sonuca ekler. */
+  warn?: (w: BuildWarning) => void;
 }
 
 export interface PartModule<P> {
-  build(params: P, frame: ComponentFrame | null, ctx: PartCtx): Shape3D;
+  /** null → parça üretilemedi (worker atlar; nedeni ctx.warn ile bildirilir). */
+  build(params: P, frame: ComponentFrame | null, ctx: PartCtx): Shape3D | null;
   cutter?(params: P, frame: ComponentFrame, ctx: PartCtx): Shape3D;
 }
