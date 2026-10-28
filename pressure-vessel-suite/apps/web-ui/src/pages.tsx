@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useStore } from "./store";
 import { api } from "./api";
 import {
@@ -21,6 +21,8 @@ import {
 import { headDepth } from "./vesselModel";
 import { geometryIssues, geometrySignature } from "./geometryValidation";
 import { StepImportDrawer } from "./StepImportDrawer";
+import { GeometryWizard } from "./geometrySteps/GeometryWizard";
+import { computeIssues } from "./geometrySteps/IssuesPanel";
 
 function PageHead({ kicker, title, desc }: { kicker: string; title: string; desc: string }) {
   return (
@@ -467,6 +469,8 @@ export function ConditionsPage() {
 // ============================================================ 3. Geometri
 export function GeometryPage() {
   const { project, setProject, setStep, activeShellId, setActiveShellId } = useStore();
+  const selection = useStore((s) => s.selection);
+  const setSelection = useStore((s) => s.setSelection);
   const [activeMaterialId, setActiveMaterialId] = useState(project.materials[0]?.material_id ?? "");
   const [activeWeldId, setActiveWeldId] = useState(project.welds[0]?.joint_id ?? "");
   const [stepFile, setStepFile] = useState<File | null>(null);
@@ -484,25 +488,6 @@ export function GeometryPage() {
   const mat = project.materials.find((item) => item.material_id === activeMaterialId) ?? project.materials[0];
   const weld = project.welds.find((item) => item.joint_id === activeWeldId) ?? project.welds[0];
 
-  const setShell = (patch: Partial<typeof shell>) =>
-    setProject((x) => {
-      const linked = (x.diameter_relation ?? "linked") === "linked";
-      const heads = linked && patch.inside_diameter != null
-        ? x.heads.map((head) => ({ ...head, inside_diameter: patch.inside_diameter as number }))
-        : x.heads;
-      return {
-        ...x,
-        shell_sections: x.shell_sections.map((section) =>
-          section.section_id === shell.section_id ? { ...section, ...patch } : section
-        ),
-        heads,
-      };
-    });
-  const setHead = (i: number, patch: Partial<(typeof project.heads)[0]>) =>
-    setProject((x) => ({
-      ...x,
-      heads: x.heads.map((h, idx) => (idx === i ? { ...h, ...patch } : h)),
-    }));
   const setMat = (patch: Partial<typeof mat>) =>
     setProject((x) => ({
       ...x,
@@ -518,40 +503,6 @@ export function GeometryPage() {
       ),
     }));
 
-  const addShell = () => setProject((x) => {
-    const n = x.shell_sections.length + 1;
-    const source = x.shell_sections[x.shell_sections.length - 1] ?? x.shell_sections[0];
-    const sectionId = `SHELL-${String(n).padStart(2, "0")}`;
-    const next = { ...source, section_id: sectionId };
-    const sequence = [...(x.component_sequence ?? [])];
-    sequence.splice(Math.max(0, sequence.length - 1), 0, { component_type: "shell" as const, component_id: sectionId });
-    setActiveShellId(sectionId);
-    return { ...x, shell_sections: [...x.shell_sections, next], component_sequence: sequence };
-  });
-
-  const addCone = () => setProject((x) => {
-    const n = x.cones.length + 1;
-    const lastShell = x.shell_sections[x.shell_sections.length - 1];
-    const diameter = lastShell?.inside_diameter ?? 1000;
-    const coneId = `CONE-${String(n).padStart(2, "0")}`;
-    const cone = {
-      cone_id: coneId,
-      large_diameter: diameter,
-      small_diameter: Math.max(1, diameter - 200),
-      half_apex_angle: 15,
-      length: 500,
-      nominal_thickness: lastShell?.nominal_thickness ?? 12,
-      material_id: lastShell?.material_id ?? "MAT-01",
-      weld_joint_id: lastShell?.weld_joint_id ?? "WJ-01",
-      internal_corrosion_allowance: lastShell?.internal_corrosion_allowance ?? 2,
-      mill_tolerance: lastShell?.mill_tolerance ?? 12.5,
-    };
-    const sequence = [...(x.component_sequence ?? [])];
-    sequence.splice(Math.max(0, sequence.length - 1), 0, { component_type: "cone" as const, component_id: coneId });
-    return { ...x, cones: [...x.cones, cone], component_sequence: sequence };
-  });
-
-  const headOpts = Object.entries(HEAD_TYPE_TR).map(([value, label]) => ({ value, label }));
   const nozzleTypeOpts = Object.entries(NOZZLE_TYPE_TR).map(([value, label]) => ({ value, label }));
   const componentLabel = (ref: VesselProject["component_sequence"][0]) =>
     `${ref.component_type === "head" ? "Bombe" : ref.component_type === "shell" ? "Gövde" : "Koni"} (${ref.component_id})`;
@@ -560,81 +511,56 @@ export function GeometryPage() {
   const weldOpts = project.welds.map((w) => ({ value: w.joint_id, label: `${w.joint_id} — ${w.joint_type}` }));
 
   const [active, setActive] = useState<DimKey>("");
-  const [activeNozzle, setActiveNozzle] = useState<number>(0);
   const dim = (k: DimKey) => ({ onFocus: () => setActive(k), onBlur: () => setActive("") });
-  const leftHead = project.heads[0];
-  const rightHead = project.heads[1] ?? project.heads[0];
-  const issues = geometryIssues(project);
+  // Seçili nozul / destek (sihirbaz tablosu veya 3D tıklaması) -> ayrıntı düzenleyicileri
+  const activeNozzle = selection?.kind === "nozzle" ? project.nozzles.findIndex((n) => n.tag === selection.id) : -1;
+  const activeSupport = selection?.kind === "support" ? project.supports.findIndex((x) => x.support_id === selection.id) : -1;
+  const seqIds = project.component_sequence ?? [];
+  const leftHead = project.heads.find((h) => h.head_id === seqIds[0]?.component_id) ?? project.heads[0];
+  const rightHead = project.heads.find((h) => h.head_id === seqIds[seqIds.length - 1]?.component_id) ?? project.heads[1] ?? project.heads[0];
+
+  const wizardIssues = useMemo(() => computeIssues(project), [project]);
   const issueSignature = geometrySignature(project);
   const [acceptedIssueSignature, setAcceptedIssueSignature] = useState<string | null>(null);
   React.useEffect(() => {
     setAcceptedIssueSignature(null);
   }, [issueSignature]);
+  const hasBlocking = wizardIssues.some((i) => i.blocking);
+  const hasWarnings = wizardIssues.some((i) => i.level !== "info");
   const proceedToResults = () => {
-    const blocking = issues.filter((issue) => issue.blocking);
-    if (blocking.length > 0) return;
-    if (issues.length > 0 && acceptedIssueSignature !== issueSignature) {
+    if (hasBlocking) return;
+    if (hasWarnings && acceptedIssueSignature !== issueSignature) {
       setAcceptedIssueSignature(issueSignature);
       return;
     }
     setStep(3);
   };
 
-  // Dar form: tek bölüm açık (akordeon)
-  const [openSection, setOpenSection] = useState<string>("shell");
+  // Dar form: tek bölüm açık (akordeon) - ayrıntı girdileri
+  const [openSection, setOpenSection] = useState<string>("");
   const toggleSection = (id: string) =>
     setOpenSection((cur) => (cur === id ? "" : id));
   const sec = (id: string) => ({
     id, open: openSection === id, onToggle: toggleSection,
   });
 
-  // Büyük önizleme: ölçülü kesit / anlık 3D / kesin CadQuery modeli
+  // Büyük önizleme: ölçülü kesit / anlık 3D / kesin model
   const [previewTab, setPreviewTab] = useState<"2d" | "3d" | "exact" | "uploaded">("3d");
-  const [exactUrl, setExactUrl] = useState<string | null>(null);
-  const [exactBusy, setExactBusy] = useState(false);
-  const [exactErr, setExactErr] = useState<string | null>(null);
 
-  const loadExact = async () => {
-    setExactBusy(true);
-    setExactErr(null);
-    try {
-      const id = await ensureSaved();
-      setExactUrl(`${api.stlUrl(id)}?t=${Date.now()}`);
-      setPreviewTab("exact");
-    } catch (e: any) {
-      setExactErr(e.message ?? "Kesin model yüklenemedi");
-    } finally {
-      setExactBusy(false);
-    }
-  };
-
-  // Nozul yardımcıları (store'dan)
-  const addNozzle = useStore((s) => s.addNozzle);
-  const removeNozzle = useStore((s) => s.removeNozzle);
   const updateNozzle = useStore((s) => s.updateNozzle);
-
-  // Flanş yardımcıları (store'dan)
   const addFlange = useStore((s) => s.addFlange);
   const removeFlange = useStore((s) => s.removeFlange);
   const updateFlange = useStore((s) => s.updateFlange);
   const [activeFlange, setActiveFlange] = useState<number>(0);
   const flanges = project.flanges ?? [];
 
-  // Destek yardımcıları (store'dan)
-  const addSupport = useStore((s) => s.addSupport);
-  const removeSupport = useStore((s) => s.removeSupport);
   const updateSupport = useStore((s) => s.updateSupport);
   const addMaterial = useStore((s) => s.addMaterial);
   const removeMaterial = useStore((s) => s.removeMaterial);
   const addWeld = useStore((s) => s.addWeld);
   const removeWeld = useStore((s) => s.removeWeld);
-  const duplicateComponent = useStore((s) => s.duplicateComponent);
-  const removeComponent = useStore((s) => s.removeComponent);
-  const moveComponent = useStore((s) => s.moveComponent);
-  const [activeSupport, setActiveSupport] = useState<number>(0);
   const saddleCount = project.supports.filter((s) => s.type === "saddle").length;
 
-  // Şemaya geçirilecek nozul listesi
   const schematicNozzles = project.nozzles.map((nz) => ({
     tag: nz.tag,
     z: nz.axial_position,
@@ -649,200 +575,20 @@ export function GeometryPage() {
       <PageHead
         kicker="Adım 03 / 06"
         title="Kap Geometrisi"
-        desc="Değeri yazarken sağdaki canlı şema güncellenir; düzenlediğin ölçü şemada vurgulanır. Alan başlıklarındaki (?) işaretine gelerek ne olduğunu görebilirsin."
+        desc="Beş alt adımda kabı kurun: gövde zinciri, bombeler, flanşlı nozullar, manşonlar ve mesnetler. Sağdaki önizleme her değişiklikte güncellenir; gezinmek için üstteki adım çubuğunu kullanın."
       />
       <div className="btn-row"><label className="btn agent-open-btn">Modelden içe aktar<input type="file" accept=".step,.stp,.stl" hidden onChange={(event) => { selectModel(event.target.files?.[0]); event.currentTarget.value = ""; }} /></label></div>
       <div className="geo-layout">
         <div className="geo-forms">
-          <AccordionSection id="components" open title="Eleman Zinciri" meta={`${project.component_sequence?.length ?? 0} eleman`}
-            onToggle={() => undefined} desc="Basınç taşıyan bileşenler kalıcı kimlikleriyle ve hesap sırasıyla tutulur.">
-            <div style={{ display: "grid", gap: 8 }}>
-              {(project.component_sequence ?? []).map((ref, index) => (
-                <div key={`${ref.component_type}-${ref.component_id}`} className="derived-dims" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <span>{index + 1}. {ref.component_type === "head" ? "Bombe" : ref.component_type === "shell" ? "Silindir" : "Koni"} <b>{ref.component_id}</b></span>
-                  <span style={{ display: "flex", gap: 4 }}>
-                    {ref.component_type === "shell" && <button type="button" className="ghost-btn" onClick={() => setActiveShellId(ref.component_id)}>Düzenle</button>}
-                    <button type="button" className="ghost-btn" onClick={() => moveComponent(index, -1)} disabled={index === 0}>↑</button>
-                    <button type="button" className="ghost-btn" onClick={() => moveComponent(index, 1)} disabled={index === (project.component_sequence?.length ?? 1) - 1}>↓</button>
-                    <button type="button" className="ghost-btn" onClick={() => duplicateComponent(ref)}>Kopyala</button>
-                    <button type="button" className="ghost-btn" onClick={() => removeComponent(ref)}>Sil</button>
-                  </span>
-                </div>
-              ))}
-              <div style={{ display: "flex", gap: 8 }}>
-                <button type="button" className="ghost-btn" onClick={addShell}>Silindir ekle</button>
-                <button type="button" className="ghost-btn" onClick={addCone}>Koni ekle</button>
-              </div>
-            </div>
-          </AccordionSection>
-          <AccordionSection {...sec("shell")} title="Silindirik Gövde" meta={shell.section_id}
-            desc="Kabın ana silindirik kabuğu — iç çap, uzunluk ve et kalınlığı.">
-            <div className="grid">
-              <NumField label="İç Çap" unit="mm" value={shell.inside_diameter ?? 0}
-                onChange={(v) => setShell({ inside_diameter: v })} {...dim("Di")}
-                help="Kabın iç çapı (D_i). Silindirik gövdenin iç yüzeyleri arasındaki mesafe. Et kalınlığı bunun dışına eklenir." />
-              <NumField label="Teğet Uzunluğu" unit="mm" value={shell.tangent_length}
-                onChange={(v) => setShell({ tangent_length: v })} {...dim("L")}
-                help="Silindirik gövdenin boyu — iki bombenin başladığı teğet çizgileri arası. Bombeler bu boya eklenir." />
-              <NumField label="Nominal Kalınlık" unit="mm" value={shell.nominal_thickness}
-                onChange={(v) => setShell({ nominal_thickness: v })} {...dim("t")}
-                help="Gövde sac et kalınlığı (t). Hesap gerekli minimumu bulur; senin seçtiğin bundan büyük olmalı." />
-              <NumField label="İç Korozyon Payı" unit="mm"
-                value={shell.internal_corrosion_allowance}
-                onChange={(v) => setShell({ internal_corrosion_allowance: v })}
-                help="Ömür boyunca korozyonla kaybolacağı varsayılan kalınlık; gerekli et kalınlığına eklenir." />
-              <NumField label="Sac Toleransı" unit="%" value={shell.mill_tolerance}
-                onChange={(v) => setShell({ mill_tolerance: v })}
-                help="Sac üreticisinin negatif kalınlık toleransı (ör. %12.5). Gerekli kalınlığa pay olarak eklenir." />
-              <NumField label="UG-28 A Faktörü" value={shell.ug28_strain_factor_a ?? 0}
-                onChange={(v) => setShell({ ug28_strain_factor_a: v > 0 ? v : null })}
-                hint="0 = girilmedi (dış basınç bloke)"
-                help="ASME VIII-1 Şekil G'den L/Do ve Do/t ile okunan birim şekil değiştirme faktörü. Lisanslı standart baskısından okunur; program bu çizelgeyi içermez (K6)." />
-              <NumField label="UG-28 B Faktörü" unit="MPa" value={shell.ug28_allowable_stress_b ?? 0}
-                onChange={(v) => setShell({ ug28_allowable_stress_b: v > 0 ? v : null })}
-                hint="0 = girilmedi"
-                help="A faktörü ve tasarım sıcaklığıyla malzeme çizelgesinden okunan B değeri." />
-              <SelectField label="Malzeme" value={shell.material_id} options={materialOpts}
-                onChange={(v) => setShell({ material_id: v })} />
-              <SelectField label="Kaynak Birleşimi" value={shell.weld_joint_id ?? ""}
-                options={[{ value: "", label: "— yok —" }, ...weldOpts]}
-                onChange={(v) => setShell({ weld_joint_id: v || null })} />
-            </div>
-              <SelectField label="Gövde–bombe çap ilişkisi"
-                value={project.diameter_relation ?? "linked"}
-                options={[
-                  { value: "linked", label: "Bağlı — gövde çapını bombelere uygula" },
-                  { value: "independent", label: "Bağımsız — farklı çaplara izin ver" },
-                ]}
-                onChange={(v) => setProject((x) => ({
-                  ...x,
-                  diameter_relation: v as "linked" | "independent",
-                  heads: v === "linked"
-                    ? x.heads.map((head) => ({ ...head, inside_diameter: x.shell_sections[0].inside_diameter ?? head.inside_diameter }))
-                    : x.heads,
-                }))}
-                help="Bağlı modda gövde iç çapı değiştiğinde sol ve sağ bombe çapları otomatik güncellenir. Bağımsız modda farklı çap girebilirsiniz; bu durumda geçiş uyarısı gösterilir." />
-              <div className="derived-dims" aria-label="Gövde türetilmiş ölçüleri">
-                <span>Gövde dış çapı</span><b>{((shell.inside_diameter ?? 0) + 2 * shell.nominal_thickness).toFixed(1)} mm</b>
-                <span>Gövde dış yarıçapı</span><b>{((shell.inside_diameter ?? 0) / 2 + shell.nominal_thickness).toFixed(1)} mm</b>
-              </div>
-          </AccordionSection>
+          <GeometryWizard issues={wizardIssues} />
+          {!hasBlocking && hasWarnings && acceptedIssueSignature === issueSignature && (
+            <span className="field__hint">Uyarı kabul edildi; sonuçlara geçebilirsiniz.</span>
+          )}
 
-          {project.heads.map((h, i) => (
-            <AccordionSection key={h.head_id}
-              {...sec(i === 0 ? "headL" : "headR")}
-              title={i === 0 ? "Sol Bombe" : "Sağ Bombe"}
-              meta={h.head_id}
-              desc={i === 0
-                ? "Silindirin sol ucunu kapatan kubbe — tip, çap ve kalınlık."
-                : "Silindirin sağ ucunu kapatan kubbe — tip, çap ve kalınlık."}>
-              <div className="grid">
-                <SelectField label="Bombe Tipi" value={h.type} options={headOpts}
-                  onChange={(v) => setHead(i, { type: v as typeof h.type })} {...dim("headType")}
-                  help="Bombenin biçimi: Elipsoidal (2:1) en yaygın; torisferik daha sığ; yarım küresel en dayanıklı." />
-                <NumField label="İç Çap" unit="mm" value={h.inside_diameter}
-                  onChange={(v) => setHead(i, { inside_diameter: v })} {...dim("headDi")}
-                  help="Bombenin iç çapı — genelde gövde iç çapıyla aynı." />
-                <NumField label="Nominal Kalınlık" unit="mm" value={h.nominal_thickness}
-                  onChange={(v) => setHead(i, { nominal_thickness: v })} {...dim("headT")}
-                  help="Bombe sac et kalınlığı." />
-                <NumField label="Düz Flanş Boyu" unit="mm" value={h.straight_flange_length}
-                  onChange={(v) => setHead(i, { straight_flange_length: v })} {...dim("sf")}
-                  help="Bombenin gövdeye kaynaklandığı düz silindirik etek boyu." />
-                <NumField label="UG-33 A Faktörü" value={h.ug28_strain_factor_a ?? 0}
-                  onChange={(v) => setHead(i, { ug28_strain_factor_a: v > 0 ? v : null })}
-                  hint="0 = girilmedi (dış basınç bloke)"
-                  help="ASME VIII-1 Şekil G'den okunan birim şekil değiştirme faktörü. Lisanslı standart baskısından okunur (K6)." />
-                <NumField label="UG-33 B Faktörü" unit="MPa" value={h.ug28_allowable_stress_b ?? 0}
-                  onChange={(v) => setHead(i, { ug28_allowable_stress_b: v > 0 ? v : null })}
-                  hint="0 = girilmedi"
-                  help="A faktörü ve tasarım sıcaklığıyla malzeme çizelgesinden okunan B değeri." />
-                <SelectField label="Malzeme" value={h.material_id} options={materialOpts}
-                  onChange={(v) => setHead(i, { material_id: v })} />
-                <SelectField label="Kaynak Birleşimi" value={h.weld_joint_id ?? ""}
-                  options={[{ value: "", label: "— yok —" }, ...weldOpts]}
-                  onChange={(v) => setHead(i, { weld_joint_id: v || null })} />
-
-                {/* Düz kapak için UG-34 C katsayısı */}
-                <div className="derived-dims" aria-label="Bombe türetilmiş ölçüleri">
-                  <span>Dış çap</span><b>{(h.inside_diameter + 2 * h.nominal_thickness).toFixed(1)} mm</b>
-                  <span>Kubbe derinliği</span><b>{headDepth(h.inside_diameter, h.type, h.straight_flange_length).toFixed(1)} mm</b>
-                  <span>Gövde farkı</span><b>{(h.inside_diameter - (shell.inside_diameter ?? 0)).toFixed(1)} mm</b>
-                </div>
-                {h.type === "flat" && (
-                  <NumField
-                    label="Düz Kapak C Katsayısı (UG-34)"
-                    value={h.flat_attachment_factor ?? 0}
-                    onChange={(v) => setHead(i, { flat_attachment_factor: v })}
-                    help="Şekil UG-34 bağlantı tipine göre; ör. kaynaklı 0.33, cıvatalı ~0.20/0.13. Kullanıcı girer."
-                  />
-                )}
-
-                {/* Torisferik için taç ve mafsal yarıçapı */}
-                {h.type === "torispherical" && (
-                  <>
-                    <NumField label="Taç Yarıçapı (Crown Radius)" unit="mm"
-                      value={h.crown_radius ?? 0}
-                      onChange={(v) => setHead(i, { crown_radius: v })}
-                      help="Torisferik bombenin taç (kubbe) yarıçapı. Genelde iç çapın 1.0 katı." />
-                    <NumField label="Mafsal Yarıçapı (Knuckle Radius)" unit="mm"
-                      value={h.knuckle_radius ?? 0}
-                      onChange={(v) => setHead(i, { knuckle_radius: v })}
-                      help="Torisferik bombenin mafsal (birleşme) yarıçapı. Genelde iç çapın %6-10'u." />
-                  </>
-                )}
-              </div>
-            </AccordionSection>
-          ))}
-
-          {project.cones.map((cone) => (
-            <AccordionSection key={cone.cone_id} {...sec(`cone-${cone.cone_id}`)} title="Konik Bölüm" meta={cone.cone_id}
-              desc="Koni büyük/küçük çap, uzunluk ve yarı tepe açısı.">
-              <div className="grid">
-                <NumField label="Büyük Çap" unit="mm" value={cone.large_diameter}
-                  onChange={(v) => setProject((x) => ({ ...x, cones: x.cones.map((item) => item.cone_id === cone.cone_id ? { ...item, large_diameter: v } : item) }))} />
-                <NumField label="Küçük Çap" unit="mm" value={cone.small_diameter}
-                  onChange={(v) => setProject((x) => ({ ...x, cones: x.cones.map((item) => item.cone_id === cone.cone_id ? { ...item, small_diameter: v } : item) }))} />
-                <NumField label="Uzunluk" unit="mm" value={cone.length}
-                  onChange={(v) => setProject((x) => ({ ...x, cones: x.cones.map((item) => item.cone_id === cone.cone_id ? { ...item, length: v } : item) }))} />
-                <NumField label="Yarı Tepe Açısı" unit="°" value={cone.half_apex_angle}
-                  onChange={(v) => setProject((x) => ({ ...x, cones: x.cones.map((item) => item.cone_id === cone.cone_id ? { ...item, half_apex_angle: v } : item) }))}
-                  help="30° üzeri knuckle/özel analiz, 60° üzeri Appendix 1-8 kapsam dışıdır." />
-                <NumField label="Nominal Kalınlık" unit="mm" value={cone.nominal_thickness}
-                  onChange={(v) => setProject((x) => ({ ...x, cones: x.cones.map((item) => item.cone_id === cone.cone_id ? { ...item, nominal_thickness: v } : item) }))} />
-              </div>
-            </AccordionSection>
-          ))}
-
-          {/* ---- Nozullar (çoklu) ---- */}
-          <AccordionSection {...sec("nozzles")} title="Nozullar"
-            meta={`${project.nozzles.length} adet`}
-            desc="Kaba bağlanan ağız/branşman (giriş-çıkış, drenaj, manway…). Her nozul gövde veya bombe üzerinde z, θ, α ile konumlanır.">
-            {/* Nozul kartları */}
-            <div className="nozzle-list">
-              {project.nozzles.map((nz, i) => (
-                <div key={i}
-                  className={`nozzle-card${activeNozzle === i ? " nozzle-card--active" : ""}`}
-                  onClick={() => setActiveNozzle(i)}>
-                  <div className="nozzle-card__head">
-                    <span className="nozzle-card__tag">{nz.tag || `N${i + 1}`}</span>
-                    <span className="nozzle-card__type">{NOZZLE_TYPE_TR[nz.nozzle_type] ?? nz.nozzle_type}</span>
-                    <span className="nozzle-card__host">{nz.host_component_id}</span>
-                    {project.nozzles.length > 1 && (
-                      <button className="nozzle-card__del" title="Nozulu sil"
-                        onClick={(e) => { e.stopPropagation(); removeNozzle(i); }}>
-                        ✕
-                      </button>
-                    )}
-                  </div>
-                </div>
-              ))}
-              <button className="btn btn--ghost nozzle-add" onClick={addNozzle}>
-                ＋ Nozul Ekle
-              </button>
-            </div>
-
-            {/* Seçili nozul düzenleme */}
+          <AccordionSection {...sec("nozzle-detail")} title="Nozul ayrıntıları (seçili)"
+            meta={activeNozzle >= 0 ? project.nozzles[activeNozzle].tag : "seçim yok"}
+            desc="Sihirbaz tablosundan bir nozul seçin; boru ölçüsü, çıkıntı ve ped hesap girdilerini burada ince ayarlayın.">
+            {activeNozzle < 0 && <p className="field__hint">Önce 3.3 / 3.4 adımlarında bir nozul veya manşon seçin.</p>}
             {project.nozzles[activeNozzle] && (() => {
               const nz = project.nozzles[activeNozzle];
               const setNoz = (patch: Partial<typeof nz>) => updateNozzle(activeNozzle, patch);
@@ -1063,33 +809,11 @@ export function GeometryPage() {
             })()}
           </AccordionSection>
 
-          {/* ---- Destekler (çoklu) ---- */}
-          <AccordionSection {...sec("supports")} title="Destekler"
-            meta={`${project.supports.length} adet`}
-            desc="Kabı taşıyan eyer (saddle), etek (skirt) veya ayak (leg). Tanımlanmazsa destek gerilme kontrolü hiç yapılmaz.">
-            <div className="nozzle-list">
-              {project.supports.map((sup, i) => (
-                <div key={i}
-                  className={`nozzle-card${activeSupport === i ? " nozzle-card--active" : ""}`}
-                  onClick={() => setActiveSupport(i)}>
-                  <div className="nozzle-card__head">
-                    <span className="nozzle-card__tag">{sup.support_id}</span>
-                    <span className="nozzle-card__type">{SUPPORT_TYPE_TR[sup.type] ?? sup.type}</span>
-                    {project.supports.length > 0 && (
-                      <button className="nozzle-card__del" title="Desteği sil"
-                        onClick={(e) => { e.stopPropagation(); removeSupport(i); }}>
-                        ✕
-                      </button>
-                    )}
-                  </div>
-                </div>
-              ))}
-              <button className="btn btn--ghost btn--sm nozzle-add" onClick={addSupport}>
-                + Destek Ekle
-              </button>
-            </div>
-
-            {project.supports.length > 0 && activeSupport < project.supports.length && (() => {
+          <AccordionSection {...sec("support-detail")} title="Destek ayrıntıları (seçili)"
+            meta={activeSupport >= 0 ? project.supports[activeSupport].support_id : "seçim yok"}
+            desc="Sihirbazdan bir mesnet seçin; Zick K, etek, ayak profili ve ankraj hesap girdileri burada.">
+            {activeSupport < 0 && <p className="field__hint">Önce 3.5 adımında bir mesnet seçin.</p>}
+            {activeSupport >= 0 && (() => {
               const sup = project.supports[activeSupport];
               const setSup = (patch: Partial<typeof sup>) => updateSupport(activeSupport, patch);
               return (
@@ -1273,21 +997,13 @@ export function GeometryPage() {
               <TextField label="NDE Kapsamı" value={weld.nde_extent ?? ""}
                 help="Muayenenin kaynak üzerindeki kapsamı; örneğin 100% veya spot."
                 onChange={(v) => setWeld({ nde_extent: v })} />
+              <SelectField label={`Seçili gövde (${shell.section_id}) kaynak birleşimi`} value={shell.weld_joint_id ?? ""}
+                options={[{ value: "", label: "— yok —" }, ...weldOpts]}
+                onChange={(v) => setProject((x) => ({ ...x, shell_sections: x.shell_sections.map((sec) =>
+                  sec.section_id === shell.section_id ? { ...sec, weld_joint_id: v || null } : sec) }))} />
             </div>
           </AccordionSection>
         </div>
-
-        {issues.length > 0 && (
-          <div className={`alert ${issues.some((issue) => issue.blocking) ? "alert--error" : "alert--warn"}`} role="alert">
-            <strong>Geometri kontrolü</strong>
-            <ul>
-              {issues.map((issue) => <li key={issue.code}>{issue.message}</li>)}
-            </ul>
-            {!issues.some((issue) => issue.blocking) && acceptedIssueSignature === issueSignature && (
-              <span className="field__hint">Uyarı kabul edildi; sonuçlara geçebilirsiniz.</span>
-            )}
-          </div>
-        )}
 
         <aside className="geo-preview">
           <div className="panel geo-preview__card">
@@ -1315,7 +1031,7 @@ export function GeometryPage() {
                   nozzles={project.nozzles}
                   orientation={project.orientation}
                   active={active}
-                  activeNozzle={activeNozzle}
+                  activeNozzle={Math.max(activeNozzle, 0)}
                 />
               )}
 
@@ -1335,9 +1051,15 @@ export function GeometryPage() {
                     leftHeadT={leftHead.nominal_thickness}
                     rightHeadT={rightHead.nominal_thickness}
                     nozzles={schematicNozzles}
-                    activeNozzle={activeNozzle}
-                    chain={{ sequence: project.component_sequence, shells: project.shell_sections,
-                      heads: project.heads, cones: project.cones }}
+                    activeNozzle={Math.max(activeNozzle, 0)}
+                    chain={{
+                      component_sequence: project.component_sequence, shell_sections: project.shell_sections,
+                      heads: project.heads, cones: project.cones, nozzles: project.nozzles,
+                      selectedId: selection?.id ?? null,
+                      selectedNozzle: selection?.kind === "nozzle" ? selection.id : null,
+                      onSelect: (kind, id) => { setSelection({ kind, id }); if (kind === "shell") setActiveShellId(id); },
+                      onSelectNozzle: (tag) => setSelection({ kind: "nozzle", id: tag }),
+                    }}
                     active={active}
                     orientation={project.orientation as "horizontal" | "vertical"}
                   />
@@ -1356,7 +1078,7 @@ export function GeometryPage() {
       </div>
 
       <NextButtons onNext={proceedToResults}
-        nextLabel={issues.length > 0 && acceptedIssueSignature !== issueSignature
+        nextLabel={hasWarnings && !hasBlocking && acceptedIssueSignature !== issueSignature
           ? "Uyarıyı kabul et ve sonuçlara geç →"
           : "Sonuçlara Geç →"} />
       {stepFile && <StepImportDrawer file={stepFile} onClose={() => setStepFile(null)} />}

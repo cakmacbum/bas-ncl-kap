@@ -38,7 +38,7 @@ function AddPanel({ side, endD, neighborT, onClose }: {
 
   const equal = Math.abs(endD - targetD) < 1;
   const alpha = halfAngleDeg(endD, targetD, coneLen);
-  const needsDiameter = mode !== "shell";
+  const needsDiameter = mode === "cone" || mode === "stepped";
   const bad = (needsDiameter && (equal || !(targetD > 0)))
     || (mode === "shell" && !(length > 0))
     || (mode === "cone" && !(coneLen > 0))
@@ -78,7 +78,7 @@ function AddPanel({ side, endD, neighborT, onClose }: {
       {needsDiameter && (
         <div className="gw-add__auto">
           Başlangıç çapı (otomatik): <b>Ø{fmt(endD)}</b> mm
-          {mode !== "shell" && !equal && targetD > 0 && (
+          {!equal && targetD > 0 && (
             <> · yarı tepe açısı α = <b className={alpha > 30 ? "gw-bad" : ""}>{fmt(alpha, 2)}°</b></>
           )}
         </div>
@@ -179,7 +179,7 @@ function ItemEditor() {
             onChange={(v) => updateCone(cone.cone_id, { length: v })} />
           <RField label="Et kalınlığı (t)" unit="mm" value={cone.nominal_thickness} min={1} max={250}
             onChange={(v) => updateCone(cone.cone_id, { nominal_thickness: v })} />
-          <RField label="Yarı tepe açısı α (hesaplanan)" unit="°" value={cone.half_apex_angle} max={30} readOnly
+          <RField label="Yarı tepe açısı α (hesaplanan)" unit="°" value={cone.half_apex_angle} max={30} readOnly onChange={() => undefined}
             note={cone.half_apex_angle > 30 ? "α > 30° — torikonik/knuckle veya özel analiz gerekir." : "30° üzeri özel analiz, 60° üzeri Appendix 1-8 kapsam dışı."} />
           <SelectField label="Malzeme" value={cone.material_id} options={materialOpts}
             onChange={(v) => updateCone(cone.cone_id, { material_id: v })} />
