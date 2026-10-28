@@ -169,7 +169,7 @@ def calculate_nozzle_position_on_head(
         r = d_pos / 2.0
         if r > a:
             raise ValueError(
-                f"Nozul {nozzle.tag}: yerleşim çapı {d_pos:.1f} mm, bombe iç çapı "
+                f"OUT_OF_HOST: Nozul {nozzle.tag}: yerleşim çapı {d_pos:.1f} mm, bombe iç çapı "
                 f"{head.inside_diameter:.1f} mm'yi aşıyor — nozul bombe yüzeyine "
                 f"oturmaz."
             )
@@ -177,12 +177,13 @@ def calculate_nozzle_position_on_head(
     else:
         # axial_position bombe tepesinden mesafe: φ = acos(1 - z/b)
         head_height = b
-        if head_height > 0 and nozzle.axial_position <= head_height:
-            phi = math.acos(
-                max(-1.0, min(1.0, 1.0 - nozzle.axial_position / head_height))
+        if not (0.0 <= nozzle.axial_position <= head_height):
+            raise ValueError(
+                f"OUT_OF_HOST: Nozul {nozzle.tag}: bombe tepesinden eksenel konum "
+                f"{nozzle.axial_position:.1f} mm, geçerli aralık 0..{head_height:.1f} mm "
+                f"dışında — nozul bombe yüzeyine oturmaz."
             )
-        else:
-            phi = 0.0
+        phi = math.acos(1.0 - nozzle.axial_position / head_height) if head_height > 0 else 0.0
 
     theta_rad = math.radians(nozzle.circumferential_angle)
     alpha_rad = math.radians(nozzle.inclination_angle)
