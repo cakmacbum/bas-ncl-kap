@@ -6,6 +6,9 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   test: { environment: "node", include: ["src/**/*.test.ts"] },
+  // D06: OCCT worker ES modül olarak paketlenir; WASM `?url` ile ayrı asset (ön paketlemeye girmez).
+  worker: { format: "es" },
+  optimizeDeps: { exclude: ["replicad-opencascadejs"] },
   server: {
     port: 5173,
     proxy: {
