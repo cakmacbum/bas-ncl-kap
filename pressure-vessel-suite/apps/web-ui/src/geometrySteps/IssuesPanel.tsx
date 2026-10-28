@@ -20,10 +20,6 @@ export interface WizardIssue {
 
 const COUPLING_SET = new Set<string>(COUPLING_TYPES);
 
-// geometryValidation.ts bu kodları zincir uzunluğu/koni bilmeden üretir (yanlış pozitif);
-// yerlerine çerçeve tabanlı kontroller kullanılır.
-const SUPERSEDED = [/^junction-/, /stale-diameter$/, /^nozzle-\d+-(host|axial|head-position)$/];
-
 function stepOfLegacy(code: string): WizardIssue["step"] {
   if (code.startsWith("head-")) return 1;
   if (code.startsWith("nozzle-")) return 2;
@@ -45,7 +41,6 @@ export function computeIssues(project: VesselProject): WizardIssue[] {
   }
 
   for (const g of geometryIssues(project)) {
-    if (SUPERSEDED.some((re) => re.test(g.code))) continue;
     out.push({ id: `geo-${g.code}`, level: g.blocking ? "error" : "warn", blocking: g.blocking,
       step: stepOfLegacy(g.code), message: g.message });
   }

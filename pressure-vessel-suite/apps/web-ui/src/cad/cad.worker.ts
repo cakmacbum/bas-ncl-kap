@@ -13,7 +13,8 @@ import type {
 } from "../geometryContract";
 import type { VesselProject } from "../types";
 import { ShapeCache } from "./cache";
-import { MESH_TOLERANCE, planParts } from "./parts";
+import { MESH_TOLERANCE } from "./parts";
+import { buildShapes as buildShapesImpl, sweepWarnings } from "./buildShapes";
 import { exportFilename, stepBlob, stlBlob } from "./export";
 
 const ctx = self as unknown as DedicatedWorkerGlobalScope;
@@ -77,13 +78,15 @@ interface MeshData {
   edges: Float32Array;
 }
 const shapes = new ShapeCache<Shape3D>();
-const meshes = new ShapeCache<MeshData>(() => {}); // düz typed array; serbest bırakmaya gerek yok
+const meshes = new ShapeCache<MeshData>();
+const warningCache = new Map<string, BuildWarning[]>();
 const lastKeys: Record<Level, Set<string>> = { preview: new Set(), exact: new Set() };
 
 function sweepCaches() {
   const keep = new Set([...lastKeys.preview, ...lastKeys.exact]);
   shapes.sweep(keep);
   meshes.sweep(keep);
+  sweepWarnings(warningCache, keep);
 }
 
 function meshOf(key: string, shape: Shape3D, level: Level): MeshData {
@@ -111,38 +114,8 @@ let running = false;
 
 const yieldToEvents = () => new Promise<void>((r) => setTimeout(r, 0));
 
-/** Projenin tüm parçalarını (cache'li) kurar. `cancelled()` true dönerse null (atlandı). */
-async function buildShapes(
-  project: VesselProject,
-  level: Level,
-  cancelled: () => boolean,
-): Promise<{ parts: { partId: string; kind: MeshPart["kind"]; key: string; shape: Shape3D }[]; warnings: BuildWarning[] } | null> {
-  const plan = planParts(project, level);
-  const warnings = [...plan.warnings];
-  const parts: { partId: string; kind: MeshPart["kind"]; key: string; shape: Shape3D }[] = [];
-  const used = new Set<string>();
-  for (const job of plan.jobs) {
-    if (cancelled()) return null;
-    used.add(job.key);
-    let shape = shapes.get(job.key);
-    if (!shape) {
-      try {
-        shape = job.build((w) => warnings.push(w)) ?? undefined;
-      } catch (err) {
-        warnings.push({
-          partId: job.partId,
-          code: "BOOLEAN_FAILED",
-          message: `${job.partId} kurulamadı: ${err instanceof Error ? err.message : String(err)}`,
-        });
-        shape = undefined;
-      }
-      if (shape) shapes.set(job.key, shape);
-      await yieldToEvents(); // daha yeni istek gelebilsin
-    }
-    if (shape) parts.push({ partId: job.partId, kind: job.kind, key: job.key, shape });
-  }
-  lastKeys[level] = used;
-  return { parts, warnings };
+function buildShapes(project: VesselProject, level: Level, cancelled: () => boolean) {
+  return buildShapesImpl(project, level, cancelled, { shapes, warnings: warningCache }, (used) => { lastKeys[level] = used; }, yieldToEvents);
 }
 
 async function runBuild(req: BuildReq) {

@@ -124,7 +124,7 @@ export function planParts(project: VesselProject, level: Level, catalogs: Catalo
     jobs.push({
       partId,
       kind: f.kind,
-      key: stableHash({ partId, comp, f, level, cuts: cuts.map((c) => ({ nz: c.nz, pl: c.pl })) }),
+      key: stableHash({ partId, comp, f, level, orientation, cuts: cuts.map((c) => ({ nz: c.nz, pl: c.pl })) }),
       build: (warn) => {
         let solid = buildChainSolid(f, comp);
         if (!solid) return null;
@@ -156,7 +156,7 @@ export function planParts(project: VesselProject, level: Level, catalogs: Catalo
     jobs.push({
       partId,
       kind: "nozzle",
-      key: stableHash({ partId, nz, frame: pl.frame, pl, level }),
+      key: stableHash({ partId, nz, frame: pl.frame, pl, level, orientation }),
       build: (warn) => mod.build(nz, pl.frame, { ...ctxBase, placement: pl, warn } satisfies PartCtx),
     });
   }
@@ -170,7 +170,7 @@ export function planParts(project: VesselProject, level: Level, catalogs: Catalo
     jobs.push({
       partId,
       kind: "support",
-      key: stableHash({ partId, s, frame, frames, level }),
+      key: stableHash({ partId, s, frame, frames, level, orientation }),
       build: (warn) => mod.build(s, frame, { ...ctxBase, warn } satisfies PartCtx),
     });
   }

@@ -122,7 +122,11 @@ export const catalogs: Catalogs = {
 //   socket:   OD = soket çapı + 2·soket et kalınlığı; boy (full) = E + 2·J; half SW boy → null
 const THREADED_SCHEDULE: Record<3000 | 6000, PipeSchedule> = { 3000: "160", 6000: "XXS" };
 
-export interface CouplingNozzleDims { od: number; id: number; length: number; row: CouplingRow }
+export interface CouplingNozzleDims {
+  od: number; id: number; length: number; row: CouplingRow;
+  /** Katalogda doğrudan olmayıp türetilen ölçüler: "od" | "id" | "length". */
+  derived: ("od" | "id" | "length")[];
+}
 
 export function couplingNozzleDims(
   nps: string,
@@ -138,19 +142,22 @@ export function couplingNozzleDims(
   let od = row.body_od;
   let id = row.bore;
   let length = row.length;
+  const derived: CouplingNozzleDims["derived"] = [];
   if (end === "threaded" && id == null) {
     const size = pipeCatalog.sizes.find((s) => s.nps === e.nps);
     const t = size?.walls[THREADED_SCHEDULE[r]];
-    if (size && t != null) id = +(size.od - 2 * t).toFixed(2);
+    if (size && t != null) { id = +(size.od - 2 * t).toFixed(2); derived.push("id"); }
   }
   if (end === "socket") {
     if (od == null && row.socket_bore != null && e.socket_wall_avg != null) {
       od = +(row.socket_bore + 2 * e.socket_wall_avg).toFixed(2);
+      derived.push("od");
     }
     if (length == null && form === "full" && e.laying_length != null && e.socket_depth != null) {
       length = e.laying_length + 2 * e.socket_depth;
+      derived.push("length");
     }
   }
   if (od == null || id == null || length == null || od <= id) return null;
-  return { od, id, length, row };
+  return { od, id, length, row, derived };
 }

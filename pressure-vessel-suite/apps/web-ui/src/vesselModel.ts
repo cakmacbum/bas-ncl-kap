@@ -362,9 +362,9 @@ export function nozzlePlacement(
     if (r > a) return { error: "OUT_OF_HOST" };
     phi = a > 0 ? Math.asin(Math.max(-1, Math.min(1, r / a))) : 0;
   } else {
-    phi = nz.axial_position <= b
-      ? Math.acos(Math.max(-1, Math.min(1, 1 - nz.axial_position / b)))
-      : 0;
+    // K4: kırpma yok — tepeden mesafe 0..domeHeight dışındaysa yerleşim reddedilir.
+    if (!(nz.axial_position >= 0 && nz.axial_position <= b)) return { error: "OUT_OF_HOST" };
+    phi = Math.acos(Math.max(-1, Math.min(1, 1 - nz.axial_position / b)));
   }
   const x = a * Math.sin(phi) * c;
   const y = a * Math.sin(phi) * sn;

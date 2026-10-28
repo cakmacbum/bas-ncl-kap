@@ -19,6 +19,12 @@ type CouplingType = (typeof COUPLING_TYPES)[number];
 const SIZES = listPipeSizes().filter((s) => s.dn >= 15 && s.dn <= 100);
 const FORMS: CouplingForm[] = ["full", "half", "weldolet"];
 
+function derivedTag(derived: string[], key: string) {
+  return derived.includes(key)
+    ? <em className="gw-badge gw-badge--warn" title="Katalogda doğrudan yok; B16.11 ilişkilerinden türetildi.">türetilmiş · doğrulanmamış</em>
+    : null;
+}
+
 export function Step4Couplings() {
   const project = useStore((s) => s.project);
   const selection = useStore((s) => s.selection);
@@ -95,9 +101,9 @@ export function Step4Couplings() {
 
         {dims ? (
           <div className="derived-dims" aria-label="Manşon ölçüleri">
-            <span>Gövde dış çapı</span><b>{fmt(dims.od, 2)} mm</b>
-            <span>İç çap / delik</span><b>{fmt(dims.id, 2)} mm</b>
-            <span>Boy (dış çıkıntı)</span><b>{fmt(dims.length, 1)} mm</b>
+            <span>Gövde dış çapı</span><b>{fmt(dims.od, 2)} mm{derivedTag(dims.derived, "od")}</b>
+            <span>İç çap / delik</span><b>{fmt(dims.id, 2)} mm{derivedTag(dims.derived, "id")}</b>
+            <span>Boy (dış çıkıntı)</span><b>{fmt(dims.length, 1)} mm{derivedTag(dims.derived, "length")}</b>
           </div>
         ) : (
           <p className="gw-note gw-note--bad" role="alert">

@@ -8,7 +8,7 @@ import {
   ViewerPage,
   ReportPage,
 } from "./pages";
-import { geometryIssues } from "./geometryValidation";
+import { computeIssues } from "./geometrySteps/IssuesPanel";
 import { AUTH_ENABLED } from "./features";
 import { AccountMenu } from "./auth/AccountMenu";
 
@@ -42,8 +42,9 @@ export function App() {
   ];
   const navigate = (target: number) => {
     if (target > 2) {
-      const issues = geometryIssues(project);
+      const issues = computeIssues(project);
       const blocking = issues.filter((issue) => issue.blocking);
+      const warnings = issues.filter((issue) => issue.level !== "info");
       if (blocking.length > 0) {
         window.alert(`Geometri tamamlanmadan ilerlenemez:\n\n${blocking.map((issue) => issue.message).join("\n")}`);
         setStep(2);

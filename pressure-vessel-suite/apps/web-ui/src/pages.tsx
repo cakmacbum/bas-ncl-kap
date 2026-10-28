@@ -19,7 +19,7 @@ import {
   CUSTOM, catalog, dimsFor, matchDims, sizeOptions, wallOptions,
 } from "./nozzleCatalog";
 import { headDepth } from "./vesselModel";
-import { geometryIssues, geometrySignature } from "./geometryValidation";
+import { geometrySignature } from "./geometryValidation";
 import { StepImportDrawer } from "./StepImportDrawer";
 import { GeometryWizard } from "./geometrySteps/GeometryWizard";
 import { computeIssues } from "./geometrySteps/IssuesPanel";
