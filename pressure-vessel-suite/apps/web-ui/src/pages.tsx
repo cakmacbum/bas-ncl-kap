@@ -12,7 +12,7 @@ import {
 } from "./components";
 import { HEAD_TYPE_TR, NOZZLE_TYPE_TR, ORIENTATION_TR, SUPPORT_TYPE_TR } from "./i18n";
 import type { CalcResult, VesselProject, WrcCoefficientEntry } from "./types";
-import { VesselViewer, type ModelDims } from "./viewer";
+import { ExactModelView, VesselViewer, type ModelDims } from "./viewer";
 import { VesselSchematic, type DimKey } from "./schematic";
 import { LivePreview } from "./livePreview";
 import {
@@ -1303,10 +1303,6 @@ export function GeometryPage() {
                   ...(uploadedModelUrl ? [{ value: "uploaded", label: "Yüklenen model" }] : []),
                 ]}
               />
-              <button className="btn btn--ghost btn--sm" onClick={loadExact}
-                disabled={exactBusy}>
-                {exactBusy ? "Üretiliyor…" : "↻ Kesin Modeli Yükle"}
-              </button>
             </div>
             <div className="geo-preview__body">
               {previewTab === "3d" && (
@@ -1352,28 +1348,7 @@ export function GeometryPage() {
                 </div>
               )}
 
-              {previewTab === "exact" && (
-                exactErr ? (
-                  <div className="viewer-msg">
-                    <div className="empty__mark">⚠</div>
-                    <p>{exactErr}</p>
-                  </div>
-                ) : exactUrl ? (
-                  <VesselViewer
-                    url={exactUrl}
-                    autoRotate={false}
-                    section={false}
-                    dims={computeDims(project)}
-                  />
-                ) : (
-                  <div className="viewer-msg">
-                    <p>
-                      CadQuery ile üretilen <b>kesin</b> modeli görmek için
-                      “Kesin Modeli Yükle”ye bas.
-                    </p>
-                  </div>
-                )
-              )}
+              {previewTab === "exact" && <ExactModelView />}
               {previewTab === "uploaded" && uploadedModelUrl && <><p>Yüklenen model (yalnız görüntü — hesaba girmez)</p><VesselViewer url={uploadedModelUrl} autoRotate={false} section={false} dims={computeDims(project)} /></>}
             </div>
           </div>

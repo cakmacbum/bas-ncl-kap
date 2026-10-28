@@ -3,7 +3,7 @@
 // - init: WASM lazy (?url → ayrı asset), indirme ilerlemesi `loading` ile bildirilir.
 // - build: seviye başına tek bekleyen yuva; parçalar arasında daha yeni istek gelirse kalan atlanır.
 // - export: exact cache'i kullanır; STEP = varlık başına adlı katı compound'u, STL ikili.
-import { exportSTEP, makeCompound, setOC, type Shape3D } from "replicad";
+import { setOC, type Shape3D } from "replicad";
 import type {
   BuildWarning,
   Level,
@@ -14,6 +14,7 @@ import type {
 import type { VesselProject } from "../types";
 import { ShapeCache } from "./cache";
 import { MESH_TOLERANCE, planParts } from "./parts";
+import { exportFilename, stepBlob, stlBlob } from "./export";
 
 const ctx = self as unknown as DedicatedWorkerGlobalScope;
 const post = (msg: WorkerToMain, transfer: Transferable[] = []) => ctx.postMessage(msg, transfer);
@@ -173,32 +174,12 @@ async function runBuild(req: BuildReq) {
   post({ type: "result", reqId: req.reqId, level: req.level, meshes: out, warnings: built.warnings, ms: performance.now() - t0 }, transfer);
 }
 
-function safeName(s: string): string {
-  return (s || "model").replace(/[^\w.-]+/g, "_").slice(0, 80);
-}
-
 async function runExport(req: ExportReq) {
   const built = await buildShapes(req.project, "exact", () => false);
   if (!built || built.parts.length === 0) throw new Error("Dışa aktarılacak katı yok");
   sweepCaches();
-  const base = safeName(req.project.project_number || req.project.project_name);
-  let blob: Blob;
-  let filename: string;
-  if (req.format === "step") {
-    // exportSTEP şekilleri tüketmez (yalnız XCAF belgesine referans verir).
-    const cfg = built.parts.map((p) => ({ shape: p.shape, name: p.partId, color: "#9aa3ab" }));
-    blob = exportSTEP(cfg, { unit: "mm", modelUnit: "mm" });
-    filename = `${base}.step`;
-  } else {
-    const compound = makeCompound(built.parts.map((p) => p.shape.clone()));
-    try {
-      blob = compound.blobSTL({ binary: true, ...MESH_TOLERANCE.exact });
-    } finally {
-      compound.delete();
-    }
-    filename = `${base}.stl`;
-  }
-  post({ type: "export-result", reqId: req.reqId, blob, filename });
+  const blob = req.format === "step" ? stepBlob(built.parts) : stlBlob(built.parts);
+  post({ type: "export-result", reqId: req.reqId, blob, filename: exportFilename(req.project, req.format) });
 }
 
 async function pump() {
