@@ -10,7 +10,7 @@ export interface NamedShape {
 }
 
 function safeName(s: string): string {
-  return (s || "model").replace(/[^\w.-]+/g, "_").slice(0, 80);
+  return (s || "model").replace(/[^\p{L}\p{N}_.-]+/gu, "_").slice(0, 80);
 }
 
 /** `<proje_adi>_YYYY-AA-GG.<ext>` */

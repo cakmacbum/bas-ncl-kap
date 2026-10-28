@@ -266,7 +266,7 @@ export function LivePreview({
     <div className="live-preview">
       <div className="live-preview__stage">
       <Canvas
-        camera={{ position: [2600, 1700, 2900], near: 1, far: 60000, fov: 42 }}
+        camera={{ position: [-2600, 1700, 2900], near: 1, far: 60000, fov: 42 }}
         gl={{ alpha: true, antialias: true }}
         dpr={[1, 2]}
       >

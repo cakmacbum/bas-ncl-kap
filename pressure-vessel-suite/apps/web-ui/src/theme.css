@@ -927,6 +927,7 @@ body {
 }
 .geo-preview__body {
   padding: 0;
+  position: relative;
   flex: 1;
   min-height: 0;
   display: flex;
