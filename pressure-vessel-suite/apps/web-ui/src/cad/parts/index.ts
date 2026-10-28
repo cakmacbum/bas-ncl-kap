@@ -8,13 +8,14 @@ import type {
   ComponentFrame,
   Level,
   MeshPart,
+  NozzlePlacement,
   PartCtx,
   PartModule,
 } from "../../geometryContract";
 import type { Nozzle, Support, VesselProject } from "../../types";
 import { stableHash } from "../cache";
-// D04 birleşince: import { componentFrames } from "../../vesselModel";
-import { componentFrames } from "../framesShim";
+import { catalogs as defaultCatalogs } from "../../data/catalogAdapter";
+import { componentFrames, nozzlePlacement } from "../../vesselModel";
 import { buildChainSolid, type ChainComponent } from "./shellChain";
 import { flangedNozzle } from "./flangedNozzle";
 import { coupling } from "./coupling";
@@ -30,7 +31,7 @@ export const MESH_TOLERANCE: Record<Level, { tolerance: number; angularTolerance
   exact: { tolerance: 0.2, angularTolerance: 0.1 },
 };
 
-/** D07 katalog adaptörü gelene kadar boş katalog (parçalar CATALOG_MISS verir). */
+/** Boş katalog (testler / katalogsuz kullanım); varsayılan `catalogAdapter.catalogs`. */
 export const emptyCatalogs: Catalogs = {
   pipe: () => undefined,
   flange: () => undefined,
@@ -72,7 +73,7 @@ function chainComponent(p: VesselProject, f: ComponentFrame): ChainComponent | u
   return p.heads.find((h) => h.head_id === f.id);
 }
 
-export function planParts(project: VesselProject, level: Level, catalogs: Catalogs = emptyCatalogs): PartPlan {
+export function planParts(project: VesselProject, level: Level, catalogs: Catalogs = defaultCatalogs): PartPlan {
   const frames = componentFrames(project);
   const warnings: BuildWarning[] = [];
   const jobs: PartJob[] = [];
@@ -91,6 +92,25 @@ export function planParts(project: VesselProject, level: Level, catalogs: Catalo
     }
   }
 
+  // Nozul yerleşimleri (D04 nozzlePlacement). Hata → uyarı, nozul atlanır.
+  const placed: { nz: Nozzle; mod: PartModule<Nozzle>; pl: NozzlePlacement }[] = [];
+  for (const nz of project.nozzles ?? []) {
+    const mod = NOZZLE_MODULES[nz.nozzle_type];
+    if (!mod) continue;
+    const pl = nozzlePlacement(project, nz, frames);
+    const partId = `nozzle:${nz.tag}`;
+    if ("error" in pl) {
+      const msg: Record<typeof pl.error, string> = {
+        HOST_NOT_FOUND: `${nz.tag}: host bileşen "${nz.host_component_id}" bulunamadı`,
+        OUT_OF_HOST: `${nz.tag}: eksenel konum host sınırları dışında (${nz.axial_position} mm)`,
+        INTERNAL_HEAD: `${nz.tag}: host zincir içi bombe; nozul çizilmedi`,
+      };
+      warnings.push({ partId, code: pl.error, message: msg[pl.error] });
+      continue;
+    }
+    placed.push({ nz, mod, pl });
+  }
+
   // Gövde zinciri
   for (const f of frames) {
     const partId = `${f.kind}:${f.id}`;
@@ -99,25 +119,45 @@ export function planParts(project: VesselProject, level: Level, catalogs: Catalo
       continue;
     }
     const comp = chainComponent(project, f);
+    // exact: bu host'taki nozul delikleri kesilir (preview'da boolean yok)
+    const cuts = level === "exact" ? placed.filter((x) => x.nz.host_component_id === f.id && x.mod.cutter) : [];
     jobs.push({
       partId,
       kind: f.kind,
-      key: stableHash({ partId, comp, f, level }),
-      build: () => buildChainSolid(f, comp),
+      key: stableHash({ partId, comp, f, level, cuts: cuts.map((c) => ({ nz: c.nz, pl: c.pl })) }),
+      build: (warn) => {
+        let solid = buildChainSolid(f, comp);
+        if (!solid) return null;
+        for (const c of cuts) {
+          let tool: Shape3D | null = null;
+          try {
+            tool = c.mod.cutter!(c.nz, f, { ...ctxBase, placement: c.pl, warn } satisfies PartCtx);
+            const next = solid.cut(tool);
+            solid.delete();
+            solid = next;
+          } catch (err) {
+            warn({
+              partId,
+              code: "BOOLEAN_FAILED",
+              message: `${c.nz.tag} deliği ${f.id} gövdesinden çıkarılamadı: ${err instanceof Error ? err.message : String(err)}`,
+            });
+          } finally {
+            tool?.delete();
+          }
+        }
+        return solid;
+      },
     });
   }
 
-  // Nozullar (D07). Yerleşim D04 `nozzlePlacement(project, nz, frames)` ile doldurulacak.
-  for (const nz of project.nozzles ?? []) {
-    const mod = NOZZLE_MODULES[nz.nozzle_type];
-    if (!mod) continue;
-    const frame = frames.find((f) => f.id === nz.host_component_id) ?? null;
+  // Nozullar (D07)
+  for (const { nz, mod, pl } of placed) {
     const partId = `nozzle:${nz.tag}`;
     jobs.push({
       partId,
       kind: "nozzle",
-      key: stableHash({ partId, nz, frame, level }),
-      build: (warn) => mod.build(nz, frame, { ...ctxBase, warn } satisfies PartCtx),
+      key: stableHash({ partId, nz, frame: pl.frame, pl, level }),
+      build: (warn) => mod.build(nz, pl.frame, { ...ctxBase, placement: pl, warn } satisfies PartCtx),
     });
   }
 
