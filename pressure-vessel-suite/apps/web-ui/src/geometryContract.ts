@@ -91,23 +91,24 @@ export interface PipeSize {
   walls: Record<string, number | null>;
 }
 
+// D04: D03 kataloglarında kaynakta olmayan ölçüler null'dır (uydurulmaz) → alanlar nullable.
 export interface FlangeRow {
   nps: string;
   dn: number;
   class: number | string;
-  outside_diameter: number;
-  thickness: number;
-  raised_face_diameter: number;
+  outside_diameter: number | null;
+  thickness: number | null;
+  raised_face_diameter: number | null;
   raised_face_height: number;
-  hub_base_diameter: number;
-  hub_weld_diameter: number;
-  length_wn: number;
-  length_so: number;
-  bore_so: number;
-  bolt_circle_diameter: number;
-  bolt_count: number;
-  bolt_hole_diameter: number;
-  bolt_diameter: number;
+  hub_base_diameter: number | null;
+  hub_weld_diameter: number | null;
+  length_wn: number | null;
+  length_so: number | null;
+  bore_so: number | null; // D03 kataloğunda yok → hep null
+  bolt_circle_diameter: number | null;
+  bolt_count: number | null;
+  bolt_hole_diameter: number | null;
+  bolt_diameter: number | null;
 }
 
 export interface CouplingRow {
@@ -116,19 +117,20 @@ export interface CouplingRow {
   rating: 3000 | 6000;
   form: CouplingForm;
   end: "socket" | "threaded";
-  body_od: number;
+  body_od: number | null; // SW satırlarında kaynakta yok
   top_od: number | null;
-  length: number;
+  length: number | null; // SW satırlarında kaynakta yok (laying_length var)
   socket_bore: number | null;
   socket_depth: number | null;
-  bore: number;
-  chamfer: number;
+  bore: number | null; // threaded satırlarında kaynakta yok
+  chamfer: number | null; // D03 kataloğunda yok → hep null
 }
 
 export interface Catalogs {
   pipe(nps: string): PipeSize | undefined;
   flange(nps: string, cls: FlangeClass): FlangeRow | undefined;
-  coupling(nps: string, rating: CouplingRating, form: CouplingForm): CouplingRow | undefined;
+  /** `end` verilmezse "threaded". Weldolet katalogda yok → undefined. */
+  coupling(nps: string, rating: CouplingRating, form: CouplingForm, end?: "socket" | "threaded"): CouplingRow | undefined;
 }
 
 // ---- Parça modülü ----

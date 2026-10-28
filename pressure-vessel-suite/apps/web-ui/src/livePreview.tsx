@@ -13,7 +13,10 @@ import { CameraHelpNote, CameraRigLayer, CameraToolbar, type CameraApi } from ".
 
 import type { ComponentReference, Cone, Head, Nozzle, ShellSection } from "./types";
 import type { DimKey } from "./schematic";
-import { nozzlePlacement, nozzleVisual, vesselProfile, vesselProfileChain } from "./vesselModel";
+import {
+  componentFrames, nozzlePlacement, nozzleVisual, vesselProfile, vesselProfileChain,
+  type ChainSource, type ComponentFrame,
+} from "./vesselModel";
 
 const COLOR_BODY = "#b8b8b8";
 const COLOR_ACTIVE = "#4d8bff";
@@ -65,13 +68,14 @@ function VesselBody({
 }
 
 function NozzleMesh({
-  nozzle, shell, heads, highlighted,
+  nozzle, chain, frames, highlighted,
 }: {
-  nozzle: Nozzle; shell: ShellSection; heads: Head[]; highlighted: boolean;
+  nozzle: Nozzle; chain: ChainSource; frames: ComponentFrame[]; highlighted: boolean;
 }) {
   const parts = useMemo(() => {
-    const place = nozzlePlacement(nozzle, shell, heads);
-    if (!place) return null;
+    // Her nozul kendi host çerçevesine göre yerleşir (aktif gövde kısıtı yok).
+    const place = nozzlePlacement(chain, nozzle, frames);
+    if ("error" in place) return null;
 
     const axis = new THREE.Vector3(...place.axis).normalize();
     const anchor = new THREE.Vector3(...place.position);
@@ -81,7 +85,7 @@ function NozzleMesh({
       new THREE.Vector3(0, 1, 0), axis,
     );
 
-    const wall = Math.max(shell.nominal_thickness, 1);
+    const wall = Math.max(place.frame.thickness, 1);
     const outside = Math.max(nozzle.outside_projection, 0);
     const inside = Math.max(nozzle.inside_projection, 0);
     const length = inside + wall + outside;
@@ -113,12 +117,7 @@ function NozzleMesh({
       pipe: { center: pipeCenter, quat, odR, idR, length },
       fitting: { center: fitCenter, quat, r: flR, t: flT, blind: vis.blindCover },
     };
-  }, [
-    nozzle.host_component_id, nozzle.axial_position, nozzle.circumferential_angle,
-    nozzle.inclination_angle, nozzle.outside_diameter, nozzle.inside_diameter,
-    nozzle.outside_projection, nozzle.inside_projection, nozzle.nozzle_type,
-    shell.inside_diameter, shell.tangent_length, shell.nominal_thickness, heads,
-  ]);
+  }, [nozzle, chain, frames]);
 
   if (!parts) return null;
   const { pipe, fitting } = parts;
@@ -186,6 +185,11 @@ export function LivePreview({
   const isVertical = orientation === "vertical";
   const nozzleActive = active === "nz" || active === "theta" || active === "nd";
   const cameraApi = useRef<CameraApi | null>(null);
+  const chain = useMemo<ChainSource>(
+    () => ({ shell_sections: shells, heads, cones, component_sequence: componentSequence }),
+    [shells, heads, cones, componentSequence],
+  );
+  const frames = useMemo(() => componentFrames(chain), [chain]);
 
   return (
     <div className="live-preview">
@@ -212,8 +216,8 @@ export function LivePreview({
               <NozzleMesh
                 key={`${nz.tag}-${i}`}
                 nozzle={nz}
-                shell={shell}
-                heads={heads}
+                chain={chain}
+                frames={frames}
                 highlighted={nozzleActive && activeNozzle === i}
               />
             ))}

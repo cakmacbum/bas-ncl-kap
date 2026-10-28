@@ -202,6 +202,17 @@ class Nozzle(BaseModel):
     reinforcement_pad_od: Optional[float] = Field(
         default=None, gt=0, description="Takviye pedi dış çapı (mm)."
     )
+    rating_class: Optional[str] = Field(
+        default=None,
+        pattern=r"^(CL150|CL300|CL600|CL900|CL1500|CL2500|3000#|6000#)$",
+        description="Flanş (B16.5 CL…) veya manşon (B16.11 3000#/6000#) basınç "
+                    "sınıfı. Yalnızca geometri/izlenebilirlik; hesaba girmez.",
+    )
+    coupling_form: Optional[Literal["full", "half", "weldolet"]] = Field(
+        default=None,
+        description="Manşon biçimi (coupling/socket_welded). Yalnızca geometri; "
+                    "hesaba girmez.",
+    )
 
 
 class Cone(BaseModel):

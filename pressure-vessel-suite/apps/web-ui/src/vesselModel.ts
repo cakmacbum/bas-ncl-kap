@@ -1,25 +1,39 @@
-// Kap geometrisinin paylaşılan türetimi — 2D şema, 3D önizleme ve ölçü etiketleri
-// bu tek kaynaktan beslenir.
+// Kap geometrisinin paylaşılan türetimi — 2D şema, 3D önizleme, CAD worker ve ölçü
+// etiketleri bu tek kaynaktan beslenir (D00 §1).
 //
 // K2: Ölçüler yalnızca project data'dan gelir; mesh/CAD'den ÖLÇÜLMEZ.
 // K1: Burada mühendislik formülü yoktur — yalnızca görselleştirme geometrisi.
 //     Kalınlık/MAWP gibi kod hesapları backend'deki `code-*` paketlerine aittir.
+//
+// Eksen: kap ekseni +Z; z=0 sol (ilk) bombenin kutbu; bileşenler sequence sırasıyla
+// arka arkaya. θ +X'ten ölçülür.
 
-import type { ComponentReference, Cone, Head, Nozzle, ShellSection } from "./types";
+import type {
+  ComponentFrame, NozzlePlacement, PlacementResult, Vec3,
+} from "./geometryContract";
+import type {
+  ComponentReference, Cone, Head, HeadTypeT, Nozzle, ShellSection, Support, VesselProject,
+} from "./types";
 
-/** Bombe derinliği (düz flanş dahil, mm). */
-export function headDepth(di: number, type: string, sf: number): number {
-  switch (type) {
-    case "hemispherical": return di / 2 + sf;
-    case "elliptical":    return di / 4 + sf;
-    case "torispherical": return di / 6 + sf;
-    case "flat":          return sf; // düz kapak — neredeyse sıfır derinlik
-    default:              return di / 4 + sf;
+export type { ComponentFrame, NozzlePlacement, PlacementResult };
+
+/** Zincir türetimi için gereken proje alt kümesi (VesselProject de kabul edilir). */
+export type ChainSource = Pick<VesselProject, "shell_sections" | "heads" | "cones" | "component_sequence">;
+
+type HeadDims = Pick<Head, "crown_depth" | "crown_radius" | "knuckle_radius">;
+
+/**
+ * Bombenin kubbe yüksekliği (düz flanş hariç, mm) — TEK KAYNAK (D00 §1.3).
+ * Öncelik: `crown_depth` → torisferik R,r → oransal (Di/4, Di/6, Di/2, 0).
+ */
+export function headDomeHeight(di: number, type: string, head?: HeadDims | null): number {
+  if (head?.crown_depth != null && head.crown_depth > 0) return head.crown_depth;
+  if (type === "torispherical" && head?.crown_radius && head?.knuckle_radius) {
+    const R = head.crown_radius;
+    const r = head.knuckle_radius;
+    const q = (R - r) ** 2 - (di / 2 - r) ** 2;
+    if (R > r && q >= 0) return R - Math.sqrt(q);
   }
-}
-
-/** Bombenin kubbe yüksekliği (düz flanş hariç, mm) — 3D profil için. */
-export function headDomeHeight(di: number, type: string): number {
   switch (type) {
     case "hemispherical": return di / 2;
     case "elliptical":    return di / 4;
@@ -28,6 +42,156 @@ export function headDomeHeight(di: number, type: string): number {
     default:              return di / 4;
   }
 }
+
+/** Bombe derinliği (düz flanş dahil, mm) = kubbe + sf. */
+export function headDepth(di: number, type: string, sf: number, head?: HeadDims | null): number {
+  return headDomeHeight(di, type, head) + sf;
+}
+
+// ── Zincir çerçeveleri ─────────────────────────────────────────────────────
+
+export type ChainIssue = {
+  code: "DIAMETER_MISMATCH" | "INTERNAL_HEAD" | "MISSING_REF";
+  id: string;
+  message: string;
+};
+
+function effectiveSequence(p: ChainSource): ComponentReference[] {
+  const seq = p.component_sequence ?? [];
+  if (seq.length > 0) return seq;
+  const out: ComponentReference[] = [];
+  if (p.heads[0]) out.push({ component_type: "head", component_id: p.heads[0].head_id });
+  if (p.shell_sections[0]) out.push({ component_type: "shell", component_id: p.shell_sections[0].section_id });
+  if (p.heads[1]) out.push({ component_type: "head", component_id: p.heads[1].head_id });
+  return out;
+}
+
+type Resolved =
+  | { kind: "shell"; index: number; item: ShellSection }
+  | { kind: "cone"; index: number; item: Cone }
+  | { kind: "head"; index: number; item: Head };
+
+/** Sequence'i nesnelere çözer; bulunamayan / yinelenen referansları ayrı döner. */
+function resolveSequence(p: ChainSource): { items: Resolved[]; missing: ChainIssue[] } {
+  const shells = new Map(p.shell_sections.map((x) => [x.section_id, x]));
+  const heads = new Map(p.heads.map((x) => [x.head_id, x]));
+  const cones = new Map((p.cones ?? []).map((x) => [x.cone_id, x]));
+  const seen = new Set<string>();
+  const items: Resolved[] = [];
+  const missing: ChainIssue[] = [];
+  effectiveSequence(p).forEach((ref, index) => {
+    const id = ref.component_id;
+    if (seen.has(id)) {
+      missing.push({ code: "MISSING_REF", id, message: `${id} sequence'te yineleniyor — atlandı.` });
+      return;
+    }
+    const item = ref.component_type === "shell" ? shells.get(id)
+      : ref.component_type === "cone" ? cones.get(id)
+      : heads.get(id);
+    if (!item) {
+      missing.push({ code: "MISSING_REF", id, message: `${id} (${ref.component_type}) bulunamadı — atlandı.` });
+      return;
+    }
+    seen.add(id);
+    items.push({ kind: ref.component_type, index, item } as Resolved);
+  });
+  return { items, missing };
+}
+
+export function componentFrames(p: ChainSource): ComponentFrame[] {
+  const { items } = resolveSequence(p);
+  const frames: ComponentFrame[] = [];
+  let z = 0;
+  items.forEach((it, pos) => {
+    const prev = frames[frames.length - 1];
+    if (it.kind === "shell") {
+      const s = it.item;
+      const t = s.nominal_thickness;
+      const ri = s.inside_diameter != null ? s.inside_diameter / 2
+        : s.outside_diameter != null ? (s.outside_diameter - 2 * t) / 2
+        : 0.5;
+      const L = Math.max(s.tangent_length, 1);
+      frames.push({
+        kind: "shell", id: s.section_id, index: it.index,
+        zStart: z, zEnd: z + L,
+        rInStart: ri, rInEnd: ri, rOutStart: ri + t, rOutEnd: ri + t, thickness: t,
+      });
+      z += L;
+    } else if (it.kind === "cone") {
+      const c = it.item;
+      const t = c.nominal_thickness;
+      const large = c.large_diameter / 2;
+      const small = c.small_diameter / 2;
+      const prevR = prev?.rInEnd;
+      const expanding = prevR != null && Math.abs(prevR - small) < Math.abs(prevR - large);
+      const rInStart = expanding ? small : large;
+      const rInEnd = expanding ? large : small;
+      frames.push({
+        kind: "cone", id: c.cone_id, index: it.index,
+        zStart: z, zEnd: z + c.length,
+        rInStart, rInEnd, rOutStart: rInStart + t, rOutEnd: rInEnd + t, thickness: t,
+        cone: { largeAtStart: !expanding },
+      });
+      z += c.length;
+    } else {
+      const h = it.item;
+      const t = h.nominal_thickness;
+      const ri = h.inside_diameter / 2;
+      const sf = Math.max(h.straight_flange_length ?? 0, 0);
+      const dome = headDomeHeight(h.inside_diameter, h.type, h);
+      const side = pos === 0 ? "left" : pos === items.length - 1 ? "right" : "internal";
+      const rInStart = side === "left" ? 0 : ri;
+      const rInEnd = side === "right" ? 0 : ri;
+      const equatorZ = side === "left" ? z + dome : z + sf;
+      frames.push({
+        kind: "head", id: h.head_id, index: it.index,
+        zStart: z, zEnd: z + dome + sf,
+        rInStart, rInEnd, rOutStart: rInStart + t, rOutEnd: rInEnd + t, thickness: t,
+        head: { side, type: h.type as HeadTypeT, domeHeight: dome, sf, equatorZ },
+      });
+      z += dome + sf;
+    }
+  });
+  return frames;
+}
+
+/** Zincir tutarlılık uyarıları (çizimi engellemez; worker/UI uyarı olarak gösterir). */
+export function chainIssues(p: ChainSource, f: ComponentFrame[]): ChainIssue[] {
+  const issues: ChainIssue[] = [...resolveSequence(p).missing];
+  let last: ComponentFrame | null = null;
+  for (const fr of f) {
+    if (fr.head?.side === "internal") {
+      issues.push({ code: "INTERNAL_HEAD", id: fr.id, message: `${fr.id} zincirin ortasında — çizilmez.` });
+      continue;
+    }
+    if (last && Math.abs(last.rInEnd - fr.rInStart) > 0.5) {
+      issues.push({
+        code: "DIAMETER_MISMATCH", id: fr.id,
+        message: `${last.id} → ${fr.id}: iç çap ${(2 * last.rInEnd).toFixed(1)} ≠ ${(2 * fr.rInStart).toFixed(1)} mm.`,
+      });
+    }
+    last = fr;
+  }
+  return issues;
+}
+
+/** Teğet datumları: sol bombe zEnd, sağ bombe zStart (bombe yoksa zincir uçları). */
+export function tangentDatum(f: ComponentFrame[]): { left: number; right: number } {
+  const first = f[0];
+  const last = f[f.length - 1];
+  return {
+    left: first ? (first.head?.side === "left" ? first.zEnd : first.zStart) : 0,
+    right: last ? (last.head?.side === "right" ? last.zStart : last.zEnd) : 0,
+  };
+}
+
+/** Desteğin global Z'si: sol teğet datumu + location_mm (Zick). Etek location_mm kullanmaz. */
+export function supportZ(sup: Pick<Support, "type" | "location_mm">, frames: ComponentFrame[]): number {
+  const { left } = tangentDatum(frames);
+  return sup.type === "skirt" ? left : left + sup.location_mm;
+}
+
+// ── Kesit profili ──────────────────────────────────────────────────────────
 
 export interface Pt2 {
   r: number; // eksene uzaklık (mm)
@@ -38,22 +202,9 @@ export interface Pt2 {
  * Bombe kubbesinin yarı profili — ekvatordan (r=R, z=0) kutba (r=0, z=h).
  * `dir` +1 sağ bombe (kubbe +Z), -1 sol bombe (kubbe -Z).
  */
-function domeProfile(
-  R: number,
-  type: string,
-  dir: 1 | -1,
-  segments = 24,
-): Pt2[] {
-  const h = headDomeHeight(R * 2, type);
+function domeProfile(R: number, h: number, dir: 1 | -1, segments = 24): Pt2[] {
+  if (h <= 0) return [{ r: R, z: 0 }, { r: 0, z: 0 }];
   const pts: Pt2[] = [];
-
-  if (h <= 0) {
-    // Düz kapak: ekvatordan eksene düz plaka
-    pts.push({ r: R, z: 0 });
-    pts.push({ r: 0, z: 0 });
-    return pts.map((p) => ({ r: p.r, z: p.z * dir }));
-  }
-
   // Elips/küre yayı: r = R·cos(u), z = h·sin(u), u: 0 → π/2
   for (let i = 0; i <= segments; i++) {
     const u = (i / segments) * (Math.PI / 2);
@@ -63,233 +214,173 @@ function domeProfile(
 }
 
 /**
- * Kabın tam kesit profili — LatheGeometry ile döndürülünce et kalınlıklı
- * gövde + iki bombe verir.
- *
- * Eksen: Z. Gövde z∈[0, L]; sol bombe z<0, sağ bombe z>L (CAD ile aynı yerleşim).
- * Profil kapalıdır: dış yüzey (sol kutup → sağ kutup) + iç yüzey (geri dönüş).
+ * Tek gövdeli kabın kesit profili (sequence boş eski çağıranlar için yedek).
+ * Eksen: Z. Gövde z∈[0, L]; sol bombe z<0, sağ bombe z>L.
  */
-export function vesselProfile(
-  shell: ShellSection,
-  leftHead: Head,
-  rightHead: Head,
-): Pt2[] {
+export function vesselProfile(shell: ShellSection, leftHead: Head, rightHead: Head): Pt2[] {
   const t = Math.max(shell.nominal_thickness, 0.5);
   const ri = (shell.inside_diameter ?? 0) / 2 || 1;
   const ro = ri + t;
   const L = Math.max(shell.tangent_length, 1);
   const sfL = Math.max(leftHead.straight_flange_length ?? 0, 0);
   const sfR = Math.max(rightHead.straight_flange_length ?? 0, 0);
-
-  // Dış yüzey: sol kutup → sol ekvator → gövde → sağ ekvator → sağ kutup
   const leftRi = Math.max(leftHead.inside_diameter / 2, 0.5);
   const rightRi = Math.max(rightHead.inside_diameter / 2, 0.5);
-  const leftRo = leftRi + Math.max(leftHead.nominal_thickness, 0.5);
-  const rightRo = rightRi + Math.max(rightHead.nominal_thickness, 0.5);
-  const leftOuter = domeProfile(leftRo, leftHead.type, -1).reverse(); // kutuptan ekvatora
-  const rightOuter = domeProfile(rightRo, rightHead.type, 1);
+  const tL = Math.max(leftHead.nominal_thickness, 0.5);
+  const tR = Math.max(rightHead.nominal_thickness, 0.5);
+  const hL = headDomeHeight(leftRi * 2, leftHead.type, leftHead);
+  const hR = headDomeHeight(rightRi * 2, rightHead.type, rightHead);
 
   const outer: Pt2[] = [
-    ...leftOuter.map((p) => ({ r: p.r, z: p.z - sfL })),
+    ...domeProfile(leftRi + tL, hL + tL, -1).reverse().map((p) => ({ r: p.r, z: p.z - sfL })),
     { r: ro, z: 0 },
     { r: ro, z: L },
-    ...rightOuter.map((p) => ({ r: p.r, z: p.z + L + sfR })),
+    ...domeProfile(rightRi + tR, hR + tR, 1).map((p) => ({ r: p.r, z: p.z + L + sfR })),
   ];
-
-  // İç yüzey: aynı yol, kalınlık kadar içeride, ters yönde
-  const leftInner = domeProfile(leftRi, leftHead.type, -1).reverse();
-  const rightInner = domeProfile(rightRi, rightHead.type, 1);
-
   const inner: Pt2[] = [
-    ...leftInner.map((p) => ({ r: p.r, z: p.z - sfL + Math.max(leftHead.nominal_thickness, 0.5) })),
+    ...domeProfile(leftRi, hL, -1).reverse().map((p) => ({ r: p.r, z: p.z - sfL })),
     { r: ri, z: 0 },
     { r: ri, z: L },
-    ...rightInner.map((p) => ({ r: p.r, z: p.z + L + sfR - Math.max(rightHead.nominal_thickness, 0.5) })),
+    ...domeProfile(rightRi, hR, 1).map((p) => ({ r: p.r, z: p.z + L + sfR })),
   ];
-
-  // Kapalı kesit: dış ileri + iç geri
   return [...outer, ...inner.reverse()];
 }
 
-/** Zincirdeki tüm basınç taşıyan elemanların görsel yarı profilini üretir. */
+/** Zincirdeki tüm basınç taşıyan elemanların görsel yarı profili (componentFrames üzerinden). */
 export function vesselProfileChain(
   shells: ShellSection[],
   heads: Head[],
   cones: Cone[],
   sequence: ComponentReference[],
 ): Pt2[] {
-  const byId = {
-    shell: new Map(shells.map((x) => [x.section_id, x])),
-    head: new Map(heads.map((x) => [x.head_id, x])),
-    cone: new Map(cones.map((x) => [x.cone_id, x])),
-  };
+  const frames = componentFrames({ shell_sections: shells, heads, cones, component_sequence: sequence });
   const outer: Pt2[] = [];
   const inner: Pt2[] = [];
-  let z = 0;
-  sequence.forEach((ref, index) => {
-    const first = index === 0;
-    const last = index === sequence.length - 1;
-    if (ref.component_type === "shell") {
-      const item = byId.shell.get(ref.component_id);
-      if (!item) return;
-      const ri = Math.max(item.inside_diameter ?? 1, 1) / 2;
-      const t = Math.max(item.nominal_thickness, 0.5);
-      const L = Math.max(item.tangent_length, 1);
-      outer.push({ r: ri + t, z }, { r: ri + t, z: z + L });
-      inner.push({ r: ri, z }, { r: ri, z: z + L });
-      z += L;
-    } else if (ref.component_type === "cone") {
-      const item = byId.cone.get(ref.component_id);
-      if (!item) return;
-      const t = Math.max(item.nominal_thickness, 0.5);
-      const rLarge = item.large_diameter / 2 + t;
-      const rSmall = item.small_diameter / 2 + t;
-      outer.push({ r: rLarge, z }, { r: rSmall, z: z + item.length });
-      inner.push({ r: item.large_diameter / 2, z }, { r: item.small_diameter / 2, z: z + item.length });
-      z += item.length;
-    } else {
-      const item = byId.head.get(ref.component_id);
-      if (!item) return;
-      const ri = Math.max(item.inside_diameter / 2, 0.5);
-      const t = Math.max(item.nominal_thickness, 0.5);
-      const sf = Math.max(item.straight_flange_length ?? 0, 0);
-      const h = headDomeHeight(item.inside_diameter, item.type);
-      const dome = domeProfile(ri + t, item.type, first ? -1 : 1);
-      const domeInner = domeProfile(ri, item.type, first ? -1 : 1);
-      // Each sequence item occupies [z, z + headDepth]. The left head runs
-      // pole-to-equator and then its straight flange; the right head runs
-      // flange-to-equator and then pole. This keeps the following component
-      // attached at the shared tangent plane instead of leaving an axial gap.
-      const domeOffset = first ? h : sf;
-      const shifted = dome.map((p) => ({ r: p.r, z: z + p.z + domeOffset }));
-      const shiftedInner = domeInner.map((p) => ({ r: p.r, z: z + p.z + domeOffset }));
-      if (first) {
-        outer.push(...shifted.reverse());
-        inner.push(...shiftedInner.reverse());
-        if (sf > 0) {
-          outer.push({ r: ri + t, z: z + h + sf });
-          inner.push({ r: ri, z: z + h + sf });
-        }
-      } else if (last) {
-        if (sf > 0) {
-          outer.push({ r: ri + t, z }, { r: ri + t, z: z + sf });
-          inner.push({ r: ri, z }, { r: ri, z: z + sf });
-        }
-        outer.push(...shifted);
-        inner.push(...shiftedInner);
-      }
-      z += headDepth(item.inside_diameter, item.type, sf);
+  for (const f of frames) {
+    const t = Math.max(f.thickness, 0.5);
+    if (f.kind !== "head" || !f.head) {
+      outer.push({ r: f.rInStart + t, z: f.zStart }, { r: f.rInEnd + t, z: f.zEnd });
+      inner.push({ r: Math.max(f.rInStart, 0.5), z: f.zStart }, { r: Math.max(f.rInEnd, 0.5), z: f.zEnd });
+      continue;
     }
-  });
+    const { side, domeHeight: h, sf, equatorZ } = f.head;
+    if (side === "internal") continue; // çizilmez (INTERNAL_HEAD)
+    const ri = Math.max(side === "left" ? f.rInEnd : f.rInStart, 0.5);
+    const dir = side === "left" ? -1 : 1;
+    const domeOuter = domeProfile(ri + t, h + t, dir).map((p) => ({ r: p.r, z: equatorZ + p.z }));
+    const domeInner = domeProfile(ri, h, dir).map((p) => ({ r: p.r, z: equatorZ + p.z }));
+    if (side === "left") {
+      outer.push(...domeOuter.reverse());
+      inner.push(...domeInner.reverse());
+      if (sf > 0) {
+        outer.push({ r: ri + t, z: f.zEnd });
+        inner.push({ r: ri, z: f.zEnd });
+      }
+    } else {
+      if (sf > 0) {
+        outer.push({ r: ri + t, z: f.zStart });
+        inner.push({ r: ri, z: f.zStart });
+      }
+      outer.push(...domeOuter);
+      inner.push(...domeInner);
+    }
+  }
   return [...outer, ...inner.reverse()];
 }
 
 /** Kabın toplam boyu (bombeler dahil, mm). */
-export function overallLength(
-  shell: ShellSection,
-  leftHead: Head,
-  rightHead: Head,
-): number {
+export function overallLength(shell: ShellSection, leftHead: Head, rightHead: Head): number {
   return (
     shell.tangent_length +
-    headDepth(leftHead.inside_diameter, leftHead.type, leftHead.straight_flange_length ?? 0) +
-    headDepth(rightHead.inside_diameter, rightHead.type, rightHead.straight_flange_length ?? 0)
+    headDepth(leftHead.inside_diameter, leftHead.type, leftHead.straight_flange_length ?? 0, leftHead) +
+    headDepth(rightHead.inside_diameter, rightHead.type, rightHead.straight_flange_length ?? 0, rightHead)
   );
 }
 
 // ── Nozul yerleşimi ────────────────────────────────────────────────────────
-// Backend `packages/nozzles/src/nozzles/position.py` ile AYNI üç koordinat
-// (z, θ, α) ve aynı yüzey-normali mantığı. Önizleme ile kesin CAD aynı yeri
-// göstersin diye buradaki formüller oradakini birebir izler.
+// Backend `packages/nozzles/src/nozzles/position.py` ile aynı üç koordinat (s, θ, α).
+// Çıpa iç yüzeyde; `axial_position` host zStart'ından ölçülür (bombe: tepeden).
 
-export interface NozzlePlacement {
-  /** Yüzeydeki çıpa noktası (mm) — three.js ekseni: kap ekseni Z. */
-  position: [number, number, number];
-  /** Nozul ekseni (birim vektör) — α eğimi dahil. */
-  axis: [number, number, number];
-  hostType: "shell" | "head";
-}
-
-function normalize(v: [number, number, number]): [number, number, number] {
+function normalize(v: Vec3): Vec3 {
   const n = Math.hypot(v[0], v[1], v[2]);
   return n < 1e-9 ? [1, 0, 0] : [v[0] / n, v[1] / n, v[2] / n];
 }
 
 export function nozzlePlacement(
-  nozzle: Nozzle,
-  shell: ShellSection,
-  heads: Head[],
-): NozzlePlacement | null {
-  const theta = (nozzle.circumferential_angle * Math.PI) / 180;
-  const alpha = (nozzle.inclination_angle * Math.PI) / 180;
+  _p: ChainSource,
+  nz: Nozzle,
+  frames: ComponentFrame[],
+): PlacementResult {
+  const frame = frames.find((f) => f.id === nz.host_component_id);
+  if (!frame) return { error: "HOST_NOT_FOUND" };
+  const theta = (nz.circumferential_angle * Math.PI) / 180;
+  const alpha = (nz.inclination_angle * Math.PI) / 180;
+  const c = Math.cos(theta);
+  const sn = Math.sin(theta);
 
-  // ── Gövde üzerinde (position.py: calculate_nozzle_position_on_shell)
-  if (nozzle.host_component_id === shell.section_id) {
-    const R = (shell.inside_diameter ?? 0) / 2;
+  if (frame.kind === "shell" || frame.kind === "cone") {
+    const L = frame.zEnd - frame.zStart;
+    const s = nz.axial_position;
+    if (!(s >= 0 && s <= L) || L <= 0) return { error: "OUT_OF_HOST" }; // K4: kırpma yok
+    const k = (frame.rInEnd - frame.rInStart) / L;
+    const r = frame.rInStart + k * s;
+    const normal = normalize([c, sn, -k]);
+    const tHat = normalize([k * c, k * sn, 1]);
+    const ca = Math.cos(alpha);
+    const sa = Math.sin(alpha);
+    const axis = normalize([
+      ca * normal[0] + sa * tHat[0],
+      ca * normal[1] + sa * tHat[1],
+      ca * normal[2] + sa * tHat[2],
+    ]);
+    return { position: [r * c, r * sn, frame.zStart + s], normal, axis, hostKind: frame.kind, frame, rAtAnchor: r };
+  }
+
+  const head = frame.head;
+  if (!head || head.side === "internal") return { error: "INTERNAL_HEAD" };
+  const isLeft = head.side === "left";
+  const zSign = isLeft ? -1 : 1;
+  const a = isLeft ? frame.rInEnd : frame.rInStart;
+  const b = head.domeHeight;
+  const dPos = nz.head_position_diameter ?? 0;
+
+  // Düz kapak: yerleşim çapı → r, normal ±Z.
+  if (b <= 0) {
+    const r = dPos > 0 ? dPos / 2 : 0;
+    if (r > a) return { error: "OUT_OF_HOST" };
+    const normal: Vec3 = [0, 0, zSign];
     return {
-      position: [R * Math.cos(theta), R * Math.sin(theta), nozzle.axial_position],
-      axis: normalize([
-        Math.cos(theta) * Math.cos(alpha),
-        Math.sin(theta) * Math.cos(alpha),
-        Math.sin(alpha),
-      ]),
-      hostType: "shell",
+      position: [r * c, r * sn, head.equatorZ], normal, axis: normal,
+      hostKind: "head", frame, rAtAnchor: r,
     };
   }
 
-  // ── Bombe üzerinde (position.py: calculate_nozzle_position_on_head)
-  const idx = heads.findIndex((h) => h.head_id === nozzle.host_component_id);
-  if (idx < 0) return null;
-  const head = heads[idx];
-  const isLeft = idx === 0;
-
-  const R = head.inside_diameter / 2;
-  const a = R;
-  const b = headDomeHeight(head.inside_diameter, head.type) || R / 2;
-
-  // Merkez açısı φ — position.py ile aynı iki dallı mantık:
-  //   yerleşim çapı verildiyse r = d/2, φ = asin(r/a);
-  //   verilmediyse axial_position bombe tepesinden mesafe.
+  // Merkez açısı φ — position.py ile aynı iki dallı mantık.
   let phi: number;
-  const dPos = nozzle.head_position_diameter ?? 0;
   if (dPos > 0) {
     const r = dPos / 2;
-    // Bombe sınırının dışındaysa çizilmez (K4: sessizce kırpma yok).
-    if (r > a) return null;
+    if (r > a) return { error: "OUT_OF_HOST" };
     phi = a > 0 ? Math.asin(Math.max(-1, Math.min(1, r / a))) : 0;
   } else {
-    phi =
-      b > 0 && nozzle.axial_position <= b
-        ? Math.acos(Math.max(-1, Math.min(1, 1 - nozzle.axial_position / b)))
-        : 0;
+    phi = nz.axial_position <= b
+      ? Math.acos(Math.max(-1, Math.min(1, 1 - nz.axial_position / b)))
+      : 0;
   }
-
-  const x = a * Math.sin(phi) * Math.cos(theta);
-  const y = a * Math.sin(phi) * Math.sin(theta);
+  const x = a * Math.sin(phi) * c;
+  const y = a * Math.sin(phi) * sn;
   const zLocal = b * Math.cos(phi);
 
-  // Elipsoid yüzey normali: (x/a², y/a², z/b²) normalize + α eğimi
-  let nx = x / (a * a);
-  let ny = y / (a * a);
-  let nz = zLocal / (b * b);
-  const nm = Math.hypot(nx, ny, nz);
-  if (nm > 0) {
-    nx = (nx / nm) * Math.cos(alpha);
-    ny = (ny / nm) * Math.cos(alpha);
-    nz = (nz / nm) * Math.cos(alpha) + Math.sin(alpha);
-  } else {
-    nx = 0; ny = 0; nz = 1;
-  }
-
-  // Yerel → global (vessel_builder._head_position_to_global ile aynı):
-  //   sağ bombe z = L + z_local ; sol bombe z = -z_local (normal z de ters)
-  const sf = head.straight_flange_length ?? 0;
-  const zGlobal = isLeft ? -(zLocal + sf) : shell.tangent_length + zLocal + sf;
-
+  // Elipsoid yüzey normali (x/a², y/a², z/b²) + α eğimi (mevcut davranış).
+  const n0 = normalize([x / (a * a), y / (a * a), zLocal / (b * b)]);
+  const ca = Math.cos(alpha);
+  const ax = normalize([n0[0] * ca, n0[1] * ca, n0[2] * ca + Math.sin(alpha)]);
   return {
-    position: [x, y, zGlobal],
-    axis: normalize([nx, ny, isLeft ? -nz : nz]),
-    hostType: "head",
+    position: [x, y, head.equatorZ + zSign * zLocal],
+    normal: [n0[0], n0[1], zSign * n0[2]],
+    axis: [ax[0], ax[1], zSign * ax[2]],
+    hostKind: "head",
+    frame,
+    rAtAnchor: a * Math.sin(phi),
   };
 }
 
