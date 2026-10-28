@@ -29,3 +29,4 @@ Karar: backend yok → geometri tarayıcıda replicad+opencascade.js (Worker); R
 - 2026-10-28: D05, D07, D08, D09 (W4 inceleme düzeltmeleri), D06 bombe katısı düzeltmesi, D08 yerleşim/3D yönü düzeltmesi birleşti. vitest 63/63, build temiz, pytest 332/332 (D09 öncesi ana dal).
 - AÇIK (Yusuf kararı): position.py bombe nozulunda sessiz kırpma yapıyor (axial > head_height → tepe, negatif axial kontrolsüz); TS artık OUT_OF_HOST veriyor → UI/backend uyumsuz.
 - AÇIK: ana bundle 1.49 MB (500 kB uyarısı; katalog JSON'ları + sihirbaz) — kod bölme ayrı iş.
+- 2026-10-28: D10 position.py sessiz kırpma kaldırıldı (OUT_OF_HOST ValueError; CAD uyarıya çeviriyor). pytest 341/341. AÇIK: torisferik bombe yüksekliği backend R*0.25 vs frontend headDomeHeight — sınır farklı olabilir.
