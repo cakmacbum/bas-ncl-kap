@@ -25,3 +25,4 @@ Karar: backend yok → geometri tarayıcıda replicad+opencascade.js (Worker); R
 - 2026-10-28: W1 (D00, D00b, D01, D02, D03) ve W2 (D04, D06) birleşti — build temiz, vitest 31/31, pytest 332/332. W3 (D05, D07, D08) başladı.
 - AÇIK: diş açılmış manşon iç çapı ↔ SCH160/XXS eşlemesi (catalogAdapter couplingNozzleDims) ajanın hafızasından; kaynakla doğrulanacak. Half SW boy null. Weldolet katalogda yok.
 - AÇIK: nozzle-catalog.json "SCH10" değerleri NPS 1/2–12'de aslında 10S (D03 bulgusu).
+- 2026-10-28: D07, D08 birleşti. D05 (sihirbaz) hâlâ koşuyordu — worktree-agent-aff28588d8cc8ccd0; pages.tsx'te D08'in 3 düzenlemesiyle çakışma olabilir. Kalan: D05 merge, W4 code-reviewer + test-verifier, tarayıcı görsel doğrulaması (D08 yapamadı).
