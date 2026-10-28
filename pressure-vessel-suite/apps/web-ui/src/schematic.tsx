@@ -1,6 +1,6 @@
 import { HEAD_TYPE_TR } from "./i18n";
-import { headDepth } from "./vesselModel";
-import type { ComponentReference, Cone, Head, ShellSection } from "./types";
+import { chainIssues, componentFrames, headDepth, nozzlePlacement, type ChainSource, type ComponentFrame } from "./vesselModel";
+import type { Nozzle } from "./types";
 
 // Kabın ölçülü kesit şeması — geometri girdilerinden canlı üretilir.
 // Düzenlenen alan `active` ile vurgulanır. Sadece görsel/eğitseldir (K2: ölçü kaynağı project data).
@@ -35,11 +35,13 @@ interface Props {
   activeNozzle?: number;  // aktif nozul index'i
   active: DimKey;
   orientation?: "horizontal" | "vertical";
-  chain?: {
-    sequence: ComponentReference[];
-    shells: ShellSection[];
-    heads: Head[];
-    cones: Cone[];
+  /** Çok elemanlı zincir: ölçekli çerçeve profili; seçili parça/nozul vurgulanır. */
+  chain?: ChainSource & {
+    nozzles?: Nozzle[];
+    selectedId?: string | null;
+    selectedNozzle?: string | null;
+    onSelect?: (kind: ComponentFrame["kind"], id: string) => void;
+    onSelectNozzle?: (tag: string) => void;
   };
 }
 
@@ -47,73 +49,104 @@ function ChainSchematic({ chain, orientation = "horizontal" }: {
   chain: NonNullable<Props["chain"]>;
   orientation?: "horizontal" | "vertical";
 }) {
+  const frames = componentFrames(chain);
   const VBW = 480, VBH = 320, pad = 42;
-  const byId = {
-    shell: new Map(chain.shells.map((x) => [x.section_id, x])),
-    head: new Map(chain.heads.map((x) => [x.head_id, x])),
-    cone: new Map(chain.cones.map((x) => [x.cone_id, x])),
-  };
-  const lengthOf = (ref: ComponentReference) => {
-    if (ref.component_type === "shell") return byId.shell.get(ref.component_id)?.tangent_length ?? 1;
-    if (ref.component_type === "cone") return byId.cone.get(ref.component_id)?.length ?? 1;
-    const h = byId.head.get(ref.component_id);
-    return h ? headDepth(h.inside_diameter, h.type, h.straight_flange_length ?? 0) : 1;
-  };
-  const diameterOf = (ref: ComponentReference) => {
-    if (ref.component_type === "shell") return byId.shell.get(ref.component_id)?.inside_diameter ?? 1;
-    if (ref.component_type === "cone") {
-      const c = byId.cone.get(ref.component_id);
-      return c ? Math.max(c.large_diameter, c.small_diameter) : 1;
+  const total = Math.max(frames.length ? frames[frames.length - 1].zEnd : 1, 1);
+  const maxR = Math.max(...frames.map((f) => Math.max(f.rOutStart, f.rOutEnd)), 1);
+  const scale = Math.min((VBW - 2 * pad) / total, (VBH - 120) / (2 * maxR));
+  const cy = 165;
+  const X = (z: number) => pad + z * scale;
+  const issues = chainIssues(chain, frames);
+
+  const outline = (f: ComponentFrame): string => {
+    const t = f.thickness;
+    let top: [number, number][];
+    if (f.kind === "head" && f.head) {
+      const { side, domeHeight: h, sf } = f.head;
+      const ri = side === "left" ? f.rInEnd : f.rInStart;
+      const N = 14;
+      top = [];
+      if (h <= 0) {
+        const w = Math.max(sf, t, 3 / scale);
+        top = side === "left" ? [[f.zStart, ri + t], [f.zStart + w, ri + t]] : [[f.zEnd - w, ri + t], [f.zEnd, ri + t]];
+      } else if (side === "left") {
+        for (let i = 0; i <= N; i++) {
+          const u = i / N;
+          top.push([f.zStart + h * (1 - Math.cos((u * Math.PI) / 2)), h > 0 ? (ri + t) * Math.sin((u * Math.PI) / 2) : ri + t]);
+        }
+        if (sf > 0) top.push([f.zEnd, ri + t]);
+      } else {
+        if (sf > 0) top.push([f.zStart, ri + t]);
+        for (let i = 0; i <= N; i++) {
+          const u = i / N;
+          top.push([f.zStart + sf + h * Math.sin((u * Math.PI) / 2), h > 0 ? (ri + t) * Math.cos((u * Math.PI) / 2) : ri + t]);
+        }
+      }
+    } else {
+      top = [[f.zStart, f.rOutStart], [f.zEnd, f.rOutEnd]];
     }
-    return byId.head.get(ref.component_id)?.inside_diameter ?? 1;
+    const upper = top.map(([z, r]) => `${X(z).toFixed(1)},${(cy - r * scale).toFixed(1)}`);
+    const lower = [...top].reverse().map(([z, r]) => `${X(z).toFixed(1)},${(cy + r * scale).toFixed(1)}`);
+    return [...upper, ...lower].join(" ");
   };
-  const total = Math.max(chain.sequence.reduce((sum, ref) => sum + lengthOf(ref), 0), 1);
-  const maxD = Math.max(...chain.sequence.map(diameterOf), 1);
-  const scale = Math.min((VBW - 2 * pad) / total, (VBH - 110) / maxD);
-  const cy = 160;
-  let cursor = pad;
-  const parts = chain.sequence.map((ref) => {
-    const len = lengthOf(ref) * scale;
-    const d = diameterOf(ref) * scale;
-    const top = cy - d / 2;
-    const item = { ref, x: cursor, len, top, d };
-    cursor += len;
-    return item;
+
+  const nozzles = (chain.nozzles ?? []).map((nz, i) => {
+    const res = nozzlePlacement(chain, nz, frames);
+    return { nz, i, res };
   });
+
   return (
     <svg className="schematic" viewBox={`0 0 ${VBW} ${VBH}`} role="img"
       aria-label="Çok elemanlı kap zinciri kesit şeması">
       <text x={pad} y={22} className="sch-title">Eleman zinciri · {orientation === "vertical" ? "dikey" : "yatay"} kesit</text>
-      {parts.map(({ ref, x, len, top, d }, index) => {
-        const label = ref.component_id;
-        const isCone = ref.component_type === "cone";
-        const isLeftHead = ref.component_type === "head" && index === 0;
-        const isRightHead = ref.component_type === "head" && index === parts.length - 1;
-        const cone = isCone ? byId.cone.get(ref.component_id) : undefined;
-        const leftD = cone?.large_diameter ?? diameterOf(ref);
-        const rightD = cone?.small_diameter ?? diameterOf(ref);
-        const leftH = leftD * scale;
-        const rightH = rightD * scale;
-        const fill = ref.component_type === "cone" ? "var(--review-bg)" : "var(--panel-2)";
+      {frames.map((f) => {
+        const selected = chain.selectedId === f.id;
+        const bad = issues.some((x) => x.id === f.id && x.code === "DIAMETER_MISMATCH");
+        const fill = f.kind === "cone" ? "var(--review-bg)" : "var(--panel-2)";
+        const x0 = X(f.zStart);
+        const x1 = X(f.zEnd);
+        const dTop = cy - Math.max(f.rOutStart, f.rOutEnd) * scale;
         return (
-          <g key={`${ref.component_type}-${ref.component_id}`}>
-            {ref.component_type === "head" ? (
-              <path className="sch-part" d={isLeftHead
-                ? `M ${x + len} ${cy - d / 2} Q ${x + len * 0.08} ${cy} ${x + len} ${cy + d / 2} Z`
-                : isRightHead
-                  ? `M ${x} ${cy - d / 2} Q ${x + len * 0.92} ${cy} ${x} ${cy + d / 2} Z`
-                  : `M ${x} ${cy - d / 2} L ${x + len} ${cy - d / 2} L ${x + len} ${cy + d / 2} L ${x} ${cy + d / 2} Z`} fill={fill} />
-            ) : isCone ? (
-              <polygon className="sch-part" points={`${x},${cy - leftH / 2} ${x + len},${cy - rightH / 2} ${x + len},${cy + rightH / 2} ${x},${cy + leftH / 2}`} fill={fill} />
-            ) : (
-              <rect className="sch-part" x={x} y={top} width={len} height={d} fill={fill} />
+          <g key={f.id} className={`sch-chain-part${chain.onSelect ? " is-clickable" : ""}`}
+            onClick={chain.onSelect ? () => chain.onSelect!(f.kind, f.id) : undefined}>
+            <polygon className={`sch-part${selected ? " sch-active" : ""}`} points={outline(f)} fill={fill}
+              style={bad ? { stroke: "var(--fail)", strokeWidth: 2 } : undefined} />
+            {f.kind !== "head" && (
+              <polyline className="sch-tangent" fill="none"
+                points={`${X(f.zStart)},${cy - f.rInStart * scale} ${X(f.zEnd)},${cy - f.rInEnd * scale}`} />
             )}
-            <line className="sch-tangent" x1={x} y1={top - 5} x2={x} y2={cy + d / 2 + 5} />
-            <text className="sch-small" x={x + len / 2} y={cy + d / 2 + 24} textAnchor="middle">{label}</text>
+            <line className="sch-tangent" x1={x0} y1={dTop - 5} x2={x0} y2={cy + (cy - dTop) + 5} />
+            <text className={`sch-small${selected ? " sch-tag sch-active" : ""}`} x={(x0 + x1) / 2}
+              y={cy + (cy - dTop) + 20} textAnchor="middle">{f.id}</text>
+            {f.kind !== "head" && (
+              <text className="sch-small" x={(x0 + x1) / 2} y={dTop - 8} textAnchor="middle">
+                {f.kind === "cone"
+                  ? `Ø${+(2 * f.rInStart).toFixed(0)}→${+(2 * f.rInEnd).toFixed(0)}`
+                  : `Ø${+(2 * f.rInStart).toFixed(0)}`}
+              </text>
+            )}
           </g>
         );
       })}
-      <text className="sch-small" x={VBW - pad} y={VBH - 20} textAnchor="end">{chain.sequence.length} eleman · ölçeksiz görsel profil</text>
+      {nozzles.map(({ nz, i, res }) => {
+        if ("error" in res) return null;
+        const sel = chain.selectedNozzle === nz.tag;
+        const x = X(res.position[2]);
+        const rr = Math.max((nz.outside_diameter / 2) * scale, 3);
+        const yTop = cy - res.rAtAnchor * scale - res.frame.thickness * scale;
+        const lift = 16 + (i % 3) * 8;
+        return (
+          <g key={nz.tag} className={chain.onSelectNozzle ? "sch-chain-part is-clickable" : undefined}
+            onClick={chain.onSelectNozzle ? () => chain.onSelectNozzle!(nz.tag) : undefined}>
+            <rect className={sel ? "sch-part sch-active" : "sch-part"} x={x - rr} y={yTop - lift} width={2 * rr} height={lift}
+              fill="var(--panel-raised)" />
+            <text className={sel ? "sch-tag sch-active" : "sch-tag"} x={x} y={yTop - lift - 4} textAnchor="middle">{nz.tag}</text>
+          </g>
+        );
+      })}
+      <text className="sch-small" x={VBW - pad} y={VBH - 14} textAnchor="end">
+        {frames.length} eleman · toplam {+(total).toFixed(0)} mm · ölçekli profil
+      </text>
     </svg>
   );
 }
@@ -187,7 +220,7 @@ export function VesselSchematic(props: Props) {
     active, orientation = "horizontal",
   } = props;
 
-  if (props.chain && props.chain.sequence.length > 3) {
+  if (props.chain && (props.chain.component_sequence.length > 3 || props.chain.cones.length > 0)) {
     return <ChainSchematic chain={props.chain} orientation={orientation} />;
   }
 

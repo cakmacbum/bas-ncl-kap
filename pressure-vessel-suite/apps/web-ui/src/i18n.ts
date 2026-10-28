@@ -78,6 +78,32 @@ export const ORIENTATION_TR: Record<string, string> = {
   vertical: "Dikey",
 };
 
+// ---- Step 03 geometri sihirbazı ----
+export const GEO_STEP_TR: string[] = [
+  "Gövde zinciri",
+  "Bombeler",
+  "Flanşlı nozullar",
+  "Manşonlar",
+  "Mesnetler",
+];
+
+export const FRAME_KIND_TR: Record<string, string> = {
+  shell: "Gövde",
+  cone: "Koni",
+  head: "Bombe",
+};
+
+export const COUPLING_FORM_TR: Record<string, string> = {
+  full: "Tam manşon",
+  half: "Yarım manşon",
+  weldolet: "Weldolet (katalogda yok)",
+};
+
+export const COUPLING_TYPE_TR: Record<string, string> = {
+  coupling: "Dişli (threaded) manşon",
+  socket_welded: "Soket kaynaklı (socket weld)",
+};
+
 export function tr(map: Record<string, string>, key: string): string {
   return map[key] ?? key;
 }

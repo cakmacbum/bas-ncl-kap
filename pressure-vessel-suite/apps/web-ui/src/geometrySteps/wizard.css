@@ -1,0 +1,152 @@
+/* Step 03 geometri sihirbazı — tema değişkenlerini kullanır (theme.css). */
+
+/* Form sütunu sihirbaz için biraz daha geniş */
+.geo-layout:has(.gw) { grid-template-columns: 460px minmax(0, 1fr); }
+@media (max-width: 1100px) { .geo-layout:has(.gw) { grid-template-columns: 1fr; } }
+
+.gw { display: grid; gap: 12px; margin-bottom: 14px; }
+.gw-bar {
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px;
+  border: 1px solid var(--line); background: var(--panel); padding: 4px;
+}
+.gw-tab {
+  position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+  padding: 6px 7px; background: transparent; border: 1px solid transparent; color: var(--text-dim);
+  cursor: pointer; text-align: left; font: inherit; border-radius: var(--radius-sm);
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.gw-tab:hover { background: var(--panel-2); color: var(--text); }
+.gw-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.gw-tab.is-active { background: var(--panel-2); border-color: var(--accent); color: var(--text); box-shadow: inset 0 -2px 0 var(--accent); }
+.gw-tab__no { font-family: var(--font-mono); font-size: var(--fs-2xs); color: var(--text-faint); }
+.gw-tab__title { font-size: var(--fs-xs); font-weight: 600; line-height: 1.2; }
+.gw-tab__badge {
+  position: absolute; top: 4px; right: 4px; min-width: 16px; height: 16px; padding: 0 4px;
+  border-radius: 8px; background: var(--fail); color: var(--accent-contrast); font-size: var(--fs-2xs);
+  font-weight: 700; line-height: 16px; text-align: center;
+}
+.gw-panel { min-width: 0; }
+.gw-step { display: grid; gap: 14px; }
+.gw-nav { display: flex; justify-content: space-between; gap: 8px; }
+
+.gw-sec { border: 1px solid var(--line); background: var(--panel); padding: 12px; display: grid; gap: 10px; }
+.gw-sec__title {
+  margin: 0; font-size: var(--fs-sm); font-weight: 700; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.gw-sec__title > span { font-weight: 500; font-size: var(--fs-xs); color: var(--text-faint); }
+
+.gw-field .gw-input--bad, .input.gw-input--bad { border-color: var(--fail); box-shadow: 0 0 0 2px color-mix(in srgb, var(--fail) 25%, transparent); }
+.gw-range { font-size: var(--fs-2xs); color: var(--text-faint); font-variant-numeric: tabular-nums; }
+.gw-range--bad { color: var(--fail); font-weight: 600; }
+.gw-note { margin: 0; font-size: var(--fs-xs); color: var(--text-dim); line-height: 1.45; }
+.gw-note--bad, .gw-bad { color: var(--fail); font-weight: 600; }
+.gw-note--warn { color: var(--review); }
+.gw-empty { margin: 0; font-size: var(--fs-xs); color: var(--text-faint); }
+.gw-danger { color: var(--fail); }
+
+/* zincir şeridi */
+.gw-strip { display: flex; flex-wrap: wrap; align-items: stretch; gap: 6px; }
+.gw-cap, .gw-plus, .gw-ring {
+  font: inherit; cursor: pointer; border: 1px solid var(--line); background: var(--panel-2); color: var(--text);
+  border-radius: var(--radius-sm); padding: 6px 8px; transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+.gw-cap { font-size: var(--fs-2xs); color: var(--text-dim); border-radius: 14px 4px 4px 14px; font-family: var(--font-mono); }
+.gw-cap:last-of-type { border-radius: 4px 14px 14px 4px; }
+.gw-plus { border-style: dashed; color: var(--accent); font-size: var(--fs-xs); font-weight: 600; }
+.gw-plus:disabled { opacity: 0.4; cursor: not-allowed; }
+.gw-plus:hover:not(:disabled), .gw-ring:hover, .gw-cap:hover { border-color: var(--accent); }
+.gw-plus[aria-expanded="true"] { background: var(--accent-glow); border-style: solid; }
+.gw-ring { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; min-width: 96px; }
+.gw-ring b { font-size: var(--fs-xs); font-family: var(--font-mono); }
+.gw-ring span { font-size: var(--fs-2xs); color: var(--text-dim); font-variant-numeric: tabular-nums; }
+.gw-ring--cone { border-left: 3px solid var(--review); }
+.gw-ring--shell { border-left: 3px solid var(--line-strong); }
+.gw-ring.is-active { border-color: var(--accent); background: var(--accent-glow); box-shadow: 0 0 0 2px var(--accent-glow); }
+.gw-cap:focus-visible, .gw-plus:focus-visible, .gw-ring:focus-visible, .gw-chip:focus-visible, .gw-type:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 1px;
+}
+
+.gw-add { border: 1px dashed var(--accent); padding: 10px; display: grid; gap: 10px; background: color-mix(in srgb, var(--accent) 5%, transparent); }
+.gw-add__head, .gw-editor__head { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.gw-add__auto { font-size: var(--fs-xs); color: var(--text-dim); }
+.gw-editor { border-top: 1px solid var(--line); padding-top: 10px; display: grid; gap: 10px; }
+.gw-editor__actions { display: flex; gap: 4px; flex-wrap: wrap; }
+.gw-editor__meta { font-size: var(--fs-2xs); color: var(--text-faint); }
+.gw-more { justify-self: start; }
+
+/* chip / segment */
+.gw-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.gw-chip {
+  font: inherit; font-size: var(--fs-xs); padding: 4px 9px; cursor: pointer; border: 1px solid var(--line);
+  background: var(--panel-2); color: var(--text-dim); border-radius: var(--radius-sm);
+}
+.gw-chip:hover:not(:disabled) { border-color: var(--accent); color: var(--text); }
+.gw-chip.is-active { border-color: var(--accent); background: var(--accent-glow); color: var(--text); font-weight: 600; }
+.gw-chip:disabled { opacity: 0.4; cursor: not-allowed; text-decoration: line-through; }
+.gw-theta { display: grid; gap: 6px; }
+.gw-slider { display: grid; gap: 4px; }
+.gw-slider__range { width: 100%; accent-color: var(--accent); }
+.gw-check { display: flex; align-items: center; gap: 8px; font-size: var(--fs-sm); cursor: pointer; }
+.gw-suggest, .gw-addrow { display: grid; gap: 8px; }
+.gw-addrow { grid-template-columns: 1fr auto; align-items: end; }
+
+/* bombe kartları */
+.gw-heads { grid-template-columns: 1fr; }
+.gw-card { border: 1px solid var(--line); background: var(--panel); padding: 12px; display: grid; gap: 10px; cursor: pointer; }
+.gw-card.is-active { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-glow); }
+.gw-card__head { display: flex; justify-content: space-between; align-items: baseline; font-size: var(--fs-sm); }
+.gw-card__head span { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--text-faint); }
+.gw-types { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; }
+.gw-type {
+  display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 2px; font: inherit; cursor: pointer;
+  border: 1px solid var(--line); background: var(--panel-2); color: var(--text-dim); border-radius: var(--radius-sm);
+}
+.gw-type span { font-size: var(--fs-2xs); line-height: 1.15; text-align: center; }
+.gw-type:hover { border-color: var(--accent); color: var(--text); }
+.gw-type.is-active { border-color: var(--accent); background: var(--accent-glow); color: var(--text); }
+.gw-icon { color: inherit; }
+.gw-readout { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: var(--fs-xs); color: var(--text-dim); }
+
+/* tablo */
+.gw-table { width: 100%; border-collapse: collapse; font-size: var(--fs-xs); font-variant-numeric: tabular-nums; }
+.gw-table th { text-align: left; color: var(--text-faint); font-weight: 600; padding: 4px 6px; border-bottom: 1px solid var(--line); }
+.gw-table td { padding: 5px 6px; border-bottom: 1px solid var(--line); }
+.gw-table tbody tr { cursor: pointer; }
+.gw-table tbody tr:hover { background: var(--panel-2); }
+.gw-table tbody tr.is-active { background: var(--accent-glow); box-shadow: inset 3px 0 0 var(--accent); }
+.gw-table tbody tr:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.gw-del { background: transparent; border: 0; color: var(--text-faint); cursor: pointer; padding: 2px 6px; }
+.gw-del:hover { color: var(--fail); }
+
+/* rozet / sorunlar */
+.gw-badge { font-size: var(--fs-2xs); padding: 2px 7px; border-radius: 10px; font-weight: 600; }
+.gw-badge--warn { background: color-mix(in srgb, var(--review) 18%, transparent); color: var(--review); border: 1px solid color-mix(in srgb, var(--review) 50%, transparent); }
+.gw-issues { border: 1px solid var(--line); background: var(--panel); padding: 10px 12px; display: grid; gap: 8px; }
+.gw-issues__head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.gw-issues__head h3 { margin: 0; font-size: var(--fs-sm); }
+.gw-count { font-size: var(--fs-xs); color: var(--text-faint); }
+.gw-count--err { color: var(--fail); font-weight: 600; }
+.gw-count--warn { color: var(--review); font-weight: 600; }
+.gw-issues__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; max-height: 220px; overflow: auto; }
+.gw-issue {
+  width: 100%; display: grid; grid-template-columns: auto 1fr auto; gap: 8px; align-items: baseline; text-align: left;
+  font: inherit; font-size: var(--fs-xs); padding: 5px 8px; cursor: pointer; color: var(--text);
+  background: var(--panel-2); border: 1px solid var(--line); border-left-width: 3px; border-radius: var(--radius-sm);
+}
+.gw-issue:hover { border-color: var(--accent); }
+.gw-issue:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.gw-issue--error { border-left-color: var(--fail); }
+.gw-issue--warn { border-left-color: var(--review); }
+.gw-issue--info { border-left-color: var(--scope); }
+.gw-issue b { font-size: var(--fs-2xs); text-transform: uppercase; letter-spacing: 0.04em; }
+.gw-issue--error b { color: var(--fail); }
+.gw-issue--warn b { color: var(--review); }
+.gw-issue em { font-style: normal; font-size: var(--fs-2xs); color: var(--text-faint); }
+
+/* 2D zincir şeması: tıklanabilir parçalar */
+.sch-chain-part.is-clickable { cursor: pointer; }
+.sch-chain-part.is-clickable:hover .sch-part { stroke: var(--accent); }
+
+@media (prefers-reduced-motion: reduce) {
+  .gw-tab, .gw-cap, .gw-plus, .gw-ring { transition: none; }
+}
