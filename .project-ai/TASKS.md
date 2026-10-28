@@ -15,3 +15,10 @@
 - T-2.14 Nozulda E1 < 1 (açıklık Kategori B dışı dikişten geçerse) — uygulanmıyor, ayrı inceleme
 
 ## 2026-10-24 — Teknik işler (Render hariç): ayrıntı `paketler/G-PLAN-teknik-isler.md` (G01–G12; Gemini yazar, Claude şef; Gemini CLI kapalı → dış paket akışı)
+
+## 2026-10-28 — M4 Step 03 yeniden yazımı (plan: `paketler/D-PLAN-step03-yeniden.md`)
+Karar: backend yok → geometri tarayıcıda replicad+opencascade.js (Worker); REA hedefi MyTank Configurator.
+- W1 (başladı): D00 sözleşme (architect) · D01 REA spec · D02 AI ajanı silme · D03 kataloglar
+- W2: D04 componentFrames+store · D06 CAD worker+gövde zinciri
+- W3: D05 sihirbaz 5 adım · D07 nozul/manşon/ped/manway · D08 destekler+STEP/STL
+- W4: entegrasyon, code-reviewer + test-verifier

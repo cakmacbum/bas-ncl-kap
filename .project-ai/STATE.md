@@ -59,3 +59,6 @@ Kampanya: 21 aile (F01–F21), 2.000+ doğrulanmış vaka (1000 gövde kütle ko
 ## 2026-10-18 (akşam) — M2 kapanış turu, push ve deploy
 K2/K3/K4/C1 birleştirildi; tam paket 983 geçti / 1 atlandı. GitHub'a push edildi (`ee35425`, origin/main). Web arayüzü Vercel'e (pv-suite-app → https://app.zeyslabs-vessela.com, 200; dist hash canlıda eşleşti) CLI ile yüklendi.
 Backend (Render) hâlâ yok → canlı arayüz hesap API'sine ulaşamaz. Açık: B-06 EN 13445, B-09, hidrotest bileşen-bazlı kontrol, E1 domain çıkarımı, Browser e2e görsel kanıt, ajan worktree temizliği.
+
+## 2026-10-28 — M4 başladı: Step 03 yeniden yazımı
+Orkestra: şef kod yazmaz; D00–D08 paketleri ayrı alt-ajan context'lerinde (worktree). W1 koşuyor. Plan: `paketler/D-PLAN-step03-yeniden.md`.
