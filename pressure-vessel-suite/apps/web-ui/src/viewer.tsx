@@ -210,7 +210,7 @@ export function ExactModelView() {
 
   return (
     <div className="viewer-frame">
-      <div style={{ position: "absolute", top: 8, left: 8, zIndex: 5, display: "flex", gap: 6, alignItems: "center", flexWrap: "wrap" }}>
+      <div style={{ position: "absolute", top: 8, right: 8, zIndex: 6, display: "flex", gap: 6, alignItems: "center", flexWrap: "wrap", justifyContent: "flex-end", maxWidth: "45%" }}>
         <button className="btn btn--sm" onClick={() => doExport("step")} disabled={busy !== null}>
           {busy === "step" ? "Hazırlanıyor…" : "⬇ STEP indir"}
         </button>
@@ -224,7 +224,7 @@ export function ExactModelView() {
         {exportErr && <span className="dim3d" role="alert">{exportErr}</span>}
       </div>
       <Canvas
-        camera={{ position: [2600, 1700, 2900], near: 1, far: 60000, fov: 42 }}
+        camera={{ position: [-2600, 1700, 2900], near: 1, far: 60000, fov: 42 }}
         gl={{ alpha: true, antialias: true }}
         dpr={[1, 2]}
       >

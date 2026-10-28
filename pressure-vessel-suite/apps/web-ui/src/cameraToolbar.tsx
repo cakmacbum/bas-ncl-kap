@@ -46,9 +46,9 @@ function CameraRig({ orientation, onReady, onManual, autoRotate }: {
     const sphere = box.getBoundingSphere(new THREE.Sphere());
     const distance = Math.max(1, sphere.radius * 2.7);
     const directions: Record<View, THREE.Vector3> = {
-      iso: new THREE.Vector3(1, 0.65, 1).normalize(),
+      iso: new THREE.Vector3(-1, 0.65, 1).normalize(),
       top: new THREE.Vector3(0, 1, 0),
-      front: new THREE.Vector3(1, 0, 0),
+      front: new THREE.Vector3(-1, 0, 0),
       side: new THREE.Vector3(0, 0, 1),
     };
     camera.position.copy(center).addScaledVector(directions[view], distance);
