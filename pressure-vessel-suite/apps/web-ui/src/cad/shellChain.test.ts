@@ -1,7 +1,9 @@
 // D06 — gövde zinciri katıları, node'da gerçek OCCT (replicad-opencascadejs WASM) ile.
 import { beforeAll, describe, expect, it } from "vitest";
 import opencascade from "replicad-opencascadejs";
-import { exportSTEP, measureVolume, setOC } from "replicad";
+import { exportSTEP, getOC, importSTEP, measureVolume, setOC, type AnyShape, type Shape3D } from "replicad";
+import type { ComponentFrame } from "../geometryContract";
+import { buildChainSolid } from "./parts/shellChain";
 import type { VesselProject } from "../types";
 import { buildShellChainShapes, componentFrames, planParts } from "./parts";
 
@@ -116,5 +118,75 @@ describe("gövde zinciri katıları", () => {
       console.log(`[D06] ${level}: ${shapes.length} parça, ${tris} üçgen, ${ms.toFixed(0)} ms`);
     }
     expect(planParts(project("elliptical", "elliptical"), "preview").warnings).toEqual([]);
+  });
+});
+
+// ---- W4 düzeltmesi: bombe katıları geçerli + duvarlı, STEP gidiş-dönüşünde de ----
+const isValid = (s: AnyShape) =>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  new (getOC() as any).BRepCheck_Analyzer(s.wrapped, true, false, false).IsValid() as boolean;
+
+function simpson(f: (x: number) => number, x0: number, x1: number, n = 2000): number {
+  const hh = (x1 - x0) / n;
+  let s = f(x0) + f(x1);
+  for (let i = 1; i < n; i++) s += (i % 2 ? 4 : 2) * f(x0 + i * hh);
+  return (s * hh) / 3;
+}
+/** Torisferik kubbe boşluk hacmi (ekvatordan kutba): knuckle rk, crown R, yükseklik h. */
+function toriCavity(a: number, rk: number, R: number, h: number): number {
+  const zT = (rk * (R - h)) / (R - rk);
+  const knuckle = simpson((z) => (a - rk + Math.sqrt(Math.max(0, rk * rk - z * z))) ** 2, 0, zT);
+  const crown = simpson((z) => Math.max(0, R * R - (z - (h - R)) ** 2), zT, h);
+  return Math.PI * (knuckle + crown);
+}
+
+type HT = "elliptical" | "torispherical" | "hemispherical" | "flat";
+
+describe("bombe katıları: her tip, sol ve sağ ayrı", () => {
+  const a = 500, t = 10, sf = 50, Di = 1000;
+  const ringSf = ring(a, t, sf);
+  const hT = Di / 6, rk = 0.06 * Di;
+  const R = (hT * hT - rk * rk + (a - rk) ** 2) / (2 * (hT - rk));
+  const cases: { type: HT; h: number; wall: number }[] = [
+    { type: "elliptical", h: 250, wall: halfEllipsoidShell(a, 250, t) + ringSf },
+    { type: "torispherical", h: hT, wall: toriCavity(a + t, rk + t, R + t, hT + t) - toriCavity(a, rk, R, hT) + ringSf },
+    { type: "hemispherical", h: 500, wall: (2 / 3) * Math.PI * ((a + t) ** 3 - a ** 3) + ringSf },
+    { type: "flat", h: 0, wall: Math.PI * (a + t) ** 2 * t + ringSf },
+  ];
+
+  const frame = (type: HT, h: number, side: "left" | "right"): ComponentFrame =>
+    side === "left"
+      ? { kind: "head", id: "H", index: 0, zStart: 0, zEnd: h + sf, rInStart: 0, rInEnd: a, rOutStart: t, rOutEnd: a + t,
+          thickness: t, head: { side, type, domeHeight: h, sf, equatorZ: h } }
+      : { kind: "head", id: "H", index: 4, zStart: 3000, zEnd: 3000 + h + sf, rInStart: a, rInEnd: 0, rOutStart: a + t,
+          rOutEnd: t, thickness: t, head: { side, type, domeHeight: h, sf, equatorZ: 3000 + sf } };
+
+  for (const c of cases) {
+    for (const side of ["left", "right"] as const) {
+      it(`${c.type} ${side}: geçerli, duvar hacmi ±%2, STEP gidiş-dönüş`, async () => {
+        const s = buildChainSolid(frame(c.type, c.h, side), undefined) as Shape3D;
+        expect(isValid(s)).toBe(true);
+        expect(Math.abs(measureVolume(s) / c.wall - 1)).toBeLessThan(0.02);
+        const back = (await importSTEP(exportSTEP([{ shape: s, name: `head:${side}` }], { unit: "mm" }))) as Shape3D;
+        expect(isValid(back)).toBe(true);
+        expect(Math.abs(measureVolume(back) / c.wall - 1)).toBeLessThan(0.02);
+      });
+    }
+  }
+
+  it("zincir STEP'i: 5 katı geçerli, toplam hacim korunur, bombeler duvarlı", async () => {
+    const shapes = buildShellChainShapes(project("elliptical", "elliptical"), "exact");
+    const back = (await importSTEP(
+      exportSTEP(shapes.map((s) => ({ shape: s.shape, name: s.partId })), { unit: "mm" }),
+    )) as Shape3D;
+    const solids = back.solids;
+    expect(solids).toHaveLength(5);
+    for (const so of solids) expect(isValid(so)).toBe(true);
+    const total = shapes.reduce((acc, s) => acc + measureVolume(s.shape), 0);
+    expect(Math.abs(solids.reduce((acc, so) => acc + measureVolume(so), 0) / total - 1)).toBeLessThan(1e-3);
+    // Katı katı eşleşme (dolu bombe hatasında HEAD-L 140e6 / HEAD-R 33e6 çıkıyordu)
+    const vIn = shapes.map((s) => measureVolume(s.shape)).sort((x, y) => x - y);
+    const vBack = solids.map((so) => measureVolume(so)).sort((x, y) => x - y);
+    vIn.forEach((v, i) => expect(Math.abs(vBack[i] / v - 1)).toBeLessThan(1e-3));
   });
 });

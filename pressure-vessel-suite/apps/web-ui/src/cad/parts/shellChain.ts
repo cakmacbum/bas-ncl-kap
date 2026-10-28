@@ -2,16 +2,58 @@
 // Hepsi (r,z) halka profilinin Z ekseni etrafında döndürülmesiyle kurulur; global çerçevede döner.
 // İç profil frame'den (iç ölçü), dış yüzey normal ofset:
 //   shell: dikdörtgen; koni: iç doğru + t/cosα; yarım küre ve torisferik: eş merkezli yaylar (tam ofset);
-//   2:1 eliptik: (a+t, b+t) yarı eksenli elips (kutup ve ekvatorda tam, arada ölçekli yaklaşım).
+//   2:1 eliptik: (a+t, b+t) yarı eksenli elips (kutup/ekvatorda tam, arada ölçekli), 4 kübik Bézier/çeyrek.
 // Düz kapak: t kalınlıklı plaka + sf düz flanş halkası.
-import type { Shape3D } from "replicad";
+import { draw, type Shape3D, type Sketch } from "replicad";
 import type { ComponentFrame } from "../../geometryContract";
 import type { Cone, Head, ShellSection } from "../../types";
-import { arcMid, revolveProfile, type ProfileSeg, type Pt } from "../geom";
+import { arcMid, type ProfileSeg, type Pt } from "../geom";
 
 export type ChainComponent = ShellSection | Cone | Head;
 
 const EPS = 1e-6;
+
+/** geom.ProfileSeg (elips hariç) + kübik Bézier. */
+type Seg = Exclude<ProfileSeg, { ellipse: Pt }> | { cubic: Pt; c1: Pt; c2: Pt };
+
+/**
+ * Kapalı (r,z) profili Z ekseni etrafında döndürür ("XZ" düzlemi: 2B x → r, 2B y → z).
+ * Not: replicad `ellipseTo` (Geom2d elips) ile döndürülen yüzey bellekte geçerliydi ama STEP'e
+ * yazılıp okununca geçersiz ve dolu katıya dönüyordu (W4) → elips yayları kübik Bézier ile kurulur.
+ */
+function revolveSegs(start: Pt, segs: Seg[]): Shape3D {
+  let pen = draw(start);
+  for (const s of segs) {
+    if ("line" in s) pen = pen.lineTo(s.line);
+    else if ("arc" in s) pen = pen.threePointsArcTo(s.arc, s.via);
+    else pen = pen.cubicBezierCurveTo(s.cubic, s.c1, s.c2);
+  }
+  const sketch = pen.close().sketchOnPlane("XZ") as Sketch;
+  return sketch.revolve([0, 0, 1], { origin: [0, 0, 0] });
+}
+
+/**
+ * Elips yayı P(u) = (a·cos u, b·sin u), u0→u1; n kübik Bézier parçası (çember yaklaşımının
+ * afin görüntüsü, k = 4/3·tan(Δ/4); 90°'de 4 parça → bağıl sapma ~1e-6). `map` yerel→global.
+ */
+function ellipseCubics(a: number, b: number, u0: number, u1: number, map: (p: Pt) => Pt, n = 4): Seg[] {
+  const P = (u: number): Pt => [a * Math.cos(u), b * Math.sin(u)];
+  const D = (u: number): Pt => [-a * Math.sin(u), b * Math.cos(u)];
+  const du = (u1 - u0) / n;
+  const k = (4 / 3) * Math.tan(du / 4);
+  const out: Seg[] = [];
+  for (let i = 0; i < n; i++) {
+    const ua = u0 + i * du;
+    const ub = i === n - 1 ? u1 : ua + du;
+    const pa = P(ua), pb = P(ub), da = D(ua), db = D(ub);
+    out.push({
+      cubic: map(pb),
+      c1: map([pa[0] + k * da[0], pa[1] + k * da[1]]),
+      c2: map([pb[0] - k * db[0], pb[1] - k * db[1]]),
+    });
+  }
+  return out;
+}
 
 /** Ardışık eş noktaları ayıklayıp kapalı çizgi profili döndürür. */
 function polygon(pts: Pt[]): Shape3D {
@@ -19,7 +61,7 @@ function polygon(pts: Pt[]): Shape3D {
     const q = pts[(i + pts.length - 1) % pts.length];
     return Math.abs(p[0] - q[0]) > EPS || Math.abs(p[1] - q[1]) > EPS;
   });
-  return revolveProfile(clean[0], clean.slice(1).map((line) => ({ line })));
+  return revolveSegs(clean[0], clean.slice(1).map((line) => ({ line })));
 }
 
 function shellSolid(f: ComponentFrame): Shape3D {
@@ -54,8 +96,8 @@ function headSolid(f: ComponentFrame, head: Head | undefined): Shape3D {
   }
 
   // Kubbe: iç eğri (Ri,0)→(0,h), dış eğri (0,h+t)→(Ri+t,0).
-  let inner: ProfileSeg[];
-  let outer: ProfileSeg[];
+  let inner: Seg[];
+  let outer: Seg[];
   const tori = hd.type === "torispherical" ? torisphericalArcs(Ri, h, t, head) : null;
 
   if (hd.type === "hemispherical" && Math.abs(h - Ri) < 1e-6 * Ri) {
@@ -66,20 +108,19 @@ function headSolid(f: ComponentFrame, head: Head | undefined): Shape3D {
     inner = tori.inner.map((s) => ({ arc: P(s.arc), via: P(s.via) }));
     outer = tori.outer.map((s) => ({ arc: P(s.arc), via: P(s.via) }));
   } else {
-    // Elips (2:1 veya oranı farklı yarım küre/torisferik yedeği). Ayna (sol) yön değiştirir.
-    const sweepIn = dir === 1;
-    inner = [{ ellipse: P([0, h]), rx: Ri, rz: h, sweep: sweepIn }];
-    outer = [{ ellipse: P([Ri + t, 0]), rx: Ri + t, rz: h + t, sweep: !sweepIn }];
+    // Elips (2:1 veya oranı farklı yarım küre/torisferik yedeği).
+    inner = ellipseCubics(Ri, h, 0, Math.PI / 2, P);
+    outer = ellipseCubics(Ri + t, h + t, Math.PI / 2, 0, P);
   }
 
-  const segs: ProfileSeg[] = [];
+  const segs: Seg[] = [];
   const start = P([Ri, -sf]);
   if (sf > EPS) segs.push({ line: P([Ri, 0]) });
   segs.push(...inner);
   segs.push({ line: P([0, h + t]) });
   segs.push(...outer);
   if (sf > EPS) segs.push({ line: P([Ri + t, -sf]) });
-  return revolveProfile(start, segs);
+  return revolveSegs(start, segs);
 }
 
 /**
