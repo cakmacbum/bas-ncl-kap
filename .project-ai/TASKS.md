@@ -26,3 +26,6 @@ Karar: backend yok → geometri tarayıcıda replicad+opencascade.js (Worker); R
 - AÇIK: diş açılmış manşon iç çapı ↔ SCH160/XXS eşlemesi (catalogAdapter couplingNozzleDims) ajanın hafızasından; kaynakla doğrulanacak. Half SW boy null. Weldolet katalogda yok.
 - AÇIK: nozzle-catalog.json "SCH10" değerleri NPS 1/2–12'de aslında 10S (D03 bulgusu).
 - 2026-10-28: D07, D08 birleşti. D05 (sihirbaz) hâlâ koşuyordu — worktree-agent-aff28588d8cc8ccd0; pages.tsx'te D08'in 3 düzenlemesiyle çakışma olabilir. Kalan: D05 merge, W4 code-reviewer + test-verifier, tarayıcı görsel doğrulaması (D08 yapamadı).
+- 2026-10-28: D05, D07, D08, D09 (W4 inceleme düzeltmeleri), D06 bombe katısı düzeltmesi, D08 yerleşim/3D yönü düzeltmesi birleşti. vitest 63/63, build temiz, pytest 332/332 (D09 öncesi ana dal).
+- AÇIK (Yusuf kararı): position.py bombe nozulunda sessiz kırpma yapıyor (axial > head_height → tepe, negatif axial kontrolsüz); TS artık OUT_OF_HOST veriyor → UI/backend uyumsuz.
+- AÇIK: ana bundle 1.49 MB (500 kB uyarısı; katalog JSON'ları + sihirbaz) — kod bölme ayrı iş.

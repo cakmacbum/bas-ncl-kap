@@ -62,3 +62,7 @@ Backend (Render) hâlâ yok → canlı arayüz hesap API'sine ulaşamaz. Açık:
 
 ## 2026-10-28 — M4 başladı: Step 03 yeniden yazımı
 Orkestra: şef kod yazmaz; D00–D08 paketleri ayrı alt-ajan context'lerinde (worktree). W1 koşuyor. Plan: `paketler/D-PLAN-step03-yeniden.md`.
+2026-10-28 akşam: M4 Step 03 yeniden yazımı — D00–D09 ana dalda. Tarayıcıda replicad OCCT worker (wasm 23 MB ayrı asset), 5 adımlı sihirbaz, gerçekçi nozul/manşon/manway/mesnet katıları, tarayıcıdan STEP/STL. AI ajanı silindi. Backend'e geometri isteği yok.
+Kanıt: W4 test-verifier tarayıcı senaryosu 7/9 → 2 hata düzeltildi (bombe STEP geçersizliği, STEP düğmesi örtülmesi); son doğrulama turu koşuyor.
+Push yapılmadı.
+Son doğrulama (6224e45): gerçek tıklamayla STEP indi; CadQuery 11/11 katı geçerli, bombeler duvarlı (HEAD-L 14.5e6 mm³). M4 tamam.
