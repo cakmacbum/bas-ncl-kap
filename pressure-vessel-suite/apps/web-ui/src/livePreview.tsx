@@ -5,13 +5,16 @@
 // K6: Flanş/kapak biçimleri görsel temsildir (B16.5 ölçüsü değildir).
 // Kesin imalat modeli için CadQuery/STEP çıktısı kullanılır.
 
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, type CSSProperties } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Bounds, GizmoHelper, GizmoViewport } from "@react-three/drei";
 import * as THREE from "three";
 import { CameraHelpNote, CameraRigLayer, CameraToolbar, type CameraApi } from "./cameraToolbar";
 
 import type { ComponentReference, Cone, Head, Nozzle, ShellSection } from "./types";
+import type { MeshPart, Selection } from "./geometryContract";
+import { useCadBuild } from "./cad/cadClient";
+import { useStore } from "./store";
 import type { DimKey } from "./schematic";
 import {
   componentFrames, nozzlePlacement, nozzleVisual, vesselProfile, vesselProfileChain,
@@ -155,6 +158,67 @@ function NozzleMesh({
   );
 }
 
+const KIND_COLOR: Record<MeshPart["kind"], string> = {
+  shell: "#b8b8b8", cone: "#b0b4b8", head: "#b4b4b4", nozzle: "#a8a8a8", support: "#8a7f6e",
+};
+
+/** Worker (OCCT) mesh'leri: partId başına bir mesh; tık → seçim, seçili parça vurgulu. */
+export function CadMeshes({
+  meshes, selection, onSelect,
+}: {
+  meshes: MeshPart[]; selection: Selection | null; onSelect: (s: Selection) => void;
+}) {
+  const geos = useMemo(
+    () => meshes.map((m) => {
+      const g = new THREE.BufferGeometry();
+      g.setAttribute("position", new THREE.BufferAttribute(m.positions, 3));
+      g.setAttribute("normal", new THREE.BufferAttribute(m.normals, 3));
+      g.setIndex(new THREE.BufferAttribute(m.indices, 1));
+      let edges: THREE.BufferGeometry | null = null;
+      if (m.edges && m.edges.length) {
+        edges = new THREE.BufferGeometry();
+        edges.setAttribute("position", new THREE.BufferAttribute(m.edges, 3));
+      }
+      return { g, edges };
+    }),
+    [meshes],
+  );
+  useEffect(() => () => geos.forEach(({ g, edges }) => { g.dispose(); edges?.dispose(); }), [geos]);
+
+  return (
+    <group>
+      {meshes.map((m, i) => {
+        const id = m.partId.slice(m.partId.indexOf(":") + 1);
+        const selected = selection?.kind === m.kind && selection.id === id;
+        return (
+          <group key={m.partId}>
+            <mesh geometry={geos[i].g}
+              onClick={(e) => { e.stopPropagation(); onSelect({ kind: m.kind, id }); }}>
+              <meshStandardMaterial color={selected ? COLOR_ACTIVE : KIND_COLOR[m.kind]}
+                emissive={selected ? COLOR_ACTIVE : "#000000"} emissiveIntensity={selected ? 0.25 : 0}
+                metalness={0.55} roughness={0.42} side={THREE.DoubleSide} />
+            </mesh>
+            {geos[i].edges && (
+              <lineSegments geometry={geos[i].edges!}>
+                <lineBasicMaterial color={selected ? "#1d4fb3" : "#3a3a3a"} />
+              </lineSegments>
+            )}
+          </group>
+        );
+      })}
+    </group>
+  );
+}
+
+const BADGES: CSSProperties = {
+  position: "absolute", top: 8, left: 8, zIndex: 5, display: "flex", gap: 6, flexWrap: "wrap",
+  fontSize: 11, pointerEvents: "none",
+};
+const CHIP: CSSProperties = {
+  padding: "2px 8px", borderRadius: 999, background: "rgba(20,20,20,.78)", color: "#fafafa",
+  border: "1px solid rgba(255,255,255,.18)", pointerEvents: "auto",
+};
+
 export interface LivePreviewProps {
   shell: ShellSection;
   shells?: ShellSection[];
@@ -173,6 +237,13 @@ export function LivePreview({
 }: LivePreviewProps) {
   const leftHead = heads[0];
   const rightHead = heads[1] ?? heads[0];
+
+  // Worker (OCCT) geometrisi; hazır olana dek aşağıdaki lathe+nozul çizimi yer tutucu kalır.
+  const project = useStore((s) => s.project);
+  const selection = useStore((s) => s.selection);
+  const setSelection = useStore((s) => s.setSelection);
+  const cad = useCadBuild(project, "preview");
+  const useCad = cad.meshes.length > 0;
 
   if (!shell || !leftHead) {
     return (
@@ -209,18 +280,24 @@ export function LivePreview({
               yatay → θ=0° ekranda üst (2D şemadaki sözleşme),
               dikey → kap ekseni yukarı. */}
           <group rotation={isVertical ? [-Math.PI / 2, 0, 0] : [0, 0, Math.PI / 2]}>
-            <VesselBody shell={shell} shells={shells} leftHead={leftHead} rightHead={rightHead}
-              cones={cones} sequence={componentSequence} heads={heads}
-              active={active} />
-            {nozzles.map((nz, i) => (
-              <NozzleMesh
-                key={`${nz.tag}-${i}`}
-                nozzle={nz}
-                chain={chain}
-                frames={frames}
-                highlighted={nozzleActive && activeNozzle === i}
-              />
-            ))}
+            {useCad ? (
+              <CadMeshes meshes={cad.meshes} selection={selection} onSelect={setSelection} />
+            ) : (
+              <>
+                <VesselBody shell={shell} shells={shells} leftHead={leftHead} rightHead={rightHead}
+                  cones={cones} sequence={componentSequence} heads={heads}
+                  active={active} />
+                {nozzles.map((nz, i) => (
+                  <NozzleMesh
+                    key={`${nz.tag}-${i}`}
+                    nozzle={nz}
+                    chain={chain}
+                    frames={frames}
+                    highlighted={nozzleActive && activeNozzle === i}
+                  />
+                ))}
+              </>
+            )}
           </group>
         </Bounds>
 
@@ -230,6 +307,23 @@ export function LivePreview({
             labelColor="#fafafa" />
         </GizmoHelper>
       </Canvas>
+      </div>
+
+      <div style={BADGES} aria-live="polite">
+        {(cad.status === "loading" || (cad.status === "building" && !useCad)) && (
+          <span style={CHIP}>3D motor yükleniyor…</span>
+        )}
+        {cad.status === "error" && (
+          <span style={{ ...CHIP, background: "rgba(160,40,40,.85)" }} title={cad.error ?? undefined}>
+            3D motor hatası — basit önizleme
+          </span>
+        )}
+        {cad.warnings.length > 0 && (
+          <span style={{ ...CHIP, background: "rgba(150,100,10,.88)" }}
+            title={cad.warnings.map((w) => w.message).join("\n")}>
+            ⚠ {cad.warnings.length} uyarı
+          </span>
+        )}
       </div>
 
       <CameraToolbar apiRef={cameraApi} />
