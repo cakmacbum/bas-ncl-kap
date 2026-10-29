@@ -474,6 +474,19 @@ class Support(BaseModel):
     leg_flange_thickness_mm: Optional[float] = Field(
         default=None, gt=0, description="Flanş kalınlığı t (yalnız U profil) (mm).",
     )
+    leg_channel_facing: Optional[str] = Field(
+        default=None, pattern="^(web|flanges)$",
+        description="U profilin pede bakan yüzü: web (sırt pede yaslanır) | flanges (kanat uçları pede). "
+                    "None = web. Yalnız geometri; hesaba girmez.",
+    )
+    leg_pad_top_extension_mm: Optional[float] = Field(
+        default=None, ge=0,
+        description="Ped üst kenarının ayak üst ucundan yukarı taşma payı (mm). None = 50. Yalnız geometri.",
+    )
+    leg_start_angle_deg: Optional[float] = Field(
+        default=None,
+        description="İlk ayağın açısı (°, +X'ten). None = 4 ayakta 45, diğerlerinde 0. Yalnız geometri.",
+    )
     leg_unbraced_length_mm: Optional[float] = Field(
         default=None, gt=0,
         description="Burkulma boyu L (mm). Boşsa destek yüksekliği (height_mm) kullanılır ve sonuca yazılır.",

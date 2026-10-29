@@ -187,6 +187,12 @@ export interface Support {
   leg_profile_width_mm: number | null;
   leg_web_thickness_mm: number | null;
   leg_flange_thickness_mm: number | null;
+  /** U profilin pede bakan yüzü; null = "web" (sırt pede). Yalnız geometri. */
+  leg_channel_facing?: "web" | "flanges" | null;
+  /** Ped üst kenarı − ayak üst ucu (mm); null = 50. Yalnız geometri. */
+  leg_pad_top_extension_mm?: number | null;
+  /** İlk ayak açısı (°, +X'ten); null → 4 ayakta 45, diğerlerinde 0. */
+  leg_start_angle_deg?: number | null;
   leg_unbraced_length_mm: number | null;
   leg_eccentricity_mm: number | null;
   leg_effective_length_factor_K: number | null;
