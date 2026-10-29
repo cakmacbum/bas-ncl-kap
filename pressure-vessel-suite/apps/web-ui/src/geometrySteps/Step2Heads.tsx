@@ -1,12 +1,12 @@
 // 3.2 Sol/sağ bombe kartları: uç çapı zincirden otomatik, tip SVG ikonlarıyla seçilir.
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { syncTerminalHeads, useStore } from "../store";
 import { componentFrames, headDepth, headDomeHeight } from "../vesselModel";
 import { HEAD_TYPE_TR } from "../i18n";
 import { NumField, SelectField } from "../components";
 import type { Head, HeadTypeT } from "../types";
-import { RField, fmt } from "./shared";
+import { RField, Group, StepIntro, fmt } from "./shared";
 import { crownDepthPatch, depthRatio, ellipticalK, typeChangePatch } from "./headDepth";
 
 const TYPES: HeadTypeT[] = ["elliptical", "torispherical", "hemispherical", "flat"];
@@ -37,7 +37,6 @@ function HeadCard({ head, side, chainD }: { head: Head; side: "left" | "right"; 
   const welds = useStore((s) => s.project.welds);
   const selection = useStore((s) => s.selection);
   const setSelection = useStore((s) => s.setSelection);
-  const [more, setMore] = useState(false);
 
   const linked = relation === "linked";
   const mismatch = Math.abs(head.inside_diameter - chainD) > 0.5;
@@ -70,70 +69,60 @@ function HeadCard({ head, side, chainD }: { head: Head; side: "left" | "right"; 
         ))}
       </div>
 
-      <div className="gw-readout">
-        <span>Zincir uç çapı</span>
-        <b>Ø{fmt(chainD)} mm</b>
-        <button type="button" className={`gw-chip is-active`}
-          title="Bağlı: bombe çapı zincirden otomatik. Bağımsız: bombe çapını elle gir."
-          onClick={(e) => { e.stopPropagation(); setRelation(linked ? "independent" : "linked"); }}>
-          {linked ? "Bağlı (linked)" : "Bağımsız (independent)"}
-        </button>
-      </div>
+      <Group title="Ana ölçüler" open>
+        <div className="gw-readout">
+          <span>Zincir uç çapı</span>
+          <b>Ø{fmt(chainD)} mm</b>
+          <button type="button" className="gw-chip is-active"
+            title="Bağlı: bombe çapı zincirden otomatik. Bağımsız: bombe çapını elle gir."
+            onClick={(e) => { e.stopPropagation(); setRelation(linked ? "independent" : "linked"); }}>
+            {linked ? "Bağlı (linked)" : "Bağımsız (independent)"}
+          </button>
+        </div>
 
-      <div className="grid">
-        <RField label="Bombe iç çapı" unit="mm" value={head.inside_diameter} min={50} max={20000}
-          readOnly={linked}
-          note={linked ? "Zincir ucundan otomatik; elle girmek için «Bağımsız» seçin." : undefined}
-          onChange={(v) => updateHead(head.head_id, { inside_diameter: v })} />
-        <RField label="Et kalınlığı (t)" unit="mm" value={head.nominal_thickness} min={1} max={250}
-          onChange={(v) => updateHead(head.head_id, { nominal_thickness: v })} />
-        <RField label="Düz flanş boyu (sf)" unit="mm" value={head.straight_flange_length} min={0} max={500}
-          onChange={(v) => updateHead(head.head_id, { straight_flange_length: v })} />
-      </div>
+        <div className="grid">
+          <RField label="Bombe iç çapı" unit="mm" value={head.inside_diameter} min={50} max={20000}
+            readOnly={linked}
+            help={linked ? "Zincir ucundan otomatik; elle girmek için «Bağımsız» seçin." : undefined}
+            onChange={(v) => updateHead(head.head_id, { inside_diameter: v })} />
+          <RField label="Et kalınlığı (t)" unit="mm" value={head.nominal_thickness} min={1} max={250}
+            onChange={(v) => updateHead(head.head_id, { nominal_thickness: v })} />
+        </div>
 
-      {mismatch && (
-        <p className="gw-note gw-note--bad" role="alert">
-          Bombe çapı (Ø{fmt(head.inside_diameter)}) zincir ucuyla (Ø{fmt(chainD)}) uyuşmuyor.
-        </p>
-      )}
+        {mismatch && (
+          <p className="gw-note gw-note--bad" role="alert">
+            Bombe çapı (Ø{fmt(head.inside_diameter)}) zincir ucuyla (Ø{fmt(chainD)}) uyuşmuyor.
+          </p>
+        )}
 
-      {head.type === "elliptical" && (
-        <>
-          <div className="grid">
+        <div className="derived-dims" aria-label="Bombe türetilmiş ölçüleri">
+          <span>Dış çap</span><b>{fmt(head.inside_diameter + 2 * head.nominal_thickness)} mm <em className="gw-calc">hesaplanan</em></b>
+          <span>Kubbe yüksekliği</span><b>{fmt(dome)} mm <em className="gw-calc">hesaplanan</em></b>
+          <span>Toplam derinlik (kubbe + sf)</span><b>{fmt(depth)} mm <em className="gw-calc">hesaplanan</em></b>
+        </div>
+      </Group>
+
+      <Group title="Ayrıntılar">
+        <div className="grid">
+          <RField label="Düz flanş boyu (sf)" unit="mm" value={head.straight_flange_length} min={0} max={500}
+            onChange={(v) => updateHead(head.head_id, { straight_flange_length: v })} />
+          {head.type === "elliptical" && (
             <RField label="Kubbe derinliği (h)" unit="mm" value={head.crown_depth ?? 0} min={0} max={head.inside_diameter}
               note={`0 = standart 2:1 (h = Di/4 = ${fmt(head.inside_diameter / 4)} mm)`}
               onChange={(v) => updateHead(head.head_id, crownDepthPatch(v))} />
-          </div>
-          <p className="gw-note" aria-label="Eliptik oran">
-            D/2h = {fmt(depthRatio(head.inside_diameter, dome), 2).replace(".", ",")} · K = {fmt(ellipticalK(depthRatio(head.inside_diameter, dome)), 3).replace(".", ",")}
-          </p>
-        </>
-      )}
-      {head.type === "torispherical" && (
-        <div className="grid">
-          <RField label="Taç yarıçapı (R)" unit="mm" value={head.crown_radius ?? 0} min={0} max={head.inside_diameter * 1.5}
-            note="0 = standart (R = Di)" onChange={(v) => updateHead(head.head_id, { crown_radius: v > 0 ? v : null })} />
-          <RField label="Mafsal yarıçapı (r)" unit="mm" value={head.knuckle_radius ?? 0} min={0} max={head.inside_diameter / 2}
-            note="0 = standart (r = 0,06·Di)" onChange={(v) => updateHead(head.head_id, { knuckle_radius: v > 0 ? v : null })} />
-        </div>
-      )}
-      {head.type === "flat" && (
-        <NumField label="Düz kapak C katsayısı (UG-34)" value={head.flat_attachment_factor ?? 0}
-          hint="0 = girilmedi" onChange={(v) => updateHead(head.head_id, { flat_attachment_factor: v > 0 ? v : null })} />
-      )}
-
-      <div className="derived-dims" aria-label="Bombe türetilmiş ölçüleri">
-        <span>Dış çap</span><b>{fmt(head.inside_diameter + 2 * head.nominal_thickness)} mm</b>
-        <span>Kubbe yüksekliği</span><b>{fmt(dome)} mm</b>
-        <span>Toplam derinlik (kubbe + sf)</span><b>{fmt(depth)} mm</b>
-      </div>
-
-      <button type="button" className="ghost-btn gw-more" aria-expanded={more}
-        onClick={(e) => { e.stopPropagation(); setMore((m) => !m); }}>
-        {more ? "▾" : "▸"} Hesap ayrıntıları
-      </button>
-      {more && (
-        <div className="grid" onClick={(e) => e.stopPropagation()}>
+          )}
+          {head.type === "torispherical" && (
+            <>
+              <RField label="Taç yarıçapı (R)" unit="mm" value={head.crown_radius ?? 0} min={0} max={head.inside_diameter * 1.5}
+                note="0 = standart (R = Di)" onChange={(v) => updateHead(head.head_id, { crown_radius: v > 0 ? v : null })} />
+              <RField label="Mafsal yarıçapı (r)" unit="mm" value={head.knuckle_radius ?? 0} min={0} max={head.inside_diameter / 2}
+                note="0 = standart (r = 0,06·Di)" onChange={(v) => updateHead(head.head_id, { knuckle_radius: v > 0 ? v : null })} />
+            </>
+          )}
+          {head.type === "flat" && (
+            <NumField label="Düz kapak C katsayısı (UG-34)" value={head.flat_attachment_factor ?? 0}
+              hint="0 = girilmedi" onChange={(v) => updateHead(head.head_id, { flat_attachment_factor: v > 0 ? v : null })} />
+          )}
           <SelectField label="Malzeme" value={head.material_id}
             options={materials.map((m) => ({ value: m.material_id, label: `${m.material_id} — ${m.material_designation}` }))}
             onChange={(v) => updateHead(head.head_id, { material_id: v })} />
@@ -149,7 +138,12 @@ function HeadCard({ head, side, chainD }: { head: Head; side: "left" | "right"; 
           <NumField label="UG-33 B faktörü" unit="MPa" value={head.ug28_allowable_stress_b ?? 0} hint="0 = girilmedi"
             onChange={(v) => updateHead(head.head_id, { ug28_allowable_stress_b: v > 0 ? v : null })} />
         </div>
-      )}
+        {head.type === "elliptical" && (
+          <p className="gw-hint" aria-label="Eliptik oran">
+            D/2h = {fmt(depthRatio(head.inside_diameter, dome), 2).replace(".", ",")} · K = {fmt(ellipticalK(depthRatio(head.inside_diameter, dome)), 3).replace(".", ",")}
+          </p>
+        )}
+      </Group>
     </article>
   );
 }
@@ -165,9 +159,12 @@ export function Step2Heads() {
     return <p className="gw-empty">Zincirde iki uç bombe ve en az bir gövde elemanı bulunmalı.</p>;
   }
   return (
-    <div className="gw-step gw-heads">
-      <HeadCard head={left} side="left" chainD={2 * frames[1].rInStart} />
-      <HeadCard head={right} side="right" chainD={2 * frames[n - 2].rInEnd} />
+    <div className="gw-step">
+      <StepIntro>Uç bombelerin tipini ve iç çapını seç; çap zincirin ucundan gelir (Bağımsız modda elle girilir).</StepIntro>
+      <div className="gw-step gw-heads">
+        <HeadCard head={left} side="left" chainD={2 * frames[1].rInStart} />
+        <HeadCard head={right} side="right" chainD={2 * frames[n - 2].rInEnd} />
+      </div>
     </div>
   );
 }

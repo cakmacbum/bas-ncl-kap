@@ -10,7 +10,7 @@ import type { CouplingForm, CouplingRating } from "../geometryContract";
 import type { Nozzle } from "../types";
 import { CatalogBadge } from "./IssuesPanel";
 import {
-  ChipGroup, PlacementFields, Section, fmt, hostFrames, hostLength, headRadius, outOfRange,
+  ChipGroup, Group, PlacementFields, Section, StepIntro, fmt, hostFrames, hostLength, headRadius, outOfRange,
   type Placement,
 } from "./shared";
 
@@ -82,41 +82,48 @@ export function Step4Couplings() {
 
   return (
     <div className="gw-step">
+      <StepIntro>Bağlantı tipi, boyut ve konumu seçip manşonu ekle; ölçüler katalogdan gelir.</StepIntro>
+
       <Section title="Yeni manşon" meta={<CatalogBadge />}>
-        <div className="grid">
-          <SelectField label="Bağlantı" value={type}
-            options={COUPLING_TYPES.map((t) => ({ value: t, label: COUPLING_TYPE_TR[t] }))}
-            onChange={(v) => setType(v as CouplingType)} />
-          <SelectField label="Boyut (NPS / DN)" value={nps}
-            options={SIZES.map((s) => ({ value: s.nps, label: `${s.label} (DN${s.dn})` }))}
-            onChange={setNps} />
-        </div>
-        <ChipGroup label="Manşon formu" value={form} onChange={setForm}
-          options={FORMS.map((f) => ({
-            value: f, label: COUPLING_FORM_TR[f]?.replace(" (katalogda yok)", "") ?? f,
-            disabled: f === "weldolet", title: f === "weldolet" ? "Weldolet katalogda yok" : undefined,
-          }))} />
-        <ChipGroup label="Sınıf" value={rating} onChange={setRating}
-          options={(["3000#", "6000#"] as CouplingRating[]).map((r) => ({ value: r, label: r }))} />
-
-        {dims ? (
-          <div className="derived-dims" aria-label="Manşon ölçüleri">
-            <span>Gövde dış çapı</span><b>{fmt(dims.od, 2)} mm{derivedTag(dims.derived, "od")}</b>
-            <span>İç çap / delik</span><b>{fmt(dims.id, 2)} mm{derivedTag(dims.derived, "id")}</b>
-            <span>Boy (dış çıkıntı)</span><b>{fmt(dims.length, 1)} mm{derivedTag(dims.derived, "length")}</b>
+        <Group title="Ana ölçüler" open>
+          <div className="grid">
+            <SelectField label="Bağlantı" value={type}
+              options={COUPLING_TYPES.map((t) => ({ value: t, label: COUPLING_TYPE_TR[t] }))}
+              onChange={(v) => setType(v as CouplingType)} />
+            <SelectField label="Boyut (NPS / DN)" value={nps}
+              options={SIZES.map((s) => ({ value: s.nps, label: `${s.label} (DN${s.dn})` }))}
+              onChange={setNps} />
           </div>
-        ) : (
-          <p className="gw-note gw-note--bad" role="alert">
-            Bu kombinasyon için ölçüler katalogda yok ({nps}" {rating} {COUPLING_FORM_TR[form]?.replace(" (katalogda yok)", "")}, {type === "socket_welded" ? "soket" : "dişli"}).
-          </p>
-        )}
+          <ChipGroup label="Manşon formu" value={form} onChange={setForm}
+            options={FORMS.map((f) => ({
+              value: f, label: COUPLING_FORM_TR[f]?.replace(" (katalogda yok)", "") ?? f,
+              disabled: f === "weldolet", title: f === "weldolet" ? "Weldolet katalogda yok" : undefined,
+            }))} />
 
-        <PlacementFields frames={frames} horizontal={horizontal}
-          value={{ host: hostId, z, theta: pl.theta, headD: pl.headD }}
-          onChange={(p: Partial<Placement>) => setPl((cur) => ({
-            host: p.host ?? cur.host, theta: p.theta ?? cur.theta, headD: p.headD ?? cur.headD,
-            z: p.host !== undefined ? null : p.z !== undefined ? p.z : cur.z,
-          }))} />
+          {dims ? (
+            <div className="derived-dims" aria-label="Manşon ölçüleri">
+              <span>Gövde dış çapı</span><b>{fmt(dims.od, 2)} mm{derivedTag(dims.derived, "od")}</b>
+              <span>İç çap / delik</span><b>{fmt(dims.id, 2)} mm{derivedTag(dims.derived, "id")}</b>
+              <span>Boy (dış çıkıntı)</span><b>{fmt(dims.length, 1)} mm{derivedTag(dims.derived, "length")}</b>
+            </div>
+          ) : (
+            <p className="gw-note gw-note--bad" role="alert">
+              Bu kombinasyon için ölçüler katalogda yok ({nps}" {rating} {COUPLING_FORM_TR[form]?.replace(" (katalogda yok)", "")}, {type === "socket_welded" ? "soket" : "dişli"}).
+            </p>
+          )}
+
+          <PlacementFields frames={frames} horizontal={horizontal}
+            value={{ host: hostId, z, theta: pl.theta, headD: pl.headD }}
+            onChange={(p: Partial<Placement>) => setPl((cur) => ({
+              host: p.host ?? cur.host, theta: p.theta ?? cur.theta, headD: p.headD ?? cur.headD,
+              z: p.host !== undefined ? null : p.z !== undefined ? p.z : cur.z,
+            }))} />
+        </Group>
+
+        <Group title="Ayrıntılar">
+          <ChipGroup label="Sınıf" value={rating} onChange={setRating}
+            options={(["3000#", "6000#"] as CouplingRating[]).map((r) => ({ value: r, label: r }))} />
+        </Group>
 
         {warn && <p className="gw-note gw-note--bad" role="alert">{warn}</p>}
         {posBad && host && (
@@ -166,15 +173,17 @@ export function Step4Couplings() {
             <div className="gw-editor__head"><b>{selRow.nz.tag} düzenle</b>
               <span className="gw-editor__meta">boyut değişimi için silip yeniden ekleyin</span>
             </div>
-            <PlacementFields frames={frames} horizontal={horizontal}
-              value={{ host: selRow.nz.host_component_id, z: selRow.nz.axial_position,
-                theta: selRow.nz.circumferential_angle, headD: selRow.nz.head_position_diameter ?? 0 }}
-              onChange={(p) => updateNozzle(selRow.index, {
-                ...(p.host !== undefined ? { host_component_id: p.host } : {}),
-                ...(p.z !== undefined ? { axial_position: p.z } : {}),
-                ...(p.theta !== undefined ? { circumferential_angle: p.theta } : {}),
-                ...(p.headD !== undefined ? { head_position_diameter: p.headD > 0 ? p.headD : null } : {}),
-              })} />
+            <Group title="Ana ölçüler" open>
+              <PlacementFields frames={frames} horizontal={horizontal}
+                value={{ host: selRow.nz.host_component_id, z: selRow.nz.axial_position,
+                  theta: selRow.nz.circumferential_angle, headD: selRow.nz.head_position_diameter ?? 0 }}
+                onChange={(p) => updateNozzle(selRow.index, {
+                  ...(p.host !== undefined ? { host_component_id: p.host } : {}),
+                  ...(p.z !== undefined ? { axial_position: p.z } : {}),
+                  ...(p.theta !== undefined ? { circumferential_angle: p.theta } : {}),
+                  ...(p.headD !== undefined ? { head_position_diameter: p.headD > 0 ? p.headD : null } : {}),
+                })} />
+            </Group>
           </div>
         )}
       </Section>

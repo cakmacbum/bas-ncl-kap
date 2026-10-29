@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { useStore, type ChainSide } from "../store";
 import { componentFrames } from "../vesselModel";
 import { NumField, SelectField } from "../components";
-import { RField, ChipGroup, Section, fmt } from "./shared";
+import { RField, ChipGroup, Section, Group, StepIntro, fmt } from "./shared";
 
 type AddMode = "shell" | "cone" | "stepped";
 
@@ -124,7 +124,6 @@ function ItemEditor() {
   const duplicateComponent = useStore((s) => s.duplicateComponent);
   const removeComponent = useStore((s) => s.removeComponent);
   const moveComponent = useStore((s) => s.moveComponent);
-  const [more, setMore] = useState(false);
 
   const seq = project.component_sequence ?? [];
   const materialOpts = project.materials.map((m) => ({ value: m.material_id, label: `${m.material_id} — ${m.material_designation}` }));
@@ -157,40 +156,47 @@ function ItemEditor() {
         </span>
       </div>
 
-      {shell && (
-        <div className="grid">
-          <RField label="İç çap (ID)" unit="mm" value={shell.inside_diameter ?? 0} min={50} max={20000}
-            onChange={(v) => updateShell(shell.section_id, { inside_diameter: v, outside_diameter: null })} />
-          <RField label="Et kalınlığı (t)" unit="mm" value={shell.nominal_thickness} min={1} max={250}
-            onChange={(v) => updateShell(shell.section_id, { nominal_thickness: v })} />
-          <RField label="Teğet boyu (L)" unit="mm" value={shell.tangent_length} min={10} max={60000}
-            onChange={(v) => updateShell(shell.section_id, { tangent_length: v })} />
-          <SelectField label="Malzeme" value={shell.material_id} options={materialOpts}
-            onChange={(v) => updateShell(shell.section_id, { material_id: v })} />
-        </div>
-      )}
-      {cone && (
-        <div className="grid">
-          <RField label="Büyük çap" unit="mm" value={cone.large_diameter} min={50} max={20000}
-            onChange={(v) => updateCone(cone.cone_id, { large_diameter: v })} />
-          <RField label="Küçük çap" unit="mm" value={cone.small_diameter} min={50} max={cone.large_diameter - 1}
-            onChange={(v) => updateCone(cone.cone_id, { small_diameter: v })} />
-          <RField label="Boy" unit="mm" value={cone.length} min={10} max={30000}
-            onChange={(v) => updateCone(cone.cone_id, { length: v })} />
-          <RField label="Et kalınlığı (t)" unit="mm" value={cone.nominal_thickness} min={1} max={250}
-            onChange={(v) => updateCone(cone.cone_id, { nominal_thickness: v })} />
-          <RField label="Yarı tepe açısı α (hesaplanan)" unit="°" value={cone.half_apex_angle} max={30} readOnly onChange={() => undefined}
-            note={cone.half_apex_angle > 30 ? "α > 30° — torikonik/knuckle veya özel analiz gerekir." : "30° üzeri özel analiz, 60° üzeri Appendix 1-8 kapsam dışı."} />
-          <SelectField label="Malzeme" value={cone.material_id} options={materialOpts}
-            onChange={(v) => updateCone(cone.cone_id, { material_id: v })} />
-        </div>
-      )}
+      <Group title="Ana ölçüler" open>
+        {shell && (
+          <div className="grid">
+            <RField label="İç çap (ID)" unit="mm" value={shell.inside_diameter ?? 0} min={50} max={20000}
+              onChange={(v) => updateShell(shell.section_id, { inside_diameter: v, outside_diameter: null })} />
+            <RField label="Et kalınlığı (t)" unit="mm" value={shell.nominal_thickness} min={1} max={250}
+              onChange={(v) => updateShell(shell.section_id, { nominal_thickness: v })} />
+            <RField label="Teğet boyu (L)" unit="mm" value={shell.tangent_length} min={10} max={60000}
+              onChange={(v) => updateShell(shell.section_id, { tangent_length: v })} />
+          </div>
+        )}
+        {cone && (
+          <div className="grid">
+            <RField label="Büyük çap" unit="mm" value={cone.large_diameter} min={50} max={20000}
+              onChange={(v) => updateCone(cone.cone_id, { large_diameter: v })} />
+            <RField label="Küçük çap" unit="mm" value={cone.small_diameter} min={50} max={cone.large_diameter - 1}
+              onChange={(v) => updateCone(cone.cone_id, { small_diameter: v })} />
+            <RField label="Boy" unit="mm" value={cone.length} min={10} max={30000}
+              onChange={(v) => updateCone(cone.cone_id, { length: v })} />
+            <RField label="Et kalınlığı (t)" unit="mm" value={cone.nominal_thickness} min={1} max={250}
+              onChange={(v) => updateCone(cone.cone_id, { nominal_thickness: v })} />
+          </div>
+        )}
+      </Group>
 
-      <button type="button" className="ghost-btn gw-more" aria-expanded={more} onClick={() => setMore((m) => !m)}>
-        {more ? "▾" : "▸"} Hesap ayrıntıları (korozyon, tolerans, kaynak{shell ? ", UG-28" : ""})
-      </button>
-      {more && (
+      <Group title="Ayrıntılar">
         <div className="grid">
+          {cone && (
+            <RField label="Yarı tepe açısı α" unit="°" value={cone.half_apex_angle} max={30} readOnly onChange={() => undefined}
+              help={cone.half_apex_angle > 30
+                ? "α > 30° — torikonik/knuckle veya özel analiz gerekir. 30° üzeri özel analiz, 60° üzeri Appendix 1-8 kapsam dışı."
+                : "30° üzeri özel analiz, 60° üzeri Appendix 1-8 kapsam dışı."} />
+          )}
+          {shell && (
+            <SelectField label="Malzeme" value={shell.material_id} options={materialOpts}
+              onChange={(v) => updateShell(shell.section_id, { material_id: v })} />
+          )}
+          {cone && (
+            <SelectField label="Malzeme" value={cone.material_id} options={materialOpts}
+              onChange={(v) => updateCone(cone.cone_id, { material_id: v })} />
+          )}
           <NumField label="İç korozyon payı" unit="mm" value={item.internal_corrosion_allowance}
             onChange={(v) => shell ? updateShell(shell.section_id, { internal_corrosion_allowance: v })
               : updateCone(cone!.cone_id, { internal_corrosion_allowance: v })} />
@@ -211,7 +217,7 @@ function ItemEditor() {
             </>
           )}
         </div>
-      )}
+      </Group>
     </div>
   );
 }
@@ -231,9 +237,12 @@ export function Step1BodyChain() {
   const canAdd = n >= 3;
   const endD = canAdd ? (adding === "left" ? 2 * frames[1].rInStart : 2 * frames[n - 2].rInEnd) : 0;
   const neighborT = canAdd ? (adding === "left" ? frames[1].thickness : frames[n - 2].thickness) : 12;
+  const editable = selection?.kind === "shell" || selection?.kind === "cone";
 
   return (
     <div className="gw-step">
+      <StepIntro>Uçlara silindir, koni veya daraltma ekleyerek gövdeyi kur; bir halkaya tıklayıp ölçüsünü düzenle.</StepIntro>
+
       <Section title="Gövde zinciri" meta={`${rings.length} halka`}>
         <div className="gw-strip" role="group" aria-label="Gövde zinciri şeridi">
           <button type="button" className="gw-cap" title="Bombeleri düzenle" onClick={() => setGeoSubStep(1)}>
@@ -271,9 +280,13 @@ export function Step1BodyChain() {
         {!canAdd && <p className="gw-note gw-note--bad" role="alert">Zincir en az bombe–gövde–bombe olmalı; uç ekleme kapalı.</p>}
       </Section>
 
-      <Section title="Seçili halka">
-        <ItemEditor />
-      </Section>
+      {editable ? (
+        <Section title="Seçili halka">
+          <ItemEditor />
+        </Section>
+      ) : (
+        <p className="gw-empty">Seçili halka yok — düzenlemek için zincirdeki bir halkaya tıklayın.</p>
+      )}
     </div>
   );
 }
