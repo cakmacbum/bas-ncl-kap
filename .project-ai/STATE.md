@@ -71,3 +71,9 @@ Son doğrulama (6224e45): gerçek tıklamayla STEP indi; CadQuery 11/11 katı ge
 - legs.ts yeniden: U yönü web/flanges, ayak pede oturur (rs=R+padT+b/2), height_mm=profil boyu, ped üst taşma, ilk ayak açısı, taban sacı + ankraj.
 - Step 3.5 ayak editörü 4 grup (Profil/Ayak/Ped/Taban sacı), UPN 80–300 katalog (verified:false), "Kabı dikey yap", LEG_TOO_SHORT/LEG_PAD_OFF_SHELL/LEG_PROFILE_INVALID.
 - vitest 78/78, build yeşil, tarayıcıda doğrulandı. Açık: flanges yönünde düz kanat ucu–eğri ped arası ~2 mm boşluk; padL ≤ ext uyarısı yok; UPN değerleri doğrulanmadı.
+
+## 2026-10-29 orkestra | Adım 03 arayüz yeniden düzeni (U01 REA Sonnet · U02 Codex→Sonnet · U03 Haiku)
+- Geri dönüş etiketi: ui-oncesi-2026-10-29. Spec: docs/rea/configurator-layout.md (MyTank yerleşimi ölçüldü).
+- Tam yükseklik iki sütun (480/420/360), Geometri|Hesap girdileri sekmeleri, rozetli 3.1–3.5 şeridi, Ana ölçüler/Ayrıntılar grupları, yapışkan Önceki/Sonraki, yüzen görünüm/kamera çubukları, Dışa aktar menüsü, tek uyarı rozeti.
+- Düzeltilen: çift useCadBuild (yükleniyor takılması), Bounds–fit çakışması, aspect’li fit, LivePreview hook sırası. E03 bombe kubbe derinliği h + HEAD_DEPTH_RANGE.
+- vitest 92/92, build yeşil. Açık: otomatik ilk sığdırma Claude gizli tarayıcı panelinde tetiklenmedi (Playwright’ta çalışıyor) — Yusuf’un tarayıcısında kontrol edilecek.
