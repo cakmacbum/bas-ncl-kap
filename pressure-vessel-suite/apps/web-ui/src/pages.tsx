@@ -20,6 +20,9 @@ import {
 } from "./nozzleCatalog";
 import { headDepth } from "./vesselModel";
 import { geometrySignature } from "./geometryValidation";
+import { useCadBuild } from "./cad/cadClient";
+import { PreviewActions } from "./exportMenu";
+import { readPanelTab, writePanelTab, type PanelTab } from "./geometryLayout";
 import { StepImportDrawer } from "./StepImportDrawer";
 import { GeometryWizard } from "./geometrySteps/GeometryWizard";
 import { computeIssues } from "./geometrySteps/IssuesPanel";
@@ -545,13 +548,13 @@ export function GeometryPage() {
   });
 
   // Büyük önizleme: ölçülü kesit / anlık 3D / kesin model
-  const [panelTab, setPanelTab] = useState<"geometry" | "inputs">(() => {
-    try { return localStorage.getItem("geometry-panel-tab") === "inputs" ? "inputs" : "geometry"; } catch { return "geometry"; }
-  });
-  const changePanelTab = (tab: "geometry" | "inputs") => {
+  const [panelTab, setPanelTab] = useState<PanelTab>(() => readPanelTab());
+  const changePanelTab = (tab: PanelTab) => {
     setPanelTab(tab);
-    try { localStorage.setItem("geometry-panel-tab", tab); } catch { /* storage unavailable */ }
+    writePanelTab(tab);
   };
+  // Dışa aktar menüsü yanındaki uyarı rozeti için hafif (preview) derleme sonucu
+  const cadWarnings = useCadBuild(project, "preview").warnings;
   const [previewTab, setPreviewTab] = useState<"2d" | "3d" | "exact" | "uploaded">("3d");
 
   const updateNozzle = useStore((s) => s.updateNozzle);
@@ -1035,6 +1038,7 @@ export function GeometryPage() {
                   ...(uploadedModelUrl ? [{ value: "uploaded", label: "Yüklenen model" }] : []),
                 ]}
               />
+              <PreviewActions project={project} warnings={cadWarnings.map((w) => w.message)} />
             </div>
             <div className="geo-preview__body">
               {previewTab === "3d" && (
@@ -1086,7 +1090,7 @@ export function GeometryPage() {
                 </div>
               )}
 
-              {previewTab === "exact" && <ExactModelView />}
+              {previewTab === "exact" && <ExactModelView externalActions />}
               {previewTab === "uploaded" && uploadedModelUrl && <><p>Yüklenen model (yalnız görüntü — hesaba girmez)</p><VesselViewer url={uploadedModelUrl} autoRotate={false} section={false} dims={computeDims(project)} /></>}
             </div>
           </div>

@@ -329,7 +329,7 @@ export function LivePreview({
       <CameraToolbar apiRef={cameraApi} />
       <CameraHelpNote />
 
-      <p className="preview-note">
+      <p className="preview-note" title="Önizleme — kesin imalat modeli değildir. Flanş/kapak biçimleri temsilidir; ölçülendirilmiş model için Kesin Modeli Yükle.">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" strokeWidth="2" aria-hidden="true">
           <circle cx="12" cy="12" r="10" />

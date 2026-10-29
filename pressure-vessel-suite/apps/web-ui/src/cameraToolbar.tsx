@@ -137,12 +137,12 @@ export function CameraToolbar({ apiRef, onManual, onAutoRotateToggle, autoRotate
     <div className="camera-toolbar" tabIndex={0} role="group" aria-label="3D kamera kontrolleri"
       onKeyDown={onKeyDown}>
       <div className="camera-toolbar__views" aria-label="Görünüş seçimi">
-        {([ ["iso", "İzometrik", "İzo"], ["top", "Üst görünüş", "Üst"], ["front", "Ön görünüş", "Ön"], ["side", "Yan görünüş", "Yan"] ] as const).map(([view, title, label]) =>
-          <button key={view} type="button" className="btn btn--sm" title={`${title} (${view === "iso" ? 1 : view === "top" ? 2 : view === "front" ? 3 : 4})`}
-            onClick={() => { apiRef.current?.setView(view); onManual?.(); }}>{label}</button>
+        {([ ["iso", "İzometrik", "İzo", "◇"], ["top", "Üst görünüş", "Üst", "▲"], ["front", "Ön görünüş", "Ön", "▭"], ["side", "Yan görünüş", "Yan", "▯"] ] as const).map(([view, title, label, icon]) =>
+          <button key={view} type="button" className="btn btn--sm" aria-label={title} title={`${title} (${view === "iso" ? 1 : view === "top" ? 2 : view === "front" ? 3 : 4})`}
+            onClick={() => { apiRef.current?.setView(view); onManual?.(); }}><span className="cam-ico" aria-hidden="true">{icon}</span><span className="cam-label">{label}</span></button>
         )}
-        <button type="button" className="btn btn--sm" title="Modeli ekrana sığdır (F)"
-          onClick={() => { apiRef.current?.fit(); onManual?.(); }}>Sığdır</button>
+        <button type="button" className="btn btn--sm" aria-label="Sığdır" title="Modeli ekrana sığdır (F)"
+          onClick={() => { apiRef.current?.fit(); onManual?.(); }}><span className="cam-ico" aria-hidden="true">⤢</span><span className="cam-label">Sığdır</span></button>
       </div>
       {onAutoRotateToggle && <button type="button" className="btn btn--sm"
         aria-pressed={autoRotate} onClick={onAutoRotateToggle}>
@@ -153,7 +153,7 @@ export function CameraToolbar({ apiRef, onManual, onAutoRotateToggle, autoRotate
 }
 
 export function CameraHelpNote() {
-  return <div className="camera-help" aria-label="3D modeli kullanma bilgisi">
+  return <div className="camera-help" aria-label="3D modeli kullanma bilgisi" title="Sol tuşla sürükle döndür · sağ tuşla (veya Shift + sol tuşla) kaydır · tekerlek/pinç ile yakınlaş. Klavyede 1–4 görünüş, F sığdır.">
     <strong>Modeli kullanma:</strong> Sol tuşla sürükle döndür · sağ tuşla (veya Shift + sol tuşla) kaydır · tekerlek/pinç ile yakınlaş.
     Görünüş ve Sığdır düğmelerini kullan; klavyede 1–4 görünüş, F sığdır.
   </div>;
