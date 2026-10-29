@@ -581,13 +581,12 @@ export function GeometryPage() {
   }));
 
   return (
-    <div className="page page--wide">
-      <PageHead
-        kicker="Adım 03 / 06"
-        title="Kap Geometrisi"
-        desc="Beş alt adımda kabı kurun: gövde zinciri, bombeler, flanşlı nozullar, manşonlar ve mesnetler. Sağdaki önizleme her değişiklikte güncellenir; gezinmek için üstteki adım çubuğunu kullanın."
-      />
-      <div className="btn-row"><label className="btn agent-open-btn">Modelden içe aktar<input type="file" accept=".step,.stp,.stl" hidden onChange={(event) => { selectModel(event.target.files?.[0]); event.currentTarget.value = ""; }} /></label></div>
+    <div className="page page--wide page--geo">
+      <header className="geo-head">
+        <h1 className="geo-head__title">Kap Geometrisi</h1>
+        <p className="geo-head__desc" title="Beş alt adımda kabı kurun: gövde zinciri, bombeler, flanşlı nozullar, manşonlar ve mesnetler. Sağdaki önizleme her değişiklikte güncellenir; gezinmek için üstteki adım çubuğunu kullanın.">Beş alt adımda kabı kurun; önizleme her değişiklikte güncellenir.</p>
+        <label className="btn btn--sm geo-head__import">Modelden içe aktar<input type="file" accept=".step,.stp,.stl" hidden onChange={(event) => { selectModel(event.target.files?.[0]); event.currentTarget.value = ""; }} /></label>
+      </header>
       <div className="geo-layout">
         <div className="geo-forms">
           <div className="geo-panel-tabs" role="tablist" aria-label="Geometri paneli">
@@ -1043,6 +1042,7 @@ export function GeometryPage() {
             <div className="geo-preview__body">
               {previewTab === "3d" && (
                 <LivePreview
+                  hideWarningChip
                   shell={shell}
                   shells={project.shell_sections}
                   heads={project.heads}

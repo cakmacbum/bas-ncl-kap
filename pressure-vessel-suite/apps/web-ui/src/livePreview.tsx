@@ -229,11 +229,13 @@ export interface LivePreviewProps {
   orientation?: string;
   active: DimKey;
   activeNozzle?: number;
+  /** Uyarı rozeti dışarıda gösteriliyorsa çipi gizle. */
+  hideWarningChip?: boolean;
 }
 
 export function LivePreview({
   shell, heads, nozzles, orientation, active, activeNozzle,
-  shells = [shell], cones = [], componentSequence = [],
+  shells = [shell], cones = [], componentSequence = [], hideWarningChip = false,
 }: LivePreviewProps) {
   const leftHead = heads[0];
   const rightHead = heads[1] ?? heads[0];
@@ -318,7 +320,7 @@ export function LivePreview({
             3D motor hatası — basit önizleme
           </span>
         )}
-        {cad.warnings.length > 0 && (
+        {!hideWarningChip && cad.warnings.length > 0 && (
           <span style={{ ...CHIP, background: "rgba(150,100,10,.88)" }}
             title={cad.warnings.map((w) => w.message).join("\n")}>
             ⚠ {cad.warnings.length} uyarı

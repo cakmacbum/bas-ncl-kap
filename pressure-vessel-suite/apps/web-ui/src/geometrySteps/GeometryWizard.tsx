@@ -12,6 +12,7 @@ import { Step5Supports } from "./Step5Supports";
 import { IssuesPanel, computeIssues, stepIssueCounts, type WizardIssue } from "./IssuesPanel";
 import "./wizard.css";
 
+const SHORT = ["Gövde", "Bombe", "Nozul", "Manşon", "Mesnet"];
 const STEPS = [Step1BodyChain, Step2Heads, Step3FlangedNozzles, Step4Couplings, Step5Supports];
 
 /** Sekme durumu: ✕n hata · ⚠n uyarı; ikisi de yoksa ✓ (bilgi seviyesi sayılmaz). */
@@ -45,7 +46,7 @@ export function GeometryWizard({ issues: given }: { issues?: WizardIssue[] }) {
             aria-controls="gw-panel" className={`gw-tab${sub === i ? " is-active" : ""}`} title={title}
             onClick={() => setSub(i as GeoSubStep)}>
             <span className="gw-tab__no">3.{i + 1}</span>
-            <span className="gw-tab__title">{title}</span>
+            <span className="gw-tab__title">{SHORT[i] ?? title}</span>
             <StepStatus error={counts[i].error} warn={counts[i].warn} />
           </button>
         ))}
