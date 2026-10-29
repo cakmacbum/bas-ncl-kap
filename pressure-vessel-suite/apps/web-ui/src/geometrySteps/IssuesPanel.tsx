@@ -1,6 +1,7 @@
 // Sorunlar paneli: zincir tutarlılığı + nozul yerleşimi + destek konumu + katalog uyarısı.
 // Her satır tıklanınca ilgili alt adıma gider ve parçayı seçer.
 
+import { useState } from "react";
 import { COUPLING_TYPES, useStore } from "../store";
 import { catalogsUnverified, upnCatalog } from "../data/catalogs";
 import { legDefaults } from "./shared";
@@ -138,10 +139,19 @@ export function computeIssues(project: VesselProject): WizardIssue[] {
   return out;
 }
 
-export function issueCountByStep(issues: WizardIssue[]): number[] {
-  const counts = [0, 0, 0, 0, 0];
-  for (const i of issues) if (i.level !== "info") counts[i.step] += 1;
-  return counts;
+/**
+ * Adım başına hata/uyarı sayısı. 0..4 anahtarları her zaman vardır (sorun yoksa 0).
+ * Bilgi (info) seviyesi sayaca girmez.
+ */
+export function stepIssueCounts(issues: WizardIssue[]): Record<number, { error: number; warn: number }> {
+  const out: Record<number, { error: number; warn: number }> = {};
+  for (let s = 0; s <= 4; s++) out[s] = { error: 0, warn: 0 };
+  for (const i of issues) {
+    if (i.level === "info") continue;
+    if (i.level === "error") out[i.step].error += 1;
+    else out[i.step].warn += 1;
+  }
+  return out;
 }
 
 const LEVEL_TR = { error: "Hata", warn: "Uyarı", info: "Bilgi" } as const;
@@ -165,37 +175,45 @@ export function UpnBadge() {
   );
 }
 
+/**
+ * Daraltılmış tek satır "n hata · m uyarı ▸"; tıklanınca liste açılır.
+ * Hata/uyarı yoksa panel gizlenir (adım şeridindeki rozetler yeterli).
+ */
 export function IssuesPanel({ issues }: { issues: WizardIssue[] }) {
+  const [open, setOpen] = useState(false);
   const setGeoSubStep = useStore((s) => s.setGeoSubStep);
   const setSelection = useStore((s) => s.setSelection);
   const usesCatalog = useStore((s) => s.project.nozzles.some((n) => n.rating_class != null));
   const errors = issues.filter((i) => i.level === "error").length;
   const warns = issues.filter((i) => i.level === "warn").length;
 
+  if (errors === 0 && warns === 0) return null;
+
   return (
     <section className="gw-issues" aria-label="Sorunlar paneli">
-      <div className="gw-issues__head">
-        <h3>Sorunlar</h3>
-        <span className={`gw-count${errors ? " gw-count--err" : warns ? " gw-count--warn" : ""}`}>
+      <button type="button" className="gw-issues__sum" aria-expanded={open}
+        onClick={() => setOpen((o) => !o)}>
+        <span className={`gw-count${errors ? " gw-count--err" : " gw-count--warn"}`}>
           {errors} hata · {warns} uyarı
         </span>
-        {usesCatalog && <CatalogBadge />}
-      </div>
-      {issues.length === 0 ? (
-        <p className="gw-empty">Geometri tutarlı — zincir, nozul yerleşimi ve destekler için sorun yok.</p>
-      ) : (
-        <ul className="gw-issues__list">
-          {issues.map((i) => (
-            <li key={i.id}>
-              <button type="button" className={`gw-issue gw-issue--${i.level}`}
-                onClick={() => { setGeoSubStep(i.step); setSelection(i.target ?? null); }}>
-                <b>{LEVEL_TR[i.level]}</b>
-                <span>{i.message}</span>
-                <em>{GEO_STEP_TR[i.step]}</em>
-              </button>
-            </li>
-          ))}
-        </ul>
+        <span aria-hidden="true">{open ? "▾" : "▸"}</span>
+      </button>
+      {open && (
+        <>
+          {usesCatalog && <div><CatalogBadge /></div>}
+          <ul className="gw-issues__list">
+            {issues.map((i) => (
+              <li key={i.id}>
+                <button type="button" className={`gw-issue gw-issue--${i.level}`}
+                  onClick={() => { setGeoSubStep(i.step); setSelection(i.target ?? null); }}>
+                  <b>{LEVEL_TR[i.level]}</b>
+                  <span>{i.message}</span>
+                  <em>{GEO_STEP_TR[i.step]}</em>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </>
       )}
     </section>
   );

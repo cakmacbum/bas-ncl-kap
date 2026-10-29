@@ -10,7 +10,7 @@ import type { FlangeClass } from "../geometryContract";
 import type { Nozzle } from "../types";
 import { CatalogBadge } from "./IssuesPanel";
 import {
-  PlacementFields, RField, Section, fmt, hostFrames, hostLength, headRadius, outOfRange,
+  Group, PlacementFields, RField, Section, StepIntro, fmt, hostFrames, hostLength, headRadius, outOfRange,
   type Placement,
 } from "./shared";
 
@@ -97,63 +97,70 @@ export function Step3FlangedNozzles() {
 
   return (
     <div className="gw-step">
+      <StepIntro>Tip, boyut ve konumu seçip nozulu ekle; flanş ve boru ölçüleri katalogdan gelir.</StepIntro>
+
       <Section title="Yeni flanşlı nozul" meta={<CatalogBadge />}>
-        <div className="grid">
-          <SelectField label="Tip" value={type}
-            options={PIPE_NOZZLE_TYPES.map((t) => ({ value: t, label: NOZZLE_TYPE_TR[t] ?? t }))}
-            onChange={(v) => setType(v as PipeType)} />
-          <SelectField label="Boyut (NPS / DN)" value={nps}
-            options={PIPE_SIZES.map((s) => ({ value: s.nps, label: `${s.label} (DN${s.dn})` }))}
-            onChange={setNps} />
-          <SelectField label="Et serisi (SCH)" value={effSchedule}
-            options={scheds.map((s) => ({ value: s, label: `${s} — et ${fmt(pipe?.walls[s] ?? 0, 2)} mm` }))}
-            onChange={setSchedule} />
-          <SelectField label="Flanş sınıfı" value={cls}
-            options={CLASSES.map((c) => ({ value: c, label: c.replace("CL", "Class ") }))}
-            onChange={(v) => setCls(v as FlangeClass)} />
-        </div>
-        {pipe && (
-          <div className="derived-dims" aria-label="Seçili boru ölçüleri">
-            <span>Boru dış çapı</span><b>{fmt(pipe.od, 2)} mm</b>
-            <span>Boru iç çapı</span><b>{fmt(pipe.od - 2 * (pipe.walls[effSchedule] ?? 0), 2)} mm</b>
-            <span>Flanş dış çapı ({cls})</span><b>{flange?.outside_diameter != null ? `${fmt(flange.outside_diameter, 1)} mm` : "katalogda yok"}</b>
+        <Group title="Ana ölçüler" open>
+          <div className="grid">
+            <SelectField label="Tip" value={type}
+              options={PIPE_NOZZLE_TYPES.map((t) => ({ value: t, label: NOZZLE_TYPE_TR[t] ?? t }))}
+              onChange={(v) => setType(v as PipeType)} />
+            <SelectField label="Boyut (NPS / DN)" value={nps}
+              options={PIPE_SIZES.map((s) => ({ value: s.nps, label: `${s.label} (DN${s.dn})` }))}
+              onChange={setNps} />
+            <SelectField label="Et serisi (SCH)" value={effSchedule}
+              options={scheds.map((s) => ({ value: s, label: `${s} — et ${fmt(pipe?.walls[s] ?? 0, 2)} mm` }))}
+              onChange={setSchedule} />
           </div>
-        )}
+          {pipe && (
+            <div className="derived-dims" aria-label="Seçili boru ölçüleri">
+              <span>Boru dış çapı</span><b>{fmt(pipe.od, 2)} mm</b>
+              <span>Boru iç çapı</span><b>{fmt(pipe.od - 2 * (pipe.walls[effSchedule] ?? 0), 2)} mm</b>
+              <span>Flanş dış çapı ({cls})</span><b>{flange?.outside_diameter != null ? `${fmt(flange.outside_diameter, 1)} mm` : "katalogda yok"}</b>
+            </div>
+          )}
+          <PlacementFields frames={frames} horizontal={horizontal}
+            value={{ host: hostId, z, theta: pl.theta, headD: pl.headD }}
+            onChange={(p: Partial<Placement>) => setPl((cur) => ({
+              host: p.host ?? cur.host, theta: p.theta ?? cur.theta, headD: p.headD ?? cur.headD,
+              z: p.host !== undefined ? null : p.z !== undefined ? p.z : cur.z,
+            }))} />
+        </Group>
+
+        <Group title="Ayrıntılar">
+          <div className="grid">
+            <SelectField label="Flanş sınıfı" value={cls}
+              options={CLASSES.map((c) => ({ value: c, label: c.replace("CL", "Class ") }))}
+              onChange={(v) => setCls(v as FlangeClass)} />
+          </div>
+          <label className="gw-check">
+            <input type="checkbox" checked={pad} disabled={type === "pad_reinforced"}
+              onChange={(e) => setPadOn(e.target.checked)} />
+            Takviye pedi {type === "pad_reinforced" && "(tip gereği açık)"}
+          </label>
+          {pad && (
+            <div className="grid">
+              <RField label="Ped dış çapı" unit="mm" value={padOd} min={pipe ? pipe.od * 1.1 : 0} max={pipe ? pipe.od * 4 : undefined}
+                onChange={setPadOdEdit} />
+              <RField label="Ped kalınlığı" unit="mm" value={padT} min={1} max={200} onChange={setPadTEdit} />
+            </div>
+          )}
+        </Group>
+
         {!flange && (
           <p className="gw-note gw-note--bad" role="alert">
             Bu NPS / sınıf için flanş ölçüsü katalogda yok — 3D flanş çizilemez.
           </p>
         )}
-
-        <PlacementFields frames={frames} horizontal={horizontal}
-          value={{ host: hostId, z, theta: pl.theta, headD: pl.headD }}
-          onChange={(p: Partial<Placement>) => setPl((cur) => ({
-            host: p.host ?? cur.host, theta: p.theta ?? cur.theta, headD: p.headD ?? cur.headD,
-            z: p.host !== undefined ? null : p.z !== undefined ? p.z : cur.z,
-          }))} />
-
-        <label className="gw-check">
-          <input type="checkbox" checked={pad} disabled={type === "pad_reinforced"}
-            onChange={(e) => setPadOn(e.target.checked)} />
-          Takviye pedi {type === "pad_reinforced" && "(tip gereği açık)"}
-        </label>
-        {pad && (
-          <div className="grid">
-            <RField label="Ped dış çapı" unit="mm" value={padOd} min={pipe ? pipe.od * 1.1 : 0} max={pipe ? pipe.od * 4 : undefined}
-              onChange={setPadOdEdit} />
-            <RField label="Ped kalınlığı" unit="mm" value={padT} min={1} max={200} onChange={setPadTEdit} />
-          </div>
-        )}
-
         {warn && <p className="gw-note gw-note--bad" role="alert">{warn}</p>}
-        <button type="button" className="btn btn--primary btn--sm" disabled={!canAdd} onClick={add}>
-          ＋ Nozul ekle
-        </button>
         {posBad && host && (
           <p className="gw-note gw-note--bad" role="alert">
             Konum host sınırları dışında — düzeltmeden eklenemez (kırpılmaz).
           </p>
         )}
+        <button type="button" className="btn btn--primary btn--sm" disabled={!canAdd} onClick={add}>
+          ＋ Nozul ekle
+        </button>
       </Section>
 
       <Section title="Flanşlı nozullar" meta={`${rows.length} adet`}>
@@ -197,31 +204,35 @@ export function Step3FlangedNozzles() {
               <div className="gw-editor__head"><b>{nz.tag} düzenle</b>
                 <span className="gw-editor__meta">{nz.size_designation ?? "özel ölçü"} — boyut değişimi için silip yeniden ekleyin</span>
               </div>
-              <PlacementFields frames={frames} horizontal={horizontal}
-                value={{ host: nz.host_component_id, z: nz.axial_position, theta: nz.circumferential_angle, headD: nz.head_position_diameter ?? 0 }}
-                onChange={(p) => updateNozzle(index, {
-                  ...(p.host !== undefined ? { host_component_id: p.host } : {}),
-                  ...(p.z !== undefined ? { axial_position: p.z } : {}),
-                  ...(p.theta !== undefined ? { circumferential_angle: p.theta } : {}),
-                  ...(p.headD !== undefined ? { head_position_diameter: p.headD > 0 ? p.headD : null } : {}),
-                })} />
-              <label className="gw-check">
-                <input type="checkbox" checked={nz.reinforcement_pad}
-                  onChange={(e) => updateNozzle(index, e.target.checked
-                    ? { reinforcement_pad: true, reinforcement_pad_od: nz.reinforcement_pad_od ?? +(2 * nz.outside_diameter).toFixed(1),
-                        reinforcement_pad_thickness: nz.reinforcement_pad_thickness ?? hf?.thickness ?? 10 }
-                    : { reinforcement_pad: false, reinforcement_pad_od: null, reinforcement_pad_thickness: null })} />
-                Takviye pedi
-              </label>
-              {nz.reinforcement_pad && (
-                <div className="grid">
-                  <RField label="Ped dış çapı" unit="mm" value={nz.reinforcement_pad_od ?? 0}
-                    min={nz.outside_diameter * 1.1} max={nz.outside_diameter * 4}
-                    onChange={(v) => updateNozzle(index, { reinforcement_pad_od: v })} />
-                  <RField label="Ped kalınlığı" unit="mm" value={nz.reinforcement_pad_thickness ?? 0} min={1} max={200}
-                    onChange={(v) => updateNozzle(index, { reinforcement_pad_thickness: v })} />
-                </div>
-              )}
+              <Group title="Ana ölçüler" open>
+                <PlacementFields frames={frames} horizontal={horizontal}
+                  value={{ host: nz.host_component_id, z: nz.axial_position, theta: nz.circumferential_angle, headD: nz.head_position_diameter ?? 0 }}
+                  onChange={(p) => updateNozzle(index, {
+                    ...(p.host !== undefined ? { host_component_id: p.host } : {}),
+                    ...(p.z !== undefined ? { axial_position: p.z } : {}),
+                    ...(p.theta !== undefined ? { circumferential_angle: p.theta } : {}),
+                    ...(p.headD !== undefined ? { head_position_diameter: p.headD > 0 ? p.headD : null } : {}),
+                  })} />
+              </Group>
+              <Group title="Ayrıntılar">
+                <label className="gw-check">
+                  <input type="checkbox" checked={nz.reinforcement_pad}
+                    onChange={(e) => updateNozzle(index, e.target.checked
+                      ? { reinforcement_pad: true, reinforcement_pad_od: nz.reinforcement_pad_od ?? +(2 * nz.outside_diameter).toFixed(1),
+                          reinforcement_pad_thickness: nz.reinforcement_pad_thickness ?? hf?.thickness ?? 10 }
+                      : { reinforcement_pad: false, reinforcement_pad_od: null, reinforcement_pad_thickness: null })} />
+                  Takviye pedi
+                </label>
+                {nz.reinforcement_pad && (
+                  <div className="grid">
+                    <RField label="Ped dış çapı" unit="mm" value={nz.reinforcement_pad_od ?? 0}
+                      min={nz.outside_diameter * 1.1} max={nz.outside_diameter * 4}
+                      onChange={(v) => updateNozzle(index, { reinforcement_pad_od: v })} />
+                    <RField label="Ped kalınlığı" unit="mm" value={nz.reinforcement_pad_thickness ?? 0} min={1} max={200}
+                      onChange={(v) => updateNozzle(index, { reinforcement_pad_thickness: v })} />
+                  </div>
+                )}
+              </Group>
             </div>
           );
         })()}

@@ -24,7 +24,17 @@ function rangeText(min?: number, max?: number, unit = ""): string {
   return "";
 }
 
-/** "değer · izinli aralık" ipuçlu sayısal alan. */
+/** Uzun açıklama için etiket yanındaki `?` simgesi (title tooltip; odaklanabilir). */
+function HelpMark({ text }: { text: string }) {
+  return (
+    <span className="gw-help" role="img" tabIndex={0} title={text} aria-label={`Yardım: ${text}`}>?</span>
+  );
+}
+
+/**
+ * Sayısal alan. İpucu tek satır: "izinli aralık · not". Aralık dışı değer kırmızı uyarı olur, kırpılmaz.
+ * Salt-okunur alan "hesaplanan" rozeti alır. Uzun açıklama `help` ile `?` balonunda gösterilir.
+ */
 export function RField(props: {
   label: string;
   value: number;
@@ -36,15 +46,20 @@ export function RField(props: {
   readOnly?: boolean;
   note?: string;
   title?: string;
+  help?: string;
 }) {
   const { value, min, max, unit } = props;
   const bad = !props.readOnly && outOfRange(value, min, max);
   const hasRange = min != null || max != null;
+  const hint = [!props.readOnly && hasRange ? `izinli ${rangeText(min, max, unit)}` : "", props.note ?? ""]
+    .filter(Boolean).join(" · ");
   return (
     <label className="field gw-field" title={props.title}>
       <span className="field__label">
         <span>{props.label}</span>
         {unit && <span className="field__unit">{unit}</span>}
+        {props.help && <HelpMark text={props.help} />}
+        {props.readOnly && <span className="gw-calc">hesaplanan</span>}
       </span>
       <input
         className={`input${bad ? " gw-input--bad" : ""}`}
@@ -60,14 +75,13 @@ export function RField(props: {
           if (Number.isFinite(n)) props.onChange(n);
         }}
       />
-      {hasRange && !props.readOnly && (
-        <span className={`gw-range${bad ? " gw-range--bad" : ""}`} role={bad ? "alert" : undefined}>
-          {bad
-            ? `${fmt(value, 2)}${unit ? ` ${unit}` : ""} aralık dışı (izinli ${rangeText(min, max, unit)}) — kırpılmadı`
-            : `${fmt(value, 2)}${unit ? ` ${unit}` : ""} · izinli ${rangeText(min, max, unit)}`}
+      {bad ? (
+        <span className="gw-range gw-range--bad" role="alert">
+          {`${fmt(value, 2)}${unit ? ` ${unit}` : ""} aralık dışı (izinli ${rangeText(min, max, unit)}) — kırpılmadı`}
         </span>
-      )}
-      {props.note && <span className="field__hint">{props.note}</span>}
+      ) : hint ? (
+        <span className="gw-hint">{hint}</span>
+      ) : null}
     </label>
   );
 }
@@ -189,6 +203,24 @@ export function PlacementFields(props: {
         </div>
       </div>
     </>
+  );
+}
+
+/** Alt adımın başındaki tek cümle: bu adımda ne yapılır. */
+export function StepIntro({ children }: { children: React.ReactNode }) {
+  return <p className="gw-intro">{children}</p>;
+}
+
+/**
+ * Açılır/kapanır alan grubu (native details: klavye hazır). Tıklama kart seçimine yayılmaz.
+ * "Ana ölçüler" açık, "Ayrıntılar" varsayılan kapalı kullanılır.
+ */
+export function Group(props: { title: string; open?: boolean; children: React.ReactNode }) {
+  return (
+    <details className="gw-group" open={props.open} onClick={(e) => e.stopPropagation()}>
+      <summary className="gw-group__sum">{props.title}</summary>
+      <div className="gw-group__body">{props.children}</div>
+    </details>
   );
 }
 
