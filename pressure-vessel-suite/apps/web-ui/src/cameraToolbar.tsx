@@ -15,8 +15,11 @@ function CameraRig({ orientation, onReady, onManual, autoRotate }: {
 }) {
   const controls = useRef<OrbitControlsImpl>(null);
   const { camera, scene, size } = useThree();
+  // Kullanıcı kamerayı elle oynattıysa tuval boyutu değişince otomatik sığdırma yapılmaz.
+  const manual = useRef(false);
 
   const fit = useCallback(() => {
+    manual.current = false;
     const box = new THREE.Box3();
     scene.traverse((item) => {
       if ((item as THREE.Mesh).isMesh) box.expandByObject(item);
@@ -37,6 +40,7 @@ function CameraRig({ orientation, onReady, onManual, autoRotate }: {
   }, [camera, scene, size]);
 
   const setView = useCallback((view: View) => {
+    manual.current = true;
     const box = new THREE.Box3();
     scene.traverse((item) => {
       if ((item as THREE.Mesh).isMesh) box.expandByObject(item);
@@ -92,8 +96,17 @@ function CameraRig({ orientation, onReady, onManual, autoRotate }: {
 
   React.useEffect(() => onReady({ setView, fit, key }), [fit, key, onReady, setView]);
 
+  // Tuval son boyutuna ulaştığında (flex/sticky/container yerleşimi sonrası) yeniden sığdır.
+  const fitRef = useRef(fit);
+  fitRef.current = fit;
+  React.useEffect(() => {
+    if (size.width < 50 || size.height < 50) return;
+    const t = window.setTimeout(() => { if (!manual.current) { fitRef.current(); manual.current = false; } }, 120);
+    return () => window.clearTimeout(t);
+  }, [size.width, size.height]);
+
   return <OrbitControls ref={controls} makeDefault enableDamping dampingFactor={0.08}
-    autoRotate={autoRotate} autoRotateSpeed={0.8} onStart={onManual} />;
+    autoRotate={autoRotate} autoRotateSpeed={0.8} onStart={() => { manual.current = true; onManual?.(); }} />;
 }
 
 export function CameraRigLayer({ orientation, apiRef, onManual, autoRotate }: {
