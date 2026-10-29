@@ -191,6 +191,9 @@ export interface Support {
   leg_eccentricity_mm: number | null;
   leg_effective_length_factor_K: number | null;
   leg_pad_contact_ratio: number | null;
+  leg_channel_facing: "web" | "flanges" | null;
+  leg_pad_top_extension_mm: number | null;
+  leg_start_angle_deg: number | null;
   base_plate_length_mm: number | null;
   base_plate_width_mm: number | null;
   base_plate_thickness_mm: number | null;
