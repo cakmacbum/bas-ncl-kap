@@ -223,7 +223,7 @@ export function Step5Supports() {
                     onChange={(v) => upd({ leg_start_angle_deg: v })} />
                   <RField label="Yerleşim yarıçapı" unit="mm" value={sel.support_radius_mm ?? 0} min={0}
                     max={host ? 2 * host.rOutStart : undefined}
-                    note="0 = otomatik (dış yarıçap + profil yüksekliği/2)"
+                    note="0 = otomatik (dış yarıçap + ped kalınlığı + kanat genişliği/2)"
                     onChange={(v) => upd({ support_radius_mm: v > 0 ? v : null })} />
                 </div>
 
