@@ -66,3 +66,8 @@ Orkestra: şef kod yazmaz; D00–D08 paketleri ayrı alt-ajan context'lerinde (w
 Kanıt: W4 test-verifier tarayıcı senaryosu 7/9 → 2 hata düzeltildi (bombe STEP geçersizliği, STEP düğmesi örtülmesi); son doğrulama turu koşuyor.
 Push yapılmadı.
 Son doğrulama (6224e45): gerçek tıklamayla STEP indi; CadQuery 11/11 katı geçerli, bombeler duvarlı (HEAD-L 14.5e6 mm³). M4 tamam.
+
+## 2026-10-29 orkestra | Dikey kap U-profil ayak (E01 CAD Opus ∥ E02 UI Sonnet)
+- legs.ts yeniden: U yönü web/flanges, ayak pede oturur (rs=R+padT+b/2), height_mm=profil boyu, ped üst taşma, ilk ayak açısı, taban sacı + ankraj.
+- Step 3.5 ayak editörü 4 grup (Profil/Ayak/Ped/Taban sacı), UPN 80–300 katalog (verified:false), "Kabı dikey yap", LEG_TOO_SHORT/LEG_PAD_OFF_SHELL/LEG_PROFILE_INVALID.
+- vitest 78/78, build yeşil, tarayıcıda doğrulandı. Açık: flanges yönünde düz kanat ucu–eğri ped arası ~2 mm boşluk; padL ≤ ext uyarısı yok; UPN değerleri doğrulanmadı.

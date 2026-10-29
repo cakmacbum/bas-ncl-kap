@@ -8,6 +8,7 @@
 import flangeRaw from "./flange-b165.json";
 import pipeRaw from "./pipe-nps.json";
 import couplingRaw from "./coupling-catalog.json";
+import upnRaw from "./upn-catalog.json";
 
 export type FlangeClass = 150 | 300 | 600 | 900 | 1500 | 2500;
 export type PipeSchedule = "5S" | "10" | "10S" | "40" | "STD" | "80" | "XS" | "160" | "XXS";
@@ -79,6 +80,26 @@ export interface CouplingEntry {
 export const flangeCatalog = flangeRaw as unknown as CatalogMeta & { entries: FlangeEntry[] };
 export const pipeCatalog = pipeRaw as unknown as CatalogMeta & { schedules: PipeSchedule[]; sizes: PipeSize[] };
 export const couplingCatalog = couplingRaw as unknown as CatalogMeta & { entries: CouplingEntry[] };
+
+export interface UpnEntry {
+  name: string;
+  h: number;
+  b: number;
+  tw: number;
+  tf: number;
+}
+
+export const upnCatalog = upnRaw as unknown as CatalogMeta & { rows: UpnEntry[] };
+
+/** UPN satırı ("UPN 120") — bulunamazsa null. */
+export function getUpn(name: string): UpnEntry | null {
+  const key = name.trim().toUpperCase().replace(/^UPN\s*/, "UPN ");
+  return upnCatalog.rows.find((r) => r.name === key) ?? null;
+}
+
+export function listUpn(): UpnEntry[] {
+  return upnCatalog.rows;
+}
 
 /** "1-1/2", "1.1/2", "1½" gibi yazımları katalog anahtarına ("1 1/2") indirger. */
 export function normNps(nps: string | number): string {

@@ -5,6 +5,7 @@ import React from "react";
 import { FRAME_KIND_TR } from "../i18n";
 import { SelectField } from "../components";
 import type { ComponentFrame } from "../geometryContract";
+import type { Support } from "../types";
 import "./wizard.css";
 
 export const fmt = (n: number, d = 1) =>
@@ -198,4 +199,32 @@ export function Section(props: { title: string; meta?: React.ReactNode; children
       {props.children}
     </section>
   );
+}
+
+/**
+ * Ayak ölçülerinin etkin değerleri: alan boşsa CAD'in (src/cad/parts/legs.ts) kullandığı varsayılan.
+ * Editör bu değerleri gösterir; kullanıcı değiştirince alan doldurulur (null kalan alan = CAD varsayılanı).
+ */
+export function legDefaults(s: Support) {
+  const type = s.leg_section_type ?? "pipe";
+  const t = Math.max(s.leg_thickness_mm ?? 6, 1);
+  const d = s.leg_diameter_mm ?? 114.3;
+  const h = type === "pipe" ? d : (s.leg_profile_height_mm ?? s.leg_diameter_mm ?? 100);
+  const w = type === "pipe" ? d : (s.leg_profile_width_mm ?? h);
+  const area = s.base_plate_area_mm2 ? Math.sqrt(s.base_plate_area_mm2) : 0;
+  return {
+    type, h, w, t, d,
+    tw: s.leg_web_thickness_mm ?? t,
+    tf: s.leg_flange_thickness_mm ?? t,
+    padL: s.leg_pad_length_mm ?? 2.5 * h,
+    padW: s.leg_pad_width_mm ?? 2 * w,
+    padT: s.leg_pad_thickness_mm ?? 10,
+    padExt: s.leg_pad_top_extension_mm ?? 50,
+    plateL: s.base_plate_length_mm ?? (area || 2 * h + 40),
+    plateW: s.base_plate_width_mm ?? (area || 2 * w + 40),
+    plateT: s.base_plate_thickness_mm ?? 16,
+    boltCount: s.anchor_bolt_count ?? 4,
+    boltD: s.anchor_bolt_diameter_mm ?? 20,
+    startAngle: s.leg_start_angle_deg ?? 0,
+  };
 }
