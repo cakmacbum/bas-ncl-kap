@@ -545,6 +545,13 @@ export function GeometryPage() {
   });
 
   // Büyük önizleme: ölçülü kesit / anlık 3D / kesin model
+  const [panelTab, setPanelTab] = useState<"geometry" | "inputs">(() => {
+    try { return localStorage.getItem("geometry-panel-tab") === "inputs" ? "inputs" : "geometry"; } catch { return "geometry"; }
+  });
+  const changePanelTab = (tab: "geometry" | "inputs") => {
+    setPanelTab(tab);
+    try { localStorage.setItem("geometry-panel-tab", tab); } catch { /* storage unavailable */ }
+  };
   const [previewTab, setPreviewTab] = useState<"2d" | "3d" | "exact" | "uploaded">("3d");
 
   const updateNozzle = useStore((s) => s.updateNozzle);
@@ -580,11 +587,19 @@ export function GeometryPage() {
       <div className="btn-row"><label className="btn agent-open-btn">Modelden içe aktar<input type="file" accept=".step,.stp,.stl" hidden onChange={(event) => { selectModel(event.target.files?.[0]); event.currentTarget.value = ""; }} /></label></div>
       <div className="geo-layout">
         <div className="geo-forms">
+          <div className="geo-panel-tabs" role="tablist" aria-label="Geometri paneli">
+            <button type="button" role="tab" aria-selected={panelTab === "geometry"} className={panelTab === "geometry" ? "is-active" : ""} onClick={() => changePanelTab("geometry")}>Geometri</button>
+            <button type="button" role="tab" aria-selected={panelTab === "inputs"} className={panelTab === "inputs" ? "is-active" : ""} onClick={() => changePanelTab("inputs")}>Hesap girdileri</button>
+          </div>
+          {panelTab === "geometry" && <div className="geo-wizard-panel">
           <GeometryWizard issues={wizardIssues} />
           {!hasBlocking && hasWarnings && acceptedIssueSignature === issueSignature && (
             <span className="field__hint">Uyarı kabul edildi; sonuçlara geçebilirsiniz.</span>
           )}
 
+          </div>}
+          {panelTab === "inputs" && <div className="geo-inputs-panel">
+            <p className="geo-inputs__intro">Hesap motorunun kullandığı ek girdiler; geometriyi değiştirmez.</p>
           <AccordionSection {...sec("nozzle-detail")} title="Nozul ayrıntıları (seçili)"
             meta={activeNozzle >= 0 ? project.nozzles[activeNozzle].tag : "seçim yok"}
             desc="Sihirbaz tablosundan bir nozul seçin; boru ölçüsü, çıkıntı ve ped hesap girdilerini burada ince ayarlayın.">
@@ -1003,6 +1018,7 @@ export function GeometryPage() {
                   sec.section_id === shell.section_id ? { ...sec, weld_joint_id: v || null } : sec) }))} />
             </div>
           </AccordionSection>
+          </div>}
         </div>
 
         <aside className="geo-preview">
