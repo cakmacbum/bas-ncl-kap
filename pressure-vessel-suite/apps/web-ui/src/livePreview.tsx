@@ -9,7 +9,7 @@ import { useEffect, useMemo, useRef, type CSSProperties } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Bounds, GizmoHelper, GizmoViewport } from "@react-three/drei";
 import * as THREE from "three";
-import { CameraHelpNote, CameraRigLayer, CameraToolbar, type CameraApi } from "./cameraToolbar";
+import { CameraHelpNote, CameraRigLayer, CameraToolbar, useAutoFit, type CameraApi } from "./cameraToolbar";
 
 import type { ComponentReference, Cone, Head, Nozzle, ShellSection } from "./types";
 import type { MeshPart, Selection } from "./geometryContract";
@@ -231,11 +231,13 @@ export interface LivePreviewProps {
   activeNozzle?: number;
   /** Uyarı rozeti dışarıda gösteriliyorsa çipi gizle. */
   hideWarningChip?: boolean;
+  /** Derleme uyarı mesajları değiştiğinde bildirilir (tek derleme; ikinci hook açma). */
+  onWarnings?: (messages: string[]) => void;
 }
 
 export function LivePreview({
   shell, heads, nozzles, orientation, active, activeNozzle,
-  shells = [shell], cones = [], componentSequence = [], hideWarningChip = false,
+  shells = [shell], cones = [], componentSequence = [], hideWarningChip = false, onWarnings,
 }: LivePreviewProps) {
   const leftHead = heads[0];
   const rightHead = heads[1] ?? heads[0];
@@ -246,6 +248,7 @@ export function LivePreview({
   const setSelection = useStore((s) => s.setSelection);
   const cad = useCadBuild(project, "preview");
   const useCad = cad.meshes.length > 0;
+  useEffect(() => { onWarnings?.(cad.warnings.map((w) => w.message)); }, [cad.warnings, onWarnings]);
 
   if (!shell || !leftHead) {
     return (
@@ -258,6 +261,10 @@ export function LivePreview({
   const isVertical = orientation === "vertical";
   const nozzleActive = active === "nz" || active === "theta" || active === "nd";
   const cameraApi = useRef<CameraApi | null>(null);
+  useAutoFit(cameraApi, cad.meshes, JSON.stringify([
+    shells.map((x) => [x.inside_diameter, x.tangent_length, x.nominal_thickness]),
+    heads.map((h) => [h.type, h.inside_diameter, h.crown_depth ?? 0, h.straight_flange_length]),
+  ]) + String(isVertical));
   const chain = useMemo<ChainSource>(
     () => ({ shell_sections: shells, heads, cones, component_sequence: componentSequence }),
     [shells, heads, cones, componentSequence],

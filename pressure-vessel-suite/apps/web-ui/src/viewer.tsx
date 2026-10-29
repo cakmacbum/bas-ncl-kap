@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { Bounds, Html, GizmoHelper, GizmoViewport } from "@react-three/drei";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader.js";
 import * as THREE from "three";
-import { CameraHelpNote, CameraRigLayer, CameraToolbar, type CameraApi } from "./cameraToolbar";
+import { CameraHelpNote, CameraRigLayer, CameraToolbar, useAutoFit, type CameraApi } from "./cameraToolbar";
 import { useCadBuild, exportModel } from "./cad/cadClient";
 import { CadMeshes } from "./livePreview";
 import { useStore } from "./store";
@@ -169,7 +169,7 @@ export function VesselViewer({ url, autoRotate, dims, section, onManual }: Viewe
  * Kesin (exact) model: tarayıcıdaki OCCT worker'ının exact mesh'i. Backend'e istek yok.
  * STEP (partId adlı compound) ve STL (binary) dışa aktarma butonları burada.
  */
-export function ExactModelView({ externalActions = false }: { externalActions?: boolean } = {}) {
+export function ExactModelView({ externalActions = false, onWarnings }: { externalActions?: boolean; onWarnings?: (messages: string[]) => void } = {}) {
   const project = useStore((s) => s.project);
   const selection = useStore((s) => s.selection);
   const setSelection = useStore((s) => s.setSelection);
@@ -178,6 +178,11 @@ export function ExactModelView({ externalActions = false }: { externalActions?: 
   const [busy, setBusy] = useState<"step" | "stl" | null>(null);
   const [exportErr, setExportErr] = useState<string | null>(null);
   const isVertical = project.orientation === "vertical";
+  useEffect(() => { onWarnings?.(cad.warnings.map((w) => w.message)); }, [cad.warnings, onWarnings]);
+  useAutoFit(cameraApi, cad.meshes, JSON.stringify([
+    project.shell_sections.map((x) => [x.inside_diameter, x.tangent_length, x.nominal_thickness]),
+    project.heads.map((h) => [h.type, h.inside_diameter, h.crown_depth ?? 0]),
+  ]) + String(isVertical));
 
   const doExport = async (fmt: "step" | "stl") => {
     setBusy(fmt);

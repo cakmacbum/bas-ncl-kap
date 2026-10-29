@@ -20,7 +20,6 @@ import {
 } from "./nozzleCatalog";
 import { headDepth } from "./vesselModel";
 import { geometrySignature } from "./geometryValidation";
-import { useCadBuild } from "./cad/cadClient";
 import { PreviewActions } from "./exportMenu";
 import { readPanelTab, writePanelTab, type PanelTab } from "./geometryLayout";
 import { StepImportDrawer } from "./StepImportDrawer";
@@ -46,16 +45,16 @@ function DimRow({ k, v }: { k: string; v: string }) {
   );
 }
 
-function NextButtons({ onNext, nextLabel }: { onNext: () => void; nextLabel?: string }) {
+function NextButtons({ onNext, nextLabel, compact = false }: { onNext: () => void; nextLabel?: string; compact?: boolean }) {
   const { step, setStep } = useStore();
   return (
-    <div className="btn-row">
+    <div className={compact ? "btn-row btn-row--compact" : "btn-row"}>
       {step > 0 && (
-        <button className="btn btn--ghost" onClick={() => setStep(step - 1)}>
+        <button className={compact ? "btn btn--ghost btn--sm" : "btn btn--ghost"} onClick={() => setStep(step - 1)}>
           ← Geri
         </button>
       )}
-      <button className="btn btn--primary" onClick={onNext}>
+      <button className={compact ? "btn btn--primary btn--sm" : "btn btn--primary"} onClick={onNext}>
         {nextLabel ?? "İleri →"}
       </button>
     </div>
@@ -553,8 +552,8 @@ export function GeometryPage() {
     setPanelTab(tab);
     writePanelTab(tab);
   };
-  // Dışa aktar menüsü yanındaki uyarı rozeti için hafif (preview) derleme sonucu
-  const cadWarnings = useCadBuild(project, "preview").warnings;
+  // Uyarı rozeti: tek CAD derlemesi LivePreview/ExactModelView'de; sonuç buraya bildirilir
+  const [cadWarnings, setCadWarnings] = useState<string[]>([]);
   const [previewTab, setPreviewTab] = useState<"2d" | "3d" | "exact" | "uploaded">("3d");
 
   const updateNozzle = useStore((s) => s.updateNozzle);
@@ -586,6 +585,10 @@ export function GeometryPage() {
         <h1 className="geo-head__title">Kap Geometrisi</h1>
         <p className="geo-head__desc" title="Beş alt adımda kabı kurun: gövde zinciri, bombeler, flanşlı nozullar, manşonlar ve mesnetler. Sağdaki önizleme her değişiklikte güncellenir; gezinmek için üstteki adım çubuğunu kullanın.">Beş alt adımda kabı kurun; önizleme her değişiklikte güncellenir.</p>
         <label className="btn btn--sm geo-head__import">Modelden içe aktar<input type="file" accept=".step,.stp,.stl" hidden onChange={(event) => { selectModel(event.target.files?.[0]); event.currentTarget.value = ""; }} /></label>
+        <NextButtons compact onNext={proceedToResults}
+                nextLabel={hasWarnings && !hasBlocking && acceptedIssueSignature !== issueSignature
+                  ? "Uyarıyı kabul et ve sonuçlara geç →"
+                  : "Sonuçlara Geç →"} />
       </header>
       <div className="geo-layout">
         <div className="geo-forms">
@@ -1037,12 +1040,13 @@ export function GeometryPage() {
                   ...(uploadedModelUrl ? [{ value: "uploaded", label: "Yüklenen model" }] : []),
                 ]}
               />
-              <PreviewActions project={project} warnings={cadWarnings.map((w) => w.message)} />
+              <PreviewActions project={project} warnings={cadWarnings} />
             </div>
             <div className="geo-preview__body">
               {previewTab === "3d" && (
                 <LivePreview
                   hideWarningChip
+                  onWarnings={setCadWarnings}
                   shell={shell}
                   shells={project.shell_sections}
                   heads={project.heads}
@@ -1090,17 +1094,13 @@ export function GeometryPage() {
                 </div>
               )}
 
-              {previewTab === "exact" && <ExactModelView externalActions />}
+              {previewTab === "exact" && <ExactModelView externalActions onWarnings={setCadWarnings} />}
               {previewTab === "uploaded" && uploadedModelUrl && <><p>Yüklenen model (yalnız görüntü — hesaba girmez)</p><VesselViewer url={uploadedModelUrl} autoRotate={false} section={false} dims={computeDims(project)} /></>}
             </div>
           </div>
         </aside>
       </div>
 
-      <NextButtons onNext={proceedToResults}
-        nextLabel={hasWarnings && !hasBlocking && acceptedIssueSignature !== issueSignature
-          ? "Uyarıyı kabul et ve sonuçlara geç →"
-          : "Sonuçlara Geç →"} />
       {stepFile && <StepImportDrawer file={stepFile} onClose={() => setStepFile(null)} />}
     </div>
   );

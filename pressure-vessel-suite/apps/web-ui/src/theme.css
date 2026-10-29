@@ -1483,3 +1483,20 @@ text.sch-tag.sch-active { fill: var(--accent); font-weight: 600; }
 }
 .err-list { margin: 0; padding-left: 18px; color: var(--fail); }
 .err-list li { margin-bottom: 6px; }
+
+.btn-row--compact { margin: 0; gap: 6px; flex: none; }
+.main:has(.page--geo) > .workspace-footer { display: none; }
+.geo-head .btn { min-height: 32px; height: 32px; padding: 0 12px; font-size: 12.5px; }
+.geo-head .btn-row--compact { align-items: center; }
+.geo-head { height: 52px; box-sizing: border-box; }
+.geo-head .btn-row--compact { flex-wrap: nowrap; height: 32px; }
+@media (max-width: 768px) {
+  .main:has(.page--geo) { overflow-y: auto; overflow-x: hidden; padding: 8px 0; }
+  .page--geo { height: auto; display: block; }
+  .geo-head { height: auto; flex-wrap: wrap; padding: 0 12px 8px; gap: 8px; }
+  .geo-head__desc, .geo-head__kicker { display: none; }
+  .geo-head__title { flex: 1 0 100%; }
+  .geo-head__import { margin-left: 0; }
+  .geo-head .btn-row--compact { margin-left: auto; }
+  .main:has(.page--geo) > .workspace-footer { display: block; }
+}

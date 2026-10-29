@@ -158,3 +158,19 @@ export function CameraHelpNote() {
     Görünüş ve Sığdır düğmelerini kullan; klavyede 1–4 görünüş, F sığdır.
   </div>;
 }
+
+/**
+ * Model ilk geldiğinde ve kap boyutu (sig) değiştiğinde kamerayı otomatik sığdırır.
+ * Aynı sig ile gelen yeniden derlemelerde (kullanıcı kamerayı oynatmış olabilir) tekrar etmez.
+ */
+export function useAutoFit(apiRef: React.MutableRefObject<CameraApi | null>, meshes: unknown[], sig: string) {
+  const last = useRef<string | null>(null);
+  const sigRef = useRef(sig);
+  sigRef.current = sig;
+  React.useEffect(() => {
+    if (meshes.length === 0 || last.current === sigRef.current) return;
+    last.current = sigRef.current;
+    const t = window.setTimeout(() => apiRef.current?.fit(), 80);
+    return () => window.clearTimeout(t);
+  }, [apiRef, meshes]);
+}
