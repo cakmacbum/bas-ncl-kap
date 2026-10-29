@@ -27,10 +27,14 @@ function CameraRig({ orientation, onReady, onManual, autoRotate }: {
     if (box.isEmpty()) return;
     const center = box.getCenter(new THREE.Vector3());
     const sphere = box.getBoundingSphere(new THREE.Sphere());
-    const distance = Math.max(1, sphere.radius / Math.sin(THREE.MathUtils.degToRad(
-      (camera as THREE.PerspectiveCamera).fov / 2,
-    )) * 1.2);
-    const direction = new THREE.Vector3(1, 0.65, 1).normalize();
+    // Dar tuvalde yatay yarı-açı dikeyden küçüktür; ikisinin küçüğüne göre mesafe.
+    const cam = camera as THREE.PerspectiveCamera;
+    const vHalf = THREE.MathUtils.degToRad(cam.fov / 2);
+    const aspect = size.width / Math.max(1, size.height);
+    const hHalf = Math.atan(Math.tan(vHalf) * aspect);
+    const distance = Math.max(1, sphere.radius / Math.sin(Math.min(vHalf, hHalf)) * 1.15);
+    camera.up.set(0, 1, 0);
+    const direction = new THREE.Vector3(-1, 0.65, 1).normalize();
     camera.position.copy(center).addScaledVector(direction, distance);
     camera.near = Math.max(0.1, distance / 1000);
     camera.far = distance * 20;

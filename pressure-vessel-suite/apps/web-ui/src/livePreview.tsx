@@ -7,7 +7,7 @@
 
 import { useEffect, useMemo, useRef, type CSSProperties } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Bounds, GizmoHelper, GizmoViewport } from "@react-three/drei";
+import { GizmoHelper, GizmoViewport } from "@react-three/drei";
 import * as THREE from "three";
 import { CameraHelpNote, CameraRigLayer, CameraToolbar, useAutoFit, type CameraApi } from "./cameraToolbar";
 
@@ -250,19 +250,11 @@ export function LivePreview({
   const useCad = cad.meshes.length > 0;
   useEffect(() => { onWarnings?.(cad.warnings.map((w) => w.message)); }, [cad.warnings, onWarnings]);
 
-  if (!shell || !leftHead) {
-    return (
-      <div className="viewer-msg">
-        <p>Geometri tanımlanmadı.</p>
-      </div>
-    );
-  }
-
   const isVertical = orientation === "vertical";
   const nozzleActive = active === "nz" || active === "theta" || active === "nd";
   const cameraApi = useRef<CameraApi | null>(null);
   useAutoFit(cameraApi, cad.meshes, JSON.stringify([
-    shells.map((x) => [x.inside_diameter, x.tangent_length, x.nominal_thickness]),
+    shells.map((x) => x && [x.inside_diameter, x.tangent_length, x.nominal_thickness]),
     heads.map((h) => [h.type, h.inside_diameter, h.crown_depth ?? 0, h.straight_flange_length]),
   ]) + String(isVertical));
   const chain = useMemo<ChainSource>(
@@ -270,6 +262,14 @@ export function LivePreview({
     [shells, heads, cones, componentSequence],
   );
   const frames = useMemo(() => componentFrames(chain), [chain]);
+
+  if (!shell || !leftHead) {
+    return (
+      <div className="viewer-msg">
+        <p>Geometri tanımlanmadı.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="live-preview">
@@ -284,7 +284,7 @@ export function LivePreview({
         <directionalLight position={[-2000, -1000, -1500]} intensity={0.35} />
         <hemisphereLight args={["#eeeeee", "#1a1a1a", 0.4]} />
 
-        <Bounds fit clip margin={1.3}>
+        <>
           {/* Tek görüntüleme rotasyonu (model çerçevesi → sahne):
               yatay → θ=0° ekranda üst (2D şemadaki sözleşme),
               dikey → kap ekseni yukarı. */}
@@ -308,7 +308,7 @@ export function LivePreview({
               </>
             )}
           </group>
-        </Bounds>
+        </>
 
         <CameraRigLayer apiRef={cameraApi} orientation={isVertical ? "vertical" : "horizontal"} />
         <GizmoHelper alignment="bottom-right" margin={[64, 64]}>

@@ -237,11 +237,11 @@ export function ExactModelView({ externalActions = false, onWarnings }: { extern
         <directionalLight position={[1500, 3000, 2000]} intensity={1.3} />
         <directionalLight position={[-2000, -1000, -1500]} intensity={0.35} />
         <hemisphereLight args={["#eeeeee", "#1a1a1a", 0.4]} />
-        <Bounds fit clip margin={1.3}>
+        <>
           <group rotation={isVertical ? [-Math.PI / 2, 0, 0] : [0, 0, Math.PI / 2]}>
             <CadMeshes meshes={cad.meshes} selection={selection} onSelect={setSelection} />
           </group>
-        </Bounds>
+        </>
         <CameraRigLayer apiRef={cameraApi} orientation={isVertical ? "vertical" : "horizontal"} />
         <GizmoHelper alignment="bottom-right" margin={[70, 70]}>
           <GizmoViewport axisColors={["#ef5a63", "#37c98b", "#4aa8e0"]} labelColor="#fafafa" />
