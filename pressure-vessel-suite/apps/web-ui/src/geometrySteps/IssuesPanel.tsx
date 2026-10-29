@@ -2,7 +2,8 @@
 // Her satır tıklanınca ilgili alt adıma gider ve parçayı seçer.
 
 import { COUPLING_TYPES, useStore } from "../store";
-import { catalogsUnverified } from "../data/catalogs";
+import { catalogsUnverified, upnCatalog } from "../data/catalogs";
+import { legDefaults } from "./shared";
 import { geometryIssues } from "../geometryValidation";
 import { chainIssues, componentFrames, nozzlePlacement, tangentDatum } from "../vesselModel";
 import type { Selection, VesselProject } from "../geometryContract";
@@ -62,6 +63,40 @@ export function computeIssues(project: VesselProject): WizardIssue[] {
 
   const { left, right } = tangentDatum(frames);
   const saddles = project.supports.filter((s) => s.type === "saddle");
+
+  // Ayak ölçü kuralları (geometri; hesap değil). Dikey kapta location_mm = ayak üst ucu kotu (alt teğetten).
+  const first = frames[0];
+  // supportGeom.vesselBottomZ ile aynı mantık (replicad'i UI paketine çekmemek için yerel kopya).
+  const vesselBottom = first?.head?.side === "left" ? first.zStart - first.thickness : (first?.zStart ?? 0);
+  const shells = frames.filter((f) => f.kind === "shell" || f.kind === "cone");
+  const shellLo = shells.length ? Math.min(...shells.map((f) => f.zStart)) : 0;
+  const shellHi = shells.length ? Math.max(...shells.map((f) => f.zEnd)) : 0;
+  project.supports.forEach((s) => {
+    if (s.type !== "leg") return;
+    const target: Selection = { kind: "support", id: s.support_id };
+    const d = legDefaults(s);
+    if (d.type === "channel" && (!(d.h > 0) || !(d.w > 0) || d.tw >= d.h / 2 || d.tf >= d.w)) {
+      out.push({ id: `leg-profile-${s.support_id}`, level: "error", blocking: true, step: 4, target,
+        message: !(d.h > 0) || !(d.w > 0)
+          ? `${s.support_id}: U profil boyutları (h = ${d.h}, b = ${d.w} mm) pozitif olmalı. [LEG_PROFILE_INVALID]`
+          : `${s.support_id}: U profil geçersiz — gövde tw = ${d.tw} mm < h/2 = ${+(d.h / 2).toFixed(1)} mm ve kanat tf = ${d.tf} mm < b = ${d.w} mm olmalı. [LEG_PROFILE_INVALID]` });
+    }
+    if (project.orientation !== "vertical") return;
+    const zTop = left + s.location_mm;
+    const baseBottom = zTop - s.height_mm;
+    if (baseBottom > vesselBottom + 1e-6) {
+      out.push({ id: `leg-short-${s.support_id}`, level: "error", blocking: true, step: 4, target,
+        message: `${s.support_id}: ayak kap altına ulaşmıyor — taban sacı alt kotu kap altından ${+(baseBottom - vesselBottom).toFixed(0)} mm yukarıda; profil boyu en az ${+(zTop - vesselBottom).toFixed(0)} mm olmalı (şu an ${+s.height_mm.toFixed(0)} mm). [LEG_TOO_SHORT]` });
+    }
+    if (shells.length) {
+      const padTop = zTop + d.padExt;
+      const padBot = padTop - d.padL;
+      if (padBot < shellLo - 1e-6 || padTop > shellHi + 1e-6) {
+        out.push({ id: `leg-pad-${s.support_id}`, level: "warn", blocking: false, step: 4, target,
+          message: `${s.support_id}: ayak pedi z aralığı (${+(padBot - left).toFixed(0)}…${+(padTop - left).toFixed(0)} mm) gövde/koni aralığının (${+(shellLo - left).toFixed(0)}…${+(shellHi - left).toFixed(0)} mm) dışına taşıyor. [LEG_PAD_OFF_SHELL]` });
+      }
+    }
+  });
   project.supports.forEach((s) => {
     const target: Selection = { kind: "support", id: s.support_id };
     const host = frames.find((f) => f.id === s.host_component_id);
@@ -107,6 +142,16 @@ export function CatalogBadge() {
   return (
     <span className="gw-badge gw-badge--warn" title="Boru, flanş ve manşon ölçüleri kaynak kataloglarda doğrulanmamıştır (verified:false). İmalat öncesi tedarikçi/çizim verisiyle karşılaştırın.">
       Ölçüler doğrulanmamış katalogdan
+    </span>
+  );
+}
+
+/** UPN katalog satırı doğrulanmamışsa uyarı rozeti (CatalogBadge deseni). */
+export function UpnBadge() {
+  if (upnCatalog.verified) return null;
+  return (
+    <span className="gw-badge gw-badge--warn" title="UPN ölçüleri (EN 10279) standarttan elle girilmiştir, doğrulanmamıştır (verified:false). İmalat öncesi tedarikçi tablosuyla karşılaştırın.">
+      UPN ölçüleri doğrulanmamış
     </span>
   );
 }

@@ -1,0 +1,22 @@
+{
+ "standard": "EN 10279 / DIN 1026-1 (UPN U-profil, paralel olmayan kanat)",
+ "source": "Standart nominal ölçüleri (h, b, tw, tf) — elle girildi, kaynakla çapraz doğrulanmadı",
+ "license_note": "Standart metni kopyalanmamıştır; yalnızca nominal boyut değerleri.",
+ "verified": false,
+ "units": "mm",
+ "note": "h = profil yüksekliği, b = kanat genişliği, tw = gövde (sırt) kalınlığı, tf = kanat kalınlığı (ortalama). İmalat öncesi tedarikçi tablosuyla karşılaştırın.",
+ "rows": [
+  { "name": "UPN 80", "h": 80, "b": 45, "tw": 6, "tf": 8 },
+  { "name": "UPN 100", "h": 100, "b": 50, "tw": 6, "tf": 8.5 },
+  { "name": "UPN 120", "h": 120, "b": 55, "tw": 7, "tf": 9 },
+  { "name": "UPN 140", "h": 140, "b": 60, "tw": 7, "tf": 10 },
+  { "name": "UPN 160", "h": 160, "b": 65, "tw": 7.5, "tf": 10.5 },
+  { "name": "UPN 180", "h": 180, "b": 70, "tw": 8, "tf": 11 },
+  { "name": "UPN 200", "h": 200, "b": 75, "tw": 8.5, "tf": 11.5 },
+  { "name": "UPN 220", "h": 220, "b": 80, "tw": 9, "tf": 12.5 },
+  { "name": "UPN 240", "h": 240, "b": 85, "tw": 9.5, "tf": 13 },
+  { "name": "UPN 260", "h": 260, "b": 90, "tw": 10, "tf": 14 },
+  { "name": "UPN 280", "h": 280, "b": 95, "tw": 10, "tf": 15 },
+  { "name": "UPN 300", "h": 300, "b": 100, "tw": 10, "tf": 16 }
+ ]
+}
