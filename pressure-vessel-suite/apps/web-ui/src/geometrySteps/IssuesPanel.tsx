@@ -7,6 +7,7 @@ import { geometryIssues } from "../geometryValidation";
 import { chainIssues, componentFrames, nozzlePlacement, tangentDatum } from "../vesselModel";
 import type { Selection, VesselProject } from "../geometryContract";
 import { GEO_STEP_TR } from "../i18n";
+import { headDepthIssueMessage } from "./headDepth";
 
 export interface WizardIssue {
   id: string;
@@ -38,6 +39,14 @@ export function computeIssues(project: VesselProject): WizardIssue[] {
       step: kind === "head" ? 1 : 0, message: c.message,
       target: kind ? { kind, id: c.id } : undefined,
     });
+  }
+
+  for (const h of project.heads) {
+    const msg = headDepthIssueMessage(h);
+    if (msg) {
+      out.push({ id: `head-depth-${h.head_id}`, level: "error", blocking: true, step: 1, message: msg,
+        target: { kind: "head", id: h.head_id } });
+    }
   }
 
   for (const g of geometryIssues(project)) {

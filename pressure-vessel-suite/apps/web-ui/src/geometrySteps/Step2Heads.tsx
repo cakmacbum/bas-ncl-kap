@@ -7,6 +7,7 @@ import { HEAD_TYPE_TR } from "../i18n";
 import { NumField, SelectField } from "../components";
 import type { Head, HeadTypeT } from "../types";
 import { RField, fmt } from "./shared";
+import { crownDepthPatch, depthRatio, ellipticalK, typeChangePatch } from "./headDepth";
 
 const TYPES: HeadTypeT[] = ["elliptical", "torispherical", "hemispherical", "flat"];
 
@@ -62,7 +63,7 @@ function HeadCard({ head, side, chainD }: { head: Head; side: "left" | "right"; 
         {TYPES.map((t) => (
           <button key={t} type="button" role="radio" aria-checked={head.type === t}
             className={`gw-type${head.type === t ? " is-active" : ""}`}
-            onClick={(e) => { e.stopPropagation(); updateHead(head.head_id, { type: t }); }}>
+            onClick={(e) => { e.stopPropagation(); updateHead(head.head_id, typeChangePatch(t)); }}>
             <HeadIcon type={t} mirror={side === "left"} />
             <span>{HEAD_TYPE_TR[t]}</span>
           </button>
@@ -96,6 +97,18 @@ function HeadCard({ head, side, chainD }: { head: Head; side: "left" | "right"; 
         </p>
       )}
 
+      {head.type === "elliptical" && (
+        <>
+          <div className="grid">
+            <RField label="Kubbe derinliği (h)" unit="mm" value={head.crown_depth ?? 0} min={0} max={head.inside_diameter}
+              note={`0 = standart 2:1 (h = Di/4 = ${fmt(head.inside_diameter / 4)} mm)`}
+              onChange={(v) => updateHead(head.head_id, crownDepthPatch(v))} />
+          </div>
+          <p className="gw-note" aria-label="Eliptik oran">
+            D/2h = {fmt(depthRatio(head.inside_diameter, dome), 2).replace(".", ",")} · K = {fmt(ellipticalK(depthRatio(head.inside_diameter, dome)), 3).replace(".", ",")}
+          </p>
+        </>
+      )}
       {head.type === "torispherical" && (
         <div className="grid">
           <RField label="Taç yarıçapı (R)" unit="mm" value={head.crown_radius ?? 0} min={0} max={head.inside_diameter * 1.5}
