@@ -77,3 +77,8 @@ Son doğrulama (6224e45): gerçek tıklamayla STEP indi; CadQuery 11/11 katı ge
 - Tam yükseklik iki sütun (480/420/360), Geometri|Hesap girdileri sekmeleri, rozetli 3.1–3.5 şeridi, Ana ölçüler/Ayrıntılar grupları, yapışkan Önceki/Sonraki, yüzen görünüm/kamera çubukları, Dışa aktar menüsü, tek uyarı rozeti.
 - Düzeltilen: çift useCadBuild (yükleniyor takılması), Bounds–fit çakışması, aspect’li fit, LivePreview hook sırası. E03 bombe kubbe derinliği h + HEAD_DEPTH_RANGE.
 - vitest 92/92, build yeşil. Açık: otomatik ilk sığdırma Claude gizli tarayıcı panelinde tetiklenmedi (Playwright’ta çalışıyor) — Yusuf’un tarayıcısında kontrol edilecek.
+
+## 2026-10-30 orkestra | Canlıda hesap sunucusu (V01 Sonnet · V02 Sonnet · V03 Sonnet)
+- Durumsuz /api/calculate + /api/report.html; arayüz gövdeli çağrı, canlı hata mesajı + Tekrar dene, 30 sn zaman aşımı, uyanıyor durumu.
+- Vercel pv-suite-app: api/index.py Python fonksiyonu (CadQuery yok), vercel.json, requirements.txt, .vercelignore (.env, Dockerfile, pyproject.toml hariç).
+- Deploy git-archive temiz kopyadan (.test-tmp EPERM). Canlı doğrulandı: /api/health ok, Hesapla MAWP 2,31 MPa.
