@@ -210,10 +210,10 @@ export function CadMeshes({
               } : undefined}
               onPointerOut={stress ? () => probeRef?.current?.(null) : undefined}>
               {stress ? (
-                <meshStandardMaterial vertexColors color="#ffffff" metalness={0.05} roughness={0.75}
+                <meshStandardMaterial key="stress" vertexColors color="#ffffff" metalness={0.05} roughness={0.75}
                   side={THREE.DoubleSide} />
               ) : (
-                <meshStandardMaterial color={selected ? COLOR_ACTIVE : KIND_COLOR[m.kind]}
+                <meshStandardMaterial key="normal" color={selected ? COLOR_ACTIVE : KIND_COLOR[m.kind]}
                   emissive={selected ? COLOR_ACTIVE : "#000000"} emissiveIntensity={selected ? 0.25 : 0}
                   metalness={0.55} roughness={0.42} side={THREE.DoubleSide} />
               )}
