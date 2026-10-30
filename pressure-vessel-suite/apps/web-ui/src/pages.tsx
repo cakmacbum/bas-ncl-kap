@@ -993,6 +993,14 @@ export function GeometryPage() {
                 help="Malzemenin kopmadan önce ulaşabildiği en yüksek çekme gerilmesi." />
               <NumField label="Yoğunluk" unit="kg/m³" value={mat.density}
                 onChange={(v) => setMat({ density: v })} help="Ağırlık hesabı için kullanılır." />
+              <NumField label="Elastisite Modülü E" unit="MPa" value={mat.elastic_modulus ?? 0}
+                onChange={(v) => setMat({ elastic_modulus: v > 0 ? v : null })}
+                hint="0 = girilmedi (FEA 200 GPa varsayar, uyarı verir)"
+                help="Tasarım sıcaklığındaki E. Yalnız FEA yer değiştirme/rijitlik için kullanılır; kapalı-form ASME hesabını etkilemez. Malzeme belgesinden girilir." />
+              <NumField label="Poisson Oranı ν" value={mat.poisson_ratio ?? 0} step={0.01}
+                onChange={(v) => setMat({ poisson_ratio: v > 0 && v < 0.5 ? v : null })}
+                hint="0 = girilmedi (FEA 0,3 varsayar, uyarı verir)"
+                help="0 < ν < 0,5. Yalnız FEA için; boşsa 0,3 varsayılır." />
               <SelectField
                 label="UCS-66 Eğri Grubu"
                 value={mat.ucs66_curve_group ?? ""}

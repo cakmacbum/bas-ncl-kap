@@ -149,6 +149,10 @@ export interface MaterialProperty {
   density: number;
   /** UCS-66 eğri grubu (A/B/C/D). Boşsa MDMT kontrolü bloke olur — tahmin edilmez. */
   ucs66_curve_group: string | null;
+  /** Elastisite modülü E (MPa), tasarım sıcaklığında. Yalnız FEA; boşsa 200 GPa varsayımı + uyarı. */
+  elastic_modulus?: number | null;
+  /** Poisson oranı ν (0 < ν < 0,5). Yalnız FEA; boşsa 0,3 varsayımı + uyarı. */
+  poisson_ratio?: number | null;
 }
 
 export interface Support {

@@ -25,13 +25,17 @@ interface Seg {
   f: (t: number) => P2; // iç (nominal) yüzey, yol yönünde (sol → sağ)
   dIn: number;          // iç yüzeyden korozyonlu iç yüzeye (normal boyunca)
   dOut: number;         // iç yüzeyden korozyonlu dış yüzeye
+  materialId?: string;  // bileşenin malzemesi (E/ν çözümü için)
 }
 
 export interface FeaModel {
   mesh: FeaMesh;
   pressure: number;
+  /** Gövde (ilk kabuk) malzemesi E/ν — raporlama; çözüm bileşen bazlı `materials` kullanır. */
   E: number;
   nu: number;
+  /** Bileşen id → E (MPa), ν. */
+  materials: Record<string, { E: number; nu: number }>;
   /** Basınç yüklü iç kenar (ξ=−1) elemanları. */
   pressureElems: number[];
   /** Açık uç kapak itkisi: eksenel çekme, eleman kenarı η=−1 (start) / η=+1 (end). */
@@ -99,7 +103,7 @@ function domeCurves(h: Head, a: number, dome: number, warnings: string[]): { f: 
   return [{ tag: "dome", f: (t) => { const u = (t * Math.PI) / 2; return [a * Math.cos(u), b * Math.sin(u)]; } }];
 }
 
-type PoleNozzle = { tag: string; rn: number; dIn: number; dOut: number; length: number };
+type PoleNozzle = { tag: string; materialId: string; rn: number; dIn: number; dOut: number; length: number };
 
 function headSegments(f: ComponentFrame, h: Head, pole: PoleNozzle | null, warnings: string[]): Seg[] {
   const hd = f.head!;
@@ -109,7 +113,7 @@ function headSegments(f: ComponentFrame, h: Head, pole: PoleNozzle | null, warni
   const eq = hd.equatorZ;
   const ca = Math.max(h.internal_corrosion_allowance ?? 0, 0);
   const t = h.nominal_thickness;
-  const base = { id: h.head_id, kind: "head" as const, dIn: ca, dOut: t };
+  const base = { id: h.head_id, kind: "head" as const, dIn: ca, dOut: t, materialId: h.material_id };
   // Sağ bombe sırası: düz flanş → kubbe (ekvator→kutup) → [nozul boynu]
   const out: Seg[] = [];
   if (hd.sf > 0) {
@@ -138,7 +142,7 @@ function headSegments(f: ComponentFrame, h: Head, pole: PoleNozzle | null, warni
   if (pole && curves.length > 0) {
     const last = out[out.length - 1].f(1);
     out.push({
-      id: pole.tag, kind: "nozzle", dIn: pole.dIn, dOut: pole.dOut,
+      id: pole.tag, kind: "nozzle", dIn: pole.dIn, dOut: pole.dOut, materialId: pole.materialId,
       f: lerpSeg([pole.rn, last[1]], [pole.rn, last[1] + dir * pole.length]),
     });
   }
@@ -165,7 +169,7 @@ function poleNozzle(project: VesselProject, frames: ComponentFrame[], f: Compone
     if (nz.reinforcement_pad) warnings.push(`${nz.tag}: takviye pedi modellenmedi.`);
     const length = Math.max((nz.outside_projection ?? 0) + f.thickness, 3 * Math.sqrt((rn + ca) * tn));
     warnings.push(`${nz.tag}: kutup nozulu boyun ${length.toFixed(0)} mm, kör flanş itkisiyle modellendi.`);
-    return { tag: nz.tag, rn, dIn: ca, dOut: nz.neck_thickness, length };
+    return { tag: nz.tag, materialId: nz.material_id, rn, dIn: ca, dOut: nz.neck_thickness, length };
   }
   return null;
 }
@@ -182,11 +186,11 @@ function buildSegments(project: VesselProject, warnings: string[]): Seg[] {
       const s = shells.get(f.id)!;
       const ca = Math.max(s.internal_corrosion_allowance ?? 0, 0);
       const ce = Math.max(s.external_corrosion_allowance ?? 0, 0);
-      segs.push({ id: f.id, kind: "shell", dIn: ca, dOut: f.thickness - ce, f: lerpSeg([f.rInStart, f.zStart], [f.rInEnd, f.zEnd]) });
+      segs.push({ id: f.id, kind: "shell", materialId: s.material_id, dIn: ca, dOut: f.thickness - ce, f: lerpSeg([f.rInStart, f.zStart], [f.rInEnd, f.zEnd]) });
     } else if (f.kind === "cone") {
       const c = cones.get(f.id)!;
       const ca = Math.max(c.internal_corrosion_allowance ?? 0, 0);
-      segs.push({ id: f.id, kind: "cone", dIn: ca, dOut: f.thickness, f: lerpSeg([f.rInStart, f.zStart], [f.rInEnd, f.zEnd]) });
+      segs.push({ id: f.id, kind: "cone", materialId: c.material_id, dIn: ca, dOut: f.thickness, f: lerpSeg([f.rInStart, f.zStart], [f.rInEnd, f.zEnd]) });
     } else {
       if (f.head?.side === "internal") {
         warnings.push(`${f.id}: zincir ortasındaki bombe modellenmedi.`);
@@ -261,24 +265,27 @@ export function buildFeaModel(project: VesselProject, opts: FeaOptions = {}): Fe
   const P = Math.max(project.design_conditions?.design_pressure ?? 0, 0);
   if (!(P > 0)) warnings.push("Tasarım basıncı ≤ 0 — gerilmeler sıfır.");
 
-  // Malzeme (ilk gövde)
-  const shell0 = project.shell_sections?.[0];
-  const mat = shell0 ? project.materials?.find((m) => m.material_id === shell0.material_id) : undefined;
-  const mAny = (mat ?? {}) as Record<string, unknown>;
-  const num = (...keys: string[]) => {
-    for (const k of keys) { const v = mAny[k]; if (typeof v === "number" && v > 0) return v; }
-    return null;
-  };
-  let E = num("elastic_modulus", "elastic_modulus_mpa", "youngs_modulus", "E");
-  let nu = num("poisson_ratio", "poissons_ratio", "nu");
-  if (E == null || nu == null || nu >= 0.5) {
-    warnings.push("E/ν malzemede yok — çelik varsayımı E=200 GPa, ν=0,3 (gerilme dağılımı E'den bağımsız, yer değiştirme bağımlı).");
-    E = E ?? E_DEFAULT;
-    nu = nu != null && nu < 0.5 ? nu : NU_DEFAULT;
-  }
-
   const segs = buildSegments(project, warnings);
   if (segs.length === 0) throw new Error("Modellenecek basınç bileşeni yok.");
+
+  // Malzeme E/ν: bileşenin kendi malzemesi; boş alan → çelik varsayımı + uyarı (yalnız o bileşenler).
+  const materials: Record<string, { E: number; nu: number }> = {};
+  const defaulted: string[] = [];
+  for (const sg of segs) {
+    if (materials[sg.id]) continue;
+    const m = project.materials?.find((x) => x.material_id === sg.materialId);
+    const Em = m?.elastic_modulus;
+    const nm = m?.poisson_ratio;
+    const okE = typeof Em === "number" && Em > 0;
+    const okNu = typeof nm === "number" && nm > 0 && nm < 0.5;
+    if (!okE || !okNu) defaulted.push(sg.id);
+    materials[sg.id] = { E: okE ? Em : E_DEFAULT, nu: okNu ? nm : NU_DEFAULT };
+  }
+  if (defaulted.length > 0) {
+    warnings.push(`E/ν malzemede yok — çelik varsayımı E=200 GPa, ν=0,3 (gerilme dağılımı E'den bağımsız, yer değiştirme bağımlı): ${defaulted.join(", ")}.`);
+  }
+  const body = materials[segs.find((x) => x.kind === "shell")?.id ?? segs[0].id];
+  const E = body.E, nu = body.nu;
   for (const s of segs) {
     if (!(s.dOut - s.dIn > 0)) throw new Error(`${s.id}: korozyonlu kalınlık ≤ 0 — FEA yapılamaz.`);
   }
@@ -504,5 +511,5 @@ export function buildFeaModel(project: VesselProject, opts: FeaOptions = {}): Fe
   const fixUzNode = nodeId(2 * Math.floor(nE / 2), 0);
 
   const mesh: FeaMesh = { nodes, elems, nodesPerElem: 8, elemComponent, lines, elemColumn, junctions, componentKind, nThick: nT };
-  return { mesh, pressure: P, E, nu, pressureElems, endLoads, axisNodes, fixUzNode, warnings };
+  return { mesh, pressure: P, E, nu, materials, pressureElems, endLoads, axisNodes, fixUzNode, warnings };
 }

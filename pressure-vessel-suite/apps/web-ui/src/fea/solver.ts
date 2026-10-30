@@ -127,7 +127,14 @@ export function solveFea(model: FeaModel, onProgress?: Progress): FeaResult {
   const nNodes = mesh.nodes.length / 2;
   const nEl = mesh.elems.length / 8;
   const nDof = 2 * nNodes;
-  const D = dMatrix(E, nu);
+  const dCache = new Map<string, Float64Array>();
+  const dOf = (e: number): Float64Array => {
+    const c = mesh.elemComponent[e];
+    let d = dCache.get(c);
+    if (!d) { const m = model.materials[c] ?? { E, nu }; d = dMatrix(m.E, m.nu); dCache.set(c, d); }
+    return d;
+  };
+  let D = dOf(0);
 
   // Bant genişliği
   let bw = 0;
@@ -155,6 +162,7 @@ export function solveFea(model: FeaModel, onProgress?: Progress): FeaResult {
   const aStep = Math.max(1, Math.floor(nEl / 10));
   for (let e = 0; e < nEl; e++) {
     loadEl(e);
+    D = dOf(e);
     ke.fill(0);
     let bad = false;
     for (let gi = 0; gi < 3; gi++) for (let gj = 0; gj < 3; gj++) {
@@ -275,6 +283,7 @@ export function solveFea(model: FeaModel, onProgress?: Progress): FeaResult {
   const sStep = Math.max(1, Math.floor(nEl / 10));
   for (let e = 0; e < nEl; e++) {
     loadEl(e);
+    D = dOf(e);
     for (let g = 0; g < 4; g++) {
       bMatrix(xr, xz, gp[g][0], gp[g][1], B, N, dxi, deta);
       const eps = [0, 0, 0, 0];
