@@ -209,6 +209,9 @@ export interface Support {
   weld_min_leg_mm: number | null;
   /** WRC 107/537 katsayıları: nokta (A/B/C/D) → yük (P/ML/MC/VL/VC) → dört katsayı. null = okunmadı. */
   wrc_coefficients: Record<string, Record<string, WrcCoefficientEntry>> | null;
+  /** WRC ML / MC katsayılarının okunduğu eğrinin β değeri (dikdörtgen ped: bülten eşdeğer β'sı). null = girilmedi. */
+  wrc_beta_ML: number | null;
+  wrc_beta_MC: number | null;
   anchor_bolt_count: number | null;
   anchor_bolt_diameter_mm: number | null;
   anchor_tension_allowable_N: number | null;

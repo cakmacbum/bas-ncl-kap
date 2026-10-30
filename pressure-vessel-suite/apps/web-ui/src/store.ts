@@ -710,6 +710,8 @@ export const useStore = create<AppState>((set, get) => ({
         weld_electrode_strength_MPa: null,
         weld_min_leg_mm: null,
         wrc_coefficients: null,
+        wrc_beta_ML: null,
+        wrc_beta_MC: null,
         anchor_bolt_count: null,
         anchor_bolt_diameter_mm: null,
         anchor_tension_allowable_N: null,

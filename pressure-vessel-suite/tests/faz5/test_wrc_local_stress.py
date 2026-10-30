@@ -100,11 +100,30 @@ class TestPointStressResultants:
         assert Mx == pytest.approx(0.3 * 10_000)
 
     def test_moment_load_scales_as_documented(self):
-        # ML moment tipi: N ∝ K·ML/Rm², M ∝ K·ML/Rm
+        # ML moment tipi (bülten N·Rm²·β/M, M·Rm·β/M): N = K·ML/(Rm²·β), M = K·ML/(Rm·β)
         coeffs = WrcCoefficients(table={"A": {"ML": full(Nx=0.2, Mx=0.6)}})
-        Nx, _, Mx, _ = point_stress_resultants("A", coeffs, Rm=500, ML=2_000_000)
-        assert Nx == pytest.approx(0.2 * 2_000_000 / 500**2)
-        assert Mx == pytest.approx(0.6 * 2_000_000 / 500)
+        Nx, _, Mx, _ = point_stress_resultants("A", coeffs, Rm=500, ML=2_000_000, beta_ML=0.2)
+        assert Nx == pytest.approx(0.2 * 2_000_000 / (500**2 * 0.2))
+        assert Mx == pytest.approx(0.6 * 2_000_000 / (500 * 0.2))
+
+    def test_mc_uses_its_own_beta(self):
+        coeffs = WrcCoefficients(table={"A": {"MC": full(Ny=0.3, My=0.4)}})
+        _, Ny, _, My = point_stress_resultants("A", coeffs, Rm=500, MC=1_000_000, beta_ML=9.0, beta_MC=0.1)
+        assert Ny == pytest.approx(0.3 * 1_000_000 / (500**2 * 0.1))
+        assert My == pytest.approx(0.4 * 1_000_000 / (500 * 0.1))
+
+    @pytest.mark.parametrize("load,kw", [("ML", {}), ("MC", {}), ("ML", {"beta_ML": 0.0}),
+                                         ("MC", {"beta_MC": -0.1})])
+    def test_active_moment_without_beta_rejected(self, load, kw):
+        coeffs = WrcCoefficients(table={"A": {load: full(Nx=0.2)}})
+        with pytest.raises(ValueError, match=f"beta_{load}"):
+            point_stress_resultants("A", coeffs, 500, **{load: 1_000_000}, **kw)
+        with pytest.raises(ValueError, match=f"beta_{load}"):
+            evaluate_point("A", "outside", coeffs, Rm=500, T_eff=10, **{load: 1_000_000}, **kw)
+
+    def test_zero_moment_needs_no_beta(self):
+        coeffs = WrcCoefficients(table={"A": {"P": full(Nx=0.5)}})
+        assert point_stress_resultants("A", coeffs, 500, P=1000, ML=0.0, MC=0.0)[0] == pytest.approx(1.0)
 
     def test_contributions_from_multiple_loads_superpose(self):
         coeffs = WrcCoefficients(table={"A": {
@@ -112,8 +131,8 @@ class TestPointStressResultants:
             "ML": full(Nx=0.2),
         }})
         Nx_p, _, _, _ = point_stress_resultants("A", coeffs, 500, P=10_000)
-        Nx_ml, _, _, _ = point_stress_resultants("A", coeffs, 500, ML=2_000_000)
-        Nx_both, _, _, _ = point_stress_resultants("A", coeffs, 500, P=10_000, ML=2_000_000)
+        Nx_ml, _, _, _ = point_stress_resultants("A", coeffs, 500, ML=2_000_000, beta_ML=0.15)
+        Nx_both, _, _, _ = point_stress_resultants("A", coeffs, 500, P=10_000, ML=2_000_000, beta_ML=0.15)
         assert Nx_both == pytest.approx(Nx_p + Nx_ml)
 
     def test_invalid_point_rejected(self):
@@ -205,3 +224,21 @@ class TestClassification:
         r = evaluate_point("A", "outside", WrcCoefficients(), 500, 10)
         with pytest.raises(ValueError):
             classify_point(r, S=0)
+
+
+class TestConsistencyWithNozzleWrc537:
+    """Ayak WRC moment normalizasyonu, P07 nozul WRC 537 ile aynı β'lı formu kullanır."""
+
+    def test_ml_membrane_and_bending_match_nozzle_form(self):
+        from nozzles.nozzle_loads import NozzleLoads, evaluate_wrc537, wrc537_geometry
+
+        Rm, T, r0, ML = 500.0, 10.0, 60.0, 2_000_000.0
+        beta_n = wrc537_geometry(Rm, T, r0)["beta"]
+        K = {f"ML.{c}.{g}": 0.0 for c in ("Nphi", "Nx", "Mphi", "Mx") for g in ("AB", "CD")}
+        K.update({"ML.Nx.AB": 0.2, "ML.Mx.AB": 0.6})
+        noz = next(p for p in evaluate_wrc537(NozzleLoads(ML=ML), K, Rm, T, r0)
+                   if p.point == "A" and p.surface == "outside")
+        coeffs = WrcCoefficients(table={"A": {"ML": full(Nx=0.2, Mx=0.6)}})
+        leg = evaluate_point("A", "outside", coeffs, Rm=Rm, T_eff=T, ML=ML, beta_ML=beta_n)
+        assert leg.membrane_axial == pytest.approx(noz.membrane_x)
+        assert leg.total_axial == pytest.approx(noz.sigma_x)

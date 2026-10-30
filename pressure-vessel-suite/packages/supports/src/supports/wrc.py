@@ -24,14 +24,16 @@ M: kuvvet boyutlu bileşke moment/uzunluk):
 Kayma yükleri (boyuna `VL`, çevresel `VC`) de KUVVET tipidir: bülten eğrisi
 `N·Rm/V` ve `M/V` verir → N_katkı = K_N·V/Rm, M_katkı = K_M·V.
 
-Moment tipi yükler (`ML`, `MC`) için bülten `N·Rm²/Moment` ve `M·Rm/Moment`
-sunar:
+Moment tipi yükler (`ML`, `MC`) için bülten eğriyi `N·Rm²·β/Moment` ve
+`M·Rm·β/Moment` biçiminde sunar (β: o eğrinin okunduğu β parametresi):
 
-    N_katkı = K_N · Moment / Rm²      M_katkı = K_M · Moment / Rm
+    N_katkı = K_N · Moment / (Rm²·β)      M_katkı = K_M · Moment / (Rm·β)
 
-Bu, WRC 107/537'nin standart pratikte kullanılan (kuvvet→N∝1/Rm, M∝1;
-moment→N∝1/Rm², M∝1/Rm) boyut analizidir; kullanıcı boyutsuz `K` değerini
-kendi bültenden okur, kod yalnız ölçekleme ve toplamı yapar.
+Dikdörtgen ped/ayak için ML ve MC eğrilerinin β'sı C/Rm değil, bültenin o yük
+tipi için tanımladığı EŞDEĞER β'dır (ped oranına bağlı). Bu eşdeğerlik formülü
+programa GÖMÜLMEZ (K6): kullanıcı katsayıyı okuduğu eğrinin β değerini
+(`beta_ML`, `beta_MC`) girer; moment yükü sıfırdan farklıyken β yoksa hesap
+reddedilir (eksik β 1 veya 0 sayılmaz). Kod yalnız ölçekleme ve toplamı yapar.
 
 Referanslar:
 - WRC Bulletin 107 (1979 revizyonu), WRC Bulletin 537 (2010) — yöntem adı ve
@@ -153,10 +155,26 @@ def _force_contribution(K: Optional[float], load: float, Rm: float, is_membrane:
     return K * load / Rm if is_membrane else K * load
 
 
-def _moment_contribution(K: Optional[float], load: float, Rm: float, is_membrane: bool) -> float:
+def _moment_contribution(
+    K: Optional[float], load: float, Rm: float, is_membrane: bool, beta_eq: Optional[float]
+) -> float:
     if K is None or load == 0.0:
         return 0.0
-    return K * load / (Rm * Rm) if is_membrane else K * load / Rm
+    if beta_eq is None or beta_eq <= 0:
+        raise ValueError(f"Moment normalizasyonu için pozitif β gerekli: {beta_eq!r}")
+    return K * load / (Rm * Rm * beta_eq) if is_membrane else K * load / (Rm * beta_eq)
+
+
+def _require_moment_beta(ML: float, MC: float,
+                         beta_ML: Optional[float], beta_MC: Optional[float]) -> None:
+    """Aktif moment yükü için eğri β'sı girilmiş ve pozitif mi? Değilse ValueError."""
+    for name, load, b in (("ML", ML, beta_ML), ("MC", MC, beta_MC)):
+        if load != 0.0 and (b is None or b <= 0):
+            raise ValueError(
+                f"WRC {name} moment yükü aktif ancak beta_{name} (katsayının okunduğu eğrinin β değeri) "
+                "girilmedi/pozitif değil — eksik β 1 veya 0 sayılmaz. Dikdörtgen ped için bültenin "
+                "eşdeğer β'sı kullanılır (C/Rm değil)."
+            )
 
 
 def point_stress_resultants(
@@ -168,20 +186,24 @@ def point_stress_resultants(
     MC: float = 0.0,
     VL: float = 0.0,
     VC: float = 0.0,
+    beta_ML: Optional[float] = None,
+    beta_MC: Optional[float] = None,
 ) -> Tuple[float, float, float, float]:
     """Bir noktadaki toplam Nx, Ny, Mx, My bileşke değerleri (bindirme).
 
-    P, VL, VC kuvvet tipi (N∝1/Rm, M∝1); ML/MC moment tipi (N∝1/Rm², M∝1/Rm).
+    P, VL, VC kuvvet tipi (N∝1/Rm, M∝1); ML/MC moment tipi
+    (N∝1/(Rm²·β), M∝1/(Rm·β)) — β kullanıcının okuduğu eğrinin β'sı.
     """
     if point not in POINTS:
         raise ValueError(f"Geçersiz nokta: {point}")
+    _require_moment_beta(ML, MC, beta_ML, beta_MC)
     Nx = Ny = Mx = My = 0.0
-    for load_name, load_value, contrib_n, contrib_m in (
-        ("P", P, _force_contribution, _force_contribution),
-        ("ML", ML, _moment_contribution, _moment_contribution),
-        ("MC", MC, _moment_contribution, _moment_contribution),
-        ("VL", VL, _force_contribution, _force_contribution),
-        ("VC", VC, _force_contribution, _force_contribution),
+    for load_name, load_value, kind, b in (
+        ("P", P, "F", None),
+        ("ML", ML, "M", beta_ML),
+        ("MC", MC, "M", beta_MC),
+        ("VL", VL, "F", None),
+        ("VC", VC, "F", None),
     ):
         c = coeffs.get(point, load_name)
         if load_value != 0.0:
@@ -191,10 +213,16 @@ def point_stress_resultants(
                     f"WRC katsayısı eksik — {gaps[0]}. Bültende gerçekten sıfırsa 0.0 girin; "
                     "eksik katsayı sıfır sayılmaz."
                 )
-        Nx += contrib_n(c.Nx, load_value, Rm, True)
-        Ny += contrib_n(c.Ny, load_value, Rm, True)
-        Mx += contrib_m(c.Mx, load_value, Rm, False)
-        My += contrib_m(c.My, load_value, Rm, False)
+        if kind == "F":
+            Nx += _force_contribution(c.Nx, load_value, Rm, True)
+            Ny += _force_contribution(c.Ny, load_value, Rm, True)
+            Mx += _force_contribution(c.Mx, load_value, Rm, False)
+            My += _force_contribution(c.My, load_value, Rm, False)
+        else:
+            Nx += _moment_contribution(c.Nx, load_value, Rm, True, b)
+            Ny += _moment_contribution(c.Ny, load_value, Rm, True, b)
+            Mx += _moment_contribution(c.Mx, load_value, Rm, False, b)
+            My += _moment_contribution(c.My, load_value, Rm, False, b)
     return Nx, Ny, Mx, My
 
 
@@ -212,6 +240,8 @@ def evaluate_point(
     pressure_circ_stress: float = 0.0,
     VL: float = 0.0,
     VC: float = 0.0,
+    beta_ML: Optional[float] = None,
+    beta_MC: Optional[float] = None,
 ) -> PointStressResult:
     """Tek bir nokta/yüzey için lokal + basınç gerilmesini birleştirir.
 
@@ -229,7 +259,9 @@ def evaluate_point(
     if T_eff <= 0:
         raise ValueError(f"T_eff pozitif olmalı: {T_eff}")
 
-    Nx, Ny, Mx, My = point_stress_resultants(point, coeffs, Rm, P, ML, MC, VL, VC)
+    Nx, Ny, Mx, My = point_stress_resultants(
+        point, coeffs, Rm, P, ML, MC, VL, VC, beta_ML=beta_ML, beta_MC=beta_MC
+    )
     sign = 1.0 if surface == "outside" else -1.0
 
     sigma_m_x = Nx / T_eff
@@ -266,6 +298,8 @@ def evaluate_all_points(
     pressure_circ_stress: float = 0.0,
     VL: float = 0.0,
     VC: float = 0.0,
+    beta_ML: Optional[float] = None,
+    beta_MC: Optional[float] = None,
 ) -> Dict[Tuple[str, str], PointStressResult]:
     """8 nokta (A/B/C/D × dış/iç) için `evaluate_point`'i toplu çalıştırır."""
     results = {}
@@ -274,6 +308,7 @@ def evaluate_all_points(
             results[(point, surface)] = evaluate_point(
                 point, surface, coeffs, Rm, T_eff, P, ML, MC,
                 shear_stress, pressure_axial_stress, pressure_circ_stress, VL, VC,
+                beta_ML=beta_ML, beta_MC=beta_MC,
             )
     return results
 

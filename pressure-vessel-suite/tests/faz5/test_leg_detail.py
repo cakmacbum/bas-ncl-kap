@@ -383,33 +383,51 @@ class TestWrcLocal:
 
     def test_hand_calc_all_points(self):
         """VL = N = 20000, ML = N·e = 1.8e6; Rm=506, T=12; tüm noktalarda aynı katsayılar:
-        VL(Nx .1, Ny .2, Mx .05, My .03), ML(Nx .4, Ny .3, Mx .06, My .02).
+        VL(Nx .1, Ny .2, Mx .05, My .03), ML(Nx .4, Ny .3, Mx .06, My .02); ML eğrisi β = 0.25
+        (kullanıcı girdisi — test değeri, bülten okuması değil).
 
-        Nx = .1·20000/506 + .4·1.8e6/506² = 6.7647; Ny = 10.0142;
-        Mx = .05·20000 + .06·1.8e6/506 = 1213.44; My = 671.15 N·mm/mm.
-        Basınç: σL = 1.2·506/24 = 25.3; σc = 50.6. Dış yüzey: σx = 6.7647/12 + 6·1213.44/144 + 25.3
-        = 76.424; σy = 79.399 → SI = √(σx²−σxσy+σy²) = 77.954. İç yüzey: σx=−24.696, σy=23.470 → 41.718.
-        PL (yalnız membran+basın): σx=25.864, σy=51.435 → 44.544. Sınır 1.5·138 = 207 MPa.
+        Moment normalizasyonu (bülten N·Rm²·β/M, M·Rm·β/M):
+        Nx = .1·20000/506 + .4·1.8e6/(506²·.25) = 15.2010; Ny = 16.3415;
+        Mx = .05·20000 + .06·1.8e6/(506·.25) = 1853.755; My = 884.585 N·mm/mm.
+        Basınç: σL = 1.2·506/24 = 25.3; σc = 50.6. Dış yüzey: σx = 15.2010/12 + 6·1853.755/144 + 25.3
+        = 103.807; σy = 88.819 → SI = √(σx²−σxσy+σy²) = 97.184. İç yüzey: σx=−50.673, σy=15.104 → 59.676.
+        PL (yalnız membran+basınç): 45.004. Sınır 1.5·138 = 207 MPa.
         """
-        f = dict(FULL, wrc_coefficients=_uniform_coeffs({"VL": WRC_VL, "ML": WRC_ML}))
+        f = dict(FULL, wrc_beta_ML=0.25, wrc_coefficients=_uniform_coeffs({"VL": WRC_VL, "ML": WRC_ML}))
         r = _details(_payload(f))["wrc_local_stress"]
         assert r.status.value == "REVIEW REQUIRED"
-        assert _iv(r, "A_outside_membrane_axial") == pytest.approx(6.76467 / 12.0, rel=1e-4)
-        assert _iv(r, "A_outside_bending_axial") == pytest.approx(6 * 1213.4387 / 144.0, rel=1e-4)
-        assert _iv(r, "A_outside_PL_Pb") == pytest.approx(77.9539, rel=1e-4)
-        assert _iv(r, "A_inside_PL_Pb") == pytest.approx(41.7178, rel=1e-4)
-        assert _iv(r, "A_outside_PL") == pytest.approx(44.5438, rel=1e-4)
-        assert r.final_result == pytest.approx(77.9539, rel=1e-4)
+        assert _iv(r, "A_outside_membrane_axial") == pytest.approx(15.200987 / 12.0, rel=1e-4)
+        assert _iv(r, "A_outside_bending_axial") == pytest.approx(6 * 1853.75494 / 144.0, rel=1e-4)
+        assert _iv(r, "A_outside_PL_Pb") == pytest.approx(97.18362, rel=1e-4)
+        assert _iv(r, "A_inside_PL_Pb") == pytest.approx(59.67629, rel=1e-4)
+        assert _iv(r, "A_outside_PL") == pytest.approx(45.00404, rel=1e-4)
+        assert r.final_result == pytest.approx(97.18362, rel=1e-4)
         assert r.allowable_limit == pytest.approx(207.0)
-        assert r.utilization_ratio == pytest.approx(77.9539 / 207.0, rel=1e-4)
+        assert r.utilization_ratio == pytest.approx(97.18362 / 207.0, rel=1e-4)
+        assert _iv(r, "beta_eq_ML") == pytest.approx(0.25)
         assert _iv(r, "gamma") == pytest.approx(506.0 / 12.0)
         assert _iv(r, "beta_longitudinal") == pytest.approx(100.0 / 506.0)   # C = pad boyu/2 = 100
         assert _iv(r, "beta_circumferential") == pytest.approx(50.0 / 506.0)  # C = pad eni/2 = 50
         assert any("Ped gövde kalınlığına EKLENMEDİ" in a for a in r.assumptions)
 
+    def test_missing_moment_beta_blocks_missing_input(self):
+        """Katsayılar tam ama ML aktifken β_ML girilmedi → BLOCKED_MISSING_INPUT (β 1/0 sayılmaz)."""
+        f = dict(FULL, wrc_coefficients=_uniform_coeffs({"VL": WRC_VL, "ML": WRC_ML}))
+        r = _details(_payload(f))["wrc_local_stress"]
+        assert r.status.value == "BLOCKED MISSING INPUT"
+        msg = r.warnings[0]
+        assert "wrc_beta_ML" in msg and "β_L" in msg and "β_C" in msg and "EŞDEĞER" in msg
+        assert "wrc_beta_MC" not in msg   # MC = 0 → β_MC istenmez
+
+    def test_beta_scales_moment_contribution_inversely(self):
+        base = dict(FULL, wrc_coefficients=_uniform_coeffs({"ML": WRC_ML, "VL": (0, 0, 0, 0)}))
+        r1 = _details(_payload(dict(base, wrc_beta_ML=0.25)))["wrc_local_stress"]
+        r2 = _details(_payload(dict(base, wrc_beta_ML=0.5)))["wrc_local_stress"]
+        assert _iv(r1, "A_outside_bending_axial") == pytest.approx(2 * _iv(r2, "A_outside_bending_axial"))
+
     def test_exceeding_limit_fails(self):
         big = _uniform_coeffs({"VL": (50.0, 50.0, 50.0, 50.0), "ML": (50.0, 50.0, 50.0, 50.0)})
-        r = _details(_payload(dict(FULL, wrc_coefficients=big)))["wrc_local_stress"]
+        r = _details(_payload(dict(FULL, wrc_beta_ML=0.25, wrc_coefficients=big)))["wrc_local_stress"]
         assert r.status.value == "FAIL"
         assert r.utilization_ratio > 1.0
 
@@ -522,7 +540,7 @@ class TestProductionPath:
         assert _iv(by["leg_stress"], "host_component_id") == "S1"
 
     def test_u_profile_with_wrc_coefficients_gives_real_result(self):
-        f = dict(FULL, weld_min_leg_mm=5.0, wrc_coefficients=_uniform_coeffs({"VL": WRC_VL, "ML": WRC_ML}))
+        f = dict(FULL, weld_min_leg_mm=5.0, wrc_beta_ML=0.25, wrc_coefficients=_uniform_coeffs({"VL": WRC_VL, "ML": WRC_ML}))
         res = ASMEVIII1DesignCode().check_supports(_project([_leg_support(**f)]))
         by = {r.calculation_type: r for r in res}
         assert by["wrc_local_stress"].status.value == "REVIEW REQUIRED"

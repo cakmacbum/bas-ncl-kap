@@ -213,6 +213,12 @@ function LegSupportFields({ sup, setSup }: { sup: LegSup; setSup: (p: Partial<Le
           Lisanslı WRC 537 bülteninden okunur; program bu katsayıları içermez. Aktif yükte dört bileşenin hepsi zorunludur;
           bültende gerçekten sıfırsa 0 girin, boş bırakmayın. Boş = okunmadı; 0 = gerçek sıfır.
         </div>
+        <div className="grid" style={{ marginTop: 8 }}>
+          {num("ML Eğrisi β", "wrc_beta_ML", {
+            help: "ML (boyuna moment) katsayısını okuduğunuz eğrinin β değeri. Bülten moment eğrisini N·Rm²·β/M, M·Rm·β/M biçiminde verir. Dikdörtgen ped için β, C/Rm değil bültenin eşdeğer β'sıdır; program hesaplamaz. ML ≠ 0 iken boşsa WRC hesabı bloklanır." })}
+          {num("MC Eğrisi β", "wrc_beta_MC", {
+            help: "MC (çevresel moment) katsayısını okuduğunuz eğrinin β değeri. Dikdörtgen ped için bültenin eşdeğer β'sı (C/Rm değil); program hesaplamaz. MC ≠ 0 iken (yatay yük varsa) boşsa WRC hesabı bloklanır." })}
+        </div>
         <div style={{ overflowX: "auto", marginTop: 8 }}>
           <table className="table" style={{ width: "100%" }}>
             <thead>
