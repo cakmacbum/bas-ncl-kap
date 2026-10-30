@@ -26,7 +26,11 @@ from domain import VesselProject, compute_input_hash  # type: ignore
 
 from apps.api import services
 from apps.api.auth import auth_mode, require_owner
-from apps.api.store import ProjectLimitReached, store
+from apps.api.storage_supabase import StoreUnavailable, select_store
+from apps.api.store import ProjectLimitReached, store as _memory_store
+
+# Depo seçimi: SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY varsa kalıcı, yoksa bellek içi.
+store = select_store(_memory_store)
 
 logger = logging.getLogger("basincli-kap.api")
 
@@ -81,6 +85,27 @@ def create_project(project: VesselProject, owner: str = Depends(require_owner)) 
     except ProjectLimitReached:
         raise HTTPException(status_code=429, detail="Project limit reached") from None
     return {"id": project_id, "input_file_hash": compute_input_hash(project)}
+
+
+@app.exception_handler(StoreUnavailable)
+async def _store_unavailable(_request: Request, _exc: StoreUnavailable) -> JSONResponse:
+    return JSONResponse(status_code=503, content={"detail": "Proje deposu geçici olarak kullanılamıyor."})
+
+
+@app.get("/api/projects/{project_id}/revisions")
+def list_revisions(project_id: str, owner: str = Depends(require_owner)) -> list:
+    revs = store.revisions(owner, project_id)
+    if revs is None:
+        raise HTTPException(status_code=404, detail="Proje bulunamadı.")
+    return revs
+
+
+@app.get("/api/projects/{project_id}/revisions/{n}")
+def get_revision(project_id: str, n: int, owner: str = Depends(require_owner)) -> VesselProject:
+    project = store.get_revision(owner, project_id, n)
+    if project is None:
+        raise HTTPException(status_code=404, detail="Revizyon bulunamadı.")
+    return project
 
 
 @app.get("/api/projects/{project_id}")
