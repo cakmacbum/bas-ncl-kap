@@ -1569,10 +1569,12 @@ class ASMEVIII1DesignCode(DesignCode):
             elif issues:
                 result.set_blocked_missing_input("Junction girdisi/topolojisi tamamlanmalı: " + "; ".join(issues))
             else:
-                result.set_out_of_scope(
-                    "Girdi ve bağlantı topolojisi kaydedildi. Appendix 1-4/1-5 koni ucu "
-                    "gerilme/yeterlilik çözümü bu sürümde uygulanmadı; sayısal sonuç üretilmedi."
+                # --- P08 --- Appendix 1-5 takviye halkası (koni-silindir)
+                from code_asme_viii_1.appendix_1_5 import evaluate_cone_junction
+                _other, _other_type = (
+                    (right_obj, right_type) if left_type == "cone" else (left_obj, left_type)
                 )
+                evaluate_cone_junction(result, project, junction, cone, _other, _other_type)
             results.append(result)
         return results
 
@@ -2029,11 +2031,30 @@ class ASMEVIII1DesignCode(DesignCode):
                     edition=self.code_edition,
                     clause_reference="Skirt base ring / anchor bolts",
                 )
-                _br.set_out_of_scope(
-                    "Etek taban halkası (base ring), ankraj cıvataları ve beton yataklık kontrolü "
-                    "hesaplanmadı: bu pakette etek için taban halkası hesabı yok (kapsam dışı). "
-                    "Ayrıca ele alınmalıdır."
-                )
+                # --- P08 --- etek taban halkası / ankraj / beton (girdi varsa hesaplanır)
+                _cb = getattr(project, "cone_base", None)
+                _ring = getattr(_cb, "skirt_base_ring", None) if _cb else None
+                if _ring is not None and _ring.support_id not in (None, sup.support_id):
+                    _ring = None
+                if _ring is not None:
+                    from supports.skirt_base_ring import check_skirt_base_ring
+                    _br = check_skirt_base_ring(
+                        {
+                            "tag": sup.support_id,
+                            "skirt_mean_diameter_mm": getattr(sup, "diameter_mm", None),
+                            "skirt_thickness_mm": getattr(sup, "thickness_mm", None),
+                            "total_weight_N": compression_weight_N,
+                            "min_weight_N": uplift_weight_N,
+                            "overturning_moment_Nmm": overturning_moment,
+                            "horizontal_load_N": global_horizontal,
+                        },
+                        _ring, self.code_name, self.code_edition,
+                    )
+                else:
+                    _br.set_out_of_scope(
+                        "Etek taban halkası girdisi (cone_base.skirt_base_ring) yok; halka, ankraj "
+                        "ve beton yataklık kontrolü hesaplanmadı. Girdiyi doldurunca hesaplanır."
+                    )
                 _br.add_intermediate("host_component_id", host_id, "-", f"Resolved support host ({host_type})")
                 results.append(_br)
 

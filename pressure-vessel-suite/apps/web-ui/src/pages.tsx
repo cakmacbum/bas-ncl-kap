@@ -29,6 +29,7 @@ import { GeometryWizard } from "./geometrySteps/GeometryWizard";
 import { computeIssues } from "./geometrySteps/IssuesPanel";
 import { BomInputs } from "./inputs/BomInputs";
 import { BomCard } from "./BomCard";
+import { ConeBaseInputs } from "./inputs/ConeBaseInputs";
 
 function PageHead({ kicker, title, desc }: { kicker: string; title: string; desc: string }) {
   return (
@@ -1029,6 +1030,7 @@ export function GeometryPage() {
           </AccordionSection>
           <BomInputs />
           <LiftingLugInputs />
+          <ConeBaseInputs {...sec("cone-base")} />
           </div>}
         </div>
 
