@@ -16,6 +16,7 @@ import threading
 from pathlib import Path
 from urllib.parse import unquote
 
+from pydantic import ValidationError
 from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
@@ -103,6 +104,38 @@ def calculate(project_id: str, owner: str = Depends(require_owner)) -> dict:
     if project is None:
         raise HTTPException(status_code=404, detail="Proje bulunamadı.")
     return services.calculation_payload(project)
+
+
+# --- Durumsuz uçlar (sunucusuz ortam: depo örnekler arası paylaşılmaz) ---
+STATELESS_MAX_BYTES = 2 * 1024 * 1024
+
+
+async def _read_project_body(request: Request) -> VesselProject:
+    """Gövdeyi 2 MB sınırıyla oku (önce Content-Length, sonra akışta say) ve doğrula."""
+    declared = request.headers.get("content-length")
+    if declared and declared.isdigit() and int(declared) > STATELESS_MAX_BYTES:
+        raise HTTPException(status_code=413, detail="Gövde 2 MB sınırını aşıyor.")
+    buf = bytearray()
+    async for chunk in request.stream():
+        buf += chunk
+        if len(buf) > STATELESS_MAX_BYTES:
+            raise HTTPException(status_code=413, detail="Gövde 2 MB sınırını aşıyor.")
+    try:
+        return VesselProject.model_validate_json(bytes(buf))
+    except ValidationError as exc:
+        raise HTTPException(status_code=422, detail=exc.errors(include_url=False, include_context=False, include_input=False)) from None
+
+
+@app.post("/api/calculate", dependencies=[Depends(require_owner)])
+async def calculate_stateless(request: Request) -> dict:
+    project = await _read_project_body(request)
+    return await run_in_threadpool(services.calculation_payload, project)
+
+
+@app.post("/api/report.html", response_class=HTMLResponse, dependencies=[Depends(require_owner)])
+async def report_html_stateless(request: Request) -> HTMLResponse:
+    project = await _read_project_body(request)
+    return HTMLResponse(content=await run_in_threadpool(services.generate_report_html, project))
 
 
 @app.get("/api/projects/{project_id}/report.html", response_class=HTMLResponse)
