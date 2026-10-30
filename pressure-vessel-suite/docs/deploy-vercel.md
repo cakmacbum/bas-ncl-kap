@@ -19,7 +19,8 @@ origin'den yapar (`VITE_API_URL` boş bırakılır).
    cd pressure-vessel-suite
    vercel link
    ```
-   Mevcut `pv-suite-app` projesini seç.
+   Mevcut `pv-suite-app` projesini seç. Ortam değişkenlerini indirmeyi (`.env.local`) sorarsa **hayır** de.
+   `.vercelignore` `.env*` ve `Dockerfile`'ı yüklemeden hariç tutar.
 3. Ortam değişkenleri (Settings > Environment Variables, değerleri panelde gir):
    `AUTH_MODE`, `SUPABASE_URL`, `SUPABASE_JWT_SECRET`, `CORS_ORIGINS` (aynı origin ise gerekmez), `AUTH_DISABLED` (yalnız test).
    `VITE_API_URL` tanımlama (boş kalsın).
@@ -31,7 +32,7 @@ origin'den yapar (`VITE_API_URL` boş bırakılır).
 
 ## Notlar
 - Sunucuda **CadQuery yok** (boyut ve soğuk başlangıç). CAD uç noktaları `services.py` içinde opsiyonel
-  olarak devre dışı döner; STEP/CAD çıktısı için Render/Docker dağıtımı (`Dockerfile`) kullanılır.
+  olarak devre dışı döner (503); STEP/STL tarayıcıda üretilir (Kap Geometrisi → Dışa aktar).
 - WeasyPrint de yüklü değildir: raporlar HTML üretir, PDF üretimi kapalıdır.
 - Fonksiyon dosya sistemi salt okunurdur (yalnız `/tmp` yazılabilir); bellek içi `store` örnekler arası kalıcı değildir.
 - Paket boyutu sınırı: Python için 500 MB sıkıştırılmamış (Vercel dokümanı).
