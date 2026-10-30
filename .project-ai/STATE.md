@@ -89,3 +89,9 @@ Son doğrulama (6224e45): gerçek tıklamayla STEP indi; CadQuery 11/11 katı ge
 - P05 Zick K arama altyapısı — `ZICK_TABLES` BOŞ (doğrulanmış Moss/Zick değerleri gerekli; K girilmezse BLOCKED kalır)
 - main 115 web testi + 287 pytest yeşil; önizleme deploy READY; üretim deploy Yusuf onayı bekliyor
 - Sıradaki: Dalga 2 (P06 lifting lug, P07 WRC 537, P08 koni/taban halkası, P09 BOM/maliyet). Plan: ~/.claude/plans/bu-yoldaki-plan-oku-peaceful-gem.md
+
+## 2026-10-30 — Dalga 2 canlıda
+- P06 kaldırma kulağı (5 kontrol, REVIEW_REQUIRED; BTH-1 Nd yok) · P07 WRC 537 altyapısı (WRC537/297 eğri katsayıları BOŞ → BLOCKED; kullanıcı katsayı girerse 537 hesaplanır)
+- P08 koni App. 1-5 + taban halkası/ankraj (Δ tablosu yok, boşsa Δ=0 güvenli taraf) · P09 BOM + maliyet (fiyatlar kullanıcıdan, CSV)
+- Bulgu (açık): `supports/wrc.py` ayak WRC'si moment normalizasyonunda β kullanmıyor — kontrol edilmeli.
+- main 120 web + 633 pytest yeşil; app.zeyslabs-vessela.com üretimde.
