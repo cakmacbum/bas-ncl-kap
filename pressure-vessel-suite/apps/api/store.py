@@ -4,6 +4,8 @@
 - Sahip başına en fazla MAX_PROJECTS_PER_OWNER proje; küresel tavan MAX_PROJECTS_GLOBAL,
   aşılınca en az yakın zamanda erişilen proje atılır (LRU).
 - threading.Lock ile korunur.
+- Revizyon geçmişi: create = revizyon 1, her başarılı update bir sonraki numara (anlık görüntü).
+  Kalıcı (Supabase) sürüm: apps/api/storage_supabase.py (aynı arayüz).
 """
 
 from __future__ import annotations
@@ -28,6 +30,8 @@ class ProjectStore:
         # project_id -> (owner, project); sıra = LRU (sonda en yeni erişilen)
         self._items: "OrderedDict[str, Tuple[str, VesselProject]]" = OrderedDict()
         self._lock = threading.Lock()
+        # project_id -> [(revizyon_no, proje)]
+        self._revs: "dict[str, list[Tuple[int, VesselProject]]]" = {}
 
     def create(self, owner: str, project: VesselProject) -> str:
         with self._lock:
@@ -35,8 +39,10 @@ class ProjectStore:
                 raise ProjectLimitReached
             project_id = uuid.uuid4().hex[:12]
             self._items[project_id] = (owner, project)
+            self._revs[project_id] = [(1, project)]
             while len(self._items) > MAX_PROJECTS_GLOBAL:
-                self._items.popitem(last=False)
+                old, _ = self._items.popitem(last=False)
+                self._revs.pop(old, None)
             return project_id
 
     def get(self, owner: str, project_id: str) -> VesselProject | None:
@@ -54,7 +60,27 @@ class ProjectStore:
                 return False
             self._items[project_id] = (owner, project)
             self._items.move_to_end(project_id)
+            revs = self._revs.setdefault(project_id, [])
+            revs.append((revs[-1][0] + 1 if revs else 1, project))
             return True
+
+    def revisions(self, owner: str, project_id: str) -> List[dict] | None:
+        """Revizyon listesi (yeniden eskiye); proje yok/başkasınınsa None."""
+        with self._lock:
+            entry = self._items.get(project_id)
+            if entry is None or entry[0] != owner:
+                return None
+            return [{"revision": n} for n, _ in reversed(self._revs.get(project_id, []))]
+
+    def get_revision(self, owner: str, project_id: str, n: int) -> VesselProject | None:
+        with self._lock:
+            entry = self._items.get(project_id)
+            if entry is None or entry[0] != owner:
+                return None
+            for num, proj in self._revs.get(project_id, []):
+                if num == n:
+                    return proj
+            return None
 
     def summaries(self, owner: str) -> List[dict]:
         with self._lock:

@@ -124,6 +124,14 @@ export const api = {
     return fetchJson(`${BASE}/projects/${encodeURIComponent(id)}`);
   },
 
+  async listRevisions(id: string): Promise<{ revision: number; created_at?: string }[]> {
+    return fetchJson(`${BASE}/projects/${encodeURIComponent(id)}/revisions`);
+  },
+
+  async getRevision(id: string, n: number): Promise<VesselProject> {
+    return fetchJson(`${BASE}/projects/${encodeURIComponent(id)}/revisions/${n}`);
+  },
+
   async health(): Promise<{ status: string; cad_available: boolean }> {
     return fetchJson(`${BASE}/health`);
   },

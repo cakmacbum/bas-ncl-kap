@@ -23,6 +23,9 @@ origin'den yapar (`VITE_API_URL` boş bırakılır).
    `.vercelignore` `.env*` ve `Dockerfile`'ı yüklemeden hariç tutar.
 3. Ortam değişkenleri (Settings > Environment Variables, değerleri panelde gir):
    `AUTH_MODE`, `SUPABASE_URL`, `SUPABASE_JWT_SECRET`, `CORS_ORIGINS` (aynı origin ise gerekmez), `AUTH_DISABLED` (yalnız test).
+   Kalıcı proje deposu için ek olarak `SUPABASE_SERVICE_ROLE_KEY` (yalnız sunucu; asla `VITE_*` yapma, istemciye verme)
+   ve `supabase/migrations/0001_projects.sql` dosyasını Supabase SQL editöründe bir kez çalıştır.
+   `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` ikisi de varsa depo Supabase'tir; biri eksikse bellek içi (kalıcı değil).
    `VITE_API_URL` tanımlama (boş kalsın).
 4. Önizleme ve üretim:
    ```powershell
