@@ -12,7 +12,7 @@ import math
 from typing import Any, Dict, List, Optional
 
 from calc_core.result import CalculationResult
-from supports import formulas, leg_detail
+from supports import formulas, leg_detail, zick_tables
 
 
 class SupportCalculator:
@@ -261,11 +261,29 @@ class SupportCalculator:
         result.add_intermediate("Sy", mat.yield_strength, "MPa", "Akma dayanımı")
 
         # ── Kullanıcı katsayıları (K6: tablo kodda yok) ──────────────────────
-        K1 = math.pi if (ring or head_stiff) else support.get("zick_K1")
-        K2 = 1.0 / math.pi if ring else support.get("zick_K2")
-        K3 = support.get("zick_K3") if head_stiff else None
-        K6 = support.get("zick_K6") if not ring else None
-        K7 = support.get("zick_K7")
+        # Kullanıcı değeri öncelikli; boşsa zick_tables'tan (θ, A/R) aranır; bulunamazsa
+        # None kalır ve aşağıda BLOCKED_CODE_DATA olur (kırpma/uydurma yok).
+        k_source: Dict[str, str] = {}
+
+        def _k(name: str, key: str):
+            v = support.get(key)
+            if v:
+                k_source[name] = "kullanıcı"
+                return v
+            if theta is None:
+                return None
+            try:
+                hit = zick_tables.lookup(name, theta, A / R_m)
+            except zick_tables.ZickTableError:
+                return None
+            k_source[name] = f"tablodan ({hit['source']}; verified={hit['verified']})"
+            return hit["value"]
+
+        K1 = math.pi if (ring or head_stiff) else _k("K1", "zick_K1")
+        K2 = 1.0 / math.pi if ring else _k("K2", "zick_K2")
+        K3 = _k("K3", "zick_K3") if head_stiff else None
+        K6 = _k("K6", "zick_K6") if not ring else None
+        K7 = _k("K7", "zick_K7")
         need = []
         if not K1:
             need.append("zick_K1")
@@ -311,13 +329,10 @@ class SupportCalculator:
         if S4 is not None:
             checks.append(("S4", S4, limits["S4"], "Eyer boynuzu çevresel (membran+eğilme)"))
 
-        result.add_intermediate("K1", K1, "-", "K1 (kullanıcı / π)")
-        result.add_intermediate("K2", K2, "-", "K2 (kullanıcı / 1/π)")
-        if K3:
-            result.add_intermediate("K3", K3, "-", "K3 (kullanıcı)")
-        if K6:
-            result.add_intermediate("K6", K6, "-", "K6 (kullanıcı)")
-        result.add_intermediate("K7", K7, "-", "K7 (kullanıcı)")
+        for _n, _v in (("K1", K1), ("K2", K2), ("K3", K3), ("K6", K6), ("K7", K7)):
+            if _v:
+                result.add_intermediate(
+                    _n, _v, "-", f"{_n} — kaynak: {k_source.get(_n, 'kod sabiti (π / 1/π)')}")
         result.add_intermediate("S1_saddle", S1_sad, "MPa", "|M1|/(K1 R² t)")
 
         max_ratio = 0.0

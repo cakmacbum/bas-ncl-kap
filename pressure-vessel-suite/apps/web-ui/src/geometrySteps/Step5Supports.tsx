@@ -285,6 +285,7 @@ export function Step5Supports() {
                       <RField label="Temas (sarma) açısı" unit="°" value={sel.contact_angle_deg ?? 120} min={120} max={180}
                         onChange={(v) => updateSupport(selIndex, { contact_angle_deg: v })} />
                     </div>
+                    <p className="gw-note">Zick K1…K7 alanları boş bırakılırsa tablodan (θ={sel.contact_angle_deg ?? 120}°) alınır; tabloda yoksa hesap "Veri Engelli" kalır.</p>
                   </Group>
                 )}
               </>
