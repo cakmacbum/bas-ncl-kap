@@ -541,6 +541,18 @@ class Support(BaseModel):
         description="WRC 107/537 katsayıları: nokta (A/B/C/D) -> yük (P/ML/MC/VL/VC) -> {Nx,Ny,Mx,My}. "
                     "Lisanslı bültenden okunur (K6); boşsa/eksikse wrc_local_stress BLOCKED_CODE_DATA.",
     )
+    wrc_beta_ML: Optional[float] = Field(
+        default=None, gt=0,
+        description="WRC ML (boyuna moment) katsayısını okuduğunuz eğrinin β değeri (boyutsuz). "
+                    "Dikdörtgen ped için bültenin eşdeğer β'sı (C/Rm değil); program hesaplamaz (K6). "
+                    "ML ≠ 0 iken boşsa wrc_local_stress BLOCKED_MISSING_INPUT.",
+    )
+    wrc_beta_MC: Optional[float] = Field(
+        default=None, gt=0,
+        description="WRC MC (çevresel moment) katsayısını okuduğunuz eğrinin β değeri (boyutsuz). "
+                    "Dikdörtgen ped için bültenin eşdeğer β'sı (C/Rm değil); program hesaplamaz (K6). "
+                    "MC ≠ 0 iken boşsa wrc_local_stress BLOCKED_MISSING_INPUT.",
+    )
     lateral_load_N: float = Field(
         default=0.0, ge=0,
         description="Destek tabanına aktarılan yatay kuvvet (N); ankraj kesme kontrolü için.",

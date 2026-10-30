@@ -84,6 +84,7 @@ _LEG_DETAIL_FIELDS = (
     "base_plate_yield_MPa", "foundation_bearing_allowable_MPa",
     "pad_to_shell_weld_leg_mm", "leg_to_pad_weld_leg_mm", "leg_to_base_plate_weld_leg_mm",
     "weld_electrode_strength_MPa", "weld_min_leg_mm", "wrc_coefficients",
+    "wrc_beta_ML", "wrc_beta_MC",
 )
 _HYDROTEST_WATER_DENSITY_KG_M3 = 1000.0  # K4 varsayımı: hidrotest ortamı su
 

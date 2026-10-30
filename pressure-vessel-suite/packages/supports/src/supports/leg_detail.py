@@ -687,8 +687,8 @@ def wrc_local_stress(ctx: _Ctx, payload: dict, code: str, edition: str) -> Calcu
     res.add_intermediate("gamma", gam, "-", "γ = Rm/T")
     res.add_intermediate("C_longitudinal", C_L, "mm", "Ped yarı boyu (eksenel) C")
     res.add_intermediate("C_circumferential", C_C, "mm", "Ped yarı eni (çevresel) C")
-    res.add_intermediate("beta_longitudinal", beta_L, "-", "β = C_eksenel/Rm")
-    res.add_intermediate("beta_circumferential", beta_C, "-", "β = C_çevresel/Rm")
+    res.add_intermediate("beta_longitudinal", beta_L, "-", "β = C_eksenel/Rm (geometri; moment eğrisi β'sı değil)")
+    res.add_intermediate("beta_circumferential", beta_C, "-", "β = C_çevresel/Rm (geometri; moment eğrisi β'sı değil)")
     for k, v in loads.items():
         unit = "N·mm" if k in ("ML", "MC") else "N"
         res.add_intermediate(f"load_{k}", v, unit, f"WRC yükü {k}")
@@ -697,6 +697,11 @@ def wrc_local_stress(ctx: _Ctx, payload: dict, code: str, edition: str) -> Calcu
     res.add_intermediate("pressure_stress_circumferential", sig_circ, "MPa", "P·Rm/T")
     res.add_intermediate("S_allowable", S, "MPa", "Gövde malzemesi izin verilen gerilme S")
 
+    beta_ML, beta_MC = _num(sup, "wrc_beta_ML"), _num(sup, "wrc_beta_MC")
+    beta_missing = [
+        f"wrc_beta_{k} ({k} = {loads[k]:.4g} N·mm aktif)"
+        for k, b in (("ML", beta_ML), ("MC", beta_MC)) if loads[k] != 0.0 and not b
+    ]
     coeffs = wrc.coefficients_from_mapping(sup.get("wrc_coefficients"))
     active = {k: v for k, v in loads.items() if v != 0.0}
     gaps = wrc.missing_coefficients(coeffs, active)
@@ -720,16 +725,36 @@ def wrc_local_stress(ctx: _Ctx, payload: dict, code: str, edition: str) -> Calcu
             f"bülteninden okunup girilmelidir; program bunları İÇERMEZ (K6). γ = {gam:.2f}, "
             f"β_L = {beta_L:.3f}, β_C = {beta_C:.3f}. Eksikler: " + "; ".join(gaps[:8])
             + (" ..." if len(gaps) > 8 else "")
+            + (
+                " Ayrıca moment eğrisi β değeri gerekli: " + "; ".join(beta_missing)
+                + " (ped için bülten eşdeğer β, C/Rm değil)." if beta_missing else ""
+            )
         )
         res.add_warning(_WRC_TAU_WARNING)
         return res
 
+    if beta_missing:
+        res.set_blocked_missing_input(
+            "WRC moment normalizasyonu için eğri β değeri eksik: " + "; ".join(beta_missing) + ". "
+            "Bülten moment eğrilerini N·Rm²·β/M ve M·Rm·β/M biçiminde verir; katsayıyı okuduğunuz "
+            "eğrinin β değerini girin. Dikdörtgen ped/ayak için ML ve MC eğrilerinde β, C/Rm değil "
+            "bültenin ilgili yük tipi için tanımladığı EŞDEĞER β'dır (program hesaplamaz, K6). "
+            f"Geometri: β_L = C_L/Rm = {beta_L:.3f}, β_C = C_C/Rm = {beta_C:.3f}, γ = {gam:.2f}."
+        )
+        return res
+    for k, b in (("ML", beta_ML), ("MC", beta_MC)):
+        if loads[k] != 0.0:
+            res.add_intermediate(f"beta_eq_{k}", b, "-", f"{k} eğrisi β (kullanıcı girdisi, bülten eşdeğer β)")
+    res.add_assumption(
+        "K6: Moment yükleri N = K·M/(Rm²·β), M = K·M/(Rm·β) ile ölçeklendi; β kullanıcının katsayıyı okuduğu "
+        "eğrinin β'sıdır (dikdörtgen ped eşdeğer β'sı programda yok)."
+    )
     res.add_warning(_WRC_TAU_WARNING)
     try:
         pts = wrc.evaluate_all_points(
             coeffs, Rm, T, P=loads["P"], ML=loads["ML"], MC=loads["MC"], shear_stress=0.0,
             pressure_axial_stress=sig_long, pressure_circ_stress=sig_circ,
-            VL=loads["VL"], VC=loads["VC"],
+            VL=loads["VL"], VC=loads["VC"], beta_ML=beta_ML, beta_MC=beta_MC,
         )
         cls = {k: wrc.classify_point(v, S) for k, v in pts.items()}
     except ValueError as exc:

@@ -64,7 +64,7 @@ def example_leg_section_check() -> dict:
         foundation_bearing_allowable_MPa=10, pad_to_shell_weld_leg_mm=6,
         leg_to_pad_weld_leg_mm=6, leg_to_base_plate_weld_leg_mm=6,
         weld_electrode_strength_MPa=490, weld_min_leg_mm=3,
-        leg_attachment="shell", wrc_coefficients={
+        leg_attachment="shell", wrc_beta_ML=0.2, wrc_beta_MC=0.2, wrc_coefficients={
             pt: {load: {"Nx": 0, "Ny": 0, "Mx": 0, "My": 0}
                  for load in ("P", "ML", "MC", "VL", "VC")}
             for pt in ("A", "B", "C", "D")})
