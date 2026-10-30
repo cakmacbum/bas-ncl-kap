@@ -95,3 +95,10 @@ Son doğrulama (6224e45): gerçek tıklamayla STEP indi; CadQuery 11/11 katı ge
 - P08 koni App. 1-5 + taban halkası/ankraj (Δ tablosu yok, boşsa Δ=0 güvenli taraf) · P09 BOM + maliyet (fiyatlar kullanıcıdan, CSV)
 - Bulgu (açık): `supports/wrc.py` ayak WRC'si moment normalizasyonunda β kullanmıyor — kontrol edilmeli.
 - main 120 web + 633 pytest yeşil; app.zeyslabs-vessela.com üretimde.
+
+## 2026-10-30 — Dalga 2 düzeltmeleri + Dalga 3 (main'de, üretime alınmadı)
+- F1: ayak WRC moment normalizasyonuna eğri β'sı (N=K·M/(Rm²β)); Support.wrc_beta_ML/MC kullanıcı girer, yoksa BLOCKED_MISSING_INPUT
+- F2: BOM profil ayak kütlesi (sections A×boy×ρ). Eyer kütlesi YOK — Support'ta eyer plaka alanları yok (sıradaki iş)
+- P10 2D imalat resmi (`web-ui/src/drawing/`, A3, SVG+DXF R12; nozul deliği/tarama/etek yok) · P11 sac açınımı (`web-ui/src/flat/`, Rapor kartı)
+- Temizlik: 70 worktree + 40 ork/* dalı silindi; birleşmemiş 7 dal ucu `refs/arsiv/ork/*`'ta, listesi `.project-ai/arsiv/ork-dallari/`
+- main 130 web + 644 pytest yeşil
