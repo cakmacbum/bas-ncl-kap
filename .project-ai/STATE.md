@@ -116,3 +116,4 @@ Son doğrulama (6224e45): gerçek tıklamayla STEP indi; CadQuery 11/11 katı ge
 - F4: TS MaterialProperty'ye elastic_modulus/poisson_ratio (Python'da zaten vardı); FEA eleman bazlı E/ν, varsayılan 200 GPa/0,3 + bileşen uyarısı
 - V1: torisferik hamut — bağımsız kabuk çözümü (tools/verification/torispherical_shell.py) FEA ile %2–4 tutarlı; P03 analitik hamutta +%92…214 (hatalı), tacda güvensiz. P03 hamut+taç birleşim bandı artık NaN/"düşük güven — FEA kullanın" (gri). Yayımlanmış referans (A) künyeli doğrulanamadı. Rapor: docs/validation/torispherical-knuckle.md
 - main 164 web + 653 pytest yeşil
+- 2026-10-31: F4 + V1 üretimde.
