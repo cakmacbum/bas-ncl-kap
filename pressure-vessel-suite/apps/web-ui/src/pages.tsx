@@ -29,6 +29,7 @@ import { GeometryWizard } from "./geometrySteps/GeometryWizard";
 import { computeIssues } from "./geometrySteps/IssuesPanel";
 import { BomInputs } from "./inputs/BomInputs";
 import { BomCard } from "./BomCard";
+import { FlatPatternCard } from "./flat/FlatPatternCard";
 import { ConeBaseInputs } from "./inputs/ConeBaseInputs";
 import { NozzleLoadsInputs } from "./inputs/NozzleLoadsInputs";
 
@@ -1614,6 +1615,7 @@ export function ReportPage() {
           >
             {reportSrc && <iframe ref={reportFrame} className="report-frame" src={reportSrc} title="Hesap Raporu" />}
           </Panel>
+          <FlatPatternCard project={project} />
           <div className="alert alert--info">
             ℹ "PDF indir" tarayıcının yazdırma penceresini açar; hedef olarak "PDF olarak kaydet" seçin
             (A4, sayfa sonları ve tablo başlıkları rapora gömülüdür). Rapor sonundaki U-1A özeti resmî form değildir.
