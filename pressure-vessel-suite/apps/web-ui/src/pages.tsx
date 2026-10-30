@@ -1122,10 +1122,9 @@ async function ensureSaved(): Promise<string> {
 }
 
 // ============================================================ Ortak: kaydet+hesapla
-async function ensureCalculated(): Promise<void> {
+async function ensureCalculated(onSlow?: () => void): Promise<void> {
   const s = useStore.getState();
-  const id = await ensureSaved();
-  const calc = await api.calculate(id);
+  const calc = await api.calculate(s.project, { onSlow });
   s.setCalc(calc);
 }
 
@@ -1176,12 +1175,14 @@ export function ResultsPage() {
   const { calc, setCalc, setStep } = useStore();
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
+  const [waking, setWaking] = useState(false);
 
   const run = async () => {
     setLoading(true);
+    setWaking(false);
     setErr(null);
     try {
-      await ensureCalculated();
+      await ensureCalculated(() => setWaking(true));
       setCalc(useStore.getState().calc);
     } catch (e: any) {
       setErr(e.message ?? "Hesap hatası");
@@ -1200,7 +1201,12 @@ export function ResultsPage() {
         title="Hesap Sonuçları"
         desc="ASME VIII-1 hesap sırası: et kalınlığı, MAWP, hidrotest, nozul takviye, kaynak, çakışma."
       />
-      {err && <div className="alert alert--warn">⚠ {err}</div>}
+      {err && (
+        <div className="alert alert--warn" role="alert">
+          ⚠ {err}{" "}
+          <button className="btn btn--ghost" onClick={run} disabled={loading}>Tekrar dene</button>
+        </div>
+      )}
 
       {!calc && !loading && (
         <div className="empty">
@@ -1215,7 +1221,7 @@ export function ResultsPage() {
       {loading && (
         <div className="empty">
           <div className="spin" style={{ margin: "0 auto 12px" }} />
-          <p>Hesaplanıyor…</p>
+          <p role="status">{waking ? "Hesap sunucusu uyanıyor…" : "Hesaplanıyor…"}</p>
         </div>
       )}
 
@@ -1493,7 +1499,7 @@ export function ViewerPage() {
 
 // ============================================================ 6. Rapor
 export function ReportPage() {
-  const { projectId, setStep, calc, project } = useStore();
+  const { setStep, calc, project } = useStore();
   const [ready, setReady] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -1511,15 +1517,13 @@ export function ReportPage() {
     }
   };
 
-  const id = useStore.getState().projectId ?? projectId;
-
   // Rapor Authorization başlığı gerektirir → blob URL ile göster.
   const [reportSrc, setReportSrc] = useState<string | null>(null);
   useEffect(() => {
-    if (!ready || !id) return;
+    if (!ready) return;
     let alive = true;
     let created: string | null = null;
-    api.reportBlobUrl(id).then(
+    api.reportBlobUrl(useStore.getState().project).then(
       (u) => {
         created = u;
         if (alive) setReportSrc(u);
@@ -1531,8 +1535,14 @@ export function ReportPage() {
       alive = false;
       if (created) URL.revokeObjectURL(created);
     };
-  }, [ready, id]);
-  const downloadStep = () => api.downloadStep(id!).catch((e) => setErr(e.message ?? "STEP indirilemedi"));
+  }, [ready]);
+  const downloadStep = async () => {
+    try {
+      await api.downloadStep(await ensureSaved());
+    } catch (e: any) {
+      setErr(e.message ?? "STEP indirilemedi");
+    }
+  };
 
   return (
     <div className="page">
