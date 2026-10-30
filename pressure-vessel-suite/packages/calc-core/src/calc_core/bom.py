@@ -9,8 +9,10 @@ Kapsam ve yaklaşımlar (K4 — sessiz kırpma yok):
   - Takviye pedi: düz halka π/4(OD_ped² − OD_nozul²)·t (eğrilik ve delik payı yok).
   - Flanş (Appendix 2): halka + hub borusu, yaklaşık (cıvata/conta dahil değil).
   - Destek: etek (silindir kabuk), boru ayak + ayak pedi + taban plakası.
-    Eyer ve profil (channel/box/angle) ayakları için katalog/plaka geometrisi
-    olmadığından kütle ÜRETİLMEZ (None); toplam "eksik" işaretlenir.
+    Profil (channel/box/angle) ayak: sections.py kesit alanı × boy × yoğunluk
+    (boyutlar eksik/geçersizse None + uyarı). Eyer: Support modelinde web/taban/
+    kanat/aşınma plakası alanı olmadığından kütle ÜRETİLMEZ (None); toplam
+    "eksik" işaretlenir.
   - Kesim firesi, kaynak metali, cıvata/conta BOM dışı.
 Maliyet: tüm birim fiyatları kullanıcı girer; eksikse toplam üretilmez (uydurma yok).
 """
@@ -23,6 +25,7 @@ from typing import Any, Dict, List, Optional
 
 from calc_core.volume_mass import calculate_vessel_volume_mass
 from domain.project import VesselProject
+from supports import sections
 
 _DEFAULT_DENSITY = 7850.0  # volume_mass ile aynı varsayılan
 
@@ -90,6 +93,26 @@ def _tube_mass(od: float, t: float, length: float, rho: float) -> Optional[float
 
 def _plate_mass(length: float, width: float, t: float, rho: float) -> float:
     return length * width * t / 1e9 * rho
+
+
+def _profile_leg_mass(sp, rho: float):
+    """Profil ayak birim kütlesi (kg) ya da (None, neden)."""
+    h, b = sp.leg_profile_height_mm, sp.leg_profile_width_mm
+    s_, t_ = sp.leg_web_thickness_mm, sp.leg_flange_thickness_mm
+    kind = sp.leg_section_type
+    need = {"channel": (h, b, s_, t_), "box": (h, b, s_), "angle": (h, b, s_)}[kind]
+    if any(v is None or v <= 0 for v in need):
+        return None, f"{kind} profil ölçüleri eksik: kesit alanı üretilemedi, kütle yok."
+    try:
+        if kind == "channel":
+            sec = sections.channel_section(h, b, s_, t_)
+        elif kind == "box":
+            sec = sections.box_section(h, b, s_)
+        else:
+            sec = sections.angle_section(h, b, s_)
+    except ValueError as exc:
+        return None, f"Profil ölçüleri geçersiz ({exc}); kütle yok."
+    return sec.A * sp.height_mm / 1e9 * rho, ""
 
 
 def build_bom(project: VesselProject) -> BomReport:
@@ -200,9 +223,16 @@ def build_bom(project: VesselProject) -> BomReport:
                 add(f"Ayak {sp.support_id}", sp.material_id,
                     f"Ø{sp.leg_diameter_mm:g} × t{sp.leg_thickness_mm:g} × H{sp.height_mm:g}", n,
                     _tube_mass(sp.leg_diameter_mm, sp.leg_thickness_mm, sp.height_mm, rho))
+            elif sp.leg_section_type in ("channel", "box", "angle"):
+                mass, why = _profile_leg_mass(sp, rho)
+                kind = sp.leg_section_type
+                add(f"Ayak {sp.support_id}", sp.material_id,
+                    f"{kind} × H{sp.height_mm:g}", n or 1, mass if n else None,
+                    "Kesit alanı sections.py'den × boy (kaynak/ped hariç)." if mass is not None and n
+                    else (why if mass is None else "Ayak adedi girilmemiş."))
             else:
-                add(f"Ayak {sp.support_id}", sp.material_id, "profil", n or 1, None,
-                    "Boru dışı profil / eksik ölçü: katalog gömülü değil, kütle üretilmedi.")
+                add(f"Ayak {sp.support_id}", sp.material_id, "boru", n or 1, None,
+                    "Boru ölçüsü (çap/kalınlık) veya ayak adedi eksik: kütle üretilmedi.")
             if n and sp.leg_pad_length_mm and sp.leg_pad_width_mm and sp.leg_pad_thickness_mm:
                 add(f"Ayak pedi {sp.support_id}", sp.material_id,
                     f"{sp.leg_pad_length_mm:g}×{sp.leg_pad_width_mm:g}×t{sp.leg_pad_thickness_mm:g}", n,
@@ -214,7 +244,7 @@ def build_bom(project: VesselProject) -> BomReport:
                     _plate_mass(sp.base_plate_length_mm, sp.base_plate_width_mm, sp.base_plate_thickness_mm, rho))
         else:
             add(f"Eyer {sp.support_id}", sp.material_id, f"W{sp.width_mm:g} × H{sp.height_mm:g}", 1, None,
-                "Eyer plaka/kaburga geometrisi modelde yok; kütle üretilmedi.")
+                "Eyer plaka (web/taban/kanat/aşınma) alanları Support modelinde yok; kütle üretilmedi.")
 
     if not rep.mass_complete:
         rep.warnings.append("Bazı parçaların kütlesi üretilemedi; toplam kütle EKSİKTİR (alt sınır).")

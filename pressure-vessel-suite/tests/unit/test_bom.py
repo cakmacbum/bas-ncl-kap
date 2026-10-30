@@ -65,6 +65,27 @@ def test_saddle_mass_missing_is_flagged_not_invented():
     assert any("EKSİK" in w for w in rep.warnings)
 
 
+def test_box_leg_mass_from_section_area():
+    sp = Support(support_id="LEG-1", type="leg", width_mm=200.0, height_mm=1000.0,
+                 material_id="MAT-01", leg_count=4, leg_section_type="box",
+                 leg_profile_height_mm=100.0, leg_profile_width_mm=100.0,
+                 leg_web_thickness_mm=10.0)
+    rep = build_bom(_project(supports=[sp]))
+    line = next(l for l in rep.lines if l.part == "Ayak LEG-1")
+    assert line.qty == 4
+    assert line.unit_mass_kg == pytest.approx((100**2 - 80**2) * 1000 / 1e9 * 7850.0, rel=1e-9)
+
+
+def test_profile_leg_missing_dims_none_with_note():
+    sp = Support(support_id="LEG-2", type="leg", width_mm=200.0, height_mm=1000.0,
+                 material_id="MAT-01", leg_count=4, leg_section_type="channel",
+                 leg_profile_height_mm=100.0)
+    rep = build_bom(_project(supports=[sp]))
+    line = next(l for l in rep.lines if l.part == "Ayak LEG-2")
+    assert line.unit_mass_kg is None and "eksik" in line.note
+    assert not rep.mass_complete
+
+
 def test_cost_not_calculated_without_inputs():
     cost = build_bom(_project()).cost
     assert cost["status"] == "NOT_CALCULATED"
