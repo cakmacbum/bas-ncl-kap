@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { exportModel } from "./cad/cadClient";
 import { EXPORT_OPTIONS, warningBadgeText, type ExportFormat } from "./geometryLayout";
+import { exportDrawing, isDrawingFormat } from "./drawing/download";
 import type { VesselProject } from "./types";
 
 /** Önizleme sağ üstü: uyarı rozeti + "Dışa aktar ▾" menüsü (STEP/STL). */
@@ -23,7 +24,10 @@ export function PreviewActions({ project, warnings }: { project: VesselProject; 
     setOpen(false);
     setBusy(fmt);
     setErr(null);
-    try { await exportModel(project, fmt); }
+    try {
+      if (isDrawingFormat(fmt)) exportDrawing(project, fmt);
+      else await exportModel(project, fmt);
+    }
     catch (e) { setErr(e instanceof Error ? e.message : "Dışa aktarma başarısız"); }
     finally { setBusy(null); }
   };
