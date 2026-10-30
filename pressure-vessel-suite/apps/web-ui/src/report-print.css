@@ -1,0 +1,12 @@
+/* Rapor sayfası — baskı/PDF yardımcıları. Raporun kendi A4 baskı CSS'i report-engine içindedir. */
+.report-frame {
+  background: #fff; /* rapor her zaman açık zemin: koyu tema yok */
+}
+@media print {
+  .report-frame {
+    height: auto;
+    min-height: 100vh;
+    border: 0;
+    border-radius: 0;
+  }
+}

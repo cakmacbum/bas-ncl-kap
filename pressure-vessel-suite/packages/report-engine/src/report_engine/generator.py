@@ -129,6 +129,7 @@ class ReportGenerator:
         sections.append(self._section_approval())
         sections.append(self._section_governing_and_deficiencies(calc_result))
         sections.append(self._section_governing_mdmt_junction_applicability(project, calc_result))
+        sections.append(self._section_u1a_summary(project, calc_result, volume_mass))
 
         body = "\n".join(sections)
         traceability_html = traceability.to_html()
@@ -187,6 +188,7 @@ class ReportGenerator:
 
     def _wrap_html(self, project: VesselProject, body: str, traceability_html: str) -> str:
         """HTML şablonu sarmala."""
+        body = self._thead_tables(body)
         return f"""<!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -210,6 +212,24 @@ th {{ background: #f0f4f8; font-weight: bold; }}
 .section {{ page-break-inside: avoid; margin-bottom: 16px; }}
 .warning {{ background: #fff3cd; border: 1px solid #ffc107; padding: 8px; margin: 6px 0; }}
 .footer {{ font-size: 9pt; color: #666; margin-top: 40px; border-top: 1px solid #ccc; padding-top: 8px; }}
+.u1a-note {{ font-size: 9pt; color: #555; }}
+.u1a th {{ width: 34%; }}
+@page {{ size: A4; margin: 15mm 12mm 18mm 12mm; }}
+@media print {{
+  html, body {{ background: #fff !important; color: #000 !important; }}
+  body {{ margin: 0; font-size: 10pt; -webkit-print-color-adjust: exact; print-color-adjust: exact; }}
+  h1, h2, h3 {{ break-after: avoid; page-break-after: avoid; }}
+  h2 {{ margin-top: 14px; }}
+  table {{ break-inside: auto; page-break-inside: auto; }}
+  thead {{ display: table-header-group; }}
+  tfoot {{ display: table-footer-group; }}
+  tr, img, svg {{ break-inside: avoid; page-break-inside: avoid; }}
+  th, td {{ font-size: 9pt; padding: 4px 6px; }}
+  .section {{ page-break-inside: auto; break-inside: auto; }}
+  .cover {{ margin-top: 40mm; break-after: page; page-break-after: always; }}
+  .u1a-page {{ break-before: page; page-break-before: always; }}
+  .warning {{ break-inside: avoid; }}
+}}
 </style>
 </head>
 <body>
@@ -847,6 +867,111 @@ modülünden bir ESR matrisi geçirin.</em></p>
 <table><tr><th>Junction</th><th>Tip</th><th>Bağlanan bileşenler</th><th>Uygulama durumu</th></tr>{junction_rows}</table>
 <h3>Bileşen bazlı applicability</h3>
 <table><tr><th>Bileşen</th><th>Tip</th><th>Sonuç sayısı</th><th>Applicability</th></tr>{applicability_rows}</table>
+</div>"""
+
+    @staticmethod
+    def _thead_tables(body: str) -> str:
+        """Her tablonun ilk başlık satırını <thead> yap (baskıda sayfa başına tekrar)."""
+        import re
+
+        pattern = re.compile(
+            r"(<table[^>]*>\s*)(<tr>(?:(?!</tr>).)*?<th>(?:(?!</tr>).)*?</tr>)", re.S
+        )
+        return pattern.sub(lambda m: f"{m.group(1)}<thead>{m.group(2)}</thead>", body)
+
+    def _section_u1a_summary(
+        self,
+        project: VesselProject,
+        calc_result: OrchestratorResult,
+        volume_mass: Optional[VesselVolumeMassReport],
+    ) -> str:
+        """U-1A biçiminde özet. Yalnız projede olan veri; yoksa '—' (sahte değer yok)."""
+
+        def v(value: Any, unit: str = "") -> str:
+            if value is None or value == "":
+                return "—"
+            text = _esc(value)
+            return f"{text} {unit}".strip() if unit else text
+
+        dc = project.design_conditions
+        shells = project.shell_sections
+        heads = project.heads
+        mats = {m.material_id: m for m in project.materials}
+
+        def mat_name(mid: Optional[str]) -> str:
+            m = mats.get(mid or "")
+            return _esc(m.material_designation) if m else "—"
+
+        shell_mats = ", ".join(sorted({mat_name(x.material_id) for x in shells})) or "—"
+        head_mats = ", ".join(
+            sorted({mat_name(getattr(x, "material_id", None)) for x in heads})
+        ) or "—"
+        shell_th = ", ".join(f"{x.nominal_thickness:g}" for x in shells) or "—"
+        head_th = ", ".join(f"{x.nominal_thickness:g}" for x in heads) or "—"
+        diameters = sorted({x.inside_diameter for x in shells if x.inside_diameter})
+        dia = ", ".join(f"{d:g}" for d in diameters) or "—"
+        length = sum(x.tangent_length for x in shells) if shells else None
+
+        welds = getattr(project, "welds", None) or []
+        effs = sorted({w.joint_efficiency for w in welds if w.joint_efficiency is not None})
+        eff = ", ".join(f"{e:g}" for e in effs) or "—"
+        nde = ", ".join(sorted({str(w.nde_extent) for w in welds if w.nde_extent})) or "—"
+        pwht = (
+            "Evet" if any(w.pwht_required for w in welds)
+            else ("Hayır" if welds and all(w.pwht_required is False for w in welds) else "—")
+        )
+
+        mawp = calc_result.get_global_mawp()
+        mawp_txt = f"{mawp:.3f} MPa" if mawp is not None else "—"
+        hydro = "—"
+        for r in calc_result.results:
+            if r.calculation_type == "hydrotest" and r.final_result is not None:
+                hydro = f"{r.final_result:.3f} {_esc(r.final_result_unit)}"
+                break
+        volume = (
+            f"{volume_mass.total_inner_volume_liters:.1f} L" if volume_mass is not None else "—"
+        )
+        nozzles = ", ".join(_esc(n.tag) for n in project.nozzles) or "—"
+
+        rows = [
+            ("1. Üretici", "—"),
+            ("2. Müşteri / satın alan", v(project.customer)),
+            ("3. Proje no / ad", f"{v(project.project_number)} / {v(project.project_name)}"),
+            ("4. Revizyon", v(project.revision)),
+            ("5. Tasarım kodu", f"{v(project.calculation_code)} — {v(project.code_edition)}"),
+            ("6. Seri no / Ulusal Kurul no", "—"),
+            ("7. Yıl", "—"),
+            ("8. Kap yönü", v(project.orientation)),
+            ("9. İç çap (mm)", dia),
+            ("10. Gövde toplam boyu (mm)", f"{length:g}" if length is not None else "—"),
+            ("11. Gövde malzemesi", shell_mats),
+            ("12. Gövde nominal kalınlık (mm)", shell_th),
+            ("13. Bombe malzemesi", head_mats),
+            ("14. Bombe nominal kalınlık (mm)", head_th),
+            ("15. Korozyon payı, iç (mm)", v(dc.corrosion_allowance_internal)),
+            ("16. Birleşim verimi (E)", eff),
+            ("17. Radyografi / NDT kapsamı", nde),
+            ("18. PWHT", pwht),
+            ("19. Tasarım basıncı (MPa)", v(dc.design_pressure)),
+            ("20. Azami izin verilen basınç PS (MPa)", v(dc.maximum_allowable_pressure_ps)),
+            ("21. Hesaplanan MAWP", mawp_txt),
+            ("22. Tasarım sıcaklığı (°C)", v(dc.design_temperature)),
+            ("23. Asgari tasarım sıcaklığı MDMT (°C)", v(dc.minimum_design_temperature)),
+            ("24. Hidrostatik test basıncı", hydro),
+            ("25. İç hacim", volume),
+            ("26. Nozullar", nozzles),
+            ("27. Sertifikalı kişi / imza / tarih", "—"),
+        ]
+        body = "\n".join(f"<tr><th>{k}</th><td>{val}</td></tr>" for k, val in rows)
+        return f"""
+<div class="section u1a u1a-page">
+<h2>26. U-1A biçiminde özet — resmî form değildir</h2>
+<p class="u1a-note">ASME U-1A Manufacturer's Data Report düzenine benzer özet. Alanlar yalnız proje verisinden
+doldurulur; projede bulunmayan alan "—" gösterilir. Bu sayfa kayıtlı bir Authorized Inspector onaylı belge değildir.</p>
+<table>
+<tr><th>Alan</th><th>Değer</th></tr>
+{body}
+</table>
 </div>"""
 
     def _status_class(self, status: str) -> str:
