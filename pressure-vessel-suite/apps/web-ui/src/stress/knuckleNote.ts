@@ -1,11 +1,12 @@
-// Analitik mod uyarısı: torisferik bombe hamutunda (knuckle) P03 membran teorisi FEA'dan ~3 kat
-// yüksek verir (D1000/t10/P1: 715 vs 237 MPa). Bu dosya yalnız bölgeyi tespit eder;
-// analyticField.ts hesabına dokunmaz (tespit geometrisi onun taç/hamut ayrımıyla aynıdır).
+// Analitik mod uyarısı: torisferik bombe hamutu (knuckle). V1 doğrulaması (docs/validation/torispherical-knuckle.md):
+// D1000/t10/P1, Rc=D, rk/D=0,06/0,10/0,17 → bağımsız ince kabuk çözümü 227/174/112 MPa, P12 FEA 237/178/114 (≤%4),
+// eski P03 membran (R1=rk) 715/407/216. P03 artık hamutta ve taç–hamut birleşim bandında değer üretmez (NaN, gri).
+// Bu dosya yalnız bölgeyi tespit eder (geometri analyticField.ts taç/hamut ayrımıyla aynı).
 import type { ComponentFrame } from "../geometryContract";
 import type { VesselProject } from "../types";
 import { componentFrames } from "../vesselModel";
 
-export const KNUCKLE_WARNING = "Membran teorisi hamutta abartır — FEA modunu kullanın.";
+export const KNUCKLE_WARNING = "Analitik yöntem hamutta güvenilir değer vermez (membran teorisi doğrulamada 2–3 kat yüksek; eğilme modellenmez) — FEA modunu kullanın.";
 
 interface TorHead { zEq: number; side: "left" | "right"; L: number; hc: number; b0: number; sinB: number; id: string }
 

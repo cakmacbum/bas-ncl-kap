@@ -7,7 +7,9 @@
 //    t/Ri>0,1 → Lamé kalın cidar, iç yüzey (Roark Table 13.5 case 1c).
 //  - Koni σθ=P·r/(t·cosα), σφ=P·r/(2t·cosα) (UG-32(g) membran temeli).
 //  - Dönel kabuk membranı Nφ=P·R2/2, Nθ=P·R2·(1−R2/(2R1)) (Timoshenko; Div.2 Part 4.3 bombeler):
-//    elipsoid R2=a²·√(r²/a⁴+z²/b⁴), R1=R2³·b²/a⁴; torisferik taç R=L, hamut R1=rk.
+//    elipsoid R2=a²·√(r²/a⁴+z²/b⁴), R1=R2³·b²/a⁴; torisferik taç R=L (birleşimden uzakta).
+//    Torisferik hamut + taç–hamut birleşim bandı: değer üretilmez (vm=NaN, zone "unknown" = düşük güven,
+//    "FEA kullanın"). Gerekçe V1: docs/validation/torispherical-knuckle.md (membran R1=rk 2–3× yüksek).
 //  - Düz kapak: basit mesnetli dairesel plaka (Roark Table 11.2 case 10a); UG-34 C katsayısıyla
 //    ölçeklenir (C=0,309 ≡ basit mesnet).
 //  - Süreksizlik: β=1,285/√(R·t) (Div.2 Part 4.3.10, uzun silindir kiriş-temel teorisi).
@@ -27,6 +29,8 @@ const NU = 0.3;
 const KT_NOZZLE = 2.5;
 const C_SIMPLY_SUPPORTED = (3 * (3 + NU)) / 32; // 0,309 — UG-34 C ile eşdeğer basit mesnet
 const ZONE_DECAY = 0.05; // e^(−βx) bu eşiğin altındaysa bölge membran sayılır (βx≈3)
+/** Torisferik taçta, taç–hamut teğet noktasından bu kadar √(L·t) içi düşük güven (βx≈3, Div.2 4.3.10 β). */
+const KNUCKLE_BAND = 2.5;
 
 type Plane = { hoop: number; axial: number };
 
@@ -146,12 +150,14 @@ function elementPlane(P: number, e: Elem, r: number, z: number): { plane: Plane;
       const sinB = (a - rk) / (L - rk);
       const zlr = (zl / b0) * hc; // geometrik kubbe yüksekliği farkı için ölçekle
       const vr = Math.hypot(r, zlr - zc);
-      if (vr > 0 && r / vr <= sinB) return { plane: { hoop: (P * L) / (2 * t), axial: (P * L) / (2 * t) }, inHead: true, offWall };
-      const wr = r - (a - rk);
-      const wn = Math.hypot(wr, zlr);
-      const sinPhi = Math.min(1, Math.max(sinB, wn > 0 ? wr / wn : 1));
-      const rs = a - rk + rk * sinPhi;
-      return { plane: revolution(P, rk, rs / sinPhi, t), inHead: true, offWall };
+      // V1 doğrulaması (docs/validation/torispherical-knuckle.md): hamutta membran teorisi (R1=rk) bağımsız kabuk
+      // çözümünün 2–3 katı; taç–hamut birleşimine yakın taçta eğilme (≈2× membran) modellenmez. Kaynaklı kapalı
+      // form yok → bu bölgede değer üretilmez (NaN, düşük güven, "FEA kullanın").
+      if (vr > 0 && r / vr <= sinB) {
+        const arc = L * (Math.asin(sinB) - Math.asin(Math.min(1, r / vr)));
+        if (arc > KNUCKLE_BAND * Math.sqrt(L * t)) return { plane: { hoop: (P * L) / (2 * t), axial: (P * L) / (2 * t) }, inHead: true, offWall };
+      }
+      return { plane: { hoop: NaN, axial: NaN }, inHead: true, offWall };
     }
   }
   // Elipsoid / yarımküre (b=a → R1=R2=a).
@@ -300,6 +306,7 @@ export function buildStressField(project: VesselProject): StressField {
     if (e.t <= 0) return { s: ZERO("unknown"), offWall: false };
     const loc = elementPlane(P, e, r, z);
     let { hoop, axial } = loc.plane;
+    if (!Number.isFinite(hoop)) return { s: { vm: NaN, hoop: NaN, axial: NaN, zone: "unknown" }, offWall: loc.offWall };
     let envelope = 0;
     const inDome = loc.inHead && e.frame.kind === "head";
     for (const j of junctions) {

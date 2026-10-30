@@ -98,23 +98,25 @@ describe("SCL konumları + FEA entegrasyonu", () => {
     expect(evaluateAll(res, null).every((r) => r.checks.length === 0)).toBe(true);
   });
 
-  it("toStressField hamutta FEA < analitik membran (uyarının gerekçesi)", () => {
+  it("hamutta FEA değer verir, analitik vermez (NaN — V1 doğrulaması)", () => {
     const fea = toStressField(res, null);
     const ana = buildStressField(p);
     const hd = componentFrames(p).find((f) => f.kind === "head")!.head!;
     const check = makeKnuckleCheck(p);
-    let maxAna = 0, maxFea = 0, n = 0;
+    let n = 0, nanAna = 0;
     for (let dz = 2; dz < hd.domeHeight; dz += 4) {
       const z = hd.side === "left" ? hd.equatorZ - dz : hd.equatorZ + dz;
       for (let r = 300; r < 520; r += 2) {
         if (!check([r, 0, z])) continue;
-        const a = ana.at([r, 0, z]).vm, f = fea.at([r, 0, z]).vm;
-        if (a > 0 && f > 0) { n++; maxAna = Math.max(maxAna, a); maxFea = Math.max(maxFea, f); }
+        const f = fea.at([r, 0, z]).vm;
+        if (!(f > 0)) continue;
+        n++;
+        if (Number.isNaN(ana.at([r, 0, z]).vm)) nanAna++;
       }
     }
     expect(n).toBeGreaterThan(10);
-    // P03 membran teorisi hamutta FEA'nın birkaç katı (D1000/t10/P1: ~715 vs ~237 MPa)
-    expect(maxAna).toBeGreaterThan(1.5 * maxFea);
+    // Membran R1=rk bağımsız kabuk çözümünün 2–3 katıydı (715 vs 227 MPa) → analitik hamutta değer üretmez
+    expect(nanAna).toBe(n);
   });
 });
 

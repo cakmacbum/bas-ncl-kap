@@ -129,12 +129,11 @@ describe("FEA — süreksizlik ve ağ yakınsaması", () => {
     expect(rel(toStressField(a).at([505, 0, z]).hoop, 50)).toBeLessThan(0.02);
   });
 
-  it("torisferik: hamut tepe değeri sonlu, membran teorisinden (R1=rk) düşük", () => {
+  it("torisferik: hamut tepe değeri bağımsız kabuk çözümüyle (227,4 MPa, V1) %15 içinde", () => {
     const p = vessel({ Di: 1000, t: 10, L: 3000, P: 1, head: "torispherical" });
     const res = runFea(p);
     expect(res.converged).toBe(true);
-    expect(res.maxVm).toBeGreaterThan(100);
-    expect(res.maxVm).toBeLessThan(buildStressField(p).maxVm);
+    expect(rel(res.maxVm, 227.4)).toBeLessThan(0.15);
   });
 });
 

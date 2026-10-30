@@ -72,7 +72,7 @@ describe("buildStressField — membran", () => {
     }
   });
 
-  it("torisferik: taçta P·L/2t, hamutta basma çevresel; NaN yok", () => {
+  it("torisferik: taçta P·L/2t, hamutta değer yok (NaN, düşük güven — V1)", () => {
     const p = base();
     p.heads = p.heads.map((h) => ({ ...h, type: "torispherical" as const, crown_radius: 500, knuckle_radius: 50 }));
     const field = buildStressField(p);
@@ -80,11 +80,13 @@ describe("buildStressField — membran", () => {
     const crown = field.at([0, 0, hr.zEnd + 2.5]);
     expect(crown.hoop).toBeCloseTo(50, 1);
     const knuckle = field.at([252.5, 0, hr.head!.equatorZ + 1]);
-    expect(knuckle.hoop).toBeLessThan(0);
+    expect(Number.isNaN(knuckle.vm)).toBe(true);
+    expect(knuckle.zone).toBe("unknown");
+    expect(Number.isFinite(field.maxVm)).toBe(true);
     for (let i = 0; i <= 40; i++) {
       const u = (i / 40) * (Math.PI / 2);
       const s = field.at([252.5 * Math.cos(u), 0, hr.head!.equatorZ + (hr.head!.domeHeight + 2.5) * Math.sin(u)]);
-      expect(Number.isFinite(s.vm)).toBe(true);
+      if (Number.isNaN(s.vm)) { expect(s.zone).toBe("unknown"); continue; }
       expect(s.vm).toBeLessThanOrEqual(field.maxVm + 1e-9);
     }
   });

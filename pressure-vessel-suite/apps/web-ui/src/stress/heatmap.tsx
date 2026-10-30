@@ -10,6 +10,8 @@ import { allowablePosition, scaleGradientCss, scaleTicks, stressColor } from "./
 export type StressProbe = StressSample & { point: [number, number, number] };
 export type ProbeSetter = (p: StressProbe | null) => void;
 
+const NO_VALUE_COLOR: [number, number, number] = [0.55, 0.55, 0.58];
+
 /** Her vertex için model çerçevesinde gerilme sorgular, 0…maxVm skalasında renk dizisi üretir. */
 export function stressVertexColors(positions: Float32Array, field: StressField): Float32Array {
   const n = positions.length / 3;
@@ -17,7 +19,8 @@ export function stressVertexColors(positions: Float32Array, field: StressField):
   const max = field.maxVm;
   for (let i = 0; i < n; i++) {
     const s = field.at([positions[3 * i], positions[3 * i + 1], positions[3 * i + 2]]);
-    const [r, g, b] = stressColor(s.vm, max);
+    // vm=NaN: güvenilir değer yok (ör. analitik torisferik hamut) → gri, skalada sahte renk yok.
+    const [r, g, b] = Number.isFinite(s.vm) ? stressColor(s.vm, max) : NO_VALUE_COLOR;
     out[3 * i] = r; out[3 * i + 1] = g; out[3 * i + 2] = b;
   }
   return out;
@@ -27,7 +30,7 @@ const ZONE_TR: Record<StressSample["zone"], string> = {
   membrane: "Membran", discontinuity: "Süreksizlik", nozzle: "Nozul çevresi",
   head: "Bombe", support: "Mesnet", unknown: "—",
 };
-const mpa = (v: number) => `${v.toFixed(1)} MPa`;
+const mpa = (v: number) => (Number.isFinite(v) ? `${v.toFixed(1)} MPa` : "—");
 
 /** Sağda dikey skala + üstte bilgi kartı + fare altındaki nokta okuması. */
 export function StressHud({ field, probeRef, source = "analytic", knuckleCheck, knuckleSelected = false }: {
@@ -47,7 +50,8 @@ export function StressHud({ field, probeRef, source = "analytic", knuckleCheck, 
 
   const max = field.maxVm;
   const allowPos = allowablePosition(field.allowable, max);
-  const knuckleWarn = source === "analytic" && (knuckleSelected || (probe != null && !!knuckleCheck?.(probe.point)));
+  const noValue = probe != null && !Number.isFinite(probe.vm);
+  const knuckleWarn = source === "analytic" && (knuckleSelected || noValue || (probe != null && !!knuckleCheck?.(probe.point)));
 
   return (
     <>
@@ -85,7 +89,7 @@ export function StressHud({ field, probeRef, source = "analytic", knuckleCheck, 
             <dt>vm</dt><dd>{mpa(probe.vm)}</dd>
             <dt>Çevresel</dt><dd>{mpa(probe.hoop)}</dd>
             <dt>Eksenel</dt><dd>{mpa(probe.axial)}</dd>
-            <dt>Bölge</dt><dd>{ZONE_TR[probe.zone]}</dd>
+            <dt>Bölge</dt><dd>{noValue ? "Düşük güven — FEA kullanın" : ZONE_TR[probe.zone]}</dd>
           </dl>
         ) : (
           <p className="stress-info__hint">Ayrıntı için fareyi modelin üzerine getirin.</p>
