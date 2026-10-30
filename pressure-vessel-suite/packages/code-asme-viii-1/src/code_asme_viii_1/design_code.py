@@ -1257,6 +1257,9 @@ class ASMEVIII1DesignCode(DesignCode):
 
         results = [build_clash_check_result(nozzle, project) for nozzle in project.nozzles]
         results.append(check_inspection_opening(project))
+        # --- P07 --- nozul dış yükü (WRC 537 / 297); nozzle_loads yoksa boş liste.
+        from nozzles.nozzle_loads import build_nozzle_load_results
+        results.extend(build_nozzle_load_results(project, self.code_name, self.code_edition))
         return results
 
     def check_mdmt(self, project) -> list:
