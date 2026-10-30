@@ -36,6 +36,6 @@ describe("geometri sayfası yerleşimi", () => {
   it("uyarı rozeti ve dışa aktarma seçenekleri", () => {
     expect(warningBadgeText(0)).toBeNull();
     expect(warningBadgeText(3)).toBe("⚠ 3 uyarı");
-    expect(EXPORT_OPTIONS.map((o) => o.format)).toEqual(["step", "stl"]);
+    expect(EXPORT_OPTIONS.map((o) => o.format)).toEqual(["step", "stl", "drawing-svg", "drawing-dxf"]);
   });
 });

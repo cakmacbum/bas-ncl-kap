@@ -37,8 +37,10 @@ export function warningBadgeText(count: number): string | null {
   return count > 0 ? `⚠ ${count} uyarı` : null;
 }
 
-export type ExportFormat = "step" | "stl";
+export type ExportFormat = "step" | "stl" | "drawing-svg" | "drawing-dxf";
 export const EXPORT_OPTIONS: { format: ExportFormat; label: string }[] = [
   { format: "step", label: "STEP (.step)" },
   { format: "stl", label: "STL (.stl)" },
+  { format: "drawing-svg", label: "İmalat resmi (SVG)" },
+  { format: "drawing-dxf", label: "İmalat resmi (DXF)" },
 ];
