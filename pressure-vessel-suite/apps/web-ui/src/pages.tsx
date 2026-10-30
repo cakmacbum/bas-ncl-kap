@@ -23,6 +23,7 @@ import { headDepth } from "./vesselModel";
 import { geometrySignature } from "./geometryValidation";
 import { PreviewActions } from "./exportMenu";
 import { readPanelTab, writePanelTab, type PanelTab } from "./geometryLayout";
+import { LiftingLugInputs } from "./inputs/LiftingLugInputs";
 import { StepImportDrawer } from "./StepImportDrawer";
 import { GeometryWizard } from "./geometrySteps/GeometryWizard";
 import { computeIssues } from "./geometrySteps/IssuesPanel";
@@ -1027,6 +1028,7 @@ export function GeometryPage() {
             </div>
           </AccordionSection>
           <BomInputs />
+          <LiftingLugInputs />
           </div>}
         </div>
 

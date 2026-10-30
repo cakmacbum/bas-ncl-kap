@@ -2153,6 +2153,68 @@ class ASMEVIII1DesignCode(DesignCode):
 
         return results
 
+    # --- P06 --- kaldırma kulağı (hesap: supports.lifting_lug)
+    def check_lifting_lugs(self, project) -> list:
+        spec = getattr(project, "lifting_lugs", None)
+        if spec is None:
+            return []
+        from supports.lifting_lug import evaluate_lifting_lug
+        from calc_core.volume_mass import calculate_vessel_volume_mass
+
+        def _res(calc_type: str) -> CalculationResult:
+            return CalculationResult(
+                component_id="LUG", component_type="lifting_lug", calculation_type=calc_type,
+                code=self.code_name, edition=self.code_edition,
+            )
+
+        host = None
+        if spec.location == "head":
+            heads = project.heads
+            host = next((h for h in heads if h.head_id == spec.host_component_id), None) \
+                if spec.host_component_id else (heads[0] if heads else None)
+        else:
+            shells = project.shell_sections
+            host = next((s for s in shells if s.section_id == spec.host_component_id), None) \
+                if spec.host_component_id else (shells[0] if shells else None)
+        mat = project.get_material(host.material_id) if host is not None else None
+        if host is None or mat is None:
+            r = _res("lifting_lug")
+            r.set_blocked_missing_input(
+                "Kulak kaynak edildiği bileşen veya malzemesi çözümlenemedi "
+                "(host_component_id / malzeme kontrol edin)."
+            )
+            return [r]
+
+        vm = calculate_vessel_volume_mass(project)
+        lr = evaluate_lifting_lug(
+            spec, vm.total_metal_mass_kg, host.nominal_thickness, mat.allowable_stress
+        )
+        out = []
+        for c in lr.checks:
+            r = _res(c.name)
+            r.clause_reference = c.clause
+            r.formula_reference = c.formula
+            r.component_id = f"LUG-{host.section_id if hasattr(host, 'section_id') else host.head_id}"
+            r.final_result, r.final_result_unit = c.stress_MPa, "MPa"
+            r.allowable_limit, r.allowable_limit_unit = c.allowable_MPa, "MPa"
+            r.add_intermediate("load_per_lug", lr.load_per_lug_N, "N", "Kulak başına sapan kuvveti")
+            r.add_intermediate("total_mass", lr.total_mass_kg, "kg", "Kaldırılan toplam kütle")
+            for k, v in c.intermediates.items():
+                r.add_intermediate(k, v, "", "")
+            for a in lr.assumptions:
+                r.add_assumption(a)
+            if c.utilization <= 1.0:
+                r.set_pass(c.utilization)
+            else:
+                r.set_fail(c.utilization)
+            if r.status == CalculationStatus.PASS:
+                r.set_review_required(
+                    "Kulak formülleri doğrulanmamış (verified:false): BTH-1 Nd faktörleri ve "
+                    "yerel kabuk eğilmesi (WRC-107/537) uygulanmadı; mühendis incelemesi ister."
+                )
+            out.append(r)
+        return out
+
     def calculate_cone_thickness(self, input_data: dict) -> CalculationResult:
         """UG-32(g) — Konik bölüm et kalınlığı.
 

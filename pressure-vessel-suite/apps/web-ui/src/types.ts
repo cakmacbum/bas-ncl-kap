@@ -262,6 +262,7 @@ export interface VesselProject {
   welds: WeldJoint[];
   pressure_relief?: PressureReliefSystem | null;
   cost_inputs?: CostInputs | null;
+  lifting_lugs?: LiftingLugSpec | null;
 }
 
 /** P09 BOM maliyet birim fiyatları — tümü kullanıcı girer, varsayılan yok. */
@@ -299,6 +300,27 @@ export interface BomPayload {
   warnings: string[];
   cost: BomCost;
   error?: string;
+}
+
+/** P06 — kaldırma kulağı girdisi (domain.lifting_lug.LiftingLugSpec). */
+export interface LiftingLugSpec {
+  lug_count: number;
+  location: "shell_top" | "head";
+  host_component_id: string | null;
+  plate_thickness_mm: number;
+  plate_width_mm: number;
+  hole_diameter_mm: number;
+  pin_diameter_mm: number | null;
+  edge_distance_mm: number;
+  hole_height_mm: number;
+  base_width_mm: number;
+  weld_length_mm: number;
+  weld_leg_mm: number;
+  lift_angle_deg: number;
+  impact_factor: number;
+  yield_strength_MPa: number;
+  weld_electrode_Fu_MPa: number | null;
+  extra_mass_kg: number;
 }
 
 export interface ProjectSummary {

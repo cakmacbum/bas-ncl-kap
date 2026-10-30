@@ -328,6 +328,13 @@ class CalculationOrchestrator:
         except Exception as e:
             result.add_error(f"Support check error: {e}")
 
+        # P06) Kaldırma kulağı (girdi yoksa boş döner).
+        try:
+            for r in getattr(self.design_code, "check_lifting_lugs", lambda _project: [])(project):
+                result.add(r)
+        except Exception as e:
+            result.add_error(f"Lifting lug check error: {e}")
+
         # J) Kod-özel yük kombinasyonları. Desteklenmeyen EN yolları sessizce
         # atlanmamalı; eklenti açık bir NOT_CALCULATED/OUT_OF_SCOPE sonucu döner.
         try:

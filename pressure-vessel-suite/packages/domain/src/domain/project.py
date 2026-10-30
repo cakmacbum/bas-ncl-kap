@@ -14,6 +14,7 @@ from domain.bom import CostInputs
 from domain.conditions import DesignConditions
 from domain.enums import CalculationCode, Orientation
 from domain.geometry import Cone, Flange, Head, Junction, Nozzle, ShellSection, Support
+from domain.lifting_lug import LiftingLugSpec
 from domain.load_cases import LoadCase, LoadCombination
 from domain.materials import MaterialProperty
 from domain.welds import WeldJoint
@@ -142,6 +143,9 @@ class VesselProject(BaseModel):
 
     cost_inputs: Optional[CostInputs] = Field(
         default=None, description="P09 BOM maliyet birim fiyatları (kullanıcı girer)."
+    )
+    lifting_lugs: Optional[LiftingLugSpec] = Field(
+        default=None, description="Kaldırma kulağı girdisi (P06). Boşsa kulak kontrolü yapılmaz."
     )
 
     # ── Metadata ──────────────────────────────────────────────────────────────
