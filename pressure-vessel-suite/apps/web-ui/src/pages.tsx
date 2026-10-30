@@ -26,6 +26,7 @@ import { readPanelTab, writePanelTab, type PanelTab } from "./geometryLayout";
 import { StepImportDrawer } from "./StepImportDrawer";
 import { GeometryWizard } from "./geometrySteps/GeometryWizard";
 import { computeIssues } from "./geometrySteps/IssuesPanel";
+import { ConeBaseInputs } from "./inputs/ConeBaseInputs";
 
 function PageHead({ kicker, title, desc }: { kicker: string; title: string; desc: string }) {
   return (
@@ -1024,6 +1025,7 @@ export function GeometryPage() {
                   sec.section_id === shell.section_id ? { ...sec, weld_joint_id: v || null } : sec) }))} />
             </div>
           </AccordionSection>
+          <ConeBaseInputs {...sec("cone-base")} />
           </div>}
         </div>
 

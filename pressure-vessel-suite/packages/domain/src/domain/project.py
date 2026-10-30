@@ -10,6 +10,7 @@ from typing import List, Optional, Literal
 
 from pydantic import BaseModel, Field, model_validator
 
+from domain.cone_base import ConeBaseInputs
 from domain.conditions import DesignConditions
 from domain.enums import CalculationCode, Orientation
 from domain.geometry import Cone, Flange, Head, Junction, Nozzle, ShellSection, Support
@@ -137,6 +138,11 @@ class VesselProject(BaseModel):
 
     pressure_relief: Optional[PressureReliefSystem] = Field(
         default=None, description="UG-125--136 basınç tahliye sistemi tanımı."
+    )
+
+    cone_base: Optional[ConeBaseInputs] = Field(
+        default=None,
+        description="P08: koni birleşimi App. 1-5 ek girdileri + etek taban halkası/ankraj.",
     )
 
     # ── Metadata ──────────────────────────────────────────────────────────────

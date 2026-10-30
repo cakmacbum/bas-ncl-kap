@@ -261,6 +261,38 @@ export interface VesselProject {
   supports: Support[];
   welds: WeldJoint[];
   pressure_relief?: PressureReliefSystem | null;
+  /** P08: koni birleşimi App. 1-5 ek girdileri + etek taban halkası. */
+  cone_base?: ConeBaseInputs | null;
+}
+
+export interface ConeJunctionDesign {
+  junction_id: string;
+  delta_deg?: number | null;
+  extra_ring_area_mm2?: number;
+}
+
+export interface SkirtBaseRingInput {
+  support_id?: string | null;
+  ring_outer_diameter_mm: number;
+  ring_inner_diameter_mm: number;
+  ring_thickness_mm: number;
+  ring_yield_MPa: number;
+  ring_allowable_bending_MPa?: number | null;
+  bolt_circle_diameter_mm: number;
+  bolt_count: number;
+  bolt_diameter_mm: number;
+  bolt_stress_area_mm2?: number | null;
+  bolt_corrosion_allowance_mm?: number;
+  bolt_allowable_tension_MPa?: number | null;
+  bolt_allowable_shear_MPa?: number | null;
+  concrete_fc_MPa: number;
+  concrete_allowable_bearing_MPa?: number | null;
+  modular_ratio_n?: number | null;
+}
+
+export interface ConeBaseInputs {
+  junctions: ConeJunctionDesign[];
+  skirt_base_ring?: SkirtBaseRingInput | null;
 }
 
 export interface ProjectSummary {
