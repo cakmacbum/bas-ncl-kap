@@ -1,4 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import "./report-print.css";
 import { useStore } from "./store";
 import { api } from "./api";
 import {
@@ -1536,6 +1537,17 @@ export function ReportPage() {
       if (created) URL.revokeObjectURL(created);
     };
   }, [ready]);
+  const reportFrame = useRef<HTMLIFrameElement>(null);
+  // PDF: rapor iframe'inde tarayıcı yazdırma (A4 baskı CSS'i raporun içinde) → "PDF olarak kaydet".
+  const printReport = () => {
+    const win = reportFrame.current?.contentWindow;
+    if (!win) {
+      setErr("Rapor henüz yüklenmedi; PDF için bekleyin.");
+      return;
+    }
+    win.focus();
+    win.print();
+  };
   const downloadStep = async () => {
     try {
       await api.downloadStep(await ensureSaved());
@@ -1580,14 +1592,18 @@ export function ReportPage() {
                 <a className="btn btn--ghost" href={reportSrc ?? undefined} aria-disabled={!reportSrc} target="_blank" rel="noreferrer">
                   ↗ Yeni Sekmede
                 </a>
+                <button className="btn btn--primary" onClick={printReport} disabled={!reportSrc}>
+                  ⬇ PDF indir
+                </button>
                 <button className="btn" onClick={downloadStep}>⬇ STEP indir</button>
               </div>
             }
           >
-            {reportSrc && <iframe className="report-frame" src={reportSrc} title="Hesap Raporu" />}
+            {reportSrc && <iframe ref={reportFrame} className="report-frame" src={reportSrc} title="Hesap Raporu" />}
           </Panel>
           <div className="alert alert--info">
-            ℹ PDF çıktısı, sunucuda WeasyPrint native kütüphaneleri kurulduğunda etkinleşir.
+            ℹ "PDF indir" tarayıcının yazdırma penceresini açar; hedef olarak "PDF olarak kaydet" seçin
+            (A4, sayfa sonları ve tablo başlıkları rapora gömülüdür). Rapor sonundaki U-1A özeti resmî form değildir.
             STEP dosyası SolidWorks / FreeCAD ile açılabilir.
           </div>
           <div className="btn-row" style={{ justifyContent: "flex-start" }}>
