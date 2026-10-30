@@ -12,25 +12,66 @@ import { getClientId } from "./clientId";
 
 const BASE = ((import.meta.env.VITE_API_URL as string | undefined) || "").replace(/\/$/, "") + "/api";
 
+export const TIMEOUT_MS = 30_000;
+export const SLOW_MS = 3_000;
+export const CAD_MISSING_MSG =
+  "Sunucuda CAD motoru yok. Kesin modeli Kap Geometrisi → Dışa aktar menüsünden indirin.";
+export const TOO_BIG_MSG = "Proje çok büyük (sunucu sınırı 2 MB). Bileşen/nozul sayısını azaltın.";
+
+// Üretimde kullanıcı dostu, geliştirmede uvicorn ipucu içeren bağlantı hatası.
+export function unreachableMessage(dev: boolean): string {
+  return dev
+    ? "API sunucusuna bağlanılamadı. Backend çalışıyor mu? " +
+        "(pressure-vessel-suite kökünden: uvicorn apps.api.main:app --reload)"
+    : "Hesap sunucusuna şu an ulaşılamıyor. Geometri ve 3D çalışmaya devam eder; birkaç saniye sonra tekrar deneyin.";
+}
+
+// Durum koduna göre kullanıcı mesajı (yoksa null → sunucu detayı kullanılır).
+export function statusMessage(status: number): string | null {
+  if (status === 413) return TOO_BIG_MSG;
+  if (status === 503) return CAD_MISSING_MSG;
+  return null;
+}
+
 // Her istekte Bearer token ekler; 401'de oturumu kapatır (AuthGate giriş ekranına döner).
-export async function authFetch(input: RequestInfo | URL, init: RequestInit = {}): Promise<Response> {
+// 30 sn zaman aşımı (AbortController); `onSlow` ilk yanıt 3 sn'yi geçerse çağrılır (soğuk başlangıç).
+export async function authFetch(
+  input: RequestInfo | URL,
+  init: RequestInit = {},
+  opts: { onSlow?: () => void } = {}
+): Promise<Response> {
   const token = await getAccessToken();
   const headers = new Headers(init.headers);
   headers.set("X-Client-Id", getClientId());
   if (token) headers.set("Authorization", `Bearer ${token}`);
-  const res = await fetch(input, { ...init, headers });
-  if (res.status === 401 && token) void signOut();
-  return res;
+  const ctrl = new AbortController();
+  const killTimer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
+  const slowTimer = opts.onSlow ? setTimeout(opts.onSlow, SLOW_MS) : undefined;
+  try {
+    const res = await fetch(input, { ...init, headers, signal: ctrl.signal });
+    if (res.status === 401 && token) void signOut();
+    return res;
+  } finally {
+    clearTimeout(killTimer);
+    if (slowTimer) clearTimeout(slowTimer);
+  }
 }
 
-async function blobUrl(url: string): Promise<string> {
-  const res = await authFetch(url);
-  if (!res.ok) throw new Error(`İndirilemedi (${res.status})`);
+async function blobUrl(url: string, init?: RequestInit): Promise<string> {
+  let res: Response;
+  try {
+    res = await authFetch(url, init);
+  } catch {
+    throw new Error(unreachableMessage(import.meta.env.DEV));
+  }
+  if (!res.ok) throw new Error(statusMessage(res.status) ?? `İndirilemedi (${res.status})`);
   return URL.createObjectURL(await res.blob());
 }
 
 async function jsonOrThrow<T>(res: Response): Promise<T> {
   if (!res.ok) {
+    const mapped = statusMessage(res.status);
+    if (mapped) throw new Error(mapped);
     let detail = res.statusText;
     try {
       detail = (await res.json()).detail ?? detail;
@@ -39,25 +80,21 @@ async function jsonOrThrow<T>(res: Response): Promise<T> {
     }
     // Backend çalışmıyorsa Vite proxy'si jenerik 5xx döndürür; net yönlendir.
     if (res.status >= 500 && (!detail || /internal server error/i.test(detail))) {
-      detail =
-        "API sunucusuna ulaşılamadı veya sunucu hatası. Backend çalışıyor mu? " +
-        "(pressure-vessel-suite kökünden: uvicorn apps.api.main:app --reload)";
+      detail = unreachableMessage(import.meta.env.DEV);
     }
+    if (typeof detail !== "string") detail = JSON.stringify(detail);
     throw new Error(detail);
   }
   return res.json() as Promise<T>;
 }
 
 // Ağ hatası (backend tümüyle kapalı → fetch reddedilir) için de net mesaj.
-async function fetchJson<T>(input: RequestInfo, init?: RequestInit): Promise<T> {
+async function fetchJson<T>(input: RequestInfo, init?: RequestInit, opts?: { onSlow?: () => void }): Promise<T> {
   let res: Response;
   try {
-    res = await authFetch(input, init);
+    res = await authFetch(input, init, opts);
   } catch {
-    throw new Error(
-      "API sunucusuna bağlanılamadı. Backend çalışıyor mu? " +
-        "(pressure-vessel-suite kökünden: uvicorn apps.api.main:app --reload)"
-    );
+    throw new Error(unreachableMessage(import.meta.env.DEV));
   }
   return jsonOrThrow<T>(res);
 }
@@ -72,7 +109,7 @@ export const api = {
         body: file,
       });
     } catch {
-      throw new Error("API sunucusuna bağlanılamadı. Backend çalışıyor mu?");
+      throw new Error(unreachableMessage(import.meta.env.DEV));
     }
     if (res.status === 413) throw new Error("Dosya 20 MB sınırını aşıyor.");
     if (res.status === 415) throw new Error("Dosya STEP (ISO-10303-21) değil.");
@@ -112,13 +149,22 @@ export const api = {
     });
   },
 
-  async calculate(id: string): Promise<CalcPayload> {
-    return fetchJson(`${BASE}/projects/${id}/calculate`, { method: "POST" });
+  // Durumsuz hesap: güncel proje gövdede gider, kayıt gerekmez.
+  async calculate(project: VesselProject, opts?: { onSlow?: () => void }): Promise<CalcPayload> {
+    return fetchJson(
+      `${BASE}/calculate`,
+      { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(project) },
+      opts
+    );
   },
 
-  // Başlık gerektiren dosyalar için blob URL (iframe / yeni sekme / indirme).
-  reportBlobUrl(id: string): Promise<string> {
-    return blobUrl(`${BASE}/projects/${id}/report.html`);
+  // Başlık gerektiren rapor için blob URL (iframe / yeni sekme).
+  reportBlobUrl(project: VesselProject): Promise<string> {
+    return blobUrl(`${BASE}/report.html`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(project),
+    });
   },
 
   async downloadStep(id: string): Promise<void> {
