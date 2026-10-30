@@ -13,6 +13,7 @@ from pydantic import BaseModel, Field, model_validator
 from domain.conditions import DesignConditions
 from domain.enums import CalculationCode, Orientation
 from domain.geometry import Cone, Flange, Head, Junction, Nozzle, ShellSection, Support
+from domain.lifting_lug import LiftingLugSpec
 from domain.load_cases import LoadCase, LoadCombination
 from domain.materials import MaterialProperty
 from domain.welds import WeldJoint
@@ -137,6 +138,10 @@ class VesselProject(BaseModel):
 
     pressure_relief: Optional[PressureReliefSystem] = Field(
         default=None, description="UG-125--136 basınç tahliye sistemi tanımı."
+    )
+
+    lifting_lugs: Optional[LiftingLugSpec] = Field(
+        default=None, description="Kaldırma kulağı girdisi (P06). Boşsa kulak kontrolü yapılmaz."
     )
 
     # ── Metadata ──────────────────────────────────────────────────────────────
