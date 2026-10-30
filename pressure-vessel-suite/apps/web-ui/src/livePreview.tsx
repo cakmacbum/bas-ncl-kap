@@ -5,7 +5,7 @@
 // K6: Flanş/kapak biçimleri görsel temsildir (B16.5 ölçüsü değildir).
 // Kesin imalat modeli için CadQuery/STEP çıktısı kullanılır.
 
-import { useEffect, useMemo, useRef, type CSSProperties } from "react";
+import { useEffect, useMemo, useRef, type CSSProperties, type MutableRefObject } from "react";
 import { Canvas } from "@react-three/fiber";
 import { GizmoHelper, GizmoViewport } from "@react-three/drei";
 import * as THREE from "three";
@@ -16,6 +16,9 @@ import type { MeshPart, Selection } from "./geometryContract";
 import { useCadBuild } from "./cad/cadClient";
 import { useStore } from "./store";
 import type { DimKey } from "./schematic";
+import { buildStressField } from "./stress/analyticField";
+import type { StressField } from "./stress/types";
+import { StressHud, stressVertexColors, type ProbeSetter } from "./stress/heatmap";
 import {
   componentFrames, nozzlePlacement, nozzleVisual, vesselProfile, vesselProfileChain,
   type ChainSource, type ComponentFrame,
@@ -164,9 +167,12 @@ const KIND_COLOR: Record<MeshPart["kind"], string> = {
 
 /** Worker (OCCT) mesh'leri: partId başına bir mesh; tık → seçim, seçili parça vurgulu. */
 export function CadMeshes({
-  meshes, selection, onSelect,
+  meshes, selection, onSelect, stress = null, probeRef,
 }: {
   meshes: MeshPart[]; selection: Selection | null; onSelect: (s: Selection) => void;
+  /** Verilirse vertex'ler gerilmeye göre boyanır (Gerilme görünümü). */
+  stress?: StressField | null;
+  probeRef?: MutableRefObject<ProbeSetter | null>;
 }) {
   const geos = useMemo(
     () => meshes.map((m) => {
@@ -179,9 +185,10 @@ export function CadMeshes({
         edges = new THREE.BufferGeometry();
         edges.setAttribute("position", new THREE.BufferAttribute(m.edges, 3));
       }
+      if (stress) g.setAttribute("color", new THREE.BufferAttribute(stressVertexColors(m.positions, stress), 3));
       return { g, edges };
     }),
-    [meshes],
+    [meshes, stress],
   );
   useEffect(() => () => geos.forEach(({ g, edges }) => { g.dispose(); edges?.dispose(); }), [geos]);
 
@@ -193,10 +200,23 @@ export function CadMeshes({
         return (
           <group key={m.partId}>
             <mesh geometry={geos[i].g}
-              onClick={(e) => { e.stopPropagation(); onSelect({ kind: m.kind, id }); }}>
-              <meshStandardMaterial color={selected ? COLOR_ACTIVE : KIND_COLOR[m.kind]}
-                emissive={selected ? COLOR_ACTIVE : "#000000"} emissiveIntensity={selected ? 0.25 : 0}
-                metalness={0.55} roughness={0.42} side={THREE.DoubleSide} />
+              onClick={(e) => { e.stopPropagation(); onSelect({ kind: m.kind, id }); }}
+              onPointerMove={stress ? (e) => {
+                // Dünya noktası → mesh yerel (= model) çerçevesi; yatay/dikey rotasyon geri alınır.
+                e.stopPropagation();
+                const p = e.object.worldToLocal(e.point.clone());
+                const pt: [number, number, number] = [p.x, p.y, p.z];
+                probeRef?.current?.({ ...stress.at(pt), point: pt });
+              } : undefined}
+              onPointerOut={stress ? () => probeRef?.current?.(null) : undefined}>
+              {stress ? (
+                <meshStandardMaterial vertexColors color="#ffffff" metalness={0.05} roughness={0.75}
+                  side={THREE.DoubleSide} />
+              ) : (
+                <meshStandardMaterial color={selected ? COLOR_ACTIVE : KIND_COLOR[m.kind]}
+                  emissive={selected ? COLOR_ACTIVE : "#000000"} emissiveIntensity={selected ? 0.25 : 0}
+                  metalness={0.55} roughness={0.42} side={THREE.DoubleSide} />
+              )}
             </mesh>
             {geos[i].edges && (
               <lineSegments geometry={geos[i].edges!}>
@@ -233,11 +253,14 @@ export interface LivePreviewProps {
   hideWarningChip?: boolean;
   /** Derleme uyarı mesajları değiştiğinde bildirilir (tek derleme; ikinci hook açma). */
   onWarnings?: (messages: string[]) => void;
+  /** Gerilme haritası görünümü (analitik alan; gösterge amaçlı). */
+  stressMode?: boolean;
 }
 
 export function LivePreview({
   shell, heads, nozzles, orientation, active, activeNozzle,
   shells = [shell], cones = [], componentSequence = [], hideWarningChip = false, onWarnings,
+  stressMode = false,
 }: LivePreviewProps) {
   const leftHead = heads[0];
   const rightHead = heads[1] ?? heads[0];
@@ -248,6 +271,8 @@ export function LivePreview({
   const setSelection = useStore((s) => s.setSelection);
   const cad = useCadBuild(project, "preview");
   const useCad = cad.meshes.length > 0;
+  const stressField = useMemo(() => (stressMode ? buildStressField(project) : null), [stressMode, project]);
+  const probeRef = useRef<ProbeSetter | null>(null);
   useEffect(() => { onWarnings?.(cad.warnings.map((w) => w.message)); }, [cad.warnings, onWarnings]);
 
   const isVertical = orientation === "vertical";
@@ -290,7 +315,8 @@ export function LivePreview({
               dikey → kap ekseni yukarı. */}
           <group rotation={isVertical ? [-Math.PI / 2, 0, 0] : [0, 0, Math.PI / 2]}>
             {useCad ? (
-              <CadMeshes meshes={cad.meshes} selection={selection} onSelect={setSelection} />
+              <CadMeshes meshes={cad.meshes} selection={selection} onSelect={setSelection}
+                stress={stressField} probeRef={probeRef} />
             ) : (
               <>
                 <VesselBody shell={shell} shells={shells} leftHead={leftHead} rightHead={rightHead}
@@ -334,6 +360,11 @@ export function LivePreview({
           </span>
         )}
       </div>
+
+      {stressField && useCad && <StressHud field={stressField} probeRef={probeRef} />}
+      {stressField && !useCad && (
+        <p className="stress-info" role="status">Gerilme haritası için 3D model hazırlanıyor…</p>
+      )}
 
       <CameraToolbar apiRef={cameraApi} />
       <CameraHelpNote />

@@ -555,7 +555,7 @@ export function GeometryPage() {
   };
   // Uyarı rozeti: tek CAD derlemesi LivePreview/ExactModelView'de; sonuç buraya bildirilir
   const [cadWarnings, setCadWarnings] = useState<string[]>([]);
-  const [previewTab, setPreviewTab] = useState<"2d" | "3d" | "exact" | "uploaded">("3d");
+  const [previewTab, setPreviewTab] = useState<"2d" | "3d" | "exact" | "stress" | "uploaded">("3d");
 
   const updateNozzle = useStore((s) => s.updateNozzle);
   const addFlange = useStore((s) => s.addFlange);
@@ -1038,14 +1038,16 @@ export function GeometryPage() {
                   { value: "3d", label: "3D Önizleme" },
                   { value: "2d", label: "Ölçülü Kesit" },
                   { value: "exact", label: "Kesin Model" },
+                  { value: "stress", label: "Gerilme" },
                   ...(uploadedModelUrl ? [{ value: "uploaded", label: "Yüklenen model" }] : []),
                 ]}
               />
               <PreviewActions project={project} warnings={cadWarnings} />
             </div>
             <div className="geo-preview__body">
-              {previewTab === "3d" && (
+              {(previewTab === "3d" || previewTab === "stress") && (
                 <LivePreview
+                  stressMode={previewTab === "stress"}
                   hideWarningChip
                   onWarnings={setCadWarnings}
                   shell={shell}
