@@ -166,6 +166,10 @@ export interface Support {
   contact_angle_deg: number | null;
   /** Eyer düzleminde halka var mı; null = girilmedi (Zick bloke). */
   saddle_stiffened: boolean | null;
+  /** Eyer plaka ölçüleri (BOM kütlesi). Aşınma plakası kalınlığı = thickness_mm, taban = base_plate_*. */
+  saddle_web_thickness_mm?: number | null;
+  saddle_rib_count?: number | null;
+  saddle_rib_thickness_mm?: number | null;
   /** Zick K katsayıları — kullanıcı tablodan okur (K6: program tabloyu içermez). null = girilmedi. */
   zick_K1: number | null;
   zick_K2: number | null;

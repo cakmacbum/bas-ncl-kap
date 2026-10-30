@@ -10,8 +10,8 @@ Kapsam ve yaklaşımlar (K4 — sessiz kırpma yok):
   - Flanş (Appendix 2): halka + hub borusu, yaklaşık (cıvata/conta dahil değil).
   - Destek: etek (silindir kabuk), boru ayak + ayak pedi + taban plakası.
     Profil (channel/box/angle) ayak: sections.py kesit alanı × boy × yoğunluk
-    (boyutlar eksik/geçersizse None + uyarı). Eyer: Support modelinde web/taban/
-    kanat/aşınma plakası alanı olmadığından kütle ÜRETİLMEZ (None); toplam
+    (boyutlar eksik/geçersizse None + uyarı). Eyer: web / taban / kanat / aşınma
+    plakaları ayrı satır (_saddle_lines); ölçü eksikse o satır None, toplam
     "eksik" işaretlenir.
   - Kesim firesi, kaynak metali, cıvata/conta BOM dışı.
 Maliyet: tüm birim fiyatları kullanıcı girer; eksikse toplam üretilmez (uydurma yok).
@@ -115,6 +115,75 @@ def _profile_leg_mass(sp, rho: float):
     return sec.A * sp.height_mm / 1e9 * rho, ""
 
 
+def _saddle_lines(sp, shell_by_id: Dict[str, Any], add, rho: float) -> None:
+    """Eyer plakaları (web / taban / kanat / aşınma). Her parça bağımsız; ölçü eksikse None + not.
+
+    Geometri CAD (cad/parts/saddle.ts) ile aynı: yMax = R·sin(min(θ/2, 80°)); web y∈[-yMax,yMax],
+    alttan taban plakası üstü (kalınlık tb), üstten kabuk dış yüzeyi (R) ile sınırlı;
+    height_mm = kabuk dış altı → taban alt yüzü.
+    """
+    sid = sp.support_id
+    host = shell_by_id.get(sp.host_component_id) if sp.host_component_id else None
+    R = None
+    if host is not None:
+        od = host.outside_diameter or (host.inside_diameter + 2 * host.nominal_thickness)
+        R = od / 2.0
+    W, H = sp.width_mm, sp.height_mm
+    th = sp.contact_angle_deg
+    tb = sp.base_plate_thickness_mm
+
+    # Web
+    tw = sp.saddle_web_thickness_mm
+    mass = None
+    if not tw:
+        note = "Web kalınlığı (saddle_web_thickness_mm) girilmemiş."
+    elif R is None:
+        note = "Host gövde bulunamadı (host_component_id) → kabuk yarıçapı yok."
+    elif not th:
+        note = "Sarma açısı (contact_angle_deg) girilmemiş."
+    elif not tb:
+        note = "Taban plakası kalınlığı (base_plate_thickness_mm) girilmemiş."
+    elif H <= tb:
+        note = "Yükseklik taban plakası kalınlığından küçük."
+    else:
+        yM = R * math.sin(min(math.radians(th) / 2.0, math.radians(80.0)))
+        under_arc = yM * math.sqrt(R * R - yM * yM) + R * R * math.asin(yM / R)
+        area = 2.0 * yM * (R + H - tb) - under_arc
+        mass = area * tw / 1e9 * rho
+        note = ("Alan = 2·yMax·(R+H−tb) − dairesel bölge; yMax=R·sin(min(θ/2,80°)); "
+                "kabuk dış yüzeyine kadar, rib örtüşmesi düşülmedi.")
+    add(f"Eyer web {sid}", sp.material_id, f"t{tw:g}" if tw else "ölçü eksik", 1, mass, note)
+
+    # Taban plakası
+    L, B = sp.base_plate_length_mm, sp.base_plate_width_mm
+    if L and B and tb:
+        add(f"Eyer taban plakası {sid}", sp.material_id, f"{L:g}×{B:g}×t{tb:g}", 1,
+            _plate_mass(L, B, tb, rho), "Düz dikdörtgen (ankraj delikleri düşülmedi).")
+    else:
+        add(f"Eyer taban plakası {sid}", sp.material_id, "ölçü eksik", 1, None,
+            "Taban plakası boy/en/kalınlık (base_plate_*) eksik.")
+
+    # Kanatlar
+    n, tr = sp.saddle_rib_count, sp.saddle_rib_thickness_mm
+    if n and tr and tb and H > tb:
+        add(f"Eyer kanat {sid}", sp.material_id, f"{W:g}×{H - tb:g}×t{tr:g}", n,
+            _plate_mass(W, H - tb, tr, rho),
+            "Dikdörtgen W×(H−tb); kabuk eğriliği altı payı eklenmedi (hafif alt sınır).")
+    else:
+        add(f"Eyer kanat {sid}", sp.material_id, "ölçü eksik", n or 1, None,
+            "Kanat adedi/kalınlığı veya taban plakası kalınlığı eksik.")
+
+    # Aşınma plakası
+    tp = sp.thickness_mm
+    if tp and R is not None and th:
+        arc = math.radians(th) * (R + tp / 2.0)
+        add(f"Eyer aşınma plakası {sid}", sp.material_id, f"θ{th:g}° × W{W:g} × t{tp:g}", 1,
+            arc * W * tp / 1e9 * rho, "Yay boyu (R+t/2)·θ × genişlik × t.")
+    else:
+        add(f"Eyer aşınma plakası {sid}", sp.material_id, "ölçü eksik", 1, None,
+            "Aşınma plakası kalınlığı (thickness_mm), sarma açısı veya host gövde eksik.")
+
+
 def build_bom(project: VesselProject) -> BomReport:
     rep = BomReport()
     mats = {m.material_id: m for m in project.materials}
@@ -175,6 +244,7 @@ def build_bom(project: VesselProject) -> BomReport:
         wall_by_host[h.head_id] = h.nominal_thickness
     for c in project.cones:
         wall_by_host[c.cone_id] = c.nominal_thickness
+    shell_by_id = {s.section_id: s for s in project.shell_sections}
     for nz in project.nozzles:
         _, rho = mat_info_once(nz.material_id)
         wall = wall_by_host.get(nz.host_component_id)
@@ -243,8 +313,7 @@ def build_bom(project: VesselProject) -> BomReport:
                     f"{sp.base_plate_length_mm:g}×{sp.base_plate_width_mm:g}×t{sp.base_plate_thickness_mm:g}", n,
                     _plate_mass(sp.base_plate_length_mm, sp.base_plate_width_mm, sp.base_plate_thickness_mm, rho))
         else:
-            add(f"Eyer {sp.support_id}", sp.material_id, f"W{sp.width_mm:g} × H{sp.height_mm:g}", 1, None,
-                "Eyer plaka (web/taban/kanat/aşınma) alanları Support modelinde yok; kütle üretilmedi.")
+            _saddle_lines(sp, shell_by_id, add, rho)
 
     if not rep.mass_complete:
         rep.warnings.append("Bazı parçaların kütlesi üretilemedi; toplam kütle EKSİKTİR (alt sınır).")

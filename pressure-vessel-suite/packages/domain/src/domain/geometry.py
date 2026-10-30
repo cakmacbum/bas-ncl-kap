@@ -375,7 +375,9 @@ class Support(BaseModel):
                     "0,6 VARSAYILIR ve sonuca yazılır (K4). Yalnız skirt.",
     )
     thickness_mm: Optional[float] = Field(
-        default=None, gt=0, description="Etek et kalınlığı (mm). Yalnız skirt tipinde."
+        default=None, gt=0,
+        description="Etek et kalınlığı (mm) — skirt tipinde. Eyerde (saddle) AŞINMA plakası "
+                    "kalınlığı (mm); aşınma plakası genişliği = width_mm, yay açısı = contact_angle_deg.",
     )
     material_id: str = Field(..., description="Malzeme tanımı.")
     contact_angle_deg: Optional[float] = Field(
@@ -409,6 +411,17 @@ class Support(BaseModel):
     zick_K7: Optional[float] = Field(
         default=None, gt=0,
         description="Zick K7 (eyer altı kabuk çevresel basma sabiti; θ'ya bağlı). K6.",
+    )
+    saddle_web_thickness_mm: Optional[float] = Field(
+        default=None, gt=0,
+        description="Eyer web (gövde) plakası kalınlığı (mm). Yalnız saddle. Taban plakası "
+                    "base_plate_length/width/thickness_mm, aşınma plakası thickness_mm ile ifade edilir.",
+    )
+    saddle_rib_count: Optional[int] = Field(
+        default=None, gt=0, description="Eyer kanat (rib) adedi. Yalnız saddle."
+    )
+    saddle_rib_thickness_mm: Optional[float] = Field(
+        default=None, gt=0, description="Eyer kanat (rib) kalınlığı (mm). Yalnız saddle."
     )
     leg_count: Optional[int] = Field(
         default=None, gt=0,

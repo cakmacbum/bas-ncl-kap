@@ -285,6 +285,24 @@ export function Step5Supports() {
                       <RField label="Temas (sarma) açısı" unit="°" value={sel.contact_angle_deg ?? 120} min={120} max={180}
                         onChange={(v) => updateSupport(selIndex, { contact_angle_deg: v })} />
                     </div>
+                    <h4 className="gw-subhead">Eyer plakaları (BOM kütlesi)</h4>
+                    <div className="grid">
+                      <RField label="Aşınma plakası kalınlığı" unit="mm" value={sel.thickness_mm ?? NaN} min={0}
+                        onChange={(v) => updateSupport(selIndex, { thickness_mm: v > 0 ? v : null })} />
+                      <RField label="Web kalınlığı" unit="mm" value={sel.saddle_web_thickness_mm ?? NaN} min={0}
+                        onChange={(v) => updateSupport(selIndex, { saddle_web_thickness_mm: v > 0 ? v : null })} />
+                      <RField label="Kanat adedi" value={sel.saddle_rib_count ?? NaN} min={0} step={1}
+                        onChange={(v) => updateSupport(selIndex, { saddle_rib_count: v > 0 ? Math.round(v) : null })} />
+                      <RField label="Kanat kalınlığı" unit="mm" value={sel.saddle_rib_thickness_mm ?? NaN} min={0}
+                        onChange={(v) => updateSupport(selIndex, { saddle_rib_thickness_mm: v > 0 ? v : null })} />
+                      <RField label="Taban plakası boyu" unit="mm" value={sel.base_plate_length_mm ?? NaN} min={0}
+                        onChange={(v) => updateSupport(selIndex, { base_plate_length_mm: v > 0 ? v : null })} />
+                      <RField label="Taban plakası eni" unit="mm" value={sel.base_plate_width_mm ?? NaN} min={0}
+                        onChange={(v) => updateSupport(selIndex, { base_plate_width_mm: v > 0 ? v : null })} />
+                      <RField label="Taban plakası kalınlığı" unit="mm" value={sel.base_plate_thickness_mm ?? NaN} min={0}
+                        onChange={(v) => updateSupport(selIndex, { base_plate_thickness_mm: v > 0 ? v : null })} />
+                    </div>
+                    <p className="gw-note">Boş alan = ölçü girilmedi; BOM o parçayı "EKSİK" işaretler. Aşınma plakası genişliği eyer genişliğidir.</p>
                     <p className="gw-note">Zick K1…K7 alanları boş bırakılırsa tablodan (θ={sel.contact_angle_deg ?? 120}°) alınır; tabloda yoksa hesap "Veri Engelli" kalır.</p>
                   </Group>
                 )}
