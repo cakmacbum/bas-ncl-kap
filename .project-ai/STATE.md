@@ -82,3 +82,10 @@ Son doğrulama (6224e45): gerçek tıklamayla STEP indi; CadQuery 11/11 katı ge
 - Durumsuz /api/calculate + /api/report.html; arayüz gövdeli çağrı, canlı hata mesajı + Tekrar dene, 30 sn zaman aşımı, uyanıyor durumu.
 - Vercel pv-suite-app: api/index.py Python fonksiyonu (CadQuery yok), vercel.json, requirements.txt, .vercelignore (.env, Dockerfile, pyproject.toml hariç).
 - Deploy git-archive temiz kopyadan (.test-tmp EPERM). Canlı doğrulandı: /api/health ok, Hesapla MAWP 2,31 MPa.
+
+## 2026-10-30 — Dalga 1 (araştırma sonrası yol haritası)
+- P01 kalıcı depo (Supabase PostgREST, revizyon uçları; env yoksa bellek içi) · P02 A4 baskı + PDF indir + U-1A biçiminde özet
+- P03 analitik gerilme alanı (`web-ui/src/stress/analyticField.ts`, 14 test) · P04 "Gerilme" görünümü (vertex renk, skala, bilgi kartı)
+- P05 Zick K arama altyapısı — `ZICK_TABLES` BOŞ (doğrulanmış Moss/Zick değerleri gerekli; K girilmezse BLOCKED kalır)
+- main 115 web testi + 287 pytest yeşil; önizleme deploy READY; üretim deploy Yusuf onayı bekliyor
+- Sıradaki: Dalga 2 (P06 lifting lug, P07 WRC 537, P08 koni/taban halkası, P09 BOM/maliyet). Plan: ~/.claude/plans/bu-yoldaki-plan-oku-peaceful-gem.md
