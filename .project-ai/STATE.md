@@ -110,3 +110,4 @@ Son doğrulama (6224e45): gerçek tıklamayla STEP indi; CadQuery 11/11 katı ge
 - P13 SCL linearizasyonu (Pm/PL/PL+Pb+Q, von Mises/Tresca, S/1,5S/3S) + Gerilme sekmesinde Analitik/FEA anahtarı + hamut uyarısı
 - Açık: P03 analitik torisferik hamut ~3× FEA (715 vs 237 MPa) — bağımsız doğrulama gerekli; E/ν malzemede yok (200 GPa/0,3)
 - P14 (3D CalculiX sunucusu) Yusuf kararı bekliyor
+- 2026-10-31: Dalga 4 üretimde. P14 Yusuf kararıyla ERTELENDİ (şimdilik yapılmayacak).
