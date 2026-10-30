@@ -5,7 +5,7 @@
 // K6: Flanş/kapak biçimleri görsel temsildir (B16.5 ölçüsü değildir).
 // Kesin imalat modeli için CadQuery/STEP çıktısı kullanılır.
 
-import { useEffect, useMemo, useRef, type CSSProperties, type MutableRefObject } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type MutableRefObject } from "react";
 import { Canvas } from "@react-three/fiber";
 import { GizmoHelper, GizmoViewport } from "@react-three/drei";
 import * as THREE from "three";
@@ -18,6 +18,10 @@ import { useStore } from "./store";
 import type { DimKey } from "./schematic";
 import { buildStressField } from "./stress/analyticField";
 import type { StressField } from "./stress/types";
+import { useFea } from "./fea/useFea";
+import { toStressField } from "./fea/toStressField";
+import { FeaToggle, SclCard, type StressSource } from "./fea/FeaPanel";
+import { isTorisphericalHead, makeKnuckleCheck } from "./stress/knuckleNote";
 import { StressHud, stressVertexColors, type ProbeSetter } from "./stress/heatmap";
 import {
   componentFrames, nozzlePlacement, nozzleVisual, vesselProfile, vesselProfileChain,
@@ -271,7 +275,18 @@ export function LivePreview({
   const setSelection = useStore((s) => s.setSelection);
   const cad = useCadBuild(project, "preview");
   const useCad = cad.meshes.length > 0;
-  const stressField = useMemo(() => (stressMode ? buildStressField(project) : null), [stressMode, project]);
+  const [stressSource, setStressSource] = useState<StressSource>("analytic");
+  const feaOn = stressMode && stressSource === "fea";
+  const analyticField = useMemo(() => (stressMode ? buildStressField(project) : null), [stressMode, project]);
+  const fea = useFea(feaOn ? project : null);
+  const feaField = useMemo(
+    () => (feaOn && fea.result?.converged ? toStressField(fea.result, analyticField?.allowable ?? null) : null),
+    [feaOn, fea.result, analyticField],
+  );
+  // FEA modunda çözüm gelene dek model boyanmaz (analitik değer FEA diye gösterilmez).
+  const stressField = feaOn ? feaField : analyticField;
+  const knuckleCheck = useMemo(() => (stressMode ? makeKnuckleCheck(project) : undefined), [stressMode, project]);
+  const knuckleSelected = stressMode && isTorisphericalHead(project, selection);
   const probeRef = useRef<ProbeSetter | null>(null);
   useEffect(() => { onWarnings?.(cad.warnings.map((w) => w.message)); }, [cad.warnings, onWarnings]);
 
@@ -361,7 +376,15 @@ export function LivePreview({
         )}
       </div>
 
-      {stressField && useCad && <StressHud field={stressField} probeRef={probeRef} />}
+      {stressMode && <FeaToggle source={stressSource} onChange={setStressSource} fea={fea} />}
+      {feaOn && !stressField && fea.status !== "error" && (
+        <p className="stress-info" role="status">FEA çözülüyor — sonuç gelince model boyanır…</p>
+      )}
+      {stressField && useCad && (
+        <StressHud field={stressField} probeRef={probeRef} source={feaOn ? "fea" : "analytic"}
+          knuckleCheck={knuckleCheck} knuckleSelected={knuckleSelected} />
+      )}
+      {feaOn && <SclCard fea={fea} allowable={analyticField?.allowable ?? null} />}
       {stressField && !useCad && (
         <p className="stress-info" role="status">Gerilme haritası için 3D model hazırlanıyor…</p>
       )}

@@ -4,6 +4,7 @@
 
 import { useEffect, useState, type MutableRefObject } from "react";
 import type { StressField, StressSample } from "./types";
+import { KNUCKLE_WARNING } from "./knuckleNote";
 import { allowablePosition, scaleGradientCss, scaleTicks, stressColor } from "./colorScale";
 
 export type StressProbe = StressSample & { point: [number, number, number] };
@@ -29,7 +30,15 @@ const ZONE_TR: Record<StressSample["zone"], string> = {
 const mpa = (v: number) => `${v.toFixed(1)} MPa`;
 
 /** Sağda dikey skala + üstte bilgi kartı + fare altındaki nokta okuması. */
-export function StressHud({ field, probeRef }: { field: StressField; probeRef: MutableRefObject<ProbeSetter | null> }) {
+export function StressHud({ field, probeRef, source = "analytic", knuckleCheck, knuckleSelected = false }: {
+  field: StressField;
+  probeRef: MutableRefObject<ProbeSetter | null>;
+  source?: "analytic" | "fea";
+  /** Analitik modda: nokta torisferik hamut bölgesinde mi? */
+  knuckleCheck?: (p: [number, number, number]) => boolean;
+  /** Analitik modda: seçili bileşen torisferik bombe. */
+  knuckleSelected?: boolean;
+}) {
   const [probe, setProbe] = useState<StressProbe | null>(null);
   useEffect(() => {
     probeRef.current = setProbe;
@@ -38,6 +47,7 @@ export function StressHud({ field, probeRef }: { field: StressField; probeRef: M
 
   const max = field.maxVm;
   const allowPos = allowablePosition(field.allowable, max);
+  const knuckleWarn = source === "analytic" && (knuckleSelected || (probe != null && !!knuckleCheck?.(probe.point)));
 
   return (
     <>
@@ -60,9 +70,16 @@ export function StressHud({ field, probeRef }: { field: StressField; probeRef: M
 
       <div className="stress-info" aria-live="polite">
         <p className="stress-info__note">
-          Kap içinde basınç her yerde aynıdır (giriş jetinin etkisi ~%0,04). Renkler duvardaki gerilmeyi gösterir.
+          {source === "fea"
+            ? "Eksenel simetrik sonlu eleman çözümü (lineer elastik). Renkler duvardaki gerilmeyi gösterir."
+            : "Kap içinde basınç her yerde aynıdır (giriş jetinin etkisi ~%0,04). Renkler duvardaki gerilmeyi gösterir."}
         </p>
         <p className="stress-info__badge">Gösterge amaçlı — ASME tasarım onayı değildir</p>
+        {knuckleWarn && (
+          <p className="stress-info__warn" role="alert">
+            <strong>Hamut bölgesi:</strong> {KNUCKLE_WARNING}
+          </p>
+        )}
         {probe ? (
           <dl className="stress-info__probe">
             <dt>vm</dt><dd>{mpa(probe.vm)}</dd>

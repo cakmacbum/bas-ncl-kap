@@ -1519,3 +1519,19 @@ text.sch-tag.sch-active { fill: var(--accent); font-weight: 600; }
 .stress-info__probe dd { margin: 0; color: var(--text); font-weight: 600; }
 @media (max-width: 760px) { .stress-info { max-width: calc(100% - 100px); } }
 .live-preview:has(.stress-legend) { position: relative; }
+
+/* ── FEA modu (P13) ── */
+.stress-info__warn { margin: 6px 0 0 !important; padding: 5px 8px; border: 1px solid var(--review); border-radius: var(--radius-sm); color: var(--text); background: color-mix(in srgb, var(--review) 14%, transparent); }
+.fea-toggle { position: absolute; z-index: 8; left: 50%; top: 10px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.fea-toggle__bar { width: 180px; height: 4px; border-radius: 2px; background: var(--line); overflow: hidden; }
+.fea-toggle__bar > i { display: block; height: 100%; background: var(--accent, #4aa8e0); transition: width .15s; }
+.fea-toggle__msg { font-size: 11px; color: var(--text-faint); padding: 1px 8px; border-radius: 999px; background: var(--panel-2); border: 1px solid var(--line); }
+.fea-scl { position: absolute; z-index: 8; left: 12px; bottom: 12px; width: min(560px, calc(100% - 100px)); max-height: 46%; overflow: auto; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--panel-2); font-size: 11.5px; color: var(--text-faint); }
+.fea-scl > summary { cursor: pointer; padding: 6px 10px; font-weight: 600; color: var(--text); }
+.fea-scl__ctl { display: flex; gap: 10px; align-items: center; padding: 0 10px 6px; }
+.fea-scl table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.fea-scl th, .fea-scl td { padding: 2px 8px; text-align: right; border-top: 1px solid var(--line); white-space: nowrap; }
+.fea-scl th:first-child, .fea-scl td:first-child { text-align: left; }
+.fea-scl td.is-fail { color: #ef5a63; font-weight: 700; }
+.fea-scl td.is-pass { color: #37c98b; }
+.fea-scl__note { margin: 0; padding: 6px 10px 8px; line-height: 1.4; border-top: 1px solid var(--line); }
