@@ -1,0 +1,15 @@
+# Gizli bilgiler asla yüklenmez
+.env
+.env.*
+!.env.example
+# Vercel'in container servisi sanmasını önle
+Dockerfile
+render.yaml
+# Gereksiz ağır klasörler
+output/
+tests/
+.test-tmp/
+**/__pycache__/
+**/.pytest_cache/
+**/node_modules/
+apps/web-ui/dist/
