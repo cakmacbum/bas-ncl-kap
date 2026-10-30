@@ -10,6 +10,7 @@ from typing import List, Optional, Literal
 
 from pydantic import BaseModel, Field, model_validator
 
+from domain.bom import CostInputs
 from domain.conditions import DesignConditions
 from domain.enums import CalculationCode, Orientation
 from domain.geometry import Cone, Flange, Head, Junction, Nozzle, ShellSection, Support
@@ -137,6 +138,10 @@ class VesselProject(BaseModel):
 
     pressure_relief: Optional[PressureReliefSystem] = Field(
         default=None, description="UG-125--136 basınç tahliye sistemi tanımı."
+    )
+
+    cost_inputs: Optional[CostInputs] = Field(
+        default=None, description="P09 BOM maliyet birim fiyatları (kullanıcı girer)."
     )
 
     # ── Metadata ──────────────────────────────────────────────────────────────

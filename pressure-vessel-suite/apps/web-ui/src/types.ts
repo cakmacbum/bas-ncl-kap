@@ -261,6 +261,44 @@ export interface VesselProject {
   supports: Support[];
   welds: WeldJoint[];
   pressure_relief?: PressureReliefSystem | null;
+  cost_inputs?: CostInputs | null;
+}
+
+/** P09 BOM maliyet birim fiyatları — tümü kullanıcı girer, varsayılan yok. */
+export interface CostInputs {
+  material_price_eur_per_kg: Record<string, number>;
+  welding_hours: number | null;
+  labor_rate_eur_per_hour: number | null;
+  ndt_cost_eur: number | null;
+  paint_cost_eur: number | null;
+}
+
+export interface BomLine {
+  part: string;
+  material_id: string;
+  material: string;
+  dimensions: string;
+  qty: number;
+  unit_mass_kg: number | null;
+  total_mass_kg: number | null;
+  note: string;
+}
+
+export interface BomCost {
+  status: "NOT_CALCULATED" | "INCOMPLETE" | "OK";
+  total_eur: number | null;
+  partial_eur?: number | null;
+  items: { item: string; basis: string; cost_eur: number }[];
+  missing: string[];
+}
+
+export interface BomPayload {
+  lines: BomLine[];
+  total_mass_kg: number;
+  mass_complete: boolean;
+  warnings: string[];
+  cost: BomCost;
+  error?: string;
 }
 
 export interface ProjectSummary {
@@ -372,4 +410,5 @@ export interface CalcPayload {
     metal_mass_kg: number;
   };
   verification?: CalcVerification;
+  bom?: BomPayload;
 }

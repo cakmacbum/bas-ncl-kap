@@ -172,6 +172,13 @@ def calculation_payload(project: VesselProject) -> Dict[str, Any]:
         volume_mass = {"inner_volume_liters": None, "inner_volume_m3": None, "metal_mass_kg": None}
         result.add_error(f"Volume/mass calc error: {e}")
 
+    # P09: BOM + maliyet bilgi bölümüdür (check değil); hata hesabı düşürmez.
+    try:
+        from calc_core.bom import build_bom  # type: ignore
+        bom = build_bom(project).to_dict()
+    except Exception as e:  # pragma: no cover
+        bom = {"error": f"BOM hesabı üretilemedi: {e}"}
+
     payload = {
         "project_number": result.project_number,
         "project_name": result.project_name,
@@ -181,6 +188,7 @@ def calculation_payload(project: VesselProject) -> Dict[str, Any]:
         "results": [r.to_dict() for r in result.results],
         "errors": result.errors,
         "volume_mass": volume_mass,
+        "bom": bom,
         "verification": _verification_section(result.results),
     }
     return _json_safe(payload)
