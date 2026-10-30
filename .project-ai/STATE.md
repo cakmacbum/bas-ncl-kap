@@ -102,3 +102,5 @@ Son doğrulama (6224e45): gerçek tıklamayla STEP indi; CadQuery 11/11 katı ge
 - P10 2D imalat resmi (`web-ui/src/drawing/`, A3, SVG+DXF R12; nozul deliği/tarama/etek yok) · P11 sac açınımı (`web-ui/src/flat/`, Rapor kartı)
 - Temizlik: 70 worktree + 40 ork/* dalı silindi; birleşmemiş 7 dal ucu `refs/arsiv/ork/*`'ta, listesi `.project-ai/arsiv/ork-dallari/`
 - main 130 web + 644 pytest yeşil
+- F3 eyer plaka alanları (saddle_web_thickness_mm, saddle_rib_count/thickness; taban=base_plate_*, aşınma=thickness_mm/width_mm/contact_angle_deg) + BOM eyer kütlesi
+- Dalga 3 + F1–F3 üretimde (app.zeyslabs-vessela.com); main 130 web + 646 pytest
