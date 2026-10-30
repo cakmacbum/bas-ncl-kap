@@ -224,6 +224,27 @@ export interface WrcCoefficientEntry {
   My: number | null;
 }
 
+/** P07 — nozul dış yük takımı. coefficients: lisanslı bültenden okunan boyutsuz eğri değerleri. */
+export interface NozzleLoadEntry {
+  nozzle_tag: string;
+  method: "WRC537" | "WRC297";
+  Fr_N: number;
+  Vc_N: number;
+  VL_N: number;
+  Mc_Nmm: number;
+  ML_Nmm: number;
+  Mt_Nmm: number;
+  coefficients?: Record<string, number | null> | null;
+  Kn?: number;
+  Kb?: number;
+  include_pressure?: boolean;
+}
+
+export interface NozzleLoadAnalysis {
+  entries: NozzleLoadEntry[];
+  stress_criterion: "tresca" | "von_mises";
+}
+
 export interface WeldJoint {
   joint_id: string;
   joint_type: string;
@@ -265,6 +286,8 @@ export interface VesselProject {
   lifting_lugs?: LiftingLugSpec | null;
   /** P08: koni birleşimi App. 1-5 ek girdileri + etek taban halkası. */
   cone_base?: ConeBaseInputs | null;
+  /** P07: nozul dış yükleri (WRC 537 / 297). */
+  nozzle_loads?: NozzleLoadAnalysis | null;
 }
 
 /** P09 BOM maliyet birim fiyatları — tümü kullanıcı girer, varsayılan yok. */

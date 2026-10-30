@@ -18,6 +18,7 @@ from domain.geometry import Cone, Flange, Head, Junction, Nozzle, ShellSection, 
 from domain.lifting_lug import LiftingLugSpec
 from domain.load_cases import LoadCase, LoadCombination
 from domain.materials import MaterialProperty
+from domain.nozzle_loads import NozzleLoadAnalysis
 from domain.welds import WeldJoint
 from pressure_relief.models import PressureReliefSystem
 
@@ -140,6 +141,10 @@ class VesselProject(BaseModel):
 
     pressure_relief: Optional[PressureReliefSystem] = Field(
         default=None, description="UG-125--136 basınç tahliye sistemi tanımı."
+    )
+    # P07: nozul dış yükleri (WRC 537 / 297). None = analiz istenmedi.
+    nozzle_loads: Optional[NozzleLoadAnalysis] = Field(
+        default=None, description="Nozul dış yükleri ve WRC 537/297 lokal gerilme girdisi."
     )
 
     cost_inputs: Optional[CostInputs] = Field(

@@ -30,6 +30,7 @@ import { computeIssues } from "./geometrySteps/IssuesPanel";
 import { BomInputs } from "./inputs/BomInputs";
 import { BomCard } from "./BomCard";
 import { ConeBaseInputs } from "./inputs/ConeBaseInputs";
+import { NozzleLoadsInputs } from "./inputs/NozzleLoadsInputs";
 
 function PageHead({ kicker, title, desc }: { kicker: string; title: string; desc: string }) {
   return (
@@ -610,6 +611,7 @@ export function GeometryPage() {
           </div>}
           {panelTab === "inputs" && <div className="geo-inputs-panel">
             <p className="geo-inputs__intro">Hesap motorunun kullandığı ek girdiler; geometriyi değiştirmez.</p>
+          <NozzleLoadsInputs />
           <AccordionSection {...sec("nozzle-detail")} title="Nozul ayrıntıları (seçili)"
             meta={activeNozzle >= 0 ? project.nozzles[activeNozzle].tag : "seçim yok"}
             desc="Sihirbaz tablosundan bir nozul seçin; boru ölçüsü, çıkıntı ve ped hesap girdilerini burada ince ayarlayın.">
@@ -1369,6 +1371,7 @@ export function ResultsPage() {
             emptyNote="Taban plakası ölçüleri/akma dayanımı girilmediği için taban plakası kontrolü yapılmadı." />
           <ResultGroup title="WRC Lokal Gerilme (Gövde)" rows={byType("wrc_local_stress")}
             emptyNote="Ayak bağlantısı, ped ölçüleri veya WRC katsayıları girilmediği için lokal gerilme kontrolü yapılmadı." />
+          <ResultGroup title="Nozul Dış Yükü (WRC 537 / 297)" rows={[...byType("nozzle_load_wrc537"), ...byType("nozzle_load_wrc297")]} emptyNote="Nozul dış yükü girilmediği için WRC 537/297 lokal gerilme kontrolü yapılmadı." />
           <ResultGroup title="Kaynak Doğrulama" rows={byType("weld_validation")} emptyNote="Kaynak birleşimi tanımlanmadığı için kaynak doğrulaması yapılmadı." />
           <ResultGroup title="Çakışma / Geometri" rows={byType("clash_check")} emptyNote="Çakışma kontrolü üretilmedi — en az iki nozul veya nozul+destek gerekir." />
 
