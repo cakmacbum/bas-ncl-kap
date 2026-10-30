@@ -104,3 +104,9 @@ Son doğrulama (6224e45): gerçek tıklamayla STEP indi; CadQuery 11/11 katı ge
 - main 130 web + 644 pytest yeşil
 - F3 eyer plaka alanları (saddle_web_thickness_mm, saddle_rib_count/thickness; taban=base_plate_*, aşınma=thickness_mm/width_mm/contact_angle_deg) + BOM eyer kütlesi
 - Dalga 3 + F1–F3 üretimde (app.zeyslabs-vessela.com); main 130 web + 646 pytest
+
+## 2026-10-31 — Dalga 4 (P12+P13) main'de, üretime alınmadı
+- P12 eksenel simetrik FEM (`web-ui/src/fea/`, saf TS Q8 + bant Cholesky, worker; ~1200 eleman 30–110 ms). Lamé/PR/t/yarımküre <%1, birleşim analitikle %5–9
+- P13 SCL linearizasyonu (Pm/PL/PL+Pb+Q, von Mises/Tresca, S/1,5S/3S) + Gerilme sekmesinde Analitik/FEA anahtarı + hamut uyarısı
+- Açık: P03 analitik torisferik hamut ~3× FEA (715 vs 237 MPa) — bağımsız doğrulama gerekli; E/ν malzemede yok (200 GPa/0,3)
+- P14 (3D CalculiX sunucusu) Yusuf kararı bekliyor
