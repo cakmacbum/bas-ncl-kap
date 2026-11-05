@@ -124,6 +124,7 @@ export interface Nozzle {
   corrosion_allowance: number;
   reinforcement_pad: boolean;
   reinforcement_pad_thickness: number | null;
+  opening_weld_joint_efficiency?: number | null;
   reinforcement_pad_od: number | null;
   /** Flanş/manşon sınıfı (CL150…CL2500, 3000#/6000#) — yalnız geometri, hesaba girmez. */
   rating_class?: string | null;
