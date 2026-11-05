@@ -27,7 +27,7 @@
 | Yapı | Çoklu gövde kesiti / 2'den fazla bombe / çoklu malzeme-kaynak | 2026-09-08 notu kısmen eskidi: arayüzde `addShell`/`addCone` ve `component_sequence` var; şematik/önizleme hâlâ `shell_sections[0]`, `heads[0]` kullanıyor. Kalan sınırların tam dökümü doğrulanamadı |
 | Yük | Yük durumları (15 zorunlu şablon) | `domain/load_cases.py` var, arayüz yok (Faz 4) |
 | Uyumluluk | PED / uyumluluk ekranı, DoC, isim plakası | Güncel: `services.py:generate_report_html` `project.fluid` varsa `ped_result` + ESR matrisini rapora veriyor (PED ön kontrol). DoC, isim plakası, risk analizi, teknik dosya çıktıları API/arayüz/rapora bağlı değil |
-| Hesap rotası | EN 13445 kapsamı dar | Kapatıldı (2026-09-20, B-22): API standarda göre motor seçiyor, arayüzde "Hesap Standardı" seçicisi var. EN'de nozul, dış basınç, flanş, pnömatik test, MDMT, destek yok (`calculation-coverage.md` §2) |
+| Hesap rotası | EN 13445 kapsamı dar | Kapatıldı (2026-09-20, B-22): API standarda göre motor seçiyor, arayüzde "Hesap Standardı" seçicisi var. EN'de nozul, dış basınç, flanş, pnömatik test, MDMT, destek yok (`calculation-coverage.md` §2). Hesaplanmayan her EN kontrolü raporda açık `NOT_CALCULATED`/`OUT_OF_SCOPE` satırıdır (E01, 2026-11-06; sessiz boşluk yok) |
 | Kalıcılık | Proje kalıcılığı | `apps/api/store.py` bellek-içi; sunucu yeniden başlayınca projeler kaybolur (Faz 4) |
 | Çıktı | PDF raporu | WeasyPrint bağlı değil (Faz 4) |
 | Arayüz | Sihirbaz adım validasyonu | `App.tsx` her adıma serbest atlıyor; `defaultProject()` tüm alanları geçerli doldurduğu için çökme riski düşük — ertelendi (Faz 4) |
@@ -433,7 +433,7 @@ seçilemezken üçüncü bir kod eklemek Faz 3/4'te kapatılan hayalet özellik 
 
 ### 30.09.2026 sonrası açık kalanlar
 
-- **EN 13445 B-31 metadata gate:** on 2026-09-30, the entered design-stress temperature and nominal thickness range are checked for shell, head, and MAWP results. Metadata mismatch changes PASS to REVIEW REQUIRED. This does not verify the manually entered stress against a licensed EN material table; independent published-case validation remains open.
+- **EN 13445 B-31 metadata gate** (`calculation-coverage.md` §2 ile uyumlu; önceki "uygulanmıyor" ifadesi düzeltildi): on 2026-09-30, the entered design-stress temperature and nominal thickness range are checked for shell, head, and MAWP results. Metadata mismatch changes PASS to REVIEW REQUIRED. This does not verify the manually entered stress against a licensed EN material table; independent published-case validation remains open.
 
 - **Support load pairing (updated 2026-09-30):** support checks now preserve each valid `concurrent_with`/`LoadCombination` group and apply its factors to forces and moments. Hydrotest water weight is paired only with a HYDROTEST case. Operating/fluid cases without resolvable mass, ambiguous wind/seismic empty-vs-operating weight, and manual moments without a paired vertical load produce REVIEW REQUIRED. **Still open:** report empty-tank leg stress as a separate result.
 - **UG-99(b) test gerilmesi:** test basıncı ve statik yükler üretiliyor, ancak bileşen bazında test gerilmesi/
