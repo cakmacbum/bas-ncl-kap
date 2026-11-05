@@ -1,0 +1,1 @@
+{"tarih":"2026-11-06","roller":{"kodlayici":{"motor":"claude","model":"sonnet"},"agir":{"motor":"codex","model":"gpt-6-luna"},"test":{"motor":"agy","model":"gemini-3.8-flash-medium"},"tarama":{"motor":"agy","model":"gemini-3.8-flash-medium"}}}
