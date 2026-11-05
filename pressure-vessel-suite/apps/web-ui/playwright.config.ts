@@ -13,10 +13,19 @@ export default defineConfig({
     screenshot: "off",
     trace: "retain-on-failure",
   },
-  webServer: {
-    command: "npm run dev -- --host 127.0.0.1",
-    url: "http://127.0.0.1:5173",
-    reuseExistingServer: !process.env.CI,
-    timeout: 30_000,
-  },
+  webServer: [
+    {
+      command: "python -m uvicorn apps.api.main:app --port 8000",
+      cwd: "../..",
+      url: "http://127.0.0.1:8000/api/health",
+      reuseExistingServer: !process.env.CI,
+      timeout: 60_000,
+    },
+    {
+      command: "npm run dev -- --host 127.0.0.1",
+      url: "http://127.0.0.1:5173",
+      reuseExistingServer: !process.env.CI,
+      timeout: 60_000,
+    },
+  ],
 });
