@@ -47,7 +47,8 @@ function supportShapes(p: VesselProject, level: "preview" | "exact" = "preview")
   return { out, warns };
 }
 
-describe("destek katıları", () => {
+// OCCT boolean işlemleri tam paralel koşuda 5 s varsayılanı aşabiliyor (tek başına ~1 s).
+describe("destek katıları", { timeout: 30_000 }, () => {
   it("2 eyerli yatay kap: 2 destek, alt nokta kap altından height_mm aşağıda", () => {
     const p = project("horizontal", [
       support({ support_id: "S1", location_mm: 500 }),

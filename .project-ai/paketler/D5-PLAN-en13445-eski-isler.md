@@ -9,7 +9,7 @@ koda gömülmez → BLOCKED_CODE_DATA veya kullanıcı girdisi; EN sonuçları `
 1. EN 13445 kodlu proje hesaplanınca rapordaki kontrol listesi ASME ile aynı başlıkları içerir; EN'de hesaplanmayan her kontrol
    açık bir satır olarak NOT_CALCULATED/OUT_OF_SCOPE + nedenle görünür (sessiz boşluk sıfır) — test bunu başlık başlık doğrular.
 2. Dikey kapta sıvı seviyesi + kot verildiğinde hidrotest her bileşende P_test + ρ_su·g·h ile kontrol edilir; ara değerlerde h görünür.
-3. Nozula "açıklık kaynak verimi E1" girildiğinde takviye hesabı E1'i kullanır (E1=0,85 → gerekli alan artar, test).
+3. Nozula "açıklık kaynak verimi E1" girildiğinde takviye hesabı E1'i kullanır (UG-37: E1=0,85 → mevcut alan A1 düşer, marj azalır; test).
 4. `npm run e2e` 3 temel tankı (dikey ayaklı, yatay eyerli, etekli kolon) UI'dan açıp hesaplatır, sonuç kartı + ekran görüntüsü üretir.
 5. EN 13445'te koni, düz kapak ve torisferik tam prosedür hesap satırı üretir (REVIEW_REQUIRED/BLOCKED dürüst), el hesabı testleri geçer.
 
