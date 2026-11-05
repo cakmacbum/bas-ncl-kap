@@ -5,3 +5,4 @@
 - Kalıcı tanıma worker havuzu (+5 s import gecikmesini kaldırır)
 - B-36: vessel_builder'da gerçek küre+torus torisferik profil
 - Global 500 işleyicisinde ayrıntı gizleme
+- EN 13445 flanş, yorulma, yük kombinasyonu (D5 sonrası) · CFD (OpenFOAM, sunucu maliyeti) · rüzgâr/deprem (Dalga 5) · P14 3D CalculiX (ertelendi)

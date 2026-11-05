@@ -1,0 +1,158 @@
+diff --git a/pressure-vessel-suite/apps/web-ui/src/i18n.ts b/pressure-vessel-suite/apps/web-ui/src/i18n.ts
+index e70adc3..854f838 100644
+--- a/pressure-vessel-suite/apps/web-ui/src/i18n.ts
++++ b/pressure-vessel-suite/apps/web-ui/src/i18n.ts
+@@ -35,6 +35,7 @@ export const CALC_TYPE_TR: Record<string, string> = {
+   flange_stress: "Flanş gerilmesi (Appendix 2)",
+   saddle_stress: "Eyer gerilmesi (Zick)",
+   skirt_stress: "Etek gerilmesi",
++  skirt_base_ring: "Etek taban halkası / ankraj (kapsam dışı)",
+   leg_stress: "Ayak gerilmesi",
+   leg_section_check: "Ayak profili kontrolü",
+   leg_weld_check: "Ayak kaynak kontrolü",
+diff --git a/pressure-vessel-suite/apps/web-ui/src/pages.tsx b/pressure-vessel-suite/apps/web-ui/src/pages.tsx
+index 071d8f4..5be6dff 100644
+--- a/pressure-vessel-suite/apps/web-ui/src/pages.tsx
++++ b/pressure-vessel-suite/apps/web-ui/src/pages.tsx
+@@ -1623,6 +1623,7 @@ export function ResultsPage() {
+             rows={[
+               ...byType("saddle_stress"),
+               ...byType("skirt_stress"),
++              ...byType("skirt_base_ring"),
+               ...byType("leg_stress"),
+             ]}
+             emptyNote="Destek tanımlanmadığı için Zick (eyer) / etek / ayak kontrolü YAPILMADI. Kap desteklenmiyor anlamına gelmez — kontrol hiç çalışmadı."
+diff --git a/pressure-vessel-suite/docs/limitations.md b/pressure-vessel-suite/docs/limitations.md
+index aa95b15..ab9c20d 100644
+--- a/pressure-vessel-suite/docs/limitations.md
++++ b/pressure-vessel-suite/docs/limitations.md
+@@ -467,6 +467,24 @@ seçilemezken üçüncü bir kod eklemek Faz 3/4'te kapatılan hayalet özellik
+ - Global hata işleyicisi (`apps/api/main.py`) 500 yanıtlarında `{tip}: {mesaj}` döndürüyor; ayrıntı sızıntısı
+   riski — STEP ucunda kapatıldı, genel işleyicide açık.
+ 
++## Kampanya 2026-10 / K4 kapsam kayıtları
++
++- **G-05 — Etek (skirt) taban halkası / ankraj / beton yataklık hesabı YOK.** `supports` paketinde
++  taban plakası kontrolü (Blodgett) yalnız **ayak** (`leg`) içindir; etek için base ring hesabı
++  yazılmadı (formül uydurulmaz, K4/K6). Her etek için sonuç listesine `skirt_base_ring`
++  satırı `OUT OF SCOPE` olarak eklenir; etek çekme/uplift uyarısı bununla birlikte okunmalıdır.
++- **G-06 — Eyer (Zick) `OUT OF SCOPE` yalnız iki koşulda üretilir** (`SupportCalculator.check_saddle`):
++  (a) aynı gövdede **3 veya daha fazla eyer** (statik belirsiz); (b) iki eyer reaksiyonundan biri
++  `<= 0`: ağırlık merkezi teğet-teğet **orta noktada varsayıldığı** için eyerlerin ikisi de orta
++  noktanın aynı yanındaysa (ör. 400/1600 mm eyerleri uzun gövdede) kapsam dışı sayılır.
++  Koşul (b) gerçek ağırlık merkezi girdisi olmadığından fazla dar olabilir (yatay kap için ağırlık
++  merkezi girdisi yok); değiştirilmedi, mühendis kararına bırakıldı. Tek eyer `NOT CALCULATED`,
++  teğet-teğet dışı eyer `NOT CALCULATED`, eksik K/halka bilgisi `BLOCKED MISSING INPUT` verir.
++- **B-08 (kampanya) — Nozul yerleşim kontrolü sayısal çıktı.** `clash_check` sonucu artık her
++  kontrol için `<kontrol>_distance_mm` ve `<kontrol>_limit_mm` ara değerlerini taşır (mevcut
++  geometrik hesabın sayıları; yeni formül yok). Konum koordinatları hâlâ çıktıda yoktur.
++  Not: `hole_pad_relation` için `distance_mm` = delik çapı, `limit_mm` = ped iç çapıdır.
++
+ ---
+ 
+ *Oluşturma tarihi: 2026-07-19 · Revizyon: 3.3 (2026-09-25 doküman tutarlılık düzeltmesi dahil: B-20/B-21/B-22 kapatıldı olarak işaretlendi, B-02/B-04/B-06/B-07/B-14 kod durumu notları, kapsam/paket tabloları, Phase C başlık/sıra) — 2026-09-25 emniyet denetimi: eğik nozul PASS (B-30) ve malzeme sıcaklık/kalınlık doğrulaması (B-31) kapatıldı; test basıncı LSR varsayımı (B-28) ve WRC eksik katsayı (B-29) kapatıldı, ayak kesit kusuru (B-27) kaydedildi; 2026-09-22: mill toleransı (B-26).*
+diff --git a/pressure-vessel-suite/packages/code-asme-viii-1/src/code_asme_viii_1/design_code.py b/pressure-vessel-suite/packages/code-asme-viii-1/src/code_asme_viii_1/design_code.py
+index 894afd2..b61bb45 100644
+--- a/pressure-vessel-suite/packages/code-asme-viii-1/src/code_asme_viii_1/design_code.py
++++ b/pressure-vessel-suite/packages/code-asme-viii-1/src/code_asme_viii_1/design_code.py
+@@ -2015,6 +2015,24 @@ class ASMEVIII1DesignCode(DesignCode):
+                 for _d in leg_details:
+                     _d.add_intermediate("host_component_id", host_id, "-", f"Resolved support host ({host_type})")
+                     results.append(_d)
++            if sup.type == "skirt":
++                # G-05: etek taban halkası / ankraj hesabı paketlerde YOK (yalnız ayak taban
++                # plakası var). Formül uydurulmaz (K4); eksik açıkça sonuç listesinde görünür.
++                _br = CalculationResult(
++                    component_id=sup.support_id,
++                    component_type="support",
++                    calculation_type="skirt_base_ring",
++                    code=self.code_name,
++                    edition=self.code_edition,
++                    clause_reference="Skirt base ring / anchor bolts",
++                )
++                _br.set_out_of_scope(
++                    "Etek taban halkası (base ring), ankraj cıvataları ve beton yataklık kontrolü "
++                    "hesaplanmadı: bu pakette etek için taban halkası hesabı yok (kapsam dışı). "
++                    "Ayrıca ele alınmalıdır."
++                )
++                _br.add_intermediate("host_component_id", host_id, "-", f"Resolved support host ({host_type})")
++                results.append(_br)
+ 
+         return results
+ 
+diff --git a/pressure-vessel-suite/packages/nozzles/src/nozzles/clash_check.py b/pressure-vessel-suite/packages/nozzles/src/nozzles/clash_check.py
+index 5db10c3..a99f1ac 100644
+--- a/pressure-vessel-suite/packages/nozzles/src/nozzles/clash_check.py
++++ b/pressure-vessel-suite/packages/nozzles/src/nozzles/clash_check.py
+@@ -696,6 +696,17 @@ def build_clash_check_result(
+             "-" if check.distance_mm is None else "mm",
+             check.message,
+         )
++        # B-08: mevcut geometrik hesabın sayıları (yeni formül yok) görünür kılınır.
++        if check.distance_mm is not None:
++            result.add_intermediate(
++                f"{check.check_name}_distance_mm", check.distance_mm, "mm",
++                f"{check.check_name}: hesaplanan mesafe",
++            )
++        if check.limit_mm is not None:
++            result.add_intermediate(
++                f"{check.check_name}_limit_mm", check.limit_mm, "mm",
++                f"{check.check_name}: izin verilen en küçük mesafe/sınır",
++            )
+ 
+     result.status = report.status
+ 
+diff --git a/pressure-vessel-suite/tests/faz3/test_faz3_nozzle_weld_clash.py b/pressure-vessel-suite/tests/faz3/test_faz3_nozzle_weld_clash.py
+index 7fb15b5..e30a38b 100644
+--- a/pressure-vessel-suite/tests/faz3/test_faz3_nozzle_weld_clash.py
++++ b/pressure-vessel-suite/tests/faz3/test_faz3_nozzle_weld_clash.py
+@@ -1195,6 +1195,19 @@ class TestClashCheckIntegration:
+         assert result.component_type == "nozzle"
+         assert result.calculation_type == "clash_check"
+ 
++    def test_clash_result_exposes_numeric_distances(self, standard_project):
++        """B-08: mesafe/sınır sayıları ara değer olarak çıkmalı (rapordaki ile aynı)."""
++        nozzle = standard_project.nozzles[0]
++        report = validate_nozzle_clash(nozzle, standard_project)
++        result = build_clash_check_result(nozzle, standard_project)
++        by_name = {i["name"]: i["value"] for i in result.intermediate_values}
++        numeric = [c for c in report.checks if c.distance_mm is not None]
++        assert numeric
++        for c in numeric:
++            assert by_name[f"{c.check_name}_distance_mm"] == c.distance_mm
++            if c.limit_mm is not None:
++                assert by_name[f"{c.check_name}_limit_mm"] == c.limit_mm
++
+     def test_report_dict(self, standard_project):
+         """Rapor dict'e çevrilebilmeli."""
+         nozzle = standard_project.nozzles[0]
+diff --git a/pressure-vessel-suite/tests/faz5/test_faz5_supports.py b/pressure-vessel-suite/tests/faz5/test_faz5_supports.py
+index 8e85161..b0ba747 100644
+--- a/pressure-vessel-suite/tests/faz5/test_faz5_supports.py
++++ b/pressure-vessel-suite/tests/faz5/test_faz5_supports.py
+@@ -82,7 +82,7 @@ def test_support_resolves_explicit_host_shell_in_multi_shell_project(support_mat
+     )
+ 
+     results = ASMEVIII1DesignCode().check_supports(project)
+-    assert len(results) == 1
++    assert len(results) == 2  # skirt_stress + skirt_base_ring (G-05)
+     host = next(v for v in results[0].intermediate_values if v["name"] == "host_component_id")
+     start = next(v for v in results[0].intermediate_values if v["name"] == "host_axial_start")
+     assert host["value"] == "SHELL-02"
+@@ -579,11 +579,15 @@ class TestSupportCalculator:
+ 
+         results = ASMEVIII1DesignCode().check_supports(project)
+ 
+-        assert len(results) == 1
++        # skirt_stress + G-05 skirt_base_ring (kapsam dışı) satırı
++        assert len(results) == 2
+         assert results[0].component_id == "SKIRT-01"
+         # Üretim hattı destek sonucu, Faz C kapsamı eksikleri nedeniyle
+         # nihai PASS değil; mühendis incelemesi gerektirir.
+         assert results[0].status.value == "REVIEW REQUIRED"
++        assert results[1].calculation_type == "skirt_base_ring"
++        assert results[1].status.value == "OUT OF SCOPE"
++        assert results[1].component_id == "SKIRT-01"
+ 
+     def test_production_support_payload_wires_leg_count_and_geometry(self, mat):
+         """Leg sayısı ve ölçüler nested support sözleşmesiyle hesapçıya ulaşır."""

@@ -1,0 +1,142 @@
+diff --git a/pressure-vessel-suite/packages/calc-core/src/calc_core/orchestrator.py b/pressure-vessel-suite/packages/calc-core/src/calc_core/orchestrator.py
+index 57c6468..9597f33 100644
+--- a/pressure-vessel-suite/packages/calc-core/src/calc_core/orchestrator.py
++++ b/pressure-vessel-suite/packages/calc-core/src/calc_core/orchestrator.py
+@@ -281,6 +281,7 @@ class CalculationOrchestrator:
+                 "code_edition": project.code_edition,
+                 "global_mawp": global_mawp,
+             })
++            self._flag_hydrotest_static_head_not_applied(r)
+             result.add(r)
+         except Exception as e:
+             result.add_error(f"Hydrotest calc error: {e}")
+@@ -460,6 +461,34 @@ class CalculationOrchestrator:
+                 else:
+                     mawp_r.final_result = corrected_mawp
+ 
++    # ASSUMPTION (K1/UG-99): hidrotest sırasında kap tepesine kadar suyla dolu,
++    # ρ_su ≈ 1000 kg/m³. Yalnızca uyarı metninde referans olarak kullanılır.
++    HYDROTEST_WATER_DENSITY_KG_M3 = 1000.0
++
++    def _flag_hydrotest_static_head_not_applied(self, r: CalculationResult) -> None:
++        """UG-99 hidrotest statik kafası uygulanmadı uyarısı (DEC-009).
++
++        Bileşen alt kotları modelde güvenilir biçimde yoktur
++        (``reference_elevation_mm`` hiçbir yerde doldurulmuyor); kot uydurulmaz.
++        Kap su doluyken en alt bileşen P_test + ρ·g·H görür; bu eklenmedi.
++        """
++        if r.final_result is None:
++            return
++        r.add_assumption(
++            "UG-99 varsayımı: hidrotestte kap tepesine kadar su dolu, "
++            f"ρ_su = {self.HYDROTEST_WATER_DENSITY_KG_M3:.0f} kg/m³. "
++            "Bileşen kotu bilinmediği için statik kafa HESABA KATILMADI."
++        )
++        r.add_warning(
++            "Hidrotest statik kafası uygulanmadı: bileşen alt kotları (DEC-009: kot "
++            "uydurulmaz) girilmediği için en alt bileşendeki ρ·g·H eklenemedi. Dolu kapta "
++            "alt bileşenler raporlanan P_test'ten yüksek basınç görür; UG-99(b) "
++            "bileşen bazlı kontrolü mühendis tarafından ayrıca yapılmalıdır."
++        )
++        # Uyarı içeren sonuç PASS yayınlanamaz (verification.validate_result).
++        if r.status == CalculationStatus.PASS:
++            r.status = CalculationStatus.REVIEW_REQUIRED
++
+     def _pre_checks(self, project: VesselProject, result: OrchestratorResult) -> None:
+         """A) Ön kontroller."""
+         dc = project.design_conditions
+diff --git a/pressure-vessel-suite/tests/regression/test_static_head_hydrotest.py b/pressure-vessel-suite/tests/regression/test_static_head_hydrotest.py
+new file mode 100644
+index 0000000..62db2e4
+--- /dev/null
++++ b/pressure-vessel-suite/tests/regression/test_static_head_hydrotest.py
+@@ -0,0 +1,89 @@
++"""K1: Hidrotest (UG-99) statik kafa — mevcut davranış + açık "uygulanmadı" uyarısı.
++
++Modelde bileşen alt kotları yok (DEC-009: kot uydurulmaz), bu yüzden ρ·g·H
++P_test'e EKLENMEZ; bunun yerine açık uyarı + ASSUMPTION kaydı beklenir.
++"""
++
++from __future__ import annotations
++
++import pytest
++
++from calc_core.orchestrator import CalculationOrchestrator
++from calc_core.verification import validate_result
++from code_asme_viii_1 import ASMEVIII1DesignCode
++from domain import (
++    CalculationCode,
++    DesignConditions,
++    MaterialProperty,
++    ProductForm,
++    ShellSection,
++    VesselProject,
++)
++from domain.enums import CalculationStatus
++
++
++def _project(density: float = 1000.0) -> VesselProject:
++    dc = DesignConditions(
++        operating_pressure=1.0,
++        design_pressure=1.2,
++        maximum_allowable_pressure_ps=1.5,
++        operating_temperature=200.0,
++        design_temperature=200.0,
++        minimum_design_temperature=-10.0,
++        hydrotest_temperature=200.0,
++        fluid_density_kg_m3=density,
++    )
++    shell = ShellSection(
++        section_id="SHELL-01", inside_diameter=1000.0, tangent_length=2000.0,
++        nominal_thickness=12.0, material_id="MAT-01",
++    )
++    mat = MaterialProperty(
++        material_id="MAT-01", standard_pack="ASME II-D 2025",
++        material_designation="SA-516 Gr.70", product_form=ProductForm.PLATE,
++        temperature=200.0, allowable_stress=138.0, yield_strength=260.0,
++        tensile_strength=485.0, source_reference="ASME II-D Table 1A, Line 4",
++    )
++    return VesselProject(
++        project_number="T-K1", project_name="Hydrotest static head",
++        calculation_code=CalculationCode.ASME_VIII_1, code_edition="2025",
++        design_conditions=dc, shell_sections=[shell], materials=[mat],
++    )
++
++
++def _run(project):
++    res = CalculationOrchestrator(ASMEVIII1DesignCode(edition="2025")).run(project)
++    hydro = next(r for r in res.results if r.calculation_type == "hydrotest")
++    return res, hydro
++
++
++def test_current_behaviour_ptest_is_1_3_mawp_lsr_without_static_head():
++    """Mevcut davranış: P_test = 1.3·MAWP·LSR; hidrotest'te ρ·g·H eklenmez."""
++    res, hydro = _run(_project())
++    mawp = res.get_global_mawp()
++    assert mawp is not None and mawp > 0
++    # LSR = S_test/S_design; test ve tasarım sıcaklığı aynı (200 °C) → LSR = 1.
++    # Bağımsız beklenen değer (elle): 1.3 * MAWP * 1.0
++    assert hydro.final_result == pytest.approx(1.3 * mawp, rel=1e-9)
++    names = {iv["name"] for iv in hydro.intermediate_values}
++    assert "static_head_delta_P" not in names
++
++
++def test_static_head_not_applied_warning_and_assumption():
++    _, hydro = _run(_project())
++    assert any("Hidrotest statik kafası uygulanmadı" in w for w in hydro.warnings)
++    joined = " ".join(hydro.assumptions)
++    assert "1000 kg/m³" in joined and "tepesine kadar" in joined
++
++
++def test_warning_prevents_pass_status_and_result_is_publishable():
++    _, hydro = _run(_project())
++    assert hydro.status == CalculationStatus.REVIEW_REQUIRED
++    assert validate_result(hydro) == []
++
++
++def test_ptest_value_unchanged_by_fluid_density():
++    """Kot yokken yoğunluk P_test'i değiştirmez (kot uydurulmaz)."""
++    _, h0 = _run(_project(density=0.0))
++    _, h1 = _run(_project(density=1000.0))
++    assert h0.final_result == pytest.approx(h1.final_result, rel=1e-12)
++    assert any("uygulanmadı" in w for w in h1.warnings)

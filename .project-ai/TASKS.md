@@ -5,7 +5,7 @@
 - T-2.6 bulgu listesi (BULGULAR.md) → Yusuf onayı alındı → B-01/B-02/B-10/B-11/B-12/B-12b düzeltildi (959 test)
 
 ## BACKLOG (açık, öncelik sırasıyla — ayrıntı `campaign-2026-10/EKSIKLER.md`)
-- T-2.7 Arayüze `liquid_level_mm` alanı (web-ui) + `component_sequence` yoksa kullanıcıya açık uyarı
+- ~~T-2.7 Arayüze `liquid_level_mm` alanı (web-ui) + `component_sequence` yoksa kullanıcıya açık uyarı~~ KAPANDI (S02: domain+hesap+UI var)
 - T-2.8 Hidrotest (UG-99) statik kafası (koni CA_o alanı KAPANDI)
 - ~~T-2.9 Girdi doğrulama üst sınırları~~ KAPANDI (tasarım koşulları; geometri sınırları açık)
 - ~~T-2.10 CA_o>0 bağımsız testleri~~ KAPANDI
@@ -30,3 +30,7 @@ Karar: backend yok → geometri tarayıcıda replicad+opencascade.js (Worker); R
 - AÇIK (Yusuf kararı): position.py bombe nozulunda sessiz kırpma yapıyor (axial > head_height → tepe, negatif axial kontrolsüz); TS artık OUT_OF_HOST veriyor → UI/backend uyumsuz.
 - AÇIK: ana bundle 1.49 MB (500 kB uyarısı; katalog JSON'ları + sihirbaz) — kod bölme ayrı iş.
 - 2026-10-28: D10 position.py sessiz kırpma kaldırıldı (OUT_OF_HOST ValueError; CAD uyarıya çeviriyor). pytest 341/341. AÇIK: torisferik bombe yüksekliği backend R*0.25 vs frontend headDomeHeight — sınır farklı olabilir.
+
+## 2026-11-06 — D5 (plan: `paketler/D5-PLAN-en13445-eski-isler.md`)
+- Dalga A: E01 EN sessiz boşluklar · H01 hidrotest statik basınç (T-2.8) · N01 nozul E1 (T-2.14) · X01 Playwright e2e (T-2.12)
+- Dalga B: E02 koni+düz kapak · E03 torisferik tam · E04 fa/ft/z/pnömatik · E05 dış basınç + nozul takviyesi (EN)
