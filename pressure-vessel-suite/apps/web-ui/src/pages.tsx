@@ -724,6 +724,9 @@ export function GeometryPage() {
                   <NumField label="Pedi Kalınlığı" unit="mm" value={nz.reinforcement_pad_thickness ?? 0}
                     onChange={(v) => setNoz({ reinforcement_pad_thickness: v })}
                     help="Takviye pedi sac kalınlığı." />
+                  <NumField label="Açıklık Kaynak Verimi E1" step={0.05} value={nz.opening_weld_joint_efficiency ?? 0}
+                    onChange={(v) => setNoz({ opening_weld_joint_efficiency: v > 0 && v <= 1 ? v : null })}
+                    help="UG-37(a): açıklık Kategori B dışı dikişten geçiyorsa o dikişin verimi (0,05-1). 0 = boş (E1=1 varsayılır, uyarı verilir)." />
                 </div>
               );
             })()}

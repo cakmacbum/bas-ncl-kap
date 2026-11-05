@@ -1170,6 +1170,7 @@ class ASMEVIII1DesignCode(DesignCode):
             design_pressure=dc.design_pressure,
             design_temperature=dc.design_temperature,
             nozzle_inclination_angle=nozzle.inclination_angle,
+            opening_weld_joint_efficiency=nozzle.opening_weld_joint_efficiency,
         )
         return build_reinforcement_calculation_result(inp)
 
