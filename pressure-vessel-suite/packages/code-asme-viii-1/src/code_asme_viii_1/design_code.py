@@ -977,6 +977,133 @@ class ASMEVIII1DesignCode(DesignCode):
 
         return result
 
+    def calculate_hydrotest_component(self, input_data: dict) -> CalculationResult:
+        """UG-99 — bileşen bazlı hidrotest: P_local = P_test + ρ_su·g·h ve test gerilmesi.
+
+        Args:
+            input_data: {
+                "component_type": "shell" | "head" | "cone",
+                "component_id": str,
+                "p_test_top": float,            # UG-99(b) test basıncı (kap tepesi), MPa
+                "hydrotest_complete": bool,     # sistem P_test PASS mı (LSR/MAWP tabanı tam)
+                "h_mm": Optional[float],        # su yüzeyi → bileşen en alt noktası
+                "h_basis": str,
+                "mawp_ref": Optional[float],    # bileşen MAWP'i (statik kafa düşülmeden önce)
+                "S_ref": Optional[float],       # o MAWP'te kullanılan S (MPa)
+                "yield_strength": Optional[float],
+                "material_id": str,
+            }
+
+        Gerilme kontrolü: σ_test (mevcut MAWP formülleriyle, korozyonlu en ince cidar) ≤ Sy
+        (genel akma — UG-99(d) "görünür kalıcı distorsiyon" ölçütünün muhafazakâr olmayan
+        üst sınırı değil, fiziksel sınırı). VIII-1 sayısal kabul ölçütü vermez; 0,9·Sy gibi
+        daha sıkı pratik kriter mühendis kararıdır (bkz. docs/validation/ug99-test-stress-review).
+        """
+        ctype = input_data["component_type"]
+        cid = input_data["component_id"]
+        result = CalculationResult(
+            component_id=cid,
+            component_type=ctype,
+            calculation_type="hydrotest_component",
+            code=self.code_name,
+            edition=self.code_edition,
+            clause_reference="UG-99(b)",
+            formula_reference="UG-99(b) + ρ·g·h",
+        )
+        p_top = input_data.get("p_test_top")
+        if p_top is None or p_top <= 0:
+            result.set_not_calculated("Sistem test basıncı (UG-99(b)) hesaplanamadı.")
+            return result
+        h_mm = input_data.get("h_mm")
+        rho = formulas.HYDROTEST_WATER_DENSITY_KG_M3
+        g = formulas.HYDROTEST_GRAVITY_M_S2
+        result.input_snapshot = {
+            "p_test_top_MPa": p_top,
+            "h_mm": h_mm,
+            "h_basis": input_data.get("h_basis", ""),
+            "rho_water_kg_m3": rho,
+            "g_m_s2": g,
+            "mawp_ref_MPa": input_data.get("mawp_ref"),
+            "S_ref_MPa": input_data.get("S_ref"),
+            "yield_strength_MPa": input_data.get("yield_strength"),
+            "material_id": input_data.get("material_id", ""),
+        }
+        result.add_assumption(
+            f"Hidrotest: kap su ile tamamen dolu, ρ_su={rho:g} kg/m³, g={g:g} m/s², test "
+            "kurulu konumda (yönelim) yapılır; P_test kabın tepesinde ölçülür."
+        )
+        result.add_intermediate("P_test_top", p_top, "MPa", "UG-99(b) test basıncı (kap tepesi)")
+
+        if h_mm is None:
+            result.reference_elevation_mm = 0.0
+            p_local = p_top
+            result.add_intermediate("h", None, "mm", "Su kolonu yüksekliği — hesaplanamadı")
+            result.add_warning(
+                "Statik su kolonu eklenemedi: bileşen kotu bilinmiyor (dikey kapta "
+                "component_sequence yok/çözülemiyor ya da yatay kapta koni). P_local = P_test "
+                "yalnız ASGARİ değerdir; alt bileşenler daha yüksek basınç görür."
+            )
+        else:
+            result.reference_elevation_mm = float(h_mm)
+            result.add_intermediate("h", h_mm, "mm", input_data.get("h_basis", "") or "Su kolonu yüksekliği")
+            dp = formulas.hydrotest_local_pressure(0.0, h_mm, rho, g)
+            result.add_intermediate("static_head_delta_P", dp, "MPa", "ρ_su·g·h")
+            p_local = formulas.hydrotest_local_pressure(p_top, h_mm, rho, g)
+        result.add_intermediate("P_test_local", p_local, "MPa", "Bileşen en alt noktasındaki test basıncı")
+        result.final_result = p_local
+        result.final_result_unit = "MPa"
+
+        mawp_ref = input_data.get("mawp_ref")
+        S_ref = input_data.get("S_ref")
+        Sy = input_data.get("yield_strength")
+        if not mawp_ref or mawp_ref <= 0 or not S_ref or S_ref <= 0:
+            result.add_warning(
+                "Bileşen MAWP'i yok; test gerilmesi kontrol edilemedi (yalnız P_local raporlandı)."
+            )
+            result.set_review_required("Test gerilme kontrolü için bileşen MAWP'i gerekli.")
+            return result
+        sigma = formulas.hydrotest_membrane_stress(p_local, mawp_ref, S_ref)
+        result.add_intermediate("MAWP_ref", mawp_ref, "MPa", "Bileşen MAWP'i (statik kafa öncesi)")
+        result.add_intermediate("S_ref", S_ref, "MPa", "MAWP'te kullanılan izin verilen gerilme")
+        result.add_intermediate(
+            "sigma_test", sigma, "MPa",
+            "Test membran gerilmesi σ = S·P_local/MAWP (UG-27/32 doğrusal; korozyonlu cidar, ÷E)",
+        )
+        if not Sy or Sy <= 0:
+            result.add_warning("Akma dayanımı yok; test gerilmesi sınırla karşılaştırılamadı.")
+            result.set_review_required("Sy girilmeli.")
+            return result
+        util = sigma / Sy
+        result.add_intermediate("Sy", Sy, "MPa", "Akma dayanımı (malzeme kaydı)")
+        result.add_intermediate("sigma_test_over_Sy", util, "-", "σ_test / Sy")
+        result.add_validity_check("sigma_test <= Sy", util <= 1.0, Sy, sigma)
+        result.add_notice(
+            "Test gerilme ölçütü σ_test ≤ Sy (genel akma) uygulandı. VIII-1 UG-99 sayısal kabul "
+            "ölçütü vermez (görünür kalıcı distorsiyon); 0,9·Sy gibi daha sıkı kriter ve test "
+            "sıcaklığındaki Sy mühendis tarafından teyit edilmelidir."
+        )
+        if util > 1.0:
+            result.add_warning(
+                f"Test gerilmesi akma dayanımını aşıyor (σ={sigma:.1f} MPa > Sy={Sy:g} MPa): "
+                "kalıcı deformasyon beklenir."
+            )
+            result.set_fail(util)
+            return result
+        if h_mm is None:
+            result.set_review_required(
+                "Bileşen kotu yok: statik su kolonu eklenmeden yapılan kontrol asgari basınçla yapıldı."
+            )
+            result.utilization_ratio = util
+            return result
+        if not input_data.get("hydrotest_complete", True):
+            result.set_review_required(
+                "Sistem test basıncı REVIEW_REQUIRED (LSR/MAWP tabanı eksik); bileşen sonucu da gözden geçirilmeli."
+            )
+            result.utilization_ratio = util
+            return result
+        result.set_pass(util)
+        return result
+
     def calculate_pneumatic_test_pressure(self, input_data: dict) -> CalculationResult:
         """UG-100 — Pnömatik test basıncı.
 

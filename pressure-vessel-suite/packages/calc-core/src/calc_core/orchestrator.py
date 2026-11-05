@@ -15,7 +15,11 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Tuple
 
 from calc_core.code_interface import DesignCode
-from calc_core.hydrostatics import component_bottom_elevations, static_head_pressure
+from calc_core.hydrostatics import (
+    component_bottom_elevations,
+    hydrotest_static_heads,
+    static_head_pressure,
+)
 from calc_core.result import CalculationResult
 from calc_core.load_engine import aggregate_load_case, combine_load_cases, governing_state
 from domain.enums import CalculationStatus
@@ -282,6 +286,7 @@ class CalculationOrchestrator:
                 "global_mawp": global_mawp,
             })
             result.add(r)
+            self._hydrotest_components(project, result, r)
         except Exception as e:
             result.add_error(f"Hydrotest calc error: {e}")
 
@@ -486,8 +491,8 @@ class CalculationOrchestrator:
             elif level_below:
                 mawp_r.add_assumption(
                     f"Sıvı seviyesi ({liquid_level} mm) bileşen taban kotunun altında: "
-                    "statik kafa 0, MAWP düzeltilmedi. Hidrotest statik kafası bu "
-                    "sürümde uygulanmaz."
+                    "statik kafa 0, MAWP düzeltilmedi (işletme sıvısı). Hidrotest statik kafası ayrı "
+                    "'hydrotest_component' satırlarında ele alınır."
                 )
             else:
                 # K4: referans kot/sıvı seviyesi modelde yok → sessiz atlama yasak.
@@ -495,9 +500,75 @@ class CalculationOrchestrator:
                     "Statik kafa uygulanmadı: referans kot/sıvı seviyesi girdisi yok "
                     f"(ρ={fluid_density} kg/m³ girildi ancak bileşen kotu ve sıvı "
                     "seviyesi modelde tanımlı değil). Sıvı dolu işletmede ve "
-                    "hidrotestte alt bileşenler MAWP'den daha yüksek basınç görür. "
-                    "Hidrotest statik kafası bu sürümde uygulanmaz."
+                    "hidrotestte alt bileşenler MAWP'den daha yüksek basınç görür "
+                    "(Hidrotest statik kafası 'hydrotest_component' satırlarında)."
                 )
+
+    def _hydrotest_components(
+        self, project: VesselProject, result: OrchestratorResult, hydro: CalculationResult
+    ) -> None:
+        """UG-99: her basınç bileşeni için P_test + ρ_su·g·h ve test gerilmesi.
+
+        Formül/kontrol standart eklentisindedir (K1); burada yalnız kot ve MAWP toplanır.
+        Eklenti desteklemiyorsa (ör. EN 13445) hidrotest sonucuna açık not düşülür.
+        """
+        method = getattr(self.design_code, "calculate_hydrotest_component", None)
+        if method is None:
+            hydro.add_assumption(
+                "Bileşen bazlı hidrotest statik su kolonu (ρ_su·g·h) bu standart eklentisinde "
+                "uygulanmadı; test basıncı kabın tepesindeki değerdir, alt bileşenler daha "
+                "yüksek basınç görür."
+            )
+            return
+        p_top = hydro.final_result
+        complete = hydro.status == CalculationStatus.PASS
+        try:
+            heads = hydrotest_static_heads(project)
+        except (KeyError, TypeError, AttributeError, ValueError):
+            heads = {}
+        mawp_by_id: Dict[str, CalculationResult] = {
+            r.component_id: r for r in result.results if r.calculation_type == "mawp"
+        }
+        mats = {m.material_id: m for m in project.materials}
+
+        def _iv(res: Optional[CalculationResult], name: str) -> Optional[float]:
+            if res is None:
+                return None
+            for item in res.intermediate_values:
+                if item.get("name") == name:
+                    return item.get("value")
+            return None
+
+        comps = (
+            [("shell", c.section_id, c.material_id) for c in project.shell_sections]
+            + [("head", c.head_id, c.material_id) for c in project.heads]
+            + [("cone", c.cone_id, c.material_id) for c in project.cones]
+        )
+        worst: Optional[Tuple[float, float]] = None
+        for ctype, cid, mat_id in comps:
+            h_info = heads.get((ctype, cid))
+            mres = mawp_by_id.get(cid)
+            mat = mats.get(mat_id)
+            r = method({
+                "component_type": ctype,
+                "component_id": cid,
+                "p_test_top": p_top,
+                "hydrotest_complete": complete,
+                "h_mm": h_info[0] if h_info else None,
+                "h_basis": h_info[1] if h_info else "",
+                "mawp_ref": _iv(mres, "MAWP"),
+                "S_ref": _iv(mres, "S"),
+                "yield_strength": getattr(mat, "yield_strength", None),
+                "material_id": mat_id,
+            })
+            result.add(r)
+            if r.final_result is not None and (worst is None or r.final_result > worst[0]):
+                worst = (r.final_result, r.reference_elevation_mm)
+        if worst is not None:
+            hydro.add_intermediate(
+                "P_test_local_max", worst[0], "MPa",
+                f"En yüksek bileşen test basıncı (h={worst[1]:g} mm, ρ_su·g·h dahil)",
+            )
 
     def _pre_checks(self, project: VesselProject, result: OrchestratorResult) -> None:
         """A) Ön kontroller."""
