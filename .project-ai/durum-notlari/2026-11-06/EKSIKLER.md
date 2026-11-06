@@ -2,7 +2,7 @@
 Öncelik: 🔴 emniyet/doğruluk · 🟠 kapsam boşluğu · 🟡 iyileştirme · ⚪ Yusuf kararı/verisi
 
 ## 🔴 Emniyet / doğruluk
-- **EN elipsoidal bombe emniyetsiz** (küre denklemi) — E06 çalışıyor. Canlı sitede hâlâ eski hal (PASS verebilir).
+- **EN elipsoidal bombe** — E06 ile main'de DÜZELDİ (2:1 örnek: 1,84 → 4,21 mm). Canlı sitede hâlâ eski hal — canlıya alma bekliyor.
 - **Kampanya 2026-10 çıktıları geçersiz** — tutarsız geometri (bombe 800 / gövde 1000, ayak 600) ile üretildi; yeniden koşulmalı.
 - **EN formülleri bellekten yazıldı** (lisanslı metin yok, hepsi verified=False → en fazla REVIEW_REQUIRED). En zayıflar:
   E02 koni küçük uç τ/β_H · E03 β polinom katsayıları, eb'deki 111 ve 0,825 · E04 pnömatik formül biçimi, çok malzemede fa/fT seçimi,
