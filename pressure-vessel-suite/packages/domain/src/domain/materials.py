@@ -11,7 +11,7 @@ Boş bırakılırsa FEA lab BLOCKED_CODE_DATA ile durur; varsayılan ATANMAZ (K4
 
 from __future__ import annotations
 
-from typing import Optional, List
+from typing import Literal, Optional, List
 
 from pydantic import BaseModel, Field
 
@@ -86,6 +86,26 @@ class MaterialProperty(BaseModel):
         description="UCS-66 eğri grubu (A/B/C/D). Malzeme belgesinden girilir; "
                     "girilmezse MDMT kontrolü bloke olur, varsayılan atanmaz.",
     )
+
+    # ── E04: EN 13445-3 Madde 6 — nominal tasarım gerilmesi girdileri ─────────
+    # Hepsi opsiyonel; kullanıcı malzeme sertifikası / EN 10028 vb. tablodan girer
+    # (K3/K6: tablo gömülmez). Grup girilmezse EN f üst sınırı kontrolü
+    # BLOCKED_MISSING_INPUT olur; elle girilen allowable_stress yine kullanılır (K4).
+    en_material_group: Optional[Literal["ferritic", "austenitic_a30", "austenitic_a35", "cast"]] = Field(
+        default=None,
+        description="EN 13445-3 Madde 6 malzeme grubu: ferritic (östenitik dışı haddelenmiş çelik), "
+                    "austenitic_a30 (A ≥ %30), austenitic_a35 (A ≥ %35), cast (döküm çelik).",
+    )
+    en_elongation_a_pct: Optional[float] = Field(
+        default=None, gt=0, lt=100, description="Kopma uzaması A (%) — östenitik alt grubu doğrulamak için."
+    )
+    en_rp02_t: Optional[float] = Field(default=None, gt=0, description="Rp0,2/T tasarım sıcaklığında (MPa).")
+    en_rp10_t: Optional[float] = Field(default=None, gt=0, description="Rp1,0/T tasarım sıcaklığında (MPa).")
+    en_rm_20: Optional[float] = Field(default=None, gt=0, description="Rm/20 oda sıcaklığında min. çekme (MPa).")
+    en_rm_t: Optional[float] = Field(default=None, gt=0, description="Rm/T tasarım sıcaklığında (MPa).")
+    en_rp02_test: Optional[float] = Field(default=None, gt=0, description="Rp0,2 test sıcaklığında (MPa).")
+    en_rp10_test: Optional[float] = Field(default=None, gt=0, description="Rp1,0 test sıcaklığında (MPa).")
+    en_rm_test: Optional[float] = Field(default=None, gt=0, description="Rm test sıcaklığında (MPa).")
 
     # ── Faz 2: FEA doğrulama laboratuvarı — lineer-elastik özellikler ─────────
     # Opsiyonel; kullanıcı girer, tablo gömülmez (K3/K6). Yalnızca FEA lab

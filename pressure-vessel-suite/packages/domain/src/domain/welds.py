@@ -41,6 +41,13 @@ class WeldJoint(BaseModel):
         default=1.0, ge=0.0, le=1.0,
         description="Birimleştirme katsayısı / Joint Coefficient (z). EN 13445.",
     )
+    en_testing_group: Optional[str] = Field(
+        default=None,
+        pattern="^(1a|1b|2a|2b|3a|3b|1|2|3|4)$",
+        description="EN 13445-5 test (muayene) grubu (1a/1b/2a/2b/3a/3b/4). Girilirse EN "
+                    "hesabı z'yi test grubunun izin verdiği değerle sınırlar; boşsa girilen "
+                    "joint_coefficient varsayım olarak kullanılır.",
+    )
     nde_method: Optional[str] = Field(
         default=None,
         description="NDE muayene yöntemi (ör. 'RT-1', 'RT-2', 'UT', 'VT').",

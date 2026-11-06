@@ -16,7 +16,7 @@ class ClauseMapping(BaseModel):
     """Formül ↔ madde referans eşleştirmesi."""
 
     formula_id: str = Field(
-        ..., description="Formül tanımı (ör. 'UG-27-CIRC', 'EN-13445-5.4.2')."
+        ..., description="Formül tanımı (ör. 'UG-27-CIRC', 'EN-7.4.2-CYL')."
     )
     code: str = Field(
         ..., description="Standart (ör. 'ASME VIII-1', 'EN 13445')."
@@ -101,61 +101,47 @@ _ASME_MAPPINGS: Dict[str, ClauseMapping] = {
 
 # ── EN 13445 madde eşleştirmeleri ─────────────────────────────────────────────
 
-_EN13445_MAPPINGS: Dict[str, ClauseMapping] = {
-    "EN-5.4.2-CIRC": ClauseMapping(
-        formula_id="EN-5.4.2-CIRC",
-        code="EN 13445",
-        edition="2021+A1:2023",
-        clause_reference="EN 13445-3, 5.4.2",
-        formula_reference="5.4.2-1",
-        description="Silindirik gövde, iç basınç, çevresel gerilme",
-        unit="mm",
-    ),
-    "EN-5.4.2-LONG": ClauseMapping(
-        formula_id="EN-5.4.2-LONG",
-        code="EN 13445",
-        edition="2021+A1:2023",
-        clause_reference="EN 13445-3, 5.4.2",
-        formula_reference="5.4.2-2",
-        description="Silindirik gövde, iç basınç, boyuna gerilme",
-        unit="mm",
-    ),
-    "EN-5.5.2-ELLIP": ClauseMapping(
-        formula_id="EN-5.5.2-ELLIP",
-        code="EN 13445",
-        edition="2021+A1:2023",
-        clause_reference="EN 13445-3, 5.5.2",
-        formula_reference="5.5.2-1",
-        description="Elipsoidal bombe",
-        unit="mm",
-    ),
-    "EN-5.5.3-TORI": ClauseMapping(
-        formula_id="EN-5.5.3-TORI",
-        code="EN 13445",
-        edition="2021+A1:2023",
-        clause_reference="EN 13445-3, 5.5.3",
-        formula_reference="5.5.3-1",
-        description="Torisferik bombe (Korbbogen)",
-        unit="mm",
-    ),
-    "EN-5.5.4-HEMI": ClauseMapping(
-        formula_id="EN-5.5.4-HEMI",
-        code="EN 13445",
-        edition="2021+A1:2023",
-        clause_reference="EN 13445-3, 5.5.4",
-        formula_reference="5.5.4-1",
-        description="Yarım küresel bombe",
-        unit="mm",
-    ),
-    "EN-10.2-HYDRO": ClauseMapping(
-        formula_id="EN-10.2-HYDRO",
-        code="EN 13445",
-        edition="2021+A1:2023",
-        clause_reference="EN 13445-5, 10.2",
-        formula_reference="10.2-1",
-        description="PED test basıncı",
-        unit="MPa",
-    ),
+# E04: numaralar hesapların gerçek maddesine çekildi (iç basınç kabukları EN 13445-3
+# Madde 7'dedir). Numaralar bellekten; lisanslı metinle doğrulanmadı (verified=False).
+# Eski "EN-5.x" kimlikleri geriye dönük takma ad olarak _EN13445_ALIASES'te kalır.
+_EN_ED = "2021+A1:2023"
+
+
+def _en(formula_id: str, clause: str, formula: str, description: str, unit: str) -> ClauseMapping:
+    return ClauseMapping(formula_id=formula_id, code="EN 13445", edition=_EN_ED,
+                         clause_reference=clause, formula_reference=formula,
+                         description=description, unit=unit)
+
+
+_EN13445_MAPPINGS: Dict[str, ClauseMapping] = {m.formula_id: m for m in (
+    _en("EN-7.4.2-CYL", "EN 13445-3, 7.4.2", "e = P·Di/(2fz − P)",
+        "Silindirik gövde, iç basınç", "mm"),
+    _en("EN-7.5.2-HEMI", "EN 13445-3, 7.5.2", "e = P·R/(2fz − 0,5P)",
+        "Yarım küresel bombe", "mm"),
+    _en("EN-7.5.3-TORI", "EN 13445-3, 7.5.3", "es/ey/eb, β (7.5.3.5)",
+        "Torisferik bombe tam prosedürü", "mm"),
+    _en("EN-7.5.4-ELLIP", "EN 13445-3, 7.5.4", "e = P·D/(4fz − P) — 7.5.4 prosedürü DEĞİL",
+        "Elipsoidal bombe (yalnız küre denklemi; 7.5.4 eşdeğer torisferik uygulanmadı)", "mm"),
+    _en("EN-7.6.4-CONE", "EN 13445-3, 7.6.4", "e = P·Di/(2fz − P)·1/cos α", "Konik gövde", "mm"),
+    _en("EN-10.4-FLAT", "EN 13445-3, 10.4", "e = C·D·√(P/f)", "Desteksiz düz kapak", "mm"),
+    _en("EN-6-FD", "EN 13445-3, 6", "f_d / f_test bölenleri (malzeme grubuna göre)",
+        "Azami nominal tasarım gerilmesi (alt madde no doğrulanmadı)", "MPa"),
+    _en("EN-5.6-Z", "EN 13445-3, 5.6", "test grubu 1·2 → 1; 3 → 0,85; 4 → 0,7",
+        "Birimleştirme katsayısı z ↔ EN 13445-5 test grubu", "-"),
+    _en("EN-10.2.3.3.1-HYDRO", "EN 13445-5, 10.2.3.3.1", "Pt = max(1,25·Pd·fa/fT ; 1,43·PS)",
+        "Hidrostatik test basıncı", "MPa"),
+    _en("EN-PNEU", "EN 13445-5, 10.2.3.3 (alt madde no doğrulanmadı)", "Pt = k·Pd·fa/fT (k kullanıcı)",
+        "Pnömatik test basıncı", "MPa"),
+)}
+
+# Eski kimlikler (yanlış madde numarası taşıyordu) → yeni kayıt.
+_EN13445_ALIASES: Dict[str, str] = {
+    "EN-5.4.2-CIRC": "EN-7.4.2-CYL",
+    "EN-5.4.2-LONG": "EN-7.4.2-CYL",
+    "EN-5.5.2-ELLIP": "EN-7.5.4-ELLIP",
+    "EN-5.5.3-TORI": "EN-7.5.3-TORI",
+    "EN-5.5.4-HEMI": "EN-7.5.2-HEMI",
+    "EN-10.2-HYDRO": "EN-10.2.3.3.1-HYDRO",
 }
 
 
@@ -176,6 +162,7 @@ def get_clause_mapping(formula_id: str, code: Optional[str] = None) -> Optional[
             return mapping
 
     # EN 13445 ara
+    formula_id = _EN13445_ALIASES.get(formula_id, formula_id)
     if formula_id in _EN13445_MAPPINGS:
         mapping = _EN13445_MAPPINGS[formula_id]
         if code is None or mapping.code == code:

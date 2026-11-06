@@ -33,6 +33,7 @@ export const CALC_TYPE_TR: Record<string, string> = {
   vacuum_stability: "Vakum stabilitesi",
   pressure_consistency: "Basınç tutarlılığı",
   material_check: "Malzeme kontrolü",
+  nominal_design_stress: "Nominal tasarım gerilmesi (EN 13445-3 Md.6)",
   flange_stress: "Flanş gerilmesi (Appendix 2)",
   saddle_stress: "Eyer gerilmesi (Zick)",
   skirt_stress: "Etek gerilmesi",

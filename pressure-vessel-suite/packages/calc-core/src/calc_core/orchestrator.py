@@ -224,6 +224,13 @@ class CalculationOrchestrator:
         except Exception as e:
             result.add_error(f"Weld validation error: {e}")
 
+        # D4) Kod-özel malzeme tasarım gerilmesi kontrolü (EN 13445-3 Madde 6); yoksa boş.
+        try:
+            for r in getattr(self.design_code, "check_material_design_stress", lambda _project: [])(project):
+                result.add(r)
+        except Exception as e:
+            result.add_error(f"Material design stress check error: {e}")
+
         # E) MAWP
         for shell in project.shell_sections:
             try:

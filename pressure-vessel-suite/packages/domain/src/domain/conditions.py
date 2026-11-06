@@ -69,6 +69,12 @@ class DesignConditions(BaseModel):
         default=20.0,
         description="Hidrostatik test sıcaklığı (°C). Varsayılan: 20°C.",
     )
+    en_pneumatic_test_factor: Optional[float] = Field(
+        default=None, gt=0, le=2.0, allow_inf_nan=False,
+        description="EN 13445-5 pnömatik test basıncı katsayısı (Pt = k·Pd·fa/fT). Lisanslı "
+                    "EN 13445-5 metninden kullanıcı girer; boşsa EN pnömatik testi "
+                    "BLOCKED_CODE_DATA olur (katsayı programa gömülmez, K6).",
+    )
 
     # ── Korozyon ──────────────────────────────────────────────────────────────
     corrosion_allowance_internal: float = Field(

@@ -352,9 +352,9 @@ seçilemezken üçüncü bir kod eklemek Faz 3/4'te kapatılan hayalet özellik 
   - Tüm basınç malzemelerinde girilmişse LSR gerçek orandan hesaplanır → `PASS`.
   - Tasarım sıcaklığı = test sıcaklığı ise `S_test = S_design` gerçek eşitliktir → `PASS`.
   - Aksi halde LSR=1 yalnız yedek değerdir → **`REVIEW_REQUIRED`** + "emniyetsiz yön" uyarısı.
-  - EN 13445-5 10.2.3.3.1: `max(1,25·Ps·fa/ft ; 1,43·Ps)`. fa/ft uygulanmıyor; 1,43·Ps oran
-    ≤ 1,144 iken her seçim yönünde belirleyicidir. Oran eksikse veya > 1,144 ise
-    `REVIEW_REQUIRED` (oranın en büyük/en küçük seçilmesi lisanslı metinle doğrulanmadı — K3/K4).
+  - EN 13445-5 10.2.3.3.1 (E04): `max(1,25·Pd·fa/fT ; 1,43·PS)` uygulanır; çok malzemede en
+    büyük oran seçilir (seçim kuralı lisanslı metinle doğrulanmadı). fa/fT terimi belirleyiciyse veya
+    oran eksikse (fa/fT=1 alt sınırı) `REVIEW_REQUIRED` — K3/K4.
   - **Bilinçli davranış değişikliği:** test gerilmesi girilmemiş, tasarım ≠ test sıcaklığı
     olan mevcut projelerde test sonucu `PASS` yerine `REVIEW_REQUIRED` görünür
     (varsayılan projede: 200 °C / 20 °C). Değer aynı kalır. Canlı doğrulama: 3,53 MPa

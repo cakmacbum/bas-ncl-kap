@@ -1342,7 +1342,7 @@ export function ResultsPage() {
 
           <ResultGroup
             title="Ön Kontroller — Girdi Tutarlılığı"
-            rows={[...byType("pressure_consistency"), ...byType("material_check")]}
+            rows={[...byType("pressure_consistency"), ...byType("material_check"), ...byType("nominal_design_stress")]}
             emptyNote="Girdi tutarlılık kontrolleri uyarı üretmedi: çalışma basıncı tasarım basıncını aşmıyor ve tüm bileşenlerin malzemesi listede bulundu."
           />
 

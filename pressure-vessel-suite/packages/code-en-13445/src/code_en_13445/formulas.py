@@ -548,6 +548,95 @@ def flat_end_mawp(D: float, e: float, f: float, C: float) -> float:
     return f * (e / (C * D)) ** 2
 
 
+# ── E04: EN 13445-3 Madde 6 — nominal tasarım gerilmesi; 5.6 z; EN 13445-5 test basınçları ──
+# verified=False: bölenler ve denklem biçimleri bellekten yazıldı, lisanslı metinle
+# satır satır doğrulanmadı (K6: metin gömülmez). Alt madde numaraları doğrulanmadı;
+# çağıran taraf sonucu en fazla REVIEW_REQUIRED yapar.
+
+# Malzeme grubu -> (tasarım için gerekli özellikler, test için gerekli özellikler)
+EN_STRESS_REQUIRED_PROPERTIES = {
+    "ferritic": (("rp02_t", "rm_20"), ("rp02_test",)),
+    "austenitic_a30": (("rp10_t",), ("rp10_test",)),
+    "austenitic_a35": (("rp10_t", "rm_t"), ("rp10_test", "rm_test")),
+    "cast": (("rp02_t", "rm_20"), ("rp02_test",)),
+}
+
+# Östenitik alt grupların kopma uzaması alt sınırı (%)
+EN_AUSTENITIC_MIN_ELONGATION = {"austenitic_a30": 30.0, "austenitic_a35": 35.0}
+
+
+def nominal_design_stress(group: str, p: dict) -> Tuple[float, str]:
+    """EN 13445-3 Madde 6 — normal çalışma için azami nominal tasarım gerilmesi f_d.
+
+    ferritic        : f = min(Rp0,2/T / 1,5 ; Rm/20 / 2,4)
+    austenitic_a30  : f = Rp1,0/T / 1,5
+    austenitic_a35  : f = max(Rp1,0/T / 1,5 ; min(Rp1,0/T / 1,2 ; Rm/T / 3,0))
+    cast            : f = min(Rp0,2/T / 1,9 ; Rm/20 / 3,0)
+
+    Returns: (f_d, formül metni)
+    """
+    if group == "ferritic":
+        return min(p["rp02_t"] / 1.5, p["rm_20"] / 2.4), "min(Rp0.2/T/1.5 ; Rm/20/2.4)"
+    if group == "austenitic_a30":
+        return p["rp10_t"] / 1.5, "Rp1.0/T/1.5"
+    if group == "austenitic_a35":
+        f = max(p["rp10_t"] / 1.5, min(p["rp10_t"] / 1.2, p["rm_t"] / 3.0))
+        return f, "max(Rp1.0/T/1.5 ; min(Rp1.0/T/1.2 ; Rm/T/3.0))"
+    if group == "cast":
+        return min(p["rp02_t"] / 1.9, p["rm_20"] / 3.0), "min(Rp0.2/T/1.9 ; Rm/20/3.0)"
+    raise ValueError(f"Bilinmeyen EN malzeme grubu: {group}")
+
+
+def nominal_test_stress(group: str, p: dict) -> Tuple[float, str]:
+    """EN 13445-3 Madde 6 — test durumu için azami nominal gerilme f_test.
+
+    ferritic        : f_test = Rp0,2/Ttest / 1,05
+    austenitic_a30  : f_test = Rp1,0/Ttest / 1,05
+    austenitic_a35  : f_test = max(Rp1,0/Ttest / 1,05 ; Rm/Ttest / 2)
+    cast            : f_test = Rp0,2/Ttest / 1,33
+    """
+    if group == "ferritic":
+        return p["rp02_test"] / 1.05, "Rp0.2/Ttest/1.05"
+    if group == "austenitic_a30":
+        return p["rp10_test"] / 1.05, "Rp1.0/Ttest/1.05"
+    if group == "austenitic_a35":
+        return max(p["rp10_test"] / 1.05, p["rm_test"] / 2.0), "max(Rp1.0/Ttest/1.05 ; Rm/Ttest/2)"
+    if group == "cast":
+        return p["rp02_test"] / 1.33, "Rp0.2/Ttest/1.33"
+    raise ValueError(f"Bilinmeyen EN malzeme grubu: {group}")
+
+
+# EN 13445-3, 5.6 (Tablo 5.6-1): test grubu -> izin verilen en büyük z
+EN_JOINT_COEFFICIENT_BY_TESTING_GROUP = {"1": 1.0, "2": 1.0, "3": 0.85, "4": 0.7}
+
+
+def joint_coefficient_for_testing_group(testing_group: str) -> float:
+    """EN 13445-5 test grubu (1a..4) -> EN 13445-3 5.6 birimleştirme katsayısı z."""
+    key = str(testing_group)[:1]
+    if key not in EN_JOINT_COEFFICIENT_BY_TESTING_GROUP:
+        raise ValueError(f"Bilinmeyen EN 13445-5 test grubu: {testing_group}")
+    return EN_JOINT_COEFFICIENT_BY_TESTING_GROUP[key]
+
+
+def en_hydrotest_pressure(Pd: float, PS: float, stress_ratio: float) -> Tuple[float, str, float, float]:
+    """EN 13445-5, 10.2.3.3.1 — Pt = max(1,25·Pd·fa/fT ; 1,43·PS).
+
+    Returns: (Pt, limiter, 1,25·Pd·fa/fT, 1,43·PS)
+    """
+    if stress_ratio <= 0:
+        raise ValueError(f"fa/fT oranı pozitif olmalı: {stress_ratio}")
+    p_pd = 1.25 * Pd * stress_ratio
+    p_ps = 1.43 * PS
+    return (p_pd, "design_pressure", p_pd, p_ps) if p_pd > p_ps else (p_ps, "PS", p_pd, p_ps)
+
+
+def en_pneumatic_test_pressure(Pd: float, stress_ratio: float, factor: float) -> float:
+    """EN 13445-5 pnömatik test — Pt = k·Pd·fa/fT (k kullanıcı girdisi, gömülmez)."""
+    if stress_ratio <= 0 or factor <= 0:
+        raise ValueError("fa/fT oranı ve pnömatik katsayı pozitif olmalı")
+    return factor * Pd * stress_ratio
+
+
 __all__ = [
     "shell_thickness_internal_pressure",
     "shell_required_nominal_thickness",
@@ -569,4 +658,9 @@ __all__ = [
     "cone_small_end_max_pressure",
     "flat_end_thickness",
     "flat_end_mawp",
+    "nominal_design_stress",
+    "nominal_test_stress",
+    "joint_coefficient_for_testing_group",
+    "en_hydrotest_pressure",
+    "en_pneumatic_test_pressure",
 ]

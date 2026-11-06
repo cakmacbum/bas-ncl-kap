@@ -21,6 +21,18 @@ from code_en_13445 import formulas
 from domain.enums import CalculationStatus
 
 TORI_CLAUSE = "EN 13445-3, 7.5.3"
+# E04 madde düzeltmesi: eski "5.4.2 / 5.5.x" numaraları EN 13445-3'te bu konuların maddesi
+# değildi; iç basınç kabukları Madde 7'dedir (7.4.2 silindir, 7.5.2 yarım küre, 7.5.4
+# elipsoidal). Numaralar bellekten; lisanslı metinle doğrulanmadı (verified=False).
+SHELL_CLAUSE = "EN 13445-3, 7.4.2"
+HEMI_CLAUSE = "EN 13445-3, 7.5.2"
+ELLIP_CLAUSE = "EN 13445-3, 7.5.4"
+ELLIP_FORMULA_NOTE = "e = P·D/(4fz − P) — küre denklemi; 7.5.4 eşdeğer torisferik prosedürü DEĞİL"
+Z_CLAUSE = "EN 13445-3, 5.6"
+STRESS_CLAUSE = "EN 13445-3, 6"
+HYDRO_CLAUSE = "EN 13445-5, 10.2.3.3.1"
+PNEU_CLAUSE = "EN 13445-5, 10.2.3.3 (pnömatik; alt madde no doğrulanmadı)"
+RELIEF_CLAUSE = "EN 13445 kapsamı dışı — tahliye: EN ISO 4126 / EN 764-7 (madde no doğrulanmadı)"
 
 
 def _torispherical_radii_en(head, Di: float, C: float, result: CalculationResult):
@@ -95,10 +107,12 @@ class EN13445DesignCode(DesignCode):
     """EN 13445 hesap eklentisi.
 
     Uygulanan maddeler:
-    - EN 13445-3, 5.4.2: Silindirik gövde, iç basınç
-    - EN 13445-3, 5.5.2/5.5.4: Bombeler (ellipsoidal, hemispherical)
+    - EN 13445-3, 7.4.2: Silindirik gövde, iç basınç
+    - EN 13445-3, 7.5.2 yarım küre; 7.5.4 elipsoidal (yalnız küre denklemi — 7.5.4 prosedürü DEĞİL)
     - EN 13445-3, 7.5.3: Torisferik bombe tam prosedürü (es/ey/eb, β) — verified=False
-    - EN 13445-5, 10.2: PED test basıncı
+    - EN 13445-3, 6: nominal tasarım gerilmesi f_d / f_test kontrolü — verified=False
+    - EN 13445-3, 5.6 + EN 13445-5 test grubu → z — verified=False
+    - EN 13445-5, 10.2.3.3.1 hidrostatik ve pnömatik test basıncı — verified=False
     """
 
     def __init__(self, edition: str = "2021+A1:2023"):
@@ -159,8 +173,8 @@ class EN13445DesignCode(DesignCode):
             calculation_type="thickness",
             code=self.code_name,
             edition=self.code_edition,
-            clause_reference="EN 13445-3, 5.4.2",
-            formula_reference="5.4.2-1/5.4.2-2",
+            clause_reference=SHELL_CLAUSE,
+            formula_reference="e = P·Di/(2fz − P) (7.4-1); boyuna kontrol program eki",
         )
 
         # Malzeme bul
@@ -173,13 +187,8 @@ class EN13445DesignCode(DesignCode):
             result.set_not_calculated(f"Material '{shell.material_id}' not found")
             return result
 
-        # Birimleştirme katsayısı (z) — EN 13445-3, Tablo 5.4.2-1
-        z = 1.0
-        if shell.weld_joint_id:
-            for w in welds:
-                if w.joint_id == shell.weld_joint_id:
-                    z = w.joint_coefficient
-                    break
+        # Birimleştirme katsayısı (z) — EN 13445-3, 5.6 (test grubu girildiyse sınırlanır)
+        z = self._z_for(welds, shell.weld_joint_id, result)
 
         # Girdiler
         P = dc.design_pressure
@@ -302,6 +311,7 @@ class EN13445DesignCode(DesignCode):
 
         flat_review = False
         tori_review = False
+        elliptical_review = False
         tori_failed: list[str] = []
         result = CalculationResult(
             component_id=head.head_id,
@@ -321,13 +331,8 @@ class EN13445DesignCode(DesignCode):
             result.set_not_calculated(f"Material '{head.material_id}' not found")
             return result
 
-        # Birimleştirme katsayısı (z)
-        z = 1.0
-        if head.weld_joint_id:
-            for w in welds:
-                if w.joint_id == head.weld_joint_id:
-                    z = w.joint_coefficient
-                    break
+        # Birimleştirme katsayısı (z) — EN 13445-3, 5.6
+        z = self._z_for(welds, head.weld_joint_id, result)
 
         P = dc.design_pressure
         f = mat.allowable_stress
@@ -352,8 +357,9 @@ class EN13445DesignCode(DesignCode):
 
         try:
             if head.type == HeadType.ELLIPTICAL:
-                result.clause_reference = "EN 13445-3, 5.5.2"
-                result.formula_reference = "5.5.2-1"
+                result.clause_reference = ELLIP_CLAUSE
+                result.formula_reference = ELLIP_FORMULA_NOTE
+                elliptical_review = True
                 e, shape_factor = formulas.head_elliptical_thickness(P, D, f, z)
                 result.add_intermediate("shape_factor", shape_factor, "-", "Elliptical shape factor")
                 result.add_intermediate("e_required", e, "mm", "Required thickness")
@@ -396,8 +402,8 @@ class EN13445DesignCode(DesignCode):
                 )
 
             elif head.type == HeadType.HEMISPHERICAL:
-                result.clause_reference = "EN 13445-3, 5.5.4"
-                result.formula_reference = "5.5.4-1"
+                result.clause_reference = HEMI_CLAUSE
+                result.formula_reference = "e = P·R/(2fz − 0,5P)"
                 e = formulas.head_hemispherical_thickness(P, R, f, z)
                 result.add_intermediate("R", R, "mm", "Inside radius")
                 result.add_intermediate("e_required", e, "mm", "Required thickness")
@@ -475,6 +481,8 @@ class EN13445DesignCode(DesignCode):
             )
         if flat_review:
             self._cap_unverified(result, "EN 13445-3, 10")
+        if elliptical_review:
+            self._elliptical_not_7_5_4(result)
         if tori_review:
             self._cap_unverified(result, TORI_CLAUSE)
             if tori_failed:
@@ -519,6 +527,7 @@ class EN13445DesignCode(DesignCode):
         t_actual = input_data.get("nominal_thickness", component.nominal_thickness)
         flat_review = False
         tori_review = False
+        elliptical_review = False
         tori_failed: list[str] = []
 
         result = CalculationResult(
@@ -540,14 +549,8 @@ class EN13445DesignCode(DesignCode):
             result.set_not_calculated(f"Material '{mat_id}' not found")
             return result
 
-        # Birimleştirme katsayısı
-        z = 1.0
-        weld_id = component.weld_joint_id if hasattr(component, 'weld_joint_id') else None
-        if weld_id:
-            for w in welds:
-                if w.joint_id == weld_id:
-                    z = w.joint_coefficient
-                    break
+        # Birimleştirme katsayısı — EN 13445-3, 5.6
+        z = self._z_for(welds, getattr(component, "weld_joint_id", None), result)
 
         f = mat.allowable_stress
         C = component.internal_corrosion_allowance
@@ -572,7 +575,7 @@ class EN13445DesignCode(DesignCode):
                 else:
                     R = component.outside_diameter / 2.0 - t_actual
                 R = R + C  # korozyonlu iç yarıçap (V-16)
-                result.clause_reference = "EN 13445-3, 5.4.2"
+                result.clause_reference = SHELL_CLAUSE
                 mawp = formulas.mawp_from_shell(R, t_actual, f, z, C)
                 result.add_intermediate("R", R, "mm", "Corroded inside radius")
                 result.add_intermediate("e_actual", t_actual, "mm", "Actual thickness")
@@ -584,7 +587,9 @@ class EN13445DesignCode(DesignCode):
                 head = component
                 D = head.inside_diameter + 2 * C  # korozyonlu iç çap (V-16)
                 if head.type == HeadType.ELLIPTICAL:
-                    result.clause_reference = "EN 13445-3, 5.5.2"
+                    result.clause_reference = ELLIP_CLAUSE
+                    result.formula_reference = ELLIP_FORMULA_NOTE
+                    elliptical_review = True
                     mawp = formulas.mawp_from_head("elliptical", D, t_actual, f, z, C=C)
                 elif head.type == HeadType.TORISPHERICAL:
                     result.clause_reference = TORI_CLAUSE
@@ -615,7 +620,7 @@ class EN13445DesignCode(DesignCode):
                                  if c[0] not in _TORI_GEOMETRY_CHECKS]
                     )
                 elif head.type == HeadType.HEMISPHERICAL:
-                    result.clause_reference = "EN 13445-3, 5.5.4"
+                    result.clause_reference = HEMI_CLAUSE
                     mawp = formulas.mawp_from_head("hemispherical", D, t_actual, f, z, C=C)
                 elif head.type == HeadType.FLAT:
                     result.clause_reference = "EN 13445-3, 10.4"
@@ -652,6 +657,8 @@ class EN13445DesignCode(DesignCode):
         result.set_pass()
         if flat_review:
             self._cap_unverified(result, "EN 13445-3, 10")
+        if elliptical_review:
+            self._elliptical_not_7_5_4(result)
         if tori_review:
             self._cap_unverified(result, TORI_CLAUSE)
             if tori_failed:
@@ -669,82 +676,89 @@ class EN13445DesignCode(DesignCode):
         return result
 
     def calculate_hydrotest_pressure(self, input_data: dict) -> CalculationResult:
-        """EN 13445-5, 10.2 — PED test basıncı.
+        """E04 — EN 13445-5, 10.2.3.3.1 hidrostatik test basıncı.
 
-        PED test basıncı = max(1.25 × çalışma azami yükü, 1.43 × PS)
-
-        Args:
-            input_data: {
-                "project": VesselProject,
-                "design_conditions": DesignConditions,
-                "materials": List[MaterialProperty],
-                "code_edition": str,
-            }
+        Pt = max(1,25·Pd·fa/fT ; 1,43·PS)  (Pd tasarım basıncı; fa test, fT tasarım
+        sıcaklığındaki nominal tasarım gerilmesi). 1,25/1,43 PED Ek I 7.4 ile
+        tutarlıdır; fa/fT'li biçim bellekten (verified=False).
         """
         dc = input_data["design_conditions"]
-        project = input_data.get("project")
-
         result = CalculationResult(
             component_type="system",
             calculation_type="hydrotest",
             code=self.code_name,
             edition=self.code_edition,
-            clause_reference="EN 13445-5, 10.2",
-            formula_reference="10.2-1",
+            clause_reference=HYDRO_CLAUSE,
+            formula_reference="Pt = max(1.25·Pd·fa/fT ; 1.43·PS)",
         )
-
-        # PED test basıncı
-        ps = dc.maximum_allowable_pressure_ps
-        p_operating_max = dc.operating_pressure
-
-        p_test, limiter = formulas.ped_test_pressure(
-            ps_mpa=ps,
-            operating_pressure_max=p_operating_max,
-        )
+        ps, pd = dc.maximum_allowable_pressure_ps, dc.design_pressure
+        ratio = self._stress_ratio(input_data, dc)
+        r_used = ratio["ratio"] if ratio["ratio"] is not None else 1.0
+        p_test, limiter, p_pd, p_ps = formulas.en_hydrotest_pressure(pd, ps, r_used)
 
         result.input_snapshot = {
             "PS_MPa": ps,
-            "P_operating_max_MPa": p_operating_max,
+            "Pd_MPa": pd,
+            "P_operating_max_MPa": dc.operating_pressure,
+            "fa_fT_by_material": ratio["by_material"],
             "limiter": limiter,
+            "design_temperature_C": dc.design_temperature,
             "hydrotest_temperature_C": dc.hydrotest_temperature,
         }
-
         result.add_intermediate("PS", ps, "MPa", "Maximum allowable pressure (PS)")
-        result.add_intermediate("P_operating_max", p_operating_max, "MPa", "Maximum operating pressure")
-        result.add_intermediate("P_from_op", 1.25 * p_operating_max, "MPa", "1.25 × P_operating_max")
-        result.add_intermediate("P_from_ps", 1.43 * ps, "MPa", "1.43 × PS")
-        result.add_intermediate("P_test", p_test, "MPa", "PED test pressure")
+        result.add_intermediate("Pd", pd, "MPa", "Design pressure")
+        result.add_intermediate("P_operating_max", dc.operating_pressure, "MPa", "Max operating pressure (info)")
+        result.add_intermediate("fa_fT", r_used, "-", "Stress ratio test/design temperature used")
+        result.add_intermediate("P_from_pd", p_pd, "MPa", "1.25 × Pd × fa/fT")
+        result.add_intermediate("P_from_ps", p_ps, "MPa", "1.43 × PS")
+        result.add_intermediate("P_test", p_test, "MPa", "EN 13445-5 hydrostatic test pressure")
         result.add_intermediate("limiter", limiter, "-", "Limiter")
-
         result.add_assumption(
-            f"PED test pressure = max(1.25 × {p_operating_max}, 1.43 × {ps}) = {p_test:.3f} MPa. "
-            f"Limiter: {limiter}."
+            f"Pt = max(1.25 × {pd:g} × {r_used:.4g}, 1.43 × {ps:g}) = {p_test:.4f} MPa ({limiter}). "
+            "1,25 terimi çalışma basıncıyla değil tasarım basıncı Pd ile kurulur (EN 13445-5; "
+            "eski sürüm çalışma basıncını kullanıyordu)."
         )
-
+        result.add_assumption(
+            "Bileşen bazında test durumu gerilme kontrolü (f_test, statik sıvı kafası) bu satırda "
+            "yapılmaz; f_test değerleri nominal_design_stress satırlarında raporlanır."
+        )
         result.final_result = p_test
         result.final_result_unit = "MPa"
 
-        # EN 13445-5 10.2.3.3.1: Pt = max(1.25·Ps·fa/ft ; 1.43·Ps). fa/ft (test/tasarım
-        # sıcaklığı gerilme oranı) uygulanmıyor. 1.43·Ps, oran ≤ 1.43/1.25 iken —
-        # oranın en büyük/en küçük seçilmesinden bağımsız olarak — belirleyicidir;
-        # oran bu eşiği aşarsa test basıncı düşük kalır (emniyetsiz). Oranın hangi
-        # malzemeden seçileceği lisanslı metinle doğrulanmadığı için o durumda karar
-        # mühendise bırakılır (K3/K4).
-        review_reason = self._test_ratio_review_reason(input_data, dc)
-        if review_reason:
-            result.add_warning(review_reason)
-            result.set_review_required(review_reason)
+        if ratio["missing"]:
+            reason = (
+                f"fa/ft oranı uygulanamadı: tasarım {dc.design_temperature} °C, test "
+                f"{dc.hydrotest_temperature} °C ve test gerilmesi eksik "
+                f"({', '.join(ratio['missing'])}). Sonuç fa/fT = 1 ile alt sınırdır; oran > "
+                f"{self._EN_RATIO_THRESHOLD_TEXT} ise 1.25·Pd·fa/ft terimi 1.43·PS'i aşar ve "
+                "test basıncı olması gerekenden DÜŞÜK kalır. Malzemede 'Test sıcaklığında S' girin."
+            )
+            result.add_warning(reason)
+            result.set_review_required(reason)
+        elif limiter == "design_pressure" and abs(r_used - 1.0) > 1e-9:
+            reason = (
+                f"fa/fT = {r_used:.3f} ile 1.25·Pd·fa/fT terimi belirleyici (> 1.43·PS). "
+                f"{HYDRO_CLAUSE} biçimi bellekten uygulandı (verified=False); çok malzemede oranın "
+                "seçimi (en büyük oran kullanıldı) lisanslı metinle doğrulanmalıdır."
+            )
+            result.add_warning(reason)
+            result.set_review_required(reason)
         else:
+            # Oran 1 (aynı sıcaklık) veya 1,43·PS en büyük oranla bile belirleyici:
+            # sonuç fa/fT biçiminden ve oran seçiminden bağımsızdır.
             result.set_pass()
-
         return result
 
-    _EN_RATIO_THRESHOLD = 1.43 / 1.25
+    _EN_RATIO_THRESHOLD_TEXT = "1.43·PS/(1.25·Pd)"
 
-    def _test_ratio_review_reason(self, input_data: dict, dc):
-        """fa/ft oranı sonucu etkileyebilirse gerekçe metni, etkilemezse None."""
+    def _stress_ratio(self, input_data: dict, dc) -> dict:
+        """fa/fT: malzemenin test sıcaklığı gerilmesi / tasarım gerilmesi (basınçlı parçalar).
+
+        Aynı sıcaklıkta oran 1. Çok malzemede EN büyük oran seçilir (en yüksek Pt);
+        hepsi raporlanır. Test gerilmesi eksikse ``missing`` dolu, ``ratio`` None.
+        """
         if abs(dc.design_temperature - dc.hydrotest_temperature) < 1e-9:
-            return None  # aynı sıcaklık → fa = ft, oran 1
+            return {"ratio": 1.0, "by_material": {}, "missing": []}
         materials = input_data.get("materials", []) or []
         project = input_data.get("project")
         if project is not None:
@@ -754,23 +768,16 @@ class EN13445DesignCode(DesignCode):
                 for c in coll
             }
             materials = [m for m in materials if m.material_id in ids] or materials
+        if not materials:
+            return {"ratio": None, "by_material": {}, "missing": ["malzeme yok"]}
         missing = [m.material_id for m in materials if m.allowable_stress_test_temp is None]
-        if missing or not materials:
-            return (
-                f"fa/ft oranı uygulanmadı: tasarım {dc.design_temperature} °C, test "
-                f"{dc.hydrotest_temperature} °C ve test gerilmesi eksik "
-                f"({', '.join(missing) or 'malzeme yok'}). Oran > "
-                f"{self._EN_RATIO_THRESHOLD:.3f} ise 1.25·Ps·fa/ft terimi 1.43·Ps'i aşar ve "
-                "test basıncı olması gerekenden DÜŞÜK kalır. Malzemede 'Test sıcaklığında S' girin."
-            )
-        worst = max(m.allowable_stress_test_temp / m.allowable_stress for m in materials)
-        if worst > self._EN_RATIO_THRESHOLD:
-            return (
-                f"fa/ft = {worst:.3f} > {self._EN_RATIO_THRESHOLD:.3f}: 1.25·Ps·fa/ft terimi "
-                "1.43·Ps'i aşabilir ve bu formül fa/ft'yi uygulamıyor. Oranın hangi malzemeden "
-                "seçileceği lisanslı EN 13445-5 10.2.3.3.1 metniyle doğrulanmalıdır."
-            )
-        return None
+        by_mat = {
+            m.material_id: m.allowable_stress_test_temp / m.allowable_stress
+            for m in materials if m.allowable_stress_test_temp is not None
+        }
+        if missing:
+            return {"ratio": None, "by_material": by_mat, "missing": missing}
+        return {"ratio": max(by_mat.values()), "by_material": by_mat, "missing": []}
 
     def calculate_nozzle(self, input_data: dict) -> CalculationResult:
         """Nozul takviye hesabı — NOT_CALCULATED (bu aşamada)."""
@@ -842,7 +849,7 @@ class EN13445DesignCode(DesignCode):
         if mat is None:
             result.set_not_calculated(f"Material '{cone.material_id}' not found")
             return result
-        z = self._joint_coefficient(input_data.get("welds", []), cone.weld_joint_id)
+        z = self._z_for(input_data.get("welds", []), cone.weld_joint_id, result)
         P, f, alpha = dc.design_pressure, mat.allowable_stress, cone.half_apex_angle
         C_int, C_ext = cone.internal_corrosion_allowance, cone.external_corrosion_allowance
         Di = cone.large_diameter + 2 * C_int  # en elverişsiz nokta: büyük uç, korozyonlu (V-16)
@@ -920,7 +927,7 @@ class EN13445DesignCode(DesignCode):
         if mat is None:
             result.set_not_calculated(f"Material '{cone.material_id}' not found")
             return result
-        z = self._joint_coefficient(input_data.get("welds", []), cone.weld_joint_id)
+        z = self._z_for(input_data.get("welds", []), cone.weld_joint_id, result)
         f, alpha = mat.allowable_stress, cone.half_apex_angle
         Di = cone.large_diameter + 2 * cone.internal_corrosion_allowance
         e = t - cone.internal_corrosion_allowance - cone.external_corrosion_allowance
@@ -955,12 +962,27 @@ class EN13445DesignCode(DesignCode):
         return next((m for m in materials if m.material_id == material_id), None)
 
     @staticmethod
-    def _joint_coefficient(welds, weld_id) -> float:
-        if weld_id:
-            for w in welds:
-                if w.joint_id == weld_id:
-                    return w.joint_coefficient
-        return 1.0
+    def _z_for(welds, weld_id, result: CalculationResult | None = None) -> float:
+        """E04 — dikişin z'si; EN 13445-5 test grubu girildiyse 5.6 sınırına indirilir."""
+        weld = next((w for w in welds if w.joint_id == weld_id), None) if weld_id else None
+        if weld is None:
+            return 1.0
+        z = weld.joint_coefficient
+        group = getattr(weld, "en_testing_group", None)
+        if group:
+            z_max = formulas.joint_coefficient_for_testing_group(group)
+            if z > z_max + 1e-12:
+                if result is not None:
+                    result.add_assumption(
+                        f"{Z_CLAUSE}: dikiş {weld.joint_id} test grubu {group} → z ≤ {z_max:g}; "
+                        f"girilen z = {z:g} yerine z = {z_max:g} kullanıldı."
+                    )
+                    result.add_warning(
+                        f"Dikiş {weld.joint_id}: girilen z = {z:g}, test grubu {group} için izin "
+                        f"verilen {z_max:g}'den büyük; hesapta {z_max:g} kullanıldı."
+                    )
+                z = z_max
+        return z
 
     @staticmethod
     def _cap_unverified(result: CalculationResult, clause: str) -> None:
@@ -972,12 +994,57 @@ class EN13445DesignCode(DesignCode):
             )
 
     def calculate_pneumatic_test_pressure(self, input_data: dict) -> CalculationResult:
-        return self._unsupported_result(
+        """E04 — EN 13445-5 pnömatik test basıncı: Pt = k·Pd·fa/fT (verified=False).
+
+        k lisanslı EN 13445-5 metninden kullanıcı girer (DesignConditions.
+        en_pneumatic_test_factor); programa gömülmez. ASME UG-100 kullanılmaz.
+        """
+        dc = input_data["design_conditions"]
+        result = CalculationResult(
             component_type="system",
             calculation_type="pneumatic_test",
-            clause="EN 13445-5 (testing)",
-            reason=f"EN 13445 pneumatic test pressure is not implemented; {self._NO_ASME_FALLBACK}",
+            code=self.code_name,
+            edition=self.code_edition,
+            clause_reference=PNEU_CLAUSE,
+            formula_reference="Pt = k·Pd·fa/fT",
         )
+        k = getattr(dc, "en_pneumatic_test_factor", None)
+        result.input_snapshot = {
+            "Pd_MPa": dc.design_pressure, "k": k,
+            "design_temperature_C": dc.design_temperature,
+            "test_temperature_C": dc.hydrotest_temperature,
+        }
+        if not k:
+            result.set_blocked_code_data(
+                "EN 13445-5 pnömatik test katsayısı k girilmedi (DesignConditions."
+                "en_pneumatic_test_factor). Katsayı lisanslı EN 13445-5 metninden okunur ve programa "
+                f"gömülmez (K6); {self._NO_ASME_FALLBACK}"
+            )
+            return result
+        ratio = self._stress_ratio(input_data, dc)
+        if ratio["missing"]:
+            result.set_blocked_missing_input(
+                "Pnömatik test için fa/fT gerekir: tasarım ve test sıcaklığı farklı, test "
+                f"sıcaklığı gerilmesi eksik ({', '.join(ratio['missing'])})."
+            )
+            return result
+        p_test = formulas.en_pneumatic_test_pressure(dc.design_pressure, ratio["ratio"], k)
+        for name, val, unit, desc in (
+            ("Pd", dc.design_pressure, "MPa", "Design pressure"),
+            ("k", k, "-", "Pneumatic test factor (user, EN 13445-5)"),
+            ("fa_fT", ratio["ratio"], "-", "Stress ratio test/design temperature (max)"),
+            ("P_test", p_test, "MPa", "EN 13445-5 pneumatic test pressure"),
+        ):
+            result.add_intermediate(name, val, unit, desc)
+        result.add_assumption(
+            "Pnömatik test basıncı Pt = k·Pd·fa/fT biçimiyle hesaplandı (biçim bellekten, verified=False). "
+            "EN 13445-5'in pnömatik teste ek şartları (ek NDT, güvenlik önlemleri, depolanan enerji "
+            "sınırları) bu satırda kontrol edilmez."
+        )
+        result.final_result, result.final_result_unit = p_test, "MPa"
+        result.set_pass()
+        self._cap_unverified(result, PNEU_CLAUSE)
+        return result
 
     def calculate_hydrotest_component(self, input_data: dict) -> CalculationResult:
         return self._unsupported_result(
@@ -1015,16 +1082,195 @@ class EN13445DesignCode(DesignCode):
         ) for sup in (getattr(project, "supports", None) or [])]
 
     def validate_welds(self, project) -> List[CalculationResult]:
-        return [self._unsupported_result(
+        """E04 — EN 13445-5 test grubu → EN 13445-3, 5.6 z eşlemesi (verified=False)."""
+        return [self._validate_weld_en(weld) for weld in project.welds]
+
+    def _validate_weld_en(self, weld) -> CalculationResult:
+        result = CalculationResult(
             component_id=weld.joint_id,
             component_type="weld",
             calculation_type="weld_validation",
-            clause="EN 13445-5 (examination) / EN 13445-4 (fabrication)",
-            reason=(
-                "EN 13445 weld validation (examination group, joint coefficient z, PWHT) is not "
-                f"implemented; the entered joint coefficient is used as-is; {self._NO_ASME_FALLBACK}"
-            ),
-        ) for weld in project.welds]
+            code=self.code_name,
+            edition=self.code_edition,
+            clause_reference=f"{Z_CLAUSE} / EN 13445-5 (test grupları)",
+            formula_reference="test grubu 1·2 → z=1; 3 → z=0,85; 4 → z=0,7",
+        )
+        group = getattr(weld, "en_testing_group", None)
+        z = weld.joint_coefficient
+        result.input_snapshot = {
+            "joint_coefficient_z": z, "en_testing_group": group,
+            "nde_method": weld.nde_method, "nde_extent": weld.nde_extent,
+        }
+        if not group:
+            result.add_assumption(
+                f"K4: EN 13445-5 test grubu girilmedi; girilen z = {z:g} olduğu gibi kullanıldı."
+            )
+            result.set_not_calculated(
+                "EN 13445 weld validation needs the EN 13445-5 testing group (WeldJoint.en_testing_group); "
+                f"the entered joint coefficient z = {z:g} is used as-is (assumption); PWHT/NDE extent "
+                f"not checked; {self._NO_ASME_FALLBACK}"
+            )
+            return result
+        z_max = formulas.joint_coefficient_for_testing_group(group)
+        result.add_intermediate("testing_group", group, "-", "EN 13445-5 testing group")
+        result.add_intermediate("z_entered", z, "-", "Entered joint coefficient")
+        result.add_intermediate("z_max", z_max, "-", "Max z for testing group (5.6)")
+        result.final_result, result.allowable_limit = z, z_max
+        result.add_assumption(
+            "NDT kapsamının test grubuyla uyumu, test grubu 4'ün malzeme/kalınlık kısıtları ve PWHT "
+            "bu satırda kontrol edilmez; tablo bellekten (verified=False)."
+        )
+        if z > z_max + 1e-12:
+            msg = (
+                f"Girilen z = {z:g}, test grubu {group} için izin verilen {z_max:g}'den büyük; "
+                f"EN hesaplarında z = {z_max:g} kullanıldı. Girdiyi düzeltin."
+            )
+            result.add_warning(msg)
+            result.set_review_required(msg)
+        else:
+            result.set_pass(z / z_max)
+            self._cap_unverified(result, Z_CLAUSE)
+        return result
+
+    def check_material_design_stress(self, project) -> List[CalculationResult]:
+        """E04 — EN 13445-3 Madde 6: girilen f ≤ azami nominal tasarım gerilmesi f_d; f_test raporu."""
+        used = []
+        for coll, attr in ((project.shell_sections, "material_id"), (project.heads, "material_id"),
+                           (project.cones, "material_id"), (project.nozzles, "material_id")):
+            for c in coll:
+                mid = getattr(c, attr, None)
+                if mid and mid not in used:
+                    used.append(mid)
+        dc = project.design_conditions
+        return [self._material_stress_row(m, dc) for m in project.materials if m.material_id in used]
+
+    def _material_stress_row(self, mat, dc) -> CalculationResult:
+        result = CalculationResult(
+            component_id=mat.material_id,
+            component_type="material",
+            calculation_type="nominal_design_stress",
+            code=self.code_name,
+            edition=self.code_edition,
+            clause_reference=f"{STRESS_CLAUSE} (alt madde no doğrulanmadı)",
+        )
+        group = getattr(mat, "en_material_group", None)
+        f_in = mat.allowable_stress
+        result.input_snapshot = {
+            "material": mat.material_designation, "en_material_group": group, "f_entered_MPa": f_in,
+            "design_temperature_C": dc.design_temperature, "test_temperature_C": dc.hydrotest_temperature,
+        }
+        if not group:
+            result.set_blocked_missing_input(
+                f"{STRESS_CLAUSE}: malzeme grubu (en_material_group) girilmedi; girilen f = {f_in:g} MPa'nın "
+                "Madde 6 üst sınırına uygunluğu kontrol edilemedi. Bileşen hesapları elle girilen f ile "
+                "sürer (K4)."
+            )
+            return result
+        a_min = formulas.EN_AUSTENITIC_MIN_ELONGATION.get(group)
+        if a_min is not None:
+            a = getattr(mat, "en_elongation_a_pct", None)
+            if a is None:
+                result.set_blocked_missing_input(
+                    f"{group}: kopma uzaması A (en_elongation_a_pct) gerekli (A ≥ %{a_min:g} beyanı doğrulanmalı)."
+                )
+                return result
+            result.add_intermediate("A", a, "%", "Elongation after fracture")
+            if a < a_min:
+                result.set_blocked_missing_input(
+                    f"{group} grubu A ≥ %{a_min:g} ister, girilen A = %{a:g}; doğru malzeme grubunu girin."
+                )
+                return result
+        props = {
+            "rp02_t": mat.en_rp02_t, "rp10_t": mat.en_rp10_t, "rm_20": mat.en_rm_20, "rm_t": mat.en_rm_t,
+            "rp02_test": mat.en_rp02_test, "rp10_test": mat.en_rp10_test, "rm_test": mat.en_rm_test,
+        }
+        if props["rp02_t"] is None and abs(mat.temperature - dc.design_temperature) < 1e-6:
+            props["rp02_t"] = mat.yield_strength
+            result.add_assumption(
+                f"K4: Rp0,2/T girilmedi; yield_strength = {mat.yield_strength:g} MPa "
+                f"({mat.temperature:g} °C beyanlı = tasarım sıcaklığı) Rp0,2/T kabul edildi."
+            )
+        if props["rm_20"] is None:
+            props["rm_20"] = mat.tensile_strength
+            result.add_assumption(
+                f"K4: Rm/20 girilmedi; tensile_strength = {mat.tensile_strength:g} MPa oda sıcaklığı "
+                "asgari çekme dayanımı kabul edildi."
+            )
+        need_d, need_t = formulas.EN_STRESS_REQUIRED_PROPERTIES[group]
+        missing = [k for k in need_d if props[k] is None]
+        if missing:
+            result.set_blocked_missing_input(
+                f"{STRESS_CLAUSE} ({group}): f_d için gerekli malzeme özelliği eksik: "
+                + ", ".join(f"en_{k}" for k in missing) + ". Değer uydurulmaz."
+            )
+            return result
+        for k in need_d:
+            result.add_intermediate(k, props[k], "MPa", f"{k} (design)")
+        f_d, form = formulas.nominal_design_stress(group, props)
+        result.formula_reference = f"f_d = {form}"
+        result.add_intermediate("f_d", f_d, "MPa", "Max nominal design stress (Clause 6)")
+        result.add_intermediate("f_entered", f_in, "MPa", "Entered design stress used in calcs")
+        missing_t = [k for k in need_t if props[k] is None]
+        if missing_t:
+            result.add_warning(
+                "f_test hesaplanmadı: test sıcaklığı özelliği eksik (" + ", ".join(f"en_{k}" for k in missing_t) + ")."
+            )
+        else:
+            f_test, form_t = formulas.nominal_test_stress(group, props)
+            result.add_intermediate("f_test", f_test, "MPa", f"Max nominal test stress = {form_t}")
+        result.final_result, result.final_result_unit = f_in, "MPa"
+        result.allowable_limit, result.allowable_limit_unit = f_d, "MPa"
+        u = f_in / f_d
+        if u > 1.0 + 1e-9:
+            result.set_fail(u)
+            result.add_warning(
+                f"Girilen f = {f_in:g} MPa, Madde 6 azami f_d = {f_d:.2f} MPa'yı aşıyor; bileşen hesapları "
+                "emniyetsiz tarafta."
+            )
+        else:
+            result.set_pass(u)
+            self._cap_unverified(result, STRESS_CLAUSE)
+        return result
+
+    def check_pressure_relief(self, project, global_mawp=None) -> List[CalculationResult]:
+        """E04 — EN rotasında ASME UG-125–136 hesabı EN adı altında sunulmaz."""
+        system = getattr(project, "pressure_relief", None)
+
+        def row(cid, ctype):
+            return CalculationResult(
+                component_id=cid, component_type=ctype, calculation_type="pressure_relief",
+                code=self.code_name, edition=self.code_edition, clause_reference=RELIEF_CLAUSE,
+            )
+
+        if system is None or not system.enabled:
+            r = row("RELIEF-SYSTEM", "system")
+            r.set_out_of_scope("Pressure relief system is not configured for this project.")
+            return [r]
+        rows = []
+        for device in (system.devices or []):
+            r = row(device.device_id, "pressure_relief_device")
+            r.input_snapshot = {"device": device.model_dump(mode="json")}
+            r.set_not_calculated(
+                "EN rotasında tahliye cihazı kontrolü uygulanmadı (EN ISO 4126 / EN 764-7 / PED Ek I 2.11); "
+                "ASME UG-125–136 sonucu EN adı altında sunulmaz; bağımsız değerlendirme gerekir."
+            )
+            rows.append(r)
+        if not rows:
+            r = row("RELIEF-SYSTEM", "system")
+            r.set_not_calculated("Tahliye sistemi tanımlı ama cihaz yok; EN rotasında kontrol uygulanmadı.")
+            rows.append(r)
+        return rows
+
+    def _elliptical_not_7_5_4(self, result: CalculationResult) -> None:
+        """E04 notu: mevcut elipsoidal formül 7.5.4 prosedürü değildir (eşdeğer torisferik yok)."""
+        msg = (
+            f"{ELLIP_CLAUSE}: kullanılan e = P·D/(4fz − P) küre denklemidir; EN 13445-3 7.5.4 "
+            "elipsoidal bombe prosedürü (eşdeğer torisferik R, r ve büküm kontrolleri) uygulanmadı. "
+            "2:1 bombe için sonuç emniyetsiz tarafta olabilir — bağımsız hesap gerekir."
+        )
+        result.add_warning(msg)
+        if result.status == CalculationStatus.PASS:
+            result.set_review_required(msg)
 
     def check_nozzle_clashes(self, project) -> List[CalculationResult]:
         results = [self._unsupported_result(

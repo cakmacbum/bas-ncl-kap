@@ -77,6 +77,7 @@ ARAYUZDE_YOK = {
     "Cone.half_apex_angle": "aynı gerekçe",
     "Cone.length": "aynı gerekçe",
     "Cone.external_corrosion_allowance": "aynı gerekçe",
+    "DesignConditions.en_pneumatic_test_factor": "E04: EN 13445-5 pnömatik katsayı k lisanslı metinden girilir; arayüz formu yok, yalnız API/JSON (boşsa BLOCKED_CODE_DATA)",
     "DesignConditions.coincident_stress_ratio": "B-04: MDMT gerilme oranı girdisi; arayüz formu yok, yalnız API/JSON (UCS-66 azaltma eğrisi telifli, limite uygulanmıyor)",
     "Cone.nominal_thickness": "aynı gerekçe",
     "Cone.material_id": "aynı gerekçe",

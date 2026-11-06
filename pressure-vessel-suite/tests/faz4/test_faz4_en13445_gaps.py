@@ -80,8 +80,8 @@ EXPECTED = [
     ("clash_check", "N1"),
     ("inspection_opening", None),
     ("lug_tension", "LUG"), ("lug_shell_local_shear", "LUG"),
-    ("pneumatic_test", None),
 ]
+# E04: pnömatik test artık gerçek hesap; k girilmezse BLOCKED_CODE_DATA (test_faz4_en13445_e04.py).
 # E02: koni kalınlığı, koni MAWP ve koni-silindir birleşimi artık gerçek hesap satırıdır
 # (verified=False -> olumlu sonuç REVIEW_REQUIRED); ayrıntılı el hesabı test_faz4_en13445_cone_flat.py.
 
@@ -95,6 +95,12 @@ def test_gap_is_explicit_row(en_result, calc_type, cid):
         assert "13445" in r.code
         assert r.clause_reference and r.clause_reference.startswith("EN 13445")
         assert "ASME" not in r.clause_reference
+
+
+def test_pneumatic_without_factor_is_blocked_not_silent(en_result):
+    rows = _rows(en_result, "pneumatic_test")
+    assert len(rows) == 1 and rows[0].status == CalculationStatus.BLOCKED_CODE_DATA
+    assert rows[0].clause_reference.startswith("EN 13445-5") and rows[0].final_result is None
 
 
 def test_lifting_lug_is_out_of_scope(en_result):

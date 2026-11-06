@@ -274,7 +274,7 @@ class TestEN13445DesignCode:
         })
         assert r.code == "EN 13445"
         assert r.edition == "2021+A1:2023"
-        assert r.clause_reference == "EN 13445-3, 5.4.2"
+        assert r.clause_reference == "EN 13445-3, 7.4.2"  # E04: Madde 7 (eski 5.4.2 yanlıştı)
         assert r.status.value == "PASS"
         assert r.final_result is not None
         assert r.final_result <= comp["shell"].nominal_thickness
@@ -310,8 +310,10 @@ class TestEN13445DesignCode:
             "code_edition": "2021+A1:2023",
         })
         assert r.code == "EN 13445"
-        assert r.clause_reference == "EN 13445-3, 5.5.2"
-        assert r.status.value == "PASS"
+        assert r.clause_reference == "EN 13445-3, 7.5.4"
+        # E04: formül küre denklemi, 7.5.4 eşdeğer torisferik prosedürü değil → PASS yok
+        assert r.status.value == "REVIEW REQUIRED"
+        assert any("7.5.4" in w and "küre denklemi" in w for w in r.warnings)
         assert r.final_result is not None
 
     def test_mawp_shell(self, en_code, sample_en_project_components):
@@ -342,7 +344,8 @@ class TestEN13445DesignCode:
             "nominal_thickness": comp["head_l"].nominal_thickness,
             "code_edition": "2021+A1:2023",
         })
-        assert r.status.value == "PASS"
+        assert r.status.value == "REVIEW REQUIRED"  # E04: elipsoidal 7.5.4 prosedürü değil
+        assert r.clause_reference == "EN 13445-3, 7.5.4"
         assert r.final_result is not None
 
     def test_ped_hydrotest(self, en_code, sample_en_project_components):
@@ -372,8 +375,22 @@ class TestEN13445DesignCode:
         assert r.status.value == "PASS"
         assert relative_tolerance(r.final_result, 2.145, 0.001)
 
-    def test_ped_hydrotest_ratio_above_threshold_needs_review(self, en_code, sample_en_project_components):
-        """fa/ft > 1.144 → 1.25·Ps·fa/ft terimi 1.43·Ps'i aşabilir → inceleme."""
+    def test_ped_hydrotest_ratio_term_governs_needs_review(self, en_code, sample_en_project_components):
+        """E04 el hesabı: fa/fT = 1,5 → 1,25·1,2·1,5 = 2,25 > 1,43·1,5 = 2,145 → Pt = 2,25, inceleme."""
+        comp = sample_en_project_components
+        mat = comp["mat"].model_copy(update={
+            "allowable_stress_test_temp": comp["mat"].allowable_stress * 1.5,
+        })
+        r = en_code.calculate_hydrotest_pressure({
+            "design_conditions": comp["dc"], "materials": [mat], "code_edition": "2021+A1:2023",
+        })
+        assert r.status.value == "REVIEW REQUIRED"
+        assert r.final_result == pytest.approx(2.25, rel=1e-9)
+        assert r.clause_reference == "EN 13445-5, 10.2.3.3.1"
+        assert any("fa/fT = 1.500" in w for w in r.warnings)
+
+    def test_ped_hydrotest_ratio_applied_ps_still_governs(self, en_code, sample_en_project_components):
+        """E04 el hesabı: fa/fT = 1,40 → 1,25·1,2·1,40 = 2,10 < 2,145 → 1,43·PS belirleyici (PASS)."""
         comp = sample_en_project_components
         mat = comp["mat"].model_copy(update={
             "allowable_stress_test_temp": comp["mat"].allowable_stress * 1.40,
@@ -381,8 +398,22 @@ class TestEN13445DesignCode:
         r = en_code.calculate_hydrotest_pressure({
             "design_conditions": comp["dc"], "materials": [mat], "code_edition": "2021+A1:2023",
         })
-        assert r.status.value == "REVIEW REQUIRED"
-        assert any("1.144" in w for w in r.warnings)
+        iv = {v["name"]: v["value"] for v in r.intermediate_values}
+        assert iv["P_from_pd"] == pytest.approx(2.10, rel=1e-9)
+        assert r.final_result == pytest.approx(2.145, rel=1e-9)
+        assert r.status.value == "PASS"
+
+    def test_hydrotest_uses_design_pressure_not_operating(self, en_code, sample_en_project_components):
+        """E04: 1,25 terimi Pd ile: Pd = 3,0, PS = 1,5, aynı sıcaklık → Pt = 3,75 (eskisi 1,25·Pop)."""
+        comp = sample_en_project_components
+        dc = comp["dc"].model_copy(update={
+            "design_pressure": 3.0, "hydrotest_temperature": comp["dc"].design_temperature})
+        r = en_code.calculate_hydrotest_pressure({
+            "design_conditions": dc, "materials": [comp["mat"]], "code_edition": "2021+A1:2023",
+        })
+        assert r.final_result == pytest.approx(3.75, rel=1e-9)
+        assert r.input_snapshot["limiter"] == "design_pressure"
+        assert r.status.value == "PASS"  # fa/fT = 1: sonuç PED 1,25/1,43 ile aynı
 
     def test_ped_hydrotest_same_temperature_passes(self, en_code, sample_en_project_components):
         """Tasarım = test sıcaklığı → fa = ft → PASS (ek veri gerekmez)."""
@@ -520,9 +551,13 @@ class TestStandardPack:
         import sys
         sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "standards" / "clause-mappings"))
         from clause_mappings import get_clause_mapping
-        mapping = get_clause_mapping("EN-5.4.2-CIRC", "EN 13445")
+        mapping = get_clause_mapping("EN-5.4.2-CIRC", "EN 13445")  # eski kimlik = takma ad
         assert mapping is not None
-        assert "5.4.2" in mapping.clause_reference
+        assert mapping.clause_reference == "EN 13445-3, 7.4.2"
+        assert get_clause_mapping("EN-5.5.4-HEMI", "EN 13445").clause_reference == "EN 13445-3, 7.5.2"
+        assert get_clause_mapping("EN-5.5.2-ELLIP", "EN 13445").clause_reference == "EN 13445-3, 7.5.4"
+        assert get_clause_mapping("EN-5.5.3-TORI", "EN 13445").clause_reference == "EN 13445-3, 7.5.3"
+        assert get_clause_mapping("EN-10.2-HYDRO", "EN 13445").clause_reference == "EN 13445-5, 10.2.3.3.1"
 
 
 # Path import for StandardPack tests
