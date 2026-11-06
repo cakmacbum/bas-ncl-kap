@@ -107,6 +107,7 @@ def example_junction_check() -> dict:
         "right_component_id": "C1", "junction_type": "cone_to_shell", "cone_end": "large",
         "weld_joint_id": "WJ-01", "weld_efficiency": 1.0,
         "large_end_diameter": 1000, "small_end_diameter": 800}]
+    p["heads"][1]["inside_diameter"] = 800  # koni küçük ucu = sağ bombe çapı
     return p
 
 

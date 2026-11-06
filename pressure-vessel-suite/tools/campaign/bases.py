@@ -31,12 +31,19 @@ def _base(name, orientation, supports, **overrides):
     for m in p.get("materials", []):
         m.setdefault("ucs66_curve_group", "B")  # MDMT BLOCKED olmasın; aileler override eder
     p["supports"] = supports
-    return _merge(p, overrides)
+    _merge(p, overrides)
+    # Uç bombe iç çapı komşu gövde çapına eşit olmalı (geometri kuralı
+    # DIAMETER_MISMATCH, diameter_relation'dan bağımsız bloklayıcı).
+    di = p["shell_sections"][0].get("inside_diameter")
+    if di:
+        for h in p["heads"]:
+            h["inside_diameter"] = di
+    return p
 
 def vertical_leg_tank(**overrides):
     # Tek destek kaydı = tüm ayak takımı (leg_count ayak); her ayak için ayrı kayıt AÇMA.
     legs = [{"support_id": "LEGS", "host_component_id": "SHELL-01", "type": "leg",
-             "location_mm": 500, "width_mm": 100, "height_mm": 600,
+             "location_mm": 500, "width_mm": 100, "height_mm": 900,
              "material_id": "M1", "leg_count": 4, "leg_diameter_mm": 114.3,
              "leg_thickness_mm": 8, "leg_pad_length_mm": 250, "leg_pad_width_mm": 180,
              "leg_pad_thickness_mm": 12, "leg_base_plate_length_mm": 250,
