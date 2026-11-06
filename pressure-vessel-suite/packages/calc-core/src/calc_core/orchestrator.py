@@ -23,6 +23,7 @@ from calc_core.hydrostatics import (
 from calc_core.result import CalculationResult
 from calc_core.load_engine import aggregate_load_case, combine_load_cases, governing_state
 from domain.enums import CalculationStatus
+from domain.geometry_checks import geometry_blockers
 from domain.project import VesselProject
 
 
@@ -129,6 +130,13 @@ class CalculationOrchestrator:
             code=self.design_code.code_name,
             edition=self.design_code.code_edition,
         )
+
+        # A0) Geçersiz geometri hesaba girmez (UI bloklayıcı kurallarıyla aynı).
+        blockers = geometry_blockers(project)
+        if blockers:
+            for issue in blockers:
+                result.add_error(f"GEOMETRY_INVALID {issue}")
+            return result
 
         # A) Ön kontroller
         self._pre_checks(project, result)

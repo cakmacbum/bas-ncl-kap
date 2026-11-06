@@ -114,8 +114,8 @@ def test_tutarsiz_dizi_hesabi_cokertmez_kot_uydurulmaz():
         ComponentReference(component_type="shell", component_id="YOK-99")
     ]
     project = project.model_copy(update={"component_sequence": bad})
-    base = _base()
-    m = _mawp(project)  # KeyError fırlatmamalı
-    for cid in ("HB", "S1", "HT"):
-        assert m[cid].final_result == pytest.approx(base[cid], rel=1e-12)
-        assert m[cid].reference_elevation_mm == 0.0
+    # Tanımsız kimlik artık bloklayıcı geometri hatasıdır (UI: sequence-missing):
+    # hesap çökmez, hiçbir MAWP satırı üretilmez, kot uydurulmaz.
+    res = CalculationOrchestrator(ASMEVIII1DesignCode(edition="2025")).run(project)
+    assert any("GEOMETRY_INVALID" in e and "YOK-99" in e for e in res.errors)
+    assert not res.results
