@@ -823,20 +823,305 @@ class EN13445DesignCode(DesignCode):
         return {"ratio": max(by_mat.values()), "by_material": by_mat, "missing": []}
 
     def calculate_nozzle(self, input_data: dict) -> CalculationResult:
-        """Nozul takviye hesabı — NOT_CALCULATED (bu aşamada)."""
+        """EN 13445-3 Madde 9 — Basınç-alan yöntemiyle tekil nozul takviyesi hesabı."""
+        from code_en_13445 import openings
+        from domain.enums import HeadType
+
         result = CalculationResult(
             component_type="nozzle",
             calculation_type="nozzle_reinforcement",
             code=self.code_name,
             edition=self.code_edition,
+            clause_reference="EN 13445-3, 9.5",
+            formula_reference=(
+                "(Af_s + Af_w)·(f_s − 0.5P) + Af_p·(f_op − 0.5P) + "
+                "Af_b·(f_ob − 0.5P) >= P·(Ap_s + Ap_b + 0.5·Ap_phi)"
+            ),
         )
+
         nozzle = input_data.get("nozzle")
-        if nozzle:
-            result.component_id = nozzle.tag
-        result.set_not_calculated(
-            "Nozzle reinforcement calculation for EN 13445 will be implemented in a future phase. "
-            "This result must not be used for fabrication."
+        if nozzle is None:
+            result.set_not_calculated("Nozzle definition missing.")
+            return result
+        result.component_id = nozzle.tag
+
+        # Host bileşeni bul (gövde, bombe veya koni)
+        shells = input_data.get("shell_sections", [])
+        heads = input_data.get("heads", [])
+        cones = input_data.get("cones", [])
+
+        # Koni kontrolü
+        for c in cones:
+            if c.cone_id == nozzle.host_component_id:
+                result.set_not_calculated(
+                    "EN 13445-3 Madde 9: Koni üzerindeki nozul takviye hesabı bu sürümde desteklenmez."
+                )
+                return result
+
+        host = None
+        host_type = None
+        for s in shells:
+            if s.section_id == nozzle.host_component_id:
+                host, host_type = s, "shell"
+                break
+        if host is None:
+            for h in heads:
+                if h.head_id == nozzle.host_component_id:
+                    host, host_type = h, "head"
+                    break
+
+        if host is None:
+            result.set_not_calculated(
+                f"Host component '{nozzle.host_component_id}' not found for nozzle {nozzle.tag}."
+            )
+            return result
+
+        # Düz kapak kontrolü
+        if host_type == "head" and host.type == HeadType.FLAT:
+            result.set_not_calculated(
+                "EN 13445-3 Madde 9: Düz kapak üzerindeki nozul takviye hesabı bu sürümde desteklenmez."
+            )
+            return result
+
+        # 9.4: Eksenel / dik (radyal) nozul kontrolü (eğik nozul kapsam dışı)
+        if nozzle.inclination_angle != 0.0:
+            result.set_out_of_scope(
+                f"EN 13445-3 Madde 9: Eğik nozul (inclination_angle={nozzle.inclination_angle:g}°) kapsam dışıdır. "
+                "Yalnızca dik (radyal) nozullar hesaplanır."
+            )
+            return result
+
+        # Malzemeleri bul
+        materials = input_data.get("materials", [])
+        host_mat = self._find_material(materials, host.material_id)
+        noz_mat = self._find_material(materials, nozzle.material_id)
+        if host_mat is None:
+            result.set_not_calculated(f"Host material '{host.material_id}' not found.")
+            return result
+        if noz_mat is None:
+            result.set_not_calculated(f"Nozzle material '{nozzle.material_id}' not found.")
+            return result
+
+        # Host analiz kalınlığı e_c ve korozyonlu iç yarıçapı R_is
+        t_s_nom = host.nominal_thickness
+        mt_s = host.mill_tolerance if hasattr(host, "mill_tolerance") and host.mill_tolerance else 0.0
+        if mt_s > 0:
+            mt_s_factor = 1.0 - mt_s / 100.0
+        else:
+            mt_s_factor = 0.90
+            result.add_assumption("K4: Gövde negatif sac toleransı girilmedi; varsayılan %10 kullanıldı.")
+
+        thinning_s = getattr(host, "forming_thinning", 0.0) or 0.0
+        c_s = host.internal_corrosion_allowance + getattr(host, "external_corrosion_allowance", 0.0)
+        e_c = t_s_nom * mt_s_factor - thinning_s - c_s
+        if e_c <= 0:
+            result.set_not_calculated(
+                f"Gövde analiz kalınlığı e_c = {e_c:.2f} mm <= 0 (korozyon ve tolerans sonrası)."
+            )
+            return result
+
+        if host_type == "shell":
+            d_inner = host.inside_diameter if host.inside_diameter else (host.outside_diameter - 2.0 * host.nominal_thickness)
+            D_is = d_inner + 2.0 * host.internal_corrosion_allowance
+            R_is = D_is / 2.0
+        else:
+            if host.type == HeadType.HEMISPHERICAL:
+                D_is = host.inside_diameter + 2.0 * host.internal_corrosion_allowance
+                R_is = D_is / 2.0
+            elif host.type == HeadType.ELLIPTICAL:
+                ell = _ellipsoidal_radii_en(host, host.inside_diameter + 2.0 * host.internal_corrosion_allowance, result)
+                if ell is None:
+                    return result
+                _, Rc, _ = ell
+                R_is = Rc
+                D_is = 2.0 * R_is
+            elif host.type == HeadType.TORISPHERICAL:
+                radii = _torispherical_radii_en(
+                    host,
+                    host.inside_diameter + 2.0 * host.internal_corrosion_allowance,
+                    host.internal_corrosion_allowance,
+                    result,
+                )
+                if radii is None:
+                    return result
+                Rc, _ = radii
+                R_is = Rc
+                D_is = 2.0 * R_is
+            else:
+                result.set_not_calculated(f"Desteklenmeyen bombe tipi: {host.type}")
+                return result
+
+        # Nozul analiz kalınlığı e_b ve korozyonlu çapları
+        t_b_nom = nozzle.neck_thickness
+        c_b = nozzle.corrosion_allowance or 0.0
+        e_b = t_b_nom - c_b
+        if e_b <= 0:
+            result.set_not_calculated(
+                f"Nozul analiz kalınlığı e_b = {e_b:.2f} mm <= 0 (korozyon sonrası)."
+            )
+            return result
+
+        d_eb = nozzle.outside_diameter
+        if nozzle.inside_diameter:
+            d_ib = nozzle.inside_diameter + 2.0 * c_b
+        else:
+            d_ib = d_eb - 2.0 * e_b
+        a = d_ib / 2.0
+
+        # EN 13445-3 Madde 9.4 uygulanabilirlik sınırları kontrolleri
+        app_checks = openings.check_applicability_limits(d_ib, D_is, e_c)
+        failed_checks = []
+        for name, ok, limit, actual in app_checks:
+            result.add_validity_check(name, ok, round(limit, 4), round(actual, 4))
+            if not ok:
+                failed_checks.append(f"{name} (sınır {limit:g}, gerçek {actual:.4f})")
+        if failed_checks:
+            result.set_out_of_scope(
+                f"EN 13445-3 Madde 9.4 uygulanabilirlik sınırı aşıldı: {'; '.join(failed_checks)}. "
+                "Bu prosedür geçerli değil — DBA (Ek B/C) veya başka yöntem gerekir."
+            )
+            return result
+
+        # Takviye pedi
+        has_pad = bool(
+            nozzle.reinforcement_pad
+            and nozzle.reinforcement_pad_thickness
+            and nozzle.reinforcement_pad_thickness > 0
         )
+        e_p = float(nozzle.reinforcement_pad_thickness or 0.0) if has_pad else 0.0
+        pad_od = float(nozzle.reinforcement_pad_od or 0.0) if has_pad else 0.0
+        w_p = max(0.0, (pad_od - d_eb) / 2.0) if (has_pad and pad_od > d_eb) else 0.0
+
+        dc = input_data["design_conditions"]
+        P = dc.design_pressure
+        f_s = host_mat.allowable_stress
+        f_b = noz_mat.allowable_stress
+        f_p = f_s if has_pad else 0.0
+
+        # Etkin boylar
+        l_so = openings.effective_shell_length(R_is, e_c)
+        l_bo = openings.effective_nozzle_length(d_eb, e_b)
+        h_bo = nozzle.outside_projection or 0.0
+        if h_bo > 0:
+            l_bo_eff = min(h_bo, l_bo)
+        else:
+            l_bo_eff = l_bo
+            result.add_assumption("K4: Nozul dış çıkıntısı h_bo girilmedi veya 0; l'_bo = l_bo varsayıldı.")
+
+        c_i = nozzle.inside_projection or 0.0
+        l_bi_eff = openings.effective_inside_projection(c_i, l_bo)
+
+        # Alanlar
+        Af_s = openings.shell_reinforcement_area(l_so, e_c)
+        Af_b = openings.nozzle_reinforcement_area(e_b, l_bo_eff, l_bi_eff, e_c)
+        Af_p = openings.pad_reinforcement_area(w_p, l_so, e_p) if has_pad else 0.0
+        Af_w = 0.0
+        result.add_assumption("K4: Af_w kaynak metali alanı 0 alındı (muhafazakâr yaklaşım).")
+
+        if host_type == "shell":
+            Ap_s = openings.shell_pressure_area_cylinder(R_is, l_so, a)
+        else:
+            Ap_s = openings.shell_pressure_area_sphere(R_is, l_so, a)
+            result.add_assumption(
+                "EN 13445-3, 9.5: Bombede Ap_s için sadeleştirilmiş küre yaklaşımı "
+                "Ap_s = 0,5 · R_is · (l_so + a) kullanıldı (R/(R+0.5ec) ≈ 1 varsayımı)."
+            )
+
+        Ap_b = openings.nozzle_pressure_area(d_ib, l_bo_eff, e_c)
+        Ap_phi = 0.0
+
+        if has_pad:
+            result.add_assumption(
+                "K4: Takviye pedi tasarım gerilmesi f_p olarak gövde malzemesi gerilmesi f_s kullanıldı."
+            )
+
+        calc = openings.check_pressure_area_reinforcement(
+            P=P,
+            f_s=f_s,
+            f_b=f_b,
+            f_p=f_p,
+            Af_s=Af_s,
+            Af_b=Af_b,
+            Af_p=Af_p,
+            Af_w=Af_w,
+            Ap_s=Ap_s,
+            Ap_b=Ap_b,
+            Ap_phi=Ap_phi,
+        )
+
+        result.input_snapshot = {
+            "P_MPa": P,
+            "host_id": host.section_id if host_type == "shell" else host.head_id,
+            "host_type": host_type,
+            "R_is_mm": R_is,
+            "e_c_mm": e_c,
+            "f_s_MPa": f_s,
+            "d_eb_mm": d_eb,
+            "d_ib_mm": d_ib,
+            "e_b_mm": e_b,
+            "f_b_MPa": f_b,
+            "has_pad": has_pad,
+            "e_p_mm": e_p,
+            "pad_od_mm": pad_od,
+            "outside_projection_mm": h_bo,
+            "inside_projection_mm": c_i,
+        }
+
+        # Ara değerler (K5)
+        result.add_intermediate("P", P, "MPa", "Design pressure")
+        result.add_intermediate("f_s", f_s, "MPa", "Shell design stress")
+        result.add_intermediate("f_b", f_b, "MPa", "Nozzle design stress")
+        result.add_intermediate("f_ob", calc["f_ob"], "MPa", "min(f_b, f_s)")
+        if has_pad:
+            result.add_intermediate("f_p", f_p, "MPa", "Pad design stress")
+            result.add_intermediate("f_op", calc["f_op"], "MPa", "min(f_p, f_s)")
+        result.add_intermediate("R_is", R_is, "mm", "Corroded shell inside radius")
+        result.add_intermediate("e_c", e_c, "mm", "Shell analysis thickness")
+        result.add_intermediate("d_eb", d_eb, "mm", "Nozzle outside diameter")
+        result.add_intermediate("d_ib", d_ib, "mm", "Nozzle corroded inside diameter")
+        result.add_intermediate("e_b", e_b, "mm", "Nozzle analysis thickness")
+        result.add_intermediate("a", a, "mm", "Opening radius d_ib / 2")
+        result.add_intermediate("l_so", l_so, "mm", "Effective shell length sqrt((2R_is + e_c)·e_c)")
+        result.add_intermediate("l_bo", l_bo, "mm", "Effective nozzle length sqrt((d_eb − e_b)·e_b)")
+        result.add_intermediate("l_bo_eff", l_bo_eff, "mm", "Effective nozzle outside length min(h_bo, l_bo)")
+        result.add_intermediate("l_bi_eff", l_bi_eff, "mm", "Effective nozzle inside length min(c_i, 0.5·l_bo)")
+        result.add_intermediate("Af_s", Af_s, "mm2", "Shell cross-sectional area l_so · e_c")
+        result.add_intermediate("Af_b", Af_b, "mm2", "Nozzle cross-sectional area e_b · (l'_bo + l'_bi + e_s)")
+        result.add_intermediate("Af_p", Af_p, "mm2", "Pad cross-sectional area l'_p · e_p")
+        result.add_intermediate("Af_w", Af_w, "mm2", "Weld cross-sectional area")
+        result.add_intermediate("Ap_s", Ap_s, "mm2", "Shell pressure loaded area")
+        result.add_intermediate("Ap_b", Ap_b, "mm2", "Nozzle pressure loaded area")
+        result.add_intermediate("Ap_phi", Ap_phi, "mm2", "Oblique pressure area (0 for radial nozzle)")
+        result.add_intermediate("capacity_phi", calc["capacity_phi"], "N", "Available reinforcement capacity (LHS)")
+        result.add_intermediate("load_psi", calc["load_psi"], "N", "Required pressure load (RHS)")
+        result.add_intermediate("utilization", calc["utilization"], "-", "Load / Capacity (Psi / Phi)")
+
+        result.final_result = calc["load_psi"]
+        result.final_result_unit = "N"
+        result.allowable_limit = calc["capacity_phi"]
+        result.allowable_limit_unit = "N"
+        result.utilization_ratio = calc["utilization"]
+
+        if calc["is_reinforced"]:
+            result.set_pass(calc["utilization"])
+        else:
+            result.set_fail(calc["utilization"])
+            result.add_warning(
+                f"EN 13445-3, 9.5: Nozul takviyesi yetersiz. Gerekli yük {calc['load_psi']:.1f} N, "
+                f"mevcut kapasite {calc['capacity_phi']:.1f} N (kullanım {calc['utilization']:.3f} > 1.0)."
+            )
+
+        self._cap_unverified(result, "EN 13445-3, 9.5")
+        self._apply_material_data_check(result, noz_mat, dc, nozzle.neck_thickness)
+
+        result.material_properties_used = {
+            "shell_material": host_mat.material_designation,
+            "shell_design_stress_f": f_s,
+            "nozzle_material": noz_mat.material_designation,
+            "nozzle_design_stress_f": f_b,
+            "source_reference": noz_mat.source_reference,
+        }
+
         return result
 
     def _unsupported_result(
