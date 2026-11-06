@@ -1477,32 +1477,355 @@ class EN13445DesignCode(DesignCode):
         )]
 
     def check_external_pressure(self, project) -> List[CalculationResult]:
-        """EN dış basınç/vakum yolu.
+        """EN 13445-3 Madde 8 — Dış basınç ve vakum kontrolü (8.5 silindir, 8.7 bombe).
 
-        EN 13445-3 dış basınç için gereken eğri/veri paketi bu sürümde yoktur;
-        hiçbir zaman ASME UG-28 değerleri kullanılmaz.
+        ASME UG-28 değerlerine/koduna ASLA fallback yapılmaz.
+        Dış basınç ve vakum tanımlı değilse boş liste döner (ASME ile aynı).
         """
-        components = [
-            *((s.section_id, "shell") for s in project.shell_sections),
-            *((h.head_id, "head") for h in project.heads),
-        ]
-        if not components:
+        dc = getattr(project, "design_conditions", None)
+        if dc is None:
+            return []
+        p_ext = getattr(dc, "external_pressure", 0.0) or 0.0
+        is_vacuum = bool(getattr(dc, "vacuum_condition", False))
+        if p_ext <= 0.0 and not is_vacuum:
+            return []
+
+        applied_P = p_ext if p_ext > 0.0 else 0.1
+
+        shells = getattr(project, "shell_sections", []) or []
+        heads = getattr(project, "heads", []) or []
+        cones = getattr(project, "cones", []) or []
+
+        if not shells and not heads and not cones:
             return [self._unsupported_result(
                 component_type="system",
                 calculation_type="external_pressure",
-                clause="EN 13445-3, Part 8",
+                clause="EN 13445-3, 8",
                 reason="No shell/head component was supplied for EN external-pressure review.",
             )]
-        return [self._unsupported_result(
-            component_id=component_id,
-            component_type=component_type,
+
+        results: List[CalculationResult] = []
+        for shell in shells:
+            results.append(self._check_shell_external_pressure(shell, project, dc, applied_P))
+
+        for head in heads:
+            results.append(self._check_head_external_pressure(head, project, dc, applied_P))
+
+        for cone in cones:
+            results.append(self._unsupported_result(
+                component_id=cone.cone_id,
+                component_type="cone",
+                calculation_type="external_pressure",
+                clause="EN 13445-3, 8.6",
+                reason=f"EN 13445-3 cone external pressure calculation is not implemented; {self._NO_ASME_FALLBACK}",
+            ))
+
+        return results
+
+    @staticmethod
+    def _get_head_depth_en(h) -> float:
+        """Bombe iç derinliği (silindir boyu hesabı için)."""
+        import math
+        from domain.enums import HeadType
+
+        if h.type == HeadType.ELLIPTICAL:
+            return h.crown_depth if h.crown_depth else (h.inside_diameter / 4.0)
+        elif h.type == HeadType.HEMISPHERICAL:
+            return h.inside_diameter / 2.0
+        elif h.type == HeadType.TORISPHERICAL:
+            if h.crown_depth:
+                return h.crown_depth
+            R0 = h.crown_radius or h.inside_diameter
+            r0 = h.knuckle_radius or (0.1 * h.inside_diameter)
+            Di = h.inside_diameter
+            diff = (R0 - r0) ** 2 - (Di / 2.0 - r0) ** 2
+            if diff >= 0:
+                return R0 - math.sqrt(diff)
+            return 0.1935 * Di
+        return 0.0
+
+    @staticmethod
+    def _get_ext_mat_props(mat, dc, result: CalculationResult):
+        """Dış basınç için E ve sigma_e (Rp0,2/T) özellikleri."""
+        if mat is None:
+            return 200000.0, None
+
+        if getattr(mat, "elastic_modulus", None) and mat.elastic_modulus > 0:
+            E = float(mat.elastic_modulus)
+        else:
+            E = 200000.0
+            result.add_warning("Elastisite modülü girilmedi; E = 200000 MPa varsayıldı.")
+            result.add_assumption("K4: Elastisite modülü girilmedi; E = 200000 MPa varsayıldı.")
+
+        sigma_e = None
+        if getattr(mat, "en_rp02_t", None) is not None and mat.en_rp02_t > 0:
+            sigma_e = float(mat.en_rp02_t)
+        elif getattr(mat, "yield_strength", None) and mat.yield_strength > 0:
+            sigma_e = float(mat.yield_strength)
+            if abs(mat.temperature - dc.design_temperature) > 1e-6:
+                result.add_warning(
+                    f"Malzeme {mat.material_id} akma dayanımı ({mat.yield_strength} MPa) "
+                    f"{mat.temperature} C beyanlı; tasarım sıcaklığı {dc.design_temperature} C."
+                )
+
+        return E, sigma_e
+
+    def _check_shell_external_pressure(self, shell, project, dc, applied_P: float) -> CalculationResult:
+        from . import external_pressure
+
+        result = CalculationResult(
+            component_id=shell.section_id,
+            component_type="shell",
             calculation_type="external_pressure",
-            clause="EN 13445-3, Part 8",
-            reason=(
-                "EN 13445 external-pressure/vacuum chart data and stiffening-ring "
-                "verification are not implemented; result is not usable for design."
-            ),
-        ) for component_id, component_type in components]
+            code=self.code_name,
+            edition=self.code_edition,
+            clause_reference="EN 13445-3, 8.5",
+            formula_reference="EN 13445-3, 8.5 (p_m: 8.5.2, p_y: 8.5.2, p_r: Şekil 8.5-5, S=1.5)",
+        )
+        mat = project.get_material(shell.material_id)
+        if mat is None:
+            result.set_not_calculated(f"Material '{shell.material_id}' not found")
+            return result
+
+        E, sigma_e = self._get_ext_mat_props(mat, dc, result)
+        if sigma_e is None:
+            result.set_blocked_missing_input(
+                "EN 13445-3, 8.5: Akma dayanımı (en_rp02_t veya yield_strength) bulunamadı."
+            )
+            return result
+
+        c = shell.internal_corrosion_allowance + shell.external_corrosion_allowance
+        try:
+            ea = external_pressure.cylinder_analysis_thickness(
+                shell.nominal_thickness, c, shell.mill_tolerance
+            )
+        except ValueError as err:
+            result.set_not_calculated(str(err))
+            return result
+
+        if ea <= 0:
+            result.set_fail(float("inf"))
+            result.add_warning(f"Analiz et kalınlığı e_a = {ea:.2f} mm <= 0.")
+            return result
+
+        if shell.inside_diameter:
+            R_corroded = shell.inside_diameter / 2.0 + shell.internal_corrosion_allowance
+            R_mean = R_corroded + ea / 2.0
+        elif shell.outside_diameter:
+            R_mean = shell.outside_diameter / 2.0 - shell.external_corrosion_allowance - ea / 2.0
+        else:
+            result.set_not_calculated("Gövde çapı (iç veya dış) girilmedi.")
+            return result
+
+        heads = getattr(project, "heads", []) or []
+        d1 = self._get_head_depth_en(heads[0]) if len(heads) >= 1 else 0.0
+        d2 = self._get_head_depth_en(heads[1]) if len(heads) >= 2 else 0.0
+        L = external_pressure.cylinder_effective_length(shell.tangent_length, d1, d2)
+        result.add_assumption(
+            f"EN 13445-3 Madde 8.5: Takviye halkası tanımlanmadığından boy L = {L:.1f} mm "
+            f"(gövde boyu {shell.tangent_length:.1f} mm + bombelerin derinliklerinin 1/3'ü: "
+            f"{d1/3.0:.1f} mm, {d2/3.0:.1f} mm) kabul edildi."
+        )
+
+        try:
+            calc = external_pressure.cylinder_external_pressure_allowable(
+                E=E, sigma_e=sigma_e, ea=ea, R=R_mean, L=L, S=1.5, nu=0.3
+            )
+        except ValueError as err:
+            result.set_not_calculated(str(err))
+            return result
+
+        result.input_snapshot = {
+            "P_ext_MPa": applied_P,
+            "E_MPa": E,
+            "sigma_e_MPa": sigma_e,
+            "nominal_thickness_mm": shell.nominal_thickness,
+            "corrosion_allowance_mm": c,
+            "mill_tolerance_pct": shell.mill_tolerance,
+            "ea_mm": ea,
+            "R_mean_mm": R_mean,
+            "L_mm": L,
+            "head_1_depth_mm": d1,
+            "head_2_depth_mm": d2,
+        }
+
+        for name, val, unit, desc in (
+            ("P_ext", applied_P, "MPa", "Applied external pressure"),
+            ("E", E, "MPa", "Modulus of elasticity"),
+            ("sigma_e", sigma_e, "MPa", "Yield limit at design temperature"),
+            ("e_a", ea, "mm", "Analysis thickness (e - c - delta_e)"),
+            ("R", R_mean, "mm", "Mean cylinder radius"),
+            ("L", L, "mm", "Effective design length"),
+            ("n", calc["n"], "-", "Governing circumferential lobes"),
+            ("p_m", calc["p_m"], "MPa", "Elastic instability pressure (8.5.2)"),
+            ("p_y", calc["p_y"], "MPa", "Circumferential yield pressure (8.5.2)"),
+            ("pm_over_py", calc["pm_over_py"], "-", "Ratio p_m / p_y"),
+            ("pr_over_py", calc["pr_over_py"], "-", "Reduction factor p_r / p_y (Fig 8.5-5)"),
+            ("p_r", calc["p_r"], "MPa", "Lower bound collapse pressure"),
+            ("S", calc["S"], "-", "Safety factor"),
+            ("p_allow", calc["p_allow"], "MPa", "Maximum allowable external pressure"),
+        ):
+            result.add_intermediate(name, val, unit, desc)
+
+        p_allow = float(calc["p_allow"])
+        utilization = applied_P / p_allow if p_allow > 0 else float("inf")
+        result.utilization_ratio = utilization
+        result.final_result = p_allow
+        result.final_result_unit = "MPa"
+        result.allowable_limit = applied_P
+        result.allowable_limit_unit = "MPa"
+
+        if applied_P <= p_allow:
+            result.set_pass(utilization)
+            self._cap_unverified(result, "EN 13445-3, 8.5")
+        else:
+            result.set_fail(utilization)
+            result.add_warning(
+                f"Uygulanan dış basınç {applied_P:.3f} MPa, izin verilen {p_allow:.3f} MPa'yı aşıyor."
+            )
+
+        self._apply_material_data_check(result, mat, dc, shell.nominal_thickness)
+        result.material_properties_used = {
+            "designation": mat.material_designation,
+            "yield_strength": mat.yield_strength,
+            "tensile_strength": mat.tensile_strength,
+            "elastic_modulus": E,
+        }
+        return result
+
+    def _check_head_external_pressure(self, head, project, dc, applied_P: float) -> CalculationResult:
+        from domain.enums import HeadType
+        from . import external_pressure
+
+        if head.type == HeadType.FLAT:
+            return self._unsupported_result(
+                component_id=head.head_id,
+                component_type="head",
+                calculation_type="external_pressure",
+                clause="EN 13445-3, 8.7",
+                reason=f"EN 13445-3 flat head under external pressure is not implemented; {self._NO_ASME_FALLBACK}",
+            )
+
+        result = CalculationResult(
+            component_id=head.head_id,
+            component_type="head",
+            calculation_type="external_pressure",
+            code=self.code_name,
+            edition=self.code_edition,
+            clause_reference="EN 13445-3, 8.7",
+            formula_reference="EN 13445-3, 8.7 (p_m: 8.7, p_y: 8.7, p_r: Şekil 8.7-1, S=1.5)",
+        )
+        mat = project.get_material(head.material_id)
+        if mat is None:
+            result.set_not_calculated(f"Material '{head.material_id}' not found")
+            return result
+
+        E, sigma_e = self._get_ext_mat_props(mat, dc, result)
+        if sigma_e is None:
+            result.set_blocked_missing_input(
+                "EN 13445-3, 8.7: Akma dayanımı (en_rp02_t veya yield_strength) bulunamadı."
+            )
+            return result
+
+        c = head.internal_corrosion_allowance + head.external_corrosion_allowance
+        try:
+            ea = external_pressure.cylinder_analysis_thickness(
+                head.nominal_thickness, c, head.mill_tolerance
+            )
+        except ValueError as err:
+            result.set_not_calculated(str(err))
+            return result
+
+        if ea <= 0:
+            result.set_fail(float("inf"))
+            result.add_warning(f"Analiz et kalınlığı e_a = {ea:.2f} mm <= 0.")
+            return result
+
+        if head.type == HeadType.HEMISPHERICAL:
+            R = head.inside_diameter / 2.0 + head.internal_corrosion_allowance
+        elif head.type == HeadType.TORISPHERICAL:
+            D = head.inside_diameter + 2.0 * head.internal_corrosion_allowance
+            radii = _torispherical_radii_en(head, D, head.internal_corrosion_allowance, result)
+            if radii is None:
+                return result
+            R, _ = radii
+        elif head.type == HeadType.ELLIPTICAL:
+            D = head.inside_diameter + 2.0 * head.internal_corrosion_allowance
+            ell = _ellipsoidal_radii_en(head, D, result)
+            if ell is None:
+                return result
+            _, Rc, _ = ell
+            R = Rc
+        else:
+            return self._unsupported_result(
+                component_id=head.head_id,
+                component_type="head",
+                calculation_type="external_pressure",
+                clause="EN 13445-3, 8.7",
+                reason=f"Unsupported head type: {head.type}; {self._NO_ASME_FALLBACK}",
+            )
+
+        try:
+            calc = external_pressure.sphere_external_pressure_allowable(
+                E=E, sigma_e=sigma_e, ea=ea, R=R, S=1.5
+            )
+        except ValueError as err:
+            result.set_not_calculated(str(err))
+            return result
+
+        result.input_snapshot = {
+            "P_ext_MPa": applied_P,
+            "E_MPa": E,
+            "sigma_e_MPa": sigma_e,
+            "nominal_thickness_mm": head.nominal_thickness,
+            "corrosion_allowance_mm": c,
+            "mill_tolerance_pct": head.mill_tolerance,
+            "ea_mm": ea,
+            "R_crown_mm": R,
+            "head_type": head.type.value,
+        }
+
+        for name, val, unit, desc in (
+            ("P_ext", applied_P, "MPa", "Applied external pressure"),
+            ("E", E, "MPa", "Modulus of elasticity"),
+            ("sigma_e", sigma_e, "MPa", "Yield limit at design temperature"),
+            ("e_a", ea, "mm", "Analysis thickness (e - c - delta_e)"),
+            ("R", R, "mm", "Crown radius"),
+            ("p_m", calc["p_m"], "MPa", "Elastic instability pressure (8.7)"),
+            ("p_y", calc["p_y"], "MPa", "Yield pressure (8.7)"),
+            ("pm_over_py", calc["pm_over_py"], "-", "Ratio p_m / p_y"),
+            ("pr_over_py", calc["pr_over_py"], "-", "Reduction factor p_r / p_y (Fig 8.7-1)"),
+            ("p_r", calc["p_r"], "MPa", "Lower bound collapse pressure"),
+            ("S", calc["S"], "-", "Safety factor"),
+            ("p_allow", calc["p_allow"], "MPa", "Maximum allowable external pressure"),
+        ):
+            result.add_intermediate(name, val, unit, desc)
+
+        p_allow = float(calc["p_allow"])
+        utilization = applied_P / p_allow if p_allow > 0 else float("inf")
+        result.utilization_ratio = utilization
+        result.final_result = p_allow
+        result.final_result_unit = "MPa"
+        result.allowable_limit = applied_P
+        result.allowable_limit_unit = "MPa"
+
+        if applied_P <= p_allow:
+            result.set_pass(utilization)
+            self._cap_unverified(result, "EN 13445-3, 8.7")
+        else:
+            result.set_fail(utilization)
+            result.add_warning(
+                f"Uygulanan dış basınç {applied_P:.3f} MPa, izin verilen {p_allow:.3f} MPa'yı aşıyor."
+            )
+
+        self._apply_material_data_check(result, mat, dc, head.nominal_thickness)
+        result.material_properties_used = {
+            "designation": mat.material_designation,
+            "yield_strength": mat.yield_strength,
+            "tensile_strength": mat.tensile_strength,
+            "elastic_modulus": E,
+        }
+        return result
 
     def check_load_combinations(self, project) -> List[CalculationResult]:
         """EN yük kombinasyonlarını sessizce yok saymak yerine işaretle."""
