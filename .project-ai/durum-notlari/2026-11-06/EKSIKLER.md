@@ -2,7 +2,7 @@
 Öncelik: 🔴 emniyet/doğruluk · 🟠 kapsam boşluğu · 🟡 iyileştirme · ⚪ Yusuf kararı/verisi
 
 ## 🔴 Emniyet / doğruluk
-- **EN elipsoidal bombe** — E06 ile main'de DÜZELDİ (2:1 örnek: 1,84 → 4,21 mm). Canlı sitede hâlâ eski hal — canlıya alma bekliyor.
+- **EN elipsoidal bombe** — E06 ile main'de DÜZELDİ (2:1 örnek: 1,84 → 4,21 mm). Canlıya alındı (2026-11-06).
 - **Kampanya 2026-10 çıktıları geçersiz** — tutarsız geometri (bombe 800 / gövde 1000, ayak 600) ile üretildi; yeniden koşulmalı.
 - **EN formülleri bellekten yazıldı** (lisanslı metin yok, hepsi verified=False → en fazla REVIEW_REQUIRED). En zayıflar:
   E02 koni küçük uç τ/β_H · E03 β polinom katsayıları, eb'deki 111 ve 0,825 · E04 pnömatik formül biçimi, çok malzemede fa/fT seçimi,
@@ -28,7 +28,7 @@
 - EN 13445-3 metni / çözülmüş örnek (yukarıdaki bellekten ifadeler için).
 - Hidrotest gerilme sınırı: σ ≤ Sy mi, 0,9·Sy mi?
 - agy için settings.json izin kuralı (açılırsa test/tarama agy'ye döner).
-- Canlıya alma onayı (E06 sonrası).
+- ~~Canlıya alma onayı (E06 sonrası)~~ — 2026-11-06 canlıya alındı.
 - `~/.orkestra-wt/BASINCLI-KAP` altında izni kilitli 4 boş klasör (yönetici PowerShell ile silinebilir).
 - Disk: 465 GB C: neredeyse dolu — ne kapladığının dökümü istenirse çıkarılır.
 

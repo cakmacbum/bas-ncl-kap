@@ -1,6 +1,6 @@
 # Kaldığımız yer — 2026-11-06
 
-## DURDURULDU (Yusuf: "dur") — çalışan ajan yok, main temiz (son: fa813f5)
+## CANLIDA (2026-11-06 gece, 870e425) — sıradaki E05
 - E05 başlatılmıştı, dosya yazmadan durduruldu → baştan başlatılacak (brief aynı).
 - Canlıya alma sorusu cevapsız kaldı (E06 elipsoidal düzeltmesi canlıda değil).
 

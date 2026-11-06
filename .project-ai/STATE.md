@@ -134,3 +134,9 @@ Plan: `.project-ai/paketler/D5-PLAN-en13445-eski-isler.md` · Kadro: `.project-a
   dikey kapta component_sequence boşsa hidrotest satırları REVIEW_REQUIRED.
 - agy headless komut iznini reddediyor (settings.json allow kuralı Yusuf'ta) → test/tarama şimdilik Claude. Codex sandbox'ında npm ağı yok → kurulum isteyen paket Claude'a.
 - SIRADAKİ: (1) 2 kırmızı testi düzelt → main yeşil → push · (2) X01'i WIP dalından tamamla · (3) Dalga B: E02 koni+düz kapak · E03 torisferik tam · E04 fa/ft/z/pnömatik (+ EN emniyet ventili etiketi) · E05 dış basınç + nozul takviyesi (hepsi Opus, sıralı) · (4) canlıya alma Yusuf onayıyla.
+
+## 2026-11-06 (gece) — main canlıda (E01–E04, E06, G01, H01, N01, X01)
+- Öncesi: pytest 1178 geçti / 1 atlandı · vitest 164/164 · build yeşil.
+- Deploy: `git archive HEAD` (870e425) temiz kopyası → `npx vercel deploy --prod` (pv-suite-app, dpl_284RKQJGPkYKWSJYie5yNPvNFwUr, Ready).
+- Canlı doğrulama: /api/health ok · dist hash canlıda eşleşti (index-KmHxBuQe.js) · EN 13445 beş bileşenli fixture yerel ve canlıda aynı sonuç (yalnız id/zaman farklı); HEAD-L "EN 13445-3, 7.5.4" ile hesaplanıyor.
+- Sıradaki: E05 (EN dış basınç Part 8 + nozul takviyesi, Opus) → kampanyayı düzeltilmiş tabanla yeniden koş → G01 sıkılaştırma.
