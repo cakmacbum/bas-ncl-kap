@@ -279,9 +279,12 @@ class TestEN13445NozzleReinforcementDesignCode:
             corrosion_allowance=2.0,
         )
         high_pressure_dc = DesignConditions(
-            design_pressure=2.5,
             operating_pressure=2.0,
+            design_pressure=2.5,
+            maximum_allowable_pressure_ps=2.5,
+            operating_temperature=150.0,
             design_temperature=200.0,
+            minimum_design_temperature=-10.0,
             corrosion_allowance_internal=2.0,
         )
 
@@ -396,7 +399,7 @@ class TestEN13445NozzleReinforcementDesignCode:
 
         assert res.code == "EN 13445"
         assert res.status == CalculationStatus.OUT_OF_SCOPE
-        assert "kapsam dışı" in res.error_message or "out of scope" in res.error_message.lower()
+        assert any("kapsam dışı" in w or "out of scope" in w.lower() for w in res.warnings)
 
     def test_applicability_limits_exceeded_out_of_scope(
         self, en_code, sample_design_conditions, sample_materials, sample_shell
@@ -427,7 +430,7 @@ class TestEN13445NozzleReinforcementDesignCode:
 
         assert res.code == "EN 13445"
         assert res.status == CalculationStatus.OUT_OF_SCOPE
-        assert "9.4" in res.error_message
+        assert any("9.4" in w for w in res.warnings)
 
     def test_unsupported_hosts_not_calculated(
         self, en_code, sample_design_conditions, sample_materials
@@ -448,6 +451,7 @@ class TestEN13445NozzleReinforcementDesignCode:
             half_apex_angle=30.0,
             length=800.0,
             nominal_thickness=12.0,
+            material_id="MAT-P355NH-SHELL",
         )
         nozzle_flat = Nozzle(
             tag="N-FLAT",
@@ -477,7 +481,7 @@ class TestEN13445NozzleReinforcementDesignCode:
             "heads": [flat_head],
         })
         assert res_flat.status == CalculationStatus.NOT_CALCULATED
-        assert "Düz kapak" in res_flat.error_message or "flat head" in res_flat.error_message.lower()
+        assert any("Düz kapak" in w or "flat head" in w.lower() for w in res_flat.warnings)
 
         # Koni
         res_cone = en_code.calculate_nozzle({
@@ -489,7 +493,7 @@ class TestEN13445NozzleReinforcementDesignCode:
             "cones": [cone],
         })
         assert res_cone.status == CalculationStatus.NOT_CALCULATED
-        assert "Koni" in res_cone.error_message or "cone" in res_cone.error_message.lower()
+        assert any("Koni" in w or "cone" in w.lower() for w in res_cone.warnings)
 
     def test_dished_head_nozzle_reinforcement(
         self, en_code, sample_design_conditions, sample_materials
