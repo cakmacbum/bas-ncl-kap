@@ -197,15 +197,19 @@ class TestEN13445Formulas:
         assert relative_tolerance(e, 1.844, 0.005), f"e={e}"
 
     def test_torispherical_head_thickness_en(self):
-        """EN 13445-3, 5.5.3 — Torisferik bombe.
+        """EN 13445-3, 7.5.3 — Torisferik bombe tam prosedürü (E03; eski W yaklaşımı kaldırıldı).
 
-        P = 1.2, D = 1000, L = 1000, r = 60, f = 163, z = 1.0
-        L/r = 16.67 → W = 0.5 × (1 + sqrt(1000/120)) = 0.5 × (1 + 2.887) = 1.943
-        e = P×L×W / (2×f×z + 0.5×P) = 1.2×1000×1.943 / (326 + 0.6)
-          = 2331.6 / 326.6 = 7.139 mm
+        P = 1.2, Di = R = 1000, r = 60 (X = 0.06), f = 163, z = 1.0, fb = 275/1.5
+        es = 1.2×1000/(326 − 0.6) = 3.6878 mm
+        ey = β0.06(ey)×1.2×950/163 → ey = 8.0602 mm, β = 1.1525 (yöneten)
+        eb = 950×[1.2/(111×183.33)×(1000/60)^0.825]^(2/3) = 6.7632 mm
+        Ayrıntılı el hesabı: test_faz4_en13445_torispherical.py
         """
-        e, W = formulas.head_torispherical_thickness(1.2, 1000.0, 60.0, 163.0, 1.0)
-        assert relative_tolerance(e, 7.139, 0.01), f"e={e}, W={W}"
+        d = formulas.head_torispherical_thickness(1.2, 1000.0, 1000.0, 60.0, 163.0, 1.0, 275.0 / 1.5)
+        assert relative_tolerance(d["es"], 3.6878, 0.001), d
+        assert relative_tolerance(d["ey"], 8.0602, 0.001), d
+        assert relative_tolerance(d["eb"], 6.7632, 0.001), d
+        assert d["governing"] == "ey"
 
     def test_mawp_shell_en(self):
         """MAWP — silindirik gövde (EN 13445).

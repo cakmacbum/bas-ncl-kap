@@ -20,44 +20,75 @@ from calc_core.result import CalculationResult
 from code_en_13445 import formulas
 from domain.enums import CalculationStatus
 
-# EN 13445'te yaygın torisferik bombe (Korbbogen / DIN 28011) için büküm yarıçapı
-# oranı. ASME F&D'nin %6'sından farklıdır — bu yüzden ASME'deki sabit BURAYA
-# kopyalanmaz. Değerin kendisi bağımsız olarak doğrulanmadı; yalnızca varsayım
-# olarak kaydedilir. Bkz. docs/limitations.md B-09.
-EN_KNUCKLE_RATIO = 0.10
+TORI_CLAUSE = "EN 13445-3, 7.5.3"
 
 
-def _torispherical_radii_en(head, D: float, result: CalculationResult) -> tuple[float, float]:
-    """EN torisferik bombe için taç (L) ve büküm (r) yarıçapları.
+def _torispherical_radii_en(head, Di: float, C: float, result: CalculationResult):
+    """E03: EN torisferik bombe için korozyonlu taç (R) ve büküm (r) iç yarıçapları.
 
-    Kullanıcı vermezse varsayılan kullanılır — ama **sessizce değil**. ASME
-    tarafında aynı sessiz varsayılan %13'lük emniyetsiz bir sapmaya yol açmıştı
-    (V-12); aynı desen burada tekrarlanmasın diye varsayım kayda geçer (K4).
+    B-09 kaldırıldı: büküm yarıçapı artık varsayılmaz (eski r = 0,10·D Korbbogen
+    varsayımı yok). r girilmezse hesap BLOCKED_MISSING_INPUT olur ve None döner.
+    Taç yarıçapı girilmezse R = Di (7.5.3.1 R ≤ De sınırına yakın, ey/eb'yi
+    büyüten muhafazakâr seçim) varsayımı kayda geçer (K4).
+    İç korozyon iç yüzeyden metal yer → R ve r, C kadar büyür (V-16).
     """
-    if getattr(head, "torispherical_geometry", "standard_asme_fd") == "custom":
-        if not head.crown_radius or not head.knuckle_radius:
-            raise ValueError("Özel torisferik geometri için crown_radius ve knuckle_radius zorunludur")
-        return head.crown_radius, head.knuckle_radius
-    L = head.crown_radius if head.crown_radius else D
-    if not head.crown_radius:
-        result.add_assumption(
-            f"K4: Taç yarıçapı girilmedi; L = D = {L:.1f} mm varsayıldı."
-        )
-
-    r = head.knuckle_radius if head.knuckle_radius else EN_KNUCKLE_RATIO * D
     if not head.knuckle_radius:
+        result.set_blocked_missing_input(
+            f"{TORI_CLAUSE}: büküm yarıçapı (knuckle_radius) girilmedi. EN tam prosedürü "
+            "(β, ey, eb, uygulanabilirlik) r'ye doğrudan bağlıdır; varsayılan atanmaz "
+            "(eski B-09 r = 0,10·D varsayımı kaldırıldı). İmalat çiziminden girin."
+        )
+        return None
+    if head.crown_radius:
+        R0 = head.crown_radius
+    else:
+        R0 = head.inside_diameter
         result.add_assumption(
-            f"K4: Büküm yarıçapı girilmedi; Korbbogen (DIN 28011) tipi varsayılarak "
-            f"r = 0.10 D = {r:.1f} mm alındı. Bombenin gerçek bükümü farklıysa "
-            f"gerekli kalınlık değişir."
+            f"K4: Taç yarıçapı girilmedi; R = Di = {R0:.1f} mm varsayıldı (muhafazakâr)."
         )
-        result.add_warning(
-            "Büküm yarıçapı imalat çiziminden girilmelidir — varsayılan %10 "
-            "(Korbbogen) kullanıldı. Bu değer gerekli kalınlığı doğrudan etkiler "
-            "ve bağımsız olarak doğrulanmamıştır (limitations.md B-09)."
-        )
+    return R0 + C, head.knuckle_radius + C
 
-    return L, r
+
+def _tori_outside_diameter(head, nominal: float) -> float:
+    return head.outside_diameter if head.outside_diameter else head.inside_diameter + 2.0 * nominal
+
+
+def _tori_fb(mat, result: CalculationResult) -> float:
+    fb = formulas.torispherical_fb(mat.yield_strength)
+    result.add_assumption(
+        f"{TORI_CLAUSE}.2: fb = Rp0,2/T / 1,5 = {mat.yield_strength:g}/1,5 = {fb:.2f} MPa; "
+        f"Rp0,2/T olarak malzemenin yield_strength değeri ({mat.temperature:g} °C beyanlı) alındı. "
+        "Soğuk sıvanmış dikişsiz östenitik bombe için izin verilen 1,6 katı UYGULANMADI (muhafazakâr)."
+    )
+    return fb
+
+
+_TORI_GEOMETRY_CHECKS = ("7.5.3.1 r <= 0.2·Di", "7.5.3.1 r >= 0.06·Di", "7.5.3.1 R <= De")
+
+
+def _tori_geometry_out_of_scope(result: CalculationResult, Di, De, R, r) -> bool:
+    """Kalınlıktan bağımsız 7.5.3.1 sınırları (β yalnız 0,06 ≤ r/Di ≤ 0,2 için tanımlı).
+
+    Aşılırsa prosedür hiç koşturulmaz: sonuç OUT_OF_SCOPE (sessiz hesap yok).
+    """
+    checks = [c for c in formulas.torispherical_applicability(Di, De, R, r, 0.0)
+              if c[0] in _TORI_GEOMETRY_CHECKS]
+    failed = _tori_apply_checks(result, checks)
+    if failed:
+        result.set_out_of_scope(
+            f"{TORI_CLAUSE}.1 uygulanabilirlik sınırı aşıldı: " + "; ".join(failed)
+            + ". Bu prosedür geçerli değil — DBA (Ek B/C) veya başka yöntem gerekir."
+        )
+    return bool(failed)
+
+
+def _tori_apply_checks(result: CalculationResult, checks) -> list[str]:
+    failed = []
+    for name, ok, limit, actual in checks:
+        result.add_validity_check(name, ok, round(limit, 4), round(actual, 4))
+        if not ok:
+            failed.append(f"{name} (sınır {limit:.3f}, gerçek {actual:.3f})")
+    return failed
 
 
 class EN13445DesignCode(DesignCode):
@@ -65,7 +96,8 @@ class EN13445DesignCode(DesignCode):
 
     Uygulanan maddeler:
     - EN 13445-3, 5.4.2: Silindirik gövde, iç basınç
-    - EN 13445-3, 5.5.2-5.5.4: Bombeler (ellipsoidal, torispherical, hemispherical)
+    - EN 13445-3, 5.5.2/5.5.4: Bombeler (ellipsoidal, hemispherical)
+    - EN 13445-3, 7.5.3: Torisferik bombe tam prosedürü (es/ey/eb, β) — verified=False
     - EN 13445-5, 10.2: PED test basıncı
     """
 
@@ -269,6 +301,8 @@ class EN13445DesignCode(DesignCode):
         from domain.enums import HeadType
 
         flat_review = False
+        tori_review = False
+        tori_failed: list[str] = []
         result = CalculationResult(
             component_id=head.head_id,
             component_type="head",
@@ -325,14 +359,41 @@ class EN13445DesignCode(DesignCode):
                 result.add_intermediate("e_required", e, "mm", "Required thickness")
 
             elif head.type == HeadType.TORISPHERICAL:
-                result.clause_reference = "EN 13445-3, 5.5.3"
-                result.formula_reference = "5.5.3-1"
-                L, r = _torispherical_radii_en(head, D, result)
-                e, W = formulas.head_torispherical_thickness(P, L, r, f, z)
-                result.add_intermediate("L", L, "mm", "Crown radius")
-                result.add_intermediate("r", r, "mm", "Knuckle radius")
-                result.add_intermediate("W_factor", W, "-", "Shape factor W")
-                result.add_intermediate("e_required", e, "mm", "Required thickness")
+                result.clause_reference = TORI_CLAUSE
+                result.formula_reference = "7.5-1/7.5-2/7.5-3, β: 7.5.3.5"
+                radii = _torispherical_radii_en(head, D, C, result)
+                if radii is None:
+                    return result
+                Rc, rc = radii
+                De = _tori_outside_diameter(head, head.nominal_thickness)
+                if _tori_geometry_out_of_scope(result, D, De, Rc, rc):
+                    return result
+                fb = _tori_fb(mat, result)
+                tori = formulas.head_torispherical_thickness(P, D, Rc, rc, f, z, fb)
+                e = tori["e"]
+                tori_review = True
+                mt = 1.0 - head.mill_tolerance / 100.0 if head.mill_tolerance > 0 else 0.90
+                ea = head.nominal_thickness * mt - C - head.forming_thinning
+                result.add_intermediate("Di", D, "mm", "Corroded inside diameter")
+                result.add_intermediate("De", De, "mm", "Outside diameter")
+                result.add_intermediate("R", Rc, "mm", "Corroded inside crown radius")
+                result.add_intermediate("r", rc, "mm", "Corroded inside knuckle radius")
+                result.add_intermediate("fb", fb, "MPa", "Buckling design stress (7.5.3.2)")
+                result.add_intermediate("beta", tori["beta"], "-", "β at e = ey (7.5.3.5)")
+                result.add_intermediate("es", tori["es"], "mm", "Crown thickness (7.5-1)")
+                result.add_intermediate("ey", tori["ey"], "mm", "Knuckle yield thickness (7.5-2)")
+                result.add_intermediate("eb", tori["eb"], "mm", "Knuckle buckling thickness (7.5-3)")
+                result.add_intermediate("governing", tori["governing"], "-", "Governing equation")
+                result.add_intermediate("e_required", e, "mm", "Required thickness max(es, ey, eb)")
+                tori_failed = _tori_apply_checks(
+                    result, [c for c in formulas.torispherical_applicability(D, De, Rc, rc, e, ea)
+                             if c[0] not in _TORI_GEOMETRY_CHECKS]
+                )
+                result.add_assumption(
+                    "EN 13445-3, 7.5.3 tam prosedürü (es/ey/eb, β denklem biçimi 7.5.3.5) bellekten "
+                    "uygulandı; lisanslı metinle doğrulanmadı (verified=False). z yalnız taç (es) "
+                    "denkleminde; bombe tek kalınlık kabul edildi (taç/büküm ayrı kalınlık yok)."
+                )
 
             elif head.type == HeadType.HEMISPHERICAL:
                 result.clause_reference = "EN 13445-3, 5.5.4"
@@ -414,6 +475,13 @@ class EN13445DesignCode(DesignCode):
             )
         if flat_review:
             self._cap_unverified(result, "EN 13445-3, 10")
+        if tori_review:
+            self._cap_unverified(result, TORI_CLAUSE)
+            if tori_failed:
+                result.set_out_of_scope(
+                    f"{TORI_CLAUSE}.1 uygulanabilirlik sınırı aşıldı: " + "; ".join(tori_failed)
+                    + ". Bu prosedür geçerli değil — DBA (Ek B/C) veya başka yöntem gerekir."
+                )
         self._apply_material_data_check(result, mat, dc, head.nominal_thickness)
 
         result.material_properties_used = {
@@ -450,6 +518,8 @@ class EN13445DesignCode(DesignCode):
         welds = input_data.get("welds", [])
         t_actual = input_data.get("nominal_thickness", component.nominal_thickness)
         flat_review = False
+        tori_review = False
+        tori_failed: list[str] = []
 
         result = CalculationResult(
             component_id=component.section_id if hasattr(component, 'section_id') else component.head_id,
@@ -517,9 +587,33 @@ class EN13445DesignCode(DesignCode):
                     result.clause_reference = "EN 13445-3, 5.5.2"
                     mawp = formulas.mawp_from_head("elliptical", D, t_actual, f, z, C=C)
                 elif head.type == HeadType.TORISPHERICAL:
-                    result.clause_reference = "EN 13445-3, 5.5.3"
-                    L, r = _torispherical_radii_en(head, D, result)
-                    mawp = formulas.mawp_from_head("torispherical", D, t_actual, f, z, L, r, C)
+                    result.clause_reference = TORI_CLAUSE
+                    result.formula_reference = "7.5.3.4 Ps/Py/Pb (inverse by bisection)"
+                    radii = _torispherical_radii_en(head, D, C, result)
+                    if radii is None:
+                        return result
+                    Rc, rc = radii
+                    De = _tori_outside_diameter(head, t_actual)
+                    if _tori_geometry_out_of_scope(result, D, De, Rc, rc):
+                        return result
+                    fb = _tori_fb(mat, result)
+                    ea = t_actual - C
+                    tm = formulas.torispherical_max_pressure(D, Rc, rc, ea, f, z, fb)
+                    mawp = tm["P_bisect"]
+                    tori_review = True
+                    result.add_intermediate("R", Rc, "mm", "Corroded inside crown radius")
+                    result.add_intermediate("r", rc, "mm", "Corroded inside knuckle radius")
+                    result.add_intermediate("ea", ea, "mm", "Analysis thickness")
+                    result.add_intermediate("fb", fb, "MPa", "Buckling design stress (7.5.3.2)")
+                    result.add_intermediate("beta", tm["beta"], "-", "β at e = ea (7.5.3.5)")
+                    result.add_intermediate("Ps", tm["Ps"], "MPa", "Crown limit")
+                    result.add_intermediate("Py", tm["Py"], "MPa", "Knuckle yield limit")
+                    result.add_intermediate("Pb", tm["Pb"], "MPa", "Knuckle buckling limit")
+                    result.add_intermediate("governing", tm["governing"], "-", "Governing limit")
+                    tori_failed = _tori_apply_checks(
+                        result, [c for c in formulas.torispherical_applicability(D, De, Rc, rc, ea, ea)
+                                 if c[0] not in _TORI_GEOMETRY_CHECKS]
+                    )
                 elif head.type == HeadType.HEMISPHERICAL:
                     result.clause_reference = "EN 13445-3, 5.5.4"
                     mawp = formulas.mawp_from_head("hemispherical", D, t_actual, f, z, C=C)
@@ -558,6 +652,13 @@ class EN13445DesignCode(DesignCode):
         result.set_pass()
         if flat_review:
             self._cap_unverified(result, "EN 13445-3, 10")
+        if tori_review:
+            self._cap_unverified(result, TORI_CLAUSE)
+            if tori_failed:
+                result.set_out_of_scope(
+                    f"{TORI_CLAUSE}.1 uygulanabilirlik sınırı aşıldı: " + "; ".join(tori_failed)
+                    + ". MAWP bu prosedürle geçerli değil."
+                )
         self._apply_material_data_check(result, mat, dc, t_actual)
         result.material_properties_used = {
             "designation": mat.material_designation,

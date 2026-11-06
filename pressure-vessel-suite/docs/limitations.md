@@ -149,7 +149,7 @@ Dört sapma bulunup düzeltildi (V-16…V-19). Aşağıdaki B-09…B-13 kalemler
 tespit edildi; **Faz 3'te (2026-07-26) beşi de ele alındı** — üstü çizili olanlar kapatıldı,
 B-09'da yalnız varsayımın kaydı sağlandı, değerin doğrulaması hâlâ açık:
 
-- ~~**B-09 — EN 13445 torisferik bombede sessiz varsayılan.**~~ **Varsayım artık kayda geçiyor (2026-07-26):** `_torispherical_radii_en` `add_assumption` + `add_warning` yazıyor. **Değerin kendisi (`r = 0.10 D`, Korbbogen/DIN 28011) hâlâ doğrulanmadı** — kapatmak için yayınlanmış bir EN 13445 vakası gerekir. Eski açıklama: ASME tarafında V-12'de
+- ~~**B-09 — EN 13445 torisferik bombede sessiz varsayılan.**~~ **Kapatıldı (2026-11-06, E03):** varsayılan r kaldırıldı — `knuckle_radius` girilmezse EN torisferik kalınlık/MAWP `BLOCKED_MISSING_INPUT`; basitleştirilmiş W formülü yerine EN 13445-3 7.5.3 tam prosedürü (es/ey/eb, β 7.5.3.5, 7.5.3.1 sınırları → OUT_OF_SCOPE) bellekten uygulandı, `verified=False` (PASS en fazla REVIEW_REQUIRED). Önceki durum — **Varsayım kayda geçiyordu (2026-07-26):** `_torispherical_radii_en` `add_assumption` + `add_warning` yazıyor. **Değerin kendisi (`r = 0.10 D`, Korbbogen/DIN 28011) hâlâ doğrulanmadı** — kapatmak için yayınlanmış bir EN 13445 vakası gerekir. Eski açıklama: ASME tarafında V-12'de
   düzeltilen desen (`r = D/10` sessizce varsayılıyor) EN paketinde duruyor. EN'in Korbbogen
   (DIN 28011) standardında `r = 0.1D` **doğru** olabilir — ama doğrulanmadı ve her hâlükârda
   varsayımın kayda geçmesi gerekir (K4). Kapatmak için yayınlanmış bir EN 13445 vakası şart.

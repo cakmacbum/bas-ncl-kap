@@ -137,57 +137,150 @@ def head_elliptical_thickness(
     return e, 1.0  # shape_factor = 1.0 for 2:1 elliptical
 
 
-# ── EN 13445-3, 5.5.3: Torisferik bombe ──────────────────────────────────────
+# ── E03: EN 13445-3, 7.5.3 — Torisferik bombe (tam prosedür) ───────────────
+# verified=False: lisanslı EN 13445-3 metniyle satır satır doğrulanmadı; denklem
+# biçimleri ve 7.5.3.5 β polinom katsayıları bellekten yazıldı (K6: metin gömülmez,
+# yalnız madde atfı). Eski "basitleştirilmiş W faktörü" yaklaşımı kaldırıldı (S01).
+# Semboller: Di iç çap, De dış çap, R taç iç yarıçapı, r büküm iç yarıçapı,
+# e gerekli kalınlık, ea analiz kalınlığı, fb burkulma tasarım gerilmesi.
+
+def torispherical_applicability(
+    Di: float, De: float, R: float, r: float, e: float, ea: float | None = None,
+) -> list[tuple[str, bool, float, float]]:
+    """EN 13445-3, 7.5.3.1 — uygulanabilirlik koşulları.
+
+    r ≤ 0,2·Di ; r ≥ 0,06·Di ; r ≥ 2·e ; e ≤ 0,08·De ; ea ≥ 0,001·De ; R ≤ De.
+    Dönüş: (ad, geçti_mi, sınır, gerçek) listesi.
+    """
+    checks = [
+        ("7.5.3.1 r <= 0.2·Di", r <= 0.2 * Di, 0.2 * Di, r),
+        ("7.5.3.1 r >= 0.06·Di", r >= 0.06 * Di, 0.06 * Di, r),
+        ("7.5.3.1 r >= 2·e", r >= 2.0 * e, 2.0 * e, r),
+        ("7.5.3.1 e <= 0.08·De", e <= 0.08 * De, 0.08 * De, e),
+        ("7.5.3.1 R <= De", R <= De, De, R),
+    ]
+    if ea is not None:
+        checks.insert(4, ("7.5.3.1 ea >= 0.001·De", ea >= 0.001 * De, 0.001 * De, ea))
+    return checks
+
+
+def torispherical_fb(rp02_t: float, cold_spun_austenitic: bool = False) -> float:
+    """EN 13445-3, 7.5.3.2 — burkulma kontrolü tasarım gerilmesi fb.
+
+    fb = Rp0,2/T / 1,5 ; soğuk sıvanmış dikişsiz östenitik bombe: fb = 1,6·Rp0,2/T / 1,5.
+    """
+    if rp02_t <= 0:
+        raise ValueError("EN 13445-3, 7.5.3.2: Rp0,2/T pozitif olmalı")
+    fb = rp02_t / 1.5
+    return 1.6 * fb if cold_spun_austenitic else fb
+
+
+def torispherical_beta(e: float, R: float, r: float, Di: float) -> float:
+    """EN 13445-3, 7.5.3.5 — β katsayısı (Şekil 7.5-1 grafiğinin denklem biçimi).
+
+    Y = min(e/R ; 0,04) ; Z = log10(1/Y) ; X = r/Di ; N = 1,006 − 1/(6,2 + (90·Y)⁴)
+    β0,06 = N·(−0,3635·Z³ + 2,2124·Z² − 3,2937·Z + 1,8873)
+    β0,1  = N·(−0,1833·Z³ + 1,0383·Z² − 1,2943·Z + 0,837)
+    β0,2  = max(0,95·(0,56 − 1,94·Y − 82,5·Y²) ; 0,5)
+    0,06 < X < 0,1 : β = 25·[(0,1 − X)·β0,06 + (X − 0,06)·β0,1]
+    0,1  < X < 0,2 : β = 10·[(0,2 − X)·β0,1 + (X − 0,1)·β0,2]
+    """
+    if e <= 0 or R <= 0 or Di <= 0:
+        raise ValueError("EN 13445-3, 7.5.3.5: e, R, Di pozitif olmalı")
+    X = r / Di
+    if X < 0.06 - 1e-12 or X > 0.2 + 1e-12:
+        raise ValueError(f"EN 13445-3, 7.5.3.5: r/Di = {X:.4f} 0,06–0,2 aralığı dışında")
+    Y = min(e / R, 0.04)
+    Z = math.log10(1.0 / Y)
+    N = 1.006 - 1.0 / (6.2 + (90.0 * Y) ** 4)
+    b006 = N * (-0.3635 * Z ** 3 + 2.2124 * Z ** 2 - 3.2937 * Z + 1.8873)
+    b01 = N * (-0.1833 * Z ** 3 + 1.0383 * Z ** 2 - 1.2943 * Z + 0.837)
+    b02 = max(0.95 * (0.56 - 1.94 * Y - 82.5 * Y ** 2), 0.5)
+    if X <= 0.1:
+        return 25.0 * ((0.1 - X) * b006 + (X - 0.06) * b01)
+    return 10.0 * ((0.2 - X) * b01 + (X - 0.1) * b02)
+
+
+def _knuckle_lever(R: float, Di: float) -> float:
+    """0,75·R + 0,2·Di (7.5.3.2 ey/eb denklemlerindeki ortak uzunluk)."""
+    return 0.75 * R + 0.2 * Di
+
 
 def head_torispherical_thickness(
-    P: float,
-    L: float,
-    r: float,
-    f: float,
-    z: float,
-) -> Tuple[float, float]:
-    """EN 13445-3, 5.5.3 — Torisferik bombe et kalınlığı (Korbbogen tipi).
+    P: float, Di: float, R: float, r: float, f: float, z: float, fb: float,
+) -> dict:
+    """EN 13445-3, 7.5.3.2 — torisferik bombe gerekli kalınlığı e = max(es, ey, eb).
 
-    Q = (L/r) × (D/L - 0.5) × (D/L - 0.5) ... (karmaşık formül)
-
-    Basitleştirilmiş yaklaşım (EN 13445-3, Tablo 5.5.3):
-        e = P × L × W / (2 × f × z + 0.5 × P)
-
-    Burada:
-    W = şekil faktörü (L/r oranına bağlı)
-
-    Args:
-        P: Tasarım basıncı (MPa).
-        D: İç çap (mm).
-        L: Taç yarıçapı (mm).
-        r: Büküm yarıçapı (mm).
-        f: Tasarım gerilmesi (MPa).
-        z: Birimleştirme katsayısı.
-
-    Returns:
-        (e_required, W_factor)
-
-    Referans: EN 13445-3, 5.5.3
+    es = P·R / (2·f·z − 0,5·P)                               (taç, 7.5-1)
+    ey = β·P·(0,75·R + 0,2·Di) / f                            (büküm akma, 7.5-2)
+    eb = (0,75·R + 0,2·Di)·[P/(111·fb)·(Di/r)^0,825]^(1/1,5)  (büküm burkulma, 7.5-3)
+    β, e'ye bağlıdır (7.5.3.5) → ey = β(ey)·P·k/f kökü ikiye bölme ile bulunur
+    (sol taraf artan, β(e) azalan → tek kök). z yalnız taç denkleminde.
     """
-    if r <= 0:
-        raise ValueError("Büküm yarıçapı (r) sıfırdan büyük olmalı")
-    if L <= 0:
-        raise ValueError("Taç yarıçapı (L) sıfırdan büyük olmalı")
+    if P <= 0 or f <= 0 or fb <= 0 or z <= 0:
+        raise ValueError("EN 13445-3, 7.5.3: P, f, fb, z pozitif olmalı")
+    if r <= 0 or R <= 0 or Di <= 0:
+        raise ValueError("EN 13445-3, 7.5.3: R, r, Di pozitif olmalı")
+    denom = 2.0 * f * z - 0.5 * P
+    if denom <= 0:
+        raise ValueError(f"EN 13445-3, 7.5.3: 2·f·z − 0,5·P = {denom:.4f} ≤ 0")
+    es = P * R / denom
+    k = _knuckle_lever(R, Di)
 
-    # W faktörü — EN 13445-3, Tablo 5.5.3
-    L_r_ratio = L / r
-    if L_r_ratio <= 10:
-        W = (3 + math.sqrt(L_r_ratio)) / 4.0
-    else:
-        W = 0.5 * (1 + math.sqrt(L / (2 * r)))
+    def g(e: float) -> float:
+        return e - torispherical_beta(e, R, r, Di) * P * k / f
 
-    denominator = 2 * f * z + 0.5 * P
-    if denominator <= 0:
-        raise ValueError(f"EN 13445-3, 5.5.3: 2×f×z + 0.5×P = {denominator:.4f} ≤ 0")
+    lo, hi = 1e-9 * R, R
+    if g(hi) < 0:
+        raise ValueError("EN 13445-3, 7.5.3.2: ey taç yarıçapını aşıyor — geometri/basınç geçersiz")
+    for _ in range(200):
+        mid = 0.5 * (lo + hi)
+        if g(mid) < 0:
+            lo = mid
+        else:
+            hi = mid
+    ey = hi
+    beta = torispherical_beta(ey, R, r, Di)
+    eb = k * (P / (111.0 * fb) * (Di / r) ** 0.825) ** (1.0 / 1.5)
+    e = max(es, ey, eb)
+    governing = "es" if e == es else ("ey" if e == ey else "eb")
+    return {"es": es, "ey": ey, "eb": eb, "beta": beta, "e": e, "governing": governing, "k": k}
 
-    e = P * L * W / denominator
 
-    return e, W
+def torispherical_max_pressure(
+    Di: float, R: float, r: float, ea: float, f: float, z: float, fb: float,
+) -> dict:
+    """EN 13445-3, 7.5.3.4 — izin verilen azami basınç (kalınlık prosedürünün tersi).
+
+    Ps = 2·f·z·ea / (R + 0,5·ea)
+    Py = f·ea / (β·(0,75·R + 0,2·Di)),  β = β(ea)
+    Pb = 111·fb·(ea/(0,75·R + 0,2·Di))^1,5·(r/Di)^0,825
+    P_max = min(Ps, Py, Pb). Ayrıca aynı prosedür ikiye bölme ile tersine çözülür
+    (head_torispherical_thickness(P).e = ea) ve P_bisect döner — iki yol tutarlı olmalı.
+    """
+    if ea <= 0:
+        raise ValueError(f"Korozyon payı düşüldükten sonra kalınlık negatif: e={ea:.2f} mm")
+    k = _knuckle_lever(R, Di)
+    beta = torispherical_beta(ea, R, r, Di)
+    Ps = 2.0 * f * z * ea / (R + 0.5 * ea)
+    Py = f * ea / (beta * k)
+    Pb = 111.0 * fb * (ea / k) ** 1.5 * (r / Di) ** 0.825
+    P_max = min(Ps, Py, Pb)
+
+    lo, hi = 0.0, 4.0 * f * z  # 2·f·z − 0,5·P > 0 için P < 4·f·z
+    for _ in range(200):
+        mid = 0.5 * (lo + hi)
+        try:
+            ok = head_torispherical_thickness(mid, Di, R, r, f, z, fb)["e"] <= ea
+        except ValueError:
+            ok = False
+        if ok:
+            lo = mid
+        else:
+            hi = mid
+    governing = "Ps" if P_max == Ps else ("Py" if P_max == Py else "Pb")
+    return {"Ps": Ps, "Py": Py, "Pb": Pb, "beta": beta, "P_max": P_max,
+            "P_bisect": lo, "governing": governing, "k": k}
 
 
 # ── EN 13445-3, 5.5.4: Yarım küresel bombe ──────────────────────────────────
@@ -322,18 +415,10 @@ def mawp_from_head(
         return 4 * f * z * e / (D + e)
 
     elif head_type == "torispherical":
-        if L <= 0 or r <= 0:
-            raise ValueError("Torisferik bombe için L ve r parametreleri gerekli")
-        L_r_ratio = L / r
-        if L_r_ratio <= 10:
-            W = (3 + math.sqrt(L_r_ratio)) / 4.0
-        else:
-            W = 0.5 * (1 + math.sqrt(L / (2 * r)))
-        # P = 2 × f × z × e / (L × W - 0.5 × e)
-        denominator = L * W - 0.5 * e
-        if denominator <= 0:
-            raise ValueError("Torisferik MAWP hesabında payda ≤ 0")
-        return 2 * f * z * e / denominator
+        raise ValueError(
+            "EN 13445-3, 7.5.3: torisferik MAWP için torispherical_max_pressure() kullanılır "
+            "(fb ve Di gerekir; eski basitleştirilmiş W formülü kaldırıldı)."
+        )
 
     elif head_type == "hemispherical":
         R = D / 2.0
@@ -468,6 +553,10 @@ __all__ = [
     "shell_required_nominal_thickness",
     "head_elliptical_thickness",
     "head_torispherical_thickness",
+    "torispherical_applicability",
+    "torispherical_beta",
+    "torispherical_fb",
+    "torispherical_max_pressure",
     "head_hemispherical_thickness",
     "ped_test_pressure",
     "mawp_from_shell",
