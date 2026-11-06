@@ -24,6 +24,7 @@ export const CALC_TYPE_TR: Record<string, string> = {
   thickness: "Et kalınlığı",
   mawp: "MAWP",
   hydrotest: "Hidrostatik test",
+  hydrotest_component: "Hidrotest (bileşen)",
   nozzle_reinforcement: "Nozul takviyesi",
   weld_validation: "Kaynak doğrulama",
   clash_check: "Çakışma kontrolü",

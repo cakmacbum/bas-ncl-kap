@@ -32,5 +32,5 @@ Karar: backend yok → geometri tarayıcıda replicad+opencascade.js (Worker); R
 - 2026-10-28: D10 position.py sessiz kırpma kaldırıldı (OUT_OF_HOST ValueError; CAD uyarıya çeviriyor). pytest 341/341. AÇIK: torisferik bombe yüksekliği backend R*0.25 vs frontend headDomeHeight — sınır farklı olabilir.
 
 ## 2026-11-06 — D5 (plan: `paketler/D5-PLAN-en13445-eski-isler.md`)
-- Dalga A: E01 EN sessiz boşluklar · H01 hidrotest statik basınç (T-2.8) · N01 nozul E1 (T-2.14) · X01 Playwright e2e (T-2.12)
+- Dalga A: E01 ✓ · H01 ✓ (T-2.8) · N01 ✓ (T-2.14) · X01 Playwright e2e (T-2.12) YARIM — main 2 kırmızı test (STATE.md)
 - Dalga B: E02 koni+düz kapak · E03 torisferik tam · E04 fa/ft/z/pnömatik · E05 dış basınç + nozul takviyesi (EN)

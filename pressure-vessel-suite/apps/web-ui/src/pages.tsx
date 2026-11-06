@@ -724,6 +724,9 @@ export function GeometryPage() {
                   <NumField label="Pedi Kalınlığı" unit="mm" value={nz.reinforcement_pad_thickness ?? 0}
                     onChange={(v) => setNoz({ reinforcement_pad_thickness: v })}
                     help="Takviye pedi sac kalınlığı." />
+                  <NumField label="Açıklık Kaynak Verimi E1" step={0.05} value={nz.opening_weld_joint_efficiency ?? 0}
+                    onChange={(v) => setNoz({ opening_weld_joint_efficiency: v > 0 && v <= 1 ? v : null })}
+                    help="UG-37(a): açıklık Kategori B dışı dikişten geçiyorsa o dikişin verimi (0,05-1). 0 = boş (E1=1 varsayılır, uyarı verilir)." />
                 </div>
               );
             })()}
@@ -1349,6 +1352,7 @@ export function ResultsPage() {
           <ResultGroup title="Basınç Tahliye (UG-125–136)" rows={byType("pressure_relief")} emptyNote="Basınç tahliye sistemi tanımlanmadı." />
           <ResultGroup title="MAWP — Bileşen Bazında" rows={byType("mawp")} emptyNote="Bileşen MAWP değeri üretilmedi — kalınlık hesabı başarısızsa MAWP de üretilmez." />
           <ResultGroup title="Hidrostatik Test" rows={byType("hydrotest")} emptyNote="UG-99(b) test basıncı üretilmedi; MAWP hesaplanamadığında test basıncı da hesaplanamaz." />
+          <ResultGroup title="Hidrotest — Bileşen Bazında (P_test + ρ·g·h)" rows={byType("hydrotest_component")} emptyNote="Bileşen bazlı hidrotest üretilmedi (EN 13445'te bu sürümde uygulanmaz; ASME'de test basıncı hesaplanamadıysa üretilmez)." />
           <ResultGroup title="Pnömatik Test — UG-100" rows={byType("pneumatic_test")} emptyNote="UG-100 pnömatik test basıncı üretilmedi." />
           {/* Dış basınç üç ayrı tip üretebiliyor: normal yolda `external_pressure`,
               vakum kontrolünde `vacuum_stability`, modül yüklenemezse

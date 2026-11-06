@@ -117,3 +117,18 @@ Son doğrulama (6224e45): gerçek tıklamayla STEP indi; CadQuery 11/11 katı ge
 - V1: torisferik hamut — bağımsız kabuk çözümü (tools/verification/torispherical_shell.py) FEA ile %2–4 tutarlı; P03 analitik hamutta +%92…214 (hatalı), tacda güvensiz. P03 hamut+taç birleşim bandı artık NaN/"düşük güven — FEA kullanın" (gri). Yayımlanmış referans (A) künyeli doğrulanamadı. Rapor: docs/validation/torispherical-knuckle.md
 - main 164 web + 653 pytest yeşil
 - 2026-10-31: F4 + V1 üretimde.
+
+## 2026-11-06 — DURAKLATILDI (Yusuf: "durdur, devam edeceğiz") — D5 Dalga A
+Plan: `.project-ai/paketler/D5-PLAN-en13445-eski-isler.md` · Kadro: `.project-ai/KADRO.json` (kodlayıcı Sonnet · ağır Codex Luna · test/tarama agy Flash)
+- BİTTİ, main'de: E01 EN sessiz boşluklar (5d1dcbe) · N01 nozul E1 alanı (5b795a8) · H01 hidrotest statik basınç ρ·g·h (0baf19a, merge 81c600d) ·
+  supportParts testine 30 s zaman aşımı (e6874f7). T-2.7 kapandı (zaten vardı).
+- **AÇIK — main şu an KIRMIZI (push edilmedi):** H01 + E01 birleşince pytest tüm `tests/`: 2 test düşüyor:
+  `tests/faz4/test_faz4_en13445_gaps.py::test_asme_headings_covered_by_en` (H01 ASME'ye yeni hidrotest bileşen başlığı ekledi, EN'de karşılığı yok →
+  E01 deseniyle EN'e NOT_CALCULATED override eklenmeli) ve `tests/wiring/test_no_ghost_features.py::test_uretilen_her_tip_ya_gosteriliyor_ya_kayitli`
+  (yeni sonuç tipi arayüzde/kayıtta eksik — H01'in pages.tsx/i18n ResultGroup eklemesi ile birlikte kontrol). web 164/164 + build yeşil.
+- **X01 e2e YARIM:** Codex kodu yazdı (ork/X01, ağ yok → kuramadı); Sonnet devraldı, durduruldu. WIP: dal `worktree-agent-a23cc1cdf8fc49f61`
+  (worktree `.claude/worktrees/agent-a23cc1cdf8fc49f61`). Son durum: Playwright kuruldu, test akışında "Hesapla" butonu bulunamadı → Hesap Sonuçları sayfası akışı ayarlanıyordu.
+- Bulgular: EN projelerinde check_pressure_relief ASME UG-125 etiketiyle çalışıyor (Dalga B'ye). H01 açıkları: σ≤Sy ölçütü normatif değil (0,9·Sy Yusuf kararı), Sy sıcaklıktan bağımsız;
+  dikey kapta component_sequence boşsa hidrotest satırları REVIEW_REQUIRED.
+- agy headless komut iznini reddediyor (settings.json allow kuralı Yusuf'ta) → test/tarama şimdilik Claude. Codex sandbox'ında npm ağı yok → kurulum isteyen paket Claude'a.
+- SIRADAKİ: (1) 2 kırmızı testi düzelt → main yeşil → push · (2) X01'i WIP dalından tamamla · (3) Dalga B: E02 koni+düz kapak · E03 torisferik tam · E04 fa/ft/z/pnömatik (+ EN emniyet ventili etiketi) · E05 dış basınç + nozul takviyesi (hepsi Opus, sıralı) · (4) canlıya alma Yusuf onayıyla.

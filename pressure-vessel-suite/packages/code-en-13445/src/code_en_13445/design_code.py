@@ -424,6 +424,14 @@ class EN13445DesignCode(DesignCode):
         """
         comp_type = input_data["component_type"]
         component = input_data["component"]
+        if comp_type == "cone":
+            return self._unsupported_result(
+                component_id=component.cone_id,
+                component_type="cone",
+                calculation_type="mawp",
+                clause="EN 13445-3 (conical shells)",
+                reason=f"EN 13445 conical-shell MAWP is not implemented; {self._NO_ASME_FALLBACK}",
+            )
         dc = input_data["design_conditions"]
         materials = input_data.get("materials", [])
         welds = input_data.get("welds", [])
@@ -677,6 +685,117 @@ class EN13445DesignCode(DesignCode):
         else:
             result.set_not_calculated(reason)
         return result
+
+    # ------------------------------------------------------------------
+    # E01 — sessiz boşlukları kapat: ASME'de hesaplanıp EN'de hesaplanmayan her
+    # kontrol raporda açık NOT_CALCULATED / OUT_OF_SCOPE satırı olarak görünür.
+    # Madde numarası doğrulanmadığı için kaynak yalnızca genel "EN 13445-3" ile
+    # belirtilir (K6). ASME'ye hiçbir fallback yoktur.
+    # ------------------------------------------------------------------
+    _NO_ASME_FALLBACK = "no ASME fallback is used; independent review required."
+
+    def calculate_cone_thickness(self, input_data: dict) -> CalculationResult:
+        cone = input_data.get("cone")
+        return self._unsupported_result(
+            component_id=getattr(cone, "cone_id", ""),
+            component_type="cone",
+            calculation_type="thickness",
+            clause="EN 13445-3 (conical shells)",
+            reason=f"EN 13445 conical-shell thickness is not implemented; {self._NO_ASME_FALLBACK}",
+        )
+
+    def calculate_pneumatic_test_pressure(self, input_data: dict) -> CalculationResult:
+        return self._unsupported_result(
+            component_type="system",
+            calculation_type="pneumatic_test",
+            clause="EN 13445-5 (testing)",
+            reason=f"EN 13445 pneumatic test pressure is not implemented; {self._NO_ASME_FALLBACK}",
+        )
+
+    def check_mdmt(self, project) -> List[CalculationResult]:
+        components = [
+            *((s.section_id, "shell") for s in project.shell_sections),
+            *((h.head_id, "head") for h in project.heads),
+            *((c.cone_id, "cone") for c in project.cones),
+        ] or [("", "system")]
+        return [self._unsupported_result(
+            component_id=cid,
+            component_type=ctype,
+            calculation_type="mdmt_check",
+            clause="EN 13445-2/-3 (material toughness, minimum temperature)",
+            reason=f"EN 13445 minimum design metal temperature check is not implemented; {self._NO_ASME_FALLBACK}",
+        ) for cid, ctype in components]
+
+    def check_supports(self, project) -> List[CalculationResult]:
+        return [self._unsupported_result(
+            component_id=sup.support_id,
+            component_type="support",
+            calculation_type=f"{sup.type}_stress",
+            clause="EN 13445-3 (supports and attachments)",
+            reason=f"EN 13445 support ({sup.type}) check is not implemented; {self._NO_ASME_FALLBACK}",
+        ) for sup in (getattr(project, "supports", None) or [])]
+
+    def validate_welds(self, project) -> List[CalculationResult]:
+        return [self._unsupported_result(
+            component_id=weld.joint_id,
+            component_type="weld",
+            calculation_type="weld_validation",
+            clause="EN 13445-5 (examination) / EN 13445-4 (fabrication)",
+            reason=(
+                "EN 13445 weld validation (examination group, joint coefficient z, PWHT) is not "
+                f"implemented; the entered joint coefficient is used as-is; {self._NO_ASME_FALLBACK}"
+            ),
+        ) for weld in project.welds]
+
+    def check_nozzle_clashes(self, project) -> List[CalculationResult]:
+        results = [self._unsupported_result(
+            component_id=nozzle.tag,
+            component_type="nozzle",
+            calculation_type="clash_check",
+            clause="EN 13445-3 (openings)",
+            reason=f"EN 13445 nozzle geometry/clash and opening-limit check is not implemented; {self._NO_ASME_FALLBACK}",
+        ) for nozzle in project.nozzles]
+        results.append(self._unsupported_result(
+            component_type="system",
+            calculation_type="inspection_opening",
+            clause="EN 13445-3 (inspection openings)",
+            reason=f"EN 13445 inspection-opening check is not implemented; {self._NO_ASME_FALLBACK}",
+        ))
+        if getattr(project, "nozzle_loads", None) is not None:
+            results.append(self._unsupported_result(
+                component_type="nozzle",
+                calculation_type="nozzle_load",
+                clause="EN 13445-3 (external nozzle loads)",
+                reason=f"EN 13445 nozzle external-load check is not implemented; {self._NO_ASME_FALLBACK}",
+            ))
+        return results
+
+    def check_junctions(self, project) -> List[CalculationResult]:
+        return [self._unsupported_result(
+            component_id=j.junction_id,
+            component_type="junction",
+            calculation_type="junction_check",
+            clause="EN 13445-3 (cone-cylinder junctions)",
+            reason=f"EN 13445 cone junction check is not implemented; {self._NO_ASME_FALLBACK}",
+        ) for j in (getattr(project, "junctions", None) or [])]
+
+    def check_lifting_lugs(self, project) -> List[CalculationResult]:
+        if getattr(project, "lifting_lugs", None) is None:
+            return []
+        # ASME ile aynı alt başlıklar; her biri açık OUT_OF_SCOPE satırı.
+        return [self._unsupported_result(
+            component_id="LUG",
+            component_type="lifting_lug",
+            calculation_type=check,
+            clause="EN 13445-3 (attachments)",
+            reason=(
+                "Lifting-lug evaluation is not part of the EN 13445 route in this software; "
+                f"{self._NO_ASME_FALLBACK}"
+            ),
+            status="out_of_scope",
+        ) for check in (
+            "lug_tension", "lug_shear", "lug_bearing", "lug_weld", "lug_shell_local_shear",
+        )]
 
     def check_external_pressure(self, project) -> List[CalculationResult]:
         """EN dış basınç/vakum yolu.

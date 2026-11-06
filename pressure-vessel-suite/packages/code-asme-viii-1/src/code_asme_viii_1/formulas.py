@@ -325,6 +325,48 @@ def hydrotest_pressure_asme(
     return p_test
 
 
+HYDROTEST_WATER_DENSITY_KG_M3 = 1000.0
+HYDROTEST_GRAVITY_M_S2 = 9.81
+
+
+def hydrotest_local_pressure(
+    p_test_top: float,
+    h_mm: float,
+    water_density_kg_m3: float = HYDROTEST_WATER_DENSITY_KG_M3,
+    gravity_m_s2: float = HYDROTEST_GRAVITY_M_S2,
+) -> float:
+    """UG-99 — bileşen en alt noktasındaki test basıncı.
+
+    P_local = P_test + ρ_su · g · h   (h: su yüzeyinden bileşenin en alt noktasına, mm)
+
+    UG-99(b) test basıncı kabın tepesinde ölçülür; alt bileşenler ek olarak su kolonunu
+    görür (UG-99 statik kafa notu, UG-22 eşzamanlı statik yük). Varsayım: ρ=1000 kg/m³,
+    g=9,81 m/s² (sonuca yazılır). Dönüş MPa.
+    """
+    if h_mm < 0:
+        raise ValueError("Su kolonu yüksekliği negatif olamaz")
+    if water_density_kg_m3 < 0:
+        raise ValueError("Su yoğunluğu negatif olamaz")
+    return p_test_top + water_density_kg_m3 * gravity_m_s2 * (h_mm / 1000.0) / 1e6
+
+
+def hydrotest_membrane_stress(p_local: float, mawp_ref: float, S_ref: float) -> float:
+    """Test basıncındaki genel membran gerilmesi (mevcut MAWP formülleriyle).
+
+    σ_test = S_ref · P_local / MAWP_ref
+
+    UG-27/UG-32/UG-34 MAWP formülleri sabit kalınlıkta P'ye göre doğrusaldır: MAWP_ref,
+    gerilme S_ref'e (E ile bölünmüş eşdeğer, yani σ/E = S) ulaştığı basınçtır. Böylece aynı
+    geometri (korozyonlu, en ince teslim cidarı — muhafazakâr) için P_local'deki gerilme
+    oranla bulunur. Kaynak verimi E'ye bölünmüş eşdeğer gerilme verir (muhafazakâr).
+    """
+    if mawp_ref <= 0:
+        raise ValueError("MAWP referansı sıfırdan büyük olmalı")
+    if S_ref <= 0:
+        raise ValueError("S referansı sıfırdan büyük olmalı")
+    return S_ref * p_local / mawp_ref
+
+
 # ── MAWP hesaplama ────────────────────────────────────────────────────────────
 
 def mawp_from_shell(
@@ -683,6 +725,8 @@ __all__ = [
     "head_torispherical_thickness_full",
     "head_hemispherical_thickness",
     "hydrotest_pressure_asme",
+    "hydrotest_local_pressure",
+    "hydrotest_membrane_stress",
     "pneumatic_test_pressure",
     "cone_thickness",
     "cone_mawp",

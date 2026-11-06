@@ -85,29 +85,78 @@ def component_bottom_elevations(project: Any) -> Dict[Tuple[str, str], float]:
         return out
     if orient != "vertical" or not project.component_sequence:
         return out
+    stack = _vertical_stack(project)
+    return stack[0] if stack else {}
+
+
+def _vertical_stack(project: Any) -> Optional[Tuple[Dict[Tuple[str, str], float], float]]:
+    """Dikey zincir: (bileşen taban kotları, toplam iç yükseklik); çözülemezse None."""
     shells = {x.section_id: x for x in project.shell_sections}
     heads = {x.head_id: x for x in project.heads}
     cones = {x.cone_id: x for x in project.cones}
-    seq = project.component_sequence
     z = 0.0
     result: Dict[Tuple[str, str], float] = {}
-    for i, ref in enumerate(seq):
+    for ref in project.component_sequence:
         key = (ref.component_type, ref.component_id)
         if ref.component_type == "shell":
             length = shells[ref.component_id].tangent_length
-            result[key] = z
         elif ref.component_type == "cone":
             length = cones[ref.component_id].length
-            result[key] = z
         else:
             head = heads[ref.component_id]
             depth = _head_depth_mm(head)
             if depth is None:
-                return {}
+                return None
             length = depth + head.straight_flange_length
-            result[key] = z  # alt bombe: ucu datum; üst bombe: düz flanş başlangıcı
+        result[key] = z  # alt bombe: ucu datum; üst bombe: düz flanş başlangıcı
         z += length
-    return result
+    return result, z
 
 
-__all__ = ["static_head_pressure", "component_bottom_elevations"]
+def hydrotest_static_heads(project: Any) -> Dict[Tuple[str, str], Tuple[float, str]]:
+    """UG-99 hidrotesti için bileşen en alt noktasındaki su kolonu yüksekliği h (mm).
+
+    Kap su ile tamamen dolu, test kurulu konumda (yönelim) yapılır varsayılır.
+    - YATAY: h = gövde iç çapı (en büyük); gövde ve bombeler datumda. Koni hariç.
+    - DİKEY: h = toplam yükseklik − bileşen taban kotu (component_sequence gerekli).
+    Hesaplanamayan bileşen sözlükte YOKTUR (kot uydurulmaz). Değer: (h_mm, dayanak).
+    """
+    orient = getattr(project.orientation, "value", project.orientation)
+    out: Dict[Tuple[str, str], Tuple[float, str]] = {}
+    if orient == "horizontal":
+        diameters = []
+        for s in project.shell_sections:
+            d = s.inside_diameter
+            if not d and getattr(s, "outside_diameter", None):
+                d = s.outside_diameter - 2.0 * s.nominal_thickness
+            if d:
+                diameters.append(float(d))
+        if not diameters:
+            diameters = [float(h.inside_diameter) for h in project.heads if h.inside_diameter]
+        if not diameters:
+            return out
+        dv = max(diameters)
+        basis = f"yatay kap: h = iç çap ({dv:g} mm)"
+        for s in project.shell_sections:
+            out[("shell", s.section_id)] = (dv, basis)
+        for h in project.heads:
+            out[("head", h.head_id)] = (dv, basis)
+        return out
+    if orient != "vertical" or not project.component_sequence:
+        return out
+    try:
+        stack = _vertical_stack(project)
+    except (KeyError, TypeError, AttributeError, ValueError):
+        return out
+    if not stack:
+        return out
+    bottoms, total = stack
+    for key, z in bottoms.items():
+        out[key] = (
+            max(0.0, total - z),
+            f"dikey kap: h = toplam yükseklik ({total:g} mm) − taban kotu ({z:g} mm)",
+        )
+    return out
+
+
+__all__ = ["static_head_pressure", "component_bottom_elevations", "hydrotest_static_heads"]

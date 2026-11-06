@@ -202,6 +202,12 @@ class Nozzle(BaseModel):
     reinforcement_pad_od: Optional[float] = Field(
         default=None, gt=0, description="Takviye pedi dış çapı (mm)."
     )
+    opening_weld_joint_efficiency: Optional[float] = Field(
+        default=None, gt=0, le=1,
+        description="UG-37(a) açıklık kaynak verimi E1: açıklık Kategori B dışı "
+                    "bir dikişten geçiyorsa o dikişin verimi. Boş = dikişten "
+                    "geçmiyor (E1=1, uyarı ile).",
+    )
     rating_class: Optional[str] = Field(
         default=None,
         pattern=r"^(CL150|CL300|CL600|CL900|CL1500|CL2500|3000#|6000#)$",
