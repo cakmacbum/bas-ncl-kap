@@ -297,6 +297,7 @@ function makeHead(id: string) {
     mill_tolerance: 12.5,
     forming_thinning: 0,
     flat_attachment_factor: null,
+    en_flat_end_factor_c: null,
     ug28_strain_factor_a: null,
     ug28_allowable_stress_b: null,
   };

@@ -79,11 +79,11 @@ EXPECTED = [
     ("weld_validation", "WJ"),
     ("clash_check", "N1"),
     ("inspection_opening", None),
-    ("junction_check", "J-1"),
     ("lug_tension", "LUG"), ("lug_shell_local_shear", "LUG"),
     ("pneumatic_test", None),
-    ("thickness", "CONE-1"),
 ]
+# E02: koni kalınlığı, koni MAWP ve koni-silindir birleşimi artık gerçek hesap satırıdır
+# (verified=False -> olumlu sonuç REVIEW_REQUIRED); ayrıntılı el hesabı test_faz4_en13445_cone_flat.py.
 
 
 @pytest.mark.parametrize("calc_type,cid", EXPECTED)
@@ -122,7 +122,16 @@ def test_empty_project_collections_produce_no_phantom_rows():
     assert _rows(res, "mdmt_check") and _rows(res, "pneumatic_test")
 
 
-def test_cone_mawp_is_explicit_row(en_result):
-    rows = [r for r in _rows(en_result, "mawp") if r.component_id == "CONE-1"]
-    assert rows and rows[0].status == CalculationStatus.NOT_CALCULATED
-    assert not [e for e in en_result.errors if "MAWP" in e]
+@pytest.mark.parametrize("calc_type,cid,clause,expected", [
+    ("thickness", "CONE-1", "EN 13445-3, 7.6.4", 4.266134994 / 0.90),
+    ("mawp", "CONE-1", "EN 13445-3, 7.6.4", 3.353045509),
+    ("junction_check", "J-1", "EN 13445-3, 7.6.6", 4.578728842),
+])
+def test_cone_rows_are_calculated_and_capped(en_result, calc_type, cid, clause, expected):
+    rows = [r for r in _rows(en_result, calc_type) if r.component_id == cid]
+    assert len(rows) == 1
+    r = rows[0]
+    assert r.status == CalculationStatus.REVIEW_REQUIRED  # PASS değil: verified=False
+    assert r.clause_reference == clause
+    assert r.final_result == pytest.approx(expected, rel=1e-6)
+    assert not [e for e in en_result.errors if "Cone" in e or "MAWP" in e or "Junction" in e]

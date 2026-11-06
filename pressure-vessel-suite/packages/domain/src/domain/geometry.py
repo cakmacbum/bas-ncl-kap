@@ -124,6 +124,11 @@ class Head(BaseModel):
                     "Kullanıcı girer (K4/K6). Yalnızca düz kapak (FLAT) tipi için.",
     )
     flat_z_factor: Optional[float] = Field(default=None, gt=0, description="UG-34(c)(3) Z faktörü.")
+    en_flat_end_factor_c: Optional[float] = Field(
+        default=None, gt=0,
+        description="EN 13445-3 Madde 10 düz kapak C katsayısı (e = C·D·√(P/f)) — lisanslı grafikten "
+                    "kullanıcı okur (K6). ASME UG-34 C'si ile aynı DEĞİLDİR; birbirinin yerine kullanılmaz.",
+    )
     ug28_strain_factor_a: Optional[float] = Field(
         default=None, gt=0,
         description="UG-33 için Şekil G'den okunan A faktörü. K6: çizelge repoda tutulmaz.",

@@ -65,6 +65,8 @@ export interface Head {
   mill_tolerance: number;
   forming_thinning: number;
   flat_attachment_factor: number | null;
+  /** EN 13445-3 Md.10 düz kapak C katsayısı (UG-34 C ile aynı değil). */
+  en_flat_end_factor_c?: number | null;
   flat_z_factor?: number | null;
   ug28_strain_factor_a: number | null;
   ug28_allowable_stress_b: number | null;

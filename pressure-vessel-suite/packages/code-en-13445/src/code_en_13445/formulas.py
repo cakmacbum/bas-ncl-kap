@@ -344,6 +344,125 @@ def mawp_from_head(
         raise ValueError(f"Desteklenmeyen bombe tipi: {head_type}")
 
 
+# ── E02: EN 13445-3, 7.6 — Konik bölümler ve koni/silindir birleşimleri ─────
+# verified=False: lisanslı EN 13445-3 metniyle satır satır doğrulanmadı.
+# Grafik/tablo katsayısı İÇERMEZ; yalnız kapalı formlu denklemler.
+
+def cone_thickness_internal_pressure(P: float, Di: float, f: float, z: float, alpha_deg: float) -> float:
+    """EN 13445-3, 7.6.4 — Konik gövde iç basınç gerekli kalınlığı.
+
+    e_con = P·Di / (2·f·z − P) · 1/cos α
+
+    Di: kalınlığın arandığı noktadaki iç çap (büyük uç iç çapı en elverişsiz/
+    muhafazakâr seçimdir). α: yarı tepe açısı.
+    """
+    if not 0.0 <= alpha_deg < 90.0:
+        raise ValueError(f"EN 13445-3, 7.6: yarı tepe açısı 0 ≤ α < 90° olmalı: {alpha_deg}")
+    denom = 2.0 * f * z - P
+    if denom <= 0:
+        raise ValueError(f"EN 13445-3, 7.6.4: 2·f·z − P = {denom:.4f} ≤ 0. Basınç çok yüksek.")
+    return P * Di / denom / math.cos(math.radians(alpha_deg))
+
+
+def cone_mawp(Di: float, e: float, f: float, z: float, alpha_deg: float) -> float:
+    """7.6.4 denkleminin P için çözümü: P = 2·f·z·e·cos α / (Di + e·cos α).
+
+    e: korozyonlu (analiz) kalınlığı.
+    """
+    if e <= 0:
+        raise ValueError(f"Korozyon payı düşüldükten sonra kalınlık negatif: e={e:.2f} mm")
+    c = math.cos(math.radians(alpha_deg))
+    return 2.0 * f * z * e * c / (Di + e * c)
+
+
+def cone_large_end_beta(Dc: float, e: float, alpha_deg: float) -> float:
+    """EN 13445-3, 7.6.6 — büküm (knuckle) olmayan büyük uç birleşimi β katsayısı.
+
+    β = (1/3)·√(Dc/e)·tan α / (1 + 1/√cos α) − 0.15
+    """
+    a = math.radians(alpha_deg)
+    return (1.0 / 3.0) * math.sqrt(Dc / e) * math.tan(a) / (1.0 + 1.0 / math.sqrt(math.cos(a))) - 0.15
+
+
+def cone_large_end_required_thickness(P: float, Dc: float, f: float, alpha_deg: float) -> Tuple[float, float]:
+    """EN 13445-3, 7.6.6 — büyük uç birleşim kalınlığı e_j (sabit nokta çözümü).
+
+    e_j = P·Dc·β(e_j) / (2·f). β, e_j'ye bağlı olduğundan e = P·Dc·β(e)/(2f)
+    denkleminin kökü ikiye bölme ile bulunur (sol taraf artan, sağ taraf azalan
+    → tek kök). Dönüş: (e_j, β(e_j)). β ≤ 0 ise birleşim bu denklemle sınırlanmaz;
+    e_j = 0 döner (gövde/koni membran kalınlığı ayrıca kontrol edilir).
+    """
+    if P <= 0 or f <= 0 or Dc <= 0:
+        raise ValueError("EN 13445-3, 7.6.6: P, f, Dc pozitif olmalı")
+
+    def g(e: float) -> float:
+        return e - P * Dc * cone_large_end_beta(Dc, e, alpha_deg) / (2.0 * f)
+
+    lo, hi = 1e-9 * Dc, Dc
+    if g(hi) < 0:
+        raise ValueError("EN 13445-3, 7.6.6: birleşim kalınlığı Dc'yi aşıyor — geometri geçersiz")
+    if g(lo) >= 0:
+        return 0.0, cone_large_end_beta(Dc, lo, alpha_deg)
+    for _ in range(200):
+        mid = 0.5 * (lo + hi)
+        if g(mid) < 0:
+            lo = mid
+        else:
+            hi = mid
+    e_j = hi
+    beta = cone_large_end_beta(Dc, e_j, alpha_deg)
+    if beta <= 0:
+        return 0.0, beta
+    return e_j, beta
+
+
+def cone_small_end_beta_h(Dc: float, e1: float, e2: float, alpha_deg: float) -> Tuple[float, float, float]:
+    """EN 13445-3, 7.6.8 — küçük uç birleşimi β_H katsayısı.
+
+    s = e2/e1
+    s < 1 : τ = s·√(s/cos α) + √((1 + s²)/2)
+    s ≥ 1 : τ = 1 + √(s·(1 + s²)/(2·cos α))
+    β_H = 0.4·√(Dc/e1)·tan α / τ + 0.5
+    Dönüş: (s, τ, β_H). e1: silindir, e2: koni analiz kalınlığı.
+    """
+    if e1 <= 0 or e2 <= 0:
+        raise ValueError("EN 13445-3, 7.6.8: e1 ve e2 pozitif olmalı")
+    a = math.radians(alpha_deg)
+    c = math.cos(a)
+    s = e2 / e1
+    if s < 1.0:
+        tau = s * math.sqrt(s / c) + math.sqrt((1.0 + s * s) / 2.0)
+    else:
+        tau = 1.0 + math.sqrt(s * (1.0 + s * s) / (2.0 * c))
+    beta_h = 0.4 * math.sqrt(Dc / e1) * math.tan(a) / tau + 0.5
+    return s, tau, beta_h
+
+
+def cone_small_end_max_pressure(Dc: float, e1: float, f: float, beta_h: float) -> float:
+    """EN 13445-3, 7.6.8 — küçük uç izin verilen basınç: P_max = 2·f·e1 / (Dc·β_H)."""
+    return 2.0 * f * e1 / (Dc * beta_h)
+
+
+# ── E02: EN 13445-3, 10 — Desteksiz dairesel düz kapak (iç basınç) ──────────
+
+def flat_end_thickness(P: float, D: float, f: float, C: float) -> float:
+    """EN 13445-3, 10.4 (kaynaklı) biçimi: e = C·D·√(P/f).
+
+    C (C1/C2) katsayısı lisanslı grafikten (EN 13445-3 Şekil 10.4-x) KULLANICI
+    tarafından okunur; burada üretilmez/interpolasyon yapılmaz (K6).
+    """
+    if C <= 0 or f <= 0 or D <= 0 or P < 0:
+        raise ValueError("EN 13445-3, 10: C, f, D pozitif; P ≥ 0 olmalı")
+    return C * D * math.sqrt(P / f)
+
+
+def flat_end_mawp(D: float, e: float, f: float, C: float) -> float:
+    """flat_end_thickness'ın P için çözümü: P = f·(e/(C·D))²."""
+    if e <= 0:
+        raise ValueError(f"Korozyon payı düşüldükten sonra kalınlık negatif: e={e:.2f} mm")
+    return f * (e / (C * D)) ** 2
+
+
 __all__ = [
     "shell_thickness_internal_pressure",
     "shell_required_nominal_thickness",
@@ -353,4 +472,12 @@ __all__ = [
     "ped_test_pressure",
     "mawp_from_shell",
     "mawp_from_head",
+    "cone_thickness_internal_pressure",
+    "cone_mawp",
+    "cone_large_end_beta",
+    "cone_large_end_required_thickness",
+    "cone_small_end_beta_h",
+    "cone_small_end_max_pressure",
+    "flat_end_thickness",
+    "flat_end_mawp",
 ]

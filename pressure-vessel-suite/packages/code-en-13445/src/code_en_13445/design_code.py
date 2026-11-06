@@ -268,6 +268,7 @@ class EN13445DesignCode(DesignCode):
 
         from domain.enums import HeadType
 
+        flat_review = False
         result = CalculationResult(
             component_id=head.head_id,
             component_type="head",
@@ -341,11 +342,27 @@ class EN13445DesignCode(DesignCode):
                 result.add_intermediate("e_required", e, "mm", "Required thickness")
 
             elif head.type == HeadType.FLAT:
-                result.set_not_calculated(
-                    "Flat head calculation is not implemented. "
-                    "This result must not be used for fabrication."
+                result.clause_reference = "EN 13445-3, 10.4"
+                result.formula_reference = "e = C·D·√(P/f)"
+                C_flat = getattr(head, "en_flat_end_factor_c", None)
+                if not C_flat:
+                    result.set_blocked_code_data(
+                        "EN 13445-3, 10: düz kapak C katsayısı lisanslı grafikten okunur ve "
+                        "programda yoktur (K6). Head.en_flat_end_factor_c girilmeden hesap yapılmaz; "
+                        "ASME UG-34 C'si yerine kullanılmaz."
+                    )
+                    return result
+                e = formulas.flat_end_thickness(P, D, f, C_flat)
+                flat_review = True
+                result.add_intermediate("C_flat", C_flat, "-", "EN 13445-3 Cl.10 factor C (user-read)")
+                result.add_intermediate("D", D, "mm", "Corroded inside diameter")
+                result.add_intermediate("e_required", e, "mm", "Required thickness")
+                result.add_assumption(
+                    "EN 13445-3, 10.4 kaynaklı desteksiz dairesel düz kapak biçimi e = C·D·√(P/f) "
+                    "kullanıldı; z uygulanmadı, D = korozyonlu iç çap. Cıvatalı kapak (10.5) contadan "
+                    "gelen moment terimini içerir ve bu formül onun için yetersizdir. Formül lisanslı "
+                    "metinle doğrulanmadı (verified=False)."
                 )
-                return result
             else:
                 result.set_not_calculated(f"Unknown head type: {head.type}")
                 return result
@@ -395,6 +412,8 @@ class EN13445DesignCode(DesignCode):
                 f"Required nominal thickness {e_nominal:.2f} mm exceeds "
                 f"selected thickness {head.nominal_thickness:.2f} mm"
             )
+        if flat_review:
+            self._cap_unverified(result, "EN 13445-3, 10")
         self._apply_material_data_check(result, mat, dc, head.nominal_thickness)
 
         result.material_properties_used = {
@@ -425,17 +444,12 @@ class EN13445DesignCode(DesignCode):
         comp_type = input_data["component_type"]
         component = input_data["component"]
         if comp_type == "cone":
-            return self._unsupported_result(
-                component_id=component.cone_id,
-                component_type="cone",
-                calculation_type="mawp",
-                clause="EN 13445-3 (conical shells)",
-                reason=f"EN 13445 conical-shell MAWP is not implemented; {self._NO_ASME_FALLBACK}",
-            )
+            return self._cone_mawp(input_data)
         dc = input_data["design_conditions"]
         materials = input_data.get("materials", [])
         welds = input_data.get("welds", [])
         t_actual = input_data.get("nominal_thickness", component.nominal_thickness)
+        flat_review = False
 
         result = CalculationResult(
             component_id=component.section_id if hasattr(component, 'section_id') else component.head_id,
@@ -509,6 +523,20 @@ class EN13445DesignCode(DesignCode):
                 elif head.type == HeadType.HEMISPHERICAL:
                     result.clause_reference = "EN 13445-3, 5.5.4"
                     mawp = formulas.mawp_from_head("hemispherical", D, t_actual, f, z, C=C)
+                elif head.type == HeadType.FLAT:
+                    result.clause_reference = "EN 13445-3, 10.4"
+                    result.formula_reference = "P = f·(e/(C·D))²"
+                    C_flat = getattr(head, "en_flat_end_factor_c", None)
+                    if not C_flat:
+                        result.set_blocked_code_data(
+                            "EN 13445-3, 10: düz kapak C katsayısı girilmedi (Head.en_flat_end_factor_c); "
+                            "MAWP hesaplanmadı (K6)."
+                        )
+                        return result
+                    mawp = formulas.flat_end_mawp(D, t_actual - C, f, C_flat)
+                    flat_review = True
+                    result.add_intermediate("C_flat", C_flat, "-", "EN 13445-3 Cl.10 factor C (user-read)")
+                    result.add_intermediate("e_corroded", t_actual - C, "mm", "Corroded thickness")
                 else:
                     result.set_not_calculated(f"Unsupported head type: {head.type}")
                     return result
@@ -528,6 +556,8 @@ class EN13445DesignCode(DesignCode):
         result.final_result = mawp
         result.final_result_unit = "MPa"
         result.set_pass()
+        if flat_review:
+            self._cap_unverified(result, "EN 13445-3, 10")
         self._apply_material_data_check(result, mat, dc, t_actual)
         result.material_properties_used = {
             "designation": mat.material_designation,
@@ -695,14 +725,150 @@ class EN13445DesignCode(DesignCode):
     _NO_ASME_FALLBACK = "no ASME fallback is used; independent review required."
 
     def calculate_cone_thickness(self, input_data: dict) -> CalculationResult:
-        cone = input_data.get("cone")
-        return self._unsupported_result(
-            component_id=getattr(cone, "cone_id", ""),
+        """E02 — EN 13445-3, 7.6.4 konik gövde iç basınç kalınlığı (verified=False)."""
+        cone = input_data["cone"]
+        dc = input_data["design_conditions"]
+        result = CalculationResult(
+            component_id=cone.cone_id,
             component_type="cone",
             calculation_type="thickness",
-            clause="EN 13445-3 (conical shells)",
-            reason=f"EN 13445 conical-shell thickness is not implemented; {self._NO_ASME_FALLBACK}",
+            code=self.code_name,
+            edition=self.code_edition,
+            clause_reference="EN 13445-3, 7.6.4",
+            formula_reference="e_con = P·Di/(2fz − P)·1/cos α",
         )
+        mat = self._find_material(input_data.get("materials", []), cone.material_id)
+        if mat is None:
+            result.set_not_calculated(f"Material '{cone.material_id}' not found")
+            return result
+        z = self._joint_coefficient(input_data.get("welds", []), cone.weld_joint_id)
+        P, f, alpha = dc.design_pressure, mat.allowable_stress, cone.half_apex_angle
+        C_int, C_ext = cone.internal_corrosion_allowance, cone.external_corrosion_allowance
+        Di = cone.large_diameter + 2 * C_int  # en elverişsiz nokta: büyük uç, korozyonlu (V-16)
+        result.input_snapshot = {
+            "P_MPa": P, "Di_large_mm": cone.large_diameter, "Di_corroded_mm": Di, "f_MPa": f, "z": z,
+            "alpha_deg": alpha, "C_int_mm": C_int, "C_ext_mm": C_ext,
+            "mill_tolerance_pct": cone.mill_tolerance,
+        }
+        result.add_assumption(
+            f"K4: Design stress f={f} MPa entered manually for "
+            f"{mat.material_designation} at {dc.design_temperature}°C"
+        )
+        try:
+            e = formulas.cone_thickness_internal_pressure(P, Di, f, z, alpha)
+        except ValueError as exc:
+            result.set_not_calculated(str(exc))
+            return result
+        if cone.mill_tolerance > 0:
+            mt = 1.0 - cone.mill_tolerance / 100.0
+        else:
+            mt = 0.90
+            result.add_assumption("K4: Negatif sac toleransı girilmedi; varsayılan 10.0% kullanıldı.")
+        e_nom = formulas.shell_required_nominal_thickness(e, C_int + C_ext, mt)
+        for name, val, unit, desc in (
+            ("P", P, "MPa", "Design pressure"),
+            ("Di", Di, "mm", "Corroded inside diameter at large end"),
+            ("f", f, "MPa", "Design stress"),
+            ("z", z, "-", "Joint coefficient"),
+            ("alpha", alpha, "deg", "Half apex angle"),
+            ("e_required", e, "mm", "Required thickness (7.6.4)"),
+            ("mill_tolerance_factor", mt, "-", "Mill tolerance factor"),
+            ("e_nominal_required", e_nom, "mm", "Required nominal thickness"),
+        ):
+            result.add_intermediate(name, val, unit, desc)
+        result.add_assumption(
+            "Di olarak büyük uç iç çapı alındı (koni boyunca en büyük gerekli kalınlık). 7.6 "
+            "uygulanabilirlik sınırları ve koni uç birleşimleri bu satırda kontrol edilmez "
+            "(junction_check satırına bakın)."
+        )
+        result.final_result, result.final_result_unit = e_nom, "mm"
+        result.allowable_limit, result.allowable_limit_unit = cone.nominal_thickness, "mm"
+        u = e_nom / cone.nominal_thickness
+        if e_nom <= cone.nominal_thickness:
+            result.set_pass(u)
+            self._cap_unverified(result, "EN 13445-3, 7.6.4")
+        else:
+            result.set_fail(u)
+            result.add_warning(
+                f"Required nominal thickness {e_nom:.2f} mm exceeds "
+                f"selected thickness {cone.nominal_thickness:.2f} mm"
+            )
+        self._apply_material_data_check(result, mat, dc, cone.nominal_thickness)
+        result.material_properties_used = {
+            "designation": mat.material_designation,
+            "design_stress_f": f,
+            "source_reference": mat.source_reference,
+        }
+        return result
+
+    def _cone_mawp(self, input_data: dict) -> CalculationResult:
+        """E02 — koni MAWP: 7.6.4 denkleminin P için çözümü (verified=False)."""
+        cone = input_data["component"]
+        dc = input_data["design_conditions"]
+        t = input_data.get("nominal_thickness", cone.nominal_thickness)
+        result = CalculationResult(
+            component_id=cone.cone_id,
+            component_type="cone",
+            calculation_type="mawp",
+            code=self.code_name,
+            edition=self.code_edition,
+            clause_reference="EN 13445-3, 7.6.4",
+            formula_reference="P = 2fz·e·cos α/(Di + e·cos α)",
+        )
+        mat = self._find_material(input_data.get("materials", []), cone.material_id)
+        if mat is None:
+            result.set_not_calculated(f"Material '{cone.material_id}' not found")
+            return result
+        z = self._joint_coefficient(input_data.get("welds", []), cone.weld_joint_id)
+        f, alpha = mat.allowable_stress, cone.half_apex_angle
+        Di = cone.large_diameter + 2 * cone.internal_corrosion_allowance
+        e = t - cone.internal_corrosion_allowance - cone.external_corrosion_allowance
+        result.input_snapshot = {
+            "component_type": "cone", "e_actual_mm": t, "f_MPa": f, "z": z, "alpha_deg": alpha,
+        }
+        try:
+            mawp = formulas.cone_mawp(Di, e, f, z, alpha)
+        except ValueError as exc:
+            result.set_not_calculated(str(exc))
+            return result
+        for name, val, unit, desc in (
+            ("Di", Di, "mm", "Corroded inside diameter at large end"),
+            ("e_corroded", e, "mm", "Corroded thickness"),
+            ("alpha", alpha, "deg", "Half apex angle"),
+            ("f", f, "MPa", "Design stress"),
+            ("z", z, "-", "Joint coefficient"),
+            ("MAWP", mawp, "MPa", "Maximum Allowable Working Pressure"),
+        ):
+            result.add_intermediate(name, val, unit, desc)
+        result.add_assumption(
+            "Koni MAWP yalnız membran denklemidir; uç birleşim sınırları (7.6.6/7.6.8) bu değere katılmadı."
+        )
+        result.final_result, result.final_result_unit = mawp, "MPa"
+        result.set_pass()
+        self._cap_unverified(result, "EN 13445-3, 7.6.4")
+        self._apply_material_data_check(result, mat, dc, t)
+        return result
+
+    @staticmethod
+    def _find_material(materials, material_id):
+        return next((m for m in materials if m.material_id == material_id), None)
+
+    @staticmethod
+    def _joint_coefficient(welds, weld_id) -> float:
+        if weld_id:
+            for w in welds:
+                if w.joint_id == weld_id:
+                    return w.joint_coefficient
+        return 1.0
+
+    @staticmethod
+    def _cap_unverified(result: CalculationResult, clause: str) -> None:
+        """verified=False: doğrulanmamış formülde PASS en fazla REVIEW_REQUIRED olur."""
+        if result.status == CalculationStatus.PASS:
+            result.set_review_required(
+                f"{clause}: formül lisanslı EN 13445-3 metniyle doğrulanmadı (verified=False); "
+                "olumlu sonuç bağımsız mühendis incelemesi gerektirir."
+            )
 
     def calculate_pneumatic_test_pressure(self, input_data: dict) -> CalculationResult:
         return self._unsupported_result(
@@ -783,13 +949,124 @@ class EN13445DesignCode(DesignCode):
         return results
 
     def check_junctions(self, project) -> List[CalculationResult]:
-        return [self._unsupported_result(
+        """E02 — EN 13445-3, 7.6.6 (büyük uç) / 7.6.8 (küçük uç) bükümsüz koni-silindir birleşimi."""
+        shells = {x.section_id: x for x in project.shell_sections}
+        cones = {x.cone_id: x for x in project.cones}
+        return [
+            self._junction(j, shells, cones, project)
+            for j in (getattr(project, "junctions", None) or [])
+        ]
+
+    def _junction(self, j, shells, cones, project) -> CalculationResult:
+        end = j.cone_end
+        clause = {"large": "EN 13445-3, 7.6.6", "small": "EN 13445-3, 7.6.8"}.get(end, "EN 13445-3, 7.6")
+        result = CalculationResult(
             component_id=j.junction_id,
             component_type="junction",
             calculation_type="junction_check",
-            clause="EN 13445-3 (cone-cylinder junctions)",
-            reason=f"EN 13445 cone junction check is not implemented; {self._NO_ASME_FALLBACK}",
-        ) for j in (getattr(project, "junctions", None) or [])]
+            code=self.code_name,
+            edition=self.code_edition,
+            clause_reference=clause,
+        )
+        result.input_snapshot = j.model_dump(mode="json")
+        if j.junction_type == "shell_to_shell":
+            result.set_out_of_scope("Gövde-gövde birleşimi koni birleşimi değildir; EN 13445-3, 7.6 uygulanmaz.")
+            return result
+        if j.junction_type == "cone_to_head":
+            result.set_not_calculated(
+                "EN 13445 koni-bombe birleşimi uygulanmadı (7.6 koni-silindir içindir); "
+                f"{self._NO_ASME_FALLBACK}"
+            )
+            return result
+        ids = (j.left_component_id, j.right_component_id)
+        cone = next((cones[i] for i in ids if i in cones), None)
+        shell = next((shells[i] for i in ids if i in shells), None)
+        if cone is None or shell is None or end is None:
+            result.set_blocked_missing_input(
+                "Koni-silindir birleşimi için bir koni, bir silindirik gövde ve açık "
+                "'cone_end' (large/small) gerekir."
+            )
+            return result
+        if j.knuckle_radius_mm:
+            result.set_not_calculated(
+                "Bükümlü (knuckle) birleşim prosedürü (EN 13445-3, 7.6.7) uygulanmadı; "
+                f"{self._NO_ASME_FALLBACK}"
+            )
+            return result
+        mats = project.materials
+        m_s = self._find_material(mats, shell.material_id)
+        m_c = self._find_material(mats, cone.material_id)
+        if m_s is None or m_c is None:
+            result.set_not_calculated("Birleşimdeki gövde veya koni malzemesi bulunamadı.")
+            return result
+        P = project.design_conditions.design_pressure
+        alpha = cone.half_apex_angle
+        z_j = j.weld_efficiency or 1.0
+        f = min(m_s.allowable_stress, m_c.allowable_stress) * z_j
+        Ci_s = shell.internal_corrosion_allowance
+        e1 = shell.nominal_thickness - Ci_s - shell.external_corrosion_allowance
+        e2 = cone.nominal_thickness - cone.internal_corrosion_allowance - cone.external_corrosion_allowance
+        Di_new = (shell.inside_diameter if shell.inside_diameter
+                  else shell.outside_diameter - 2 * shell.nominal_thickness)
+        if e1 <= 0 or e2 <= 0:
+            result.set_not_calculated("Korozyon payı düşüldükten sonra gövde/koni kalınlığı ≤ 0.")
+            return result
+        Dc = Di_new + 2 * Ci_s + e1  # silindir ortalama çapı (korozyonlu)
+        cone_d = cone.large_diameter if end == "large" else cone.small_diameter
+        if abs(cone_d - Di_new) > 0.01 * cone_d:
+            result.add_warning(
+                f"Koni {end} uç çapı {cone_d:.1f} mm, gövde iç çapı {Di_new:.1f} mm ile %1'den fazla farklı."
+            )
+        for name, val, unit, desc in (
+            ("P", P, "MPa", "Design pressure"),
+            ("alpha", alpha, "deg", "Half apex angle"),
+            ("Dc", Dc, "mm", "Mean cylinder diameter at junction (corroded)"),
+            ("e1", e1, "mm", "Cylinder analysis thickness"),
+            ("e2", e2, "mm", "Cone analysis thickness"),
+            ("f", f, "MPa", "min(f_cyl, f_cone) × z_junction"),
+            ("z_junction", z_j, "-", "Junction weld efficiency"),
+        ):
+            result.add_intermediate(name, val, unit, desc)
+        if not j.weld_efficiency:
+            result.add_assumption("Birleşim kaynak verimi girilmedi; z = 1 alındı (tam muayene varsayımı).")
+        result.add_assumption(
+            "Birleşim kalınlığının 7.6'da tanımlı mesafeler boyunca her iki tarafta sürdürüldüğü "
+            "varsayıldı; mesafe kontrolü ve 7.6 uygulanabilirlik sınırları yapılmadı."
+        )
+        try:
+            if end == "large":
+                result.formula_reference = (
+                    "e_j = P·Dc·β/(2f); β = (1/3)√(Dc/e_j)·tanα/(1+1/√cosα) − 0.15"
+                )
+                e_j, beta = formulas.cone_large_end_required_thickness(P, Dc, f, alpha)
+                e_av = min(e1, e2)
+                result.add_intermediate("beta", beta, "-", "Large-end factor β at e_j")
+                result.add_intermediate("e_j", e_j, "mm", "Required junction thickness")
+                result.add_intermediate("e_available", e_av, "mm", "min(e1, e2)")
+                result.final_result, result.final_result_unit = e_j, "mm"
+                result.allowable_limit, result.allowable_limit_unit = e_av, "mm"
+                u = e_j / e_av
+            else:
+                result.formula_reference = "P ≤ 2·f·e1/(Dc·β_H); β_H = 0.4√(Dc/e1)·tanα/τ + 0.5"
+                s_, tau, beta_h = formulas.cone_small_end_beta_h(Dc, e1, e2, alpha)
+                p_max = formulas.cone_small_end_max_pressure(Dc, e1, f, beta_h)
+                result.add_intermediate("s", s_, "-", "e2/e1")
+                result.add_intermediate("tau", tau, "-", "τ")
+                result.add_intermediate("beta_H", beta_h, "-", "Small-end factor β_H")
+                result.add_intermediate("P_max", p_max, "MPa", "Allowable pressure at small end")
+                result.final_result, result.final_result_unit = P, "MPa"
+                result.allowable_limit, result.allowable_limit_unit = p_max, "MPa"
+                u = P / p_max
+        except ValueError as exc:
+            result.set_not_calculated(str(exc))
+            return result
+        if u <= 1.0:
+            result.set_pass(u)
+            self._cap_unverified(result, clause)
+        else:
+            result.set_fail(u)
+            result.add_warning(f"Koni {end} uç birleşimi yetersiz: kullanım oranı {u:.3f} > 1.")
+        return result
 
     def check_lifting_lugs(self, project) -> List[CalculationResult]:
         if getattr(project, "lifting_lugs", None) is None:

@@ -80,16 +80,17 @@ anlamına gelmez.** Bu rota için bağımsız yayınlanmış vaka karşılaştı
 | Hesap | Durum | Kanıt (dosya:fonksiyon) | Doğrulama / not |
 |---|---|---|---|
 | Silindirik gövde (EN 13445-3, 5.4.2) | **Ön kontrol (REVIEW_REQUIRED üretir)** | `code-en-13445/design_code.py:calculate_shell_thickness` | `PASS`/`FAIL` üretebilir ama bağımsız doğrulaması yok; EN yolunda B-31 malzeme-metadata kapısı vardır (2026-09-30; `limitations.md`): girilen tasarım sıcaklığı/kalınlık aralığı uyuşmazsa `PASS` -> `REVIEW_REQUIRED`. Kapı, elle girilen f değerini lisanslı EN tablosuyla **doğrulamaz**. |
-| Bombeler - eliptik, torisferik, yarım küre (5.5.x) | **Ön kontrol (REVIEW_REQUIRED üretir)** | `design_code.py:calculate_head_thickness` | Torisferik varsayılanı `r = 0,10 D` doğrulanmadı (B-09, varsayım sonuca yazılır). Düz kapak: `NOT_CALCULATED` (**Yok**). |
-| MAWP | **Ön kontrol (REVIEW_REQUIRED üretir)** | `design_code.py:calculate_mawp` | Koni: açık `NOT_CALCULATED` satırı (E01; önceden orkestratör hata kaydıydı). |
-| Koni kalınlığı | **Yok** | `design_code.py:calculate_cone_thickness` | Açık `NOT_CALCULATED` satırı (E01); sayısal sonuç yok. |
+| Bombeler - eliptik, torisferik, yarım küre (5.5.x) | **Ön kontrol (REVIEW_REQUIRED üretir)** | `design_code.py:calculate_head_thickness` | Torisferik varsayılanı `r = 0,10 D` doğrulanmadı (B-09, varsayım sonuca yazılır). Düz kapak: ayrı satıra bakın. |
+| Düz kapak (10.4, kaynaklı desteksiz dairesel) + MAWP | **Ön kontrol (REVIEW_REQUIRED üretir)** | `formulas.py:flat_end_thickness/flat_end_mawp`, `design_code.py` (`HeadType.FLAT`) | E02: e = C·D·√(P/f). C grafik katsayısı `Head.en_flat_end_factor_c` kullanıcı girer (UG-34 C'si kullanılmaz); yoksa `BLOCKED_CODE_DATA`. Cıvatalı kapak (10.5) yok. verified=False. Test: `tests/faz4/test_faz4_en13445_cone_flat.py`. |
+| MAWP | **Ön kontrol (REVIEW_REQUIRED üretir)** | `design_code.py:calculate_mawp`, `_cone_mawp` | Koni (E02): P = 2fz·e·cosα/(Di + e·cosα), büyük uç; birleşim sınırları katılmaz. Düz kapak (E02) C girilmezse bloklu. |
+| Koni kalınlığı (7.6.4) + koni-silindir birleşimi (7.6.6 büyük uç / 7.6.8 küçük uç, bükümsüz) | **Ön kontrol (REVIEW_REQUIRED üretir)** | `design_code.py:calculate_cone_thickness`, `check_junctions`; `formulas.py:cone_*` | E02, verified=False. Büyük uç e_j sabit nokta çözümü, küçük uç P ≤ 2f·e1/(Dc·β_H). Bükümlü birleşim (7.6.7) ve koni-bombe `NOT_CALCULATED`; `cone_end` yoksa `BLOCKED_MISSING_INPUT`. Mesafe/uygulanabilirlik sınırları kontrol edilmez. |
 | Hidrostatik test (PED 10.2.3.3.1) | **Ön kontrol (REVIEW_REQUIRED üretir)** | `design_code.py:calculate_hydrotest_pressure`, `_test_ratio_review_reason` | `fa/ft` uygulanmıyor; oran eksik/eşiğin (1,144) üstünde ise `REVIEW_REQUIRED` (B-28). |
 | Pnömatik test | **Yok** | `design_code.py:calculate_pneumatic_test_pressure` | Açık `NOT_CALCULATED` (E01). |
 | Nozul takviyesi | **Yok** | `design_code.py:calculate_nozzle` | `NOT_CALCULATED`. |
 | Dış basınç / vakum | **Yok** | `design_code.py:check_external_pressure` | `NOT_CALCULATED`; ASME UG-28 değerleri kullanılmaz. |
 | Flanş, yorulma | **Yok** | `design_code.py:calculate_flange`, `calculate_fatigue` | `NOT_CALCULATED` / `OUT_OF_SCOPE`; yorulma girdi yoksa `BLOCKED_MISSING_INPUT`. |
 | Yük kombinasyonları | **Yok** | `design_code.py:check_load_combinations` | Her kombinasyon için açık `NOT_CALCULATED`. |
-| MDMT, destekler, kaynak doğrulama, nozul çakışması/muayene açıklığı, koni uç birleşimi, kaldırma kulağı | **Yok** | `design_code.py:check_mdmt/check_supports/validate_welds/check_nozzle_clashes/check_junctions/check_lifting_lugs` | E01: ASME ile aynı `calculation_type` başlıklarıyla açık satırlar. Kulak alt kontrolleri `OUT_OF_SCOPE`, diğerleri `NOT_CALCULATED`; ASME'ye geri dönüş yok. İlgili bileşen yoksa (destek/kaynak/kulak tanımsız) satır da yoktur. Basınç tahliye kontrolü taban sınıftan geldiği için EN projesinde de (ASME UG-125 etiketiyle) çalışır. Test: `tests/faz4/test_faz4_en13445_gaps.py`. |
+| MDMT, destekler, kaynak doğrulama, nozul çakışması/muayene açıklığı, kaldırma kulağı | **Yok** | `design_code.py:check_mdmt/check_supports/validate_welds/check_nozzle_clashes/check_lifting_lugs` | E01: ASME ile aynı `calculation_type` başlıklarıyla açık satırlar. Kulak alt kontrolleri `OUT_OF_SCOPE`, diğerleri `NOT_CALCULATED`; ASME'ye geri dönüş yok. İlgili bileşen yoksa (destek/kaynak/kulak tanımsız) satır da yoktur. Basınç tahliye kontrolü taban sınıftan geldiği için EN projesinde de (ASME UG-125 etiketiyle) çalışır. Test: `tests/faz4/test_faz4_en13445_gaps.py`. |
 
 ## 3. PED / CE kapsamı
 
@@ -129,7 +130,7 @@ Test sayıları bu tabloda tutulmaz (eski sürümdeki sayılar güncel değildi)
 - **Kap tipi:** Sabit, metalik, ateşle temas etmeyen, tek basınç odası.
 - **Yön:** Yatay veya dikey.
 - **FEA:** İskelet; sahte `PASS` üretmez.
-- **Hâlâ eksik (Yok):** yorulma, sünme, düz kapak/koni için EN, nozul harici yükleri/WRC, rüzgâr-deprem
+- **Hâlâ eksik (Yok):** yorulma, sünme, nozul harici yükleri/WRC, rüzgâr-deprem
   yük üretimi, flanş `M`/`W` türetimi ve rijitlik kontrolü, dış basınç çizelge verisi, lisanslı malzeme veri paketi,
   DoC/isim plakası/teknik dosya çıktıları.
 

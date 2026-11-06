@@ -123,6 +123,10 @@ function HeadCard({ head, side, chainD }: { head: Head; side: "left" | "right"; 
             <NumField label="Düz kapak C katsayısı (UG-34)" value={head.flat_attachment_factor ?? 0}
               hint="0 = girilmedi" onChange={(v) => updateHead(head.head_id, { flat_attachment_factor: v > 0 ? v : null })} />
           )}
+          {head.type === "flat" && (
+            <NumField label="Düz kapak C katsayısı (EN 13445-3 Md.10)" value={head.en_flat_end_factor_c ?? 0}
+              hint="0 = girilmedi (EN hesabı bloke); UG-34 C'si ile aynı değil" onChange={(v) => updateHead(head.head_id, { en_flat_end_factor_c: v > 0 ? v : null })} />
+          )}
           <SelectField label="Malzeme" value={head.material_id}
             options={materials.map((m) => ({ value: m.material_id, label: `${m.material_id} — ${m.material_designation}` }))}
             onChange={(v) => updateHead(head.head_id, { material_id: v })} />
