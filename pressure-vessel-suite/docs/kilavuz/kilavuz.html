@@ -1,0 +1,1983 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vessela Basınçlı Kap Tasarım ve Hesap Kılavuzu</title>
+  <style>
+    /* ── TEMEL VE YAZICI AYARLARI (A4 BASKI DÜZENİ) ── */
+    @page {
+      size: A4;
+      margin: 16mm;
+    }
+    :root {
+      --primary: #0f2942;
+      --primary-light: #1e3a8a;
+      --accent: #2563eb;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --bg: #ffffff;
+      --bg-alt: #f8fafc;
+      --bg-subtle: #f1f5f9;
+      --pass: #059669;
+      --fail: #dc2626;
+      --review: #d97706;
+      --nc: #64748b;
+      --scope: #7c3aed;
+      --blocked: #b45309;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: 10pt;
+      line-height: 1.55;
+      color: var(--text);
+      background-color: var(--bg);
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 210mm;
+      margin: 0 auto;
+      padding: 0 10px;
+    }
+
+    /* ── SAYFA KESMELERİ VE BAŞLIKLAR ── */
+    h1 {
+      font-size: 19pt;
+      font-weight: 800;
+      color: var(--primary);
+      margin-top: 0;
+      margin-bottom: 12pt;
+      padding-bottom: 6pt;
+      border-bottom: 2pt solid var(--primary);
+      page-break-before: always;
+      break-before: page;
+    }
+    .cover h1, .no-break-before {
+      page-break-before: avoid !important;
+      break-before: avoid !important;
+    }
+    h2 {
+      font-size: 14pt;
+      font-weight: 700;
+      color: var(--primary-light);
+      margin-top: 16pt;
+      margin-bottom: 8pt;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+    h3 {
+      font-size: 11.5pt;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 12pt;
+      margin-bottom: 6pt;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+    h4 {
+      font-size: 10pt;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 10pt;
+      margin-bottom: 4pt;
+    }
+
+    p {
+      margin-bottom: 8pt;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin-bottom: 8pt;
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 3pt;
+    }
+
+    /* ── KAPAK SAYFASI ── */
+    .cover {
+      min-height: 240mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 30mm 15mm 20mm;
+      border: 1pt solid var(--border);
+      background: linear-gradient(180deg, #f8fafc 0%, #ffffff 40%);
+      page-break-after: always;
+      break-after: page;
+      margin-bottom: 20pt;
+    }
+    .cover__brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .cover__logo-box {
+      width: 44px;
+      height: 44px;
+      background: var(--primary);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20pt;
+      font-weight: 900;
+      border-radius: 6px;
+    }
+    .cover__brand-text strong {
+      display: block;
+      font-size: 15pt;
+      letter-spacing: 1px;
+      color: var(--primary);
+    }
+    .cover__brand-text span {
+      font-size: 8.5pt;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+    .cover__main {
+      margin: 40mm 0;
+    }
+    .cover__badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #e0e7ff;
+      color: #3730a3;
+      font-size: 9pt;
+      font-weight: 700;
+      border-radius: 4px;
+      margin-bottom: 14pt;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .cover__title {
+      font-size: 27pt;
+      font-weight: 900;
+      line-height: 1.15;
+      color: var(--primary);
+      border: none;
+      padding: 0;
+      margin-bottom: 12pt;
+    }
+    .cover__subtitle {
+      font-size: 13pt;
+      line-height: 1.45;
+      color: var(--text-muted);
+      font-weight: 400;
+      max-width: 90%;
+    }
+    .cover__meta {
+      border-top: 1pt solid var(--border);
+      padding-top: 14pt;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14pt;
+      font-size: 8.5pt;
+      color: var(--text-muted);
+    }
+    .cover__meta strong {
+      display: block;
+      font-size: 9.5pt;
+      color: var(--text);
+      margin-top: 2pt;
+    }
+
+    /* ── İÇİNDEKİLER ── */
+    .toc {
+      background: var(--bg-alt);
+      border: 1pt solid var(--border);
+      border-radius: 6px;
+      padding: 16pt;
+      margin-bottom: 24pt;
+      page-break-after: always;
+      break-after: page;
+    }
+    .toc__title {
+      font-size: 14pt;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 12pt;
+      border-bottom: 1.5pt solid var(--border);
+      padding-bottom: 4pt;
+    }
+    .toc__list {
+      list-style: none;
+      padding-left: 0;
+    }
+    .toc__item {
+      display: flex;
+      justify-content: space-between;
+      padding: 4.5pt 0;
+      border-bottom: 1px dotted var(--border);
+      font-size: 9.5pt;
+    }
+    .toc__item--sub {
+      padding-left: 18pt;
+      font-size: 9pt;
+      color: var(--text-muted);
+    }
+    .toc__item a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .toc__item--sub a {
+      font-weight: 400;
+      color: var(--text);
+    }
+    .toc__item a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    /* ── TABLOLAR ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10pt 0 14pt;
+      font-size: 8.5pt;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    th, td {
+      border: 1pt solid var(--border);
+      padding: 5pt 7pt;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background-color: var(--bg-subtle);
+      color: var(--primary);
+      font-weight: 700;
+    }
+    tr:nth-child(even) td {
+      background-color: #fafbfc;
+    }
+    td.num, th.num {
+      text-align: right;
+      font-family: var(--font-mono);
+    }
+    td.code, th.code {
+      font-family: var(--font-mono);
+      font-size: 8pt;
+    }
+
+    /* ── FORMÜL VE SAYISAL HESAP KUTULARI ── */
+    .math-card {
+      background: #fbfcfe;
+      border: 1pt solid #cbd5e1;
+      border-left: 4pt solid var(--primary-light);
+      border-radius: 4px;
+      padding: 10pt 12pt;
+      margin: 10pt 0 12pt;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    .math-card__title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4pt;
+      display: flex;
+      justify-content: space-between;
+    }
+    .math-card__ref {
+      font-family: var(--font-mono);
+      font-size: 8pt;
+      color: var(--text-muted);
+    }
+    .math-eq {
+      font-family: "Cambria Math", "Times New Roman", serif;
+      font-size: 11pt;
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 6pt 10pt;
+      margin: 6pt 0;
+      text-align: center;
+      border-radius: 3px;
+      color: #0f172a;
+    }
+    .math-vars {
+      font-size: 8.5pt;
+      margin-top: 6pt;
+      color: var(--text);
+    }
+    .math-vars ul {
+      margin-bottom: 0;
+      padding-left: 14pt;
+    }
+    .math-example {
+      background: #f0fdf4;
+      border: 1pt solid #bbf7d0;
+      border-radius: 4px;
+      padding: 8pt 10pt;
+      margin-top: 8pt;
+      font-size: 8.5pt;
+    }
+    .math-example strong {
+      color: #166534;
+    }
+
+    /* ── DURUM ROZETLERİ ── */
+    .badge {
+      display: inline-block;
+      padding: 1.5pt 5pt;
+      font-size: 7.5pt;
+      font-weight: 700;
+      border-radius: 3px;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+      letter-spacing: 0.3px;
+    }
+    .badge--pass { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+    .badge--fail { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+    .badge--review { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+    .badge--nc { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+    .badge--scope { background: #ede9fe; color: #5b21b6; border: 1px solid #ddd6fe; }
+    .badge--blocked { background: #ffedd5; color: #9a3412; border: 1px solid #fed7aa; }
+
+    /* ── UYARI VE VURGU KUTULARI (CALLOUTS) ── */
+    .callout {
+      padding: 8pt 10pt;
+      margin: 10pt 0;
+      border-radius: 4px;
+      border-left: 3.5pt solid;
+      font-size: 8.5pt;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    .callout--info { background: #eff6ff; border-color: #3b82f6; color: #1e40af; }
+    .callout--warn { background: #fffbeb; border-color: #f59e0b; color: #92400e; }
+    .callout--danger { background: #fef2f2; border-color: #ef4444; color: #991b1b; }
+    .callout strong { display: block; margin-bottom: 2pt; font-size: 9pt; }
+
+    /* ── GÖRSELLER (FIGURES) ── */
+    figure.doc-figure {
+      margin: 12pt 0 16pt;
+      text-align: center;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    figure.doc-figure img {
+      max-width: 100%;
+      height: auto;
+      border: 1pt solid var(--border);
+      border-radius: 4px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    figure.doc-figure figcaption {
+      margin-top: 5pt;
+      font-size: 8pt;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+    figure.doc-figure figcaption strong {
+      color: var(--text);
+      font-style: normal;
+    }
+
+    /* ── KOD BLOKLARI ── */
+    code {
+      font-family: var(--font-mono);
+      font-size: 8.5pt;
+      background: var(--bg-subtle);
+      padding: 1pt 3pt;
+      border-radius: 3px;
+      color: #b91c1c;
+    }
+
+    /* ── YAZDIRMA OPTİMİZASYONU ── */
+    @media print {
+      body {
+        background: transparent;
+      }
+      .container {
+        max-width: 100%;
+        padding: 0;
+      }
+      .cover {
+        height: 100vh;
+        border: none;
+        padding: 10mm 5mm;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ============================================================
+       BÖLÜM 1: KAPAK VE İÇİNDEKİLER
+       ============================================================ -->
+  <section class="cover" id="sec-cover">
+    <div class="cover__brand">
+      <div class="cover__logo-box">V</div>
+      <div class="cover__brand-text">
+        <strong>VESSELA SUITE</strong>
+        <span>Mühendislik Ön Tasarım ve Hesaplama Platformu</span>
+      </div>
+    </div>
+
+    <div class="cover__main">
+      <span class="cover__badge">Sürüm 1.0 · Teknik Başvuru & Kullanım Kılavuzu</span>
+      <h1 class="cover__title">Basınçlı Kap Tasarım ve Mühendislik Hesap Kılavuzu</h1>
+      <p class="cover__subtitle">
+        ASME BPVC Section VIII Division 1 ve EN 13445-3 Standartlarına Göre Ön Boyutlandırma, Mekanik Mukavemet, Nozul Takviye, Destek Doğrulama ve 3D İmalat Modeli Oluşturma Rehberi.
+      </p>
+    </div>
+
+    <div class="cover__meta">
+      <div>
+        <span>Platform & Web Erişimi</span>
+        <strong>app.zeyslabs-vessela.com</strong>
+      </div>
+      <div>
+        <span>Geliştirici & Mühendislik</span>
+        <strong>Zeys Labs Engineering</strong>
+      </div>
+      <div>
+        <span>Doküman Sürümü / Tarih</span>
+        <strong>Revizyon 1.4 · 2026-11</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- İÇİNDEKİLER -->
+  <nav class="toc" id="sec-toc">
+    <div class="toc__title">İçindekiler</div>
+    <ul class="toc__list">
+      <li class="toc__item"><a href="#sec-nedir">1. Vessela Nedir, Kimin İçin ve Tasarım Amacı</a> <span class="num">S. 3</span></li>
+      <li class="toc__item toc__item--sub"><a href="#sec-nedir-amac">1.1 Temel Tasarım Felsefesi ve Çözüm Yaklaşımı</a></li>
+      <li class="toc__item toc__item--sub"><a href="#sec-nedir-sinirlar">1.2 Kapsam Sınırları ve Lisanslı Standart Ayrımı</a></li>
+      <li class="toc__item"><a href="#sec-is-akisi">2. Genel İş Akışı: 6 Aşamalı Tasarım Süreci</a> <span class="num">S. 5</span></li>
+      <li class="toc__item"><a href="#sec-ekran-adimlari">3. Adım Adım Kullanım ve Veri Giriş Alanları Kılavuzu</a> <span class="num">S. 7</span></li>
+      <li class="toc__item toc__item--sub"><a href="#sec-adim-1">3.1 Adım 01: Yeni Proje (Kimlik & Rota)</a></li>
+      <li class="toc__item toc__item--sub"><a href="#sec-adim-2">3.2 Adım 02: Tasarım Koşulları (Basınç & Sıcaklık)</a></li>
+      <li class="toc__item toc__item--sub"><a href="#sec-adim-3">3.3 Adım 03: Kap Geometrisi (Gövde, Bombe, Nozul, Mesnet)</a></li>
+      <li class="toc__item toc__item--sub"><a href="#sec-adim-3-girdiler">3.4 Adım 03 Ek: Hesap Girdileri (Malzeme, Kaynak, Flanş, WRC, BOM)</a></li>
+      <li class="toc__item toc__item--sub"><a href="#sec-adim-4">3.5 Adım 04: Hesap Sonuçları ve KPI Paneli</a></li>
+      <li class="toc__item toc__item--sub"><a href="#sec-adim-5">3.6 Adım 05: 3D Model ve Parametrik Görüntüleyici</a></li>
+      <li class="toc__item toc__item--sub"><a href="#sec-adim-6">3.7 Adım 06: Rapor ve Çıktılar (HTML, PDF, STEP, Açınım, BOM)</a></li>
+      <li class="toc__item"><a href="#sec-hesap-rehberi">4. Basınçlı Kap Hesap Rehberi (Sıfırdan Formüller ve Örnekler)</a> <span class="num">S. 20</span></li>
+      <li class="toc__item toc__item--sub"><a href="#sec-formuller-temel">4.1 Tasarım Basıncı, Sıcaklık, İzin Verilen Gerilme ve Toleranslar</a></li>
+      <li class="toc__item toc__item--sub"><a href="#sec-formuller-govde">4.2 Silindirik Gövde Et Kalınlığı (ASME UG-27 vs EN 13445 7.4)</a></li>
+      <li class="toc__item toc__item--sub"><a href="#sec-formuller-bombe">4.3 Bombeler: Elipsoidal, Torisferik, Yarım Küre ve Düz Kapaklar</a></li>
+      <li class="toc__item toc__item--sub"><a href="#sec-formuller-mawp">4.4 Azami İzin Verilen Çalışma Basıncı (MAWP)</a></li>
+      <li class="toc__item toc__item--sub"><a href="#sec-formuller-hidrotest">4.5 Hidrostatik ve Pnömatik Basınç Testleri (UG-99 / EN 13445-5)</a></li>
+      <li class="toc__item toc__item--sub"><a href="#sec-formuller-nozul">4.6 Nozul Takviyesi: UG-37 Alan Yöntemi ve EN 9.5 Basınç-Alan Yaklaşımı</a></li>
+      <li class="toc__item toc__item--sub"><a href="#sec-formuller-dis-basinc">4.7 Dış Basınç ve Vakum Stabilitesi (ASME UG-28 / UG-33)</a></li>
+      <li class="toc__item toc__item--sub"><a href="#sec-formuller-destek">4.8 Mesnet ve Destek Hesapları: Eyer (Zick), Ayak ve Etek</a></li>
+      <li class="toc__item toc__item--sub"><a href="#sec-durum-etiketleri">4.9 Hesap Sonuç Durum Etiketleri ve Anlamları</a></li>
+      <li class="toc__item"><a href="#sec-rapor-cikti">5. Raporlama, İmalat Çıktıları ve Veri İletişimi</a> <span class="num">S. 35</span></li>
+      <li class="toc__item"><a href="#sec-sinirlar-uyari">6. Bilinen Sınırlar, Metodolojik Kısıtlar ve Yasal Sorumluluk</a> <span class="num">S. 38</span></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================================
+       BÖLÜM 2: SİTE NEDİR, KİMİN İÇİN, TASARIM AMACI VE SINIRLARI
+       ============================================================ -->
+  <section id="sec-nedir">
+    <h1>1. Vessela Nedir, Kimin İçin ve Tasarım Amacı</h1>
+
+    <figure class="doc-figure">
+      <img src="img/00-acilis.png" alt="Vessela Çalışma Alanı Açılış Ekranı" />
+      <figcaption><strong>Şekil 1:</strong> Vessela Mühendislik Çalışma Alanı genel açılış arayüzü ve navigasyon düzeni.</figcaption>
+    </figure>
+
+    <div id="sec-nedir-amac">
+      <h2>1.1 Temel Tasarım Felsefesi ve Çözüm Yaklaşımı</h2>
+      <p>
+        <strong>Vessela</strong> (<code>app.zeyslabs-vessela.com</code>), endüstriyel basınçlı kapların ön tasarım, mekanik mukavemet hesaplama, standart denetimi ve 3D imalat verisi üretim süreçlerini modern web tarayıcıları üzerinden sıfır kurulumla uçtan uca yönetmek için geliştirilmiş profesyonel bir mühendislik platformudur.
+      </p>
+      <p>
+        Geleneksel basınçlı kap tasarım süreçleri, birbirinden kopuk üç katmanda yürütülür: tablolardan yapılan el hesapları veya karmaşık ticari formül yazılımları (PV Elite vb.), CAD çizim ortamları (SolidWorks, Inventor) ve sonlu elemanlar doğrulama laboratuvarları. Vessela, bu kopukluğu ortadan kaldırmak için parametrik geometri modelleme ile kodlu mukavemet hesaplarını tek bir reaktif çalışma alanında birleştirir.
+      </p>
+      <p><strong>Platform Kimin İçindir?</strong></p>
+      <ul>
+        <li><strong>Mekanik Tasarım ve Proje Mühendisleri:</strong> ASME Section VIII Div. 1 veya EN 13445 standartlarına uygun silindirik kap, bombe, koni, nozul ve mesnetlerin ön boyutlandırmasını hızla tamamlamak isteyenler.</li>
+        <li><strong>Kazan ve Basınçlı Kap İmalatçıları:</strong> Teklif hazırlama aşamasında doğru sac et kalınlıklarını, rulo sac açınım (flat pattern) ölçülerini, malzeme metrajını (BOM) ve tahmini ağırlıkları dakikalar içinde belirlemek isteyen teknik ofisler.</li>
+        <li><strong>Teklif ve Maliyet Mühendisleri:</strong> Malzeme birim fiyatları, işçilik süreleri ve NDT maliyetlerini bağlayarak gerçekçi maliyet öngörüleri üretmek isteyenler.</li>
+        <li><strong>Denetim ve Onay Merci Temsilcileri:</strong> Formül girdilerini, ara değerleri, kaynak verimlerini ve standart maddelerine yapılan doğrudan atıfları şeffaf, 23 bölümlük izlenebilir HTML hesap raporları üzerinden denetlemek isteyen uzmanlar.</li>
+      </ul>
+    </div>
+
+    <div id="sec-nedir-sinirlar">
+      <h2>1.2 Kapsam Sınırları ve Lisanslı Standart Ayrımı</h2>
+      <p>
+        Vessela'nın tasarım ve hesaplama sınırları <code>docs/limitations.md</code> ve <code>docs/calculation-coverage.md</code> teknik kayıtlarında katı kurallarla tanımlanmıştır. Sistem sahte güven hissi vermemek üzerine kurgulanmıştır:
+      </p>
+
+      <div class="callout callout--warn">
+        <strong>Önemli Kapsam Kuralı (K4 ve K6 Prensipleri):</strong>
+        ASME Section II Part D ve EN 13445 standartlarına ait telifli malzeme veri tabloları ve grafik eğrileri (UCS-66 MDMT eğrileri, UG-28 dış basınç A/B grafikleri, Appendix 2 flanş faktörleri, Zick eyer katsayıları) telif hakları nedeniyle sunucu kodunda barındırılmaz. Bu değerler ilgili lisanslı dokümanlardan okunarak kullanıcı tarafından girilir. Eksik veri girildiğinde sistem varsayım uydurmaz; hesabı <code>BLOCKED_CODE_DATA</code> veya <code>BLOCKED_MISSING_INPUT</code> durumuyla bloklar.
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Kategori</th>
+            <th>Vessela V1 Kapsamında Olanlar</th>
+            <th>V1 Kapsam Dışı / İleriki Sürümler</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Ekipman Tipi</strong></td>
+            <td>Tek basınç odalı, metalik, sabit (yatay veya dikey) yerleştirilmiş kaplar.</td>
+            <td>Ceketli (jacketed) kaplar, çok odalı yapılar, eşanjör tüp demetleri, taşınabilir gaz tüpleri (ADR), doğrudan ateşle temas eden kazanlar.</td>
+          </tr>
+          <tr>
+            <td><strong>Hesap Rotaları</strong></td>
+            <td>ASME Section VIII Div. 1 (2025 Edition) ana rota; EN 13445-3:2021+A1:2023 dar kapsamlı ön kontrol rotası.</td>
+            <td>Design by Analysis (DBA / EN 13445 Ek B/C), ASME Div. 2, TS 3362 (formülsüz katsayı standardı).</td>
+          </tr>
+          <tr>
+            <td><strong>Yük Durumları</strong></td>
+            <td>İç basınç, statik sıvı kafası düzeltmesi, dış basınç (kullanıcı A/B girdisiyle), destek moment zarfları.</td>
+            <td>Dinamik rüzgâr/deprem modal analizi, nozula gelen boru hat reaksiyonları, dalgalanma (surge) yükleri, termal şok.</td>
+          </tr>
+          <tr>
+            <td><strong>Malzeme Davranışı</strong></td>
+            <td>Elastik bölge, kullanıcı beyanlı izin verilen gerilme ($S$, $f$), akma ve çekme dayanımları.</td>
+            <td>Sünme (creep) bölgesi, yüksek sıcaklık relaksasyonu, kriyojenik faz dönüşümleri, kompozit (Type III/IV) malzemeler.</td>
+          </tr>
+          <tr>
+            <td><strong>FEA (Sonlu Elemanlar)</strong></td>
+            <td>Arayüzde görsel membran gerilme haritası (Lamé formülleri).</td>
+            <td>CalculiX / Code_Aster doğrulaması henüz üretim hesap hattına bağlı değildir; offline doğrulama aracıdır.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BÖLÜM 3: İŞ AKIŞI: 6 ADIM
+       ============================================================ -->
+  <section id="sec-is-akisi">
+    <h1>2. Genel İş Akışı: 6 Aşamalı Tasarım Süreci</h1>
+    <p>
+      Vessela, tasarımcının zihnindeki mantıksal mühendislik sırasını yansıtan 6 sıralı adımdan oluşur (kaynak: <code>apps/web-ui/src/App.tsx</code>):
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Adım No</th>
+          <th>Adım Başlığı</th>
+          <th>Alt Başlık</th>
+          <th>İşlev ve Kapsam</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="code">01</td>
+          <td><strong>Yeni Proje</strong></td>
+          <td>Kimlik & Rota</td>
+          <td>Proje numarası, müşteri, revizyon tanımları; tasarım standardı seçimi (ASME VIII-1 / EN 13445) ve kap oryantasyonu (yatay/dikey).</td>
+        </tr>
+        <tr>
+          <td class="code">02</td>
+          <td><strong>Tasarım Koşulları</strong></td>
+          <td>Basınç & Sıcaklık</td>
+          <td>Çalışma/tasarım/PS basınçları, sıcaklıklar, MDMT, hidrotest şartları, korozyon payları, statik sıvı yoğunluğu ve dış basınç koşulları.</td>
+        </tr>
+        <tr>
+          <td class="code">03</td>
+          <td><strong>Kap Geometrisi</strong></td>
+          <td>Gövde, Bombe, Nozul</td>
+          <td>5 alt adımlı sihirbaz: (3.1) Gövde zinciri, (3.2) Bombeler, (3.3) Flanşlı nozullar, (3.4) Manşonlar, (3.5) Mesnetler. Ek sekmede malzeme, kaynak, flanş, WRC ve BOM girdileri.</td>
+        </tr>
+        <tr>
+          <td class="code">04</td>
+          <td><strong>Hesap Sonuçları</strong></td>
+          <td>Standart Mukavemet</td>
+          <td>Gövde/bombe et kalınlığı, MAWP, hidrotest basıncı, nozul takviyesi, dış basınç, destek gerilmesi ve çakışma kontrolleri. Durum rozetleri ve ara değerler.</td>
+        </tr>
+        <tr>
+          <td class="code">05</td>
+          <td><strong>3D Model</strong></td>
+          <td>STL & Parametrik Görünüm</td>
+          <td>Tarayıcı içinde WebGL/Three.js tabanlı döndürülebilir 3D model, kesit (section) görünümü ve kabın kesin dış/iç ölçülerinin incelenmesi.</td>
+        </tr>
+        <tr>
+          <td class="code">06</td>
+          <td><strong>Rapor & Çıktı</strong></td>
+          <td>HTML, PDF, STEP, BOM</td>
+          <td>23 bölümlük tam denetlenebilir HTML hesap raporu, tescilli PDF baskı formatı, SolidWorks/FreeCAD uyumlu 3B STEP modeli, sac açınımı ve BOM CSV çıktısı.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout--info">
+      <strong>Geometri Doğrulama Kapısı (Geometry Gate):</strong>
+      Adım 03'ten Adım 04 (Hesap Sonuçları)'na geçerken sistem arka planda <code>computeIssues(project)</code> fonksiyonunu çalıştırır. Eğer geometride bloke edici bir hata varsa (örneğin gövde çapının sıfır olması, koni uçlarının uyumsuzluğu veya nozulun kap cidarını aşması), sistem kullanıcıyı uyarır ve Adım 03'te kalmaya zorlar. Bloke etmeyen geometrik uyarılarda ise mühendis onayı talep edilir.
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BÖLÜM 4: ADIM ADIM KULLANIM VE TÜM GİRİŞ ALANLARI
+       ============================================================ -->
+  <section id="sec-ekran-adimlari">
+    <h1>3. Adım Adım Kullanım ve Veri Giriş Alanları Kılavuzu</h1>
+    <p>
+      Bu bölümde, Vessela arayüzündeki her bir adımın ekran görüntüleri ve bu ekranlarda yer alan <strong>istisnasız her bir giriş alanının</strong> teknik açıklaması, birimi ve hesap motorundaki rolü sunulmuştur.
+    </p>
+
+    <!-- ADIM 01 -->
+    <div id="sec-adim-1">
+      <h2>3.1 Adım 01: Yeni Proje (Kimlik & Rota)</h2>
+      <p>
+        Projenin idari kimliğinin oluşturulduğu, kullanılacak tasarım standardının ve kabın uzaydaki montaj yöneliminin (yatay/dikey) belirlendiği ilk adımdır.
+      </p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <figure class="doc-figure">
+          <img src="img/h-01-yeni-proje.png" alt="Adım 1 Yatay Kap Proje Tanımı" />
+          <figcaption><strong>Şekil 2a:</strong> Yatay yönelimli proje kimliği ve rota seçim paneli.</figcaption>
+        </figure>
+        <figure class="doc-figure">
+          <img src="img/v-01-yeni-proje.png" alt="Adım 1 Dikey Kap Proje Tanımı" />
+          <figcaption><strong>Şekil 2b:</strong> Dikey ayaklı tank için proje tanımı ve canlı şematik önizleme.</figcaption>
+        </figure>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Alan Adı (UI Etiketi)</th>
+            <th>Birim</th>
+            <th>Kod Alanı & Tipi</th>
+            <th>Anlamı ve Neden Gereklidir?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Proje Numarası</strong></td>
+            <td>—</td>
+            <td><code>project_number</code> (string)</td>
+            <td>İmalat dosyasında, teknik çizimlerde ve rapor üst bilgisinde yer alacak benzersiz proje takip kodu (ör. PRJ-001).</td>
+          </tr>
+          <tr>
+            <td><strong>Proje Adı</strong></td>
+            <td>—</td>
+            <td><code>project_name</code> (string)</td>
+            <td>Ekipmanın açıklayıcı adı (ör. Yatay Eyerli Hava Tankı, Dikey Depolama Reaktörü).</td>
+          </tr>
+          <tr>
+            <td><strong>Müşteri</strong></td>
+            <td>—</td>
+            <td><code>customer</code> (string)</td>
+            <td>Ekipmanın üretildiği tesis, müşteri veya ana yüklenici ticari unvanı. Rapor kapağı için zorunludur.</td>
+          </tr>
+          <tr>
+            <td><strong>Revizyon</strong></td>
+            <td>—</td>
+            <td><code>revision</code> (string)</td>
+            <td>Mühendislik değişiklik seviyesi (ör. Rev 0, Rev A). Her hesaplama çalıştırmasında izlenebilirlik sağlar.</td>
+          </tr>
+          <tr>
+            <td><strong>Hesap Standardı</strong></td>
+            <td>—</td>
+            <td><code>calculation_code</code> (select)</td>
+            <td>Hesap motorunu belirler: <code>ASME VIII-1</code> veya <code>EN 13445</code>. Formül rotalarını, gerilme sınırlarını ve güvenlik katsayılarını kökten değiştirir.</td>
+          </tr>
+          <tr>
+            <td><strong>Standart Sürümü</strong></td>
+            <td>—</td>
+            <td><code>code_edition</code> (string)</td>
+            <td>Standart baskı yılı (ör. 2025 Edition / 2021+A1:2023). Uygunluk değerlendirmesi için raporda belgelenir.</td>
+          </tr>
+          <tr>
+            <td><strong>Kap Yönelimi</strong></td>
+            <td>—</td>
+            <td><code>orientation</code> (select)</td>
+            <td><code>horizontal</code> (Yatay) veya <code>vertical</code> (Dikey). Mesnet türlerini (eyer vs ayak/etek), statik sıvı seviyesi davranışını ve rüzgâr/moment kollarını belirler.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ADIM 02 -->
+    <div id="sec-adim-2">
+      <h2>3.2 Adım 02: Tasarım Koşulları (Basınç & Sıcaklık)</h2>
+      <p>
+        Kabın ömrü boyunca maruz kalacağı basınç, vakum, sıcaklık, korozyon ve akışkan özelliklerinin tanımlandığı adımdır. Mukavemet hesaplarının temel pay ve payda değişkenleri burada girilir.
+      </p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <figure class="doc-figure">
+          <img src="img/h-02-tasarim-kosullari.png" alt="Adım 2 Yatay Kap Tasarım Koşulları" />
+          <figcaption><strong>Şekil 3a:</strong> Yatay kap için basınç, sıcaklık ve korozyon koşulları.</figcaption>
+        </figure>
+        <figure class="doc-figure">
+          <img src="img/v-02-tasarim-kosullari.png" alt="Adım 2 Dikey Kap Tasarım Koşulları" />
+          <figcaption><strong>Şekil 3b:</strong> Dikey kap koşulları, sıvı seviyesi ve statik kafa parametreleri.</figcaption>
+        </figure>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Alan Adı (UI Etiketi)</th>
+            <th>Birim</th>
+            <th>Kod Alanı & Tipi</th>
+            <th>Anlamı ve Neden Gereklidir?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Çalışma Basıncı</strong></td>
+            <td>MPa</td>
+            <td><code>operating_pressure</code> (float)</td>
+            <td>Normal operasyonel proses basıncı. Tasarım basıncının altında olmalıdır (tutarlılık kontrolü yapılır).</td>
+          </tr>
+          <tr>
+            <td><strong>Tasarım Basıncı (P / Pd)</strong></td>
+            <td>MPa</td>
+            <td><code>design_pressure</code> (float)</td>
+            <td>Tüm cidar kalınlığı hesaplarında doğrudan payda çarpanı olan temel basınç değeri. Emniyet marjını içerir.</td>
+          </tr>
+          <tr>
+            <td><strong>Azami İzin Verilen (PS)</strong></td>
+            <td>MPa</td>
+            <td><code>maximum_allowable_pressure_ps</code></td>
+            <td>Avrupa Basınçlı Ekipmanlar Direktifi (PED 2014/68/EU) ve isim plakası için tanımlı maksimum sınır.</td>
+          </tr>
+          <tr>
+            <td><strong>Tahliye Sistemi</strong></td>
+            <td>—</td>
+            <td><code>pressure_relief.enabled</code></td>
+            <td>Kap üzerinde emniyet vanası veya patlama diski olup olmadığını belirtir (UG-125/136 uyumluluğu).</td>
+          </tr>
+          <tr>
+            <td><strong>Korunan MAWP</strong></td>
+            <td>MPa</td>
+            <td><code>protected_mawp_mpa</code></td>
+            <td>Tahliye sisteminin referans aldığı sınır. Boşsa hesaplanan global MAWP otomatik atanır.</td>
+          </tr>
+          <tr>
+            <td><strong>İzin Verilen Accumulation</strong></td>
+            <td>%</td>
+            <td><code>accumulation_limit_percent</code></td>
+            <td>Basınç tahliyesi esnasındaki aşırı basınç yüzdesi (varsayılan ASME için %10).</td>
+          </tr>
+          <tr>
+            <td><strong>Cihaz Tipi & Set Basıncı</strong></td>
+            <td>— / MPa</td>
+            <td><code>device_type</code>, <code>set_pressure_mpa</code></td>
+            <td>Emniyet vanası açma basıncı veya patlama diski patlama basıncı. Korunan MAWP'yi aşamaz.</td>
+          </tr>
+          <tr>
+            <td><strong>Çalışma Sıcaklığı</strong></td>
+            <td>°C</td>
+            <td><code>operating_temperature</code></td>
+            <td>Prosesin normal çalışma sıcaklığı.</td>
+          </tr>
+          <tr>
+            <td><strong>Tasarım Sıcaklığı</strong></td>
+            <td>°C</td>
+            <td><code>design_temperature</code></td>
+            <td>Malzemenin izin verilen gerilmesinin ($S$ / $f$) okunduğu sıcaklık. Kalınlığı belirleyen kritik parametre.</td>
+          </tr>
+          <tr>
+            <td><strong>Asgari Tasarım Sıcaklığı (MDMT)</strong></td>
+            <td>°C</td>
+            <td><code>minimum_design_temperature</code></td>
+            <td>Gevrek kırılma riski taşımayan en düşük çalışma sıcaklığı. UCS-66 darbe muafiyeti değerlendirmesinde kullanılır.</td>
+          </tr>
+          <tr>
+            <td><strong>Hidrotest Sıcaklığı</strong></td>
+            <td>°C</td>
+            <td><code>hydrotest_temperature</code></td>
+            <td>Basınç testinin yapılacağı ortam sıcaklığı (genellikle 20 °C). $S_{test}/S_{design}$ gerilme oranı için zorunludur.</td>
+          </tr>
+          <tr>
+            <td><strong>Darbe Testi Sıcaklığı</strong></td>
+            <td>°C</td>
+            <td><code>impact_test_temperature_C</code></td>
+            <td>Charpy darbe deneyinin yapıldığı sıcaklık (varsa). UCS-66 eğri değerlendirmesine ek girdi sağlar.</td>
+          </tr>
+          <tr>
+            <td><strong>Dış Basınç</strong></td>
+            <td>MPa</td>
+            <td><code>external_pressure</code></td>
+            <td>Kabın dışından etki eden basınç (ör. ceket basıncı veya atmosferik su altı). 0 ise UG-28 kontrolü yapılmaz.</td>
+          </tr>
+          <tr>
+            <td><strong>Vakum Koşulu</strong></td>
+            <td>—</td>
+            <td><code>vacuum_condition</code> (bool)</td>
+            <td>Tam vakum riski varsa "Var" seçilir; sistem otomatik olarak 0.1013 MPa dış basınç kararlılık denetimi yapar.</td>
+          </tr>
+          <tr>
+            <td><strong>Akışkan Yoğunluğu</strong></td>
+            <td>kg/m³</td>
+            <td><code>fluid_density_kg_m3</code></td>
+            <td>İçerideki sıvının yoğunluğu (su için 1000). Sıvı yüksekliğiyle çarpılarak alt cidarlara statik kafa basıncı ekler.</td>
+          </tr>
+          <tr>
+            <td><strong>Sıvı Seviyesi</strong></td>
+            <td>mm</td>
+            <td><code>liquid_level_mm</code></td>
+            <td>Kabın tabanından sıvı yüzeyine olan kot. Statik basınç formülünde ($P_{statik} = \rho \cdot g \cdot h$) yükseklik girdisidir.</td>
+          </tr>
+          <tr>
+            <td><strong>İç Korozyon Payı (C / C_int)</strong></td>
+            <td>mm</td>
+            <td><code>corrosion_allowance_internal</code></td>
+            <td>İç yüzeyde proses boyunca kaybolacağı varsayılan metal kalınlığı. İç çapı büyütür, et kalınlığına eklenir.</td>
+          </tr>
+          <tr>
+            <td><strong>Dış Korozyon Payı (C_ext)</strong></td>
+            <td>mm</td>
+            <td><code>corrosion_allowance_external</code></td>
+            <td>Dış çevre koşulları nedeniyle kaybolacak cidar payı.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ADIM 03 -->
+    <div id="sec-adim-3">
+      <h2>3.3 Adım 03: Kap Geometrisi (Gövde, Bombe, Nozul, Mesnet)</h2>
+      <p>
+        Vessela'nın en gelişmiş bölümü olan Adım 03, beş alt adımlı interaktif bir geometri sihirbazı (Geometry Wizard) ve hemen yanında canlı 3D/2D önizleme paneli içerir.
+      </p>
+
+      <!-- 3.1 Gövde Zinciri -->
+      <h3>3.3.1 Alt Adım 3.1: Gövde Zinciri (Body Chain)</h3>
+      <p>
+        Kap gövdesini oluşturan silindirik halkalar, konik geçişler ve kademeli çap değişimleri burada kurulur.
+      </p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <figure class="doc-figure">
+          <img src="img/h-03-geometri-31.png" alt="Yatay Kap Gövde Zinciri 3.1" />
+          <figcaption><strong>Şekil 4a:</strong> Yatay kap için tek silindirik gövde halkası ve 3D önizleme.</figcaption>
+        </figure>
+        <figure class="doc-figure">
+          <img src="img/v-03-geometri-31.png" alt="Dikey Kap Gövde Zinciri 3.1" />
+          <figcaption><strong>Şekil 4b:</strong> Dikey kap için silindir gövde zinciri düzenleyicisi.</figcaption>
+        </figure>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Alan Adı (UI Etiketi)</th>
+            <th>Birim</th>
+            <th>Kod Alanı & Tipi</th>
+            <th>Anlamı ve Neden Gereklidir?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>İç Çap (ID)</strong></td>
+            <td>mm</td>
+            <td><code>shell.inside_diameter</code></td>
+            <td>Silindirin korozyonsuz iç çapı. Cidar gerilmesini doğrudan belirleyen temel boyut.</td>
+          </tr>
+          <tr>
+            <td><strong>Et Kalınlığı (t / nominal)</strong></td>
+            <td>mm</td>
+            <td><code>shell.nominal_thickness</code></td>
+            <td>Seçilen sac kalınlığı. Hesaplanan gerekli kalınlıkla ($t_{req}$) kıyaslanarak mukavemet onaylanır.</td>
+          </tr>
+          <tr>
+            <td><strong>Teğet Boyu (L)</strong></td>
+            <td>mm</td>
+            <td><code>shell.tangent_length</code></td>
+            <td>Silindirik gövdenin iki teğet çizgisi (bombe birleşimleri) arasındaki düz boyu. Hacim ve dış basınç boyunu belirler.</td>
+          </tr>
+          <tr>
+            <td><strong>Büyük Çap / Küçük Çap</strong></td>
+            <td>mm</td>
+            <td><code>cone.large_diameter</code>, <code>small_diameter</code></td>
+            <td>Konik redüksiyon kesitlerinin giriş ve çıkış iç çapları.</td>
+          </tr>
+          <tr>
+            <td><strong>Koni Boyu & Yarı Tepe Açısı ($\alpha$)</strong></td>
+            <td>mm / °</td>
+            <td><code>cone.length</code>, <code>half_apex_angle</code></td>
+            <td>Konik kesitin boyu ve koni açısı ($\alpha \le 30^\circ$ ASME standart bölgesi; $30^\circ$ üstü özel analiz ister).</td>
+          </tr>
+          <tr>
+            <td><strong>Sac Toleransı (Mill Tolerance)</strong></td>
+            <td>%</td>
+            <td><code>mill_tolerance</code></td>
+            <td>Haddelenmiş sacın eksi kalınlık toleransı (ASME için tipik %12.5, EN için %10). Sipariş kalınlığını doğrudan etkiler.</td>
+          </tr>
+          <tr>
+            <td><strong>UG-28 A ve B Faktörleri</strong></td>
+            <td>— / MPa</td>
+            <td><code>ug28_strain_factor_a</code>, <code>allowable_stress_b</code></td>
+            <td>ASME Section II-D Şekil G grafiklerinden okunan gerinim (A) ve izin verilen basma (B) katsayıları. Dış basınç için zorunludur.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 3.2 Bombeler -->
+      <h3>3.3.2 Alt Adım 3.2: Bombeler (Heads)</h3>
+      <p>
+        Kabın sol/alt ve sağ/üst uçlarını kapatan bombelerin geometri ve standart parametreleri belirlenir.
+      </p>
+
+      <figure class="doc-figure">
+        <img src="img/h-03-geometri-32.png" alt="Alt Adım 3.2 Bombeler Paneli" />
+        <figcaption><strong>Şekil 5:</strong> Bombe seçim kartları (2:1 Elipsoidal, Torisferik, Yarım Küresel, Düz Kapak) ve ölçü alanları.</figcaption>
+      </figure>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Alan Adı (UI Etiketi)</th>
+            <th>Birim</th>
+            <th>Kod Alanı & Tipi</th>
+            <th>Anlamı ve Neden Gereklidir?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Bombe Tipi</strong></td>
+            <td>—</td>
+            <td><code>head.type</code> (radiogroup)</td>
+            <td><code>elliptical</code> (2:1 elips), <code>torispherical</code> (torisferik), <code>hemispherical</code> (yarım küre), <code>flat</code> (düz kapak). Formül setini belirler.</td>
+          </tr>
+          <tr>
+            <td><strong>Çap İlişkisi (Bağlı/Bağımsız)</strong></td>
+            <td>—</td>
+            <td><code>diameter_relation</code></td>
+            <td><code>linked</code> seçildiğinde bombe iç çapı gövde ucuyla kilitlenir; <code>independent</code> elle bağımsız çapa izin verir.</td>
+          </tr>
+          <tr>
+            <td><strong>Bombe İç Çapı</strong></td>
+            <td>mm</td>
+            <td><code>head.inside_diameter</code></td>
+            <td>Bombenin flanş eteğindeki iç çapı.</td>
+          </tr>
+          <tr>
+            <td><strong>Et Kalınlığı (t)</strong></td>
+            <td>mm</td>
+            <td><code>head.nominal_thickness</code></td>
+            <td>Bombenin şekillendirme öncesi plaka sac kalınlığı.</td>
+          </tr>
+          <tr>
+            <td><strong>Düz Flanş Boyu (sf)</strong></td>
+            <td>mm</td>
+            <td><code>straight_flange_length</code></td>
+            <td>Kaynak dikişinin büküm gerilmesinden uzaklaşması için bırakılan düz etek uzunluğu (tipik 25–50 mm).</td>
+          </tr>
+          <tr>
+            <td><strong>Kubbe Derinliği (h)</strong></td>
+            <td>mm</td>
+            <td><code>crown_depth</code></td>
+            <td>2:1 elips dışındaki basık elipsoidal formlar için bombe derinliği. 0 girilirse standart $h = D_i / 4$ (K=1.0) alınır.</td>
+          </tr>
+          <tr>
+            <td><strong>Taç Yarıçapı (R / L)</strong></td>
+            <td>mm</td>
+            <td><code>crown_radius</code></td>
+            <td>Torisferik bombenin merkez küresel taç yarıçapı. 0 girilirse standart ASME F&D ($R = D_i$) varsayılır.</td>
+          </tr>
+          <tr>
+            <td><strong>Büküm Yarıçapı (r / rk)</strong></td>
+            <td>mm</td>
+            <td><code>knuckle_radius</code></td>
+            <td>Torisferik bombenin köşe kıvrım (mafsal) yarıçapı. 0 girilirse ASME F&D için $0.06 D_i$ alınır. EN için zorunludur!</td>
+          </tr>
+          <tr>
+            <td><strong>Düz Kapak C Katsayısı (UG-34)</strong></td>
+            <td>—</td>
+            <td><code>flat_attachment_factor</code></td>
+            <td>ASME Şekil UG-34'teki bağlantı tipine bağlı kaynak katsayısı (ör. 0.33, 0.5). Boşsa hesap bloke kalır.</td>
+          </tr>
+          <tr>
+            <td><strong>Düz Kapak C (EN 13445 Md.10)</strong></td>
+            <td>—</td>
+            <td><code>en_flat_end_factor_c</code></td>
+            <td>EN 13445-3 Şekil 10.4-x grafiğinden okunan kaynak katsayısı (UG-34 C'si ile aynı değildir).</td>
+          </tr>
+          <tr>
+            <td><strong>UG-33 A ve B Faktörleri</strong></td>
+            <td>— / MPa</td>
+            <td><code>ug28_strain_factor_a</code>, <code>allowable_stress_b</code></td>
+            <td>Bombe dış basınç/vakum mukavemeti için ASME Section II-D grafiklerinden okunan faktörler.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 3.3 Flanşlı Nozullar -->
+      <h3>3.3.3 Alt Adım 3.3: Flanşlı Nozullar (Flanged Nozzles)</h3>
+      <p>
+        Boru bağlantı ağızlarının ASME B16.5 / B16.47 flanş ve ASME B36.10M boru kataloglarından seçilerek kaba eklendiği adımdır.
+      </p>
+
+      <figure class="doc-figure">
+        <img src="img/h-03-geometri-33.png" alt="Alt Adım 3.3 Flanşlı Nozullar" />
+        <figcaption><strong>Şekil 6:</strong> Flanşlı nozul ekleme, ASME katalog eşleştirme ve 3D gövde/bombe yerleşim paneli.</figcaption>
+      </figure>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Alan Adı (UI Etiketi)</th>
+            <th>Birim</th>
+            <th>Kod Alanı & Tipi</th>
+            <th>Anlamı ve Neden Gereklidir?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Nozul Etiketi (Tag)</strong></td>
+            <td>—</td>
+            <td><code>nozzle.tag</code> (string)</td>
+            <td>Nozulun P&ID, mekanik resim ve rapordaki benzersiz kimliği (N1, N2, MANWAY vb.).</td>
+          </tr>
+          <tr>
+            <td><strong>Nozul Tipi</strong></td>
+            <td>—</td>
+            <td><code>nozzle_type</code> (select)</td>
+            <td><code>flanged</code> (kaynak boyunlu flanş), <code>slip_on</code>, <code>pad_reinforced</code> (takviye pedli), <code>manway</code> (adam deliği).</td>
+          </tr>
+          <tr>
+            <td><strong>Boyut (NPS / DN)</strong></td>
+            <td>inç / mm</td>
+            <td><code>size_designation</code> (katalog)</td>
+            <td>Standart anma boru çapı (NPS 1/2" ila 24" / DN15 - DN600). Katalogdan dış ve iç çapı otomatik doldurur.</td>
+          </tr>
+          <tr>
+            <td><strong>Et Kalınlığı Serisi (SCH)</strong></td>
+            <td>—</td>
+            <td><code>schedule</code> (katalog)</td>
+            <td>Boru et serisi (SCH 10, 40, STD, 80, XS, 160). Nozul boyun kalınlığını ($t_n$) belirler.</td>
+          </tr>
+          <tr>
+            <td><strong>Flanş Sınıfı (Rating)</strong></td>
+            <td>—</td>
+            <td><code>rating_class</code> (select)</td>
+            <td>ASME B16.5 basınç sınıfı: Class 150, 300, 600, 900, 1500, 2500. Flanş dış çapı ve cıvata dairesini belirler.</td>
+          </tr>
+          <tr>
+            <td><strong>Host Bileşen</strong></td>
+            <td>—</td>
+            <td><code>host_component_id</code></td>
+            <td>Nozulun kaynatıldığı ana bileşen: Gövde (SHELL-01) veya bombelerden biri (HEAD-01 / HEAD-02).</td>
+          </tr>
+          <tr>
+            <td><strong>Eksenel Konum (z)</strong></td>
+            <td>mm</td>
+            <td><code>axial_position</code></td>
+            <td>Gövdeye bağlı nozulun sol teğet çizgisinden itibaren eksen boyunca mesafesi.</td>
+          </tr>
+          <tr>
+            <td><strong>Yerleşim Çapı (Bombede)</strong></td>
+            <td>mm</td>
+            <td><code>head_position_diameter</code></td>
+            <td>Nozul bombe üzerindeyse, bombe merkez ekseninden olan radyal mesafenin iki katı (0 = tam merkez tepe).</td>
+          </tr>
+          <tr>
+            <td><strong>Çevresel Açı ($\theta$)</strong></td>
+            <td>°</td>
+            <td><code>circumferential_angle</code></td>
+            <td>Nozulun saat yönündeki radyal açısı. 0° = tam üst, 90° = sağ yan, 180° = tam alt, 270° = sol yan.</td>
+          </tr>
+          <tr>
+            <td><strong>Eğim Açısı ($\alpha$)</strong></td>
+            <td>°</td>
+            <td><code>inclination_angle</code></td>
+            <td>Gövde eksenine diklikten sapma açısı (0° = dik/radyal nozul; $>0^\circ$ eğik nozul).</td>
+          </tr>
+          <tr>
+            <td><strong>Dış / İç Çıkıntı</strong></td>
+            <td>mm</td>
+            <td><code>outside_projection</code>, <code>inside_projection</code></td>
+            <td>Nozul borusunun kap dışına ve kap içine doğru taşma boyları. UG-40 takviye sınırlarını belirler.</td>
+          </tr>
+          <tr>
+            <td><strong>Takviye Pedi Dış Çapı & Et</strong></td>
+            <td>mm</td>
+            <td><code>reinforcement_pad_od</code>, <code>thickness</code></td>
+            <td>Açıklığı çevreleyen takviye sacının (reinforcement pad) ölçüleri ($A_5$ alan katkısı sağlar).</td>
+          </tr>
+          <tr>
+            <td><strong>Açıklık Kaynak Verimi (E1)</strong></td>
+            <td>—</td>
+            <td><code>opening_weld_joint_efficiency</code></td>
+            <td>UG-37(a) uyarınca açıklık gövde kaynak dikişini kesiyorsa dikiş verimi ($0.70 - 1.00$). Boşsa 1.0 alınır.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 3.4 Manşonlar -->
+      <h3>3.3.4 Alt Adım 3.4: Manşonlar (Couplings)</h3>
+      <p>
+        Enstrüman, drenaj ve hava tahliye amaçlı küçük çaplı dişli veya soket kaynaklı manşonların ASME B16.11 standardına göre eklendiği bölümdür.
+      </p>
+
+      <figure class="doc-figure">
+        <img src="img/h-03-geometri-34.png" alt="Alt Adım 3.4 Manşonlar Paneli" />
+        <figcaption><strong>Şekil 7:</strong> Manşon (coupling / socket weld) formu, boyut ve konum yerleşim sihirbazı.</figcaption>
+      </figure>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Alan Adı (UI Etiketi)</th>
+            <th>Birim</th>
+            <th>Kod Alanı & Tipi</th>
+            <th>Anlamı ve Neden Gereklidir?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Bağlantı Tipi</strong></td>
+            <td>—</td>
+            <td><code>coupling_type</code></td>
+            <td><code>coupling</code> (NPT Dişli manşon) veya <code>socket_welded</code> (soket kaynaklı ağız).</td>
+          </tr>
+          <tr>
+            <td><strong>Boyut (NPS / DN)</strong></td>
+            <td>inç</td>
+            <td><code>nps</code> (select)</td>
+            <td>1/2" ila 4" (DN15 - DN100) aralığındaki dövme çelik manşon anma çapları.</td>
+          </tr>
+          <tr>
+            <td><strong>Manşon Formu</strong></td>
+            <td>—</td>
+            <td><code>coupling_form</code></td>
+            <td><code>full</code> (tam manşon - hem içe hem dışa uzanır) veya <code>half</code> (yarım manşon - yalnız dışa).</td>
+          </tr>
+          <tr>
+            <td><strong>Basınç Sınıfı</strong></td>
+            <td>—</td>
+            <td><code>rating_class</code></td>
+            <td>ASME B16.11 standardı: <code>3000#</code> veya <code>6000#</code> dövme sınıfı. Cidar et kalınlığını belirler.</td>
+          </tr>
+          <tr>
+            <td><strong>Konum (Host, z/D, $\theta$)</strong></td>
+            <td>mm / °</td>
+            <td>Yerleşim alanları</td>
+            <td>Manşonun bağlandığı bileşen, eksenel mesafesi ve dairesel açısı.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 3.5 Mesnetler -->
+      <h3>3.3.5 Alt Adım 3.5: Mesnetler ve Destekler (Supports)</h3>
+      <p>
+        Kabın ağırlığını, hidrotest suyunu ve rüzgâr/deprem yüklerini zemine ileten taşıyıcı elemanların tanımlandığı bölümdür.
+      </p>
+
+      <figure class="doc-figure">
+        <img src="img/h-03-geometri-35.png" alt="Alt Adım 3.5 Mesnetler Paneli" />
+        <figcaption><strong>Şekil 8:</strong> Yatay kap için çift eyer (saddle) önerisi, yerleşim kotları ve eyer ölçü parametreleri.</figcaption>
+      </figure>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Alan Adı (UI Etiketi)</th>
+            <th>Birim</th>
+            <th>Kod Alanı & Tipi</th>
+            <th>Anlamı ve Neden Gereklidir?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Destek Türü</strong></td>
+            <td>—</td>
+            <td><code>support.type</code></td>
+            <td><code>saddle</code> (yatay kap eyeri), <code>skirt</code> (dikey silindirik etek), <code>leg</code> (dikey ayak profilleri).</td>
+          </tr>
+          <tr>
+            <td><strong>Eyer Konumu (Sol teğetten)</strong></td>
+            <td>mm</td>
+            <td><code>location_mm</code></td>
+            <td>Eyer merkezinin sol gövde teğet çizgisine mesafesi ($A$ mesafesi). Moment dağılımını belirler.</td>
+          </tr>
+          <tr>
+            <td><strong>Eyer Genişliği & Yüksekliği</strong></td>
+            <td>mm</td>
+            <td><code>width_mm</code>, <code>height_mm</code></td>
+            <td>Eyerin eksenel temas genişliği ($b$) ve tabandan kap eksenine olan yüksekliği.</td>
+          </tr>
+          <tr>
+            <td><strong>Temas (Sarma) Açısı ($\theta$)</strong></td>
+            <td>°</td>
+            <td><code>contact_angle_deg</code></td>
+            <td>Eyerin gövdeyi sardığı açı ($120^\circ \le \theta \le 180^\circ$, standart minimum $120^\circ$). Zick katsayılarını doğrudan etkiler.</td>
+          </tr>
+          <tr>
+            <td><strong>Eyer Düzleminde Halka</strong></td>
+            <td>—</td>
+            <td><code>saddle_stiffened</code> (bool)</td>
+            <td>Eyer hizasında rijitlik halkası olup olmadığını belirtir (halka yoksa $K_1, K_2, K_6$ katsayıları aranır).</td>
+          </tr>
+          <tr>
+            <td><strong>Zick Katsayıları (K1, K2, K3, K6, K7)</strong></td>
+            <td>—</td>
+            <td><code>zick_K1 ... K7</code> (float)</td>
+            <td>Zick 1951 / Moss PVDM tablosundan $\theta$'ya göre okunan katsayılar. Girilmezse hesap <code>BLOCKED_CODE_DATA</code> olur.</td>
+          </tr>
+          <tr>
+            <td><strong>Eyer Plaka Kalınlıkları</strong></td>
+            <td>mm</td>
+            <td><code>thickness_mm</code>, <code>web_thickness</code>, <code>rib_thickness</code></td>
+            <td>Aşınma plakası (wear plate), gövde (web) sacı ve feder (rib) kalınlıkları. BOM ağırlığını belirler.</td>
+          </tr>
+          <tr>
+            <td><strong>Etek (Skirt) Ortalama Çapı</strong></td>
+            <td>mm</td>
+            <td><code>diameter_mm</code></td>
+            <td>Etek cidarının ORTALAMA çapı ($D_{ort} = D_{dış} - t$). Dış çap girilirse basma gerilmesi emniyetsiz çıkar.</td>
+          </tr>
+          <tr>
+            <td><strong>Etek İzin Verilen Basma (B)</strong></td>
+            <td>MPa</td>
+            <td><code>skirt_allowable_compressive_MPa</code></td>
+            <td>ASME UG-23(b) çizelgesinden okunan burkulma izin faktörü. Girilmezse etek burkulması bloklanır.</td>
+          </tr>
+          <tr>
+            <td><strong>Etek Kaynak Verimi (E)</strong></td>
+            <td>—</td>
+            <td><code>skirt_weld_efficiency</code></td>
+            <td>Çekme tarafı ($S \cdot E$) için birleşim katsayısı. Boşsa sistem 0.60 varsayar ve sonuca yazar.</td>
+          </tr>
+          <tr>
+            <td><strong>Ayak (Leg) Kesit Tipi</strong></td>
+            <td>—</td>
+            <td><code>leg_section_type</code></td>
+            <td><code>pipe</code> (boru), <code>channel</code> (UPN profil), <code>box</code> (kutu), <code>angle</code> (köşebent).</td>
+          </tr>
+          <tr>
+            <td><strong>Ayak Sayısı & Dağılım Yarıçapı</strong></td>
+            <td>Adet / mm</td>
+            <td><code>leg_count</code>, <code>support_radius_mm</code></td>
+            <td>Taşıyıcı ayak adedi (3 ila 8) ve ayak eksenlerinin kap merkezine radyal uzaklığı ($r$). Moment koludur.</td>
+          </tr>
+          <tr>
+            <td><strong>Ayak Profil Boyutları</strong></td>
+            <td>mm</td>
+            <td>Genişlik, yükseklik, et kalınlığı</td>
+            <td>Profil kesit geometrisi. Boru için halka kesit alanı ($A = \frac{\pi}{4}(D_o^2 - D_i^2)$) hesaplanır.</td>
+          </tr>
+          <tr>
+            <td><strong>Ayak Bağlantı Pedi & Taban Sacı</strong></td>
+            <td>mm</td>
+            <td>Boy, en, kalınlık, akma $F_y$</td>
+            <td>Gövdeye kaynatılan pedin ve zemine oturan taban flanşının boyutları ve akma dayanımı.</td>
+          </tr>
+          <tr>
+            <td><strong>Ankraj Cıvataları</strong></td>
+            <td>Adet / mm / N</td>
+            <td>Adet, çap, izin verilen çekme/kesme</td>
+            <td>Kaldırma (uplift) ve yatay kayma kuvvetlerini karşılayan ankraj cıvata donanımı.</td>
+          </tr>
+          <tr>
+            <td><strong>Devirme Momenti</strong></td>
+            <td>N·mm</td>
+            <td><code>overturning_moment_Nmm</code></td>
+            <td>Rüzgâr, sismik veya borulama kaynaklı dış devirme momenti. Ayak reaksiyonlarını doğrudan artırır.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 3.4 Hesap Girdileri Sekmesi -->
+    <div id="sec-adim-3-girdiler">
+      <h2>3.4 Adım 03 Ek: Hesap Girdileri Paneli</h2>
+      <p>
+        Geometri sihirbazının hemen üst sekmesinde yer alan "Hesap girdileri", 3D modeli değiştirmeyen ancak mukavemet ve maliyet motorunun ihtiyaç duyduğu ek normatif parametreleri toplar.
+      </p>
+
+      <figure class="doc-figure">
+        <img src="img/h-03-hesap-girdileri.png" alt="Hesap Girdileri Akordeon Paneli" />
+        <figcaption><strong>Şekil 9:</strong> Hesap Girdileri akordeon menüsü: Malzeme, Kaynak, Nozul dış yükleri, Flanşlar, Destekler ve BOM maliyet alanları.</figcaption>
+      </figure>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Akordeon Bölümü</th>
+            <th>Giriş Alanları ve Birimleri</th>
+            <th>Mühendislik Açıklaması ve Rolü</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Malzeme (Materials)</strong></td>
+            <td>
+              Malzeme Tanımı (SA-516 Gr. 70 vb.)<br>
+              İzin Verilen Gerilme $S$ (MPa)<br>
+              $S$ Değerinin Sıcaklığı (°C)<br>
+              Kalınlık Aralığı Min / Max (mm)<br>
+              Test Sıcaklığında $S$ (MPa)<br>
+              Akma Dayanımı $F_y$ (MPa)<br>
+              Çekme Dayanımı $F_u$ (MPa)<br>
+              Yoğunluk (kg/m³)<br>
+              UCS-66 Eğri Grubu (A, B, C, D)
+            </td>
+            <td>
+              Kullanıcı beyanlı malzeme kütüphanesi. $S$, et kalınlığını doğrudan belirler. $S$'in okunduğu sıcaklık tasarım sıcaklığından farklıysa B-31 kuralı gereği sonuç <code>REVIEW_REQUIRED</code> olur. Test sıcaklığındaki $S$ hidrotest basınç oranını ($LSR$) belirler; girilmezse test basıncı düşük kalabilir. UCS-66 grubu girilmezse MDMT analizi bloklanır.
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Kaynak & NDT (Welds)</strong></td>
+            <td>
+              Kaynak Verimi $E$ / $z$ (0.70 - 1.00)<br>
+              NDE Yöntemi (RT, UT, PT, MT)<br>
+              NDE Kapsamı (%100, Spot, Görsel)<br>
+              EN Test Grubu (1, 2, 3, 4)
+            </td>
+            <td>
+              Kaynak birleşim katsayısı ($E$). UW-11/UW-12 gereği tahribatsız muayene kapsamına bağlıdır. EN 13445 rotasında test grubu seçilirse $z$ katsayısı sınırlandırılır (Grup 1/2 $\to z=1.0$; Grup 3 $\to z=0.85$; Grup 4 $\to z=0.70$).
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Flanşlar (Appendix 2)</strong></td>
+            <td>
+              İç/Dış Çap ($B, A$), Kalınlık ($t$)<br>
+              Hub Ölçüleri ($g_0, g_1, h$)<br>
+              Conta $m$ Faktörü ve $y$ Gerilmesi (MPa)<br>
+              Cıvata Adedi, Alanı, İzin Gerilmesi<br>
+              Appendix 2 Faktörleri ($Y, f, F, V, T, U$)<br>
+              Cıvata Yükü $W$ (N), Moment $M$ (N·mm)
+            </td>
+            <td>
+              ASME VIII-1 Appendix 2 integral/loose flanş gerilme kontrolü. $Y, f, F, V, T, U$ telifli Şekil 2-7.1 grafiklerinden; $W$ ve $M$ flanş hesap sayfasından kullanıcı tarafından girilir. Biri eksikse hesap <code>BLOCKED_MISSING_INPUT</code> olur.
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Nozul Dış Yükleri (WRC 537/297)</strong></td>
+            <td>
+              $F_r$ (Radyal kuvvet, N)<br>
+              $V_c, V_L$ (Çevresel ve boyuna kesme, N)<br>
+              $M_c, M_L$ (Çevresel ve boyuna moment, N·mm)<br>
+              $M_t$ (Burulma momenti, N·mm)<br>
+              Gerilme Kriteri (Tresca / von Mises)<br>
+              Bülten katsayıları ($N_x, N_y, M_x, M_y$)
+            </td>
+            <td>
+              Boru hattından nozul boynuna aktarılan 6 bileşenli dış kuvvet ve momentlerin gövde cidarında yarattığı lokal gerilme kontrolü. WRC 537 bülten katsayıları girilmezse hesap bloklanır.
+            </td>
+          </tr>
+          <tr>
+            <td><strong>BOM Maliyet Girdileri</strong></td>
+            <td>
+              Malzeme Fiyatı (€/kg)<br>
+              Kaynak / İşçilik Süresi (saat)<br>
+              İşçilik Saat Ücreti (€/saat)<br>
+              NDT Toplam Bedeli (€)<br>
+              Boya ve Kaplama Bedeli (€)
+            </td>
+            <td>
+              İmalat maliyet analizi. Girilen değerlerle sac ağırlığı, flanş/boru maliyetleri ve genel işçilik toplanarak Adım 04 ve 06'da detaylı maliyet dökümü sunulur.
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Kaldırma Kulağı (Lifting Lug)</strong></td>
+            <td>
+              Kulak Sayısı, Plaka Kalınlığı/Genişliği<br>
+              Delik Çapı, Kenar Mesafesi, Yükseklik<br>
+              Kaynak Boyu ve Bacağı (mm)<br>
+              Sapan Açısı (°), Darbe Katsayısı (1.5–2.0)
+            </td>
+            <td>
+              Kabın vinçle montajı esnasındaki kulak çekme, pim yataklanması, kaynak kesmesi ve kabuk yerel gerilmesi ön kontrollerini gerçekleştirir.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ADIM 04 -->
+    <div id="sec-adim-4">
+      <h2>3.5 Adım 04: Hesap Sonuçları ve KPI Paneli</h2>
+      <p>
+        Bu adımda, tanımlanan geometrinin ve çalışma şartlarının seçilen standarda (ASME VIII-1 veya EN 13445) göre mukavemet sonuçları listelenir.
+      </p>
+
+      <h3>3.5.1 KPI (Anahtar Performans Göstergeleri) Çubuğu</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>KPI Alanı</th>
+            <th>Birim</th>
+            <th>Açıklama</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Global MAWP</strong></td>
+            <td>MPa</td>
+            <td>Tüm gövde, bombe ve koni bileşenleri arasında en zayıf olanın izin verdiği azami çalışma basıncı (statik sıvı düşülmüş).</td>
+          </tr>
+          <tr>
+            <td><strong>Hidrostatik Test</strong></td>
+            <td>MPa</td>
+            <td>UG-99(b) uyarınca kabın en üst noktasında uygulanacak asgari su basıncı ($1.3 \times MAWP \times LSR$).</td>
+          </tr>
+          <tr>
+            <td><strong>Pnömatik Test</strong></td>
+            <td>MPa</td>
+            <td>UG-100 uyarınca su testinin mümkün olmadığı durumlarda gaz ile uygulanacak test basıncı ($1.1 \times MAWP \times LSR$).</td>
+          </tr>
+          <tr>
+            <td><strong>İç Hacim</strong></td>
+            <td>L / m³</td>
+            <td>Kabın net geometrik iç kapasitesi. PED kategori tespitinde ($PS \times V$) kullanılır.</td>
+          </tr>
+          <tr>
+            <td><strong>Metal Ağırlığı</strong></td>
+            <td>kg</td>
+            <td>Korozyonsuz nominal et kalınlıkları ve malzeme yoğunluğundan hesaplanan toplam kabuk, bombe ve nozul kütlesi.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>3.5.2 Sonuç Grupları ve Tablo Yapısı</h3>
+      <p>
+        Hesaplama sonuçları modüler paneller halinde sunulur. Her satırda bileşen adı, standart madde referansı, hesaplanan sonuç, izin verilen sınır değer, kullanım oranı (utilization ratio) ve durum rozeti bulunur.
+      </p>
+      <ul>
+        <li><strong>Ön Kontroller — Girdi Tutarlılığı:</strong> Tasarım basıncının çalışma basıncını karşılaması, malzeme tanım eşleşmesi.</li>
+        <li><strong>Et Kalınlığı — Gövde & Bombe:</strong> UG-27, UG-32, UG-34 veya EN 7.4/7.5 hesapları.</li>
+        <li><strong>Nozul Takviyesi:</strong> UG-37 alan yerine koyma ($A_1 \dots A_5$) oranları.</li>
+        <li><strong>Flanş Gerilmeleri:</strong> Appendix 2 boyuna hub, radyal ve teğetsel flanş gerilmeleri.</li>
+        <li><strong>Bileşen MAWP Değerleri:</strong> Her bir kabuk ve başlığın bağımsız azami basınç limiti.</li>
+        <li><strong>Dış Basınç / Vakum:</strong> UG-28/UG-33 izin verilen dış basınç kıyaslaması.</li>
+        <li><strong>Mesnet ve Destekler:</strong> Eyer Zick gerilmeleri, etek basma/çekmesi veya ayak burkulma kontrolleri.</li>
+      </ul>
+    </div>
+
+    <!-- ADIM 05 -->
+    <div id="sec-adim-5">
+      <h2>3.6 Adım 05: 3D Model ve Parametrik Görüntüleyici</h2>
+      <p>
+        Adım 05, üretilen basınçlı kabın gerçek parametrik CAD temsilini tarayıcı içinde 3 boyutlu olarak inceleme imkânı verir.
+      </p>
+      <ul>
+        <li><strong>Etkileşimli STL/CAD Motoru:</strong> Three.js tabanlı görüntüleyicide sol tuşla döndürme, sağ tuşla kaydırma (pan) ve fare tekerleğiyle yakınlaştırma (zoom) yapılır.</li>
+        <li><strong>Kesit Görünümü (Section Mode):</strong> Tek tuşla kabın yarısı kesilerek iç çıkıntılar, nozul delikleri ve cidar kalınlıkları içten incelenebilir.</li>
+        <li><strong>Ana Ölçüler Paneli:</strong> Toplam boy, teğet boyu, dış/iç çaplar ve nozul koordinatları ($z, \theta, \varnothing$) proje verisinden okunarak net olarak listelenir (mesh'ten ölçülmez).</li>
+        <li><strong>Doğrudan STEP İndirme:</strong> Bu ekrandan tek tıklamayla SolidWorks, Inventor veya FreeCAD ortamlarına aktarılmak üzere <code>.STEP</code> dosyası indirilebilir.</li>
+      </ul>
+    </div>
+
+    <!-- ADIM 06 -->
+    <div id="sec-adim-6">
+      <h2>3.7 Adım 06: Rapor ve Çıktılar</h2>
+      <p>
+        Tasarım sürecinin nihai belgelendirme adımıdır. Mühendislik onayı, imalat hazırlığı ve kalite dosyası için gerekli tüm çıktılar tek merkezden üretilir:
+      </p>
+      <ul>
+        <li><strong>HTML Hesap Raporu:</strong> 23 bölümlük tam denetim raporu. Giriş parametreleri, ara hesap adımları, formül referansları ve PED ESR ön değerlendirme matrisini içerir.</li>
+        <li><strong>PDF Yazdır:</strong> A4 baskı kuralları rapora gömülüdür. "PDF indir" tıklandığında tarayıcının yazdırma diyaloğu açılır ve "PDF Olarak Kaydet" seçilerek resmi formatta arşivlenir.</li>
+        <li><strong>STEP / STL 3D Dosyası:</strong> CadQuery parametrik modelleme çekirdeği tarafından oluşturulan tam hacimsel STEP modeli.</li>
+        <li><strong>Sac Açınımı (Flat Pattern):</strong> Gövde silindirinin kesim ölçüleri (genişlik $\times$ çevre uzunluğu: $\pi \cdot D_{ort}$) ve nozul merkez deliklerinin plaka üzerindeki $(X, Y)$ koordinatları.</li>
+        <li><strong>BOM Kartı:</strong> Parça parça plaka, boru, flanş, kaynak metrajı ve maliyet özet tablosu.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BÖLÜM 5: HESAP REHBERİ SIFIRDAN FORMÜLLER VE ÖRNEKLER
+       ============================================================ -->
+  <section id="sec-hesap-rehberi">
+    <h1>4. Basınçlı Kap Hesap Rehberi (Sıfırdan Formüller ve Örnekler)</h1>
+    <p>
+      Bu bölüm, Vessela hesap motorunun (<code>packages/code-asme-viii-1/formulas.py</code> ve <code>packages/code-en-13445/formulas.py</code>) temelini oluşturan analitik denklemleri, değişken tanımlarını ve adım adım sayısal örnekleri içermektedir.
+    </p>
+
+    <!-- 4.1 Temel Parametreler -->
+    <div id="sec-formuller-temel">
+      <h2>4.1 Tasarım Basıncı, Sıcaklık, İzin Verilen Gerilme ve Toleranslar</h2>
+      <p>
+        Tüm basınçlı kap hesapları dört temel malzeme ve imalat faktörünün tanımlanmasıyla başlar:
+      </p>
+      <ul>
+        <li><strong>Tasarım Basıncı ($P$ / $P_d$):</strong> Kabın en üst noktasındaki manometrik basınç (MPa).</li>
+        <li><strong>Tasarım Sıcaklığı ($T$):</strong> Malzemenin izin verilen gerilmesinin ($S$ ASME / $f$ EN) tablodan okunduğu sıcaklık (°C). Sıcaklık arttıkça malzemenin taşıma kapasitesi düşer.</li>
+        <li><strong>Kaynak Birleşim Verimi ($E$ ASME / $z$ EN):</strong> Tahribatsız muayene (NDT/NDE) kapsamına göre atanır:
+          <ul>
+            <li>$E = 1.00$: Tam radyografik muayene (%100 RT/UT, UW-11(a)).</li>
+            <li>$E = 0.85$: Kısmi (Spot) radyografik muayene (UW-11(b)).</li>
+            <li>$E = 0.70$: Görsel muayene / radyografisiz (UW-12(c)).</li>
+          </ul>
+        </li>
+        <li><strong>Korozyon Payı ($C$):</strong> İşletme ömrü boyunca iç yüzeyden aşınacak et kalınlığı (mm). Cidar kalınlığı hesabında iç yarıçap korozyonlu hale getirilir: $R_{corr} = R_{yeni} + C$.</li>
+        <li><strong>Sac Negatif Toleransı ($f_{mill}$):</strong> Sac levhaların haddelenmesi sırasındaki imalat eksi toleransı. ASME için tipik %12.5 ($f_{mill} = 0.875$), EN için %10 ($f_{mill} = 0.90$).</li>
+      </ul>
+    </div>
+
+    <!-- 4.2 Silindirik Gövde -->
+    <div id="sec-formuller-govde">
+      <h2>4.2 Silindirik Gövde Et Kalınlığı (ASME UG-27 vs EN 13445 7.4)</h2>
+      <p>
+        İç basınç altındaki ince cidarlı bir silindirde iki eksenli gerilme durumu oluşur: çevresel (teğetsel/hoop) gerilme ve boyuna (eksenel/longitudinal) gerilme. Çevresel gerilme daima boyuna gerilmenin iki katı mertebesindedir; dolayısıyla boyuna kaynak dikişi en kritik bölgedir.
+      </p>
+
+      <div class="math-card">
+        <div class="math-card__title">
+          <span>ASME Section VIII Div. 1 — Paragraf UG-27(c)(1)</span>
+          <span class="math-card__ref">Denklem (1) ve (2)</span>
+        </div>
+        <div class="math-eq">
+          t_{circ} = \frac{P \cdot R}{S \cdot E - 0.6 P} \quad \text{(Çevresel Gerilme / Boyuna Dikiş)}
+        </div>
+        <div class="math-eq">
+          t_{long} = \frac{P \cdot R}{2 S \cdot E + 0.4 P} \quad \text{(Boyuna Gerilme / Çevresel Dikiş)}
+        </div>
+        <div class="math-vars">
+          <strong>Değişkenler:</strong>
+          <ul>
+            <li>$P$: Tasarım basıncı (MPa)</li>
+            <li>$R$: Korozyona uğramış iç yarıçap ($R = R_{yeni} + C$) (mm)</li>
+            <li>$S$: Tasarım sıcaklığındaki azami izin verilen gerilme (MPa)</li>
+            <li>$E$: Kaynak dikiş verimi ($0.70 \le E \le 1.00$)</li>
+            <li>$t_{required} = \max(t_{circ}, t_{long})$: Basınç için gerekli korozyonsuz net et kalınlığı (mm)</li>
+          </ul>
+        </div>
+        <div class="math-eq">
+          t_{nominal} = \frac{t_{required} + C + thinning}{f_{mill}} \quad \text{(Gerekli Nominal Sac Kalınlığı, B-26)}
+        </div>
+      </div>
+
+      <div class="math-card">
+        <div class="math-card__title">
+          <span>EN 13445-3 — Madde 7.4.2 (Silindirik Gövde)</span>
+          <span class="math-card__ref">Denklem (7.4.2-1) ve (7.4.2-2)</span>
+        </div>
+        <div class="math-eq">
+          e_{circ} = \frac{P \cdot R}{f \cdot z - 0.5 P} \qquad e_{long} = \frac{P \cdot R}{2 f \cdot z + P}
+        </div>
+        <div class="math-vars">
+          <strong>Değişkenler:</strong> $f$: EN tasarım gerilmesi (MPa), $z$: dikiş birimleştirme katsayısı, $R$: iç yarıçap (mm).
+        </div>
+      </div>
+
+      <div class="math-example">
+        <strong>Adım Adım Sayısal Örnek (Gövde Kalınlığı Hesabı):</strong><br>
+        <strong>Girdiler:</strong> Tasarım Basıncı $P = 1.20\text{ MPa}$, İç Çap $D_i = 1000\text{ mm} \implies R = 500\text{ mm}$, Korozyon Payı $C = 2.0\text{ mm}$, Malzeme SA-516 Gr. 70 ($S = 138.0\text{ MPa}$), Kaynak Verimi $E = 0.85$ (Spot RT), Sac Negatif Toleransı %12.5 ($f_{mill} = 0.875$), Şekillendirme incelmesi $= 0\text{ mm}$.<br>
+        <strong>1. Korozyonlu Yarıçap:</strong> $R_{corr} = 500.0 + 2.0 = 502.0\text{ mm}$.<br>
+        <strong>2. Payda Hesabı (Çevresel):</strong> $S \cdot E - 0.6 P = (138.0 \times 0.85) - (0.6 \times 1.20) = 117.30 - 0.72 = 116.58\text{ MPa}$.<br>
+        <strong>3. Çevresel Kalınlık:</strong> $t_{circ} = \frac{1.20 \times 502.0}{116.58} = \frac{602.40}{116.58} = \mathbf{5.1673\text{ mm}}$.<br>
+        <strong>4. Payda Hesabı (Boyuna):</strong> $2 S \cdot E + 0.4 P = (2 \times 138.0 \times 0.85) + (0.4 \times 1.20) = 234.60 + 0.48 = 235.08\text{ MPa}$.<br>
+        <strong>5. Boyuna Kalınlık:</strong> $t_{long} = \frac{1.20 \times 502.0}{235.08} = \frac{602.40}{235.08} = \mathbf{2.5625\text{ mm}}$.<br>
+        <strong>6. Gerekli Net Kalınlık:</strong> $t_{required} = \max(5.1673, 2.5625) = \mathbf{5.1673\text{ mm}}$.<br>
+        <strong>7. Nominal Sipariş Kalınlığı (B-26 Kuralı):</strong><br>
+        $$t_{nominal} = \frac{t_{required} + C}{f_{mill}} = \frac{5.1673 + 2.0}{0.875} = \frac{7.1673}{0.875} = \mathbf{8.1912\text{ mm}}$$<br>
+        <strong>Karar:</strong> Standart sac kalınlığı olarak <strong>10.0 mm</strong> (veya emniyetli marj için 12.0 mm) sipariş edilmelidir. UG-16(b) minimum cidar kontrolü ($10.0 \times 0.875 - 2.0 = 6.75\text{ mm} \ge 1.5\text{ mm}$) sağlanmıştır <span class="badge badge--pass">PASS</span>.
+      </div>
+    </div>
+
+    <!-- 4.3 Bombeler -->
+    <div id="sec-formuller-bombe">
+      <h2>4.3 Bombeler: Elipsoidal, Torisferik, Yarım Küre ve Düz Kapaklar</h2>
+      <p>
+        Basınçlı kap uç kapakları geometrilerine göre farklı membran ve büküm gerilmeleri üretir.
+      </p>
+
+      <div class="math-card">
+        <div class="math-card__title">
+          <span>ASME UG-32(d) — 2:1 Elipsoidal Bombe</span>
+          <span class="math-card__ref">UG-32(d)</span>
+        </div>
+        <div class="math-eq">
+          t = \frac{P \cdot D \cdot K}{2 S \cdot E - 0.2 P} \quad \text{Standart 2:1 için } K = 1.0
+        </div>
+        <div class="math-vars">
+          Genel eliptik bombe için: $K = \frac{1}{6} \left[ 2 + \left(\frac{D}{2h}\right)^2 \right]$, $D$: korozyonlu iç çap ($D_i + 2C$), $h$: kubbe iç derinliği.
+        </div>
+      </div>
+
+      <div class="math-card">
+        <div class="math-card__title">
+          <span>ASME UG-32(e) — Torisferik Bombe</span>
+          <span class="math-card__ref">UG-32(e)</span>
+        </div>
+        <div class="math-eq">
+          M = \frac{1}{4} \left( 3 + \sqrt{\frac{L}{r}} \right) \qquad t = \frac{P \cdot L \cdot M}{2 S \cdot E - 0.2 P}
+        </div>
+        <div class="math-vars">
+          $L$: Taç yarıçapı (crown radius, mm), $r$: Büküm/mafsal yarıçapı (knuckle radius, mm). Standart ASME F&D için $L = D_i$, $r = 0.06 D_i \implies M = 1.77$.
+        </div>
+      </div>
+
+      <div class="math-card">
+        <div class="math-card__title">
+          <span>ASME UG-32(f) — Yarım Küresel Bombe</span>
+          <span class="math-card__ref">UG-32(f)</span>
+        </div>
+        <div class="math-eq">
+          t = \frac{P \cdot R}{2 S \cdot E - 0.2 P}
+        </div>
+        <div class="math-vars">
+          $R$: Korozyonlu küre iç yarıçapı ($D_i/2 + C$). Yarım küre bombe silindirin tam olarak yarısı kadar kalınlık gerektirir.
+        </div>
+      </div>
+
+      <div class="math-card">
+        <div class="math-card__title">
+          <span>ASME UG-34 — Desteksiz Düz Kapak</span>
+          <span class="math-card__ref">UG-34(c)(2)</span>
+        </div>
+        <div class="math-eq">
+          t = d \sqrt{\frac{C_{attach} \cdot P}{S \cdot E}} + C
+        </div>
+        <div class="math-vars">
+          $d$: Kapak anma iç çapı (mm), $C_{attach}$: Şekil UG-34 bağlantı katsayısı (kaynak geometrisine göre $0.13 - 0.50$).
+        </div>
+      </div>
+
+      <div class="math-example">
+        <strong>Adım Adım Sayısal Örnek (2:1 Elipsoidal Bombe Kalınlığı):</strong><br>
+        <strong>Girdiler:</strong> $P = 1.20\text{ MPa}$, $D_i = 1000\text{ mm}$, $C = 2.0\text{ mm} \implies D_{corr} = 1004.0\text{ mm}$, $S = 138.0\text{ MPa}$, $E = 1.00$ (Dikişsiz yekpare bombe), $K = 1.00$, $f_{mill} = 0.875$.<br>
+        <strong>1. Payda Hesabı:</strong> $2 S \cdot E - 0.2 P = (2 \times 138.0 \times 1.0) - (0.2 \times 1.20) = 276.0 - 0.24 = \mathbf{275.76\text{ MPa}}$.<br>
+        <strong>2. Gerekli Net Kalınlık:</strong> $$t_{req} = \frac{1.20 \times 1004.0 \times 1.0}{275.76} = \frac{1204.80}{275.76} = \mathbf{4.3690\text{ mm}}$$<br>
+        <strong>3. Nominal Sipariş Kalınlığı:</strong> $$t_{nom} = \frac{4.3690 + 2.0}{0.875} = \frac{6.3690}{0.875} = \mathbf{7.2789\text{ mm}}$$<br>
+        <strong>Karar:</strong> Seçilen nominal plaka kalınlığı <strong>10.0 mm</strong>. Basınç ve korozyon payı rahatlıkla karşılanmaktadır <span class="badge badge--pass">PASS</span>.
+      </div>
+    </div>
+
+    <!-- 4.4 MAWP -->
+    <div id="sec-formuller-mawp">
+      <h2>4.4 Azami İzin Verilen Çalışma Basıncı (MAWP)</h2>
+      <p>
+        MAWP (Maximum Allowable Working Pressure), seçilen nominal et kalınlığından toleranslar ve korozyon payı düşüldükten sonra kalan net cidarın, tasarım sıcaklığında taşıyabileceği teorik en yüksek basınçtır.
+      </p>
+
+      <div class="math-card">
+        <div class="math-card__title">
+          <span>Bileşen Bazında MAWP Formülleri</span>
+          <span class="math-card__ref">ASME VIII-1 Rearranged</span>
+        </div>
+        <div class="math-eq">
+          P_{MAWP,silindir} = \frac{S \cdot E \cdot t}{R + 0.6 t} \qquad P_{MAWP,elips} = \frac{2 S \cdot E \cdot t}{D + 0.2 t}
+        </div>
+        <div class="math-vars">
+          Burada $t = t_{nominal} - C$ (korozyonlu net kalınlık), $R$: orijinal iç yarıçap, $D$: orijinal iç çap.
+        </div>
+        <div class="math-eq">
+          Global\text{ }MAWP = \min(P_{MAWP,1}, P_{MAWP,2}, \dots, P_{MAWP,n}) - P_{statik}
+        </div>
+      </div>
+
+      <div class="math-example">
+        <strong>Adım Adım Sayısal Örnek (Global MAWP Tespiti):</strong><br>
+        Seçilen gövde sacı $t_{nom} = 10.0\text{ mm}$, $C = 2.0\text{ mm} \implies t = 8.0\text{ mm}$. $R = 500\text{ mm}$, $S = 138\text{ MPa}$, $E = 0.85$.<br>
+        $$P_{MAWP,silindir} = \frac{138.0 \times 0.85 \times 8.0}{500 + 0.6 \times 8.0} = \frac{938.40}{504.80} = \mathbf{1.8590\text{ MPa}}$$<br>
+        Seçilen bombe sacı $t_{nom} = 10.0\text{ mm}$, $C = 2.0\text{ mm} \implies t = 8.0\text{ mm}$. $D = 1000\text{ mm}$, $S = 138\text{ MPa}$, $E = 1.00$.<br>
+        $$P_{MAWP,bombe} = \frac{2 \times 138.0 \times 1.0 \times 8.0}{1000 + 0.2 \times 8.0} = \frac{2208.00}{1001.60} = \mathbf{2.2045\text{ MPa}}$$<br>
+        <strong>Global MAWP:</strong> $\min(1.8590, 2.2045) = \mathbf{1.8590\text{ MPa}}$ ($18.59\text{ bar}$). Gövde belirleyici sınırdır.
+      </div>
+    </div>
+
+    <!-- 4.5 Hidrotest -->
+    <div id="sec-formuller-hidrotest">
+      <h2>4.5 Hidrostatik ve Pnömatik Basınç Testleri (UG-99 / EN 13445-5)</h2>
+      <p>
+        İmalatı tamamlanan basınçlı kabın cidar mukavemetini ve sızdırmazlığını kanıtlamak için uygulanan zorunlu kabul testidir.
+      </p>
+
+      <div class="math-card">
+        <div class="math-card__title">
+          <span>ASME UG-99(b) ve UG-100 Test Basıncı Standart Formülleri</span>
+          <span class="math-card__ref">UG-99(b) / UG-100</span>
+        </div>
+        <div class="math-eq">
+          P_{hidrotest} = 1.3 \times MAWP \times LSR \qquad P_{pnomatik} = 1.1 \times MAWP \times LSR
+        </div>
+        <div class="math-eq">
+          LSR = \min \left( \frac{S_{test}}{S_{design}} \right) \quad \text{(Lowest Stress Ratio — En Düşük Gerilme Oranı)}
+        </div>
+        <div class="math-vars">
+          <strong>Kritik Kural (B-28):</strong> Test basıncı tabanı tasarım basıncı ($P$) DEĞİL, <strong>MAWP</strong>'dir! $S_{test}$ (test sıcaklığındaki izin gerilmesi) girilmediğinde $LSR = 1.0$ kabulü yapılır ve sistem emniyetsiz yönde düşük test basıncı üretmemek için sonucu <span class="badge badge--review">REVIEW_REQUIRED</span> yapar.
+        </div>
+      </div>
+
+      <div class="math-card">
+        <div class="math-card__title">
+          <span>EN 13445-5 Madde 10.2.3.3.1 Standart Test Basıncı</span>
+          <span class="math-card__ref">EN 13445-5</span>
+        </div>
+        <div class="math-eq">
+          P_t = \max \left( 1.25 \cdot P_d \cdot \frac{f_a}{f_T} \; , \; 1.43 \cdot PS \right)
+        </div>
+        <div class="math-vars">
+          $f_a$: test sıcaklığındaki gerilme, $f_T$: tasarım sıcaklığındaki gerilme, $P_d$: tasarım basıncı, $PS$: azami izin verilen basınç.
+        </div>
+      </div>
+
+      <div class="math-example">
+        <strong>Adım Adım Sayısal Örnek (ASME Hidrotest Basıncı Hesabı):</strong><br>
+        <strong>Girdiler:</strong> $MAWP = 1.8590\text{ MPa}$, Tasarım sıcaklığı $200^\circ\text{C}$'de $S_{design} = 138.0\text{ MPa}$, Test sıcaklığı $20^\circ\text{C}$'de $S_{test} = 148.0\text{ MPa}$.<br>
+        <strong>1. Gerilme Oranı ($LSR$):</strong> $$LSR = \frac{148.0}{138.0} = \mathbf{1.07246}$$<br>
+        <strong>2. Hidrostatik Test Basıncı (UG-99(b)):</strong><br>
+        $$P_{hidrotest} = 1.3 \times 1.8590 \times 1.07246 = \mathbf{2.5918\text{ MPa}} \quad (25.92\text{ bar})$$<br>
+        <em>Not: Eğer $S_{test}$ girilmeseydi $LSR=1$ alınacak ve test basıncı $2.4167\text{ MPa}$ çıkacaktı; bu durum kabın gerçekte %7.2 daha düşük test edilmesine neden olurdu.</em>
+      </div>
+    </div>
+
+    <!-- 4.6 Nozul Takviyesi -->
+    <div id="sec-formuller-nozul">
+      <h2>4.6 Nozul Takviyesi: UG-37 Alan Yöntemi ve EN 9.5 Basınç-Alan Yaklaşımı</h2>
+      <p>
+        Gövde veya bombeye açılan her delik, cidarın gerilme taşıyan kesitini zayıflatır. ASME UG-37 bu kesilen alanı ($A_{req}$), delik çevresindeki mevcut metal fazlalıklarıyla ($A_1, A_2, A_3, A_4, A_5$) ikame etme (Area Replacement) esasına dayanır.
+      </p>
+
+      <div class="math-card">
+        <div class="math-card__title">
+          <span>ASME UG-37 / UG-40 Alan Değiştirme Yöntemi</span>
+          <span class="math-card__ref">UG-37(c) / UG-40</span>
+        </div>
+        <div class="math-eq">
+          A_{req} = d \cdot t_r \cdot F + 2 t_n \cdot t_r \cdot F \cdot (1 - f_{r1})
+        </div>
+        <div class="math-vars">
+          <strong>UG-40 Takviye Sınırları (Limits of Reinforcement):</strong>
+          <ul>
+            <li>Kabuğa paralel sınır: $L_{par} = \max(d, \; R_n + t_n + t)$ (nozul merkezinden her iki yana)</li>
+            <li>Kabuğa dik dış sınır: $L_{norm} = \min(2.5 t, \; 2.5 t_n + t_e)$</li>
+            <li>Kabuğa dik iç sınır: $L_{in} = \min(h_{in}, \; 2.5 t, \; 2.5 t_n)$</li>
+          </ul>
+          <strong>Mevcut Takviye Alanları:</strong>
+          <ul>
+            <li><strong>A1 (Gövde fazla kalınlığı):</strong> $A_1 = (2 L_{par} - d)(E_1 t - F t_r) - 2 t_n(E_1 t - F t_r)(1 - f_{r1})$</li>
+            <li><strong>A2 (Nozul dış boyun fazlalığı):</strong> $A_2 = 2 h_{out,eff} (t_n - t_{rn}) f_{r2}$ (burada $t_{rn}$ nozulun iç basınç için gereken kendi et kalınlığıdır)</li>
+            <li><strong>A3 (Nozul iç çıkıntı alanı):</strong> $A_3 = 2 L_{in} t_n f_{r2}$</li>
+            <li><strong>A4 (Kaynak metali kesit alanı):</strong> $A_4 = w_1^2 f_{r2} + w_2^2 f_{r4}$ (köşe kaynak bacakları)</li>
+            <li><strong>A5 (Takviye pedi sac alanı):</strong> $A_5 = (D_{p,eff} - d - 2 t_n) \cdot t_e \cdot f_{r4}$</li>
+          </ul>
+          <strong>Kabul Kriteri:</strong>
+          <div class="math-eq">A_{total} = A_1 + A_2 + A_3 + A_4 + A_5 \ge A_{req} \implies \text{Kullanım Oranı } \frac{A_{req}}{A_{total}} \le 1.0</div>
+        </div>
+      </div>
+
+      <div class="callout callout--info">
+        <strong>EN 13445-3 Madde 9.5 (Basınç-Alan Yöntemi) Notu:</strong>
+        EN 13445, ASME alan yöntemi yerine basınca maruz alanlar ile taşıyıcı metal alanlarının kuvvet dengesini ($\sum (A \cdot f) \ge P \cdot (A_p + 0.5 A)$) esas alır. Vessela V1 sürümünde EN nozul hesabı henüz koda bağlanmamış olup, standart seçiminde açıkça <span class="badge badge--nc">HESAPLANMADI</span> statüsü üretir.
+      </div>
+    </div>
+
+    <!-- 4.7 Dış Basınç -->
+    <div id="sec-formuller-dis-basinc">
+      <h2>4.7 Dış Basınç ve Vakum Stabilitesi (ASME UG-28 / UG-33)</h2>
+      <p>
+        İç basınçta cidar çekmeye çalışırken, dış basınç veya vakumda cidar basmaya maruz kalır ve elastik/plastik burkulma (buckling) riski doğar.
+      </p>
+
+      <div class="math-card">
+        <div class="math-card__title">
+          <span>ASME UG-28 Silindirik Gövde Dış Basınç Hesabı</span>
+          <span class="math-card__ref">UG-28(c)(1) / UG-33</span>
+        </div>
+        <div class="math-eq">
+          P_{allow,silindir} = \frac{4 B}{3 (D_o / t)} \qquad P_{allow,bombe} = \frac{2 B \cdot t}{D_o}
+        </div>
+        <div class="math-vars">
+          <strong>Adımlar:</strong>
+          1. $L/D_o$ ve $D_o/t$ geometrik oranları hesaplanır.<br>
+          2. ASME Section II-D Şekil G grafiğinden $A$ faktörü (strain factor) okunur.<br>
+          3. İlgili malzemenin sıcaklık eğrisinden $B$ faktörü (allowable compressive stress, MPa) okunur.<br>
+          4. İzin verilen dış basınç $P_{allow}$ hesaplanır ve $P_{external} \le P_{allow}$ kontrol edilir.
+        </div>
+      </div>
+    </div>
+
+    <!-- 4.8 Destekler -->
+    <div id="sec-formuller-destek">
+      <h2>4.8 Mesnet ve Destek Hesapları: Eyer (Zick), Ayak ve Etek</h2>
+
+      <h3>4.8.1 Yatay Kap Eyer Analizi (L.P. Zick 1951 / Moss PVDM 3-10)</h3>
+      <p>
+        İki eyer üzerinde duran yatay silindirik kap, rijit mesnetli bir kiriş gibi davranır. Zick analizi ile 5 kritik gerilme kontrol edilir:
+      </p>
+      <ul>
+        <li><strong>Eyer Kesiti Boyuna Eğilme Momenti ($M_1$):</strong>
+          $$M_1 = Q \cdot A \left[ 1 - \frac{1 - A/L + (R^2 - H^2)/(2AL)}{1 + 4H/(3L)} \right]$$
+        </li>
+        <li><strong>Orta Açıklık Eğilme Momenti ($M_2$):</strong>
+          $$M_2 = \frac{Q \cdot L}{4} \left[ \frac{1 + 2(R^2 - H^2)/L^2}{1 + 4H/(3L)} - \frac{4A}{L} \right]$$
+        </li>
+        <li><strong>S1 Boyuna Gerilme:</strong> $S_1 = \frac{|M_1|}{K_1 R^2 t} + \frac{P R}{2t} \le S \cdot E$ (Çekme); basma tarafında $\le 0.5 S_y$.</li>
+        <li><strong>S2 Kabuk Kesme Gerilmesi:</strong> $S_2 = \frac{K_2 Q}{R t} \left(\frac{L - 2A}{L + 4H/3}\right) \le 0.8 S$.</li>
+        <li><strong>S4 Eyer Boynuzu Çevresel Gerilmesi:</strong> $S_4 = \frac{Q}{4t(b + 1.56\sqrt{Rt})} + \frac{3 K_6 Q}{2 t^2} \le 1.5 S$.</li>
+      </ul>
+
+      <h3>4.8.2 Dikey Kap Ayak (Leg) Analizi (B-27 ve B-32 Düzeltmeleri)</h3>
+      <p>
+        Dikey ayaklar kap ağırlığını ve devirme momentini taşır. Moss PVDM uyarınca $n \ge 3$ ayak için en yüklü ayak reaksiyonu:
+      </p>
+      <div class="math-eq">
+        N_{max} = \frac{W_{total}}{n} + \frac{2 M_{devirme}}{n \cdot r} \qquad N_{min} = \frac{W_{bos}}{n} - \frac{2 M_{devirme}}{n \cdot r}
+      </div>
+      <p>
+        <strong>Taşıyıcı Kesit Alanı (B-27):</strong> Ayaklar dolu daire değil boru halka kesittir: $A_{leg} = \frac{\pi}{4}(D_o^2 - D_i^2)$. Eksenel gerilme $\sigma = N_{max} / A_{leg} \le S$ kontrol edilir. $N_{min} < 0$ ise ankraj cıvatalarında net çekme (kaldırma) oluşur.
+      </p>
+
+      <h3>4.8.3 Dikey Kap Etek (Skirt) Analizi</h3>
+      <p>
+        Ortalama çapı $D_m$ ve kalınlığı $t$ olan silindirik etek için birleşik basma gerilmesi:
+      </p>
+      <div class="math-eq">
+        S_{comb} = S_{bending} + S_{comp} = \frac{4 M}{\pi D_m^2 t} + \frac{W_{total}}{\pi D_m t} \le \min(S, \; B)
+      </div>
+    </div>
+
+    <!-- 4.9 Durum Etiketleri -->
+    <div id="sec-durum-etiketleri">
+      <h2>4.9 Hesap Sonuç Durum Etiketleri ve Anlamları</h2>
+      <p>
+        Vessela platformunda her bir mühendislik kontrolü, doğrulanabilirlik ve güvenilirlik seviyesini temsil eden 7 kesin durum etiketinden birini alır:
+      </p>
+
+      <table class="status-badge-table">
+        <thead>
+          <tr>
+            <th>Durum Etiketi</th>
+            <th>Türkçe Başlık</th>
+            <th>CSS Sınıfı</th>
+            <th>Mühendislik Anlamı ve Eylem Gereksinimi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge--pass">PASS</span></td>
+            <td>GEÇTİ</td>
+            <td><code>badge--pass</code></td>
+            <td>Formül tam olarak çalıştırıldı, bağımsız testlerle doğrulandı ve kullanım oranı $\le 1.00$. Tasarım kodu şartlarını karşılar.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge--fail">FAIL</span></td>
+            <td>KALDI</td>
+            <td><code>badge--fail</code></td>
+            <td>Hesaplanan gerilme sınırı aşıldı, gerekli et kalınlığı seçilen kalınlıktan büyük veya geometri kuralları ihlal edildi. Sac kalınlığı veya malzeme artırılmalıdır.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge--review">REVIEW REQUIRED</span></td>
+            <td>İNCELEME GEREKLİ</td>
+            <td><code>badge--review</code></td>
+            <td>Hesaplama tamamlandı ancak ön kontrol seviyesindedir veya bağımsız doğrulanmamış bir varsayım içerir (ör. $S_{test}$ eksikliği, eğik nozul izdüşümü, Zick analizi). <strong>Yetkin mühendis onayı şarttır.</strong></td>
+          </tr>
+          <tr>
+            <td><span class="badge badge--nc">NOT CALCULATED</span></td>
+            <td>HESAPLANMADI</td>
+            <td><code>badge--nc</code></td>
+            <td>İlgili standart veya rotada bu hesaplama modülü henüz implemente edilmedi (ör. EN 13445 nozul veya flanş). Sessizce boş bırakılmaz, açıkça raporlanır.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge--scope">OUT OF SCOPE</span></td>
+            <td>KAPSAM DIŞI</td>
+            <td><code>badge--scope</code></td>
+            <td>Mevcut standart kuralının geometrik geçerlilik sınırları dışına çıkıldı (ör. $3$ veya daha fazla eyer, koni $\alpha > 30^\circ$, EN elips $K$ oranı sınır dışı). DBA analizi gerekir.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge--blocked">BLOCKED CODE DATA</span></td>
+            <td>Veri Engelli (lisans)</td>
+            <td><code>badge--blocked</code></td>
+            <td>Telifli standart grafiği/tablosu verisi eksik (UG-28 A/B faktörleri, Zick K faktörleri, Appendix 2 flanş eğrileri). Kullanıcı girdisi beklenir, uydurma değer kullanılmaz.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge--blocked">BLOCKED MISSING INPUT</span></td>
+            <td>Girdi Eksik</td>
+            <td><code>badge--blocked</code></td>
+            <td>Hesabın çalışması için zorunlu olan temel bir geometrik veya malzeme verisi girilmemiş (ör. torisferik mafsal yarıçapı $r$, flanş cıvata yükü $W$).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BÖLÜM 6: RAPORLAMA VE ÇIKTILAR
+       ============================================================ -->
+  <section id="sec-rapor-cikti">
+    <h1>5. Raporlama, İmalat Çıktıları ve Veri İletişimi</h1>
+    <p>
+      Vessela, hesap sonuçlarını yalnızca ekranda göstermekle kalmaz; üretim atölyesine ve resmi onay kuruluşlarına sunulabilecek endüstriyel kalitede 5 ana çıktı paketi üretir:
+    </p>
+
+    <h3>5.1 23 Bölümlük İzlenebilir HTML Hesap Raporu</h3>
+    <p>
+      Rapor, ASME VIII-1 ve EN 13445 standart denetçilerinin talep ettiği tüm aşamaları içerir: Proje kimliği, tasarım koşulları matrisi, bileşen bazında malzeme özellikleri tablosu, gövde/bombe/koni kalınlık formül adımları, ara değerler (intermediate values), emniyet valfi kontrolü, hidrotest/pnömatik test parametreleri, nozul takviye alan tabloları, çakışma kontrolleri ve PED 2014/68/EU Ek I Temel Emniyet Gerekleri (ESR) kontrol matrisi.
+    </p>
+
+    <h3>5.2 Tarayıcı Tabanlı Vektörel PDF Çıktısı</h3>
+    <p>
+      Rapor sayfasına gömülü <code>@media print</code> ve <code>@page { size: A4; margin: 16mm; }</code> kuralları sayesinde, harici PDF dönüştürücülere (WeasyPrint vb.) ihtiyaç duyulmadan Google Chrome, Edge veya Firefox üzerinden <em>"Yazdır $\to$ PDF Olarak Kaydet"</em> komutuyla mükemmel sayfa kesmelerine ve vektörel netliğe sahip PDF belgeleri oluşturulur.
+    </p>
+
+    <h3>5.3 Parametrik STEP 3D CAD Modeli</h3>
+    <p>
+      CadQuery mimarisi ile oluşturulan <code>.STEP</code> dosyaları; gövde silindirlerini, bombeleri, flanşları, nozul boyunlarını ve mesnet saclarını gerçek 3 boyutlu katı gövdeler (BREP solids) olarak saklar. SolidWorks, Autodesk Inventor, Siemens NX, CATIA veya FreeCAD ortamlarına doğrudan aktarılabilir ve teknik resim çıkarma süreçlerinde kullanılabilir.
+    </p>
+
+    <h3>5.4 Silindir Rulo Sac Açınımı (Flat Pattern)</h3>
+    <p>
+      Atölye plazma/lazer kesim operatörleri için silindirik gövdenin açınım ölçüleri ($Genişlik = L$, $Uzunluk = \pi \cdot D_{ort}$) ve gövdeye açılacak nozul deliklerinin plaka sol alt köşesine göre eksenel ($X$) ve çevresel ($Y = R_{ort} \cdot \theta_{rad}$) koordinatları milimetrik hassasiyetle tablolanır.
+    </p>
+
+    <h3>5.5 Malzeme Listesi ve Maliyet Tablosu (BOM CSV)</h3>
+    <p>
+      Kullanılan tüm sac plakaların (gövde, bombe, takviye pedi, eyer federleri), standart boru ve flanşların net metrajı, ağırlıkları (kg) ve girilen birim fiyatlar üzerinden toplam maliyet dökümü CSV formatında dışa aktarılabilir.
+    </p>
+  </section>
+
+  <!-- ============================================================
+       BÖLÜM 7: SINIRLAR, YASAL UYARI VE MÜHENDİSLİK SORUMLULUĞU
+       ============================================================ -->
+  <section id="sec-sinirlar-uyari">
+    <h1>6. Bilinen Sınırlar, Metodolojik Kısıtlar ve Yasal Sorumluluk</h1>
+
+    <div class="callout callout--danger">
+      <strong>YASAL UYARI VE MÜHENDİSLİK SORUMLULUK REDDİ:</strong>
+      Vessela (<code>app.zeyslabs-vessela.com</code>) tarafından üretilen tüm hesaplama sonuçları, 3D modeller, sac açınımları ve raporlar <strong>yalnızca ön tasarım, fizibilite, ön boyutlandırma ve teklif hazırlama amaçlıdır.</strong>
+      Bu yazılım, imalata esas resmi tasarım raporu, onaylanmış kuruluş (Notified Body) uygunluk kararı veya lisanslı bir yetkin mühendisin (Professional / Chartered Engineer) yasal imzasının yerine geçmez. Çıktılar, bağımsız yetkin bir mühendis tarafından incelenip onaylanmadan doğrudan imalata, montaja veya işletmeye esas alınamaz.
+    </div>
+
+    <h3>6.1 Metodolojik Kısıtlar ve Doğrulama Durumu</h3>
+    <ul>
+      <li><strong>EN 13445 Rota Durumu (verified=False):</strong> EN 13445-3 ve EN 13445-5 formülleri açık kaynaklı mühendislik hafızasıyla kodlanmış olup, lisanslı orijinal standart metniyle satır satır tescil edilmemiştir. Bu nedenle EN rotasındaki tüm olumlu sonuçlar en fazla <span class="badge badge--review">REVIEW_REQUIRED</span> statüsü alır; imalata esas kabul edilemez.</li>
+      <li><strong>Otomatik Malzeme Veritabanı Yoktur:</strong> Sistemde telifli ASME Section II-D veya EN 10028 malzeme kütüphaneleri gömülü değildir. Kullanıcının girdiği gerilme değerleri ($S, f, F_y, F_u$) sistem tarafından doğrulanmaz; kullanıcının beyanı esas alınır.</li>
+      <li><strong>Nozul Harici Yükleri ve Büyük Açıklıklar:</strong> Radyal olmayan eğik nozullar $1/\cos(\alpha)$ yaklaşık izdüşümüyle çözülür. Nozul dış boru yükleri (WRC) kullanıcı katsayılarına bağlıdır. ASME Appendix 1-7 büyük açıklık ($d > D/2$) kontrolleri V1 kapsamında değildir.</li>
+      <li><strong>Destek ve Mesnetler:</strong> Eyer Zick analizi, etek burkulması ve ayak profili gerilme hesapları birleşik yük zarflarını inceler; temel betonu ezilmesi, ankraj kimyasal tutunması veya taban halkası rijitlik hesaplarını kapsamaz.</li>
+    </ul>
+
+    <hr style="border: 0; border-top: 1pt solid var(--border); margin: 30pt 0 15pt;">
+    <footer style="font-size: 8pt; color: var(--text-muted); text-align: center; display: flex; justify-content: space-between;">
+      <span>Vessela Basınçlı Kap Suite · Kullanım ve Hesap Kılavuzu</span>
+      <span>Zeys Labs Engineering © 2026 · Tüm Hakları Saklıdır</span>
+      <span>app.zeyslabs-vessela.com</span>
+    </footer>
+  </section>
+
+</div>
+
+</body>
+</html>

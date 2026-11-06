@@ -1,5 +1,8 @@
 # B05 — EN 13445-3 Madde 9 nozul takviyesi (basınç–alan yöntemi)
 
+> **KESİN KURAL:** Kabuk/terminal komutu çalıştırma aracını (RunCommand) HİÇ kullanma — izin yok, kullanırsan koşu anında düşer.
+> Dosyaları yalnız dosya okuma / listeleme / arama araçlarınla oku, yalnız dosya düzenleme aracınla yaz. Test koşma; şef koşacak.
+
 Mod: yaz · Motor: agy gemini-3.8-flash-high · Proje kökü: worktree kökü (yollar `pressure-vessel-suite/` ile başlar)
 
 ## Amaç

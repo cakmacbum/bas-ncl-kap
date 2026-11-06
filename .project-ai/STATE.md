@@ -140,3 +140,9 @@ Plan: `.project-ai/paketler/D5-PLAN-en13445-eski-isler.md` · Kadro: `.project-a
 - Deploy: `git archive HEAD` (870e425) temiz kopyası → `npx vercel deploy --prod` (pv-suite-app, dpl_284RKQJGPkYKWSJYie5yNPvNFwUr, Ready).
 - Canlı doğrulama: /api/health ok · dist hash canlıda eşleşti (index-KmHxBuQe.js) · EN 13445 beş bileşenli fixture yerel ve canlıda aynı sonuç (yalnız id/zaman farklı); HEAD-L "EN 13445-3, 7.5.4" ile hesaplanıyor.
 - Sıradaki: E05 (EN dış basınç Part 8 + nozul takviyesi, Opus) → kampanyayı düzeltilmiş tabanla yeniden koş → G01 sıkılaştırma.
+
+## 2026-11-07 — E05 main'de (push/canlı YOK) + kılavuz PDF
+- A05 EN dış basınç 8.5/8.7 (14 test) + B05 EN nozul takviyesi 9.5 (10 test; el hesabı bağımsız tuttu) — agy Gemini 3.8 Flash High yazdı, şef test/birleştirdi. Tam pytest 1202/1. Kod incelemesi (code-reviewer) YAPILMADI; A05 el hesabı bağımsız teyit EDİLMEDİ.
+- Kılavuz: docs/kilavuz/Vessela-Kullanim-ve-Hesap-Kilavuzu.pdf (29 s., Gemini yazdı, tools/kilavuz/pdf.py ile basıldı). Formül/sayı satır satır kontrolü YAPILMADI. Eksik görüntüler: hesap sonuçları, 3D, rapor (e2e/kilavuz-shots.spec.ts yarıda kesildi).
+- Not: agy headless'ta RunCommand yasak → pakete "komut kullanma" kuralı yazınca çalışıyor; testleri şef koşar.
+- Sıradaki: A05 bağımsız el hesabı + code-reviewer → push → canlıya alma (onay) · kılavuz kontrolü + eksik görüntüler.
