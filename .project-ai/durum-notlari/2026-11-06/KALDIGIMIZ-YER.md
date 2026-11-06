@@ -1,6 +1,10 @@
 # Kaldığımız yer — 2026-11-06
 
-## Şu an çalışan
+## DURDURULDU (Yusuf: "dur") — çalışan ajan yok, main temiz (son: fa813f5)
+- E05 başlatılmıştı, dosya yazmadan durduruldu → baştan başlatılacak (brief aynı).
+- Canlıya alma sorusu cevapsız kaldı (E06 elipsoidal düzeltmesi canlıda değil).
+
+## Önceki çalışan
 - ✓ BİTTİ (e210e43, 2:1 örnek 1,84 → 4,21 mm) — **E06 (ACİL):** EN 13445 elipsoidal bombe küre denklemiyle hesaplanıyor → 2:1 için gereken kalınlığın ~yarısı (emniyetsiz).
   Düzeltme: 7.5.4 eşdeğer torisferik (R = Di(0,44K+0,02), r = Di(0,5/K−0,08)) + E03 torisferik prosedürü. Ayrıca EN testlerindeki
   zincire bağlı olmayan fixture'lar geometrik olarak düzeltilecek (G01 kapısı sıkılaşabilsin). Brief: `paketler/D5-PLAN-en13445-eski-isler.md` → "Ek paket E06".
