@@ -58,7 +58,7 @@ def sample_materials():
         material_id="MAT-P355NH-NOZ",
         standard_pack="EN 10028-3:2017",
         material_designation="P355NH",
-        product_form=ProductForm.PIPE,
+        product_form=ProductForm.SEAMLESS_PIPE,
         temperature=200.0,
         allowable_stress=163.0,
         yield_strength=295.0,
