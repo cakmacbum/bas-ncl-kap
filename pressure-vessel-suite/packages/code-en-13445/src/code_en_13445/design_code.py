@@ -712,6 +712,18 @@ class EN13445DesignCode(DesignCode):
             reason=f"EN 13445 pneumatic test pressure is not implemented; {self._NO_ASME_FALLBACK}",
         )
 
+    def calculate_hydrotest_component(self, input_data: dict) -> CalculationResult:
+        return self._unsupported_result(
+            component_id=input_data.get("component_id", ""),
+            component_type=input_data.get("component_type", "system"),
+            calculation_type="hydrotest_component",
+            clause="EN 13445-5 (testing)",
+            reason=(
+                "EN 13445 hidrostatik test statik kafası uygulanmadı; test basıncı kabın "
+                f"tepesindeki değerdir, alt bileşenler daha yüksek basınç görür; {self._NO_ASME_FALLBACK}"
+            ),
+        )
+
     def check_mdmt(self, project) -> List[CalculationResult]:
         components = [
             *((s.section_id, "shell") for s in project.shell_sections),

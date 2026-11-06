@@ -1390,9 +1390,9 @@ export function ResultsPage() {
             emptyNote="Taban plakası ölçüleri/akma dayanımı girilmediği için taban plakası kontrolü yapılmadı." />
           <ResultGroup title="WRC Lokal Gerilme (Gövde)" rows={byType("wrc_local_stress")}
             emptyNote="Ayak bağlantısı, ped ölçüleri veya WRC katsayıları girilmediği için lokal gerilme kontrolü yapılmadı." />
-          <ResultGroup title="Nozul Dış Yükü (WRC 537 / 297)" rows={[...byType("nozzle_load_wrc537"), ...byType("nozzle_load_wrc297")]} emptyNote="Nozul dış yükü girilmediği için WRC 537/297 lokal gerilme kontrolü yapılmadı." />
+          <ResultGroup title="Nozul Dış Yükü (WRC 537 / 297)" rows={[...byType("nozzle_load_wrc537"), ...byType("nozzle_load_wrc297"), ...byType("nozzle_load")]} emptyNote="Nozul dış yükü girilmediği için WRC 537/297 lokal gerilme kontrolü yapılmadı." />
           <ResultGroup title="Kaynak Doğrulama" rows={byType("weld_validation")} emptyNote="Kaynak birleşimi tanımlanmadığı için kaynak doğrulaması yapılmadı." />
-          <ResultGroup title="Çakışma / Geometri" rows={byType("clash_check")} emptyNote="Çakışma kontrolü üretilmedi — en az iki nozul veya nozul+destek gerekir." />
+          <ResultGroup title="Çakışma / Geometri" rows={[...byType("clash_check"), ...byType("inspection_opening")]} emptyNote="Çakışma kontrolü üretilmedi — en az iki nozul veya nozul+destek gerekir." />
 
           <ResultGroup title="Koni Uç Birleşimleri" rows={byType("junction_check")}
             emptyNote="Junction tanımı yok veya koni uç birleşimi kapsam dışı." />

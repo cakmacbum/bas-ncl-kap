@@ -128,5 +128,6 @@ def test_lsr_eksikse_bilesen_de_review():
 def test_en13445_hidrotestine_dokunulmaz_yalniz_not():
     hydro, c = _run(_project(code=CalculationCode.EN_13445),
                     EN13445DesignCode(edition="2021+A1:2023"))
-    assert c == {}
-    assert any("Bileşen bazlı hidrotest statik su kolonu" in a for a in hydro.assumptions)
+    # E01: sessiz boşluk yok — her bileşen için açık NOT_CALCULATED satırı (sayısal değer yok).
+    assert c and all(r.status == CalculationStatus.NOT_CALCULATED for r in c.values())
+    assert all(r.final_result is None and "13445" in r.code for r in c.values())
