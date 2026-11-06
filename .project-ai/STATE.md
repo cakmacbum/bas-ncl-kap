@@ -118,6 +118,8 @@ Son doğrulama (6224e45): gerçek tıklamayla STEP indi; CadQuery 11/11 katı ge
 - main 164 web + 653 pytest yeşil
 - 2026-10-31: F4 + V1 üretimde.
 
+## ➜ Güncel durum notu: `.project-ai/durum-notlari/2026-11-06/` (KALDIGIMIZ-YER.md + EKSIKLER.md)
+
 ## 2026-11-06 — DURAKLATILDI (Yusuf: "durdur, devam edeceğiz") — D5 Dalga A
 Plan: `.project-ai/paketler/D5-PLAN-en13445-eski-isler.md` · Kadro: `.project-ai/KADRO.json` (kodlayıcı Sonnet · ağır Codex Luna · test/tarama agy Flash)
 - BİTTİ, main'de: E01 EN sessiz boşluklar (5d1dcbe) · N01 nozul E1 alanı (5b795a8) · H01 hidrotest statik basınç ρ·g·h (0baf19a, merge 81c600d) ·
