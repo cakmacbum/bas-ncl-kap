@@ -32,3 +32,11 @@ koda gömülmez → BLOCKED_CODE_DATA veya kullanıcı girdisi; EN sonuçları `
 | E04 fa/ft, kaynak sınıfı→z, pnömatik test (EN) | Claude Opus | aynı |
 | E05 Dış basınç + nozul takviyesi (EN, yeni modüller) | Claude Opus | yeni modüller + design_code bağlama |
 Flanş, yorulma, yük kombinasyonu (EN) → FUTURE (NOT NOW).
+
+## Ek paket G01 — API geometri tutarlılığı (X01 bulgusu) — Claude Sonnet
+Sorun: `tools/campaign/bases.py` tabanlarında HEAD-R iç çapı 800, gövde 1000 (3 tankta) ve dikey ayak 600 mm (UI min 802, LEG_TOO_SHORT).
+UI geometri doğrulaması (`apps/web-ui/src/geometryValidation.ts`) bunları reddediyor, API ise hatasız hesaplıyor → kampanya sonuçları tutarsız
+geometride koşmuş olabilir. Yapılacak: (1) UI'daki BLOKLAYICI geometri kurallarının (bombe/koni ucu çapı = komşu gövde çapı, ayak boyu alt sınırı vb.)
+Python karşılığı — domain `VesselProject` doğrulayıcısı veya orchestrator ön kontrolü; geçersiz geometri hesap öncesi açık hata/BLOCKED (sessiz hesap yok).
+Toleransı UI ile aynı tut. (2) `bases.py` verilerini düzelt; kampanya/regresyon testlerinde beklenen değerler değişirse nedenini rapora yaz (gevşetme yok).
+Sahip dosyalar: packages/domain (validator), calc_core/orchestrator.py ön kontrol, tools/campaign/bases.py, ilgili testler. EN 13445 dosyalarına DOKUNMA (E03 orada).
