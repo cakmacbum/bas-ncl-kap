@@ -32,8 +32,11 @@ for (const tank of tanks) {
     await expect.poll(() => page.locator("canvas").first().evaluate((c: HTMLCanvasElement) => c.width * c.height)).toBeGreaterThan(0);
 
     await page.getByRole("button", { name: /Hesap Sonuçları/ }).click();
-    await page.getByRole("button", { name: "Hesapla", exact: true }).click();
-    await expect(page.locator(".result-row, .result-table tr, .result-card").first()).toBeVisible({ timeout: 90_000 });
+    // Hesap, önceki adımlardan gelen sonuçla hazır olabilir ("Yeniden Hesapla") ya da elle tetiklenir ("Hesapla").
+    const run = page.getByRole("button", { name: /^(↻ Yeniden )?Hesapla$/ });
+    await run.first().click();
+    await expect(page.getByText("Global MAWP")).toBeVisible({ timeout: 90_000 });
+    await expect(page.locator("table.table tbody tr").first()).toBeVisible();
     await expect(page.getByText(/Error|Internal Server Error/i)).toHaveCount(0);
     await expect(page.locator("body")).not.toBeEmpty();
     expect(errors, `${tank}: browser errors`).toEqual([]);
