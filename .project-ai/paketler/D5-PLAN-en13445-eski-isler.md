@@ -40,3 +40,11 @@ geometride koşmuş olabilir. Yapılacak: (1) UI'daki BLOKLAYICI geometri kurall
 Python karşılığı — domain `VesselProject` doğrulayıcısı veya orchestrator ön kontrolü; geçersiz geometri hesap öncesi açık hata/BLOCKED (sessiz hesap yok).
 Toleransı UI ile aynı tut. (2) `bases.py` verilerini düzelt; kampanya/regresyon testlerinde beklenen değerler değişirse nedenini rapora yaz (gevşetme yok).
 Sahip dosyalar: packages/domain (validator), calc_core/orchestrator.py ön kontrol, tools/campaign/bases.py, ilgili testler. EN 13445 dosyalarına DOKUNMA (E03 orada).
+
+## Ek paket E06 — ACİL: EN elipsoidal bombe emniyetsiz (E04 bulgusu) — Claude Opus
+Sorun: EN 13445 elipsoidal bombe e = P·D/(4fz−P) (küre denklemi) ile hesaplanıyor; 2:1 için 7.5.4 eşdeğer torisferik prosedürünün ~yarısı → emniyetsiz.
+Yapılacak: 7.5.4'e göre eşdeğer torisferik (K = Di/(2hi); R = Di(0,44K+0,02), r = Di(0,5/K−0,08); uygulanabilirlik 1,7 < K < 2,2 — sınır/katsayılar
+bellekten, rapora yaz) → E03'ün torisferik prosedürüyle (es/ey/eb, β, MAWP ters) hesapla. K aralık dışı → OUT_OF_SCOPE. Küre denklemi kaldırılır.
+Testler: 2:1 bombe için kalınlık ≈ eşdeğer torisferik sonucu (el hesabı), eski küre değerini bekleyen testleri yeni değere çek (gevşetme yok).
+Sahip dosyalar: code-en-13445 formulas.py / design_code.py / clause_mappings.py, EN testleri. Ayrıca G01 kapısı: EN testlerinde zincire bağlı olmayan
+eksik fixture'lar (test_faz4_en13445_cone_flat.py, _gaps.py) varsa yalnız fixture'ları geometrik olarak tutarlı hale getir (G01 notu) — kapıyı gevşetme.
