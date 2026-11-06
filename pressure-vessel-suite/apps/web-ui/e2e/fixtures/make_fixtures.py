@@ -16,12 +16,25 @@ from tools.campaign.bases import (  # noqa: E402
 
 OUT = Path(__file__).resolve().parent
 
+def ui_consistent(project: dict) -> dict:
+    """Kampanya tabanları API için geçerli ama UI geometri doğrulaması (bloklayıcı) iki şeyi reddeder:
+    HEAD-R iç çapı gövdeyle eşleşmiyor (800 != 1000) ve ayak boyu kap altına ulaşmıyor (600 < 802).
+    UI'dan ilerleyebilmek için yalnız bu iki değeri düzeltiriz."""
+    shell_di = project["shell_sections"][0]["inside_diameter"]
+    for head in project["heads"]:
+        head["inside_diameter"] = shell_di
+    for support in project["supports"]:
+        if support["type"] == "leg":
+            support["height_mm"] = 1000
+    return project
+
+
 for name, factory in (
     ("vertical-leg", vertical_leg_tank),
     ("horizontal-saddle", horizontal_saddle_tank),
     ("skirt-column", skirt_column),
 ):
     (OUT / f"{name}.json").write_text(
-        json.dumps(factory(), ensure_ascii=False, indent=2) + "\n",
+        json.dumps(ui_consistent(factory()), ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )

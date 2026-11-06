@@ -44,7 +44,7 @@
     {
       "head_id": "HEAD-R",
       "type": "elliptical",
-      "inside_diameter": 800,
+      "inside_diameter": 1000,
       "straight_flange_length": 40,
       "nominal_thickness": 10,
       "material_id": "M2",
