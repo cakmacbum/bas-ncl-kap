@@ -13,7 +13,7 @@ Referans: EN 13445:2021+A1:2023
 from code_en_13445.design_code import EN13445DesignCode
 from code_en_13445.formulas import (
     shell_thickness_internal_pressure,
-    head_elliptical_thickness,
+    ellipsoidal_equivalent_radii,
     head_torispherical_thickness,
     head_hemispherical_thickness,
     mawp_from_shell,
@@ -24,7 +24,7 @@ from code_en_13445.formulas import (
 __all__ = [
     "EN13445DesignCode",
     "shell_thickness_internal_pressure",
-    "head_elliptical_thickness",
+    "ellipsoidal_equivalent_radii",
     "head_torispherical_thickness",
     "head_hemispherical_thickness",
     "mawp_from_shell",

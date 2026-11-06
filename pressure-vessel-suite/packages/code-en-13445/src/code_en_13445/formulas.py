@@ -102,39 +102,36 @@ def shell_required_nominal_thickness(
     return (e_required + C + forming_thinning) / mill_tolerance_factor
 
 
-# ── EN 13445-3, 5.5.2: Elipsoidal bombe ──────────────────────────────────────
+# ── E06: EN 13445-3, 7.5.4 — Elipsoidal bombe (eşdeğer torisferik) ─────────
+# verified=False: K tanımı, R/r katsayıları ve 1,7 < K < 2,2 sınırı BELLEKTEN yazıldı;
+# lisanslı metinle doğrulanmadı. Eski küre denklemi e = P·D/(4fz − P) KALDIRILDI
+# (2:1 için 7.5.3 sonucunun ~yarısını veriyordu → emniyetsiz, E04 bulgusu).
 
-def head_elliptical_thickness(
-    P: float,
-    D: float,
-    f: float,
-    z: float,
-) -> Tuple[float, float]:
-    """EN 13445-3, 5.5.2 — Elipsoidal bombe et kalınlığı.
+ELLIPSOIDAL_K_MIN = 1.7
+ELLIPSOIDAL_K_MAX = 2.2
 
-    Standart 2:1 elipsoidal:
-        e = P × D / (4 × f × z - P)
 
-    Args:
-        P: Tasarım basıncı (MPa).
-        D: İç çap (mm).
-        f: Tasarım gerilmesi (MPa).
-        z: Birimleştirme katsayısı.
-        C: Korozyon payı (mm).
+def ellipsoidal_shape_factor(Di: float, hi: float) -> float:
+    """EN 13445-3, 7.5.4 — K = Di / (2·hi) (hi: bombe iç derinliği)."""
+    if Di <= 0 or hi <= 0:
+        raise ValueError("EN 13445-3, 7.5.4: Di ve hi pozitif olmalı")
+    return Di / (2.0 * hi)
 
-    Returns:
-        (e_required, shape_factor)
 
-    Referans: EN 13445-3, 5.5.2, Eq. (5.5.2-1)
+def ellipsoidal_in_scope(K: float) -> bool:
+    """EN 13445-3, 7.5.4 uygulanabilirlik: 1,7 < K < 2,2 (bellekten)."""
+    return ELLIPSOIDAL_K_MIN < K < ELLIPSOIDAL_K_MAX
+
+
+def ellipsoidal_equivalent_radii(Di: float, K: float) -> Tuple[float, float]:
+    """EN 13445-3, 7.5.4 — eşdeğer torisferik taç/büküm iç yarıçapları.
+
+    R = Di·(0,44·K + 0,02) ; r = Di·(0,5/K − 0,08)   (2:1 → R = 0,90·Di, r = 0,17·Di)
+    Sonra 7.5.3 prosedürü (es/ey/eb, β) bu R, r ile uygulanır.
     """
-    denominator = 4 * f * z - P
-    if denominator <= 0:
-        raise ValueError(
-            f"EN 13445-3, 5.5.2: 4×f×z - P = {denominator:.4f} ≤ 0. "
-            "Basınç çok yüksek."
-        )
-    e = P * D / denominator
-    return e, 1.0  # shape_factor = 1.0 for 2:1 elliptical
+    if Di <= 0 or K <= 0:
+        raise ValueError("EN 13445-3, 7.5.4: Di ve K pozitif olmalı")
+    return Di * (0.44 * K + 0.02), Di * (0.5 / K - 0.08)
 
 
 # ── E03: EN 13445-3, 7.5.3 — Torisferik bombe (tam prosedür) ───────────────
@@ -411,8 +408,10 @@ def mawp_from_head(
         raise ValueError(f"Korozyon payı düşüldükten sonra kalınlık negatif: e={e:.2f} mm")
 
     if head_type == "elliptical":
-        # P = 4 × f × z × e / (D + e)
-        return 4 * f * z * e / (D + e)
+        raise ValueError(
+            "EN 13445-3, 7.5.4: elipsoidal MAWP eşdeğer torisferik (7.5.3) ile "
+            "torispherical_max_pressure() üzerinden hesaplanır (eski küre denklemi kaldırıldı)."
+        )
 
     elif head_type == "torispherical":
         raise ValueError(
@@ -640,7 +639,9 @@ def en_pneumatic_test_pressure(Pd: float, stress_ratio: float, factor: float) ->
 __all__ = [
     "shell_thickness_internal_pressure",
     "shell_required_nominal_thickness",
-    "head_elliptical_thickness",
+    "ellipsoidal_shape_factor",
+    "ellipsoidal_in_scope",
+    "ellipsoidal_equivalent_radii",
     "head_torispherical_thickness",
     "torispherical_applicability",
     "torispherical_beta",

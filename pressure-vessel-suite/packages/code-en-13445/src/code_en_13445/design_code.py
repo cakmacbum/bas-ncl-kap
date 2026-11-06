@@ -27,7 +27,7 @@ TORI_CLAUSE = "EN 13445-3, 7.5.3"
 SHELL_CLAUSE = "EN 13445-3, 7.4.2"
 HEMI_CLAUSE = "EN 13445-3, 7.5.2"
 ELLIP_CLAUSE = "EN 13445-3, 7.5.4"
-ELLIP_FORMULA_NOTE = "e = P·D/(4fz − P) — küre denklemi; 7.5.4 eşdeğer torisferik prosedürü DEĞİL"
+ELLIP_FORMULA_NOTE = "K = Di/(2hi); R = Di(0,44K+0,02), r = Di(0,5/K−0,08) → 7.5.3 es/ey/eb, β"
 Z_CLAUSE = "EN 13445-3, 5.6"
 STRESS_CLAUSE = "EN 13445-3, 6"
 HYDRO_CLAUSE = "EN 13445-5, 10.2.3.3.1"
@@ -63,6 +63,44 @@ def _torispherical_radii_en(head, Di: float, C: float, result: CalculationResult
 
 def _tori_outside_diameter(head, nominal: float) -> float:
     return head.outside_diameter if head.outside_diameter else head.inside_diameter + 2.0 * nominal
+
+
+def _ellipsoidal_radii_en(head, Dc: float, result: CalculationResult):
+    """E06: EN 13445-3, 7.5.4 — elipsoidal bombe → eşdeğer torisferik (R, r).
+
+    K = Di/(2·hi) nominal (korozyonsuz) şekilden; hi = crown_depth. hi girilmezse
+    standart 2:1 (K = 2) varsayımı kayda geçer (K4). R, r korozyonlu iç çap Dc ile
+    hesaplanır (Dc·katsayı; r küçük kalır → β büyük, muhafazakâr). 1,7 < K < 2,2
+    dışında prosedür yok → OUT_OF_SCOPE, None döner. Sınır/katsayılar bellekten.
+    """
+    if head.crown_depth:
+        K = formulas.ellipsoidal_shape_factor(head.inside_diameter, head.crown_depth)
+    else:
+        K = 2.0
+        result.add_assumption(
+            f"K4: Elipsoidal bombe iç derinliği (crown_depth) girilmedi; standart 2:1 "
+            f"(hi = Di/4 = {head.inside_diameter / 4.0:.1f} mm, K = 2) varsayıldı."
+        )
+    result.add_validity_check(
+        f"{ELLIP_CLAUSE} {formulas.ELLIPSOIDAL_K_MIN} < K < {formulas.ELLIPSOIDAL_K_MAX}",
+        formulas.ellipsoidal_in_scope(K), formulas.ELLIPSOIDAL_K_MAX, round(K, 4),
+    )
+    if not formulas.ellipsoidal_in_scope(K):
+        result.set_out_of_scope(
+            f"{ELLIP_CLAUSE}: K = Di/(2hi) = {K:.3f}; eşdeğer torisferik prosedürü yalnız "
+            f"{formulas.ELLIPSOIDAL_K_MIN} < K < {formulas.ELLIPSOIDAL_K_MAX} için geçerli "
+            "(sınır bellekten, verified=False). DBA (Ek B/C) veya başka yöntem gerekir."
+        )
+        return None
+    Rc, rc = formulas.ellipsoidal_equivalent_radii(Dc, K)
+    result.add_intermediate("K", K, "-", "Ellipsoidal shape factor Di/(2hi) (7.5.4)")
+    result.add_assumption(
+        f"{ELLIP_CLAUSE}: elipsoidal bombe eşdeğer torisferik olarak hesaplandı — "
+        f"R = Di·(0,44K + 0,02) = {Rc:.2f} mm, r = Di·(0,5/K − 0,08) = {rc:.2f} mm "
+        f"(K = {K:.3f}, Di korozyonlu). K tanımı, katsayılar ve 1,7 < K < 2,2 sınırı bellekten; "
+        "lisanslı metinle doğrulanmadı (verified=False)."
+    )
+    return K, Rc, rc
 
 
 def _tori_fb(mat, result: CalculationResult) -> float:
@@ -108,7 +146,7 @@ class EN13445DesignCode(DesignCode):
 
     Uygulanan maddeler:
     - EN 13445-3, 7.4.2: Silindirik gövde, iç basınç
-    - EN 13445-3, 7.5.2 yarım küre; 7.5.4 elipsoidal (yalnız küre denklemi — 7.5.4 prosedürü DEĞİL)
+    - EN 13445-3, 7.5.2 yarım küre; 7.5.4 elipsoidal → eşdeğer torisferik + 7.5.3 (E06) — verified=False
     - EN 13445-3, 7.5.3: Torisferik bombe tam prosedürü (es/ey/eb, β) — verified=False
     - EN 13445-3, 6: nominal tasarım gerilmesi f_d / f_test kontrolü — verified=False
     - EN 13445-3, 5.6 + EN 13445-5 test grubu → z — verified=False
@@ -356,21 +394,22 @@ class EN13445DesignCode(DesignCode):
         )
 
         try:
-            if head.type == HeadType.ELLIPTICAL:
-                result.clause_reference = ELLIP_CLAUSE
-                result.formula_reference = ELLIP_FORMULA_NOTE
-                elliptical_review = True
-                e, shape_factor = formulas.head_elliptical_thickness(P, D, f, z)
-                result.add_intermediate("shape_factor", shape_factor, "-", "Elliptical shape factor")
-                result.add_intermediate("e_required", e, "mm", "Required thickness")
-
-            elif head.type == HeadType.TORISPHERICAL:
-                result.clause_reference = TORI_CLAUSE
-                result.formula_reference = "7.5-1/7.5-2/7.5-3, β: 7.5.3.5"
-                radii = _torispherical_radii_en(head, D, C, result)
-                if radii is None:
-                    return result
-                Rc, rc = radii
+            if head.type in (HeadType.ELLIPTICAL, HeadType.TORISPHERICAL):
+                if head.type == HeadType.ELLIPTICAL:
+                    result.clause_reference = ELLIP_CLAUSE
+                    result.formula_reference = ELLIP_FORMULA_NOTE
+                    elliptical_review = True
+                    ell = _ellipsoidal_radii_en(head, D, result)
+                    if ell is None:
+                        return result
+                    _, Rc, rc = ell
+                else:
+                    result.clause_reference = TORI_CLAUSE
+                    result.formula_reference = "7.5-1/7.5-2/7.5-3, β: 7.5.3.5"
+                    radii = _torispherical_radii_en(head, D, C, result)
+                    if radii is None:
+                        return result
+                    Rc, rc = radii
                 De = _tori_outside_diameter(head, head.nominal_thickness)
                 if _tori_geometry_out_of_scope(result, D, De, Rc, rc):
                     return result
@@ -482,7 +521,7 @@ class EN13445DesignCode(DesignCode):
         if flat_review:
             self._cap_unverified(result, "EN 13445-3, 10")
         if elliptical_review:
-            self._elliptical_not_7_5_4(result)
+            self._elliptical_7_5_4_review(result)
         if tori_review:
             self._cap_unverified(result, TORI_CLAUSE)
             if tori_failed:
@@ -586,18 +625,22 @@ class EN13445DesignCode(DesignCode):
                 from domain.enums import HeadType
                 head = component
                 D = head.inside_diameter + 2 * C  # korozyonlu iç çap (V-16)
-                if head.type == HeadType.ELLIPTICAL:
-                    result.clause_reference = ELLIP_CLAUSE
-                    result.formula_reference = ELLIP_FORMULA_NOTE
-                    elliptical_review = True
-                    mawp = formulas.mawp_from_head("elliptical", D, t_actual, f, z, C=C)
-                elif head.type == HeadType.TORISPHERICAL:
-                    result.clause_reference = TORI_CLAUSE
-                    result.formula_reference = "7.5.3.4 Ps/Py/Pb (inverse by bisection)"
-                    radii = _torispherical_radii_en(head, D, C, result)
-                    if radii is None:
-                        return result
-                    Rc, rc = radii
+                if head.type in (HeadType.ELLIPTICAL, HeadType.TORISPHERICAL):
+                    if head.type == HeadType.ELLIPTICAL:
+                        result.clause_reference = ELLIP_CLAUSE
+                        result.formula_reference = "7.5.4 → 7.5.3.4 Ps/Py/Pb (inverse by bisection)"
+                        elliptical_review = True
+                        ell = _ellipsoidal_radii_en(head, D, result)
+                        if ell is None:
+                            return result
+                        _, Rc, rc = ell
+                    else:
+                        result.clause_reference = TORI_CLAUSE
+                        result.formula_reference = "7.5.3.4 Ps/Py/Pb (inverse by bisection)"
+                        radii = _torispherical_radii_en(head, D, C, result)
+                        if radii is None:
+                            return result
+                        Rc, rc = radii
                     De = _tori_outside_diameter(head, t_actual)
                     if _tori_geometry_out_of_scope(result, D, De, Rc, rc):
                         return result
@@ -658,7 +701,7 @@ class EN13445DesignCode(DesignCode):
         if flat_review:
             self._cap_unverified(result, "EN 13445-3, 10")
         if elliptical_review:
-            self._elliptical_not_7_5_4(result)
+            self._elliptical_7_5_4_review(result)
         if tori_review:
             self._cap_unverified(result, TORI_CLAUSE)
             if tori_failed:
@@ -1261,12 +1304,12 @@ class EN13445DesignCode(DesignCode):
             rows.append(r)
         return rows
 
-    def _elliptical_not_7_5_4(self, result: CalculationResult) -> None:
-        """E04 notu: mevcut elipsoidal formül 7.5.4 prosedürü değildir (eşdeğer torisferik yok)."""
+    def _elliptical_7_5_4_review(self, result: CalculationResult) -> None:
+        """E06 (E04 uyarısının yerine): 7.5.4 eşdeğer torisferik uygulandı ama doğrulanmadı."""
         msg = (
-            f"{ELLIP_CLAUSE}: kullanılan e = P·D/(4fz − P) küre denklemidir; EN 13445-3 7.5.4 "
-            "elipsoidal bombe prosedürü (eşdeğer torisferik R, r ve büküm kontrolleri) uygulanmadı. "
-            "2:1 bombe için sonuç emniyetsiz tarafta olabilir — bağımsız hesap gerekir."
+            f"{ELLIP_CLAUSE}: elipsoidal bombe eşdeğer torisferik (R, r) + 7.5.3 prosedürüyle "
+            "hesaplandı (eski küre denklemi kaldırıldı). K tanımı, R/r katsayıları ve 1,7 < K < 2,2 "
+            "sınırı bellekten; lisanslı metinle doğrulanmadı (verified=False) — bağımsız inceleme gerekir."
         )
         result.add_warning(msg)
         if result.status == CalculationStatus.PASS:

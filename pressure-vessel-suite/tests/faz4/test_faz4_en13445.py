@@ -177,14 +177,34 @@ class TestEN13445Formulas:
         assert relative_tolerance(e_nom, 6.310, 0.01), f"e_nom={e_nom}"
 
     def test_elliptical_head_thickness_en(self):
-        """EN 13445-3, 5.5.2 — Elipsoidal bombe.
+        """E06: EN 13445-3, 7.5.4 — 2:1 elipsoidal → eşdeğer torisferik + 7.5.3.
 
-        P = 1.2 MPa, D = 1000 mm, f = 163 MPa, z = 1.0
-        e = P×D / (4×f×z - P) = 1.2×1000 / (4×163 - 1.2)
-          = 1200 / 650.8 = 1.844 mm
+        K = 2 → R = Di·(0,44·2 + 0,02) = 900 mm, r = Di·(0,5/2 − 0,08) = 170 mm
+        P = 1.2, Di = 1000, f = 163, z = 1, fb = 295/1.5 = 196.67, k = 0.75R + 0.2Di = 875
+        es = 1.2·900/(326 − 0.6) = 3.3190 mm
+        ey: X = 0.17; Y = ey/R = 0.004682, Z = 2.3296, N = 0.84552
+            β0.1 = 0.9632, β0.2 = 0.52165 → β = 10·(0.03·0.9632 + 0.07·0.52165) = 0.6541
+            ey = 0.6541·1.2·875/163 = 4.2138 mm (yöneten)
+        eb = 875·[1.2/(111·196.67)·(1000/170)^0.825]^(2/3) = 3.3523 mm
+        Eski küre denklemi 1.2·1000/(652 − 1.2) = 1.844 mm idi (~%44 → emniyetsiz).
         """
-        e, sf = formulas.head_elliptical_thickness(1.2, 1000.0, 163.0, 1.0)
-        assert relative_tolerance(e, 1.844, 0.005), f"e={e}"
+        R, r = formulas.ellipsoidal_equivalent_radii(1000.0, 2.0)
+        assert relative_tolerance(R, 900.0, 1e-9) and relative_tolerance(r, 170.0, 1e-9)
+        d = formulas.head_torispherical_thickness(1.2, 1000.0, R, r, 163.0, 1.0, 295.0 / 1.5)
+        assert relative_tolerance(d["es"], 3.3190, 0.001), d
+        assert relative_tolerance(d["beta"], 0.6541, 0.001), d
+        assert relative_tolerance(d["ey"], 4.2138, 0.001), d
+        assert relative_tolerance(d["eb"], 3.3523, 0.001), d
+        assert d["governing"] == "ey"
+        assert d["e"] > 2.2 * 1.844  # eski küre değerinin 2 katından fazla
+
+    def test_ellipsoidal_shape_factor_and_scope(self):
+        """7.5.4: K = Di/(2hi); uygulanabilirlik 1,7 < K < 2,2 (bellekten)."""
+        assert formulas.ellipsoidal_shape_factor(1000.0, 250.0) == 2.0
+        assert formulas.ellipsoidal_in_scope(2.0)
+        assert not formulas.ellipsoidal_in_scope(1.7)
+        assert not formulas.ellipsoidal_in_scope(2.2)
+        assert not formulas.ellipsoidal_in_scope(2.5)
 
     def test_hemispherical_head_thickness_en(self):
         """EN 13445-3, 5.5.4 — Yarım küresel bombe.
@@ -221,13 +241,22 @@ class TestEN13445Formulas:
         assert relative_tolerance(mawp, 3.228, 0.005), f"MAWP={mawp}"
 
     def test_mawp_ellipsoidal_en(self):
-        """MAWP — elipsoidal bombe (EN 13445).
+        """E06: MAWP — 2:1 elipsoidal, eşdeğer torisferik (7.5.3.4 ters).
 
-        D = 1000 mm, e = 12 mm, C = 2 mm → e_corroded = 10 mm
-        P = 4×f×z×e / (D + e) = 4×163×1.0×10 / (1000 + 10) = 6520/1010 = 6.455 MPa
+        Di = 1000, R = 900, r = 170, ea = 10, f = 163, z = 1, fb = 196.67
+        Ps = 2·163·10/(900 + 5) = 3.6022 ; β(ea) = 0.5867
+        Py = 163·10/(0.5867·875) = 3.1752 (yöneten) ; Pb = 6.1825
+        Eski küre denklemi 4·163·10/1010 = 6.455 MPa idi (~2 kat fazla).
         """
-        mawp = formulas.mawp_from_head("elliptical", 1000.0, 12.0, 163.0, 1.0, C=2.0)
-        assert relative_tolerance(mawp, 6.455, 0.005), f"MAWP={mawp}"
+        R, r = formulas.ellipsoidal_equivalent_radii(1000.0, 2.0)
+        m = formulas.torispherical_max_pressure(1000.0, R, r, 10.0, 163.0, 1.0, 295.0 / 1.5)
+        assert relative_tolerance(m["Ps"], 3.6022, 0.001), m
+        assert relative_tolerance(m["Py"], 3.1752, 0.001), m
+        assert relative_tolerance(m["Pb"], 6.1825, 0.001), m
+        assert m["governing"] == "Py"
+        assert relative_tolerance(m["P_bisect"], m["P_max"], 0.001), m
+        with pytest.raises(ValueError, match="7.5.4"):
+            formulas.mawp_from_head("elliptical", 1000.0, 12.0, 163.0, 1.0, C=2.0)
 
     def test_ped_test_pressure(self):
         """PED test basıncı.
@@ -311,10 +340,18 @@ class TestEN13445DesignCode:
         })
         assert r.code == "EN 13445"
         assert r.clause_reference == "EN 13445-3, 7.5.4"
-        # E04: formül küre denklemi, 7.5.4 eşdeğer torisferik prosedürü değil → PASS yok
+        # E06: 7.5.4 eşdeğer torisferik (K = 2 varsayımı) → verified=False → PASS yok
         assert r.status.value == "REVIEW REQUIRED"
-        assert any("7.5.4" in w and "küre denklemi" in w for w in r.warnings)
-        assert r.final_result is not None
+        assert any("7.5.4" in w and "verified=False" in w for w in r.warnings)
+        iv = {i["name"]: i["value"] for i in r.intermediate_values}
+        assert iv["K"] == 2.0
+        # Dc = 1004 → R = 903.6, r = 170.68 → ey = 4.2306 mm (yöneten)
+        assert relative_tolerance(iv["R"], 903.6, 1e-6) and relative_tolerance(iv["r"], 170.68, 1e-6)
+        assert relative_tolerance(iv["e_required"], 4.2306, 0.001), iv
+        assert iv["governing"] == "ey"
+        # e_nom = (4.2306 + 2)/0.90 = 6.9229 mm
+        assert relative_tolerance(r.final_result, 6.9229, 0.001), r.final_result
+        assert any("K4" in a and "2:1" in a for a in r.assumptions)
 
     def test_mawp_shell(self, en_code, sample_en_project_components):
         """MAWP — gövde."""
@@ -344,9 +381,27 @@ class TestEN13445DesignCode:
             "nominal_thickness": comp["head_l"].nominal_thickness,
             "code_edition": "2021+A1:2023",
         })
-        assert r.status.value == "REVIEW REQUIRED"  # E04: elipsoidal 7.5.4 prosedürü değil
+        assert r.status.value == "REVIEW REQUIRED"  # E06: 7.5.4 eşdeğer torisferik, verified=False
         assert r.clause_reference == "EN 13445-3, 7.5.4"
-        assert r.final_result is not None
+        # Dc = 1004, R = 903.6, r = 170.68, ea = 10 → Py = 3.1608 MPa (yöneten; eski küre 6.430)
+        assert relative_tolerance(r.final_result, 3.1608, 0.001), r.final_result
+
+    def test_elliptical_head_k_out_of_scope(self, en_code, sample_en_project_components):
+        """E06: K = Di/(2hi) = 1000/(2·200) = 2,5 → 7.5.4 dışı → OUT_OF_SCOPE (sessiz hesap yok)."""
+        comp = sample_en_project_components
+        head = comp["head_l"].model_copy(update={"crown_depth": 200.0})
+        for r in (
+            en_code.calculate_head_thickness({
+                "head": head, "design_conditions": comp["dc"], "materials": [comp["mat"]],
+                "welds": comp["welds"]}),
+            en_code.calculate_mawp({
+                "component_type": "head", "component": head, "design_conditions": comp["dc"],
+                "materials": [comp["mat"]], "welds": comp["welds"],
+                "nominal_thickness": head.nominal_thickness}),
+        ):
+            assert r.status.value == "OUT OF SCOPE", r.status
+            assert r.final_result is None
+            assert any("K = Di/(2hi) = 2.500" in w for w in r.warnings), r.warnings
 
     def test_ped_hydrotest(self, en_code, sample_en_project_components):
         """PED test basıncı."""
