@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Basınçlı Kap — Test Ortamı (bağımsız hesap + kıyas)</title>
+<link rel="stylesheet" href="stil.css">
+</head>
+<body>
+<header class="ust">
+  <div><h1>Test ortamı — bağımsız hesap ve site kıyası</h1>
+  <small>Siteden bağımsız motor (hesap.js) ↔ yerel API (/api/calculate)</small></div>
+  <button type="button" class="ikincil" id="tema" aria-label="Açık/koyu temayı değiştir">Tema</button>
+</header>
+<p class="uyari" id="stub-uyari" hidden>MOTOR STUB: ./hesap.js yüklenemedi, boş sonuç veren geçici stub çalışıyor. Sayısal sonuçlar anlamsızdır.</p>
+
+<main>
+  <section class="sutun" aria-labelledby="h-girdi">
+    <h2 id="h-girdi">Girdi</h2>
+    <label for="ornek">Örnek proje</label>
+    <select id="ornek">
+      <option value="">— örnek seç —</option>
+      <option value="elips.json">Ellipsoidal 2:1</option>
+      <option value="torisferik.json">Torispherical</option>
+      <option value="yarim-kure.json">Hemispherical</option>
+      <option value="duz-kapak.json">Flat (düz kapak)</option>
+    </select>
+    <label for="dosya">veya JSON dosyası yükle</label>
+    <input type="file" id="dosya" accept=".json,application/json">
+    <label for="json">Proje JSON</label>
+    <textarea id="json" spellcheck="false" aria-describedby="json-hata"></textarea>
+    <div class="hata" id="json-hata" role="alert"></div>
+    <div class="satir"><button type="button" id="hesapla">Hesapla</button></div>
+  </section>
+
+  <section class="sutun" aria-labelledby="h-bag">
+    <h2 id="h-bag">Bağımsız hesap</h2>
+    <div id="bag-cikti"><p class="bos">Henüz hesaplanmadı.</p></div>
+  </section>
+
+  <section class="sutun" aria-labelledby="h-kiyas">
+    <h2 id="h-kiyas">Kıyas</h2>
+    <label for="api">API adresi</label>
+    <input type="text" id="api" value="http://127.0.0.1:8000">
+    <div class="satir">
+      <button type="button" id="sor">Siteye sor</button>
+      <label for="tol-ok" style="margin:0">✅ ≤ %</label><input type="number" id="tol-ok" value="0.5" step="0.1" min="0" style="width:64px">
+      <label for="tol-uy" style="margin:0">⚠️ ≤ %</label><input type="number" id="tol-uy" value="2" step="0.1" min="0" style="width:64px">
+    </div>
+    <div class="hata" id="kiyas-hata" role="alert"></div>
+    <div class="sayaclar" id="sayaclar" aria-live="polite"></div>
+    <div class="tablo-kap" id="kiyas-cikti"><p class="bos">“Siteye sor” ile yerel API’ye gönderilir.</p></div>
+  </section>
+</main>
+
+<script type="module">
+import { siteSonucu, karsilastir } from './kiyas.js';
+
+// Motor: önce gerçek hesap.js, yoksa stub.
+let hesaplaProje; let stub = false;
+try { ({ hesaplaProje } = await import('./hesap.js')); }
+catch (e) {
+  console.warn('hesap.js yüklenemedi, stub kullanılıyor:', e.message);
+  ({ hesaplaProje } = await import('./hesap.stub.js')); stub = true;
+}
+document.getElementById('stub-uyari').hidden = !stub;
+
+const $ = (id) => document.getElementById(id);
+const el = (tag, props = {}, ...kids) => {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(props)) { if (k === 'class') n.className = v; else if (k === 'text') n.textContent = v; else n.setAttribute(k, v); }
+  for (const c of kids) if (c != null) n.append(c);
+  return n;
+};
+const fmt = (v) => {
+  if (v == null || v === '') return '—';
+  if (typeof v === 'number') return Number.isFinite(v) ? String(+v.toPrecision(7)) : '—';
+  return String(v);
+};
+
+// Tema
+const kok = document.documentElement;
+const kayitliTema = (() => { try { return localStorage.getItem('test-ortami-tema'); } catch { return null; } })();
+kok.dataset.tema = kayitliTema || (matchMedia('(prefers-color-scheme: dark)').matches ? 'koyu' : 'acik');
+$('tema').addEventListener('click', () => {
+  kok.dataset.tema = kok.dataset.tema === 'koyu' ? 'acik' : 'koyu';
+  try { localStorage.setItem('test-ortami-tema', kok.dataset.tema); } catch { /* yok say */ }
+});
+
+// Girdi
+function projeOku() {
+  $('json-hata').textContent = '';
+  try { return JSON.parse($('json').value); }
+  catch (e) { $('json-hata').textContent = `Geçersiz JSON: ${e.message}`; return null; }
+}
+$('ornek').addEventListener('change', async (e) => {
+  if (!e.target.value) return;
+  try {
+    const r = await fetch(`ornekler/${e.target.value}`);
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    $('json').value = JSON.stringify(await r.json(), null, 2);
+    $('json-hata').textContent = '';
+    hesapla();
+  } catch (err) { $('json-hata').textContent = `Örnek yüklenemedi: ${err.message}`; }
+});
+$('dosya').addEventListener('change', async (e) => {
+  const f = e.target.files[0]; if (!f) return;
+  $('json').value = await f.text(); $('ornek').value = '';
+  hesapla();
+});
+
+// Bağımsız hesap
+function adimTablosu(adimlar) {
+  if (!adimlar?.length) return el('p', { class: 'bos', text: 'Adım yok.' });
+  const tbody = el('tbody');
+  for (const a of adimlar) {
+    tbody.append(el('tr', {},
+      el('td', { class: 'kod', text: a.madde || '' }),
+      el('td', { text: a.ad || '' }),
+      el('td', { class: 'kod', text: a.formul || '' }),
+      el('td', { class: 'kod', text: a.yerine || '' }),
+      el('td', { class: 'sayi', text: `${fmt(a.deger)} ${a.birim && a.birim !== '-' ? a.birim : ''}`.trim() })));
+  }
+  return el('div', { class: 'tablo-kap' }, el('table', {},
+    el('thead', {}, el('tr', {}, ...['Madde', 'Ad', 'Formül', 'Yerine konmuş'].map((t) => el('th', { text: t })), el('th', { class: 'sayi', text: 'Sonuç' }))),
+    tbody));
+}
+function kart(baslik, ozet, adimlar, durum, notlar) {
+  const d = el('details', { class: 'kart', open: '' });
+  const s = el('summary', {}, el('h3', { text: baslik }));
+  if (durum) s.append(el('span', { class: `rozet ${durum}`, text: durum }));
+  s.append(el('span', { class: 'ozet', text: ozet }));
+  d.append(s, el('div', { style: 'padding:0 10px 10px' }, adimTablosu(adimlar)));
+  if (notlar?.length) d.lastChild.append(el('ul', { class: 'liste' }, ...notlar.map((n) => el('li', { text: n }))));
+  return d;
+}
+let sonBagimsiz = null;
+function hesapla() {
+  const proje = projeOku(); if (!proje) return;
+  const kap = $('bag-cikti'); kap.replaceChildren();
+  try {
+    sonBagimsiz = hesaplaProje(proje);
+  } catch (e) {
+    sonBagimsiz = null;
+    kap.append(el('div', { class: 'hata', text: `Bağımsız motor hata verdi: ${e.message}` })); return;
+  }
+  const r = sonBagimsiz;
+  for (const b of r.bilesenler || []) {
+    kap.append(kart(`${b.id} — ${b.tip}/${b.alt_tip || ''}`,
+      `t_gerekli ${fmt(b.t_gerekli_mm)} mm · t_nom_gerekli ${fmt(b.t_nominal_gerekli_mm)} mm · MAWP ${fmt(b.mawp_mpa)} MPa`,
+      b.adimlar, b.durum, b.notlar));
+  }
+  kap.append(el('div', { class: 'bolum-baslik', text: 'Sistem' }));
+  kap.append(kart('Global MAWP', `${fmt(r.global_mawp?.deger_mpa)} MPa · yöneten: ${r.global_mawp?.yoneten_id ?? '—'}`, r.global_mawp?.adimlar));
+  kap.append(kart('Hidrotest', `${fmt(r.hidrotest?.deger_mpa)} MPa`, r.hidrotest?.adimlar));
+  kap.append(kart('Pnömatik test', `${fmt(r.pnomatik?.deger_mpa)} MPa`, r.pnomatik?.adimlar));
+  kap.append(el('div', { class: 'bolum-baslik', text: 'Varsayımlar' }));
+  kap.append(r.varsayimlar?.length
+    ? el('ul', { class: 'liste' }, ...r.varsayimlar.map((v) => el('li', { text: v })))
+    : el('p', { class: 'bos', text: 'Varsayım yok.' }));
+  // Yeni hesap = eski site cevabı bayat; kıyası sıfırla.
+  sonPayload = null; $('sayaclar').replaceChildren(); $('kiyas-hata').textContent = '';
+  $('kiyas-cikti').replaceChildren(el('p', { class: 'bos', text: '“Siteye sor” ile yerel API’ye gönderilir.' }));
+}
+$('hesapla').addEventListener('click', hesapla);
+
+// Kıyas
+let sonPayload = null;
+function kiyasCiz() {
+  const kap = $('kiyas-cikti'); kap.replaceChildren();
+  if (!sonBagimsiz) { $('kiyas-hata').textContent = 'Önce “Hesapla” ile bağımsız hesabı çalıştırın.'; return; }
+  const tol = { ok: Number($('tol-ok').value) || 0, uyari: Number($('tol-uy').value) || 0 };
+  const satirlar = karsilastir(sonBagimsiz, sonPayload, tol);
+  const say = { '✅': 0, '⚠️': 0, '❌': 0, '—': 0 };
+  const tbody = el('tbody');
+  for (const s of satirlar) {
+    say[s.isaret]++;
+    const sinif = { '✅': 's-ok', '⚠️': 's-uy', '❌': 's-hata', '—': '' }[s.isaret];
+    tbody.append(el('tr', { class: sinif },
+      el('td', { text: s.bilesen }), el('td', { text: s.buyukluk }),
+      el('td', { class: 'sayi', text: fmt(s.bagimsiz) }), el('td', { class: 'sayi', text: fmt(s.site) }),
+      el('td', { class: 'sayi', text: s.fark_yuzde == null ? '—' : s.fark_yuzde.toFixed(3) }),
+      el('td', { class: 'isaret', text: s.isaret, title: s.isaret }),
+      el('td', { class: 'kod', text: s.site_madde || '—' })));
+  }
+  kap.append(el('table', {},
+    el('thead', {}, el('tr', {}, ...['Bileşen', 'Büyüklük'].map((t) => el('th', { text: t })),
+      el('th', { class: 'sayi', text: 'Bağımsız' }), el('th', { class: 'sayi', text: 'Site' }), el('th', { class: 'sayi', text: 'Fark %' }),
+      el('th', { text: 'İşaret' }), el('th', { text: 'Site maddesi' }))), tbody));
+  $('sayaclar').replaceChildren(...Object.entries(say).map(([k, v]) => el('span', { class: 'sayac', text: `${k} ${v}` })));
+  if (sonPayload?.errors?.length) kap.append(el('p', { class: 'not', text: `Site hataları: ${JSON.stringify(sonPayload.errors).slice(0, 400)}` }));
+}
+$('sor').addEventListener('click', async () => {
+  $('kiyas-hata').textContent = '';
+  const proje = projeOku(); if (!proje) return;
+  hesapla(); if (!sonBagimsiz) return; // JSON elle değişmiş olabilir: ikisi hep aynı girdiden
+  const dugme = $('sor'); dugme.disabled = true;
+  try {
+    sonPayload = await siteSonucu(proje, $('api').value.trim() || undefined);
+    kiyasCiz();
+  } catch (e) {
+    $('kiyas-hata').textContent = e.message;
+  } finally { dugme.disabled = false; }
+});
+for (const id of ['tol-ok', 'tol-uy']) $(id).addEventListener('input', () => { if (sonPayload) kiyasCiz(); });
+</script>
+</body>
+</html>

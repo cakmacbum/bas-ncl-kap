@@ -20,7 +20,17 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "uvicorn", "apps.api.main:app", "--port", "8000", "--env-file", ".env"],
       "cwd": "pressure-vessel-suite",
-      "port": 8000
+      "port": 8000,
+      "env": {
+        "CORS_ORIGINS": "http://localhost:5173,http://127.0.0.1:5173,http://127.0.0.1:4322,http://localhost:4322"
+      }
+    },
+    {
+      "name": "test-ortami",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "4322", "--bind", "127.0.0.1"],
+      "cwd": "pressure-vessel-suite/tools/test-ortami",
+      "port": 4322
     }
   ]
 }

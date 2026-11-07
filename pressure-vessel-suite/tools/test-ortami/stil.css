@@ -1,0 +1,61 @@
+:root {
+  --bg: #f4f2ec; --panel: #fffefa; --ink: #1d2328; --muted: #5d676e; --line: #cfcabd;
+  --accent: #0b5d6b; --ok: #1f7a3d; --warn: #a86a00; --bad: #b3261e;
+  --okbg: #e3f2e7; --warnbg: #fbf0d6; --badbg: #f9e0dd; --codebg: #efece3;
+  --mono: ui-monospace, "Cascadia Mono", "Consolas", "Courier New", monospace;
+  --sans: "Segoe UI", system-ui, sans-serif;
+  color-scheme: light;
+}
+:root[data-tema="koyu"] {
+  --bg: #14181b; --panel: #1b2125; --ink: #dde3e6; --muted: #8e9aa1; --line: #343e44;
+  --accent: #5cc3d3; --ok: #6fd08a; --warn: #e6b04d; --bad: #f08a82;
+  --okbg: #1c3326; --warnbg: #3a2f17; --badbg: #3d1f1c; --codebg: #232b30;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 var(--sans); }
+header.ust { display: flex; gap: 12px; align-items: center; justify-content: space-between;
+  padding: 10px 16px; border-bottom: 1px solid var(--line); background: var(--panel); }
+header.ust h1 { font-size: 16px; margin: 0; letter-spacing: .02em; }
+header.ust small { color: var(--muted); }
+.uyari { margin: 0; padding: 8px 16px; background: var(--warnbg); color: var(--warn); font-weight: 600;
+  border-bottom: 1px solid var(--warn); }
+main { display: grid; grid-template-columns: minmax(240px, 1fr) minmax(0, 2fr) minmax(0, 2fr); gap: 12px; padding: 12px; align-items: start; }
+@media (max-width: 1100px) { main { grid-template-columns: 1fr; } }
+section.sutun { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 12px; min-width: 0; }
+section.sutun > h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; margin: 0 0 10px; color: var(--accent); }
+label { display: block; font-size: 12px; color: var(--muted); margin: 8px 0 3px; }
+select, input[type=text], input[type=number], textarea, button {
+  font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 4px; padding: 5px 8px; }
+textarea { width: 100%; min-height: 320px; font: 12px/1.4 var(--mono); resize: vertical; white-space: pre; }
+select, input[type=text] { width: 100%; }
+button { cursor: pointer; background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 600; }
+button.ikincil { background: transparent; color: var(--ink); border-color: var(--line); font-weight: 400; }
+button:disabled { opacity: .5; cursor: progress; }
+button:focus-visible, select:focus-visible, textarea:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.satir { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 8px; }
+.hata { color: var(--bad); background: var(--badbg); padding: 6px 8px; border-radius: 4px; margin-top: 8px; white-space: pre-wrap; }
+.hata:empty { display: none; }
+.bos { color: var(--muted); font-style: italic; }
+.kart { border: 1px solid var(--line); border-radius: 6px; margin-bottom: 10px; background: var(--bg); }
+.kart > summary, .kart > header { padding: 8px 10px; cursor: pointer; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.kart h3 { margin: 0; font-size: 14px; }
+.kart .ozet { font: 12px var(--mono); color: var(--muted); }
+.rozet { font: 600 11px var(--mono); padding: 1px 7px; border-radius: 10px; border: 1px solid currentColor; }
+.rozet.PASS { color: var(--ok); background: var(--okbg); }
+.rozet.FAIL { color: var(--bad); background: var(--badbg); }
+.rozet.HESAPLANMADI { color: var(--warn); background: var(--warnbg); }
+.tablo-kap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 12px; }
+th, td { border-top: 1px solid var(--line); padding: 4px 6px; text-align: left; vertical-align: top; }
+th { color: var(--muted); font-weight: 600; white-space: nowrap; }
+td.sayi, th.sayi { text-align: right; font-family: var(--mono); white-space: nowrap; }
+td.kod { font-family: var(--mono); background: var(--codebg); word-break: break-word; }
+td.isaret { text-align: center; font-size: 15px; }
+tr.s-ok td.isaret { background: var(--okbg); } tr.s-uy td.isaret { background: var(--warnbg); }
+tr.s-hata td.isaret { background: var(--badbg); }
+ul.liste { margin: 6px 0 0; padding-left: 18px; font-size: 12px; color: var(--muted); }
+.sayaclar { display: flex; gap: 8px; margin: 10px 0; flex-wrap: wrap; }
+.sayac { font: 600 13px var(--mono); padding: 3px 10px; border: 1px solid var(--line); border-radius: 4px; }
+.not { font-size: 12px; color: var(--muted); margin-top: 6px; }
+.bolum-baslik { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 14px 0 6px; }
