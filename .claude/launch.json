@@ -9,6 +9,13 @@
       "port": 5173
     },
     {
+      "name": "landing",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "4321", "--bind", "127.0.0.1"],
+      "cwd": "pressure-vessel-suite/apps/landing",
+      "port": 4321
+    },
+    {
       "name": "api",
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "uvicorn", "apps.api.main:app", "--port", "8000", "--env-file", ".env"],
