@@ -44,3 +44,11 @@ Birimler: mm, MPa, °C, N, N·mm. `tools/campaign/README.md`: payload sonuç sat
 `tools/campaign/families/fNN_<ad>/{__init__.py, variants.py, oracle.py, run.py, results.json}` +
 `docs/validation/campaign-2026-10/FNN-<ad>.md`. `python -m tools.campaign.families.fNN_<ad>.run`
 tek komutla yeniden üretilebilir. Suite koduna (`packages/`, `apps/`) yazılmaz.
+
+## 2026-11-08 — Tur: bağımsız hesap test ortamı (tools/test-ortami/)
+Plan: ~/.claude/plans/sitenin-yapt-bas-n-l-kap-foamy-sonnet.md · checkpoint 221acfc
+| Paket | Yürütücü | Durum |
+|---|---|---|
+| P01 bağımsız motor (hesap.js + test) | Claude Opus alt-ajan (worktree) | ENTEGRE 54b90e4 · 18/18 test |
+| P02 ekran + kıyas (index.html, kiyas.js, ornekler, launch.json) | agy → çıkış 4 (değişiklik yok) → Claude Sonnet (worktree) | ENTEGRE 88c3e46 |
+| P03 uçtan uca doğrulama | şef (Browser pane + node betiği) | TAMAM — 4 örnek, 2 site bulgusu (BULGULAR.md) |

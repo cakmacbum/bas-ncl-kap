@@ -146,3 +146,12 @@ Plan: `.project-ai/paketler/D5-PLAN-en13445-eski-isler.md` · Kadro: `.project-a
 - Kılavuz: docs/kilavuz/Vessela-Kullanim-ve-Hesap-Kilavuzu.pdf (29 s., Gemini yazdı, tools/kilavuz/pdf.py ile basıldı). Formül/sayı satır satır kontrolü YAPILMADI. Eksik görüntüler: hesap sonuçları, 3D, rapor (e2e/kilavuz-shots.spec.ts yarıda kesildi).
 - Not: agy headless'ta RunCommand yasak → pakete "komut kullanma" kuralı yazınca çalışıyor; testleri şef koşar.
 - Sıradaki: A05 bağımsız el hesabı + code-reviewer → push → canlıya alma (onay) · kılavuz kontrolü + eksik görüntüler.
+
+## 2026-11-08 — Bağımsız hesap test ortamı (orkestra turu)
+`pressure-vessel-suite/tools/test-ortami/`: siteden bağımsız JS motoru (`hesap.js`, suite paketlerini okumadan yazıldı,
+18 test: yayınlanmış V-01…V-16 vakaları ±%0.1 + iç tutarlılık) + adım adım ekran (`index.html`) + yerel API kıyası (`kiyas.js`).
+Çalıştırma: Beyin-claude kök launch.json `pv-api` + `pv-test-ortami` (http://localhost:4322). Kapsam: UG-27, UG-32 (2:1/tori/hemi),
+UG-34, MAWP, global MAWP, UG-99(b), UG-100. Nozul, koni, EN 13445 yok.
+İlk kıyas: elips + yarım küre 12/12 ✅; **T-01** torisferik L/r korozyonsuz (site %0.67 emniyetli), **T-02** düz kapak MAWP'de
+d korozyonsuz (site %0.8 emniyetsiz), **T-03** düz kapak mawp satırı PASS (MAWP ≪ P). Kayıt: `tools/test-ortami/BULGULAR.md`. Düzeltilmedi.
+Ders: agy P02'de değişiklik üretmedi (çıkış 4) → Sonnet'e döndü. Alt-ajan worktree'leri yine origin/main'den açıldı → cherry-pick.
