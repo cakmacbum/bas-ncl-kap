@@ -213,6 +213,21 @@ class Nozzle(BaseModel):
                     "bir dikişten geçiyorsa o dikişin verimi. Boş = dikişten "
                     "geçmiyor (E1=1, uyarı ile).",
     )
+    no_rapid_pressure_fluctuation_confirmed: bool = Field(
+        default=False,
+        description="Kap hızlı basınç dalgalanmasına maruz değil beyanı. "
+                    "Program doğrulamaz; False iken muafiyet uygulanmaz.",
+    )
+    opening_spacing_confirmed: bool = Field(
+        default=False,
+        description="Komşu açıklık aralığı koşulları sağlanıyor beyanı. "
+                    "Program doğrulamaz; False iken muafiyet uygulanmaz.",
+    )
+    welded_attachment_confirmed: bool = Field(
+        default=False,
+        description="Bağlantı kaynaklı (dişli/saplamalı/genişletmeli tip değil) beyanı. "
+                    "Program doğrulamaz; False iken muafiyet uygulanmaz.",
+    )
     rating_class: Optional[str] = Field(
         default=None,
         pattern=r"^(CL150|CL300|CL600|CL900|CL1500|CL2500|3000#|6000#)$",

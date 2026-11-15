@@ -1275,6 +1275,20 @@ class ASMEVIII1DesignCode(DesignCode):
 
         t_req_host = self._host_required_thickness(host, host_type, dc, materials)
 
+        # UG-36(c)(3) eşik kalınlığı için t_req_host'un uygunluğu:
+        # - Gövde ve şekilli bombelerde (eliptik/torisferik/yarım küre) bu değer
+        #   bileşenin TAM gerekli kalınlığıdır (UG-27 / UG-32; UG-37'ye özgü
+        #   indirgenmiş küresel eşdeğer DEĞİL), eşik için kullanılabilir.
+        # - Düz kapakta açıklıklar UG-39 kapsamındadır ve bu rota UG-37 alan
+        #   yöntemini kullanır; muafiyetin düz kapağa uygulanışı doğrulanmadı →
+        #   en muhafazakâr yol: adaylık kapatılır.
+        ug36c3_block = ""
+        if host_type == "head" and getattr(host.type, "value", host.type) == "flat":
+            ug36c3_block = (
+                "Host düz kapak: açıklıklar UG-39 kapsamındadır; UG-36(c)(3) "
+                "muafiyeti bu programda düz kapak için değerlendirilmez."
+            )
+
         inp = NozzleReinforcementInput(
             nozzle_tag=nozzle.tag,
             nozzle_inside_diameter=nozzle.inside_diameter,
@@ -1298,6 +1312,16 @@ class ASMEVIII1DesignCode(DesignCode):
             design_temperature=dc.design_temperature,
             nozzle_inclination_angle=nozzle.inclination_angle,
             opening_weld_joint_efficiency=nozzle.opening_weld_joint_efficiency,
+            no_rapid_pressure_fluctuation_confirmed=bool(
+                getattr(nozzle, "no_rapid_pressure_fluctuation_confirmed", False)
+            ),
+            opening_spacing_confirmed=bool(
+                getattr(nozzle, "opening_spacing_confirmed", False)
+            ),
+            welded_attachment_confirmed=bool(
+                getattr(nozzle, "welded_attachment_confirmed", False)
+            ),
+            ug36c3_not_applicable_reason=ug36c3_block,
         )
         return build_reinforcement_calculation_result(inp)
 

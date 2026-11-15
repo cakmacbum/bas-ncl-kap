@@ -281,16 +281,26 @@ class TestNozzleEligibilityFaz3:
         assert "UG-36" in msg
 
     def test_small_nozzle_exemption(self):
-        """50 mm altı nozul → muafiyet notu."""
+        """Küçük nozul → UG-36(c)(3) boyut adaylığı notu (eski hatalı
+        '50 mm / UG-36(b)(1)' notu kaldırıldı)."""
         inp = NozzleReinforcementInput(
             nozzle_tag="N-SMALL",
             nozzle_inside_diameter=40.0,
             nozzle_corrosion_allowance=0.0,
             component_inside_diameter=1000.0,
         )
+        # Gerekli kalınlık (tr) yokken eşik belirlenemez → adaylık notu yok.
         is_ok, msg = check_nozzle_eligibility(inp)
         assert is_ok
-        assert "50" in msg  # Muafiyet notu
+        assert "UG-36(b)(1)" not in msg
+        assert "UG-36(c)(3)" not in msg
+
+        # tr verilince boyut adaylığı doğru madde atfıyla bildirilir.
+        inp.component_required_thickness = 6.0
+        is_ok, msg = check_nozzle_eligibility(inp)
+        assert is_ok
+        assert "UG-36(b)(1)" not in msg
+        assert "UG-36(c)(3)" in msg
 
 
 class TestReinforcementCalculationFaz3:

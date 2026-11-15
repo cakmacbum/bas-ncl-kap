@@ -1,6 +1,7 @@
 """ASME VIII-1 Açıklık Takviye Hesabı — UG-37 / UG-40 Area Replacement Method.
 
 Referans: ASME BPVC Section VIII Division 1, 2025 Edition
+  - UG-36(c)(3): Küçük açıklıklarda ek takviye muafiyeti (yalnız (-a) kaynaklı dalı)
   - UG-37: Reinforcement of openings in shells and heads
   - UG-38: Reinforcement required
   - UG-39: Limits of reinforcement
@@ -14,10 +15,17 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 from calc_core.result import CalculationResult
 from domain.enums import CalculationStatus, HeadType
+
+
+# UG-36(c)(3)(-a) boyut sınırları (mm). Yalnız madde atfı ve sayısal sınır tutulur (K6).
+UG36C3_CLAUSE = "UG-36(c)(3)"
+UG36C3_THICKNESS_THRESHOLD_MM = 10.0   # gerekli kalınlık eşiği (3/8 in)
+UG36C3_DIAMETER_LIMIT_THIN_MM = 89.0   # t_eşik ≤ 10 mm iken bitmiş açıklık sınırı (3½ in)
+UG36C3_DIAMETER_LIMIT_THICK_MM = 60.0  # t_eşik > 10 mm iken bitmiş açıklık sınırı (2⅜ in)
 
 
 @dataclass
@@ -60,6 +68,17 @@ class NozzleReinforcementInput:
     # UG-37(a) E1: açıklık Kategori B dışı dikişten geçiyorsa o dikişin verimi;
     # None = dikişten geçmiyor (E1=1, K4 varsayımı uyarı olarak yazılır).
     opening_weld_joint_efficiency: Optional[float] = None
+    # UG-36(c)(3) kullanıcı beyanları:
+    # (1) no_rapid_pressure_fluctuation_confirmed: kap hızlı basınç dalgalanmasına maruz değil
+    # (2) opening_spacing_confirmed: komşu açıklık aralığı koşulları sağlanıyor
+    # (3) welded_attachment_confirmed: bağlantı kaynaklı (dişli/saplamalı/genişletmeli tip değil)
+    # Kod bunları doğrulayamaz; üçü birden True olmadan muafiyet uygulanmaz.
+    no_rapid_pressure_fluctuation_confirmed: bool = False
+    opening_spacing_confirmed: bool = False
+    welded_attachment_confirmed: bool = False
+    # Boş değilse UG-36(c)(3) adaylığı tümüyle devre dışı kalır (çağıran taraf,
+    # eşik kalınlığını güvenle belirleyemediği host tiplerinde gerekçeyi yazar).
+    ug36c3_not_applicable_reason: str = ""
 
 
 @dataclass
@@ -112,6 +131,17 @@ class NozzleReinforcementResult:
 
     # Uyarılar
     warnings: List[str] = field(default_factory=list)
+    # Bilgi notları ve varsayımlar (durumu düşürmez; K4/K5 görünürlük)
+    notices: List[str] = field(default_factory=list)
+    assumptions: List[str] = field(default_factory=list)
+    validity_checks: List[Dict[str, Any]] = field(default_factory=list)
+
+    # UG-36(c)(3) küçük açıklık muafiyeti
+    ug36c3_candidate: bool = False  # (-a) boyut sınırı içinde mi
+    ug36c3_applied: bool = False    # muafiyet sonuca uygulandı mı
+    ug36c3_finished_diameter: float = 0.0    # mm (eğimde d/cosα)
+    ug36c3_threshold_thickness: float = 0.0  # mm (tr + CA)
+    ug36c3_diameter_limit: float = 0.0       # mm (89 veya 60)
 
     # Madde referansı
     clause_reference: str = "UG-37/UG-40"
@@ -130,6 +160,14 @@ class NozzleReinforcementResult:
             "limits": self.limits,
             "dimension_limits": {k: round(v, 3) for k, v in self.dimension_limits.items()},
             "warnings": self.warnings,
+            "notices": self.notices,
+            "assumptions": self.assumptions,
+            "validity_checks": self.validity_checks,
+            "ug36c3_candidate": self.ug36c3_candidate,
+            "ug36c3_applied": self.ug36c3_applied,
+            "ug36c3_finished_diameter": round(self.ug36c3_finished_diameter, 3),
+            "ug36c3_threshold_thickness": round(self.ug36c3_threshold_thickness, 3),
+            "ug36c3_diameter_limit": self.ug36c3_diameter_limit,
             "clause_reference": self.clause_reference,
         }
 
@@ -165,12 +203,74 @@ class NozzleReinforcementResult:
 <p><strong>Sonuç: <span style="color:{status_color}">{self.status.value}</span></strong></p>"""
 
 
+@dataclass
+class UG36C3SizeCheck:
+    """UG-36(c)(3)(-a) geometrik adaylık değerlendirmesi (yalnız boyut)."""
+
+    candidate: bool = False
+    finished_diameter: float = 0.0    # mm
+    threshold_thickness: float = 0.0  # mm
+    diameter_limit: float = 0.0       # mm
+    reason: str = ""                  # aday değilse neden
+
+
+def evaluate_ug36c3_size(inp: NozzleReinforcementInput) -> UG36C3SizeCheck:
+    """UG-36(c)(3)(-a) boyut sınırını değerlendir — muafiyeti UYGULAMAZ.
+
+    Bitmiş açıklık (standarttaki tanımı programda DOĞRULANMADI → muhafazakâr yorum):
+    korozyonlu nozul iç çapı (ID + 2·CA_nozul) ile nozul dış çapının büyüğü
+    (set-in nozulda gövdedeki delik nozul dış çapıdır); dış çap girilmemişse
+    nominal ID + 2·tn alınır. Eğimli nozulda sonuç d/cosα.
+    Eşik kalınlığı gerçek et değil GEREKLİ kalınlıktır; muhafazakâr yorumla
+    t_eşik = tr + host korozyon payı alınır. t_eşik ≤ 10 mm → sınır 89 mm,
+    aksi hâlde 60 mm (sınır değerler dahil). Yalnız kaynaklı (-a) dalı; (-b) yok.
+    Dalgalanma ve (-c)/(-d) aralık koşulları burada DEĞERLENDİRİLMEZ.
+    """
+    chk = UG36C3SizeCheck()
+    if inp.ug36c3_not_applicable_reason:
+        chk.reason = inp.ug36c3_not_applicable_reason
+        return chk
+    angle = float(getattr(inp, "nozzle_inclination_angle", 0.0) or 0.0)
+    if angle < 0 or angle >= 90:
+        chk.reason = "Eğim açısı geçersiz."
+        return chk
+    tr = inp.component_required_thickness
+    if not (tr > 0) or not math.isfinite(tr):
+        chk.reason = "Host gerekli kalınlığı (tr) yok veya ≤ 0; eşik belirlenemez."
+        return chk
+    d_corroded = inp.nozzle_inside_diameter + 2 * inp.nozzle_corrosion_allowance
+    if not (d_corroded > 0) or inp.component_corrosion_allowance < 0:
+        chk.reason = "Açıklık çapı / korozyon payı geçersiz."
+        return chk
+    od = inp.nozzle_outside_diameter
+    if not (od > 0) or not math.isfinite(od):
+        od = inp.nozzle_inside_diameter + 2 * inp.nozzle_neck_thickness
+    d_opening = max(d_corroded, od)
+    chk.finished_diameter = d_opening / math.cos(math.radians(angle))
+    chk.threshold_thickness = tr + inp.component_corrosion_allowance
+    chk.diameter_limit = (
+        UG36C3_DIAMETER_LIMIT_THIN_MM
+        if chk.threshold_thickness <= UG36C3_THICKNESS_THRESHOLD_MM
+        else UG36C3_DIAMETER_LIMIT_THICK_MM
+    )
+    chk.candidate = chk.finished_diameter <= chk.diameter_limit
+    if not chk.candidate:
+        chk.reason = (
+            f"Bitmiş açıklık (muhafazakâr: korozyonlu iç çap ile dış çapın büyüğü) "
+            f"{chk.finished_diameter:.2f} mm > sınır {chk.diameter_limit:.0f} mm "
+            f"(eşik kalınlığı tr+CA = {chk.threshold_thickness:.2f} mm)."
+        )
+    return chk
+
+
 def check_nozzle_eligibility(inp: NozzleReinforcementInput) -> tuple[bool, str]:
     """Açıklık izinli mi kontrol et (UG-36).
 
     UG-36(a): Genel limit — d ≤ D/2 (açıklık çapı, ana bileşen çapının yarısını geçmemeli).
-    UG-36(b)(1): 50 mm (2 in) ve altındaki açıklıklar area replacement'tan muaftır.
-    Bu fonksiyon UG-36(a) genel limitini kontrol eder; 50 mm muafiyeti ayrı işlenir.
+    Küçük açıklık muafiyeti UG-36(c)(3)'tür; boyut adaylığı `evaluate_ug36c3_size`
+    ile, uygulanması `calculate_reinforcement` içinde kullanıcı beyanına bağlı yapılır.
+    Bu fonksiyon yalnız UG-36(a) genel limitini kontrol eder; mesaja boyut adaylığı
+    bilgi notu olarak eklenir (hesaba etkisi yoktur).
 
     Args:
         inp: Nozul girdileri.
@@ -202,12 +302,15 @@ def check_nozzle_eligibility(inp: NozzleReinforcementInput) -> tuple[bool, str]:
                 f"D={D:.1f} mm için d ≤ D/2 olmalı."
             )
 
-    # UG-36(b)(1) muafiyeti bilgilendirme
-    if d <= 50.0:
+    # UG-36(c)(3)(-a) boyut adaylığı — yalnız bilgilendirme
+    size = evaluate_ug36c3_size(inp)
+    if size.candidate:
         return True, (
             f"Açıklık UG-36 kapsamına uygun. "
-            f"Not: d={d:.1f} mm ≤ 50 mm olduğu için UG-36(b)(1) kapsamında "
-            f"area replacement hesabı gerekmez (müdahale serbest)."
+            f"Not: bitmiş açıklık {size.finished_diameter:.1f} mm, {UG36C3_CLAUSE}(-a) boyut "
+            f"sınırı ({size.diameter_limit:.0f} mm; eşik kalınlığı "
+            f"{size.threshold_thickness:.2f} mm) içinde. Muafiyet yalnız dalgalanma ve "
+            f"komşu açıklık aralığı koşulları beyan edilirse uygulanır."
         )
 
     return True, "Açıklık UG-36 kapsamına uygun."
@@ -325,9 +428,11 @@ def calculate_reinforcement(inp: NozzleReinforcementInput) -> NozzleReinforcemen
     # A2 — nozul boynunun dışa çıkan kısmı, UG-37(c)
     # Nozul boynu gerekli kalınlığı trn — UG-27(c)(1), nozul kendi yarıçapıyla.
     trn = 0.0
+    neck_check_performed = False  # trn gerçekten UG-27 formülünden mi geldi
     if Sn > 0 and inp.design_pressure > 0:
         denom = Sn - 0.6 * inp.design_pressure
         trn = inp.design_pressure * Rn / denom if denom > 0 else tn
+        neck_check_performed = denom > 0
 
     # UG-45(a) — nozul boynu minimum kalınlığı (basitleştirilmiş).
     # Tam UG-45 iki kriterin BÜYÜĞÜNÜ ister: (a) nozulun kendi iç basınç
@@ -415,7 +520,31 @@ def calculate_reinforcement(inp: NozzleReinforcementInput) -> NozzleReinforcemen
             f"Nozul boynu kalınlığı ({tn:.2f} mm), iç basınç gereği ({trn:.2f} mm) altında."
         )
 
-    # ── 6. Durum ──────────────────────────────────────────────────────────────
+    # ── 8. UG-36(c)(3) küçük açıklık muafiyeti ────────────────────────────────
+    size = evaluate_ug36c3_size(inp)
+    result.ug36c3_candidate = size.candidate
+    result.ug36c3_finished_diameter = size.finished_diameter
+    result.ug36c3_threshold_thickness = size.threshold_thickness
+    result.ug36c3_diameter_limit = size.diameter_limit
+    if size.candidate:
+        _apply_ug36c3(
+            inp, result, size,
+            tn=tn, trn=trn, neck_check_performed=neck_check_performed,
+            area_sufficient=total >= A_required, angle=angle,
+        )
+    elif (
+        inp.no_rapid_pressure_fluctuation_confirmed
+        or inp.opening_spacing_confirmed
+        or inp.welded_attachment_confirmed
+    ):
+        result.notices.append(
+            f"{UG36C3_CLAUSE} beyanı verildi ancak muafiyet uygulanmadı: "
+            f"{size.reason} UG-37 alan hesabı esas alındı."
+        )
+    if result.ug36c3_applied:
+        return result
+
+    # ── 9. Durum ──────────────────────────────────────────────────────────────
     if total >= A_required:
         result.status = CalculationStatus.PASS
         if angle > 0.0:
@@ -434,6 +563,141 @@ def calculate_reinforcement(inp: NozzleReinforcementInput) -> NozzleReinforcemen
         )
 
     return result
+
+
+def _apply_ug36c3(
+    inp: NozzleReinforcementInput,
+    result: NozzleReinforcementResult,
+    size: UG36C3SizeCheck,
+    *,
+    tn: float,
+    trn: float,
+    neck_check_performed: bool,
+    area_sufficient: bool,
+    angle: float,
+) -> None:
+    """Boyut adayı açıklıkta UG-36(c)(3) muafiyetini uygula ya da nedenini yaz.
+
+    Muafiyet yalnız şu durumda uygulanır: kullanıcı beyanı var, açıklık kaynak
+    dikişinden geçmiyor ve nozul boynunun kendi basınç kontrolü (tn ≥ trn)
+    gerçekten yapılmış ve sağlanıyor. Aksi hâlde çağıran UG-37 alan hesabıyla
+    devam eder (`result.ug36c3_applied` False kalır).
+    """
+    size_txt = (
+        f"bitmiş açıklık (muhafazakâr maks. çap) {size.finished_diameter:.2f} mm ≤ "
+        f"{size.diameter_limit:.0f} mm; "
+        f"eşik kalınlığı tr+CA = {size.threshold_thickness:.2f} mm"
+    )
+
+    missing = []
+    if not inp.no_rapid_pressure_fluctuation_confirmed:
+        missing.append("no_rapid_pressure_fluctuation_confirmed (kap hızlı basınç dalgalanmasına maruz değil)")
+    if not inp.opening_spacing_confirmed:
+        missing.append("opening_spacing_confirmed (komşu açıklık aralığı)")
+    if not inp.welded_attachment_confirmed:
+        missing.append("welded_attachment_confirmed (kaynaklı bağlantı)")
+
+    if missing:
+        missing_str = ", ".join(missing)
+        result.notices.append(
+            f"Açıklık {UG36C3_CLAUSE}(-a) boyut sınırı içinde ({size_txt}); ancak "
+            f"kullanıcı beyanı eksik olduğu için muafiyet UYGULANMADI: "
+            f"{missing_str}. UG-37 alan hesabı esas alındı."
+        )
+        return
+
+    # Dikiş üzerinde muafiyet reddedilir; "geçti" kaydı eklenmeden çıkılır.
+    if inp.opening_weld_joint_efficiency is not None:
+        result.notices.append(
+            f"{UG36C3_CLAUSE} muafiyeti UYGULANMADI: açıklık kaynak dikişinden geçiyor "
+            "(E1 girildi). Dikiş üzerindeki muaf açıklıklar için UW-14 ek koşulları bu "
+            "programda doğrulanmıyor; UG-37 alan hesabı esas alındı."
+        )
+        return
+
+    # Beyan var: geçerlilik kayıtları (K5)
+    neck_ok = neck_check_performed and tn >= trn
+    result.validity_checks.extend([
+        {
+            "name": f"{UG36C3_CLAUSE}(-a) bitmiş açıklık çapı ≤ sınır",
+            "passed": True,
+            "limit": size.diameter_limit,
+            "actual": round(size.finished_diameter, 3),
+        },
+        {
+            "name": (
+                f"{UG36C3_CLAUSE}(-a) eşik kalınlığı tr+CA "
+                f"({'≤' if size.threshold_thickness <= UG36C3_THICKNESS_THRESHOLD_MM else '>'} 10 mm "
+                f"→ çap sınırı {size.diameter_limit:.0f} mm)"
+            ),
+            "passed": True,
+            "limit": UG36C3_THICKNESS_THRESHOLD_MM,
+            "actual": round(size.threshold_thickness, 3),
+        },
+        {
+            "name": "Nozul boynu tn ≥ trn (UG-27 / UG-45(a))",
+            "passed": neck_ok,
+            "limit": round(trn, 3),
+            "actual": round(tn, 3),
+        },
+    ])
+
+    if not neck_ok:
+        why = (
+            f"nozul boynu kalınlığı tn={tn:.2f} mm, kendi iç basınç gereği trn={trn:.2f} mm altında"
+            if neck_check_performed
+            else "nozul boynunun iç basınç kontrolü yapılamadı "
+                 "(basınç/izin verilen gerilme eksik veya geçersiz)"
+        )
+        result.notices.append(
+            f"{UG36C3_CLAUSE} muafiyeti UYGULANMADI: {why}. Boyun basınç kontrolü "
+            "(UG-27/UG-45) muafiyetle atlanamaz; UG-37 alan hesabı esas alındı."
+        )
+        return
+
+    # ── Muafiyet uygulanır ────────────────────────────────────────────────────
+    result.ug36c3_applied = True
+    result.clause_reference = f"{UG36C3_CLAUSE}; UG-37/UG-40"
+    result.assumptions.extend([
+        f"K4 ({UG36C3_CLAUSE}): Kullanıcı beyanı — kap hızlı basınç dalgalanmasına maruz "
+        "değil. Program doğrulamadı.",
+        f"K4 ({UG36C3_CLAUSE}(-c)/(-d)): Kullanıcı beyanı — komşu takviyesiz açıklıklarla "
+        "merkez aralığı koşulları sağlanıyor. Program doğrulamadı.",
+        f"K4 ({UG36C3_CLAUSE}(-a)): Kullanıcı beyanı — bağlantı kaynaklı (dişli/saplamalı/"
+        "genişletmeli tip değil). Program doğrulamadı.",
+        f"K4 ({UG36C3_CLAUSE}(-a)): Eşik kalınlığı muhafazakâr yorumla tr + host korozyon "
+        f"payı = {size.threshold_thickness:.2f} mm alındı (tr girdisi = "
+        f"{inp.component_required_thickness:.2f} mm); tr'nin host bileşenin tam gerekli "
+        "kalınlığını temsil ettiği kabul edildi.",
+        f"K4 ({UG36C3_CLAUSE}(-a)): 'Bitmiş açıklık' ölçüsü muhafazakâr yorumla korozyonlu "
+        "iç çap ile nozul dış çapının büyüğü alındı "
+        f"(= {size.finished_diameter:.2f} mm); standardın tanımı programda doğrulanmadı.",
+    ])
+    result.notices.append(
+        f"{UG36C3_CLAUSE}(-a) muafiyeti uygulandı ({size_txt}): açıklık, yapının kendinde "
+        "olan dışında ek takviye gerektirmez. UG-37 alan değerleri, kullanım oranı ve "
+        "nihai sonuç (A_total / A_required) YALNIZ BİLGİ amaçlıdır; kabul ölçütü değildir."
+    )
+    if not area_sufficient:
+        result.notices.append(
+            f"Bilgi: UG-37 alan hesabına göre mevcut alan {result.total_available_area:.1f} mm², "
+            f"gerekli alan {result.required_area:.1f} mm² (oran {result.utilization_ratio:.3f}). "
+            f"{UG36C3_CLAUSE} muafiyeti nedeniyle bu fark FAIL üretmedi."
+        )
+    result.notices.append(
+        "Muafiyet yalnız takviye alanını kapsar; nozul boynu Tablo UG-45 minimumu, kaynak "
+        "boyutları (UW-16) ve dış yükler ayrıca doğrulanmalıdır."
+    )
+
+    if angle > 0.0:
+        result.status = CalculationStatus.REVIEW_REQUIRED
+        result.warnings.append(
+            f"Eğik nozul (α={angle:g}°): {UG36C3_CLAUSE} boyut kontrolünde bitmiş açıklık "
+            "d/cos(α) izdüşümüyle yaklaşıklandı; eğik/hillside açıklıkta bitmiş açıklık "
+            "ölçüsü doğrulanmadı. Sonuç nihai değildir — mühendis incelemesi gerekir."
+        )
+    else:
+        result.status = CalculationStatus.PASS
 
 
 def build_reinforcement_calculation_result(
@@ -466,7 +730,18 @@ def build_reinforcement_calculation_result(
         "effective_diameter": reinp.effective_diameter,
         "required_area": reinp.required_area,
         "total_available_area": reinp.total_available_area,
+        "no_rapid_pressure_fluctuation_confirmed": inp.no_rapid_pressure_fluctuation_confirmed,
+        "opening_spacing_confirmed": inp.opening_spacing_confirmed,
+        "welded_attachment_confirmed": inp.welded_attachment_confirmed,
+        "ug36c3_candidate": reinp.ug36c3_candidate,
+        "ug36c3_applied": reinp.ug36c3_applied,
     }
+    result.clause_reference = reinp.clause_reference
+    if reinp.ug36c3_applied:
+        result.formula_reference = (
+            f"{UG36C3_CLAUSE}(-a) small-opening exemption; "
+            "Area Replacement Method (informative)"
+        )
 
     result.add_intermediate("d", reinp.effective_diameter, "mm", "Etkin açıklık çapı")
     result.add_intermediate("A_required", reinp.required_area, "mm²", "Gerekli takviye alanı")
@@ -486,6 +761,12 @@ def build_reinforcement_calculation_result(
 
     for w in reinp.warnings:
         result.add_warning(w)
+    for note in reinp.notices:
+        result.add_notice(note)
+    for a in reinp.assumptions:
+        result.add_assumption(a)
+    for vc in reinp.validity_checks:
+        result.add_validity_check(vc["name"], vc["passed"], vc.get("limit"), vc.get("actual"))
 
     return result
 
@@ -496,5 +777,7 @@ __all__ = [
     "AreaItem",
     "calculate_reinforcement",
     "check_nozzle_eligibility",
+    "evaluate_ug36c3_size",
+    "UG36C3SizeCheck",
     "build_reinforcement_calculation_result",
 ]

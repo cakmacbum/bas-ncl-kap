@@ -40,6 +40,45 @@ describe("api.calculate", () => {
     await expect(api.calculate(defaultProject())).rejects.toThrow("Proje çok büyük");
   });
 
+  it("422 -> formatValidationDetail ile Türkçe okunur hata üretir", async () => {
+    const errorBody = {
+      detail: [
+        {
+          loc: ["body", "materials", 0, "allowable_stress"],
+          msg: "Input should be greater than 0",
+          type: "greater_than",
+        },
+      ],
+    };
+    vi.stubGlobal("fetch", vi.fn(async () => new Response(JSON.stringify(errorBody), { status: 422 })));
+    await expect(api.calculate(defaultProject())).rejects.toThrow(
+      "Malzeme için izin verilen gerilme değeri 0 veya negatif olamaz; pozitif bir değer girin."
+    );
+  });
+
+  it("422 -> detail nesne { message: 'x' } olduğunda mesajı iletir", async () => {
+    const errorBody = {
+      detail: { message: "Özel doğrulama hatası nesnesi" },
+    };
+    vi.stubGlobal("fetch", vi.fn(async () => new Response(JSON.stringify(errorBody), { status: 422 })));
+    await expect(api.calculate(defaultProject())).rejects.toThrow("Özel doğrulama hatası nesnesi");
+  });
+
+  it("422 -> JSON olmayan gövdede statusText / fallback ile hata üretir", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(
+        async () =>
+          new Response("Doğrulanamayan ham metin", {
+            status: 422,
+            statusText: "Unprocessable Entity",
+            headers: { "Content-Type": "text/plain" },
+          })
+      )
+    );
+    await expect(api.calculate(defaultProject())).rejects.toThrow("Unprocessable Entity");
+  });
+
   it("zaman aşımı -> kullanıcı mesajı, yavaşta onSlow", async () => {
     vi.useFakeTimers();
     vi.stubGlobal(

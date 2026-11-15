@@ -32,6 +32,7 @@ import { BomCard } from "./BomCard";
 import { FlatPatternCard } from "./flat/FlatPatternCard";
 import { ConeBaseInputs } from "./inputs/ConeBaseInputs";
 import { NozzleLoadsInputs } from "./inputs/NozzleLoadsInputs";
+import { VESSEL_PRESETS, type VesselPreset } from "./vesselPresets";
 
 function PageHead({ kicker, title, desc }: { kicker: string; title: string; desc: string }) {
   return (
@@ -247,7 +248,14 @@ function LegSupportFields({ sup, setSup }: { sup: LegSup; setSup: (p: Partial<Le
 }
 
 export function NewProjectPage() {
-  const { project, setProject, setStep, loadProject, dirty } = useStore();
+  const { project, setProject, setStep, loadProject, applyPreset, dirty } = useStore();
+  const [appliedPresetId, setAppliedPresetId] = useState<string | null>(null);
+  const appliedPreset = VESSEL_PRESETS.find((x) => x.id === appliedPresetId) ?? null;
+  const applyPresetClick = (preset: VesselPreset) => {
+    if (dirty && !window.confirm(`Mevcut girdilerin yerine "${preset.name}" şablonu yüklenecek. Devam etmek istiyor musunuz?`)) return;
+    applyPreset(preset.build());
+    setAppliedPresetId(preset.id);
+  };
   const [savedProjects, setSavedProjects] = useState<import("./types").ProjectSummary[]>([]);
   const [projectBusy, setProjectBusy] = useState(false);
   const [projectError, setProjectError] = useState<string | null>(null);
@@ -286,6 +294,29 @@ export function NewProjectPage() {
             onChange={(id) => { if (id && (!dirty || window.confirm("Kaydedilmemiş değişiklikler var. Başka projeyi açmak istiyor musunuz?"))) void openProject(id); }} />}
         </div>
         {projectError && <div className="alert alert--warn" role="alert">{projectError}</div>}
+      </Panel>
+      <Panel title="Başlangıç Şablonları" meta="örnek geometri ve tasarım koşulları"
+        desc="Hazır bir örnekle başlayın. Şablonlar yalnız geometri ve tasarım koşullarını doldurur; malzeme dayanım değerlerini siz girersiniz.">
+        {VESSEL_PRESETS.map((preset) => (
+          <div key={preset.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap", marginBottom: 12 }}>
+            <div style={{ flex: "1 1 260px", minWidth: 0 }}>
+              <strong>{preset.name}</strong>
+              <div className="field__hint">{preset.description}</div>
+            </div>
+            <button className="btn btn--ghost btn--sm" type="button" onClick={() => applyPresetClick(preset)}
+              aria-label={`${preset.name} şablonunu uygula`}>
+              Şablonu Uygula
+            </button>
+          </div>
+        ))}
+        {appliedPreset && (
+          <div className="alert alert--info" role="status">
+            <div>
+              <strong>{appliedPreset.name} şablonu uygulandı — girmeniz veya doğrulamanız gerekenler:</strong>
+              <ul>{appliedPreset.notes.map((note) => <li key={note}>{note}</li>)}</ul>
+            </div>
+          </div>
+        )}
       </Panel>
       <Panel title="Proje Kimliği" meta="genel bilgiler"
         desc="Proje kimliği ve hesap standardı (ASME VIII-1 veya EN 13445).">
@@ -727,6 +758,44 @@ export function GeometryPage() {
                   <NumField label="Açıklık Kaynak Verimi E1" step={0.05} value={nz.opening_weld_joint_efficiency ?? 0}
                     onChange={(v) => setNoz({ opening_weld_joint_efficiency: v > 0 && v <= 1 ? v : null })}
                     help="UG-37(a): açıklık Kategori B dışı dikişten geçiyorsa o dikişin verimi (0,05-1). 0 = boş (E1=1 varsayılır, uyarı verilir)." />
+
+                  <div style={{ gridColumn: "1 / -1", marginTop: 12, paddingTop: 12, borderTop: "1px solid var(--line)" }}>
+                    <div style={{ fontWeight: 600, fontSize: 13, marginBottom: 8 }}>
+                      Küçük açıklık muafiyeti (ASME VIII-1 UG-36(c)(3)) — kullanıcı beyanı
+                    </div>
+                    <div style={{ display: "grid", gap: 8 }}>
+                      <label style={{ display: "flex", alignItems: "flex-start", gap: 8, fontSize: 12, cursor: "pointer" }}>
+                        <input
+                          type="checkbox"
+                          checked={!!nz.no_rapid_pressure_fluctuation_confirmed}
+                          onChange={(e) => setNoz({ no_rapid_pressure_fluctuation_confirmed: e.target.checked })}
+                          style={{ marginTop: 2, accentColor: "var(--accent)" }}
+                        />
+                        <span>Kap hızlı basınç dalgalanmasına maruz değil</span>
+                      </label>
+                      <label style={{ display: "flex", alignItems: "flex-start", gap: 8, fontSize: 12, cursor: "pointer" }}>
+                        <input
+                          type="checkbox"
+                          checked={!!nz.opening_spacing_confirmed}
+                          onChange={(e) => setNoz({ opening_spacing_confirmed: e.target.checked })}
+                          style={{ marginTop: 2, accentColor: "var(--accent)" }}
+                        />
+                        <span>Komşu açıklık aralığı koşulları sağlanıyor</span>
+                      </label>
+                      <label style={{ display: "flex", alignItems: "flex-start", gap: 8, fontSize: 12, cursor: "pointer" }}>
+                        <input
+                          type="checkbox"
+                          checked={!!nz.welded_attachment_confirmed}
+                          onChange={(e) => setNoz({ welded_attachment_confirmed: e.target.checked })}
+                          style={{ marginTop: 2, accentColor: "var(--accent)" }}
+                        />
+                        <span>Bağlantı kaynaklı (dişli/saplamalı/genişletmeli tip değil)</span>
+                      </label>
+                    </div>
+                    <p className="field__hint" style={{ marginTop: 8 }}>
+                      Bu beyanlar kullanıcının sorumluluğundadır; üçü de işaretlenmeden muafiyet uygulanmaz; muafiyet uygulansa bile boyun et kalınlığı kontrolü yapılır.
+                    </p>
+                  </div>
                 </div>
               );
             })()}

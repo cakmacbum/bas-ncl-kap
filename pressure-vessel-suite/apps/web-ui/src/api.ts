@@ -9,6 +9,7 @@ import type {
 
 import { getAccessToken, signOut } from "./auth/useSession";
 import { getClientId } from "./clientId";
+import { formatValidationDetail } from "./apiErrors";
 
 const BASE = ((import.meta.env.VITE_API_URL as string | undefined) || "").replace(/\/$/, "") + "/api";
 
@@ -72,18 +73,21 @@ async function jsonOrThrow<T>(res: Response): Promise<T> {
   if (!res.ok) {
     const mapped = statusMessage(res.status);
     if (mapped) throw new Error(mapped);
-    let detail = res.statusText;
+    let detail: unknown = res.statusText;
     try {
       detail = (await res.json()).detail ?? detail;
     } catch {
       /* JSON değil (ör. proxy hatası) — statusText'te kal */
     }
+    if (res.status === 422) {
+      throw new Error(formatValidationDetail(detail, res.statusText));
+    }
     // Backend çalışmıyorsa Vite proxy'si jenerik 5xx döndürür; net yönlendir.
-    if (res.status >= 500 && (!detail || /internal server error/i.test(detail))) {
+    if (res.status >= 500 && (!detail || (typeof detail === "string" && /internal server error/i.test(detail)))) {
       detail = unreachableMessage(import.meta.env.DEV);
     }
-    if (typeof detail !== "string") detail = JSON.stringify(detail);
-    throw new Error(detail);
+    const message: string = typeof detail === "string" ? detail : JSON.stringify(detail);
+    throw new Error(message);
   }
   return res.json() as Promise<T>;
 }

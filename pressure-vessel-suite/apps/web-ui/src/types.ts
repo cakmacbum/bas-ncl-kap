@@ -132,6 +132,10 @@ export interface Nozzle {
   rating_class?: string | null;
   /** Manşon biçimi — yalnız geometri, hesaba girmez. */
   coupling_form?: "full" | "half" | "weldolet" | null;
+  /** UG-36(c)(3) küçük açıklık muafiyeti kullanıcı beyanları (3/3 zorunlu). */
+  no_rapid_pressure_fluctuation_confirmed?: boolean;
+  opening_spacing_confirmed?: boolean;
+  welded_attachment_confirmed?: boolean;
 }
 
 export interface MaterialProperty {

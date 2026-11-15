@@ -196,3 +196,14 @@ button, input, select { -webkit-tap-highlight-color: transparent; }
   .agent-drawer { width: 100vw; }
   .agent-drawer__head, .agent-drawer__body { padding-left: 18px; padding-right: 18px; }
 }
+
+/* ---------- Adım hata sınırı (StepErrorBoundary) ---------- */
+.step-error { flex-direction: column; gap: 10px; padding: 20px 22px; color: var(--text); }
+.step-error__head { display: flex; align-items: center; gap: 10px; color: var(--fail); }
+.step-error__icon { flex: none; }
+.step-error__title { font-size: 16px; line-height: 1.35; }
+.step-error__text { margin: 0; line-height: 1.6; color: var(--text-dim); }
+.step-error__text b { color: var(--text); }
+.step-error__details summary { cursor: pointer; width: fit-content; padding: 4px 0; color: var(--text-dim); }
+.step-error__details code { display: block; margin-top: 6px; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--panel); font-family: var(--font-mono); font-size: 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.step-error .btn-row { padding-bottom: 0; }

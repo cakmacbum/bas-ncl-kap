@@ -11,6 +11,7 @@ import {
 import { computeIssues } from "./geometrySteps/IssuesPanel";
 import { AUTH_ENABLED } from "./features";
 import { AccountMenu } from "./auth/AccountMenu";
+import { StepErrorBoundary } from "./StepErrorBoundary";
 
 const STEPS = [
   { title: "Yeni Proje", sub: "Kimlik & rota", note: "Proje kimliği ve hesap standardı (ASME VIII-1)." },
@@ -115,7 +116,13 @@ export function App() {
 
       <main className="main" id="workspace" tabIndex={-1}>
         <div className="workspace-path"><span>ÇALIŞMA ALANI / {STEPS[step].title.toLocaleUpperCase("tr-TR")}</span><span>ADIM {String(step + 1).padStart(2, "0")} <span className="dim">/ 06</span></span></div>
-        {pages[step]}
+        <StepErrorBoundary
+          key={step}
+          stepLabel={`${String(step + 1).padStart(2, "0")} · ${STEPS[step].title}`}
+          onGoToFirstStep={() => setStep(0)}
+        >
+          {pages[step]}
+        </StepErrorBoundary>
         <footer className="workspace-footer"><span>Basınçlı Kap Suite</span><span>Hesap çıktıları mühendislik incelemesi gerektirir.</span><span>SI · mm / MPa / °C</span></footer>
       </main>
     </div>

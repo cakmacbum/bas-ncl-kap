@@ -277,6 +277,9 @@ export function defaultProject(): VesselProject {
         reinforcement_pad: true,
         reinforcement_pad_thickness: 10,
         reinforcement_pad_od: 300,
+        no_rapid_pressure_fluctuation_confirmed: false,
+        opening_spacing_confirmed: false,
+        welded_attachment_confirmed: false,
       },
     ],
   };
@@ -356,6 +359,8 @@ interface AppState {
   patchConditions: (patch: Partial<VesselProject["design_conditions"]>) => void;
   setProjectId: (id: string, hash: string) => void;
   loadProject: (id: string, project: VesselProject) => void;
+  /** Başlangıç şablonunu kaydedilmemiş yeni proje olarak yükler (projectId = null). */
+  applyPreset: (project: VesselProject) => void;
   setCalc: (c: CalcPayload | null) => void;
   setStep: (s: number) => void;
   setDirty: (d: boolean) => void;
@@ -480,6 +485,9 @@ export const useStore = create<AppState>((set, get) => ({
       reinforcement_pad_od: pad ? +(2 * od).toFixed(2) : null,
       rating_class: a.rating_class,
       coupling_form: null,
+      no_rapid_pressure_fluctuation_confirmed: false,
+      opening_spacing_confirmed: false,
+      welded_attachment_confirmed: false,
     };
     set({ project: { ...p, nozzles: [...p.nozzles, nozzle] }, dirty: true, calc: null });
     return tag;
@@ -513,6 +521,9 @@ export const useStore = create<AppState>((set, get) => ({
       reinforcement_pad_od: null,
       rating_class: a.rating_class,
       coupling_form: a.coupling_form,
+      no_rapid_pressure_fluctuation_confirmed: false,
+      opening_spacing_confirmed: false,
+      welded_attachment_confirmed: false,
     };
     set({ project: { ...p, nozzles: [...p.nozzles, nozzle] }, dirty: true, calc: null });
     return tag;
@@ -533,6 +544,11 @@ export const useStore = create<AppState>((set, get) => ({
   loadProject: (id, project) => set({
     project: normalizeProject(project), projectId: id, inputHash: null,
     calc: null, dirty: false, step: 0, geoSubStep: 0, selection: null,
+    activeShellId: project.shell_sections[0]?.section_id ?? "",
+  }),
+  applyPreset: (project) => set({
+    project: normalizeProject(project), projectId: null, inputHash: null,
+    calc: null, dirty: true, geoSubStep: 0, selection: null,
     activeShellId: project.shell_sections[0]?.section_id ?? "",
   }),
   setCalc: (c) => set({ calc: c }),
@@ -569,6 +585,9 @@ export const useStore = create<AppState>((set, get) => ({
         reinforcement_pad: false,
         reinforcement_pad_thickness: null,
         reinforcement_pad_od: null,
+        no_rapid_pressure_fluctuation_confirmed: false,
+        opening_spacing_confirmed: false,
+        welded_attachment_confirmed: false,
       };
       return {
         project: { ...s.project, nozzles: [...s.project.nozzles, newNozzle] },
