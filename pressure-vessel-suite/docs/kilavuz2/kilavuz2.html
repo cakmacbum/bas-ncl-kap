@@ -1,0 +1,2023 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><title>Vessela — Başlangıç Kılavuzu</title>
+<style>
+@page{size:A4;margin:16mm 14mm}
+*{box-sizing:border-box}
+body{font-family:'Segoe UI',Calibri,Arial,sans-serif;font-size:10.5pt;line-height:1.5;color:#222;max-width:182mm;margin:0 auto;padding:0 4mm}
+h1,h2,h3,h4{color:#12304d;line-height:1.25}
+h1{font-size:26pt}
+h2{font-size:17pt;border-bottom:2px solid #12304d;padding-bottom:3px;margin-top:1.4em;break-after:avoid}
+h3{font-size:13pt;margin-top:1.1em;break-after:avoid}h4{font-size:11pt;break-after:avoid}
+p{margin:.5em 0;orphans:3;widows:3}
+img{max-width:100%;height:auto;display:block;margin:.6em auto;break-inside:avoid;max-height:230mm;object-fit:contain;border:1px solid #cfd6de}
+figure{margin:.6em 0;break-inside:avoid}figcaption{font-size:9pt;color:#555;text-align:center}
+table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:9.5pt}
+th,td{border:1px solid #b9c2cc;padding:4px 6px;vertical-align:top;text-align:left}
+th{background:#e8eef4;color:#12304d}tr{break-inside:avoid}thead{display:table-header-group}
+code,pre{font-family:Consolas,monospace;font-size:9.5pt;background:#f2f4f6}
+.ipucu,.uyari{margin:.8em 0;padding:8px 12px;border-left:5px solid;border-radius:3px;break-inside:avoid}
+.ipucu{background:#eaf6ee;border-color:#2e8b57}
+.uyari{background:#fdf1e3;border-color:#d9822b}
+.kapak{min-height:240mm;display:flex;flex-direction:column;justify-content:center;break-after:page}
+.kapak .alt{font-size:15pt;color:#456}.kapak .tarih{color:#666;margin:1em 0 2em}
+.nasil{border:2px solid #12304d;border-radius:6px;padding:10px 16px;background:#f4f7fa}
+.ic{break-after:page}.ic ol{line-height:1.9;list-style:none;padding-left:0}.ic a{color:#12304d;text-decoration:none}
+section.parca{break-before:page}
+.son{break-before:page;text-align:center;padding-top:60mm}
+</style></head><body>
+<div class="kapak"><h1>Vessela — Başlangıç Kılavuzu: Basınçlı Kap Hesabını Sıfırdan Öğrenin</h1>
+<div class="alt">zeyslabs-vessela</div><div class="tarih">2026-11-18</div>
+<div class="nasil"><h3 style="margin-top:0">Nasıl okunur?</h3>
+<p>Önce <strong>Bölüm 1–7</strong> ile basınçlı kap hesabının mantığını öğrenin; sonra uygulamayı açıp adım adım (Adım 1&ndash;6) alan alan ilerleyin. Yeşil kutular ipucu, turuncu kutular uyarıdır. Terimlerde takılırsanız Bölüm 7 (Sözlük) yardımcı olur.</p></div></div>
+<div class="ic"><h2 style="border:0">İçindekiler</h2><ol><li><a href="#d2-1">1. Bu site nedir, ne işe yarar?</a></li><li><a href="#d2-2">2. Neyi bulmak için hesap yapıyoruz?</a></li><li><a href="#d2-3">3. Hesap nasıl yapılır? (sade anlatım)</a></li><li><a href="#d2-4">4. Siteyi kullanma akışı (6 adım)</a></li><li><a href="#d2-5">5. Sonuçları nasıl okurum?</a></li><li><a href="#d2-6">6. Önemli uyarılar</a></li><li><a href="#d2-7">7. Sözlük</a></li><li><a href="#g1-1">Adım 1 — Yeni Proje</a></li><li><a href="#g1-2">Adım 2 — Tasarım Koşulları</a></li><li><a href="#g1-3">Adım 3 — Kap Geometrisi</a></li><li><a href="#g2-1">3.3 Flanşlı Nozullar</a></li><li><a href="#g2-2">3.4 Manşonlar</a></li><li><a href="#g2-3">3.5 Mesnetler (Ayak, Eyer, Etek)</a></li><li><a href="#g3-1">Adım 3 — Kap Geometrisi: "Hesap Girdileri" Sekmesi</a></li><li><a href="#g3-2">Adım 4 — Hesap Sonuçları</a></li><li><a href="#g3-3">Adım 5 — 3D Model</a></li><li><a href="#g3-4">Adım 6 — Rapor & Çıktı</a></li><li>Sorumluluk reddi</li></ol></div>
+<div class="parca"><section id="d2">
+
+<h2 id="d2-1">1. Bu site nedir, ne işe yarar?</h2>
+
+<p><strong>Basınçlı kap</strong>, içindeki akışkanı (sıvı ya da gaz) çevre basıncından farklı bir basınçta tutan kapalı bir kaptır. Günlük hayattan örnekler: kompresörün hava tankı, bir binanın kalorifer kazanı, doğal gaz hattındaki seperatör (gazı sıvıdan ayıran kap), sanayideki buhar kazanı. Bu kapların içinde basınç olduğu için cidarları (et kalınlığı) sürekli bir kuvvet taşır; yeterince kalın olmazsa kap patlayabilir, yaralanma ve büyük hasar olabilir.</p>
+
+<p>Bu yüzden basınçlı bir kabın cidar kalınlığı, hangi basınca ve sıcaklığa dayanacağı, nereden delinip boru bağlanacağı gibi her ayrıntı önceden hesaplanır. Bu hesaplar dünyada yaygın olarak <strong>ASME VIII-1</strong> (Amerikan makine mühendisleri birliğinin basınçlı kap standardının birinci bölümü) veya <strong>EN 13445</strong> (Avrupa basınçlı kap standardı) gibi standartlara göre yapılır. Standart, hesabın nasıl yapılacağını ve hangi güvenlik paylarının kullanılacağını tarif eder.</p>
+
+<p><strong>Vessela (zeyslabs-vessela)</strong>, bu hesapları adım adım yapmanızı sağlayan bir web uygulamasıdır. Amacı; bir basınçlı kabın tasarım koşullarını, geometrisini ve malzemesini girerek gerekli et kalınlıklarını, izin verilen en yüksek çalışma basıncını, test basıncını, nozul (boru bağlantı ağzı) takviyesini, mesnet (kap taşıyıcısı) kontrollerini ve kütle/maliyet listesini tek bir yerde görmektir. Kime hitap eder? Basınçlı kap hesabını yeni öğrenen mühendis adaylarına, tasarımı ön boyutlandırmak isteyen mühendislere ve sonuçları anlamak isteyen teknik personele.</p>
+
+<p>Vessela'nın <strong>YAPMADIĞI</strong> şeyler de en az yaptıkları kadar önemlidir. Uygulama resmî onay vermez, ASME damgası (yetkili imalat belgesi) üretmez, PED/CE uygunluk kararı yerine geçmez ve imalata esas tasarım raporu sayılmaz. Sonuçlar her zaman yetkin bir mühendisin kontrolünden geçmelidir. Ayrıca uygulama; yorulma (tekrarlı yük), sünme (yüksek sıcaklıkta zamanla uzama), nozula gelen harici boru yükleri, rüzgâr/deprem yük üretimi, ceketli veya çok odalı kaplar gibi konuları kapsamaz. Bu sınırların tam listesi <em>docs/limitations.md</em> dosyasındadır; kapsam ve her hesabın güncel durumu için <em>docs/calculation-coverage.md</em> okunmalıdır.</p>
+
+<div class="uyari">Vessela bir <strong>ön boyutlandırma ve mühendis incelemeli prototip</strong> aracıdır. Sonuçları imalat, satın alma veya güvenlik kararı için tek başına kullanmayın; mutlaka bir mühendise doğrulatın.</div>
+
+<h2 id="d2-2">2. Neyi bulmak için hesap yapıyoruz?</h2>
+
+<p>Aşağıdaki her çıktı, kabın güvenli ve imal edilebilir olup olmadığını anlamak için ayrı bir soruya cevap verir.</p>
+
+<ul>
+<li><strong>Gerekli et kalınlığı:</strong> Basıncı taşımak için cidarın en az ne kadar kalın olması gerektiğidir. Sonuç, "bu basınç altında cidar en az bu kadar kalın olmalı" demektir.</li>
+<li><strong>Nominal kalınlık:</strong> Sipariş edilecek sacın (plakanın) kalınlığıdır. Gerekli kalınlığa korozyon payı ve üretim kayıpları eklenip sac toleransı hesaba katılarak bulunur. Sonuç, "imalatçıya bu kalınlıkta sac sipariş et" anlamına gelir.</li>
+<li><strong>MAWP (kabın taşıyabileceği en yüksek çalışma basıncı):</strong> Mevcut kalınlık ve malzemeyle kabın güvenle çalışabileceği en yüksek basınçtır. Sonuç, isim plakasındaki ve emniyet vanası ayarındaki basıncın üst sınırını verir.</li>
+<li><strong>Hidrostatik test basıncı:</strong> Kabın imalat sonrası suyla doldurulup test edileceği basınçtır. Sonuç, "testte bu basınca kadar çıkarılacak" demektir; basınç, MAWP'nin üzerinde bir güvenlik kontrolüdür.</li>
+<li><strong>Nozul/açıklık takviyesi:</strong> Kap cidarında boru bağlamak için açılan deliğin etrafındaki malzemenin yeterli olup olmadığıdır. Sonuç, "delik cidarı zayıflattı; takviye pedi (destek plakası) gerekiyor mu?" sorusunu cevaplar.</li>
+<li><strong>Mesnet/ayak kontrolü:</strong> Kabı taşıyan eyer, etek veya ayakların ağırlık ve momentler altında zorlanmasını inceler. Sonuç, "taşıyıcı yeterince güvenli mi, ankraj/taban plakası yeterli mi?" demektir.</li>
+<li><strong>Kütle/maliyet (BOM):</strong> Kabın parçalarının listesi, ağırlığı ve yaklaşık maliyetidir. Sonuç, satın alma ve teklif için malzeme/işçilik fikri verir.</li>
+</ul>
+
+<h2 id="d2-3">3. Hesap nasıl yapılır? (sade anlatım)</h2>
+
+<p>Et kalınlığı hesabının mantığı dört temel büyüklüğe dayanır: <strong>basınç</strong> (içerideki kuvvet), <strong>çap</strong> (kuvvetin etki ettiği genişlik), <strong>malzeme dayanımı</strong> (malzemenin ne kadar gerilmeye dayandığı) ve <strong>kaynak verimi</strong> (kaynaklı birleşimin ne kadar sağlam sayıldığı). Buna ek olarak <strong>korozyon payı</strong> (paslanma/aşınma için eklenen kalınlık) ve <strong>sac toleransı</strong> (sacın sipariş edilenden biraz ince gelebilmesi) hesaba katılır.</p>
+
+<p>Kodda doğrulanan silindirik gövde formülü (ASME VIII-1 UG-27(c)(1)), çevresel gerilme için:</p>
+
+<p><strong>t = P × R / (S × E − 0,6 × P)</strong></p>
+
+<p>Burada <em>t</em> gerekli kalınlık (mm), <em>P</em> tasarım basıncı (MPa), <em>R</em> iç yarıçap (mm), <em>S</em> izin verilen gerilme (MPa) ve <em>E</em> kaynak verimidir. Boyuna gerilme için kod ayrıca <strong>t = P × R / (2 × S × E + 0,4 × P)</strong> formülünü kullanır; iki sonuçtan büyük olan geçerlidir. Kaynak: <em>packages/code-asme-viii-1/src/code_asme_viii_1/formulas.py</em>.</p>
+
+<p>Bombe (kabın kubbeli ucu) için 2:1 elipsoidal bombe formülü (UG-32(d), K = 1):</p>
+
+<p><strong>t = P × D / (2 × S × E − 0,2 × P)</strong></p>
+
+<p>Burada <em>D</em> bombe iç çapıdır. Torisferik ve yarım küresel bombeler için kodda ayrı formüller vardır. EN 13445 seçilirse silindir ve bombe için ayrı (ve dar kapsamlı) bir hesap rotası çalışır; EN seçeneği "tam EN tasarımı" anlamına gelmez ve bu rotada nozul, destek gibi bazı kontroller yoktur.</p>
+
+<p>Gerekli kalınlık bulunduktan sonra sipariş edilecek nominal kalınlık şu şekilde hesaplanır (kodda <em>shell_required_nominal_thickness</em>):</p>
+
+<p><strong>t_nominal = (t_gerekli + C + şekillendirme_incelmesi) / sac_tolerans_faktörü</strong></p>
+
+<p>Burada <em>C</em> korozyon payıdır. Sac toleransı %12,5 ise faktör 0,875 alınır; yani sac en kötü durumda sipariş edilenin %87,5'i kadar kalın gelebilir. Bu yüzden paylar bölmenin içinde tutulur.</p>
+
+<p><strong>Örnek hesap 1 — silindirik gövde.</strong> Golden test dosyasındaki (<em>tests/golden_cases/test_hand_calc_ug27_ug32.py</em>) değerlerle: iç çap 1800 mm olduğu için R = 900 mm, tasarım basıncı P = 2,5 MPa, izin verilen gerilme S = 138 MPa, kaynak verimi E = 1,0 ve korozyon payı C = 0 alınıyor.</p>
+
+<ul>
+<li>Pay (bölünen): P × R = 2,5 × 900 = <strong>2250</strong></li>
+<li>Payda: S × E − 0,6 × P = 138 × 1,0 − 0,6 × 2,5 = 138 − 1,5 = <strong>136,5</strong></li>
+<li>t = 2250 / 136,5 = <strong>16,4835 mm → 16,484 mm</strong></li>
+<li>Boyuna kontrol: 2250 / (2 × 138 + 0,4 × 2,5) = 2250 / 277 = <strong>8,123 mm</strong>; bu daha küçük olduğu için çevresel sonuç belirleyicidir.</li>
+</ul>
+
+<p><strong>Örnek hesap 2 — 2:1 elipsoidal bombe.</strong> İç çap D = 2000 mm, tasarım basıncı P = 2,0 MPa, S = 138 MPa, E = 1,0, C = 0:</p>
+
+<ul>
+<li>Pay: P × D = 2,0 × 2000 = <strong>4000</strong></li>
+<li>Payda: 2 × S × E − 0,2 × P = 276 − 0,4 = <strong>275,6</strong></li>
+<li>t = 4000 / 275,6 = <strong>14,5138 mm → 14,514 mm</strong></li>
+</ul>
+
+<p>Bu iki sayı, test dosyasındaki beklenen değerlerle birebir aynıdır. Dikkat: bu örneklerde korozyon payı sıfır alınmıştır; gerçek projede korozyon payı ve sac toleransı eklendiğinde sipariş edilecek nominal kalınlık daha büyük çıkar.</p>
+
+<p>MAWP hesabı, aynı silindir formülünün tersine çevrilmiş hâlidir. Kodda <em>mawp_from_shell</em> şunu kullanır: <strong>P = S × E × t / (R + 0,6 × t)</strong>. Burada <em>t</em>, nominal kalınlıktan korozyon payı düşüldükten sonra kalan kalınlıktır. Hidrostatik test basıncı ise ASME UG-99(b) yaklaşımıyla <strong>1,3 × MAWP × LSR</strong> olarak hesaplanır; LSR, test sıcaklığındaki izin verilen gerilmenin tasarım sıcaklığındaki gerilmeye oranıdır. Pnömatik testte katsayı 1,1'dir (UG-100).</p>
+
+<div class="ipucu">İzin verilen gerilme (S), akma ve çekme dayanımı gibi malzeme değerleri telifli standart tablolarında yer alır. Bu değerleri uygulamadan veya bu kılavuzdan almayın; malzeme sertifikanızdan ya da elinizdeki lisanslı standarttan kendiniz girin.</div>
+
+<h2 id="d2-4">4. Siteyi kullanma akışı (6 adım)</h2>
+
+<p>Uygulama soldaki menüde altı adım izler. Her adımın alanları ayrı bir bölümde ayrıntılı anlatılır; burada yalnız amacı özetlenir (bkz. alan anlatımı).</p>
+
+<figure><img src="img/01-acilis.png" alt="Vessela açılış ekranı: sol adım menüsü, kayıtlı projeler ve başlangıç şablonları"><figcaption>Şekil: Açılış ekranı — altı adımlı menü, kayıtlı projeler ve hazır şablonlar.</figcaption></figure>
+
+<ol>
+<li><strong>Yeni Proje:</strong> Projeye numara, ad, müşteri ve revizyon verilir; hesap standardı (ASME VIII-1 veya EN 13445) ve kabın yatay/dikey yönelimi seçilir. Hazır şablonlar (hava tankı, vakumlu tank, seperatör) başlangıç için geometri ve koşulları doldurabilir.</li>
+<li><strong>Tasarım Koşulları:</strong> Çalışma/tasarım basıncı ve sıcaklığı, korozyon payı, dış basınç/vakum ve akışkan bilgileri girilir. Bu değerler bütün hesapların temelini oluşturur.</li>
+<li><strong>Kap Geometrisi:</strong> Gövde zinciri (silindir/koni), bombeler, nozullar, manşonlar ve mesnetler tanımlanır; malzeme ve kaynak birleşimleri seçilir. Sağdaki 3D önizleme girdileri canlı gösterir.</li>
+<li><strong>Hesap Sonuçları:</strong> Kalınlık, MAWP, test basıncı, nozul takviyesi, destek ve BOM sonuçları durum etiketleriyle listelenir. Her satır açılarak ara değerler, uyarılar ve varsayımlar görülebilir.</li>
+<li><strong>3D Model:</strong> Girilen geometri üç boyutlu olarak incelenir, kesit alınabilir ve model dışa aktarılabilir (STEP/STL). CAD görsel amaçlıdır; hesabın kaynağı değildir.</li>
+<li><strong>Rapor &amp; Çıktı:</strong> Sonuçlar HTML rapor olarak üretilir; PDF/STEP çıktısı ve açınım (imalat şablonu) seçenekleri sunulur. Rapor, mühendis incelemesi için okunabilir bir özet sağlar.</li>
+</ol>
+
+<figure><img src="img/02-yeni-proje.png" alt="Yeni Proje adımı: proje kimliği, hesap rotası, şablonlar ve teknik önizleme"><figcaption>Şekil: Adım 1 — Yeni Proje ekranı ve hesap rotası seçimi.</figcaption></figure>
+
+<figure><img src="img/09-geometri-31-govde.png" alt="Kap geometrisi adımı: gövde zinciri, ana ölçüler ve 3D önizleme"><figcaption>Şekil: Adım 3 — Kap geometrisi, gövde zinciri ve 3D önizleme.</figcaption></figure>
+
+<figure><img src="img/43-3d-model.png" alt="3D Model adımı: STL görüntüleyici ve ana ölçüler paneli"><figcaption>Şekil: Adım 5 — 3D Model görünümü.</figcaption></figure>
+
+<figure><img src="img/45-rapor-sayfa.png" alt="Rapor ve Çıktı adımı: rapor özeti ve PDF/STEP düğmeleri"><figcaption>Şekil: Adım 6 — Rapor &amp; Çıktı ekranı.</figcaption></figure>
+
+<h2 id="d2-5">5. Sonuçları nasıl okurum?</h2>
+
+<p>Her hesap satırı bir <strong>durum</strong> taşır. <strong>PASS (geçti)</strong>, girilen değerlerle kontrolün sağlandığını gösterir. <strong>FAIL (kalmadı)</strong>, bir sınırın aşıldığını gösterir; kalınlık artırılmalı veya tasarım değiştirilmelidir. <strong>REVIEW_REQUIRED (inceleme gerekli)</strong>, hesabın çalıştığını ama sonucun tek başına yeterli olmadığını, bir mühendisin bakması gerektiğini anlatır. Bazı durumlarda sonuç <strong>BLOCKED (engelli)</strong> olur; bu, gerekli bir girdinin (örneğin malzeme gerilmesi veya lisanslı tablo değeri) eksik olduğu anlamına gelir ve sayısal sonuç yayımlanmaz.</p>
+
+<p>Sonuç ekranında ayrıca <strong>uyarılar (notices)</strong> ve <strong>varsayımlar</strong> listesi bulunur. Uyarılar; eksik veri, emniyetsiz yönde yapılmış bir varsayım veya mühendis kararı gerektiren bir durumu bildirir. Varsayımlar ise programın sizin yerinize kabul ettiği değerlerdir (örneğin sac toleransının %12,5 alınması, su yoğunluğunun 1000 kg/m³ kabul edilmesi). Bu listeyi mutlaka okuyun; çünkü sonucun hangi kabuller üzerine kurulduğunu gösterir.</p>
+
+<figure><img src="img/40-sonuc-ozet.png" alt="Hesap Sonuçları ekranı: yayın öncesi doğrulama ve KPI satırı (MAWP, hidrotest, hacim, ağırlık)"><figcaption>Şekil: Hesap Sonuçları — durum etiketleri ve özet göstergeler.</figcaption></figure>
+
+<p><strong>Ne zaman mühendise danışmalı?</strong> Şu durumlarda sonucu tek başınıza yorumlamayın: REVIEW_REQUIRED veya BLOCKED satırı varsa; malzeme gerilmesini emin olmadan girdiyseniz; nozul eğik veya büyük açıklık söz konusuysa; destek hesabında katsayıları (Zick K değerleri gibi) elle girdiyseniz; sonuçlar imalat veya güvenlik kararı için kullanılacaksa. Ayrıca iki farklı hesap yolu birbiriyle çelişiyorsa (örneğin kalınlık ve MAWP yolu farklı bombe oranı varsayıyorsa) mühendis değerlendirmesi gerekir.</p>
+
+<h2 id="d2-6">6. Önemli uyarılar</h2>
+
+<div class="uyari">
+<p><strong>Küçük açıklık muafiyeti (UG-36(c)(3)) sizin sorumluluğunuzdadır.</strong> Nozul ayrıntıları ekranındaki üç onay kutusu (kap hızlı basınç dalgalanmasına maruz değil, komşu açıklık aralığı koşulları sağlanıyor, bağlantı kaynaklı) kullanıcı beyanıdır. Üçü de işaretlenmeden muafiyet uygulanmaz; uygulansa bile nozul boyun et kalınlığı kontrol edilir. Bu beyanların doğruluğundan siz sorumlusunuz.</p>
+</div>
+
+<div class="uyari">
+<p><strong>Malzeme gerilmeleri şablonlarda boştur.</strong> Hazır şablonlar yalnız geometri ve tasarım koşullarını doldurur; izin verilen gerilme (S), akma ve çekme dayanımlarını girmez. Bu değerler girilmeden hesap hata verir veya engellenir. Değerleri malzeme sertifikasından ya da lisanslı standarttan kendiniz girin.</p>
+</div>
+
+<div class="uyari">
+<p><strong>Sonuç bir mühendis tarafından doğrulanmalıdır.</strong> Vessela resmî onay, ASME damgası veya PED/CE uygunluk kararı vermez. Sonuçlar ön boyutlandırma amaçlıdır; imalata esas tasarım, bağımsız mühendis kontrolü ve gerekiyorsa onaylanmış kuruluş süreci ile tamamlanmalıdır. Kapsam dışı konular (yorulma, sünme, harici boru yükleri vb.) ayrıca değerlendirilmelidir.</p>
+</div>
+
+<h2 id="d2-7">7. Sözlük</h2>
+
+<dl>
+<dt>Basınç</dt>
+<dd>Bir yüzeye birim alana etki eden kuvvettir; burada genellikle MPa (megapaskal) ile ifade edilir.</dd>
+
+<dt>Çalışma basıncı</dt>
+<dd>Kabın normal işletme sırasında içinde bulunan basınçtır.</dd>
+
+<dt>Tasarım basıncı</dt>
+<dd>Hesaplarda kullanılan, çalışma basıncından daha yüksek seçilen güvenli basınç değeridir.</dd>
+
+<dt>Tasarım sıcaklığı</dt>
+<dd>Kabın tasarım ömrü boyunca görebileceği en yüksek (ve ayrıca en düşük) sıcaklıktır; malzeme dayanımı sıcaklıkla değişir.</dd>
+
+<dt>MAWP</dt>
+<dd>Maximum Allowable Working Pressure; kabın mevcut kalınlığı ve malzemesiyle güvenle çalışabileceği en yüksek basınçtır.</dd>
+
+<dt>İzin verilen gerilme (S)</dt>
+<dd>Malzemenin güvenlik payı uygulanmış hâlde taşıyabileceği gerilme değeridir; standart tablosundan veya sertifikadan alınır ve kullanıcı tarafından girilir.</dd>
+
+<dt>Akma dayanımı</dt>
+<dd>Malzemenin kalıcı olarak şekil değiştirmeye başladığı gerilme seviyesidir.</dd>
+
+<dt>Çekme dayanımı</dt>
+<dd>Malzemenin kopmadan önce taşıyabildiği en yüksek gerilmedir.</dd>
+
+<dt>Et kalınlığı</dt>
+<dd>Kabın cidarının (sacın) kalınlığıdır; milimetre cinsinden ifade edilir.</dd>
+
+<dt>Gerekli kalınlık</dt>
+<dd>Basıncı taşımak için cidarın en az sahip olması gereken kalınlıktır.</dd>
+
+<dt>Nominal kalınlık</dt>
+<dd>Sac üreticisinden sipariş edilen, gerekli kalınlığa paylar eklenmiş kalınlıktır.</dd>
+
+<dt>Korozyon payı</dt>
+<dd>Kabın ömrü boyunca paslanma ve aşınma nedeniyle kaybolacak metal için baştan eklenen kalınlıktır (C).</dd>
+
+<dt>Sac (mill) toleransı</dt>
+<dd>Sacın sipariş edilen kalınlıktan izin verilen ölçüde ince gelebilmesidir; %12,5 tolerans, sacın en kötü durumda nominalin %87,5'i kadar olabileceği anlamına gelir.</dd>
+
+<dt>Şekillendirme incelmesi</dt>
+<dd>Sacın bombe gibi biçimlere bükülürken incelmesidir; kalınlık hesabına eklenir.</dd>
+
+<dt>Kaynak verimi (E)</dt>
+<dd>Kaynaklı birleşimin, kaynaksız malzemeye göre ne kadar dayanım taşıdığını gösteren 0 ile 1 arası katsayıdır; muayene (NDT) arttıkça genellikle yükselir.</dd>
+
+<dt>NDT</dt>
+<dd>Non-Destructive Testing; kaynağın içini bozmadan yapılan muayene yöntemleridir (örneğin radyografi, ultrason).</dd>
+
+<dt>Silindirik gövde (kabuk)</dt>
+<dd>Kabın boru biçimindeki ana gövde parçasıdır; basıncın büyük kısmını taşır.</dd>
+
+<dt>Bombe</dt>
+<dd>Kabın silindir gövdesinin ucunu kapatan kubbeli parçadır (elipsoidal, torisferik, yarım küresel veya düz kapak olabilir).</dd>
+
+<dt>Elipsoidal bombe</dt>
+<dd>Elips biçiminde kubbeli bombedir; en yaygın olanı yükseklik/çap oranı 2:1 olan tiptir.</dd>
+
+<dt>Torisferik bombe</dt>
+<dd>Ortası geniş yarıçaplı, kenarı küçük yarıçapla bükülmüş bombe tipidir; "flanged and dished" olarak da bilinir.</dd>
+
+<dt>Düz kapak</dt>
+<dd>Kubbe yerine düz plakayla kapatılan uçtur; basınç altında eğilmeye çalışır ve ayrı bir katsayıyla hesaplanır.</dd>
+
+<dt>Konik bölüm</dt>
+<dd>Çapı bir uçtan diğerine değişen koni biçimindeki gövde parçasıdır; daraltma veya genişletme için kullanılır.</dd>
+
+<dt>Nozul</dt>
+<dd>Kabın cidarına boru bağlamak için yapılan ağızdır; genellikle flanşlı bir boru parçasıdır.</dd>
+
+<dt>Manşon</dt>
+<dd>Küçük çaplı ölçüm/alet bağlantıları için cidara kaynaklanan kısa boru parçasıdır.</dd>
+
+<dt>Flanş</dt>
+<dd>İki boru veya ekipmanı cıvatalarla birleştirmeye yarayan disk biçimli bağlantı elemanıdır.</dd>
+
+<dt>Takviye (ped)</dt>
+<dd>Nozul deliğinin etrafına eklenen, açıklığın zayıflattığı cidarı güçlendiren plakadır.</dd>
+
+<dt>Açıklık takviyesi</dt>
+<dd>Bir deliğin cidarda kaldırdığı malzemenin yerine, delik çevresinde yeterli alan sağlanması hesabıdır (UG-37/UG-40 yaklaşımı).</dd>
+
+<dt>Mesnet</dt>
+<dd>Kabı taşıyan ve zemine/çelik yapıya bağlayan destek elemanıdır.</dd>
+
+<dt>Eyer</dt>
+<dd>Yatay kapların altına oturtulan, kabı iki noktadan taşıyan eyer biçimli mesnettir; Zick yöntemiyle kontrol edilir.</dd>
+
+<dt>Etek</dt>
+<dd>Dikey kapların altına silindirik bir etek gibi bağlanan mesnettir; kabı çevreleyerek taşır.</dd>
+
+<dt>Ayak</dt>
+<dd>Dikey kabı birkaç noktadan taşıyan boru veya profil biçimindeki desteklerdir.</dd>
+
+<dt>Hidrostatik test (hidrotest)</dt>
+<dd>Kabın suyla doldurulup tasarım basıncının üzerinde bir basınçla sızdırmazlık ve dayanım açısından denendiği testtir.</dd>
+
+<dt>Pnömatik test</dt>
+<dd>Su yerine hava/gaz ile yapılan basınç testidir; enerji depolama riski nedeniyle genellikle daha düşük katsayı ve özel önlemler gerektirir.</dd>
+
+<dt>LSR</dt>
+<dd>Test sıcaklığındaki izin verilen gerilmenin tasarım sıcaklığındaki gerilmeye oranıdır; test basıncını ölçeklemek için kullanılır.</dd>
+
+<dt>Statik kafa</dt>
+<dd>Kabın içindeki sıvı yüksekliğinin tabana uyguladığı ek basınçtır; yoğunluk ve sıvı seviyesi girilerek hesaplanır.</dd>
+
+<dt>BOM</dt>
+<dd>Bill of Materials; kabı oluşturan parçaların listesi, kütlesi ve yaklaşık maliyetidir.</dd>
+
+<dt>PASS / FAIL</dt>
+<dd>Geçti / kalmadı durum etiketleridir; FAIL bir sınırın aşıldığını, PASS kontrolün sağlandığını gösterir.</dd>
+
+<dt>REVIEW_REQUIRED</dt>
+<dd>İnceleme gerekli; hesabın çalıştığını ancak sonucun bir mühendis tarafından doğrulanması gerektiğini gösterir.</dd>
+
+<dt>BLOCKED</dt>
+<dd>Engelli; gerekli bir girdi veya lisanslı veri eksik olduğu için sayısal sonuç üretilmediğini gösterir.</dd>
+
+<dt>Varsayım</dt>
+<dd>Programın kullanıcı yerine kabul ettiği değer veya kabuldür; sonuç ekranında açıkça listelenir.</dd>
+
+<dt>ASME VIII-1</dt>
+<dd>Basınçlı kapların tasarımı için yaygın kullanılan Amerikan standardıdır (Boiler and Pressure Vessel Code, Section VIII, Division 1).</dd>
+
+<dt>EN 13445</dt>
+<dd>Basınçlı kaplar için Avrupa standardıdır; Vessela'da dar kapsamlı bir hesap rotası olarak sunulur.</dd>
+
+<dt>UG-27 / UG-32</dt>
+<dd>ASME VIII-1 içinde sırasıyla silindirik gövde iç basınç kalınlığı ve bombe kalınlığı hesaplarını tarif eden maddelerdir.</dd>
+
+<dt>UG-36(c)(3)</dt>
+<dd>Belirli koşulları sağlayan küçük açıklıkların takviye hesabından muaf tutulabildiği ASME maddesidir; muafiyet beyanı kullanıcıya aittir.</dd>
+
+<dt>UG-99 / UG-100</dt>
+<dd>ASME VIII-1 içinde sırasıyla hidrostatik ve pnömatik test basıncını tarif eden maddelerdir.</dd>
+</dl>
+
+</section>
+</div><div class="parca"><section id="g1">
+<h2 id="g1-1">Adım 1 — Yeni Proje</h2>
+<p>Bu ekran, yeni bir basınçlı kap (içinde atmosfer basıncından yüksek basınçta sıvı veya gaz tutan kapalı metal kap) hesaplama dosyası açmanızı veya daha önce çalıştığınız kayıtlı bir projeyi yüklemenizi sağlar. Projenin resmi takip kodlarını ve temel tanıtım bilgilerini belirleyebilir, dilerseniz hazır şablonlarla hızla tasarıma başlayabilirsiniz. Ayrıca kabın hangi uluslararası standarda göre hesaplanacağını ve sahada yatay mı yoksa dikey mi duracağını bu ilk adımda seçersiniz.</p>
+
+<h3>Kayıtlı Projeler</h3>
+<p>Daha önceden oluşturulmuş ve sistem hafızasına kaydedilmiş çalışmalarınızı geri yüklemek için bu paneli kullanabilirsiniz. Böylece yarım kalan bir tasarımı sürdürebilir veya mevcut hesaplar üzerinde inceleme ve güncelleme yapabilirsiniz.</p>
+<figure><img src="img/05-yeni-proje-kayitli-proje.png" alt="Kayıtlı Projeler Ekranı"><figcaption>Şekil: Kayıtlı projelerin listelendiği ve seçildiği ekran.</figcaption></figure>
+<dl>
+<dt>Proje aç</dt>
+<dd>Daha önce sisteme kaydedilmiş projeleri listeleyen ve seçtiğiniz çalışmayı ekrana getiren açılır menüdür. Üzerinde çalışmak istediğiniz projeyi listeden seçtiğinizde projeye ait tüm geometrik ölçüler, malzeme seçimleri ve hesap parametreleri otomatik olarak yüklenir. Kaydedilmemiş yeni bir çalışma varken başka bir proje seçilirse önceki veriler kaybolabileceğinden, seçim yapmadan önce mevcut projenizi kaydetmeyi unutmayın.</dd>
+</dl>
+
+<h3>Başlangıç Şablonları</h3>
+<p>Tüm ölçüleri sıfırdan girmek yerine endüstride yaygın olarak kullanılan standart kap tiplerini tek tıkla yükleyebilirsiniz. Başlangıç şablonları temel kap geometrisini ve çalışma şartlarını otomatik doldurarak hesaplama sürecinizi hızlandırır.</p>
+<figure><img src="img/03-yeni-proje-sablon-hava-tanki.png" alt="Başlangıç Şablonları Ekranı"><figcaption>Şekil: Yatay hava tankı ve diğer hazır başlangıç şablonlarının seçildiği ekran.</figcaption></figure>
+<dl>
+<dt>Şablonu Uygula (düğme)</dt>
+<dd>Seçtiğiniz hazır kap modelinin geometri ve tasarım şartlarını çalışma alanına aktaran düğmelerdir. Menüde üç farklı seçenek bulunur: <strong>Yatay Hava Tankı</strong> (kompresör sistemlerinde basınçlı hava depolamak için kullanılan standart yatay kap), <strong>Vakumlu Proses Tankı</strong> (içindeki hava boşaltılarak vakum uygulanan dikey kimyasal proses kabı) ve <strong>Dikey Seperatör</strong> (sıvı ve gaz fazlarını birbirinden ayrıştırmak için kullanılan dikey proses kabı). Bu şablonlar temel boyutları doldurur ancak malzeme dayanım değerlerini sıfır bırakır; bu nedenle malzeme değerlerini sertifikanızdan sizin girmeniz gerekir.</dd>
+</dl>
+
+<h3>Proje Kimliği</h3>
+<p>Tasarlanan kabın kurumsal takibini, arşivlenmesini ve resmi raporlamasını sağlayan kimlik bilgileridir. Buraya yazacağınız bilgiler, programın oluşturacağı mühendislik hesap raporunun kapak ve başlık kısımlarında aynen yer alır.</p>
+<figure><img src="img/02-yeni-proje.png" alt="Proje Kimliği ve Hesap Rotası"><figcaption>Şekil: Proje kimlik bilgileri ve hesap rotası ayarları.</figcaption></figure>
+<dl>
+<dt>Proje Numarası</dt>
+<dd>İşletmenizin veya müşterinizin bu tasarım işine verdiği benzersiz takip kodudur (örneğin PRJ-001 veya iş emri numarası). Projenin teknik arşivde kolayca bulunmasını ve diğer işlerle karışmamasını sağlar. Yanlış yazılması durumunda imalat, denetim ve kalite kontrol süreçlerinde evrak karışıklığı meydana gelebilir.</dd>
+<dt>Proje Adı</dt>
+<dd>Tasarımı yapılan kabın işlevini veya kullanım amacını belirten tanıtıcı isimdir (örneğin "Basınçlı Hava Depolama Tankı"). Proje listelerinde ve hesap raporlarında kabın doğrudan tanınmasını sağlar. Boş bırakılması veya yanıltıcı yazılması durumunda raporu inceleyen mühendisler kabın ne için yapıldığını anlayamaz.</dd>
+<dt>Müşteri</dt>
+<dd>Basınçlı kabın üretildiği alıcı kuruluşun, tesisin veya sipariş veren firmanın ticari unvanıdır. Resmi uygunluk belgelerinde ve teslimat evraklarında yasal muhatap bilgisini gösterir. Hatalı girilmesi teslim aşamasında kalite ve denetim raporlarının reddedilmesine neden olabilir.</dd>
+<dt>Revizyon</dt>
+<dd>Tasarım üzerinde yapılan değişikliklerin sırasını gösteren sürüm kodudur (örneğin ilk tasarım için "A", güncellemeler için "B" veya sayısal olarak "01"). Hangi hesaplama çıktısının en güncel olduğunu belirlemeye yarar. Güncellenmeyen revizyon numarası, atölyede eski ve geçersiz bir çizimin hatalı şekilde üretilmesine yol açabilir.</dd>
+</dl>
+
+<h3>Hesap Rotası</h3>
+<p>Basınçlı kabın hangi uluslararası mühendislik standardına göre doğrulanacağını ve kabın duruş pozisyonunu belirler. Bu seçimler yazılımın arka planda işleteceği formülleri ve güvenlik katsayılarını doğrudan şekillendirir.</p>
+<dl>
+<dt>Hesap Standardı</dt>
+<dd>Mukavemet (dayanım) hesaplamalarında uyulacak yasal tasarım kural kitabını belirler. <strong>ASME VIII Division 1</strong> seçeneği dünya genelinde yaygın Amerikan Makine Mühendisleri Odası kazan ve basınçlı kap kurallarını uygular; <strong>EN 13445</strong> seçeneği ise Avrupa Birliği basınçlı kap standardını esas alır. EN 13445 seçildiğinde bazı modüller için inceleme gerekli uyarısı görüntülenebilir.</dd>
+<dt>Standart Sürümü</dt>
+<dd>Tasarımda kullanılan standardın resmi yayım ve yürürlük yılını belirtir (örneğin 2025). Standartlar belirli aralıklarla güncellendiği için denetim kuruluşları hesapların hangi yılın kurallarına göre yapıldığını kontrol eder. Yanlış girilmesi denetimlerde raporun geçersiz sayılmasına sebep olabilir.</dd>
+<dt>Kap Yönelimi</dt>
+<dd>Kabın çalışma sahasındaki fiziksel duruşunu belirler; <strong>Yatay</strong> (zemine paralel yatan, genellikle eyer destekli) ve <strong>Dikey</strong> (zemine dik duran, genellikle ayak veya etek destekli) seçenekleri mevcuttur. Bu tercih, içindeki sıvının tabana uyguladığı hidrostatik basıncı ve rüzgar/deprem gibi devirici yük hesaplarını tamamen değiştirir. Yanlış seçilirse destek sistemi ve yük dağılımı baştan sona hatalı modellenir.</dd>
+</dl>
+
+<div class="ipucu">
+<h3>Adım 1 İçin Sık Yapılan Hatalar</h3>
+<ul>
+<li>Başlangıç şablonu seçildiğinde malzeme dayanım değerlerinin otomatik doldurulduğunu zannetmek; şablonlar bu değerleri sıfır bırakır, malzeme değerlerini mutlaka kendiniz girmelisiniz.</li>
+<li>Kap yönelimini (Yatay/Dikey) baştan yanlış seçip sonradan geometri ve mesnet modellerini baştan düzenlemek zorunda kalmak.</li>
+<li>Üzerinde çalışılan projeyi kaydetmeden listeden başka bir proje açarak girilen son verileri kaybetmek.</li>
+</ul>
+</div>
+
+<h2 id="g1-2">Adım 2 — Tasarım Koşulları</h2>
+<p>Bu adımda kabın maruz kalacağı iç ve dış basınçlar, çalışma sıcaklıkları, akışkan özellikleri ve korozyon payı belirlenir. Bu değerler kabın gövde ve bombe sac kalınlıklarının ne kadar olması gerektiğini doğrudan belirleyen en temel mühendislik girdileridir.</p>
+
+<h3>Basınçlar</h3>
+<p>Kabın güvenle çalışabilmesi için işletme şartlarında ve olağanüstü durumlarda maruz kalacağı basınç sınırları bu bölümde girilir. Mukavemet hesaplamaları doğrudan bu değerler üzerinden yürütülür.</p>
+<figure><img src="img/06-tasarim-kosullari.png" alt="Tasarım Koşulları Ekranı"><figcaption>Şekil: Basınçlar, sıcaklıklar, dış basınç ve korozyon payı tanımlama ekranı.</figcaption></figure>
+<dl>
+<dt>Çalışma Basıncı (MPa)</dt>
+<dd>Kabın normal çalışma düzeninde sürekli maruz kaldığı akışkan basıncıdır (örneğin 1 MPa, yaklaşık 10 bar). Tesis işletme şartnamelerinden veya proses akış şemalarından alınır. Bu değer tasarım basıncından yüksek girilemez; aksi takdirde güvenlik sınırı kalmaz.</dd>
+<dt>Tasarım Basıncı (MPa)</dt>
+<dd>Kabın sac et kalınlığı hesaplarında doğrudan kullanılan ve çalışma basıncının üzerine güvenlik payı eklenerek belirlenen ana basınçtır (örneğin 1,2 MPa). Sipariş şartnamesinden temin edilir. Gerçek çalışma basıncından düşük girilirse saclar ince hesaplanır ve kabın işletmede yırtılma riski doğar.</dd>
+<dt>Azami İzin Verilen (PS) (MPa)</dt>
+<dd>Basınçlı Ekipmanlar Direktifi (PED) mevzuatı ve kabın tanıtım plakası için imalatçının taahhüt ettiği en üst basınç sınırıdır (örneğin 1,5 MPa). İmalatçı ve yetkili denetim kuruluşu tarafından kararlaştırılır. Tasarım basıncından küçük seçilemez; aksi halde yasal uygunluk testlerinden geçemez.</dd>
+</dl>
+
+<h3>Basınç Tahliye Sistemi</h3>
+<p>Basınç tahliye sistemi, aşırı basınç artışı durumunda gaz veya sıvıyı kontrollü olarak dışarı atarak patlamayı engelleyen koruma donanımını tanımlar. Emniyet ventilinin veya patlama diskinin ayar basınçları burada belirlenir.</p>
+<figure><img src="img/08-tasarim-tahliye-etkin.png" alt="Basınç Tahliye Sistemi Etkin Ekranı"><figcaption>Şekil: Tahliye sistemi 'Etkin' seçildiğinde açılan ayar ve cihaz parametreleri.</figcaption></figure>
+<dl>
+<dt>Tahliye sistemi</dt>
+<dd>Kap üzerinde aşırı basıncı önleyici bir güvenlik ekipmanının bulunup bulunmadığını belirtir; <strong>Tanımlı değil</strong> (tahliye cihazı hesaba katılmaz) ve <strong>Etkin</strong> (cihaz ayarları açılır) seçenekleri vardır. Etkin seçildiğinde emniyet vanası veya disk değerleri girilmelidir; yetkili üretici onaylı kapasite sertifikası olmadan hesaplama sonucu nihai emniyet onayı (PASS) sayılmaz.</dd>
+<dt>Korunan MAWP (MPa)</dt>
+<dd>Tahliye cihazının korumayı hedeflediği azami izin verilen çalışma basıncıdır (MAWP: kabın mevcut sac kalınlığıyla emniyetle taşıyabileceği en yüksek iç basınç). Sıfır bırakılırsa program tarafından hesaplanan en düşük parça MAWP değeri otomatik kullanılır. Kabın gücünden daha yüksek bir değer girilirse vana açılana kadar kap tehlikeli aşırı basınca maruz kalabilir.</dd>
+<dt>İzin verilen accumulation (%)</dt>
+<dd>Emniyet ventili tam tahliye yaparken sistem içinde izin verilen geçici basınç yükselme yüzdesidir (örneğin standart durumlarda tipik olarak %10). Tasarım kurallarından veya proses güvenlik raporlarından temin edilir. Çok yüksek seçilirse aşırı basınç anında kabın sınır değerleri aşılabilir.</dd>
+<dt>Cihaz tipi (yalnız tahliye 'Etkin' iken görünür)</dt>
+<dd>(Bu alan yalnız şu durumda görünür: Tahliye sistemi 'Etkin' olarak seçildiğinde açılır.) Basıncı tahliye etmek için kullanılan ekipmanın türünü belirtir; <strong>Emniyet vanası</strong> (aşırı basınçta açılıp basınç düşüşünde otomatik kapanan mekanik yaylı vana) ve <strong>Patlama diski</strong> (belirlenen basınçta yırtılarak tam boşalma sağlayan tek kullanımlık metal diyafram) seçenekleri bulunur. Seçilen tipe göre standart doğrulama kuralları işletilir.</dd>
+<dt>Set / burst basıncı (yalnız 'Etkin' iken) (MPa)</dt>
+<dd>(Bu alan yalnız şu durumda görünür: Tahliye sistemi 'Etkin' olarak seçildiğinde açılır.) Emniyet vanasının tahliyeye başladığı açma (set) basıncı veya patlama diskinin yırtıldığı (burst) nominal basınçtır; varsayılan olarak tasarım basıncına eşittir. Emniyet cihazının kalibrasyon sertifikasından alınır. Tasarım basıncının üzerinde ayarlanırsa vana açılana kadar gövde aşırı zorlanabilir.</dd>
+</dl>
+
+<h3>Sıcaklıklar</h3>
+<p>Metallerin taşıma mukavemeti sıcaklıkla azalır, aşırı soğukta ise kırılganlaşır. Bu nedenle kabın çalışacağı, test edileceği ve tasarlanacağı sıcaklık sınırlarının doğru belirlenmesi hayati önem taşır.</p>
+<dl>
+<dt>Çalışma Sıcaklığı (°C)</dt>
+<dd>Normal işletme esnasında kap içindeki akışkanın ulaştığı ortalama sıcaklıktır (örneğin 120 °C). Proses akış şemasından veya işletme kılavuzundan alınır. Tasarım sıcaklığından yüksek girilmemelidir.</dd>
+<dt>Tasarım Sıcaklığı (°C)</dt>
+<dd>Malzemenin izin verilen gerilme değerinin (S: malzemenin güvenle taşıyabileceği azami gerilme sınırı) standarda göre belirlenmesinde esas alınan en yüksek metal sıcaklığıdır (örneğin 150 °C). Tesis şartnamesinden temin edilir. Gerçek çalışma şartından düşük girilirse metal sıcakta yumuşayacağı için kap deforme olabilir.</dd>
+<dt>Asgari Tasarım Sıcaklığı (°C)</dt>
+<dd>Kabın basınç altındayken karşılaşabileceği en düşük metal sıcaklığıdır (MDMT: Minimum Design Metal Temperature, örneğin -10 °C). Kış iklim şartları veya ani gaz genleşmesinden doğan soğuma incelenerek belirlenir. Yüksek girilirse çeliğin soğukta cam gibi aniden kırılma (gevrek kırılma) riski gözden kaçar.</dd>
+<dt>Hidrotest Sıcaklığı (°C)</dt>
+<dd>İmalat bittikten sonra kap suyla doldurularak yapılan basınç dayanım testi sırasındaki su ve ortam sıcaklığıdır (örneğin 20 °C). Test prosedüründen alınır. Test suyunun aşırı soğuk olması çelikte ani çatlama riskini tetikleyebileceğinden standartlar genellikle belirli bir asgari test sıcaklığı şart koşar.</dd>
+<dt>Darbe Testi Sıcaklığı (°C)</dt>
+<dd>Çelik malzemeye Charpy V-çentik darbe testi (malzemenin tokluğunu ölçen kırılma testi) yapılmışsa bu testin gerçekleştirildiği sıcaklık değeridir (°C); 0 bırakılırsa darbe testi yapılmadığı kabul edilir. Malzemenin kalite kontrol sertifikasından (EN 10204 3.1) temin edilir. ASME UCS-66 kuralına göre malzemenin darbe testinden muaf olup olmadığını denetlemede kullanılır; yanlış girilirse zorunlu bir test atlanabilir.</dd>
+</dl>
+
+<h3>Dış Basınç / Vakum</h3>
+<p>İnce cidarlı basınçlı kaplar dıştan gelen basınca veya iç vakuma karşı iç basınca kıyasla çok daha dayanıksızdır ve içe doğru çökme (burkulma) riski taşır. Bu bölüm dış basınç veya vakum tahkiklerini yönetir.</p>
+<figure><img src="img/07-tasarim-yardim-balonu.png" alt="Dış Basınç Yardım Balonu"><figcaption>Şekil: Dış basınç giriş alanı ve yardım ipucu balonu.</figcaption></figure>
+<dl>
+<dt>Dış Basınç (MPa)</dt>
+<dd>Kabın dış yüzeyine etki ederek gövdeyi içeriye doğru çökmeye zorlayan harici basınçtır; 0 bırakılırsa ASME UG-28 dış basınç tahkiki yapılmaz. Dış ceketli ısıtma/soğutma kaplarında ceket basıncından kaynaklanır. Gerçekte dış basınç varken 0 girilirse kap işletmede içe doğru ezilebilir.</dd>
+<dt>Vakum Koşulu</dt>
+<dd>Kap içinde atmosfer basıncının altında bir boşluk (vakum) oluşup oluşmayacağını belirtir; <strong>Yok</strong> ve <strong>Var</strong> seçenekleri mevcuttur. 'Var' seçildiğinde program otomatik olarak dıştan 0,1013 MPa (tam vakum) basınç uygulandığını kabul ederek UG-28 çökme kontrolünü devreye sokar. Vakum riski varken 'Yok' seçilirse içe çökme emniyeti denetlenemez.</dd>
+</dl>
+
+<h3>Akışkan</h3>
+<p>Kap içindeki sıvının ağırlığı, özellikle yüksek dikey kapların alt kısımlarında ve taban bombelerinde ekstra bir basınç oluşturur (hidrostatik kafa). Bu bölüm sıvı özelliklerini tanımlar.</p>
+<dl>
+<dt>Akışkan Yoğunluğu (kg/m³)</dt>
+<dd>Depolanan sıvının birim hacim ağırlığıdır (örneğin su için 1000 kg/m³); 0 bırakılırsa sıvı ağırlığı hesaba katılmaz. Kimyasal ürün güvenlik bilgi formundan (MSDS) alınır. Yoğun sıvılarda sıfır girilirse kabın tabanına binen ilave sıvı ağırlığı ihmal edilir ve alt kısımlar yetersiz kalınlıkta üretilir.</dd>
+<dt>Sıvı Seviyesi (mm)</dt>
+<dd>Kabın en alt iç teğet noktasından sıvının ulaştığı azami serbest yüzey yüksekliğidir; boş bırakılırsa sıvı basıncı düzeltmesi uygulanmaz. Seviye göstergesi veya proses dolum limitinden alınır. Dikey kaplarda tabandaki toplam basıncı doğrudan artırdığından gerçeğe uygun girilmelidir.</dd>
+</dl>
+
+<h3>Korozyon Payı</h3>
+<p>Basınçlı kaplar zaman içinde temas ettikleri kimyasallar veya çevre şartları nedeniyle paslanır ve et kalınlığı incelir. Bu incelmeyi karşılamak için tasarım kalınlığına korozyon payı eklenir.</p>
+<dl>
+<dt>İç Korozyon Payı (mm)</dt>
+<dd>İç korozyon payı, kimyasal akışkanın temas ettiği iç metal yüzeyinde kullanım ömrü boyunca aşınma ve paslanma ihtimaline karşı ilave edilen fazladan sac kalınlığıdır (örneğin karbon çeliği kaplarda sıklıkla 2 mm veya 3 mm). Proses korozyon raporundan veya müşteri şartnamesinden temin edilir. Yetersiz girilirse kap öngörülen ömrü dolmadan delinme tehlikesi yaşar.</dd>
+<dt>Dış Korozyon Payı (mm)</dt>
+<dd>Dış korozyon payı, kabın dış atmosferik şartlara, yağışa veya kimyasal buharlara maruz kalması durumunda dış yüzeyde oluşabilecek metal kaybı payıdır; kaliteli boya kaplaması veya paslanmaz çelik sac kullanıldığında genellikle 0 mm girilir. Çevre şartlarına ve yalıtım altı paslanma riskine göre belirlenir. Agresif açık hava tesislerinde sıfır bırakılırsa dış cidarda beklenmedik incelmeler doğabilir.</dd>
+</dl>
+
+<div class="ipucu">
+<h3>Adım 2 İçin Sık Yapılan Hatalar</h3>
+<ul>
+<li>Tasarım basıncını işletme (çalışma) basıncına eşit yazarak emniyet vanasının erken açılmasına veya sistemde hiç emniyet marjı kalmamasına yol açmak.</li>
+<li>Buharla yıkanan veya tahliye sırasında içinde vakum oluşma riski taşıyan kaplarda 'Vakum Koşulu' seçeneğini 'Yok' bırakarak gövdenin içe çökme kontrolünü atlamak.</li>
+<li>Ağır kimyasal depolayan yüksek dikey tanklarda sıvı seviyesi ve akışkan yoğunluğunu sıfır bırakarak taban bölgesindeki hidrostatik basınç payını ihmal etmek.</li>
+</ul>
+</div>
+
+<h2 id="g1-3">Adım 3 — Kap Geometrisi</h2>
+<p>Bu adımda basınçlı kabın fiziksel gövde zinciri, uç kapatma bombeleri, nozullar ve mesnetler modellenir. Ekranın solunda ölçü formları yer alırken sağında canlı 3B model, ölçülü kesit ve gerilme dağılımı anlık olarak görüntülenir.</p>
+
+<h3>Üst Çubuk ve Panel Sekmesi</h3>
+<p>Ekranın en üstünde harici CAD modeli yükleme seçenekleri, panel sekmesinde ise temel geometri ile detaylı hesap girdileri arasında geçiş düğmeleri yer alır.</p>
+<figure><img src="img/09-geometri-31-govde.png" alt="Geometri Ana Ekranı"><figcaption>Şekil: Adım 3 ana ekranı, üst çubuk ve geometri formu.</figcaption></figure>
+<figure><img src="img/25-girdiler-sekme.png" alt="Hesap Girdileri Paneli"><figcaption>Şekil: Geometri ve Hesap Girdileri sekmeleri.</figcaption></figure>
+<dl>
+<dt>Modelden içe aktar (dosya seç)</dt>
+<dd>(Bu alan yalnız şu durumda görünür: Harici bir CAD dosyasından kap geometrisi yüklenmek istendiğinde kullanılır.) *.step, *.stp veya *.stl uzantılı harici 3B çizim dosyalarını programa aktaran dosya seçicidir. Yüklenen STL dosyaları yalnızca görsel referans amacıyla 3B ekranda gösterilir ve mukavemet hesaplarına dahil edilmez; STEP dosyalarında ise akıllı tanıma penceresi açılarak bulunan çap ve boy ölçüleri onay kutularıyla projeye aktarılabilir.</dd>
+<dt>Geometri / Hesap girdileri</dt>
+<dd>Gövde, bombe ve nozul gibi ana ölçü formları ile WRC dış yükleri, flanş, cıvata ve malzeme detaylarının bulunduğu akordeon menüler arasında geçiş sağlayan panel sekmesidir. <strong>Geometri</strong> sekmesi temel boyutlandırmayı yönetirken, <strong>Hesap girdileri</strong> sekmesi ASME ek modül parametrelerini açar. İlgili parametreleri düzenlemek için doğru sekmenin aktif olduğundan emin olunmalıdır.</dd>
+</dl>
+
+<h3>Önizleme ve Görselleştirme</h3>
+<p>Tasarımı yapılan kabın üç boyutlu katı modelini, ölçülendirilmiş iki boyutlu teknik kesitini ve basınç altındaki renkli gerilme dağılımını canlı olarak inceleyebilirsiniz.</p>
+<figure><img src="img/20-onizleme-3d.png" alt="3D Önizleme Görünümü"><figcaption>Şekil: Canlı 3D model önizlemesi ve kamera kontrolleri.</figcaption></figure>
+<figure><img src="img/23-onizleme-gerilme.png" alt="Gerilme Analizi Önizlemesi"><figcaption>Şekil: Gerilme sekmesi ve analitik/FEA gerilme dağılımı haritası.</figcaption></figure>
+<figure><img src="img/24-onizleme-disa-aktar-menu.png" alt="Dışa Aktar Menüsü"><figcaption>Şekil: 3D model ve çizim dışa aktarma menüsü.</figcaption></figure>
+<dl>
+<dt>Önizleme görünümü</dt>
+<dd>Görselleştirme penceresinin çalışma modunu belirler; <strong>3D Önizleme</strong> (etkileşimli katı model), <strong>Ölçülü Kesit</strong> (ana eksen ve boyutları gösteren 2B teknik şema), <strong>Kesin Model</strong> (tam detaylı CAD modeli), <strong>Gerilme</strong> (iç basınç altındaki gerilme dağılımı haritası) ve dosya yüklenmişse <strong>Yüklenen model</strong> seçenekleri sunulur. Nozulların ve mesnetlerin birbirine çakışıp çakışmadığını bu modlar üzerinden görsel olarak denetleyebilirsiniz.</dd>
+<dt>Gerilme kaynağı (Gerilme sekmesinde)</dt>
+<dd>Gerilme haritasının hangi yöntemle hesaplanacağını belirler; <strong>Analitik</strong> (formüllere dayalı klasik ASME kabuk gerilmeleri) ve <strong>FEA</strong> (sonlu elemanlar yöntemiyle sayısal gerilme analizi) seçenekleri bulunur. Bu sekmedeki renkli gerilme dağılımları mühendise fikir verme amaçlı göstergedir; tek başına resmi ASME kod onayı yerine geçmez.</dd>
+<dt>SCL eşdeğer gerilme (FEA çalışınca)</dt>
+<dd>(Bu alan yalnız şu durumda görünür: Gerilme görünümünde FEA yöntemi çalıştırıldığında ve gerilme sınıflandırma çizgisi - SCL tanımlandığında görünür.) Gerilme yoğunlaşmalarını değerlendirmede esas alınacak akma kriterini belirler; <strong>von Mises</strong> (şekil değiştirme enerjisi hipotezi) veya <strong>Tresca</strong> (azami kayma gerilmesi hipotezi) seçenekleri mevcuttur. Yanlış kriter seçimi malzemenin plastik deformasyona yaklaşma payını farklı yorumlamanıza neden olabilir.</dd>
+<dt>Dışa aktar menüsü</dt>
+<dd>(Bu alan yalnız şu durumda görünür: Önizleme ekranındaki dışa aktar menüsü tıklandığında açılır.) Oluşturulan 3B modeli veya imalat çizimlerini harici yazılımlara aktarmak için kullanılan menüdür. STEP, STL ve imalat çizimleri için DXF/SVG formatlarında dışa aktarma imkanı tanır. İmalat atölyesine veya CAD departmanına veri iletmek için kullanılır.</dd>
+</dl>
+
+<h3>3.1 Gövde Zinciri</h3>
+<p>Gövde zinciri, basınçlı kabın silindirik veya konik gövde parçalarını uç uca bağlayarak ana silindiri kurmanızı sağlar. Tek veya farklı çaplardaki birden fazla gövde halkası bu şerit üzerinden yönetilir.</p>
+<figure><img src="img/10-geometri-31-govde-form.png" alt="3.1 Gövde Formu"><figcaption>Şekil: Seçili silindirik gövde halkasının ana ölçüleri ve ayrıntılar formu.</figcaption></figure>
+<figure><img src="img/11-geometri-31-uc-ekle-koni-form.png" alt="3.1 Uç Ekleme Paneli"><figcaption>Şekil: Gövde zincirine yeni silindir veya koni ekleme paneli.</figcaption></figure>
+<dl>
+<dt>Zincir halkası seçimi (şerit)</dt>
+<dd>Gövdeyi meydana getiren parçalardan hangisinin aktif olduğunu gösteren seçim şerididir (örneğin SHELL-01, SHELL-02 veya koni halkaları). Ölçülerini değiştirmek istediğiniz halkanın üzerine tıklayarak veya 3D modelde parçayı seçerek düzenleme formunu açabilirsiniz. Yanlış halka seçilirse istenmeyen parçanın boyutları değiştirilebilir.</dd>
+<dt>Eklenecek parça</dt>
+<dd>Gövde zincirinin sağına veya soluna yeni bir parça eklerken geometrik formunu belirler; <strong>Silindir</strong> (aynı veya farklı çapta düz gövde), <strong>Koni</strong> (çap geçişini sağlayan konik gövde) ve <strong>Daralt + Silindir</strong> (önce konik geçiş ardından daha dar silindirik gövde) seçenekleri bulunur. Proses gereksinimine göre kabın kademeli çap yapısını kurmanızı sağlar.</dd>
+<dt>Uç çapı (Koni, Daralt) (mm)</dt>
+<dd>Eklenen konik parçanın dar veya genişleyen diğer ucunun iç çapıdır (izin verilen aralık 50 mm ile 20000 mm arasıdır; varsayılan olarak bağlı olduğu ucun %60'ı alınır). Tasarım projesindeki çap geçişi ölçüsünden alınır. Komşu gövdeyle aynı çap girilemez çünkü koni oluşturmak için iki ucun farklı çapta olması şarttır.</dd>
+<dt>Koni boyu (Koni, Daralt) (mm)</dt>
+<dd>Konik geçiş parçasının eksenel teğet uzunluğudur (izin verilen sınır 10 mm ile 30000 mm arasıdır, varsayılan 500 mm). İmalat resminden alınır. Koni boyunun çapa oranına göre hesaplanan yarı tepe açısı α 30°'yi aşarsa sistem kırmızı uyarı verir ve özel takviye hesabı gerektirir.</dd>
+<dt>Teğet boyu / Yeni silindir boyu (mm)</dt>
+<dd>Gövde zincirine eklenen yeni silindirik parçanın düz dikiş boyudur (izin verilen aralık 10 mm ile 60000 mm arasıdır, varsayılan 1000 mm). Tankın toplam hacim ve boy gereksinimine göre belirlenir. Yanlış boy girilmesi kabın kapasitesini ve rüzgar/deprem momentlerini doğrudan saptırır.</dd>
+<dt>Et kalınlığı (Silindir, Koni) (mm)</dt>
+<dd>Yeni eklenen gövde veya koni halkasının başlangıç sac et kalınlığıdır (izin verilen aralık 1 mm ile 250 mm arasıdır; varsayılan komşu halkanın kalınlığıdır). Sac levha standart kalınlıklarından seçilir. Gerekli asgari kalınlığın altında bir değer girilirse hesaplama sonucunda parça basıncı taşıyamaz ve FAIL verir.</dd>
+<dt>Düğme: ← Taşı</dt>
+<dd>Seçili gövde halkasını zincir içerisinde bir basamak sola (veya dikey kapta aşağıya) kaydıran işlem düğmesidir. Gövde sırasını değiştirmek için kullanılır; zincirde en az 3 eleman bulunması durumunda çalışır.</dd>
+<dt>Düğme: Taşı →</dt>
+<dd>Seçili gövde halkasını zincir içerisinde bir basamak sağa (veya dikey kapta yukarıya) kaydıran işlem düğmesidir. Kademeli çapa sahip kaplarda parçaların dizilimini ayarlamayı sağlar.</dd>
+<dt>Düğme: Kopyala</dt>
+<dd>Seçili halkanın tüm boyut, malzeme ve kaynak özelliklerini birebir kopyalayarak hemen yanına yeni bir halka ekleyen düğmedir. Birbirinin aynı çoklu gövde saclarını hızlıca oluşturmada büyük kolaylık sağlar.</dd>
+<dt>Düğme: Sil</dt>
+<dd>Seçili olan gövde veya koni parçasını zincirden kaldıran düğmedir. Sistemde en az bir gövde halkasının bulunması zorunlu olduğundan, son kalan gövde parçası silinemez.</dd>
+<dt>İç çap (ID) (mm)</dt>
+<dd>Silindirik gövde halkasının korozyonsuz temiz iç çapıdır (izin verilen sınır 50 mm ile 20000 mm arasıdır, varsayılan 1000 mm). Proses hacim tasarımından veya boru/sac standartlarından alınır. Çap büyüdükçe sac üzerindeki çeper gerilmesi doğrusal olarak artacağından et kalınlığı ihtiyacı da doğrudan artar.</dd>
+<dt>Et kalınlığı (t) (mm)</dt>
+<dd>Silindirik gövde parçasının imalatta kullanılacak nominal sac et kalınlığıdır (izin verilen aralık 1 mm ile 250 mm arasıdır, varsayılan 12 mm). Çelik sac üretici kataloglarından temin edilir. Bu değer korozyon payı ve sac toleransı düşüldükten sonra hesaplanan asgari kalınlığın (t_min) altına inerse hesaplama onaylanmaz.</dd>
+<dt>Teğet boyu (L) (mm)</dt>
+<dd>Silindirik halkanın iki kaynak çizgisi arasındaki net boyudur (izin verilen aralık 10 mm ile 60000 mm arasıdır, varsayılan 2000 mm). Genel yerleşim planından alınır. Dış basınç altındaki kaplarda burkulma boyunu doğrudan belirlediğinden kritik öneme sahiptir.</dd>
+<dt>Büyük çap (mm)</dt>
+<dd>(Bu alan yalnız şu durumda görünür: Gövde zincirinde konik bir halka seçildiğinde ana ölçüler panelinde görünür.) Konik parçanın geniş olan tabanının iç çapıdır (izin verilen aralık 50 mm ile 20000 mm arasıdır). Bağlı olduğu geniş silindirin çapına uygun seçilmelidir; uyumsuz değer girilirse montaj birleşiminde geometrik süreksizlik oluşur.</dd>
+<dt>Küçük çap (mm)</dt>
+<dd>(Bu alan yalnız şu durumda görünür: Gövde zincirinde konik bir halka seçildiğinde ana ölçüler panelinde görünür.) Konik parçanın dar olan tepe ucunun iç çapıdır (izin verilen sınır 50 mm ile büyük çap eksi 1 mm arasıdır). Proses akış veya borulama çapına göre belirlenir. Büyük çapa eşit veya büyük girilmesine sistem izin vermez.</dd>
+<dt>Boy (mm)</dt>
+<dd>(Bu alan yalnız şu durumda görünür: Gövde zincirinde konik bir halka seçildiğinde ana ölçüler panelinde görünür.) Konik halkanın iki ucu arasındaki eksenel uzunluğudur (izin verilen aralık 10 mm ile 30000 mm arasıdır). İmalat projesinden alınır. Boy kısaldıkça koninin koniklik açısı büyüyeceğinden birleşim bölgelerinde aşırı eğilme gerilmeleri doğar.</dd>
+<dt>Et kalınlığı (t) (mm)</dt>
+<dd>(Bu alan yalnız şu durumda görünür: Gövde zincirinde konik bir halka seçildiğinde ana ölçüler panelinde görünür.) Konik geçiş parçasının nominal sac et kalınlığıdır (izin verilen sınır 1 mm ile 250 mm arasıdır). Konilerde gerilme silindire göre 1/cos(α) oranında arttığından genellikle komşu silindirden daha kalın sac seçilmesi gerekir.</dd>
+<dt>Yarı tepe açısı α (°)</dt>
+<dd>(Bu alan yalnız şu durumda görünür: Gövde zincirinde konik bir halka seçildiğinde salt okunur olarak görünür.) Koninin ekseni ile cidarı arasındaki yarım açıdır (büyük çap, küçük çap ve boydan otomatik türetilir). Açının 30°'yi aşması durumunda ASME kurallarına göre özel birleşim analizi (torikonik geçiş veya takviye halkası) gerekir; 60°'yi aşması durumunda ise ASME Appendix 1-8 kapsamından çıkar ve standart dışı kabul edilir.</dd>
+<dt>Malzeme</dt>
+<dd>İlgili gövde halkasının imal edileceği metal alaşımını belirleyen açılır listedir (örneğin MAT-01: SA-516 Gr. 70 veya paslanmaz çelik). Projenin Malzeme sekmesinde tanımlanan kartlardan seçilir. Yanlış malzeme seçimi sıcaklığa bağlı izin verilen gerilmeyi (S) değiştireceğinden tüm dayanım hesaplarını geçersiz kılar.</dd>
+<dt>İç korozyon payı (mm)</dt>
+<dd>Bu gövde parçasına özel olarak uygulanacak iç yüzey paslanma ve aşınma payıdır (varsayılan 2 mm). Genellikle Adım 2'deki genel korozyon payı ile aynı tutulur ancak kabın farklı bölgelerinde farklı korozyon bekleniyorsa bağımsız değiştirilebilir. Yetersiz girilirse kabın ömrü kısalır.</dd>
+<dt>Sac toleransı (%)</dt>
+<dd>Haddelenmiş çelik sacın imalat standardından kaynaklanan eksi kalınlık tolerans yüzdesidir (örneğin plaka saclar için yaygın olarak %12,5 veya borularda standart değerler). Çelik üreticisi şartnamesinden veya malzeme standardından alınır. Sac toleransı nominal kalınlıktan düşülerek hesap yapıldığından bu değerin girilmesi zorunlu bir güvenlik adımıdır.</dd>
+<dt>Kaynak birleşimi</dt>
+<dd>Gövde halkasının boyuna dikişinde kullanılan kaynak tipini ve radyografik muayene (NDT: tahribatsız test yöntemi) kalitesini belirten kaynak kartı seçimidir (örneğin WJ-01). Kaynak verimi faktörünü (E: tam röntgenli kaynakta 1,0; noktasal röntgende 0,85; muayenesiz kaynakta 0,70) doğrudan belirler. Kaynak kalitesi düşükken yüksek bir katsayı seçilirse kaynak dikişinden yırtılma riski doğar.</dd>
+<dt>UG-28 A faktörü</dt>
+<dd>ASME Section II Part D Subpart 3 tablolarından silindirin boy/çap ve çap/kalınlık oranına göre okunan boyutsuz gerinim katsayısıdır; 0 bırakılırsa dış basınç ve vakum hesabı bloke edilir. Malzemenin burkulma eğrilerinden elde edilir (bu değeri standart tablolardan kullanıcının kendisi bulup girmelidir). Yanlış girilirse kabın vakum altındaki çökme emniyeti belirlenemez.</dd>
+<dt>UG-28 B faktörü (MPa)</dt>
+<dd>A faktörü ve tasarım sıcaklığı kullanılarak malzemenin dış basınç tablosundan okunan izin verilen basma gerilmesidir; 0 bırakılırsa dış basınç hesabı tamamlanamaz. Standart malzeme diyagramlarından alınır (kullanıcı standarttan temin etmelidir). Kabın izin verilen harici çalışma basıncını doğrudan belirler.</dd>
+</dl>
+
+<h3>3.2 Bombeler</h3>
+<p>Bombeler, silindirik gövdenin iki ucunu emniyetle kapatan derin kavisli veya düz kapaklardır. Basınç altında iç gerilmelerin en yoğunlaştığı bölgeler olduğundan geometrik formları büyük dikkat gerektirir.</p>
+<figure><img src="img/12-geometri-32-bombe.png" alt="3.2 Bombe Genel Ekranı"><figcaption>Şekil: Sol/alt ve sağ/üst bombe seçim kartları ve bombe tipleri.</figcaption></figure>
+<figure><img src="img/13-geometri-32-bombe-form.png" alt="3.2 Bombe Formu"><figcaption>Şekil: Bombe formu, çap ilişkisi, et kalınlığı ve ayrıntılar paneli.</figcaption></figure>
+<dl>
+<dt>Bombe tipi</dt>
+<dd>Uç kapatma kapağının geometrik kesitini belirler; <strong>Elipsoidal (2:1)</strong> (derinliği çapın dörtte biri olan ve en sık kullanılan mukavim bombe), <strong>Torisferik</strong> (küre kubbeli ve mafsal kıvrımlı bombe, Klöpper/Korbogen), <strong>Yarım küresel</strong> (iç basınca en dayanıklı tam yarım küre bombe) ve <strong>Düz kapak</strong> (flanşlı veya kaynaklı kalın düz plaka) seçenekleri yer alır. Seçilen tip basınç gerilme formüllerini ve gerekli et kalınlığını tamamen değiştirir.</dd>
+<dt>Çap ilişkisi</dt>
+<dd>Bombe çapının gövde zincirine nasıl bağlanacağını belirler; <strong>Bağlı (linked)</strong> seçildiğinde bombe iç çapı komşu gövde halkasının çapından otomatik olarak alınır ve kilitlenir; <strong>Bağımsız (independent)</strong> seçildiğinde ise bombe çapı elle serbestçe girilebilir. Bağımsız seçilip gövde ucuyla farklı bir çap yazılırsa sistem montaj hatası uyarısı verir.</dd>
+<dt>Bombe iç çapı (mm)</dt>
+<dd>Bombenin etek kısmının temiz iç çapıdır (izin verilen sınır 50 mm ile 20000 mm arasıdır; 'Bağlı' iken salt-okunurdur). Gövde çapına eşit olması beklenir. Bağımsız modda komşu gövde ucundan farklı girilirse iki parçanın birbirine kaynatılamayacağı gerekçesiyle kırmızı hata uyarısı görüntülenir.</dd>
+<dt>Et kalınlığı (t) (mm)</dt>
+<dd>Bombenin imal edileceği sacın başlangıç nominal kalınlığıdır (izin verilen aralık 1 mm ile 250 mm arasıdır, varsayılan 12 mm). Bombe basma (presleme/sıvama) işlemi sırasında saçta incelme olacağından sipariş kalınlığı bu pay düşünülerek seçilmelidir. Hesaplanan asgari bombe kalınlığından düşük girilirse mukavemet onayı verilmez.</dd>
+<dt>Düz flanş boyu (sf) (mm)</dt>
+<dd>Bombenin kıvrım bittiği noktadan kaynak ağzına kadar olan düz silindirik uzantı boyudur (izin verilen aralık 0 mm ile 500 mm arasıdır, varsayılan 40 mm). Bombe pres imalat standartlarından (DIN 28011/28013 veya ASME) alınır. Düz flanş payı yetersiz bırakılırsa gövdeye kaynak yapılırken bombe kıvrım bölgesindeki gerilmeler kaynak dikişiyle çakışır ve çatlama riski artar.</dd>
+<dt>Kubbe derinliği (h) (mm)</dt>
+<dd>Elipsoidal bombelerde düz flanş hariç iç kavisin merkezdeki derinliğidir (0 girilirse veya bırakılırsa standart 2:1 oranı olan h = Di / 4 değeri otomatik kullanılır). Özel basılmış sığ veya derin elips bombelerde imalatçı çiziminden alınır. Yanlış girilmesi bombe tepe gerilme katsayısını (K faktörü) değiştirir.</dd>
+<dt>Taç yarıçapı (R) (mm)</dt>
+<dd>(Bu alan yalnız şu durumda görünür: Bombe tipi Torisferik olarak seçildiğinde görünür.) Torisferik bombenin merkezindeki geniş küresel kubbenin iç yarıçapıdır (0 bırakılırsa standart Klöpper kuralı olan R = Di otomatik kabul edilir). Bombe üreticisinin teknik resminden alınır. Standart dışı büyük girilirse taç bölgesinde izin verilen basınca ulaşılması zorlaşır.</dd>
+<dt>Mafsal yarıçapı (r) (mm)</dt>
+<dd>(Bu alan yalnız şu durumda görünür: Bombe tipi Torisferik olarak seçildiğinde görünür.) Torisferik bombenin silindirik flanşa bağlandığı kıvrık köşe bölgesinin iç kavis yarıçapıdır (0 bırakılırsa standart kural olan r = 0,06 · Di değeri kullanılır). ASME kuralına göre mafsal yarıçapı iç çapın en az %6'sından ve et kalınlığının 3 katından küçük olamaz; aksi takdirde köşede aşırı gerilme birikmesi ve yırtılma oluşur.</dd>
+<dt>Düz kapak C katsayısı (UG-34)</dt>
+<dd>(Bu alan yalnız şu durumda görünür: Bombe tipi Düz kapak olarak seçildiğinde görünür.) ASME UG-34 standardında düz kapağın gövdeye kaynak veya cıvatayla bağlanma şekline göre tanımlanan boyutsuz montaj katsayısıdır (0 bırakılırsa hesaplama yapılmaz). ASME Tablo UG-34'teki birleşim detaylarından (örneğin bindirmeli kaynak, alın kaynağı vb.) kullanıcı tarafından bulunup girilmelidir. Yanlış katsayı düz kapağın eğilme mukavemetini hatalı hesaplatır.</dd>
+<dt>Düz kapak C katsayısı (EN 13445-3 Md.10)</dt>
+<dd>(Bu alan yalnız şu durumda görünür: Bombe tipi Düz kapak ve standart EN 13445 olarak seçildiğinde görünür.) EN 13445-3 Madde 10 kapsamında düz kapağın mesnetlenme geometrisini temsil eden katsayıdır; 0 girilirse EN hesabı bloke edilir. Bu katsayı ASME UG-34'teki C değeri ile aynı değildir ve EN standardındaki ilgili tablodan kullanıcı tarafından alınmalıdır.</dd>
+<dt>Malzeme</dt>
+<dd>Bombenin imal edileceği çelik sac alaşımını belirleyen seçimdir (örneğin MAT-01). Projenin Malzeme listesinden atanır. Bombe gövdeyle aynı veya farklı alaşımdan yapılabilir; doğru seçilmezse sıcaklığa bağlı emniyet gerilmesi hatalı işlenir.</dd>
+<dt>Kaynak birleşimi</dt>
+<dd>Bombe parçalı (dilimli / petal) preslenmişse üzerindeki kaynak dikişlerinin muayene kalitesini veya bombenin yekpareliğini temsil eden kaynak tanımıdır (örneğin WJ-01 veya yekpare dikişsiz ise — yok —). Kaynak verimi (E) çarpanını belirler; yekpare bombelerde kaynak dikişi olmadığı için E=1,0 alınırken kaynaklı bombelerde NDT oranına göre değer düşer.</dd>
+<dt>İç korozyon payı (mm)</dt>
+<dd>Bombenin iç yüzeyinde kimyasal aşınma ve paslanma için ayrılan paydır (varsayılan 2 mm). Tasarım koşullarından bağımsız olarak bombe için özel bir korozyon payı girilmesini sağlar.</dd>
+<dt>Sac toleransı (%)</dt>
+<dd>Bombe imalatında kullanılan plakanın eksi haddeleme tolerans yüzdesidir (varsayılan %12,5). Sacın fabrikasyon kalınlık dalgalanmasını hesaba katarak nominal kalınlığı güvenceye alır.</dd>
+<dt>UG-33 A faktörü</dt>
+<dd>Dış basınç veya vakum etkisindeki bombeler için ASME Section II Part D Subpart 3 tablolarından okunan boyutsuz gerinim katsayısıdır; 0 bırakılırsa bombelerin dış basınç tahkiki bloke edilir. Bombenin dış yarıçap / et kalınlığı oranına göre standart eğrilerden kullanıcı tarafından temin edilmelidir.</dd>
+<dt>UG-33 B faktörü (MPa)</dt>
+<dd>A faktörü ve tasarım sıcaklığı doğrultusunda malzeme dış basınç eğrisinden elde edilen izin verilen basma gerilmesidir; 0 girilirse dış basınç hesabı tamamlanamaz. Dış basınca maruz bombanın burkularak içe göçmesini önleyecek azami basınç kapasitesini belirler.</dd>
+</dl>
+
+<div class="ipucu">
+<h3>Adım 3 (Gövde ve Bombe) İçin Sık Yapılan Hatalar</h3>
+<ul>
+<li>Koni eklerken koni boyunu çok kısa tutarak yarı tepe açısını α > 30° yapmak ve ASME standardının zorunlu kıldığı özel geçiş takviyelerini dikkate almamak.</li>
+<li>Bombe çap ilişkisini 'Bağımsız' seçip gövde iç çapından farklı bir çap değeri girerek gövde ile bombe arasında montaj uyumsuzluğuna (çap çakışmasına) sebep olmak.</li>
+<li>Dış basınç veya vakum durumunda gövde için UG-28 ve bombeler için UG-33 A ve B faktörlerini girmeyerek (0 bırakarak) burkulma hesaplarının bloke olmasına yol açmak.</li>
+<li>Torisferik bombelerde mafsal yarıçapını (r) ihmal edip ASME asgari şartı olan %6 sınırının altına düşürmek.</li>
+</ul>
+</div>
+</section></div><div class="parca"><section id="g2">
+  <h2 id="g2-1">3.3 Flanşlı Nozullar</h2>
+  <p>Bu ekran, basınçlı kabın üzerine akışkan girişi, çıkışı, tahliye hattı veya enstrüman bağlantısı sağlamak amacıyla kaynatılan flanşlı boru nozullarını (kabın boru tesisatına cıvatalarla bağlanmasını sağlayan flanşlı çıkış borularını) tanımlamak için kullanılır. Tesisatınızın gerektirdiği standart boru ve flanş ölçülerini seçtiğinizde, borunun dış çapı, iç çapı ve flanş boyutları standart kataloglardan sisteme otomatik olarak yüklenir ve kabın 3 boyutlu modeline işlenir. Bu sayede boru bağlantı noktalarınızın cidar üzerindeki yerleşimi ve delik takviye gereksinimleri hesaplamalara eksiksiz dahil edilir.</p>
+
+  <figure><img src="img/14-geometri-33-nozul.png" alt="3.3 Flanşlı nozul ekranı genel görünümü"><figcaption>Şekil: 3.3 Flanşlı Nozul Ekranı Genel Görünümü</figcaption></figure>
+  <figure><img src="img/15-geometri-33-nozul-form.png" alt="3.3 Nozul formu ve düzenleme paneli"><figcaption>Şekil: 3.3 Yeni Flanşlı Nozul Formu ve Düzenleme Paneli</figcaption></figure>
+
+  <h3>Flanşlı Nozul Alanları</h3>
+  <dl>
+    <dt>Tip</dt>
+    <dd>Nozulun kabuk cidarında ve boru hattında nasıl bir birleşime sahip olacağını belirleyen bağlantı türüdür. Seçenekler: <strong>Flanşlı</strong> (standart kaynak boyunlu flanşa sahip nozul), <strong>Slip-on flanş</strong> (borunun flanş diski içine geçirilerek içten ve dıştan kaynaklandığı tip), <strong>Pedli takviyeli</strong> (delik etrafında gövde sacını destekleyen takviye sacı bulunan tip) ve <strong>Adam deliği (manway)</strong> (kabın içine bakım ve muayene amacıyla personelin girebilmesi için açılan büyük çaplı giriş deliği). Değer tesisat ve bakım şartnamesinden belirlenir; yanlış tip seçimi bağlantı mukavemetini, imalat maliyetini ve montaj yöntemini doğrudan etkiler.</dd>
+
+    <dt>Boyut (NPS / DN)</dt>
+    <dd>Nozul borusunun standart anma ölçüsüdür. Seçim listesinde inç cinsinden NPS (Nominal Pipe Size - anma boru boyutu) ve milimetre cinsinden DN (Diameter Nominal - anma çapı) eşdeğerleri (örneğin 4 inç için DN100) yer alır. Değer borulama projesinden veya P&amp;ID (boru ve enstrüman şeması) belgelerinden alınır; boru ve flanşın standart dış çap, iç çap ve et kalınlığı ölçüleri bu seçime göre otomatik katalogdan doldurulur.</dd>
+
+    <dt>Et serisi (SCH)</dt>
+    <dd>Nozul borusunun duvar kalınlığını belirten Schedule (SCH) numarasıdır. Yaygın seçenekler arasında SCH40 (standart et kalınlığı), SCH80 (yüksek basınca dayanıklı kalın et) gibi seriler bulunur ve seçilen boyuta bağlı olarak milimetre cinsinden gerçek et kalınlığı seçenek yanında gösterilir. Tesisat basınç sınıfına ve mekanik dayanıma göre boru tablosundan seçilir; yetersiz bir seri seçilirse nozul boynu iç basınca dayanamayabilir.</dd>
+
+    <dt>Host (nereye gelecek?)</dt>
+    <dd>Nozulun kabın hangi gövde halkası veya bombe parçası üzerine monte edileceğini belirler. Seçenekler arasında silindirik gövde halkaları (SHELL), konik geçişler ve kabın iki ucundaki bombeler (uç kapaklar) yer alır. Nozulun bağlanacağı yer borulama yerleşim planına göre seçilmelidir; yanlış bileşen seçilirse nozul kabın hatalı bir bölgesine kaynatılır ve gerilme dağılımı bozulur.</dd>
+
+    <dt>Konum z (host başından) — gövde/koni host (mm)</dt>
+    <dd>Nozulun seçilen gövde veya koni halkasının başlangıç kenarından itibaren eksen boyunca olan mesafesidir. Formdaki kaydırıcı veya sayı kutusu üzerinden 0 ile seçilen host bileşenin toplam boyu arasında bir değer girilebilir. Değer doğrudan imalat ve yerleşim resminden alınmalıdır; sınırların dışında bir değer girilmesine izin verilmez ve nozul kaba eklenemez.</dd>
+
+    <dt>Yerleşim çapı (bombe ekseninden) — bombe host (mm)</dt>
+    <dd>(Bu alan yalnız şu durumda görünür: Host olarak bir uç bombe seçildiğinde görünür.) Nozulun bombenin tam tepe merkez noktasından ne kadar uzağa yerleştirileceğini belirten radyal yerleşim çapıdır. 0 değeri nozulun tam bombe merkezine (tepesine) yerleştiğini gösterir; izin verilen en yüksek değer bombenin iki katı yarıçap sınırıdır. Bombe üzerine merkez dışı nozul yerleştirilirken imalat resmindeki kaçıklık ölçüsü girilmelidir.</dd>
+
+    <dt>Çevresel açı θ (°)</dt>
+    <dd>Nozulun kap kesiti etrafındaki dairesel yönelim açısıdır (saat yönünde açısal konum). Arayüzdeki hızlı düğmelerle 0° (yatay kapta tam üst), 90° (sağ yan), 180° (tam alt) veya 270° (sol yan) olarak kolayca ayarlanabilir ya da 0 ile 360 derece arasında serbestçe girilebilir. Tesisat borularının kaba hangi yönden bağlanacağına göre belirlenir; yanlış girilirse boru hattı montajında hiza uyumsuzluğu yaşanır.</dd>
+
+    <dt>Flanş sınıfı</dt>
+    <dd>Nozul ucundaki flanşın basınca dayanım sınıfıdır (basınç kademesi). Seçenekler: Class 150, Class 300, Class 600, Class 900, Class 1500 ve Class 2500 olup standart ASME B16.5 flanş basınç-sıcaklık tablolarına dayanır. Tasarım basıncı ve sıcaklığına uygun sınıf borulama şartnamesinden seçilmelidir; düşük bir sınıf seçilirse flanş işletme basıncında sızdırma yapabilir veya deforme olabilir.</dd>
+
+    <dt>Takviye pedi</dt>
+    <dd>Nozul gövdeye kaynatılırken açılan deliğin zayıflattığı cidar bölgesini desteklemek üzere bir takviye sacı (halka ped) eklenip eklenmeyeceğini belirleyen onay kutusudur. Tip olarak "Pedli takviyeli" seçildiğinde bu onay kutusu zorunlu olarak işaretli gelir; diğer tiplerde isteğe bağlı olarak açılabilir. Açıklık takviye hesabı (delik açılınca kaybolan alanı telafi etme kontrolü) yetersiz kaldığında gövdeyi delik etrafında güçlendirmek için işaretlenir.</dd>
+
+    <dt>Ped dış çapı (ped açıkken) (mm)</dt>
+    <dd>(Bu alan yalnız şu durumda görünür: Takviye pedi onay kutusu işaretlendiğinde veya Tip "Pedli takviyeli" seçildiğinde görünür.) Açıklığı güçlendiren takviye sacı halkasının dış çapıdır. Varsayılan olarak boru dış çapının 2 katı hesaplanır ve izin verilen aralık boru dış çapının 1,1 katı ile 4 katı arasındadır. Takviye alanı ihtiyacına göre hesaplanarak belirlenir; çok küçük girilirse delik etrafındaki gerilmeleri karşılayamaz, çok büyük girilirse kaynak gerilmelerini artırır ve gereksiz ağırlık yapar.</dd>
+
+    <dt>Ped kalınlığı (ped açıkken) (mm)</dt>
+    <dd>(Bu alan yalnız şu durumda görünür: Takviye pedi onay kutusu işaretlendiğinde veya Tip "Pedli takviyeli" seçildiğinde görünür.) Takviye sacı plakasının milimetre cinsinden et kalınlığıdır. Varsayılan olarak bağlandığı host bileşenin et kalınlığı kadar alınır ve 1 ile 200 mm arasında bir değer girilebilir. İmalatta kullanılacak sac kalınlığına göre belirlenir; yetersiz girilirse gerilme takviyesi kuralları karşılamaz.</dd>
+
+    <dt>Host / z veya D / θ (seçili nozul) (mm/°)</dt>
+    <dd>Daha önce eklenmiş ve listeden seçilmiş bir nozulun bağlandığı bileşeni, eksenel mesafesini (veya bombe yerleşim çapını) ve çevresel açısını değiştirmeye yarayan düzenleme alanıdır. Nozulun yerini kaba göre yeniden ayarlamak için kullanılır; boru anma boyutu veya et serisi gibi temel boru boyutlarını değiştirmek için nozulu silip doğru boyutla yeniden eklemeniz gerekir.</dd>
+
+    <dt>Takviye pedi (seçili nozul) + Ped dış çapı + Ped kalınlığı (mm)</dt>
+    <dd>Listeden seçilen mevcut bir nozulun takviye pedi durumunu açıp kapatmayı ve pedin dış çapı ile et kalınlığı değerlerini güncellemeyi sağlayan düzenleme grubudur. Hesaplama sonuçlarında delik takviyesinin yetersiz kaldığı görüldüğünde mevcut nozula sonradan ped eklemek veya ped ölçülerini revize etmek için kullanılır.</dd>
+
+    <dt>Satır silme (✕)</dt>
+    <dd>Flanşlı nozullar tablosunda ilgili satırın sağ tarafında yer alan silme düğmesidir. Yanlış eklenmiş, gereksiz veya boyutu değiştirilmek istenen bir nozulu projeden tamamen kaldırmak için tıklanır; silinen nozulun 3B modeldeki görseli ve tüm geometrik verileri derhal temizlenir.</dd>
+  </dl>
+
+  <div class="ipucu">
+    <p><strong>Sık yapılan hatalar:</strong></p>
+    <ul>
+      <li><strong>Host sınırlarını aşmak:</strong> Nozulun eksenel konumunu (z), üzerine takıldığı gövde parçasının toplam boyundan daha büyük girmek. Sistem sınır dışı değerleri otomatik kırpmaz, kırmızı uyarı verir ve nozulun eklenmesini engeller.</li>
+      <li><strong>Boyut değiştirmek için düzenleme aramak:</strong> Eklenmiş bir nozulun boru çapını (NPS) veya et serisini düzenleme panelinden değiştirmeye çalışmak. Katalog yapısı gereği anma ölçüsünü değiştirmek için nozul silinip yeniden eklenmelidir.</li>
+      <li><strong>Takviye pedini kontrol etmemek:</strong> Büyük çaplı nozullarda gövde cidarında açılan deliğin kabı zayıflattığını unutup takviye pedi tanımlamamak. Bu durum Adım 4 hesaplarında açıklık takviyesi kontrolünün başarısız olmasına yol açar.</li>
+    </ul>
+  </div>
+
+  <h2 id="g2-2">3.4 Manşonlar</h2>
+  <p>Bu ekran, basınçlı kabın üzerine küçük çaplı enstrüman bağlantıları, basınç göstergeleri (manometreler), tahliye ve havalandırma delikleri ile sensör yuvaları için kullanılan manşonları (küçük çaplı içi dişli veya soketli bağlantı parçalarını) eklemek için kullanılır. 1/2 inç ile 4 inç (DN15 ile DN100) arasındaki küçük boru ağızları bu adımda tanımlanır ve ölçüleri standart katalogdan otomatik çekilir. Eklenen manşonlar hem kabın 3 boyutlu modeline işlenir hem de malzeme listesine (BOM) dahil edilir.</p>
+
+  <figure><img src="img/16-geometri-34-mansonlar.png" alt="3.4 Manşon ekranı ve eklenmiş manşon listesi"><figcaption>Şekil: 3.4 Manşonlar Ekranı ve Eklenmiş Manşon Listesi</figcaption></figure>
+  <figure><img src="img/17-geometri-34-manson-form.png" alt="3.4 Manşon formu ve ölçü düzenleme paneli"><figcaption>Şekil: 3.4 Yeni Manşon Formu ve Ölçü Düzenleme Paneli</figcaption></figure>
+
+  <h3>Manşon Alanları</h3>
+  <dl>
+    <dt>Bağlantı</dt>
+    <dd>Manşonun tesisat borusu veya göstergeyle nasıl birleştirileceğini belirten uç tipidir. Seçenekler: <strong>Dişli (threaded) manşon</strong> (içine diş açılmış, vidalanarak bağlanan tip) ve <strong>Soket kaynaklı (socket weld)</strong> (borunun manşon yuvasına oturtulup boğazından köşe kaynağıyla kaynatıldığı tip). Tesisatta kullanılacak enstrüman veya boru ucuna göre seçilir; yanlış seçim şantiyede montajın yapılamamasına neden olur.</dd>
+
+    <dt>Boyut (NPS / DN)</dt>
+    <dd>Manşonun standart anma çapıdır. Sistemde 1/2 inçten 4 inçe kadar (DN15 ile DN100 aralığında) standart dövme çelik manşon boyutları sunulur. Bağlanacak cihazın (örneğin basınç transmitteri, seviye göstergesi, drenaj vanası) bağlantı çapına göre belirlenir; bu seçimle birlikte manşonun dış çapı, delik çapı ve boyu katalogdan kendiliğinden türetilir.</dd>
+
+    <dt>Manşon formu</dt>
+    <dd>Manşon gövdesinin geometrik yapısını ve boyunu belirler. Seçenekler: <strong>Tam manşon</strong> (her iki ucu da bağlantıya uygun tam boy manşon), <strong>Yarım manşon</strong> (bir ucu kap cidarında kaynak ağzı açılmış kısa boy manşon; genellikle kaplarda bu tip kullanılır) ve <strong>Weldolet</strong> (gövdeye doğrudan kaynatılan özel takviyeli dövme branşman elemanı; bu sürümde katalogda bulunmadığı için devre dışıdır). İmalat projesindeki parça tanımına göre seçilmelidir.</dd>
+
+    <dt>Host (nereye gelecek?)</dt>
+    <dd>Manşonun hangi gövde halkası, koni parçası veya uç bombe üzerine kaynatılacağını belirler. Projedeki silindirik kabuk parçaları ve kapaklar listeden seçilebilir. Yanlış host seçilirse gösterge veya drenaj ağzı kabın yanlış yerine yerleşir (örneğin drenaj manşonunun kabın en altı yerine üstüne yerleşmesi gibi).</dd>
+
+    <dt>Konum z (host başından) / Yerleşim çapı (bombe) (mm)</dt>
+    <dd>Manşonun eksenel veya radyal montaj yerini belirler. Host olarak gövde veya koni seçildiğinde o parçanın sol/alt başlangıcından itibaren eksen boyunca mesafeyi (z), host olarak bombe seçildiğinde ise bombe tepe ekseninden olan radyal yerleşim çapını ifade eder. Cihaz yerleşim planına göre girilir; host parçasının fiziksel boyu veya bombe yarıçapı dışına taşan değerler kabul edilmez.</dd>
+
+    <dt>Çevresel açı θ (°)</dt>
+    <dd>Manşonun kap çevresi üzerindeki dairesel konum açısıdır. Arayüzde yer alan 0° (yatay kapta tam üst), 90° (sağ yan), 180° (tam alt / drenaj) ve 270° (sol yan) hızlı seçim düğmeleriyle veya elle 0 ile 360 derece arasında girilebilir. Örneğin bir tahliye ve boşaltma manşonu kabın en alt noktasına (180°) konulurken, bir hava alma manşonu en üst noktaya (0°) konulmalıdır.</dd>
+
+    <dt>Sınıf</dt>
+    <dd>Dövme çelik manşonun basınca dayanım sınıfıdır (rating). Seçenekler: <strong>3000#</strong> (3000 psi sınıfı, yaygın basınç aralıkları için) ve <strong>6000#</strong> (6000 psi sınıfı, çok yüksek basınçlı uygulamalar için). Tasarım koşullarındaki iç basınca ve borulama spesifikasyonuna göre seçilir; düşük sınıf seçilirse manşon yüksek basınç altında cidar zayıflığına yol açabilir.</dd>
+
+    <dt>Host / z / θ (seçili manşon) (mm/°)</dt>
+    <dd>Eklenmiş manşonlar tablosundan seçilen bir manşonun yerleşim yerini güncellemeye yarayan form alanıdır. Manşonun bağlı olduğu ana parçayı, eksenel veya radyal mesafesini ve çevresel açısını değiştirmek için kullanılır; manşonun anma çapını veya bağlantı tipini değiştirmek için manşon listeden silinip yeniden eklenmelidir.</dd>
+  </dl>
+
+  <div class="ipucu">
+    <p><strong>Sık yapılan hatalar:</strong></p>
+    <ul>
+      <li><strong>Drenaj ve havalandırma açısını karıştırmak:</strong> Boşaltma (drenaj) manşonunu yatay kapta 180° (tam alt) yerine 0° (tam üst) açısına yerleştirmek. Bu durumda kap içindeki sıvı yerçekimiyle tahliye edilemez.</li>
+      <li><strong>Katalogda olmayan kombinasyon seçmek:</strong> Belirli boyut ve sınıflarda soket veya dişli ölçüleri katalogda bulunmadığında sistemin kırmızı uyarı vermesine rağmen formu onaylamaya çalışmak. Katalogda yer almayan özel ölçüler için uyarı dikkate alınmalıdır.</li>
+      <li><strong>Boyut düzenlemesi aramak:</strong> Eklenmiş bir manşonun 1 inç olan boyutunu 2 inç yapmak için düzenleme kutusuna bakmak. Manşon boyutları silinip yeniden eklenerek değiştirilir.</li>
+    </ul>
+  </div>
+
+  <h2 id="g2-3">3.5 Mesnetler (Ayak, Eyer, Etek)</h2>
+  <p>Bu ekran, basınçlı kabın tüm ağırlığını, içindeki akışkan kütlesini ve rüzgar veya deprem gibi dış yükleri zemine güvenle aktaran mesnetlerin (taşıyıcı destek yapılarının) tanımlandığı bölümdür. Kabın yönelimine (yatay veya dikey) bağlı olarak akıllı öneri düğmeleri devreye girer: yatay kaplar için 2 adet eyer (saddle - beşik biçimli destek), dikey kaplar için silindirik etek (skirt - gövdeyi saran silindir ayak) veya taşıyıcı ayaklar (leg - kolon biçimli bacaklar) kolayca oluşturulur. Seçilen desteğin kesit ölçüleri, takviye pedleri ve taban sacı ankraj detayları burada girilir.</p>
+
+  <figure><img src="img/18-geometri-35-mesnet-ayak.png" alt="3.5 Mesnet ekranı (ayak)"><figcaption>Şekil: 3.5 Mesnet Ekranı, Öneri Düğmeleri ve Mesnet Listesi</figcaption></figure>
+  <figure><img src="img/19-geometri-35-mesnet-ayak-form.png" alt="3.5 Ayak formu"><figcaption>Şekil: 3.5 Ayak Mesnet Formu, Kesit, Ped ve Taban Sacı Detayları</figcaption></figure>
+  <figure><img src="img/50-yatay-geometri-35-mesnet-eyer.png" alt="Yatay tank 3.5 mesnet (eyer)"><figcaption>Şekil: 3.5 Yatay Kap Eyer Mesnet Ekranı</figcaption></figure>
+  <figure><img src="img/51-yatay-geometri-35-eyer-form.png" alt="Yatay tank 3.5 eyer formu"><figcaption>Şekil: 3.5 Eyer Mesnet Formu ve Ölçü Tanımları</figcaption></figure>
+  <figure><img src="img/60-etek-geometri-35-mesnet.png" alt="Etek kolon 3.5 mesnet"><figcaption>Şekil: 3.5 Etek Kolon Mesnet Ekranı</figcaption></figure>
+  <figure><img src="img/61-etek-geometri-35-form.png" alt="Etek kolon 3.5 formu"><figcaption>Şekil: 3.5 Etek Mesnet Formu</figcaption></figure>
+
+  <h3>3.5.1 Mesnet Öneri ve Ekleme Alanları</h3>
+  <dl>
+    <dt>Öneri düğmeleri</dt>
+    <dd>Kabın dikey veya yatay yönelimine göre mühendislik standartlarına en uygun destek tiplerini tek tıkla projeye ekleyen hızlı eylem düğmeleridir. Seçenekler: <strong>Etek ekle</strong> (dikey kule ve ağır tanklar için tam boy silindirik etek desteği oluşturur), <strong>3 ayak</strong> (dikey kaplar için 120° aralıklı üç taşıyıcı ayak yerleştirir), <strong>4 ayak (dikey)</strong> (dikey kaplar için 90° aralıklı dört taşıyıcı ayak yerleştirir), <strong>2 eyer öner</strong> (yatay kaplar için teğet-teğet boyunun %20 ve %80 noktalarına Zick yöntemine uygun 2 adet eyer mesnet ekler) ve <strong>Kabı dikey yap (yatay)</strong> (yanlışlıkla yatay seçilmiş kabın yönelimini tek tıkla dikeye çevirir). Tasarım başlangıcında doğru yerleşimi otomatik kurmak için kullanılır.</dd>
+
+    <dt>Başka destek ekle</dt>
+    <dd>Öneri düğmeleri dışındaki özel durumlarda veya ilave mesnet tanımlamak istendiğinde destek tipini manuel seçip eklemeyi sağlayan seçim menüsüdür. Seçenekler: <strong>Eyer (saddle)</strong> (yatay silindirik kapları alttan beşik gibi saran taşıyıcı), <strong>Etek (skirt)</strong> (dikey kapların altını çepeçevre saran silindirik sac destek) ve <strong>Ayak (leg)</strong> (dikey kapları yerden yükselten bacaklar). Yönelimle uyumsuz bir seçim yapıldığında (örneğin dikey kapta eyer veya yatay kapta etek) sistem uyarı verir ancak eklemeyi engellemez.</dd>
+  </dl>
+
+  <h3>3.5.2 Ayak Tipi Mesnet Ölçüleri</h3>
+  <dl>
+    <dt>Kesit tipi</dt>
+    <dd>Taşıyıcı ayakların imal edileceği çelik profilin kesit geometrisini belirler. Seçenekler: <strong>Boru</strong> (dairesel içi boş çelik boru kesit), <strong>U profil (UPN)</strong> (standart U kesitli hadde çeliği), <strong>Kutu profil</strong> (kare veya dikdörtgen içi boş yapısal profil) ve <strong>Köşebent (L)</strong> (L kesitli eşit kollu köşebent çeliği). Projenin statik taşıma kapasitesine ve atölye imkanlarına göre seçilir; kesit tipine göre ekrandaki profil ölçü alanları dinamik olarak güncellenir.</dd>
+
+    <dt>Hazır UPN seç (EN 10279)</dt>
+    <dd>(Bu alan yalnız şu durumda görünür: Ayak kesit tipi "U profil (UPN)" seçildiğinde görünür.) Avrupa standardı EN 10279 kapsamındaki standart U profillerini (örneğin UPN 80, UPN 120, UPN 160 gibi) listeden seçmeyi sağlar. Seçenekler arasında standart profiller ve <strong>— elle gir —</strong> seçeneği bulunur. Hazır profil seçildiğinde yükseklik, genişlik, gövde ve flanş et kalınlıkları otomatik dolar; istenirse değerler sonradan elle de revize edilebilir.</dd>
+
+    <dt>U yönü</dt>
+    <dd>(Bu alan yalnız şu durumda görünür: Ayak kesit tipi "U profil (UPN)" seçildiğinde görünür.) U kesitli profilin kabın gövdesine ve takviye sacına hangi yüzeyinden kaynatılacağını belirler. Seçenekler: <strong>Sırtı pede</strong> (U profilin düz arka sırt yüzeyi takviye sacına bakar) ve <strong>Kanatlar pede</strong> (U profilin iki yan flanş ucu takviye sacına bakar). Kaynak mukavemeti ve burkulma ekseni hesabında doğrudan etkilidir; projede öngörülen montaj biçimine göre seçilmelidir.</dd>
+
+    <dt>Boru dış çapı (mm)</dt>
+    <dd>Kesit tipi boru olan ayakların milimetre cinsinden dış çapıdır. Çelik boru imalat ölçülerine göre belirlenir ve en az 1 mm olmalıdır (tipik olarak 88,9 mm, 114,3 mm gibi borular kullanılır). Ayakların düşey yükler altında burkulma ve eğilme mukavemetini doğrudan belirler; çok ince bir boru seçilirse ayak basma gerilmesine dayanamayıp bel verebilir.</dd>
+
+    <dt>Et kalınlığı (mm)</dt>
+    <dd>Kesit tipi boru olan ayakların milimetre cinsinden cidar (duvar) et kalınlığıdır. İzin verilen değer 1 mm ile boru dış çapının yarısı arasındadır. Yetersiz et kalınlığı girilirse ayak borusu ezilme veya burkulma kontrollerinden geçemez.</dd>
+
+    <dt>Profil yüksekliği h (mm)</dt>
+    <dd>(Bu alan yalnız şu durumda görünür: Ayak kesit tipi "Kutu profil" veya "Köşebent (L)" seçildiğinde görünür.) Profil kesitinin dıştan dışa toplam düşey yüksekliğidir. Satın alınacak standart kutu profil veya köşebent kataloğundan alınır (tipik olarak 80 mm, 100 mm, 150 mm). Ayak kesit alanını ve atalet momentini (eğilmeye karşı direncini) doğrudan etkiler.</dd>
+
+    <dt>Kanat genişliği b (mm)</dt>
+    <dd>(Bu alan yalnız şu durumda görünür: Ayak kesit tipi "Kutu profil" veya "Köşebent (L)" seçildiğinde görünür.) Profil kesitinin dıştan dışa toplam genişliğidir. Kare kutu profillerde veya eşit kollu köşebentlerde genellikle profil yüksekliği (h) ile aynıdır. Profil tablosundan alınır; yanlış girilirse takviye pedi ve taban sacı boyutlandırma hesapları hatalı çıkar.</dd>
+
+    <dt>Ayak sayısı (adet)</dt>
+    <dd>Kabı taşıyacak toplam bacak adedidir. İzin verilen aralık 3 ile 8 ayak arasındadır (en yaygın 3 veya 4 ayak tercih edilir). 3 ayak zemindeki oturma bozukluklarına karşı statik olarak her zaman tam temas sağlarken, 4 ayak daha simetrik ve yüksek devrilme emniyeti sunar. Kabın ağırlığı girilen ayak sayısına bölünerek her bir ayağa düşen dikey yük hesaplanır.</dd>
+
+    <dt>Profil boyu (mm)</dt>
+    <dd>Taşıyıcı ayağın üst ucundan zemindeki taban plakasına kadar olan toplam serbest boyudur. İzin verilen aralık 50 ile 20000 mm arasındadır. Kabın altındaki vanaların, boruların ve bakım personelinin rahat çalışabilmesi için gerekli alt boşluk mesafesine göre belirlenir; boy uzadıkça burkulma riski artacağından profil kesitinin de büyütülmesi gerekebilir.</dd>
+
+    <dt>Üst ucu kotu (alt teğetten) [dikey] / Konum (sol teğetten) [yatay] (mm)</dt>
+    <dd>Ayağın kabın gövdesine bağlandığı üst ucunun referans çizgisine göre olan montaj kotudur. Dikey kaplarda alt bombenin teğet hattından (silindirin başladığı çizgiden) yukarıya doğru olan mesafeyi, yatay kaplarda ise sol teğet hattından olan mesafeyi belirtir. Ayakların gövde kaynak dikişlerine veya bombe geçişlerine çok yakın olmaması için imalat çizimindeki yerleşim ölçüsüne göre girilmelidir.</dd>
+
+    <dt>Host bileşen</dt>
+    <dd>Ayakların doğrudan kaynatılacağı ana kap bileşenidir. Seçenekler arasında silindirik gövde halkaları ve alt bombe yer alır. Ayakların yükü kabın silindirine mi yoksa alt bombesine mi aktaracağını belirler; yanlış host seçilirse mesnet kabın alakasız bir yerine bağlanır ve sonlu elemanlar / lokal gerilme analizleri boşa çıkar.</dd>
+
+    <dt>Profil yüksekliği h + Kanat genişliği b (iki alan) (mm)</dt>
+    <dd>(Bu alan yalnız şu durumda görünür: Ayak kesit tipi "U profil (UPN)" seçildiğinde Ayrıntılar grubunda görünür.) U profilin kesit yüksekliğini (h) ve flanş genişliğini (b) milimetre cinsinden ifade eden iki ayrı giriş alanıdır. Hazır UPN seçildiğinde katalogdan otomatik gelir veya özel bir profil kullanılıyorsa elle girilir. Profilin bükülme rijitliğini ve temas genişliğini belirler.</dd>
+
+    <dt>Et kalınlığı (mm)</dt>
+    <dd>(Bu alan yalnız şu durumda görünür: Ayak kesit tipi "Köşebent (L)" seçildiğinde Ayrıntılar grubunda görünür.) Köşebent profilin kanat et kalınlığıdır. Çelik profil tablosundan veya malzeme sertifikasından alınır; en az 1 mm olmalıdır. Yetersiz girilirse köşebent ayağın taşıma kapasitesi yetersiz kalır.</dd>
+
+    <dt>Gövde kalınlığı tw (mm)</dt>
+    <dd>(Bu alan yalnız şu durumda görünür: Ayak kesit tipi "U profil" veya "Kutu profil" seçildiğinde Ayrıntılar grubunda görünür.) Profilin orta gövde sacı (web) et kalınlığıdır. U profillerde izin verilen aralık 0,1 mm ile profil yüksekliğinin yarısı (h/2) arasındadır. Standart çelik tablosundan alınır; kesitin dikey kesme ve ezilme dayanımını sağlar.</dd>
+
+    <dt>Kanat kalınlığı tf (mm)</dt>
+    <dd>(Bu alan yalnız şu durumda görünür: Ayak kesit tipi "U profil" veya "Kutu profil" seçildiğinde Ayrıntılar grubunda görünür.) Profilin yan flanş (kanat) et kalınlığıdır. U profillerde izin verilen aralık 0,1 mm ile kanat genişliği (b) arasındadır. Profil tablosundan girilir; flanşın eğilme mukavemetini belirler.</dd>
+
+    <dt>İlk ayak açısı (°)</dt>
+    <dd>İlk ayağın kap çevresinde yerleşeceği başlangıç açısıdır; diğer ayaklar bu açıdan başlayarak eşit açılarla (örneğin 4 ayakta 90° arayla) çevreye dağıtılır. İzin verilen aralık -360° ile +360° arasındadır. Kabın üzerindeki nozullarla, seviye göstergeleriyle veya menhollerle ayakların çakışmasını önlemek için başlangıç açısı buradan kaydırılır.</dd>
+
+    <dt>Yerleşim yarıçapı (mm)</dt>
+    <dd>Ayak eksenlerinin kabın merkez ekseninden olan yatay uzaklığıdır. 0 girildiğinde sistem bunu otomatik olarak hesaplar (kabın dış yarıçapı + ped kalınlığı + profil genişliğinin yarısı). Ayakların kabuktan dışarıya doğru açılı veya uzakta yerleştirildiği özel konsol tasarımlarında elle değer girilebilir; yanlış girilirse devrilme momenti ve eksantrisite hesabı hatalı çıkar.</dd>
+
+    <dt>Ped boyu (mm)</dt>
+    <dd>Ayağın kabukla temas ettiği bölgeye kaynatılan takviye sacının (ped) düşey uzunluğudur. Boş bırakıldığında profil yüksekliğinin 2,5 katı (2,5·h) olarak otomatik varsayılır. Bu ped, ayağın kabuk cidarında noktasal ezilme ve yüksek lokal gerilme oluşturmasını engeller; cidar gerilme kontrolünün güvenle geçmesi için yeterli boyda seçilmelidir.</dd>
+
+    <dt>Ped eni (mm)</dt>
+    <dd>Ayak takviye sacının yatay genişliğidir. Boş bırakıldığında profil genişliğinin 2 katı (2·b) olarak otomatik hesaplanır. Profilin her iki yanından kaynak dikişinin rahatça atılabilmesi için profil kanat genişliğinden daima daha geniş olmalıdır.</dd>
+
+    <dt>Ped kalınlığı (mm)</dt>
+    <dd>Ayak takviye sacının milimetre cinsinden et kalınlığıdır. Varsayılan olarak 10 mm önerilir ve en az 1 mm olmalıdır. Genellikle kabın kendi gövde sacı kalınlığına yakın veya eşit seçilir; ince seçilirse ayağın momentini gövdeye yayamaz ve bükülür.</dd>
+
+    <dt>Üst taşma (mm)</dt>
+    <dd>Takviye sacının, profil ayağın bittiği üst uç noktasından yukarıya doğru devam eden payıdır. Varsayılan değeri 50 mm'dir ve en az 0 mm olabilir. Ayağın bittiği tepe noktasında ani gerilme yığılmasını yumuşatmak için ped sacının bir miktar yukarı taşması mühendislik açısından zorunludur.</dd>
+
+    <dt>Sac boyu (mm)</dt>
+    <dd>Ayağın altına, beton temele oturması için kaynatılan taban plakasının (base plate) uzunluğudur. Varsayılan olarak profil yüksekliğinin 2 katı artı 40 mm (2·h + 40) formülüyle otomatik üretilir. Ayağın tüm yükünü betona yayarak betonun ezilmesini önler; ankraj cıvatalarının sığacağı genişlikte olmalıdır.</dd>
+
+    <dt>Sac eni (mm)</dt>
+    <dd>Taban plakasının milimetre cinsinden genişliğidir. Varsayılan olarak profil genişliğinin 2 katı artı 40 mm (2·b + 40) olarak belirlenir. Taban sacı alanının beton ezilme emniyet gerilmesini aşmayacak büyüklükte olması şarttır.</dd>
+
+    <dt>Sac kalınlığı (mm)</dt>
+    <dd>Taban plakasının et kalınlığıdır. Varsayılan değeri 16 mm'dir ve en az 1 mm girilmelidir. Dikey yüklerin ve ankraj cıvatası çekme kuvvetlerinin etkisiyle taban sacının yukarıya doğru bükülmesini (çanaklaşmasını) önleyecek rijitlikte seçilmelidir.</dd>
+
+    <dt>Ankraj adedi (adet)</dt>
+    <dd>Her bir ayağın taban sacını beton temele sabitleyen temel cıvatası (ankraj bulonu) sayısıdır. En az 1 adet girilebilir; tipik olarak her ayak tabanına 2 veya 4 adet ankraj yerleştirilir. Rüzgar, deprem veya devrilme anında ayağın temelden havalanmasını ve kaymasını engeller.</dd>
+
+    <dt>Ankraj çapı (mm)</dt>
+    <dd>Temel cıvatalarının anma diş çapıdır (örneğin M20, M24 için 20 mm, 24 mm). Varsayılan olarak 20 mm alınır. Devrilme anında çekme gerilmesine, rüzgar/deprem anında ise kesme kuvvetine maruz kalır; statik hesap raporunda izin verilen gerilmelerle doğrulanır.</dd>
+  </dl>
+
+  <h3>3.5.3 Eyer ve Etek Tipi Mesnet Ölçüleri</h3>
+  <dl>
+    <dt>Host bileşen</dt>
+    <dd>Eyer (saddle) veya etek (skirt) mesnedin monte edileceği kap elemanıdır. Eyer mesnetler geometrisi gereği yalnız silindirik gövde parçaları (shell) üzerine oturabilir; etek mesnetler ise kule kabın alt bombesine veya alt gövdesine bağlanır. Yanlış host seçilirse mesnet montaj hattı geometrisi kurulamaz.</dd>
+
+    <dt>Konum (sol teğetten) (mm)</dt>
+    <dd>Yatay kapta eyer mesnedin kabın sol teğet çizgisinden (sol bombenin silindire birleştiği teğet hattından) olan mesafesidir. Varsayılan olarak teğet aralığının %20'si ve %80'i önerilir; girilen değer host gövde sınırları içinde kalmalıdır. Zick yöntemine göre eyerin bombe teğetine olan mesafesi (A mesafesi) kiriş eğilme momentlerini ve bombe takviye etkisini doğrudan belirler.</dd>
+
+    <dt>Yükseklik (mm)</dt>
+    <dd>Mesnedin temel oturma yüzeyinden kap tabanına veya eksenine kadar olan düşey yüksekliğidir. Eyer mesnet için izin verilen aralık 50 ile 3000 mm, etek mesnet için 50 ile 20000 mm arasındadır. Etek mesnetlerde yükseklik kolonun altındaki borulama ve pompa boşluğunu belirlerken, eyerde kabın zeminden yüksekliğini sağlar. Etekte ayrıca konum girdisi kullanılmaz, etek daima alt teğetten aşağı uzanır.</dd>
+
+    <dt>Genişlik (mm)</dt>
+    <dd>Eyer mesnedin kap eksenine dik doğrultudaki temas genişliğidir (sac temas şeridi genişliği). İzin verilen aralık 50 ile 2000 mm arasındadır (tipik değer 200 mm civarıdır). Genişlik arttıkça eyer altındaki temas alanı genişler ve kabuk üzerindeki ezilme/yerel basma gerilmeleri düşer.</dd>
+
+    <dt>Temas (sarma) açısı (°)</dt>
+    <dd>Eyer mesnedin yatay silindirik kabı alttan kaç derecelik yay boyunca kucakladığını belirten sarma açısıdır (θ). İzin verilen aralık 120° ile 180° arasındadır; endüstri standardı ve asgari değer 120°'dir. Sarma açısı 120 derecenin altına düşürülemez; açı büyüdükçe (örneğin 150° veya 180°) kabuk teğetsel gerilmeleri ve eyer boynuzu eğilme gerilmeleri önemli ölçüde azalır.</dd>
+
+    <dt>Aşınma plakası kalınlığı (mm)</dt>
+    <dd>Eyer mesnet ile kabuk arasına kaynatılan takviye sacının (doubler / wear plate) et kalınlığıdır. Boş bırakıldığında malzeme listesinde (BOM) parça "EKSİK" olarak işaretlenir. Sıcaklık genleşmelerinde kabuğun sürtünmeden aşınmasını önler ve kabuk cidarını yerel yüklemelere karşı güçlendirir.</dd>
+
+    <dt>Web kalınlığı (mm)</dt>
+    <dd>Eyer mesnedin dikey ana gövde plakasının (web sacı) et kalınlığıdır. Boş bırakılırsa BOM ağırlık hesabında eksik kabul edilir. Eyerin tüm kap ağırlığını eğilmeden zemine aktarmasını sağlayan ana taşıyıcı sacdır.</dd>
+
+    <dt>Kanat adedi (adet)</dt>
+    <dd>Eyer gövde sacını (web) dikey olarak destekleyen ve burkulmasını önleyen üçgen kaburga (rijitlik kanadı / rib) sayısıdır. Boş bırakılırsa parça BOM'da eksik işaretlenir. Geniş eyerlerde web sacının yanal bükülmesini önlemek için belirli aralıklarla kanat eklenir.</dd>
+
+    <dt>Kanat kalınlığı (mm)</dt>
+    <dd>Eyer rijitlik kanatlarının (rib sacları) milimetre cinsinden kalınlığıdır. Boş bırakılırsa BOM hesabında eksik işaretlenir. Web sacına destek veren bu kanatların kalınlığı mesnet rijitliğini korur.</dd>
+
+    <dt>Taban plakası boyu (mm)</dt>
+    <dd>Eyer mesnedin beton temele oturan alt taban sacının kap eksenine dik doğrultudaki toplam boyudur. Boş bırakılırsa BOM'da eksik işaretlenir. Temas alanını büyüterek beton ezilme basıncını düşürür ve ankraj cıvatalarına montaj payı sağlar.</dd>
+
+    <dt>Taban plakası eni (mm)</dt>
+    <dd>Eyer taban sacının kap eksenine paralel doğrultudaki genişliğidir. Boş bırakılırsa BOM'da eksik işaretlenir. Eyerin zemine oturma dengesini ve boyuna rüzgar/deprem devrilme direncini belirler.</dd>
+
+    <dt>Taban plakası kalınlığı (mm)</dt>
+    <dd>Eyer taban sacının et kalınlığıdır. Boş bırakılırsa BOM'da eksik işaretlenir. Ankraj cıvataları sıkıldığında veya devrilme kuvveti geldiğinde sacın eğrilmesini önleyecek kalınlıkta seçilmelidir.</dd>
+  </dl>
+
+  <h3>3.5.4 Mesnet Listesi İşlemleri</h3>
+  <dl>
+    <dt>Satır silme (✕)</dt>
+    <dd>Mesnetler tablosunda tanımlı olan bir ayağı, eyeri veya eteği projeden tamamen silen kaldırma düğmesidir. Yanlış eklenen bir desteği kaldırmak veya tipi değiştirmek için kullanılır; silinen desteğin 3B modeldeki görüntüsü ve hesap girdileri sistemden derhal temizlenir.</dd>
+  </dl>
+
+  <div class="ipucu">
+    <p><strong>Sık yapılan hatalar:</strong></p>
+    <ul>
+      <li><strong>Sarma açısını 120° altına düşürmek:</strong> Zick standardına göre eyer temas açısının asgari 120° olması şarttır; daha küçük açı girilmesine izin verilmez çünkü eyer boynuzu bölgesinde aşırı gerilme yığılması oluşur.</li>
+      <li><strong>Yönelim ve destek tipi uyumsuzluğu:</strong> Yatay bir kapta ayak veya etek tanımlamak ya da dikey kapta eyer eklemek. Sistem bu durumda sarı ikaz verir; yatay kaplarda eyer, dikey kaplarda etek veya ayak tercih edilmelidir.</li>
+      <li><strong>Eyer plakalarını boş bırakıp BOM beklemek:</strong> Aşınma plakası, web veya taban sacı kalınlıklarını girmeden malzeme listesi (BOM) kütlesi hesaplatmaya çalışmak. Boş bırakılan alanlar malzeme listesinde "EKSİK" olarak işaretlenir.</li>
+    </ul>
+  </div>
+</section>
+</div><div class="parca"><section id="g3">
+  <h2 id="g3-1">Adım 3 — Kap Geometrisi: "Hesap Girdileri" Sekmesi</h2>
+  <p>
+    Hesap Girdileri sekmesi, kabın üç boyutlu genel biçimini değiştirmeyen ancak mühendislik hesaplarının tamamlanabilmesi için zorunlu olan ek teknik verileri içerir. Bu ekranda boru hattı yükleri, flanş detayları, mesnet mukavemet parametreleri, malzeme dayanımları, kaynak kalitesi ve maliyet kalemleri tanımlanır. Akordeon paneller halinde düzenlenen bu başlıklar, kabın basınç altında güvenle çalışmasını sağlayacak ayrıntılı kontrolleri yönetir.
+  </p>
+
+  <figure>
+    <img src="img/25-girdiler-sekme.png" alt="Hesap Girdileri Sekmesi Genel Görünümü">
+    <figcaption>Şekil: Hesap girdileri sekmesi ve akordeon paneller</figcaption>
+  </figure>
+
+  <h3>3.1. Nozul Dış Yükleri (WRC 537 / 297)</h3>
+  <p>
+    Bu ekran, kaba bağlanan tesisat borularının nozul (boru bağlantı ağzı) üzerinde oluşturduğu dış itme, çekme ve eğme kuvvetlerini tanımlamak içindir. Borulardan gelen bu mekanik yükler gövde sacında bölgesel gerilmelere yol açtığı için WRC (Welding Research Council - Kaynak Araştırma Konseyi teknik bülteni) yöntemleriyle kontrol edilir. Boru stres analizinden gelen kuvvetleri buraya girerek kabuk sacının yırtılmasını veya ezilmesini önleyecek doğrulamayı yapabilirsiniz.
+  </p>
+
+  <figure>
+    <img src="img/26-girdiler-nozul-dis-yukleri.png" alt="Nozul Dış Yükleri Girdi Formu">
+    <figcaption>Şekil: Nozul dış yükleri (WRC 537/297) formu</figcaption>
+  </figure>
+
+  <dl>
+    <dt>Nozul</dt>
+    <dd>
+      Dış yük takımının atanacağı nozulu belirler. Açılır listeden daha önce Geometri adımında tanımlanmış olan nozul etiketleri (örneğin N1) seçilir. Yanlış nozul seçilirse kuvvetler yanlış gövde bölgesine uygulanır ve gerilme kontrolü yanıltıcı olur.
+    </dd>
+
+    <dt>Yöntem</dt>
+    <dd>
+      Bölgesel gerilme hesabında kullanılacak standart bülteni belirler. İki seçenek sunulur: "WRC 537 (gövde tarafı)" kabuk üzerindeki yerel gerilmeleri hesaplar; "WRC 297 (gövde + nozul)" hem kabuk hem de nozul boynundaki gerilmeleri analiz eder. Dikkat: WRC 297 yöntemi bu sürümde eğri normalizasyonu doğrulanmadığı için her zaman "kod verisi bekliyor" durumuna geçer.
+    </dd>
+
+    <dt>Eşdeğer gerilme</dt>
+    <dd>
+      Farklı yönlerdeki normal ve kayma gerilmelerinin tek bir karşılaştırma değerine dönüştürülmesinde esas alınacak hasar teorisidir. "Tresca (WRC 107)" azami kayma gerilmesi teorisine dayanır ve ASME standardının geleneksel tercihidir. "von Mises" ise biçim değiştirme enerjisi teorisine dayanır ve genellikle daha ekonomik sonuçlar verir.
+    </dd>
+
+    <dt>Fr (radyal) (N)</dt>
+    <dd>
+      Nozul ekseni boyunca etki eden radyal kuvvettir. Pozitif (+) değerler kabuktan dışarıya doğru çekmeyi, negatif (-) değerler kabuğa doğru basmayı ifade eder. Tesisat boru genleşme raporundan Newton (N) cinsinden alınır; yanlış girilirse kabuk ezilme veya çekme gerilmesi hatalı bulunur.
+    </dd>
+
+    <dt>Vc (çevresel kesme) (N)</dt>
+    <dd>
+      Kabın çevresi boyunca (çembersel teğet doğrultuda) etki eden kesme kuvvetidir. Boru hattının yan itmelerinden kaynaklanır. Sıfır bırakılırsa çevresel kesme kuvveti olmadığı varsayılır.
+    </dd>
+
+    <dt>VL (boyuna kesme) (N)</dt>
+    <dd>
+      Kabın uzunlamasına ekseni boyunca etki eden kesme kuvvetidir. Borunun boyuna genleşme veya kayma kuvvetlerinden doğar. Değeri boru stres analizinden alınmalıdır.
+    </dd>
+
+    <dt>Mc (çevresel moment) (N·mm)</dt>
+    <dd>
+      Nozulu kabın çevresel doğrultusunda eğmeye çalışan eğilme momentidir. Boru hattının termal genleşmesinden kaynaklanır. Birimi N·mm cinsindendir; kilonewton-metre (kN·m) cinsinden değer girilirse gerilmeler çok küçük kalır ve emniyetsiz sonuç doğar.
+    </dd>
+
+    <dt>ML (boyuna moment) (N·mm)</dt>
+    <dd>
+      Nozulu kabın boyuna ekseni boyunca eğmeye çalışan momenttir. Tesisat yüklerinden kaynaklanır; kabukta boyuna yönde çekme ve basma gerilmeleri oluşturur.
+    </dd>
+
+    <dt>Mt (burulma) (N·mm)</dt>
+    <dd>
+      Nozulun kendi merkez ekseni etrafındaki dönme (burulma) momentidir. Flanş cıvatalarının sıkılmasından veya boru hattının dönme etkilerinden oluşur.
+    </dd>
+
+    <dt>Kn (membran yığılma)</dt>
+    <dd>
+      Kabuk zar gerilmelerindeki yerel gerilme yığılma (konsantrasyon) katsayısıdır. Geometri süreksizliğinden kaynaklanan gerilme artışını hesaba katar. Değeri en az 1,0 olmalıdır; 1'den küçük girilirse sistem otomatik olarak 1 kabul eder.
+    </dd>
+
+    <dt>Kb (eğilme yığılma)</dt>
+    <dd>
+      Kabuk eğilme gerilmelerindeki yerel gerilme yığılma katsayısıdır. Kaynak dikişi ve köşe geçiş geometrisine bağlıdır; en az 1,0 olmalıdır.
+    </dd>
+
+    <dt>WRC 537 eğri tablosu</dt>
+    <dd>
+      WRC 537 bültenindeki boyutsuz eğrilerden okunan katsayı tablosudur. Telif hakları nedeniyle bu eğri katsayıları programda hazır bulunmaz; kullanıcının lisanslı bültenden ilgili nozul/kabuk parametrelerine göre okuyup elle girmesi gerekir. Boş bırakılan hücreler kesinlikle sıfır sayılmaz; herhangi bir hücre boş bırakılırsa hesap BLOCKED CODE DATA (kod verisi eksik) durumu verir ve durur. Tablo; P radyal yükü, Mc çevresel momenti ve ML boyuna momenti için kritik A, B, C ve D noktalarındaki membran kuvvetlerini (Nphi, Nx) ve eğilme momentlerini (Mphi, Mx) içeren 16 hücreden oluşur. Bu 16 katsayı hücresi şunlardır:
+      <ul>
+        <li>P (radyal) — A/B · Nphi  [P.Nphi.AB]</li>
+        <li>P (radyal) — A/B · Nx  [P.Nx.AB]</li>
+        <li>P (radyal) — A/B · Mphi  [P.Mphi.AB]</li>
+        <li>P (radyal) — A/B · Mx  [P.Mx.AB]</li>
+        <li>P (radyal) — C/D · Nphi  [P.Nphi.CD]</li>
+        <li>P (radyal) — C/D · Nx  [P.Nx.CD]</li>
+        <li>P (radyal) — C/D · Mphi  [P.Mphi.CD]</li>
+        <li>P (radyal) — C/D · Mx  [P.Mx.CD]</li>
+        <li>Mc — C/D · Nphi  [MC.Nphi.CD]</li>
+        <li>Mc — C/D · Nx  [MC.Nx.CD]</li>
+        <li>Mc — C/D · Mphi  [MC.Mphi.CD]</li>
+        <li>Mc — C/D · Mx  [MC.Mx.CD]</li>
+        <li>ML — A/B · Nphi  [ML.Nphi.AB]</li>
+        <li>ML — A/B · Nx  [ML.Nx.AB]</li>
+        <li>ML — A/B · Mphi  [ML.Mphi.AB]</li>
+        <li>ML — A/B · Mx  [ML.Mx.AB]</li>
+      </ul>
+    </dd>
+
+    <dt>Bu nozulun yük takımını sil (düğme)</dt>
+    <dd>
+      Seçili nozul için girilmiş olan tüm dış yükleri ve WRC katsayılarını tek tıklamayla temizler. Nozul üzerindeki dış kuvvet kontrollerini tamamen iptal etmek istediğinizde kullanılır.
+    </dd>
+  </dl>
+
+  <div class="ipucu">
+    <strong>Sık yapılan hatalar:</strong>
+    <ul>
+      <li>Kuvvetleri Newton (N) yerine kN, momentleri N·mm yerine N·m girmek gerilmelerin milyonda bir oranında yanlış hesaplanmasına yol açar.</li>
+      <li>WRC 537 eğri katsayılarını bültenden okumayıp boş bırakmak hesabın bloke olmasına neden olur.</li>
+    </ul>
+  </div>
+
+  <h3>3.2. Nozul Ayrıntıları (seçili nozul)</h3>
+  <p>
+    Bu ekran, kabın üzerindeki deliklerin (açıklıkların) ve boru boyunlarının ince ayarlarını yapmak için kullanılır. Açılan her delik kabuk sacını zayıflattığından, ASME UG-37 uyarınca çıkarılan metal alanının takviye edilmesi gerekir. Burada boru et kalınlığı, takviye pedi ve ASME UG-36(c)(3) küçük açıklık muafiyeti koşulları belirlenir.
+  </p>
+
+  <figure>
+    <img src="img/27-girdiler-nozul-ayrintilari.png" alt="Nozul Ayrıntıları ve Muafiyet Beyanı Ekranı">
+    <figcaption>Şekil: Nozul ayrıntıları formu ve kullanıcı muafiyet onay kutuları</figcaption>
+  </figure>
+
+  <dl>
+    <dt>Etiket (Tag)</dt>
+    <dd>
+      Nozulun imalat çizimlerinde, hesap raporlarında ve isim plakalarında kullanılacak benzersiz adıdır (örneğin N1, N2 veya MANWAY).
+    </dd>
+
+    <dt>Nozul Tipi</dt>
+    <dd>
+      Nozulun gövdeye bağlanma ve konstrüksiyon şeklidir. Seçenekler:
+      <ul>
+        <li><strong>Flanşlı:</strong> Standart boyunlu kaynak flanşı ile bağlanan boru nozulu.</li>
+        <li><strong>Slip-on flanş:</strong> Borunun flanş içine geçirilip içeriden ve dışarıdan kaynatıldığı tip.</li>
+        <li><strong>Soket kaynaklı:</strong> Küçük boruların yuva içine geçirilerek kaynatıldığı tip.</li>
+        <li><strong>Manşon:</strong> Gövdeye kaynatılan dişli veya soketli küçük dövme bağlantı parçası.</li>
+        <li><strong>Adam deliği (manway):</strong> Bakım personelinin girmesi için büyük çaplı gözetleme boğazı.</li>
+        <li><strong>Pedli takviyeli:</strong> Açıklık etrafına takviye sacı kaynatılmış nozul.</li>
+      </ul>
+    </dd>
+
+    <dt>Host Bileşen</dt>
+    <dd>
+      Nozulun monte edildiği ana basınç taşıyıcı parçadır. Gövde silindirlerinden biri (SHELL-01) veya uç bombelerden biri seçilir.
+    </dd>
+
+    <dt>Eksenel Konum (z) [gövde host] / Yerleşim Çapı [bombe host] (mm)</dt>
+    <dd>
+      Nozulun kabuk üzerindeki yerleşim ölçüsüdür. Nozul gövdeye bağlıysa sol teğet çizgisinden itibaren eksenel uzaklığı (z) ifade eder. Bombe üzerindeyse bombe merkez ekseninden olan radyal mesafenin iki katını (yerleşim çapı) belirtir; 0 girilirse nozul tam bombe tepesine yerleşir.
+    </dd>
+
+    <dt>Çevresel Açı (θ) (°)</dt>
+    <dd>
+      Nozulun kabın çevresi etrafındaki dairesel konum açısıdır. 0° tam tepeyi (üst), 90° sağı, 180° alt tabanı, 270° solu temsil eder.
+    </dd>
+
+    <dt>Eğim Açısı (α) (°)</dt>
+    <dd>
+      Nozul borusunun kabuk yüzeyine diklikten sapma açısıdır. Gövdede 0° tam dik (radyal), 90° gövdeye teğetsel duruşu gösterir. Bombe üzerinde ise bombe yüzey normaline göre ölçülen eğimdir.
+    </dd>
+
+    <dt>Anma Çapı (katalog)</dt>
+    <dd>
+      Standart boru anma çapıdır (örneğin 2", 4", 6" NPS / DN boyutu). Katalogdan seçim yapıldığında dış çap, iç çap ve et kalınlığı otomatik dolar. Değerleri elle değiştirirseniz seçim "Özel ölçü (elle)" durumuna geçer.
+    </dd>
+
+    <dt>Et Serisi</dt>
+    <dd>
+      Boru standart et kalınlığı serisidir (örneğin SCH 40, SCH 80, SCH 160). Yalnızca katalogdan anma çapı seçildiğinde etkindir.
+    </dd>
+
+    <dt>Nozul Malzemesi</dt>
+    <dd>
+      Nozul borusunun imal edildiği çelik malzemedir. Tanımlı proje malzemeleri (örneğin MAT-01) arasından seçilir.
+    </dd>
+
+    <dt>Dış Çap (mm)</dt>
+    <dd>
+      Nozul borusunun milimetre cinsinden dış çapıdır. İmalat çiziminden veya boru katalog tablosundan alınır.
+    </dd>
+
+    <dt>İç Çap (mm)</dt>
+    <dd>
+      Nozul borusunun iç akış çapıdır. Açıklık takviye hesabında kovanın kabuktan çıkardığı metal alanını doğrudan belirler; yanlış girilirse takviye alanı hatalı hesaplanır.
+    </dd>
+
+    <dt>Boyun Kalınlığı (mm)</dt>
+    <dd>
+      Nozul borusunun nominal sac et kalınlığıdır. Nozulun iç basınca dayanımını ve gövdeye sunduğu takviye metal alanını belirler.
+    </dd>
+
+    <dt>İç Çıkıntı (mm)</dt>
+    <dd>
+      Nozul borusunun kabın iç cidarından içeriye doğru uzanan kısmının uzunluğudur. Boru içeride bitiyorsa 0 bırakılır; içeri uzanıyorsa iç takviye alanı (A3) kazandırır.
+    </dd>
+
+    <dt>Dış Çıkıntı (mm)</dt>
+    <dd>
+      Nozul flanş yüzeyinin kabın dış yüzeyinden itibaren dışarıya doğru olan toplam uzantı mesafesidir. İzolasyon payı ve cıvatalama boşluğu için önemlidir.
+    </dd>
+
+    <dt>Takviye Pedi Dış Çapı (mm)</dt>
+    <dd>
+      Nozul etrafına kaynatılan halka takviye sacının dış çapıdır. 0 bırakılırsa ped yok sayılır. Ped eklendiğinde açıklığın etrafındaki mukavemet alanı artar.
+    </dd>
+
+    <dt>Pedi Kalınlığı (mm)</dt>
+    <dd>
+      Takviye sacının et kalınlığıdır. Genellikle gövde et kalınlığına eşit veya yakın seçilir.
+    </dd>
+
+    <dt>Açıklık Kaynak Verimi E1</dt>
+    <dd>
+      ASME UG-37(a) uyarınca açıklığın kabuk kaynak dikişini kesip kesmediğini belirten katsayıdır (0,05 ile 1,0 arası). Açıklık ana boyuna veya çevresel kaynak dikişi üzerine denk geliyorsa o dikişin kaynak verimi girilmelidir. Boş (0) bırakılırsa program E1=1,0 (dikişsiz sac) varsayar ve inceleme uyarısı verir.
+    </dd>
+
+    <dt>Kap hızlı basınç dalgalanmasına maruz değil</dt>
+    <dd>
+      ASME VIII-1 Madde UG-36(c)(3) uyarınca küçük çaplı deliklerde (DN80 ve altı) takviye hesabı muafiyeti uygulanabilmesi için gereken ilk kullanıcı beyanı onay kutusudur. Bu kutuyu işaretleyerek kabın ani darbeli basınç değişimlerine maruz kalmadığını beyan edersiniz. Bu beyanın doğruluğu ve teknik sorumluluğu tamamen kullanıcıya aittir.
+    </dd>
+
+    <dt>Komşu açıklık aralığı koşulları sağlanıyor</dt>
+    <dd>
+      İki nozul arasındaki merkez mesafesinin standartta belirtilen asgari sınırları sağladığını onaylayan ikinci kullanıcı beyanı kutusudur. Sorumluluk kullanıcıya aittir.
+    </dd>
+
+    <dt>Bağlantı kaynaklı (dişli/saplamalı/genişletmeli tip değil)</dt>
+    <dd>
+      Nozulun kaba tam nüfuziyetli kaynakla bağlandığını teyit eden üçüncü kullanıcı beyanı kutusudur. Bu üç onay kutusu birlikte işaretlenmeden küçük açıklık muafiyeti uygulanmaz. Muafiyet uygulansa dahi nozul boyun kalınlığı kontrolü zorunlu olarak yapılır. Sorumluluk kullanıcıya aittir.
+    </dd>
+  </dl>
+
+  <div class="ipucu">
+    <strong>Sık yapılan hatalar:</strong>
+    <ul>
+      <li>Muafiyet onay kutularından birini eksik bırakıp küçük nozulların neden "takviye yetersiz" hatası verdiğini anlamamak.</li>
+      <li>Boru iç çapını korozyon payı düşmeden girmek veya dış çaptan et kalınlığını iki kez çıkarmayı unutmak.</li>
+    </ul>
+  </div>
+
+  <h3>3.3. Flanşlar (Appendix 2)</h3>
+  <p>
+    Bu ekran, standart boru flanşları haricinde özel olarak tasarlanan gövde veya nozul flanşlarının ASME Bölüm VIII Bölüm 1 Ek 2 (Appendix 2) kurallarına göre mukavemet hesabını yapmak içindir. Cıvata ön gerilmesi, conta sıkma gerilmesi ve çalışma basıncından kaynaklanan flanş eğilme gerilmeleri burada kontrol edilir.
+  </p>
+
+  <figure>
+    <img src="img/28-girdiler-flanslar-appendix2.png" alt="Flanşlar Girdi Formu">
+    <figcaption>Şekil: Flanşlar (Appendix 2) formu ve hesap parametreleri</figcaption>
+  </figure>
+
+  <dl>
+    <dt>＋ Flanş Ekle / flanş kartı / ✕ sil</dt>
+    <dd>
+      Projeye yeni bir özel flanş kartı ekler, tanımlanmış flanşlar arasında geçiş yapar veya artık gerekmeyen flanş kaydını siler.
+    </dd>
+
+    <dt>Flanş Kimliği</dt>
+    <dd>
+      Flanşın hesap raporunda ve parça listesinde tanınmasını sağlayan benzersiz koddur (örneğin FL-1).
+    </dd>
+
+    <dt>Flanş Tipi</dt>
+    <dd>
+      Flanşın kabukla birleşim biçimidir. "Integral" (boyunlu kaynaklı flanş) kabukla tek parça çalışan tiptir. "Gevşek (loose)" ise geçme flanşı temsil eder; gevşek flanşlar bu formüllerle hesaplanmaz ve kapsam dışı kalır.
+    </dd>
+
+    <dt>Flanş Malzemesi</dt>
+    <dd>
+      Flanş bileziği ve boynunun imal edildiği malzemedir. Malzeme listesinden uygun malzeme seçilir.
+    </dd>
+
+    <dt>İç Çap (B) (mm)</dt>
+    <dd>
+      Flanş bileziğinin iç delik çapıdır. Genellikle kaba veya boruya uyumlu seçilir.
+    </dd>
+
+    <dt>Dış Çap (A) (mm)</dt>
+    <dd>
+      Flanş bileziğinin en dış kenar çapıdır. Cıvata dairesi ve et payını belirler.
+    </dd>
+
+    <dt>Flanş Kalınlığı (t) (mm)</dt>
+    <dd>
+      Flanş bileziğinin eksenel sac kalınlığıdır. Cıvata sıkma momentlerine karşı direnç sağlayan ana boyuttur.
+    </dd>
+
+    <dt>Hub Kalınlığı, küçük uç (g0) (mm)</dt>
+    <dd>
+      Flanş boynunun (hub) boru veya kabuk cidarında kalan ince ucunun et kalınlığıdır. Karakteristik boy h0 = √(B·g0) hesabında temel girdidir.
+    </dd>
+
+    <dt>Hub Kalınlığı, büyük uç (g1) (mm)</dt>
+    <dd>
+      Flanş boynunun flanş bileziğiyle birleştiği kalın dip noktasındaki et kalınlığıdır. Boş veya 0 bırakılırsa flanş hesabı kilitlenir (bloke olur).
+    </dd>
+
+    <dt>Hub Uzunluğu (h) (mm)</dt>
+    <dd>
+      Flanş boynunun flanş arkasından itibaren olan eksenel uzunluğudur.
+    </dd>
+
+    <dt>Conta m Faktörü</dt>
+    <dd>
+      Çalışma basıncı altında contanın gaz veya sıvıyı sızdırmadan tutabilmesi için gereken ek conta basınç faktörüdür. Lisanslı ASME Tablo 2-5.1 çizelgesinden veya conta tedarikçisinden alınmalıdır; program bu değeri otomatik içermez.
+    </dd>
+
+    <dt>Conta y Değeri (MPa)</dt>
+    <dd>
+      Contanın ilk montajda mikroskobik yüzey pürüzlerini doldurup sızdırmazlık sağlaması için gereken asgari oturma gerilmesidir. Lisanslı çizelgeden girilir; boş bırakılırsa cıvata hesabı yapılamaz.
+    </dd>
+
+    <dt>Cıvata Sayısı (adet)</dt>
+    <dd>
+      Flanşı sıkan dairesel dizilmiş saplama veya cıvata adedidir.
+    </dd>
+
+    <dt>Cıvata Alanı (mm²)</dt>
+    <dd>
+      Kullanılan cıvatanın diş dibi etkin çekme gerilme alanıdır. Standart cıvata tablosundan okunur.
+    </dd>
+
+    <dt>Cıvata İzin Gerilmesi (MPa)</dt>
+    <dd>
+      Cıvata çeliğinin tasarım sıcaklığında ASME standardınca izin verilen azami çekme gerilmesidir. Malzeme sertifikasından veya standardından girilmelidir.
+    </dd>
+
+    <dt>Y Faktörü</dt>
+    <dd>
+      Flanş dış çapı ile iç çapı oranına (K = A/B) bağlı boyut katsayısıdır. Lisanslı ASME Appendix 2 çizelgesinden kullanıcı tarafından okunup girilir; program telif nedeniyle bu tabloyu içermez (K6 kuralı). Boş bırakılırsa flanş hesabı bloke olur.
+    </dd>
+
+    <dt>f Faktörü (hub düzeltme)</dt>
+    <dd>
+      Boyun kalınlık oranına bağlı gerilme düzeltme katsayısıdır. ASME Ek 2 Şekil 2-7.6 grafiğinden okunmalıdır; boşsa hesap bloke kalır.
+    </dd>
+
+    <dt>F Faktörü</dt>
+    <dd>
+      Boyun esneklik faktörüdür. ASME Ek 2 Şekil 2-7.2'den okunur; program içermez.
+    </dd>
+
+    <dt>V Faktörü</dt>
+    <dd>
+      Boyun eğilme faktörüdür. ASME Ek 2 Şekil 2-7.3'ten okunur; boş bırakılamaz.
+    </dd>
+
+    <dt>T Faktörü</dt>
+    <dd>
+      Flanş şekil faktörüdür. ASME Ek 2 Şekil 2-7.1'den okunur; boşsa hesap bloke kalır.
+    </dd>
+
+    <dt>U Faktörü</dt>
+    <dd>
+      Flanş şekil faktörüdür. ASME Ek 2 Şekil 2-7.1'den okunur; boşsa hesap bloke kalır.
+    </dd>
+
+    <dt>Cıvata Tasarım Yükü W (N)</dt>
+    <dd>
+      Çalışma ve conta oturma şartlarında cıvatalara binen toplam tasarım çekme kuvvetidir. Kullanıcının Appendix 2 harici hesap sayfasından buraya aktarılır.
+    </dd>
+
+    <dt>Flanş Momenti M (N·mm)</dt>
+    <dd>
+      İç basınç, conta reaksiyonu ve cıvata kuvvetlerinin flanş halkası üzerinde oluşturduğu toplam eğilme momentidir. Kullanıcının harici hesap föyünden girilir.
+    </dd>
+  </dl>
+
+  <div class="ipucu">
+    <strong>Sık yapılan hatalar:</strong>
+    <ul>
+      <li>Büyük uç boyun kalınlığını (g1) girmemek flanş analizini doğrudan kilitler.</li>
+      <li>Y, f, F, V, T ve U faktörlerini ASME standart çizelgelerinden okumayıp sıfır bırakmak.</li>
+    </ul>
+  </div>
+
+  <h3>3.4. Destek Ayrıntıları (seçili destek)</h3>
+  <p>
+    Bu ekran, kabın zemin veya yapı üzerine oturmasını sağlayan mesnetlerin (ayak, eyer veya etek) mukavemet ve stabilite girdilerini içerir. Kabın kendi ağırlığı, içindeki sıvının ağırlığı, rüzgâr ve deprem momentleri bu mesnetler üzerinden temele aktarılır. Desteklerin kabuk sacında ezilme veya yırtılma yapmaması için gerekli tüm boyutlar burada tanımlanır.
+  </p>
+
+  <figure>
+    <img src="img/29-girdiler-destek-ayak.png" alt="Destek Ayrıntıları Formu">
+    <figcaption>Şekil: Destek ayrıntıları (ayak mesnet) genel formu</figcaption>
+  </figure>
+
+  <dl>
+    <dt>Destek Tipi</dt>
+    <dd>
+      Kabı taşıyan mesnet türünü belirtir. Üç temel seçenek vardır:
+      <ul>
+        <li><strong>Eyer (saddle):</strong> Yatay kapları iki noktadan beşik gibi saran mesnet (Zick analizine tabi).</li>
+        <li><strong>Etek (skirt):</strong> Dikey kule ve proses kolonlarının tabanına kaynatılan silindirik taşıyıcı etek.</li>
+        <li><strong>Ayak (leg):</strong> Dikey veya küçük yatay tankların altına kaynatılan profil veya boru ayaklar.</li>
+      </ul>
+    </dd>
+
+    <dt>Bağlandığı Bileşen</dt>
+    <dd>
+      Desteğin kaynaklandığı basınçlı kap parçasıdır. Eyer mesnet mutlaka silindirik gövdeye oturmalıdır; etek ve ayak ise gövdeye veya alt bombeye bağlanabilir.
+    </dd>
+
+    <dt>Destek Malzemesi</dt>
+    <dd>
+      Mesnet yapımında kullanılan yapısal çelik malzemedir (örneğin MAT-01 veya yapısal profil çeliği).
+    </dd>
+
+    <dt>Konum (mm)</dt>
+    <dd>
+      Desteğin montaj yeridir. Eyer için gövde sol teğetinden uzaklıktır. Etek ve ayak için ise taban kotudur ve devirme momenti kaldıraç kolunu belirler.
+    </dd>
+
+    <dt>Genişlik (mm)</dt>
+    <dd>
+      Desteğin eksenel temas genişliğidir. Eyerde sac plaka genişliğini ifade eder.
+    </dd>
+
+    <dt>Yükseklik (mm)</dt>
+    <dd>
+      Desteğin temel yüzeyinden kap eksenine kadar olan toplam düşey yüksekliğidir.
+    </dd>
+
+    <dt>Devirme Momenti (N·mm)</dt>
+    <dd>
+      (Bu alan etek veya ayak seçildiğinde görünür). Rüzgâr, deprem veya harici boru itmelerinden kaynaklanan devirme momentidir. Sıfır girilirse devirme momenti olmadığı varsayılır. Sistem, yük kombinasyonlarından türetilen moment ile bu manuel değeri karşılaştırıp büyük olanı esas alır.
+    </dd>
+
+    <dt>Etek Ortalama Çapı (mm)</dt>
+    <dd>
+      (Bu alan yalnız Etek desteği seçildiğinde görünür; Görsel: 62-etek-girdiler-destek.png). Etek silindirinin orta eksen çapıdır (D_ort = D_dış − t). Dış çap yerine mutlaka ortalama çap girilmelidir; aksi takdirde basma gerilmeleri %1-2 oranında emniyetsiz çıkar.
+    </dd>
+
+    <dt>Etek İzin Verilen Basma B (UG-23(b)) (MPa)</dt>
+    <dd>
+      (Bu alan yalnız Etek desteği seçildiğinde görünür). ASME UG-23(b) uyarınca eteğin kendi ağırlığı ve devirme momenti altında burkulmasını önleyen izin verilen basma gerilmesidir. ASME Bölüm II Kısım D dış basınç grafiklerinden okunur; program telifli tablosunu içermez. Girilmezse basma/burkulma kontrolü BLOKLU kalır.
+    </dd>
+
+    <dt>Etek Kaynak Verimi E</dt>
+    <dd>
+      (Bu alan yalnız Etek desteği seçildiğinde görünür). Etek sacı dikey birleşim kaynağının verimidir (0 ile 1 arası). 0 bırakılırsa program güvenli tarafta kalarak 0,6 varsayar.
+    </dd>
+
+    <dt>Etek Et Kalınlığı (mm)</dt>
+    <dd>
+      (Bu alan yalnız Etek desteği seçildiğinde görünür). Etek silindirinin nominal sac et kalınlığıdır; hesap için zorunludur.
+    </dd>
+
+    <dt>Sarma Açısı (°)</dt>
+    <dd>
+      (Bu alan yalnız Eyer desteği seçildiğinde görünür; Görsel: 52-yatay-girdiler-eyer-zick.png). Eyerin silindirik gövdeyi alttan kucakladığı sarma açısıdır (θ). Standart (Zick 1951) gereği en az 120° olmalıdır (tipik 120°–150°).
+    </dd>
+
+    <dt>Eyer Düzleminde Halka</dt>
+    <dd>
+      (Bu alan yalnız Eyer desteği seçildiğinde görünür). Eyer mesnedinin tam üzerine denk gelen gövde kesitinde takviye halkası bulunup bulunmadığıdır. Seçenekler: "Seçin (girilmedi)", "Halka yok", "Halka var". Seçim yapılmazsa Zick analizi BLOKE kalır.
+    </dd>
+
+    <dt>Zick K1</dt>
+    <dd>
+      (Bu alan yalnız Eyer seçildiğinde görünür). Eyer kesitindeki boyuna eğilme katsayısıdır. Zick 1951 veya Moss çizelgesinden sarma açısına göre okunur. Halkasız eyerde boş bırakılırsa hesap bloke olur.
+    </dd>
+
+    <dt>Zick K2</dt>
+    <dd>
+      (Bu alan yalnız Eyer seçildiğinde görünür). Kabukta oluşan teğetsel kesme gerilmesi katsayısıdır. Tablodan okunup girilmelidir.
+    </dd>
+
+    <dt>Zick K3 (başlık kesmesi)</dt>
+    <dd>
+      (Bu alan yalnız Eyer seçildiğinde görünür). Eyer bombeye çok yakın monte edildiğinde (mesafe A ≤ R/2) bombe üzerinde oluşan kesme katsayısıdır.
+    </dd>
+
+    <dt>Zick K6</dt>
+    <dd>
+      (Bu alan yalnız Eyer seçildiğinde görünür). Eyer boynuzunun (sacın bittiği üst uçların) kabukta oluşturduğu çevresel eğilme katsayısıdır.
+    </dd>
+
+    <dt>Zick K7</dt>
+    <dd>
+      (Bu alan yalnız Eyer seçildiğinde görünür). Eyerin tam altındaki kabuk sacında oluşan çevresel basma katsayısıdır; her eyer hesabında zorunludur.
+    </dd>
+
+    <dt>Ayak Bağlantı Yeri</dt>
+    <dd>
+      (Bu alan yalnız Ayak desteğinde görünür; Görsel: 30-girdiler-ayak-baglanti-kesit.png). Ayağın kaba kaynatıldığı yerdir. Seçenekler: "Seçin (girilmedi)", "Gövde (shell)", "Alt bombe (bottom head)". Yerel gerilme kontrolünün hangi parçaya uygulanacağını belirler.
+    </dd>
+
+    <dt>Ayak Kesit Tipi</dt>
+    <dd>
+      (Bu alan yalnız Ayak desteğinde görünür). Ayak profilinin enkesit formudur. Seçenekler: "Boru (eski davranış)", "Boru (pipe)", "U profil (channel)", "Kutu profil (box)", "Köşebent (angle)". Profil katalog değerleri programda yoktur, ölçüleri kullanıcı girer.
+    </dd>
+
+    <dt>Ayak Sayısı (adet)</dt>
+    <dd>
+      (Bu alan yalnız Ayak desteğinde görünür). Kabı taşıyan toplam ayak sayısıdır (genellikle 3 veya 4 adet).
+    </dd>
+
+    <dt>Ayak Dağılım Yarıçapı (mm)</dt>
+    <dd>
+      (Bu alan yalnız Ayak desteğinde görünür). Ayak merkezlerinin kabın düşey eksenine olan gerçek radyal mesafesidir; moment kolu hesabı için zorunludur.
+    </dd>
+
+    <dt>Ayak Çapı (yalnız boru) (mm)</dt>
+    <dd>
+      (Bu alan boru ayak seçildiğinde görünür). Boru profilinin milimetre cinsinden dış çapıdır.
+    </dd>
+
+    <dt>Ayak Et Kalınlığı (yalnız boru) (mm)</dt>
+    <dd>
+      (Bu alan boru ayak seçildiğinde görünür). Boru profilinin sac et kalınlığıdır.
+    </dd>
+
+    <dt>Profil Yüksekliği (profilde) (mm)</dt>
+    <dd>
+      (Bu alan profil ayak seçildiğinde görünür). U profil, kutu profil veya köşebentin kesit yüksekliğidir (h).
+    </dd>
+
+    <dt>Profil Genişliği (profilde) (mm)</dt>
+    <dd>
+      (Bu alan profil ayak seçildiğinde görünür). Profilin flanş/kanat genişliğidir (b).
+    </dd>
+
+    <dt>Gövde (Web) Kalınlığı (profilde) (mm)</dt>
+    <dd>
+      (Bu alan U profil veya kutu profilde görünür). Profil gövde sacı kalınlığıdır (tw).
+    </dd>
+
+    <dt>Flanş Kalınlığı (yalnız U profil) (mm)</dt>
+    <dd>
+      (Bu alan yalnız U profilde görünür). U profilin flanş et kalınlığıdır (tf).
+    </dd>
+
+    <dt>Bağlanmamış (Burkulma) Boyu (mm)</dt>
+    <dd>
+      (Bu alan yalnız Ayak desteğinde görünür). Ayağın yanal çaprazlarla tutturulmamış serbest burkulma boyudur.
+    </dd>
+
+    <dt>Eksantriklik e (mm)</dt>
+    <dd>
+      (Bu alan yalnız Ayak desteğinde görünür). Ayak ekseni ile kap cidar reaksiyonu arasındaki kaçıklık mesafesidir; ek eğilme momenti doğurur.
+    </dd>
+
+    <dt>Etkin Boy Faktörü K</dt>
+    <dd>
+      (Bu alan yalnız Ayak desteğinde görünür). Kolon burkulma etkin boy katsayısıdır. Boş bırakılırsa 2,1 (ankastre-serbest uç, muhafazakâr kabul) uygulanır.
+    </dd>
+
+    <dt>Bağlantı Pedi Boyu (mm)</dt>
+    <dd>
+      (Bu alan ayak pedi akordeonunda görünür; Görsel: 31-girdiler-ayak-takviye-pedi.png). Ayak ile kabuk sacı arasına konan takviye sacının düşey boyudur.
+    </dd>
+
+    <dt>Bağlantı Pedi Eni (mm)</dt>
+    <dd>
+      Ayak takviye pedinin yatay enidir.
+    </dd>
+
+    <dt>Bağlantı Pedi Kalınlığı (mm)</dt>
+    <dd>
+      Takviye pedinin sac et kalınlığıdır.
+    </dd>
+
+    <dt>Ped Temas Oranı</dt>
+    <dd>
+      Profil kesitinin takviye sacına kaynakla tam oturma yüzdesi (0 ile 1 arası). Boş bırakılırsa 1,0 (%100 tam temas) varsayılır.
+    </dd>
+
+    <dt>Taban Plakası Boyu (mm)</dt>
+    <dd>
+      (Bu alan taban plakası akordeonunda görünür; Görsel: 32-girdiler-ayak-taban-plakasi.png). Ayağın zemine bastığı çelik taban sacının boyudur.
+    </dd>
+
+    <dt>Taban Plakası Eni (mm)</dt>
+    <dd>
+      Taban sacının milimetre cinsinden enidir.
+    </dd>
+
+    <dt>Taban Plakası Kalınlığı (mm)</dt>
+    <dd>
+      Taban sacının et kalınlığıdır; eğilme mukavemetini sağlar.
+    </dd>
+
+    <dt>Taban Plakası Akma Dayanımı (MPa)</dt>
+    <dd>
+      Taban sacının akma gerilmesidir (Fy). Malzeme sertifikasından siz girin.
+    </dd>
+
+    <dt>Temel İzin Verilen Yataklık Basıncı (MPa)</dt>
+    <dd>
+      Beton temelin ezilmeden taşıyabileceği azami basınçtır. Boş bırakılırsa yataklık gerilmesi denetlenmez.
+    </dd>
+
+    <dt>Taban Plakası Alanı (mm²)</dt>
+    <dd>
+      Taban sacının oturma alanıdır (rapor çıktısı için bilgi amaçlı kullanılır).
+    </dd>
+
+    <dt>Ankraj Cıvatası Adedi (adet)</dt>
+    <dd>
+      Her bir ayağın taban sacından temele bağlanan ankraj cıvatası sayısıdır.
+    </dd>
+
+    <dt>Ankraj Cıvatası Nominal Çapı (mm)</dt>
+    <dd>
+      Ankraj saplamasının anma çapıdır (rapor çıktısı içindir).
+    </dd>
+
+    <dt>Ankraj İzinli Çekme (N)</dt>
+    <dd>
+      Bir ankraj cıvatasının emniyetle taşıyabileceği azami çekme kuvvetidir.
+    </dd>
+
+    <dt>Ankraj İzinli Kesme (N)</dt>
+    <dd>
+      Ankraj cıvatasının taşıyabileceği azami kesme kuvvetidir.
+    </dd>
+
+    <dt>Yatay Taban Yükü (N)</dt>
+    <dd>
+      Rüzgâr veya depremden kaynaklanıp ayak tabanına aktarılan toplam yatay kesme kuvvetidir; ankraj kesme kontrolünde kullanılır.
+    </dd>
+
+    <dt>Ped–Gövde Kaynak Bacağı (mm)</dt>
+    <dd>
+      (Bu alan kaynaklar akordeonunda görünür; Görsel: 33-girdiler-ayak-kaynaklar.png). Takviye sacını gövdeye bağlayan köşe kaynağının bacak ölçüsüdür.
+    </dd>
+
+    <dt>Ayak–Ped Kaynak Bacağı (mm)</dt>
+    <dd>
+      Profil ayağı takviye pedine bağlayan köşe kaynağının bacak boyudur.
+    </dd>
+
+    <dt>Ayak–Taban Plakası Kaynak Bacağı (mm)</dt>
+    <dd>
+      Profil ayağı alt taban plakasına birleştiren köşe kaynak bacak boyudur.
+    </dd>
+
+    <dt>Elektrot Dayanımı Fexx (MPa)</dt>
+    <dd>
+      Kaynak elektrodunun nominal çekme dayanımıdır (örneğin E70 serisi elektrotlar için yaklaşık 480 MPa).
+    </dd>
+
+    <dt>Asgari Köşe Kaynak Bacağı (mm)</dt>
+    <dd>
+      İlgili standardın (örneğin AWS D1.1) birleşen parçaların kalınlığına göre zorunlu kıldığı en küçük köşe kaynak bacağıdır.
+    </dd>
+
+    <dt>ML Eğrisi β</dt>
+    <dd>
+      (Bu alan WRC katsayıları akordeonunda görünür; Görsel: 34-girdiler-ayak-wrc.png). Ayak boyuna momenti için WRC bülteninden okunan boyutsuz ataçman parametresidir. Boyuna moment varken boş bırakılırsa WRC hesabı kilitlenir.
+    </dd>
+
+    <dt>MC Eğrisi β</dt>
+    <dd>
+      Ayak çevresel momenti için WRC bülteninden okunan boyutsuz parametredir; çevresel moment varsa zorunludur.
+    </dd>
+
+    <dt>WRC Katsayıları tablosu</dt>
+    <dd>
+      Ayak mesnedinin gövde üzerinde oluşturduğu yerel gerilmeleri çözmek için WRC bülteninden okunan boyutsuz katsayılar tablosudur. Aktif dış yük varken bu katsayılar boş bırakılırsa analiz kilitlenir. Tablo; A, B, C ve D köşe noktalarında etkiyen 5 yük tipi (P radyal, ML boyuna moment, MC çevresel moment, VL boyuna kesme, VC çevresel kesme) altında oluşan 4 gerilme bileşenini (Nx, Ny membran kuvvetleri ile Mx, My eğilme momentleri) içeren toplam 80 hücreden oluşur. Bu 80 hücrenin tam listesi aşağıdadır:
+      <ul>
+        <li>Nokta A · P (radyal) · Nx, Ny, Mx, My</li>
+        <li>Nokta A · ML (boyuna moment) · Nx, Ny, Mx, My</li>
+        <li>Nokta A · MC (çevresel moment) · Nx, Ny, Mx, My</li>
+        <li>Nokta A · VL (boyuna kesme) · Nx, Ny, Mx, My</li>
+        <li>Nokta A · VC (çevresel kesme) · Nx, Ny, Mx, My</li>
+        <li>Nokta B · P (radyal) · Nx, Ny, Mx, My</li>
+        <li>Nokta B · ML (boyuna moment) · Nx, Ny, Mx, My</li>
+        <li>Nokta B · MC (çevresel moment) · Nx, Ny, Mx, My</li>
+        <li>Nokta B · VL (boyuna kesme) · Nx, Ny, Mx, My</li>
+        <li>Nokta B · VC (çevresel kesme) · Nx, Ny, Mx, My</li>
+        <li>Nokta C · P (radyal) · Nx, Ny, Mx, My</li>
+        <li>Nokta C · ML (boyuna moment) · Nx, Ny, Mx, My</li>
+        <li>Nokta C · MC (çevresel moment) · Nx, Ny, Mx, My</li>
+        <li>Nokta C · VL (boyuna kesme) · Nx, Ny, Mx, My</li>
+        <li>Nokta C · VC (çevresel kesme) · Nx, Ny, Mx, My</li>
+        <li>Nokta D · P (radyal) · Nx, Ny, Mx, My</li>
+        <li>Nokta D · ML (boyuna moment) · Nx, Ny, Mx, My</li>
+        <li>Nokta D · MC (çevresel moment) · Nx, Ny, Mx, My</li>
+        <li>Nokta D · VL (boyuna kesme) · Nx, Ny, Mx, My</li>
+        <li>Nokta D · VC (çevresel kesme) · Nx, Ny, Mx, My</li>
+      </ul>
+    </dd>
+  </dl>
+
+  <div class="ipucu">
+    <strong>Sık yapılan hatalar:</strong>
+    <ul>
+      <li>Etek ortalama çapı yerine dış çap girmek basma gerilmesini olduğundan küçük göstererek tehlike yaratır.</li>
+      <li>Eyer sarma açısını 120 derecenin altında belirleyip kabukta ezilmeye yol açmak.</li>
+    </ul>
+  </div>
+
+  <h3>3.5. Malzeme</h3>
+  <p>
+    Bu ekran, kabın basınç taşıyan parçalarının (gövde, bombeleler, nozullar) çelik malzeme özelliklerini tanımlar. Telif hakları kısıtlaması nedeniyle ASME standart gerilme tabloları programın içinde gömülü olarak yer almaz. Bu nedenle izin verilen gerilme, akma dayanımı ve çekme dayanımı gibi kritik sayıları malzeme sertifikanızdan veya ilgili standardın tablosundan siz girmelisiniz; boş (0) bırakılırsa hesap hata verir.
+  </p>
+
+  <figure>
+    <img src="img/35-girdiler-malzeme.png" alt="Malzeme Özellikleri Formu">
+    <figcaption>Şekil: Malzeme tanımlama ve mekanik özellikler formu</figcaption>
+  </figure>
+
+  <dl>
+    <dt>Malzeme listesi: seçim kartı / + Malzeme Ekle / ✕ sil</dt>
+    <dd>
+      Projede tanımlı malzemeleri (örneğin MAT-01) listeler, yeni malzeme kartı ekler veya kullanılmayan malzemeyi siler.
+    </dd>
+
+    <dt>Malzeme Tanımı</dt>
+    <dd>
+      Malzemenin resmî standart sertifikasındaki adıdır (örneğin SA-516 Gr. 70 veya SA-240 Type 304).
+    </dd>
+
+    <dt>İzin Verilen Gerilme (S) (MPa)</dt>
+    <dd>
+      Malzemenin tasarım sıcaklığındaki azami izin verilen gerilmesidir. Kabın gerekli et kalınlığını doğrudan belirleyen en temel sayıdır. Bu değeri malzeme sertifikanızdan veya ilgili standardın tablosundan siz girin; boş (0) bırakılırsa hesap hata verir.
+    </dd>
+
+    <dt>S Değerinin Sıcaklığı (°C)</dt>
+    <dd>
+      Yukarıdaki S gerilme değerinin okunduğu sıcaklıktır. İkinci adımdaki tasarım sıcaklığıyla aynı olmalıdır; farklı girilirse program gerilmenin doğrulanmadığını belirten inceleme uyarısı verir.
+    </dd>
+
+    <dt>Kalınlık Aralığı — En Az (mm)</dt>
+    <dd>
+      Girilen gerilme değerinin geçerli olduğu en küçük plaka kalınlığı sınırıdır.
+    </dd>
+
+    <dt>Kalınlık Aralığı — En Çok (mm)</dt>
+    <dd>
+      Girilen gerilme değerinin geçerli olduğu en büyük sac kalınlığı sınırıdır (0 girilirse 999 mm sayılır).
+    </dd>
+
+    <dt>Test Sıcaklığında S (MPa)</dt>
+    <dd>
+      Malzemenin hidrostatik test sıcaklığındaki (genellikle 20 °C) izin verilen gerilmesidir. UG-99(b) formülündeki LSR (test sıcaklığı / tasarım sıcaklığı gerilme oranı) için gerekir. Bu değeri sertifikanızdan veya standarttan siz girin; boş (0) bırakılırsa test basıncı hesabı doğrulanamaz ve inceleme gerektirir.
+    </dd>
+
+    <dt>Akma Dayanımı (MPa)</dt>
+    <dd>
+      Malzemenin kalıcı şekil değiştirmeye başladığı gerilme sınırıdır (Fy). Bu değeri malzeme sertifikanızdan veya standardın tablosundan siz girin; boş (0) bırakılırsa hesap hata verir.
+    </dd>
+
+    <dt>Çekme Dayanımı (MPa)</dt>
+    <dd>
+      Malzemenin kopmadan önce ulaşabildiği en yüksek çekme gerilmesidir (Fu). Bu değeri malzeme sertifikanızdan veya ilgili standardın tablosundan siz girin; boş (0) bırakılırsa hesap hata verir.
+    </dd>
+
+    <dt>Yoğunluk (kg/m³)</dt>
+    <dd>
+      Çeliğin birim hacim kütlesidir (karbon çeliği için tipik 7850 kg/m³). Kabın metal ağırlığını hesaplamada kullanılır.
+    </dd>
+
+    <dt>Elastisite Modülü E (MPa)</dt>
+    <dd>
+      Malzemenin elastik şekil değiştirme direncidir (Young modülü). Yalnızca sonlu elemanlar (FEA) yer değiştirme hesaplarında kullanılır; kapalı form ASME formüllerini etkilemez. Boş (0) bırakılırsa 200.000 MPa varsayılır.
+    </dd>
+
+    <dt>Poisson Oranı ν</dt>
+    <dd>
+      Malzemenin enine daralma oranını gösteren boyutsuz katsayıdır. Yalnızca FEA için kullanılır; 0 ile 0,5 arasında olmalıdır, boş bırakılırsa 0,3 varsayılır.
+    </dd>
+
+    <dt>UCS-66 Eğri Grubu</dt>
+    <dd>
+      ASME UCS-66 uyarınca malzemenin darbe tokluğu (gevrek kırılma direnci) eğri grubudur. Seçenekler: "— girilmedi —", "A", "B", "C", "D". Malzeme belgesinden seçilmelidir; girilmezse MDMT (en düşük tasarım metal sıcaklığı) kontrolü yapılmaz.
+    </dd>
+  </dl>
+
+  <div class="ipucu">
+    <strong>Sık yapılan hatalar:</strong>
+    <ul>
+      <li>İzin verilen gerilme (S) veya akma dayanımını girmeyip 0 bırakmak (hesap anında hata verir ve kalınlık türetilemez).</li>
+      <li>Tasarım sıcaklığındaki S değeri yerine oda sıcaklığındaki gerilmeyi girerek yüksek sıcaklıkta kabı zayıf tasarlamak.</li>
+    </ul>
+  </div>
+
+  <h3>3.6. Kaynak & NDT</h3>
+  <p>
+    Bu ekran, kabın imalatında kullanılan kaynak dikişlerinin verim katsayısını ve uygulanacak tahribatsız muayene (NDT/NDE) seviyesini belirler. Kaynak dikişinin kalitesi ve denetim sıklığı arttıkça kaynak verimi artar ve gövdenin gerekli et kalınlığı azalır.
+  </p>
+
+  <figure>
+    <img src="img/36-girdiler-kaynak-ndt.png" alt="Kaynak ve NDT Formu">
+    <figcaption>Şekil: Kaynak verimi ve NDT (tahribatsız muayene) girdi formu</figcaption>
+  </figure>
+
+  <dl>
+    <dt>Kaynak listesi: seçim kartı / + Kaynak Ekle / ✕ sil</dt>
+    <dd>
+      Tanımlı kaynak birleşimlerini (örneğin boyuna dikiş için WJ-01, çevresel dikiş için WJ-02) yönetir; yeni kaynak tipi ekler veya siler.
+    </dd>
+
+    <dt>Kaynak Verimi (E)</dt>
+    <dd>
+      Kaynak dikişinin ana metal kadar yük taşıyabilme katsayısıdır (0,70 ile 1,00 arası). Yapılan radyografik denetime bağlıdır: %100 tam röntgen kontrolü için 1,00; lokal spot kontrol için 0,85; kontrolsüz kaynak için 0,70 girilir. Et kalınlığı formülünde paydada yer alır; verim düştükçe gerekli sac kalınlığı artar.
+    </dd>
+
+    <dt>NDE Yöntemi</dt>
+    <dd>
+      Uygulanan tahribatsız muayene yöntemidir (örneğin RT = Radyografik Röntgen, UT = Ultrasonik, PT = Sıvı Penetrant).
+    </dd>
+
+    <dt>NDE Kapsamı</dt>
+    <dd>
+      Kaynağın ne kadarlık kısmının muayene edileceğidir (örneğin "100%" tam muayene veya "spot" bölgesel muayene).
+    </dd>
+
+    <dt>Seçili gövde (…) kaynak birleşimi</dt>
+    <dd>
+      Geometride seçilmiş olan gövde kesitinin boyuna kaynak dikişine listedeki hangi kaynak tanımının atanacağını belirler. "— yok —" seçilirse kaynak verimi atanamaz.
+    </dd>
+  </dl>
+
+  <div class="ipucu">
+    <strong>Sık yapılan hatalar:</strong>
+    <ul>
+      <li>Röntgen kontrolü yapılmayacak bir kaynağa E = 1,00 yazarak sacı olması gerekenden çok daha ince hesaplatmak.</li>
+      <li>Gövde veya bombe kartlarında kaynak birleşimini boş bırakmak.</li>
+    </ul>
+  </div>
+
+  <h3>3.7. BOM Maliyet Girdileri</h3>
+  <p>
+    Bu ekran, kabın tahmini imalat bütçesini hesaplamak için kullanılan birim fiyat ve işçilik girdilerini içerir. BOM (Bill of Materials - Malzeme Listesi) kartı, metal ağırlıkları ile bu birim fiyatları çarparak yaklaşık bir maliyet tablosu üretir.
+  </p>
+
+  <figure>
+    <img src="img/37-girdiler-bom-maliyet.png" alt="BOM Maliyet Girdi Formu">
+    <figcaption>Şekil: BOM (Malzeme listesi) birim fiyat ve işçilik maliyet girdileri</figcaption>
+  </figure>
+
+  <dl>
+    <dt>&lt;Malzeme tanımı&gt; (&lt;ID&gt;) birim fiyatı (malzeme başına bir alan) (€/kg)</dt>
+    <dd>
+      Projede tanımlı her bir malzeme için kilogram başına satın alma fiyatıdır. Varsayılanı yoktur; boş bırakılırsa o malzeme için parasal maliyet hesaplanmaz ve sonuçlarda uyarı çıkar.
+    </dd>
+
+    <dt>Kaynak / işçilik süresi (saat)</dt>
+    <dd>
+      Kabın kesim, kaynak ve montaj işçiliği için harcanacak toplam tahmini adam-saat süresidir.
+    </dd>
+
+    <dt>Saat ücreti (€/saat)</dt>
+    <dd>
+      Atölye işçiliğinin saatlik birim maliyetidir.
+    </dd>
+
+    <dt>NDT toplam bedeli (€)</dt>
+    <dd>
+      Kaynak muayeneleri (röntgen, ultrason vb.) için dışarıdan alınan laboratuvar veya denetim hizmetinin toplam sabit tutarıdır.
+    </dd>
+
+    <dt>Boya / kaplama toplam bedeli (€)</dt>
+    <dd>
+      Kabın kumlama, astar ve dış koruyucu boya işlemleri için ödenecek toplam sabit tutardır.
+    </dd>
+  </dl>
+
+  <div class="ipucu">
+    <strong>Sık yapılan hatalar:</strong>
+    <ul>
+      <li>Birim fiyatları boş bırakıp maliyet tablosunda neden toplam maliyet görünmediğini merak etmek.</li>
+    </ul>
+  </div>
+
+  <h3>3.8. Kaldırma Kulağı</h3>
+  <p>
+    Bu ekran, kabın atölyede veya sahada vinçle güvenle kaldırılabilmesi için üzerine kaynatılan kaldırma kulaklarının mukavemetini hesaplar. Kaldırma sırasında sacın delikten yırtılması, kaynak dikişinin kopması ve kabuk cidarının bükülmesi burada kontrol edilir.
+  </p>
+
+  <figure>
+    <img src="img/38-girdiler-kaldirma-kulagi.png" alt="Kaldırma Kulağı Girdi Formu">
+    <figcaption>Şekil: Kaldırma kulağı parametreleri formu</figcaption>
+  </figure>
+
+  <dl>
+    <dt>Kaldırma kulağı ekle / Kulakları kaldır (düğmeler)</dt>
+    <dd>
+      Kaba kaldırma kulağı ekler veya mevcut kulakları kaldırır. Kulak eklenmezse kaldırma analizi çalıştırılmaz.
+    </dd>
+
+    <dt>Kulak sayısı (adet)</dt>
+    <dd>
+      Kaldırma için kaba kaynatılan kulak adedidir (1 ile 4 arası). Mühendislik standartları gereği 3 veya 4 kulak tanımlansa dahi yükün yalnız 2 kulak tarafından eşit paylaşıldığı tutucu varsayımı uygulanır.
+    </dd>
+
+    <dt>Konum</dt>
+    <dd>
+      Kulakların kaynaklandığı yerdir. Seçenekler: "Gövde üstü" veya "Bombe".
+    </dd>
+
+    <dt>Plaka kalınlığı t (mm)</dt>
+    <dd>
+      Kaldırma kulağının imal edildiği çelik sacın et kalınlığıdır.
+    </dd>
+
+    <dt>Plaka genişliği b (mm)</dt>
+    <dd>
+      Kaldırma sacının yatay genişliğidir.
+    </dd>
+
+    <dt>Delik çapı (mm)</dt>
+    <dd>
+      Vinç kilit piminin (şakülün) geçeceği yuvarlak deliğin çapıdır. Pim çapından biraz büyük olmalıdır.
+    </dd>
+
+    <dt>Delik merkezi-kenar mesafesi e (mm)</dt>
+    <dd>
+      Deliğin merkezinden plakanın en yakın dış serbest kenarına olan mesafedir. Deliğin yırtılmaması için kritik boyuttur.
+    </dd>
+
+    <dt>Delik yüksekliği h (kabuktan) (mm)</dt>
+    <dd>
+      Delik merkezinin kabuk cidarından itibaren yüksekliğidir; kabuk üzerinde oluşacak eğilme moment kolunu oluşturur.
+    </dd>
+
+    <dt>Taban genişliği (mm)</dt>
+    <dd>
+      Kulağın kabuğa oturduğu kaynaklı taban çizgisinin genişliğidir.
+    </dd>
+
+    <dt>Kaynak boyu (toplam) (mm)</dt>
+    <dd>
+      Kulağın kabuğa kaynatıldığı dikişlerin toplam boyudur (genellikle taban genişliğinin iki katı, çift taraflı kaynak).
+    </dd>
+
+    <dt>Kaynak ayak ölçüsü (mm)</dt>
+    <dd>
+      Kulak köşe kaynağının bacak ölçüsüdür.
+    </dd>
+
+    <dt>Sapan açısı (düşeyden) (°)</dt>
+    <dd>
+      Kaldırma halatının düşey eksenle yaptığı açıdır (0° ile 89° arası). Açı büyüdükçe halattaki çekme kuvveti ve kulağa etkiyen yanal yük hızla artar.
+    </dd>
+
+    <dt>Darbe katsayısı</dt>
+    <dd>
+      Vincin ani kalkış, fren ve sarsıntı dinamik etkilerini temsil eden güvenlik çarpanıdır. Tipik aralık 1,5 ile 2,0 arasındadır; en az 1,0 olmalıdır.
+    </dd>
+
+    <dt>Plaka akma dayanımı Fy (MPa)</dt>
+    <dd>
+      Kulak çeliğinin akma dayanımıdır; malzeme sertifikasından siz girin.
+    </dd>
+
+    <dt>Ek kaldırılan kütle (kg)</dt>
+    <dd>
+      Kaldırma sırasında kap üzerinde bulunabilecek boru, vana, merdiven veya izolasyon gibi ek ağırlıklardır.
+    </dd>
+  </dl>
+
+  <div class="ipucu">
+    <strong>Sık yapılan hatalar:</strong>
+    <ul>
+      <li>Sapan açısını hesaba katmayıp (0° girip) sahada 60° açıyla vinç kaldırışı yaparak kulağı bükmek.</li>
+      <li>Darbe katsayısını 1,0 alarak vincin dinamik sarsıntı payını sıfır saymak.</li>
+    </ul>
+  </div>
+
+  <h3>3.9. Koni Birleşimi (App. 1-5) ve Etek Taban Halkası</h3>
+  <p>
+    Bu ekran; silindirik gövde ile konik daralma/genişleme parçalarının birleştiği kavşak noktalarındaki takviye halkası ihtiyacını ve dikey proses kolonlarının etek taban halkası ile ankraj cıvatası mukavemetini hesaplar.
+  </p>
+
+  <figure>
+    <img src="img/39-girdiler-koni-birlesimi-ayak-kabi.png" alt="Koni Birleşimi Formu">
+    <figcaption>Şekil: Koni birleşimi ve etek taban halkası girdi ekranı</figcaption>
+  </figure>
+
+  <dl>
+    <dt>&lt;Junction&gt; Δ (Table 1-5.2) (koni birleşimi başına) (°)</dt>
+    <dd>
+      (Bu alan yalnız gövde zincirinde koni eklendiğinde görünür). ASME Ek 1-5 Tablo 1-5.2'den okunan koni birleşim açısı katsayısıdır. Boş veya 0 bırakılırsa sistem güvenli tarafta kalarak Δ = 0° kabul eder ve takviye ihtiyacını buna göre değerlendirir.
+    </dd>
+
+    <dt>&lt;Junction&gt; ek halka alanı (koni birleşimi başına) (mm²)</dt>
+    <dd>
+      (Bu alan yalnız gövde zincirinde koni eklendiğinde görünür). Koni birleşim dikişine dışarıdan eklenen takviye profili veya halkasının net enkesit alanıdır.
+    </dd>
+
+    <dt>Halka dış çapı (mm)</dt>
+    <dd>
+      (Bu alan yalnız Etek desteği tanımlı olduğunda görünür; Görsel: 63-etek-girdiler-taban-halkasi.png). Dikey kolon eteğinin tabanında betona basan çelik halkanın dış çapıdır.
+    </dd>
+
+    <dt>Halka iç çapı (mm)</dt>
+    <dd>
+      (Bu alan yalnız Etek desteği tanımlı olduğunda görünür). Etek taban halkasının iç delik çapıdır.
+    </dd>
+
+    <dt>Halka kalınlığı (mm)</dt>
+    <dd>
+      (Bu alan yalnız Etek desteği tanımlı olduğunda görünür). Taban halkasının sac et kalınlığıdır. Beton ezilme basıncına ve cıvata çekmesine karşı eğilme direncini sağlar.
+    </dd>
+
+    <dt>Halka Fy (MPa)</dt>
+    <dd>
+      (Bu alan yalnız Etek desteği tanımlı olduğunda görünür). Taban halkası sacının akma dayanımıdır; malzeme sertifikasından siz girin.
+    </dd>
+
+    <dt>Cıvata dairesi çapı (mm)</dt>
+    <dd>
+      (Bu alan yalnız Etek desteği tanımlı olduğunda görünür). Ankraj cıvatalarının dizildiği eksenel çemberin çapıdır.
+    </dd>
+
+    <dt>Cıvata adedi (adet)</dt>
+    <dd>
+      (Bu alan yalnız Etek desteği tanımlı olduğunda görünür). Taban halkasındaki toplam ankraj cıvatası sayısıdır.
+    </dd>
+
+    <dt>Cıvata çapı (mm)</dt>
+    <dd>
+      (Bu alan yalnız Etek desteği tanımlı olduğunda görünür). Ankraj cıvatasının milimetre cinsinden anma diş çapıdır.
+    </dd>
+
+    <dt>Cıvata izin çekme (MPa)</dt>
+    <dd>
+      (Bu alan yalnız Etek desteği tanımlı olduğunda görünür). Ankraj cıvatası çeliğinin izin verilen çekme gerilmesidir. Girilmesi zorunludur (K6 kuralı); bu değer boş bırakılırsa hesap BLOCKED (engellendi) döner.
+    </dd>
+
+    <dt>Cıvata izin kesme (MPa)</dt>
+    <dd>
+      (Bu alan yalnız Etek desteği tanımlı olduğunda görünür). Ankraj cıvatasının izin verilen kayma gerilmesidir; rüzgâr veya deprem gibi yatay taban yükleri varken zorunludur.
+    </dd>
+
+    <dt>Beton f'c (MPa)</dt>
+    <dd>
+      (Bu alan yalnız Etek desteği tanımlı olduğunda görünür). Temel betonunun 28 günlük karakteristik silindir basınç dayanımıdır (örneğin C25 sınıfı beton için 25 MPa).
+    </dd>
+
+    <dt>Beton izin yataklık (opsiyonel) (MPa)</dt>
+    <dd>
+      (Bu alan yalnız Etek desteği tanımlı olduğunda görünür). Betonun ezilmeye karşı emniyetli yataklık gerilmesidir. Boş bırakılırsa standart formülle (0,85 · f'c / 2,31) hesaplanır.
+    </dd>
+  </dl>
+
+  <div class="ipucu">
+    <strong>Sık yapılan hatalar:</strong>
+    <ul>
+      <li>Cıvata izin verilen çekme gerilmesini girmeyip etek taban hesabı sonucunun neden bloke kaldığını aramak.</li>
+      <li>Taban halkası dış çapını etek çapından küçük girerek geometrik uyumsuzluk yaratmak.</li>
+    </ul>
+  </div>
+
+  <h2 id="g3-2">Adım 4 — Hesap Sonuçları</h2>
+  <p>
+    Hesap Sonuçları ekranı, girdiğiniz tüm ölçülerin, malzemelerin ve yüklerin ASME Bölüm VIII Bölüm 1 standardına göre çözümlendiği ve tasarımın emniyetinin onaylandığı merkezi rapordur. Bu ekranda her bir parçanın basınç dayanımı, korozyon payı düşüldükten sonra kalan et kalınlığı ve emniyet katsayıları topluca listelenir.
+  </p>
+
+  <figure>
+    <img src="img/40-sonuc-ozet.png" alt="Hesap Sonuçları KPI ve Özet Ekranı">
+    <figcaption>Şekil: Hesap sonuçları özet paneli ve temel göstergeler (KPI)</figcaption>
+  </figure>
+
+  <figure>
+    <img src="img/41-sonuc-tam.png" alt="Hesap Sonuçları Tam Tablolar">
+    <figcaption>Şekil: Hesap sonuçları tam kontrol tabloları</figcaption>
+  </figure>
+
+  <dl>
+    <dt>Hesapla / ↻ Yeniden Hesapla (düğme)</dt>
+    <dd>
+      Proje verilerini hesaplama motoruna göndererek tüm formülleri baştan çözer. Geometride veya girdilerde herhangi bir değişiklik yapıldığında sonuçları güncellemek için bu düğmeye basılır.
+    </dd>
+
+    <dt>Gerekli kalınlık (required thickness)</dt>
+    <dd>
+      Standart formüllerine göre kabın uygulanan iç veya dış basınca güvenle dayanabilmesi için fiziksel olarak sahip olması gereken net asgari metal kalınlığıdır. Bu değere korozyon payı ve sac imalat toleransı dahil değildir. Bir sacın güvenli sayılması için, korozyon payı düşülmüş gerçek kalınlığının bu gerekli kalınlıktan büyük olması şarttır.
+    </dd>
+
+    <dt>Nominal kalınlık (nominal thickness)</dt>
+    <dd>
+      Tasarımda girdiğiniz ve fabrikadan satın alınacak olan plakanın ham sac kalınlığıdır. Nominal kalınlıktan korozyon payı (örneğin 2 mm) ve sac hadde toleransı (%12,5) düşüldükten sonra kalan net kalınlık, yukarıdaki gerekli kalınlıktan büyük veya eşit olmalıdır. Aksi halde kap basınç altında patlama riski taşır.
+    </dd>
+
+    <dt>MAWP (Maximum Allowable Working Pressure)</dt>
+    <dd>
+      Kabın taşıyabileceği azami izin verilen çalışma basıncıdır. Kap korozyona uğrayıp et kalınlığı aşındığında dahi, tasarım sıcaklığında en zayıf bileşenin güvenle tutabileceği tavan basıncı gösterir. Sonuç ekranında hesaplanan "Global MAWP" değeri, tüm parçalar arasındaki en düşük MAWP değerine eşittir ve ikinci adımda girdiğiniz tasarım basıncından yüksek çıkmalıdır. Tasarım basıncının altında kalan bir MAWP, kabın o basınçta çalışamayacağını gösterir.
+    </dd>
+
+    <dt>Hidrotest basıncı (hydrostatic test pressure)</dt>
+    <dd>
+      İmalat tamamlandıktan sonra kabın fabrikada su doldurularak tabi tutulacağı basınç dayanım testinin (ASME UG-99) değeridir. MAWP değerinin 1,3 katı ile test sıcaklığı / tasarım sıcaklığı gerilme oranının (LSR) çarpılmasıyla bulunur. Kabın bu yüksek test basıncında kalıcı deformasyona uğramadan ve sızdırmadan testi geçmesi zorunludur.
+    </dd>
+
+    <dt>Durum (PASS / FAIL / REVIEW_REQUIRED / BLOCKED)</dt>
+    <dd>
+      Her bir kontrol satırının ve genel tasarımın güvenlik durumunu belirten onay göstergesidir:
+      <ul>
+        <li><strong>PASS (Geçti):</strong> Hesaplama ASME kriterlerini tam olarak karşılamıştır. Gerilme ve kalınlık kullanım oranı %100'ün altındadır; parça güvenlidir.</li>
+        <li><strong>FAIL (Başarısız):</strong> Parça standart sınırını aşmıştır; et kalınlığı yetersizdir veya gerilme emniyet sınırını geçmiştir. Kalınlığı artırmanız veya basıncı düşürmeniz gerekir.</li>
+        <li><strong>REVIEW_REQUIRED (İnceleme Gerekli):</strong> Hesaplama yapılmıştır ancak doğrulanmamış bir katalog değeri veya kabule dayalı yaklaşık bir yöntem kullanılmıştır; sorumlu mühendisin onaylaması gerekir.</li>
+        <li><strong>BLOCKED (Engellendi / Veri Eksik):</strong> Malzeme gerilmesi, flanş katsayısı veya etek basma değeri gibi zorunlu bir girdi boş bırakıldığı için kontrol hiç çalıştırılamamıştır.</li>
+      </ul>
+    </dd>
+
+    <dt>Notlar / Varsayımlar</dt>
+    <dd>
+      Sonuç tablosundaki herhangi bir satıra tıklandığında açılan ayrıntı çekmecesidir (Görsel: 42-sonuc-satir-acik.png). Burada formülde kullanılan ara sayısal değerler, uygulanan ASME madde numaraları, korozyon düşümleri ve varsa sistemin yaptığı mühendislik varsayımları şeffaf şekilde listelenir.
+    </dd>
+  </dl>
+
+  <div class="ipucu">
+    <strong>Sık yapılan hatalar:</strong>
+    <ul>
+      <li>"BLOCKED" veya "REVIEW_REQUIRED" durumunu "PASS" zannedip tasarımın onaylandığını varsaymak.</li>
+      <li>Global MAWP değerinin tasarım basıncından küçük çıktığını fark etmeyip imalata onay vermek.</li>
+    </ul>
+  </div>
+
+  <h2 id="g3-3">Adım 5 — 3D Model</h2>
+  <p>
+    3D Model ekranı, girdiğiniz ölçüler doğrultusunda matematiksel olarak türetilen katı modeli tarayıcınızda gerçek zamanlı olarak incelemenizi sağlar. Bu ekranda nozulların yönelimleri, desteklerin yerleşimi, et kalınlıkları ve kabın genel orantısı görsel olarak denetlenir.
+  </p>
+
+  <figure>
+    <img src="img/43-3d-model.png" alt="3D Model Görüntüleyici Ekranı">
+    <figcaption>Şekil: Adım 5 — 3D model görüntüleyici ve ana ölçüler paneli</figcaption>
+  </figure>
+
+  <dl>
+    <dt>3D Modeli Oluştur / ↻ Yenile / ⬇ STEP (düğmeler)</dt>
+    <dd>
+      Model henüz oluşturulmamışsa projeyi kaydedip üç boyutlu mesh modelini üretir. "↻ Yenile" modeli en güncel ölçülerle baştan derler. "⬇ STEP" düğmesi ise modeli SolidWorks, Autodesk Inventor veya FreeCAD gibi profesyonel CAD yazılımlarında doğrudan açabileceğiniz yüksek kaliteli STEP biçiminde bilgisayarınıza indirir.
+    </dd>
+
+    <dt>⧗ Kesit Görünümü ↔ ▣ Tam Görünüm</dt>
+    <dd>
+      Modeli eksen boyunca boylamasına keserek kabın iç cidarını, et kalınlığını ve nozul iç çıkıntılarını görmenizi sağlar (Görsel: 44-3d-model-kesit.png). Düğmeye tekrar basıldığında tam gövde görünümüne geri döner.
+    </dd>
+
+    <dt>⏸ Döndürmeyi Durdur ↔ ↻ Otomatik Döndür</dt>
+    <dd>
+      Modelin ekran üzerinde kendi etrafında yavaşça dönmesini durdurur veya yeniden başlatır. Fare ile manuel döndürme yapıldığında otomatik döndürme kendiliğinden durur.
+    </dd>
+
+    <dt>Kamera çubuğu (İzo / Üst / Ön / Yan / Sığdır)</dt>
+    <dd>
+      Modeli standart mühendislik bakış açılarına odaklar. "İzo" perspektif izometrik görünüm sağlar; "Üst", "Ön" ve "Yan" iki boyutlu teknik görünüşleri verir; "Sığdır" ise modeli ekran sınırlarına tam sığacak şekilde ortalar.
+    </dd>
+  </dl>
+
+  <div class="ipucu">
+    <strong>Sık yapılan hatalar:</strong>
+    <ul>
+      <li>Görsel modeldeki nozul ve mesnetlerin birbiriyle çakışıp çakışmadığını kesit görünümüyle kontrol etmemek.</li>
+      <li>Ekrandaki görsel mesh modelini imalat modeli sanmak (imalat ve lazer kesim için STEP dosyası indirilmelidir).</li>
+    </ul>
+  </div>
+
+  <h2 id="g3-4">Adım 6 — Rapor & Çıktı</h2>
+  <p>
+    Rapor ve Çıktılar ekranı, tüm ASME VIII-1 hesaplarını, malzeme sertifika izlenebilirlik föylerini ve imalat açınım şablonlarını içeren resmî mühendislik hesap raporunun alındığı son adımdır. Buradan PDF hesap raporu, 3D STEP modeli ve CNC tezgahlarda doğrudan kesim için DXF açınım dosyaları indirilebilir.
+  </p>
+
+  <figure>
+    <img src="img/45-rapor-sayfa.png" alt="Rapor ve Çıktılar Ekranı">
+    <figcaption>Şekil: Adım 6 — Rapor özeti ve çıktı indirme seçenekleri</figcaption>
+  </figure>
+
+  <dl>
+    <dt>Raporu Üret (düğme)</dt>
+    <dd>
+      Tüm hesap çıktılarından ve proje kimlik bilgilerinden 23 bölümlük tam kapsamlı HTML hesap raporunu derler ve ekran içindeki önizleme penceresine yükler.
+    </dd>
+
+    <dt>Kaynak ağzı payı (mm)</dt>
+    <dd>
+      (Açınım şablonları panelinde yer alır; Görsel: 49-rapor-sayfa-tam-acinim.png). Sac levhalar silindir şeklinde kıvrılmadan önce kaynak ağzı için bırakılacak montaj aralığı boşluğudur (en az 0 mm). Düz sac açınım boyunu hassas olarak düzeltir.
+    </dd>
+
+    <dt>Bombe petal sayısı</dt>
+    <dd>
+      (Açınım şablonları panelinde yer alır). Büyük çaplı bombelerin tek parça sacdan basılamayıp dilimler (petaller) halinde preslenip kaynatılması durumunda açınımı yapılacak dilim sayısıdır (en az 3 adet, tipik 8 adet).
+    </dd>
+
+    <dt>Yeni Sekmede / PDF indir / STEP indir / DXF indir (düğmeler)</dt>
+    <dd>
+      Farklı formatlardaki çıktı alma düğmeleridir:
+      <ul>
+        <li><strong>Yeni Sekmede:</strong> Hesap raporunu tam sayfa olarak ayrı bir tarayıcı penceresinde açar.</li>
+        <li><strong>PDF indir:</strong> Tarayıcının yazdırma penceresini açar; rapor A4 baskı stillerine göre tasarlandığından hedef yazıcı olarak "PDF Olarak Kaydet" seçilerek resmî PDF raporu elde edilir.</li>
+        <li><strong>STEP indir:</strong> Kabın parametrik üç boyutlu katı modelini STEP dosya formatında indirir.</li>
+        <li><strong>DXF indir:</strong> Gövde silindir açınımı, koni açınımı ve bombe petallerinin CNC plazma/lazer kesim tezgahlarına doğrudan yüklenebilecek 2B DXF vektör çizimlerini parça bazında indirir.</li>
+      </ul>
+    </dd>
+  </dl>
+
+  <div class="ipucu">
+    <strong>Sık yapılan hatalar:</strong>
+    <ul>
+      <li>PDF çıktısı alırken tarayıcı yazdırma ayarlarında "Arka plan grafiklerini yazdır" kutusunu işaretlemeyip PASS/FAIL renkli kutularının raporda beyaz çıkmasına neden olmak.</li>
+      <li>Rapor sonundaki U-1A föyü taslağını yetkili ASME denetçisi (Authorized Inspector) imzası olmadan resmî tescil belgesi sanmak.</li>
+    </ul>
+  </div>
+</section>
+</div>
+<div class="son"><h2 style="border:0">Sonuç</h2>
+<p><strong>Sorumluluk reddi:</strong> Hesap sonuçları bir mühendis tarafından doğrulanmalıdır.</p></div>
+</body></html>
