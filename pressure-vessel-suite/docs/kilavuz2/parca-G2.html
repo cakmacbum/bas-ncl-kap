@@ -1,0 +1,257 @@
+<section id="g2">
+  <h2>3.3 Flanşlı Nozullar</h2>
+  <p>Bu ekran, basınçlı kabın üzerine akışkan girişi, çıkışı, tahliye hattı veya enstrüman bağlantısı sağlamak amacıyla kaynatılan flanşlı boru nozullarını (kabın boru tesisatına cıvatalarla bağlanmasını sağlayan flanşlı çıkış borularını) tanımlamak için kullanılır. Tesisatınızın gerektirdiği standart boru ve flanş ölçülerini seçtiğinizde, borunun dış çapı, iç çapı ve flanş boyutları standart kataloglardan sisteme otomatik olarak yüklenir ve kabın 3 boyutlu modeline işlenir. Bu sayede boru bağlantı noktalarınızın cidar üzerindeki yerleşimi ve delik takviye gereksinimleri hesaplamalara eksiksiz dahil edilir.</p>
+
+  <figure><img src="img/14-geometri-33-nozul.png" alt="3.3 Flanşlı nozul ekranı genel görünümü"><figcaption>Şekil: 3.3 Flanşlı Nozul Ekranı Genel Görünümü</figcaption></figure>
+  <figure><img src="img/15-geometri-33-nozul-form.png" alt="3.3 Nozul formu ve düzenleme paneli"><figcaption>Şekil: 3.3 Yeni Flanşlı Nozul Formu ve Düzenleme Paneli</figcaption></figure>
+
+  <h3>Flanşlı Nozul Alanları</h3>
+  <dl>
+    <dt>Tip</dt>
+    <dd>Nozulun kabuk cidarında ve boru hattında nasıl bir birleşime sahip olacağını belirleyen bağlantı türüdür. Seçenekler: <strong>Flanşlı</strong> (standart kaynak boyunlu flanşa sahip nozul), <strong>Slip-on flanş</strong> (borunun flanş diski içine geçirilerek içten ve dıştan kaynaklandığı tip), <strong>Pedli takviyeli</strong> (delik etrafında gövde sacını destekleyen takviye sacı bulunan tip) ve <strong>Adam deliği (manway)</strong> (kabın içine bakım ve muayene amacıyla personelin girebilmesi için açılan büyük çaplı giriş deliği). Değer tesisat ve bakım şartnamesinden belirlenir; yanlış tip seçimi bağlantı mukavemetini, imalat maliyetini ve montaj yöntemini doğrudan etkiler.</dd>
+
+    <dt>Boyut (NPS / DN)</dt>
+    <dd>Nozul borusunun standart anma ölçüsüdür. Seçim listesinde inç cinsinden NPS (Nominal Pipe Size - anma boru boyutu) ve milimetre cinsinden DN (Diameter Nominal - anma çapı) eşdeğerleri (örneğin 4 inç için DN100) yer alır. Değer borulama projesinden veya P&amp;ID (boru ve enstrüman şeması) belgelerinden alınır; boru ve flanşın standart dış çap, iç çap ve et kalınlığı ölçüleri bu seçime göre otomatik katalogdan doldurulur.</dd>
+
+    <dt>Et serisi (SCH)</dt>
+    <dd>Nozul borusunun duvar kalınlığını belirten Schedule (SCH) numarasıdır. Yaygın seçenekler arasında SCH40 (standart et kalınlığı), SCH80 (yüksek basınca dayanıklı kalın et) gibi seriler bulunur ve seçilen boyuta bağlı olarak milimetre cinsinden gerçek et kalınlığı seçenek yanında gösterilir. Tesisat basınç sınıfına ve mekanik dayanıma göre boru tablosundan seçilir; yetersiz bir seri seçilirse nozul boynu iç basınca dayanamayabilir.</dd>
+
+    <dt>Host (nereye gelecek?)</dt>
+    <dd>Nozulun kabın hangi gövde halkası veya bombe parçası üzerine monte edileceğini belirler. Seçenekler arasında silindirik gövde halkaları (SHELL), konik geçişler ve kabın iki ucundaki bombeler (uç kapaklar) yer alır. Nozulun bağlanacağı yer borulama yerleşim planına göre seçilmelidir; yanlış bileşen seçilirse nozul kabın hatalı bir bölgesine kaynatılır ve gerilme dağılımı bozulur.</dd>
+
+    <dt>Konum z (host başından) — gövde/koni host (mm)</dt>
+    <dd>Nozulun seçilen gövde veya koni halkasının başlangıç kenarından itibaren eksen boyunca olan mesafesidir. Formdaki kaydırıcı veya sayı kutusu üzerinden 0 ile seçilen host bileşenin toplam boyu arasında bir değer girilebilir. Değer doğrudan imalat ve yerleşim resminden alınmalıdır; sınırların dışında bir değer girilmesine izin verilmez ve nozul kaba eklenemez.</dd>
+
+    <dt>Yerleşim çapı (bombe ekseninden) — bombe host (mm)</dt>
+    <dd>(Bu alan yalnız şu durumda görünür: Host olarak bir uç bombe seçildiğinde görünür.) Nozulun bombenin tam tepe merkez noktasından ne kadar uzağa yerleştirileceğini belirten radyal yerleşim çapıdır. 0 değeri nozulun tam bombe merkezine (tepesine) yerleştiğini gösterir; izin verilen en yüksek değer bombenin iki katı yarıçap sınırıdır. Bombe üzerine merkez dışı nozul yerleştirilirken imalat resmindeki kaçıklık ölçüsü girilmelidir.</dd>
+
+    <dt>Çevresel açı θ (°)</dt>
+    <dd>Nozulun kap kesiti etrafındaki dairesel yönelim açısıdır (saat yönünde açısal konum). Arayüzdeki hızlı düğmelerle 0° (yatay kapta tam üst), 90° (sağ yan), 180° (tam alt) veya 270° (sol yan) olarak kolayca ayarlanabilir ya da 0 ile 360 derece arasında serbestçe girilebilir. Tesisat borularının kaba hangi yönden bağlanacağına göre belirlenir; yanlış girilirse boru hattı montajında hiza uyumsuzluğu yaşanır.</dd>
+
+    <dt>Flanş sınıfı</dt>
+    <dd>Nozul ucundaki flanşın basınca dayanım sınıfıdır (basınç kademesi). Seçenekler: Class 150, Class 300, Class 600, Class 900, Class 1500 ve Class 2500 olup standart ASME B16.5 flanş basınç-sıcaklık tablolarına dayanır. Tasarım basıncı ve sıcaklığına uygun sınıf borulama şartnamesinden seçilmelidir; düşük bir sınıf seçilirse flanş işletme basıncında sızdırma yapabilir veya deforme olabilir.</dd>
+
+    <dt>Takviye pedi</dt>
+    <dd>Nozul gövdeye kaynatılırken açılan deliğin zayıflattığı cidar bölgesini desteklemek üzere bir takviye sacı (halka ped) eklenip eklenmeyeceğini belirleyen onay kutusudur. Tip olarak "Pedli takviyeli" seçildiğinde bu onay kutusu zorunlu olarak işaretli gelir; diğer tiplerde isteğe bağlı olarak açılabilir. Açıklık takviye hesabı (delik açılınca kaybolan alanı telafi etme kontrolü) yetersiz kaldığında gövdeyi delik etrafında güçlendirmek için işaretlenir.</dd>
+
+    <dt>Ped dış çapı (ped açıkken) (mm)</dt>
+    <dd>(Bu alan yalnız şu durumda görünür: Takviye pedi onay kutusu işaretlendiğinde veya Tip "Pedli takviyeli" seçildiğinde görünür.) Açıklığı güçlendiren takviye sacı halkasının dış çapıdır. Varsayılan olarak boru dış çapının 2 katı hesaplanır ve izin verilen aralık boru dış çapının 1,1 katı ile 4 katı arasındadır. Takviye alanı ihtiyacına göre hesaplanarak belirlenir; çok küçük girilirse delik etrafındaki gerilmeleri karşılayamaz, çok büyük girilirse kaynak gerilmelerini artırır ve gereksiz ağırlık yapar.</dd>
+
+    <dt>Ped kalınlığı (ped açıkken) (mm)</dt>
+    <dd>(Bu alan yalnız şu durumda görünür: Takviye pedi onay kutusu işaretlendiğinde veya Tip "Pedli takviyeli" seçildiğinde görünür.) Takviye sacı plakasının milimetre cinsinden et kalınlığıdır. Varsayılan olarak bağlandığı host bileşenin et kalınlığı kadar alınır ve 1 ile 200 mm arasında bir değer girilebilir. İmalatta kullanılacak sac kalınlığına göre belirlenir; yetersiz girilirse gerilme takviyesi kuralları karşılamaz.</dd>
+
+    <dt>Host / z veya D / θ (seçili nozul) (mm/°)</dt>
+    <dd>Daha önce eklenmiş ve listeden seçilmiş bir nozulun bağlandığı bileşeni, eksenel mesafesini (veya bombe yerleşim çapını) ve çevresel açısını değiştirmeye yarayan düzenleme alanıdır. Nozulun yerini kaba göre yeniden ayarlamak için kullanılır; boru anma boyutu veya et serisi gibi temel boru boyutlarını değiştirmek için nozulu silip doğru boyutla yeniden eklemeniz gerekir.</dd>
+
+    <dt>Takviye pedi (seçili nozul) + Ped dış çapı + Ped kalınlığı (mm)</dt>
+    <dd>Listeden seçilen mevcut bir nozulun takviye pedi durumunu açıp kapatmayı ve pedin dış çapı ile et kalınlığı değerlerini güncellemeyi sağlayan düzenleme grubudur. Hesaplama sonuçlarında delik takviyesinin yetersiz kaldığı görüldüğünde mevcut nozula sonradan ped eklemek veya ped ölçülerini revize etmek için kullanılır.</dd>
+
+    <dt>Satır silme (✕)</dt>
+    <dd>Flanşlı nozullar tablosunda ilgili satırın sağ tarafında yer alan silme düğmesidir. Yanlış eklenmiş, gereksiz veya boyutu değiştirilmek istenen bir nozulu projeden tamamen kaldırmak için tıklanır; silinen nozulun 3B modeldeki görseli ve tüm geometrik verileri derhal temizlenir.</dd>
+  </dl>
+
+  <div class="ipucu">
+    <p><strong>Sık yapılan hatalar:</strong></p>
+    <ul>
+      <li><strong>Host sınırlarını aşmak:</strong> Nozulun eksenel konumunu (z), üzerine takıldığı gövde parçasının toplam boyundan daha büyük girmek. Sistem sınır dışı değerleri otomatik kırpmaz, kırmızı uyarı verir ve nozulun eklenmesini engeller.</li>
+      <li><strong>Boyut değiştirmek için düzenleme aramak:</strong> Eklenmiş bir nozulun boru çapını (NPS) veya et serisini düzenleme panelinden değiştirmeye çalışmak. Katalog yapısı gereği anma ölçüsünü değiştirmek için nozul silinip yeniden eklenmelidir.</li>
+      <li><strong>Takviye pedini kontrol etmemek:</strong> Büyük çaplı nozullarda gövde cidarında açılan deliğin kabı zayıflattığını unutup takviye pedi tanımlamamak. Bu durum Adım 4 hesaplarında açıklık takviyesi kontrolünün başarısız olmasına yol açar.</li>
+    </ul>
+  </div>
+
+  <h2>3.4 Manşonlar</h2>
+  <p>Bu ekran, basınçlı kabın üzerine küçük çaplı enstrüman bağlantıları, basınç göstergeleri (manometreler), tahliye ve havalandırma delikleri ile sensör yuvaları için kullanılan manşonları (küçük çaplı içi dişli veya soketli bağlantı parçalarını) eklemek için kullanılır. 1/2 inç ile 4 inç (DN15 ile DN100) arasındaki küçük boru ağızları bu adımda tanımlanır ve ölçüleri standart katalogdan otomatik çekilir. Eklenen manşonlar hem kabın 3 boyutlu modeline işlenir hem de malzeme listesine (BOM) dahil edilir.</p>
+
+  <figure><img src="img/16-geometri-34-mansonlar.png" alt="3.4 Manşon ekranı ve eklenmiş manşon listesi"><figcaption>Şekil: 3.4 Manşonlar Ekranı ve Eklenmiş Manşon Listesi</figcaption></figure>
+  <figure><img src="img/17-geometri-34-manson-form.png" alt="3.4 Manşon formu ve ölçü düzenleme paneli"><figcaption>Şekil: 3.4 Yeni Manşon Formu ve Ölçü Düzenleme Paneli</figcaption></figure>
+
+  <h3>Manşon Alanları</h3>
+  <dl>
+    <dt>Bağlantı</dt>
+    <dd>Manşonun tesisat borusu veya göstergeyle nasıl birleştirileceğini belirten uç tipidir. Seçenekler: <strong>Dişli (threaded) manşon</strong> (içine diş açılmış, vidalanarak bağlanan tip) ve <strong>Soket kaynaklı (socket weld)</strong> (borunun manşon yuvasına oturtulup boğazından köşe kaynağıyla kaynatıldığı tip). Tesisatta kullanılacak enstrüman veya boru ucuna göre seçilir; yanlış seçim şantiyede montajın yapılamamasına neden olur.</dd>
+
+    <dt>Boyut (NPS / DN)</dt>
+    <dd>Manşonun standart anma çapıdır. Sistemde 1/2 inçten 4 inçe kadar (DN15 ile DN100 aralığında) standart dövme çelik manşon boyutları sunulur. Bağlanacak cihazın (örneğin basınç transmitteri, seviye göstergesi, drenaj vanası) bağlantı çapına göre belirlenir; bu seçimle birlikte manşonun dış çapı, delik çapı ve boyu katalogdan kendiliğinden türetilir.</dd>
+
+    <dt>Manşon formu</dt>
+    <dd>Manşon gövdesinin geometrik yapısını ve boyunu belirler. Seçenekler: <strong>Tam manşon</strong> (her iki ucu da bağlantıya uygun tam boy manşon), <strong>Yarım manşon</strong> (bir ucu kap cidarında kaynak ağzı açılmış kısa boy manşon; genellikle kaplarda bu tip kullanılır) ve <strong>Weldolet</strong> (gövdeye doğrudan kaynatılan özel takviyeli dövme branşman elemanı; bu sürümde katalogda bulunmadığı için devre dışıdır). İmalat projesindeki parça tanımına göre seçilmelidir.</dd>
+
+    <dt>Host (nereye gelecek?)</dt>
+    <dd>Manşonun hangi gövde halkası, koni parçası veya uç bombe üzerine kaynatılacağını belirler. Projedeki silindirik kabuk parçaları ve kapaklar listeden seçilebilir. Yanlış host seçilirse gösterge veya drenaj ağzı kabın yanlış yerine yerleşir (örneğin drenaj manşonunun kabın en altı yerine üstüne yerleşmesi gibi).</dd>
+
+    <dt>Konum z (host başından) / Yerleşim çapı (bombe) (mm)</dt>
+    <dd>Manşonun eksenel veya radyal montaj yerini belirler. Host olarak gövde veya koni seçildiğinde o parçanın sol/alt başlangıcından itibaren eksen boyunca mesafeyi (z), host olarak bombe seçildiğinde ise bombe tepe ekseninden olan radyal yerleşim çapını ifade eder. Cihaz yerleşim planına göre girilir; host parçasının fiziksel boyu veya bombe yarıçapı dışına taşan değerler kabul edilmez.</dd>
+
+    <dt>Çevresel açı θ (°)</dt>
+    <dd>Manşonun kap çevresi üzerindeki dairesel konum açısıdır. Arayüzde yer alan 0° (yatay kapta tam üst), 90° (sağ yan), 180° (tam alt / drenaj) ve 270° (sol yan) hızlı seçim düğmeleriyle veya elle 0 ile 360 derece arasında girilebilir. Örneğin bir tahliye ve boşaltma manşonu kabın en alt noktasına (180°) konulurken, bir hava alma manşonu en üst noktaya (0°) konulmalıdır.</dd>
+
+    <dt>Sınıf</dt>
+    <dd>Dövme çelik manşonun basınca dayanım sınıfıdır (rating). Seçenekler: <strong>3000#</strong> (3000 psi sınıfı, yaygın basınç aralıkları için) ve <strong>6000#</strong> (6000 psi sınıfı, çok yüksek basınçlı uygulamalar için). Tasarım koşullarındaki iç basınca ve borulama spesifikasyonuna göre seçilir; düşük sınıf seçilirse manşon yüksek basınç altında cidar zayıflığına yol açabilir.</dd>
+
+    <dt>Host / z / θ (seçili manşon) (mm/°)</dt>
+    <dd>Eklenmiş manşonlar tablosundan seçilen bir manşonun yerleşim yerini güncellemeye yarayan form alanıdır. Manşonun bağlı olduğu ana parçayı, eksenel veya radyal mesafesini ve çevresel açısını değiştirmek için kullanılır; manşonun anma çapını veya bağlantı tipini değiştirmek için manşon listeden silinip yeniden eklenmelidir.</dd>
+  </dl>
+
+  <div class="ipucu">
+    <p><strong>Sık yapılan hatalar:</strong></p>
+    <ul>
+      <li><strong>Drenaj ve havalandırma açısını karıştırmak:</strong> Boşaltma (drenaj) manşonunu yatay kapta 180° (tam alt) yerine 0° (tam üst) açısına yerleştirmek. Bu durumda kap içindeki sıvı yerçekimiyle tahliye edilemez.</li>
+      <li><strong>Katalogda olmayan kombinasyon seçmek:</strong> Belirli boyut ve sınıflarda soket veya dişli ölçüleri katalogda bulunmadığında sistemin kırmızı uyarı vermesine rağmen formu onaylamaya çalışmak. Katalogda yer almayan özel ölçüler için uyarı dikkate alınmalıdır.</li>
+      <li><strong>Boyut düzenlemesi aramak:</strong> Eklenmiş bir manşonun 1 inç olan boyutunu 2 inç yapmak için düzenleme kutusuna bakmak. Manşon boyutları silinip yeniden eklenerek değiştirilir.</li>
+    </ul>
+  </div>
+
+  <h2>3.5 Mesnetler (Ayak, Eyer, Etek)</h2>
+  <p>Bu ekran, basınçlı kabın tüm ağırlığını, içindeki akışkan kütlesini ve rüzgar veya deprem gibi dış yükleri zemine güvenle aktaran mesnetlerin (taşıyıcı destek yapılarının) tanımlandığı bölümdür. Kabın yönelimine (yatay veya dikey) bağlı olarak akıllı öneri düğmeleri devreye girer: yatay kaplar için 2 adet eyer (saddle - beşik biçimli destek), dikey kaplar için silindirik etek (skirt - gövdeyi saran silindir ayak) veya taşıyıcı ayaklar (leg - kolon biçimli bacaklar) kolayca oluşturulur. Seçilen desteğin kesit ölçüleri, takviye pedleri ve taban sacı ankraj detayları burada girilir.</p>
+
+  <figure><img src="img/18-geometri-35-mesnet-ayak.png" alt="3.5 Mesnet ekranı (ayak)"><figcaption>Şekil: 3.5 Mesnet Ekranı, Öneri Düğmeleri ve Mesnet Listesi</figcaption></figure>
+  <figure><img src="img/19-geometri-35-mesnet-ayak-form.png" alt="3.5 Ayak formu"><figcaption>Şekil: 3.5 Ayak Mesnet Formu, Kesit, Ped ve Taban Sacı Detayları</figcaption></figure>
+  <figure><img src="img/50-yatay-geometri-35-mesnet-eyer.png" alt="Yatay tank 3.5 mesnet (eyer)"><figcaption>Şekil: 3.5 Yatay Kap Eyer Mesnet Ekranı</figcaption></figure>
+  <figure><img src="img/51-yatay-geometri-35-eyer-form.png" alt="Yatay tank 3.5 eyer formu"><figcaption>Şekil: 3.5 Eyer Mesnet Formu ve Ölçü Tanımları</figcaption></figure>
+  <figure><img src="img/60-etek-geometri-35-mesnet.png" alt="Etek kolon 3.5 mesnet"><figcaption>Şekil: 3.5 Etek Kolon Mesnet Ekranı</figcaption></figure>
+  <figure><img src="img/61-etek-geometri-35-form.png" alt="Etek kolon 3.5 formu"><figcaption>Şekil: 3.5 Etek Mesnet Formu</figcaption></figure>
+
+  <h3>3.5.1 Mesnet Öneri ve Ekleme Alanları</h3>
+  <dl>
+    <dt>Öneri düğmeleri</dt>
+    <dd>Kabın dikey veya yatay yönelimine göre mühendislik standartlarına en uygun destek tiplerini tek tıkla projeye ekleyen hızlı eylem düğmeleridir. Seçenekler: <strong>Etek ekle</strong> (dikey kule ve ağır tanklar için tam boy silindirik etek desteği oluşturur), <strong>3 ayak</strong> (dikey kaplar için 120° aralıklı üç taşıyıcı ayak yerleştirir), <strong>4 ayak (dikey)</strong> (dikey kaplar için 90° aralıklı dört taşıyıcı ayak yerleştirir), <strong>2 eyer öner</strong> (yatay kaplar için teğet-teğet boyunun %20 ve %80 noktalarına Zick yöntemine uygun 2 adet eyer mesnet ekler) ve <strong>Kabı dikey yap (yatay)</strong> (yanlışlıkla yatay seçilmiş kabın yönelimini tek tıkla dikeye çevirir). Tasarım başlangıcında doğru yerleşimi otomatik kurmak için kullanılır.</dd>
+
+    <dt>Başka destek ekle</dt>
+    <dd>Öneri düğmeleri dışındaki özel durumlarda veya ilave mesnet tanımlamak istendiğinde destek tipini manuel seçip eklemeyi sağlayan seçim menüsüdür. Seçenekler: <strong>Eyer (saddle)</strong> (yatay silindirik kapları alttan beşik gibi saran taşıyıcı), <strong>Etek (skirt)</strong> (dikey kapların altını çepeçevre saran silindirik sac destek) ve <strong>Ayak (leg)</strong> (dikey kapları yerden yükselten bacaklar). Yönelimle uyumsuz bir seçim yapıldığında (örneğin dikey kapta eyer veya yatay kapta etek) sistem uyarı verir ancak eklemeyi engellemez.</dd>
+  </dl>
+
+  <h3>3.5.2 Ayak Tipi Mesnet Ölçüleri</h3>
+  <dl>
+    <dt>Kesit tipi</dt>
+    <dd>Taşıyıcı ayakların imal edileceği çelik profilin kesit geometrisini belirler. Seçenekler: <strong>Boru</strong> (dairesel içi boş çelik boru kesit), <strong>U profil (UPN)</strong> (standart U kesitli hadde çeliği), <strong>Kutu profil</strong> (kare veya dikdörtgen içi boş yapısal profil) ve <strong>Köşebent (L)</strong> (L kesitli eşit kollu köşebent çeliği). Projenin statik taşıma kapasitesine ve atölye imkanlarına göre seçilir; kesit tipine göre ekrandaki profil ölçü alanları dinamik olarak güncellenir.</dd>
+
+    <dt>Hazır UPN seç (EN 10279)</dt>
+    <dd>(Bu alan yalnız şu durumda görünür: Ayak kesit tipi "U profil (UPN)" seçildiğinde görünür.) Avrupa standardı EN 10279 kapsamındaki standart U profillerini (örneğin UPN 80, UPN 120, UPN 160 gibi) listeden seçmeyi sağlar. Seçenekler arasında standart profiller ve <strong>— elle gir —</strong> seçeneği bulunur. Hazır profil seçildiğinde yükseklik, genişlik, gövde ve flanş et kalınlıkları otomatik dolar; istenirse değerler sonradan elle de revize edilebilir.</dd>
+
+    <dt>U yönü</dt>
+    <dd>(Bu alan yalnız şu durumda görünür: Ayak kesit tipi "U profil (UPN)" seçildiğinde görünür.) U kesitli profilin kabın gövdesine ve takviye sacına hangi yüzeyinden kaynatılacağını belirler. Seçenekler: <strong>Sırtı pede</strong> (U profilin düz arka sırt yüzeyi takviye sacına bakar) ve <strong>Kanatlar pede</strong> (U profilin iki yan flanş ucu takviye sacına bakar). Kaynak mukavemeti ve burkulma ekseni hesabında doğrudan etkilidir; projede öngörülen montaj biçimine göre seçilmelidir.</dd>
+
+    <dt>Boru dış çapı (mm)</dt>
+    <dd>Kesit tipi boru olan ayakların milimetre cinsinden dış çapıdır. Çelik boru imalat ölçülerine göre belirlenir ve en az 1 mm olmalıdır (tipik olarak 88,9 mm, 114,3 mm gibi borular kullanılır). Ayakların düşey yükler altında burkulma ve eğilme mukavemetini doğrudan belirler; çok ince bir boru seçilirse ayak basma gerilmesine dayanamayıp bel verebilir.</dd>
+
+    <dt>Et kalınlığı (mm)</dt>
+    <dd>Kesit tipi boru olan ayakların milimetre cinsinden cidar (duvar) et kalınlığıdır. İzin verilen değer 1 mm ile boru dış çapının yarısı arasındadır. Yetersiz et kalınlığı girilirse ayak borusu ezilme veya burkulma kontrollerinden geçemez.</dd>
+
+    <dt>Profil yüksekliği h (mm)</dt>
+    <dd>(Bu alan yalnız şu durumda görünür: Ayak kesit tipi "Kutu profil" veya "Köşebent (L)" seçildiğinde görünür.) Profil kesitinin dıştan dışa toplam düşey yüksekliğidir. Satın alınacak standart kutu profil veya köşebent kataloğundan alınır (tipik olarak 80 mm, 100 mm, 150 mm). Ayak kesit alanını ve atalet momentini (eğilmeye karşı direncini) doğrudan etkiler.</dd>
+
+    <dt>Kanat genişliği b (mm)</dt>
+    <dd>(Bu alan yalnız şu durumda görünür: Ayak kesit tipi "Kutu profil" veya "Köşebent (L)" seçildiğinde görünür.) Profil kesitinin dıştan dışa toplam genişliğidir. Kare kutu profillerde veya eşit kollu köşebentlerde genellikle profil yüksekliği (h) ile aynıdır. Profil tablosundan alınır; yanlış girilirse takviye pedi ve taban sacı boyutlandırma hesapları hatalı çıkar.</dd>
+
+    <dt>Ayak sayısı (adet)</dt>
+    <dd>Kabı taşıyacak toplam bacak adedidir. İzin verilen aralık 3 ile 8 ayak arasındadır (en yaygın 3 veya 4 ayak tercih edilir). 3 ayak zemindeki oturma bozukluklarına karşı statik olarak her zaman tam temas sağlarken, 4 ayak daha simetrik ve yüksek devrilme emniyeti sunar. Kabın ağırlığı girilen ayak sayısına bölünerek her bir ayağa düşen dikey yük hesaplanır.</dd>
+
+    <dt>Profil boyu (mm)</dt>
+    <dd>Taşıyıcı ayağın üst ucundan zemindeki taban plakasına kadar olan toplam serbest boyudur. İzin verilen aralık 50 ile 20000 mm arasındadır. Kabın altındaki vanaların, boruların ve bakım personelinin rahat çalışabilmesi için gerekli alt boşluk mesafesine göre belirlenir; boy uzadıkça burkulma riski artacağından profil kesitinin de büyütülmesi gerekebilir.</dd>
+
+    <dt>Üst ucu kotu (alt teğetten) [dikey] / Konum (sol teğetten) [yatay] (mm)</dt>
+    <dd>Ayağın kabın gövdesine bağlandığı üst ucunun referans çizgisine göre olan montaj kotudur. Dikey kaplarda alt bombenin teğet hattından (silindirin başladığı çizgiden) yukarıya doğru olan mesafeyi, yatay kaplarda ise sol teğet hattından olan mesafeyi belirtir. Ayakların gövde kaynak dikişlerine veya bombe geçişlerine çok yakın olmaması için imalat çizimindeki yerleşim ölçüsüne göre girilmelidir.</dd>
+
+    <dt>Host bileşen</dt>
+    <dd>Ayakların doğrudan kaynatılacağı ana kap bileşenidir. Seçenekler arasında silindirik gövde halkaları ve alt bombe yer alır. Ayakların yükü kabın silindirine mi yoksa alt bombesine mi aktaracağını belirler; yanlış host seçilirse mesnet kabın alakasız bir yerine bağlanır ve sonlu elemanlar / lokal gerilme analizleri boşa çıkar.</dd>
+
+    <dt>Profil yüksekliği h + Kanat genişliği b (iki alan) (mm)</dt>
+    <dd>(Bu alan yalnız şu durumda görünür: Ayak kesit tipi "U profil (UPN)" seçildiğinde Ayrıntılar grubunda görünür.) U profilin kesit yüksekliğini (h) ve flanş genişliğini (b) milimetre cinsinden ifade eden iki ayrı giriş alanıdır. Hazır UPN seçildiğinde katalogdan otomatik gelir veya özel bir profil kullanılıyorsa elle girilir. Profilin bükülme rijitliğini ve temas genişliğini belirler.</dd>
+
+    <dt>Et kalınlığı (mm)</dt>
+    <dd>(Bu alan yalnız şu durumda görünür: Ayak kesit tipi "Köşebent (L)" seçildiğinde Ayrıntılar grubunda görünür.) Köşebent profilin kanat et kalınlığıdır. Çelik profil tablosundan veya malzeme sertifikasından alınır; en az 1 mm olmalıdır. Yetersiz girilirse köşebent ayağın taşıma kapasitesi yetersiz kalır.</dd>
+
+    <dt>Gövde kalınlığı tw (mm)</dt>
+    <dd>(Bu alan yalnız şu durumda görünür: Ayak kesit tipi "U profil" veya "Kutu profil" seçildiğinde Ayrıntılar grubunda görünür.) Profilin orta gövde sacı (web) et kalınlığıdır. U profillerde izin verilen aralık 0,1 mm ile profil yüksekliğinin yarısı (h/2) arasındadır. Standart çelik tablosundan alınır; kesitin dikey kesme ve ezilme dayanımını sağlar.</dd>
+
+    <dt>Kanat kalınlığı tf (mm)</dt>
+    <dd>(Bu alan yalnız şu durumda görünür: Ayak kesit tipi "U profil" veya "Kutu profil" seçildiğinde Ayrıntılar grubunda görünür.) Profilin yan flanş (kanat) et kalınlığıdır. U profillerde izin verilen aralık 0,1 mm ile kanat genişliği (b) arasındadır. Profil tablosundan girilir; flanşın eğilme mukavemetini belirler.</dd>
+
+    <dt>İlk ayak açısı (°)</dt>
+    <dd>İlk ayağın kap çevresinde yerleşeceği başlangıç açısıdır; diğer ayaklar bu açıdan başlayarak eşit açılarla (örneğin 4 ayakta 90° arayla) çevreye dağıtılır. İzin verilen aralık -360° ile +360° arasındadır. Kabın üzerindeki nozullarla, seviye göstergeleriyle veya menhollerle ayakların çakışmasını önlemek için başlangıç açısı buradan kaydırılır.</dd>
+
+    <dt>Yerleşim yarıçapı (mm)</dt>
+    <dd>Ayak eksenlerinin kabın merkez ekseninden olan yatay uzaklığıdır. 0 girildiğinde sistem bunu otomatik olarak hesaplar (kabın dış yarıçapı + ped kalınlığı + profil genişliğinin yarısı). Ayakların kabuktan dışarıya doğru açılı veya uzakta yerleştirildiği özel konsol tasarımlarında elle değer girilebilir; yanlış girilirse devrilme momenti ve eksantrisite hesabı hatalı çıkar.</dd>
+
+    <dt>Ped boyu (mm)</dt>
+    <dd>Ayağın kabukla temas ettiği bölgeye kaynatılan takviye sacının (ped) düşey uzunluğudur. Boş bırakıldığında profil yüksekliğinin 2,5 katı (2,5·h) olarak otomatik varsayılır. Bu ped, ayağın kabuk cidarında noktasal ezilme ve yüksek lokal gerilme oluşturmasını engeller; cidar gerilme kontrolünün güvenle geçmesi için yeterli boyda seçilmelidir.</dd>
+
+    <dt>Ped eni (mm)</dt>
+    <dd>Ayak takviye sacının yatay genişliğidir. Boş bırakıldığında profil genişliğinin 2 katı (2·b) olarak otomatik hesaplanır. Profilin her iki yanından kaynak dikişinin rahatça atılabilmesi için profil kanat genişliğinden daima daha geniş olmalıdır.</dd>
+
+    <dt>Ped kalınlığı (mm)</dt>
+    <dd>Ayak takviye sacının milimetre cinsinden et kalınlığıdır. Varsayılan olarak 10 mm önerilir ve en az 1 mm olmalıdır. Genellikle kabın kendi gövde sacı kalınlığına yakın veya eşit seçilir; ince seçilirse ayağın momentini gövdeye yayamaz ve bükülür.</dd>
+
+    <dt>Üst taşma (mm)</dt>
+    <dd>Takviye sacının, profil ayağın bittiği üst uç noktasından yukarıya doğru devam eden payıdır. Varsayılan değeri 50 mm'dir ve en az 0 mm olabilir. Ayağın bittiği tepe noktasında ani gerilme yığılmasını yumuşatmak için ped sacının bir miktar yukarı taşması mühendislik açısından zorunludur.</dd>
+
+    <dt>Sac boyu (mm)</dt>
+    <dd>Ayağın altına, beton temele oturması için kaynatılan taban plakasının (base plate) uzunluğudur. Varsayılan olarak profil yüksekliğinin 2 katı artı 40 mm (2·h + 40) formülüyle otomatik üretilir. Ayağın tüm yükünü betona yayarak betonun ezilmesini önler; ankraj cıvatalarının sığacağı genişlikte olmalıdır.</dd>
+
+    <dt>Sac eni (mm)</dt>
+    <dd>Taban plakasının milimetre cinsinden genişliğidir. Varsayılan olarak profil genişliğinin 2 katı artı 40 mm (2·b + 40) olarak belirlenir. Taban sacı alanının beton ezilme emniyet gerilmesini aşmayacak büyüklükte olması şarttır.</dd>
+
+    <dt>Sac kalınlığı (mm)</dt>
+    <dd>Taban plakasının et kalınlığıdır. Varsayılan değeri 16 mm'dir ve en az 1 mm girilmelidir. Dikey yüklerin ve ankraj cıvatası çekme kuvvetlerinin etkisiyle taban sacının yukarıya doğru bükülmesini (çanaklaşmasını) önleyecek rijitlikte seçilmelidir.</dd>
+
+    <dt>Ankraj adedi (adet)</dt>
+    <dd>Her bir ayağın taban sacını beton temele sabitleyen temel cıvatası (ankraj bulonu) sayısıdır. En az 1 adet girilebilir; tipik olarak her ayak tabanına 2 veya 4 adet ankraj yerleştirilir. Rüzgar, deprem veya devrilme anında ayağın temelden havalanmasını ve kaymasını engeller.</dd>
+
+    <dt>Ankraj çapı (mm)</dt>
+    <dd>Temel cıvatalarının anma diş çapıdır (örneğin M20, M24 için 20 mm, 24 mm). Varsayılan olarak 20 mm alınır. Devrilme anında çekme gerilmesine, rüzgar/deprem anında ise kesme kuvvetine maruz kalır; statik hesap raporunda izin verilen gerilmelerle doğrulanır.</dd>
+  </dl>
+
+  <h3>3.5.3 Eyer ve Etek Tipi Mesnet Ölçüleri</h3>
+  <dl>
+    <dt>Host bileşen</dt>
+    <dd>Eyer (saddle) veya etek (skirt) mesnedin monte edileceği kap elemanıdır. Eyer mesnetler geometrisi gereği yalnız silindirik gövde parçaları (shell) üzerine oturabilir; etek mesnetler ise kule kabın alt bombesine veya alt gövdesine bağlanır. Yanlış host seçilirse mesnet montaj hattı geometrisi kurulamaz.</dd>
+
+    <dt>Konum (sol teğetten) (mm)</dt>
+    <dd>Yatay kapta eyer mesnedin kabın sol teğet çizgisinden (sol bombenin silindire birleştiği teğet hattından) olan mesafesidir. Varsayılan olarak teğet aralığının %20'si ve %80'i önerilir; girilen değer host gövde sınırları içinde kalmalıdır. Zick yöntemine göre eyerin bombe teğetine olan mesafesi (A mesafesi) kiriş eğilme momentlerini ve bombe takviye etkisini doğrudan belirler.</dd>
+
+    <dt>Yükseklik (mm)</dt>
+    <dd>Mesnedin temel oturma yüzeyinden kap tabanına veya eksenine kadar olan düşey yüksekliğidir. Eyer mesnet için izin verilen aralık 50 ile 3000 mm, etek mesnet için 50 ile 20000 mm arasındadır. Etek mesnetlerde yükseklik kolonun altındaki borulama ve pompa boşluğunu belirlerken, eyerde kabın zeminden yüksekliğini sağlar. Etekte ayrıca konum girdisi kullanılmaz, etek daima alt teğetten aşağı uzanır.</dd>
+
+    <dt>Genişlik (mm)</dt>
+    <dd>Eyer mesnedin kap eksenine dik doğrultudaki temas genişliğidir (sac temas şeridi genişliği). İzin verilen aralık 50 ile 2000 mm arasındadır (tipik değer 200 mm civarıdır). Genişlik arttıkça eyer altındaki temas alanı genişler ve kabuk üzerindeki ezilme/yerel basma gerilmeleri düşer.</dd>
+
+    <dt>Temas (sarma) açısı (°)</dt>
+    <dd>Eyer mesnedin yatay silindirik kabı alttan kaç derecelik yay boyunca kucakladığını belirten sarma açısıdır (θ). İzin verilen aralık 120° ile 180° arasındadır; endüstri standardı ve asgari değer 120°'dir. Sarma açısı 120 derecenin altına düşürülemez; açı büyüdükçe (örneğin 150° veya 180°) kabuk teğetsel gerilmeleri ve eyer boynuzu eğilme gerilmeleri önemli ölçüde azalır.</dd>
+
+    <dt>Aşınma plakası kalınlığı (mm)</dt>
+    <dd>Eyer mesnet ile kabuk arasına kaynatılan takviye sacının (doubler / wear plate) et kalınlığıdır. Boş bırakıldığında malzeme listesinde (BOM) parça "EKSİK" olarak işaretlenir. Sıcaklık genleşmelerinde kabuğun sürtünmeden aşınmasını önler ve kabuk cidarını yerel yüklemelere karşı güçlendirir.</dd>
+
+    <dt>Web kalınlığı (mm)</dt>
+    <dd>Eyer mesnedin dikey ana gövde plakasının (web sacı) et kalınlığıdır. Boş bırakılırsa BOM ağırlık hesabında eksik kabul edilir. Eyerin tüm kap ağırlığını eğilmeden zemine aktarmasını sağlayan ana taşıyıcı sacdır.</dd>
+
+    <dt>Kanat adedi (adet)</dt>
+    <dd>Eyer gövde sacını (web) dikey olarak destekleyen ve burkulmasını önleyen üçgen kaburga (rijitlik kanadı / rib) sayısıdır. Boş bırakılırsa parça BOM'da eksik işaretlenir. Geniş eyerlerde web sacının yanal bükülmesini önlemek için belirli aralıklarla kanat eklenir.</dd>
+
+    <dt>Kanat kalınlığı (mm)</dt>
+    <dd>Eyer rijitlik kanatlarının (rib sacları) milimetre cinsinden kalınlığıdır. Boş bırakılırsa BOM hesabında eksik işaretlenir. Web sacına destek veren bu kanatların kalınlığı mesnet rijitliğini korur.</dd>
+
+    <dt>Taban plakası boyu (mm)</dt>
+    <dd>Eyer mesnedin beton temele oturan alt taban sacının kap eksenine dik doğrultudaki toplam boyudur. Boş bırakılırsa BOM'da eksik işaretlenir. Temas alanını büyüterek beton ezilme basıncını düşürür ve ankraj cıvatalarına montaj payı sağlar.</dd>
+
+    <dt>Taban plakası eni (mm)</dt>
+    <dd>Eyer taban sacının kap eksenine paralel doğrultudaki genişliğidir. Boş bırakılırsa BOM'da eksik işaretlenir. Eyerin zemine oturma dengesini ve boyuna rüzgar/deprem devrilme direncini belirler.</dd>
+
+    <dt>Taban plakası kalınlığı (mm)</dt>
+    <dd>Eyer taban sacının et kalınlığıdır. Boş bırakılırsa BOM'da eksik işaretlenir. Ankraj cıvataları sıkıldığında veya devrilme kuvveti geldiğinde sacın eğrilmesini önleyecek kalınlıkta seçilmelidir.</dd>
+  </dl>
+
+  <h3>3.5.4 Mesnet Listesi İşlemleri</h3>
+  <dl>
+    <dt>Satır silme (✕)</dt>
+    <dd>Mesnetler tablosunda tanımlı olan bir ayağı, eyeri veya eteği projeden tamamen silen kaldırma düğmesidir. Yanlış eklenen bir desteği kaldırmak veya tipi değiştirmek için kullanılır; silinen desteğin 3B modeldeki görüntüsü ve hesap girdileri sistemden derhal temizlenir.</dd>
+  </dl>
+
+  <div class="ipucu">
+    <p><strong>Sık yapılan hatalar:</strong></p>
+    <ul>
+      <li><strong>Sarma açısını 120° altına düşürmek:</strong> Zick standardına göre eyer temas açısının asgari 120° olması şarttır; daha küçük açı girilmesine izin verilmez çünkü eyer boynuzu bölgesinde aşırı gerilme yığılması oluşur.</li>
+      <li><strong>Yönelim ve destek tipi uyumsuzluğu:</strong> Yatay bir kapta ayak veya etek tanımlamak ya da dikey kapta eyer eklemek. Sistem bu durumda sarı ikaz verir; yatay kaplarda eyer, dikey kaplarda etek veya ayak tercih edilmelidir.</li>
+      <li><strong>Eyer plakalarını boş bırakıp BOM beklemek:</strong> Aşınma plakası, web veya taban sacı kalınlıklarını girmeden malzeme listesi (BOM) kütlesi hesaplatmaya çalışmak. Boş bırakılan alanlar malzeme listesinde "EKSİK" olarak işaretlenir.</li>
+    </ul>
+  </div>
+</section>
