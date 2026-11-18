@@ -63,10 +63,84 @@ export function App() {
     <div className="app">
       <a className="skip-link" href="#workspace">İçeriğe geç</a>
       <div className="brand">
-        <div className="brand__mark" />
+        <svg
+          className="brand__mark"
+          aria-hidden="true"
+          viewBox="0 0 48 48"
+          width="36"
+          height="36"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M 14 17 H 34 A 7 8 0 0 1 34 33 H 14 A 7 8 0 0 1 14 17 Z"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+          <line
+            x1="14"
+            y1="18"
+            x2="14"
+            y2="32"
+            stroke="currentColor"
+            strokeWidth="1"
+            strokeDasharray="2 2"
+            opacity="0.35"
+          />
+          <line
+            x1="34"
+            y1="18"
+            x2="34"
+            y2="32"
+            stroke="currentColor"
+            strokeWidth="1"
+            strokeDasharray="2 2"
+            opacity="0.35"
+          />
+          <path
+            d="M 21 17 V 10 H 27 V 17"
+            stroke="var(--accent)"
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+          <line
+            x1="18"
+            y1="9"
+            x2="30"
+            y2="9"
+            stroke="var(--accent)"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+          <line
+            x1="10"
+            y1="25"
+            x2="38"
+            y2="25"
+            stroke="var(--accent)"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeDasharray="4 2.5"
+            opacity="0.85"
+          />
+          <path
+            d="M 14 33 L 13 41 M 18 33 L 19 41 M 11 41 H 21"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+          <path
+            d="M 30 33 L 29 41 M 34 33 L 35 41 M 27 41 H 37"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </svg>
         <div>
           <div className="brand__name">Basınçlı Kap Suite</div>
           <div className="brand__sub">MÜHENDİSLİK ÇALIŞMA ALANI</div>
+          <div className="brand__by">Yusuf Sağlamcı tarafından oluşturuldu</div>
         </div>
       </div>
 

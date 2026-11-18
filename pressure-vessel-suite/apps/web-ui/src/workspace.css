@@ -5,10 +5,11 @@ button, input, select { -webkit-tap-highlight-color: transparent; }
 .app { grid-template-columns: 252px minmax(0, 1fr); grid-template-rows: 80px minmax(0, 1fr); height: 100dvh; }
 .brand, .nav { background: var(--nav-bg); border-color: var(--nav-line); color: var(--nav-text); }
 .brand { padding: 0 24px; gap: 12px; }
-.brand__mark { width: 30px; height: 38px; border-radius: var(--radius); border: 2px solid var(--nav-text); }
-.brand__mark::after { border-radius: 0; border: 1.5px solid var(--accent); opacity: 1; }
+.brand__mark { width: 36px; height: 36px; flex: none; border: none; }
+.brand__mark::after { display: none; content: none; }
 .brand__name { font-size: 15px; font-weight: 700; letter-spacing: -.02em; }
 .brand__sub { color: var(--nav-dim); font-size: 10px; letter-spacing: .12em; margin-top: 4px; }
+.brand__by { font-size: 10px; color: var(--nav-dim); text-transform: none; margin-top: 3px; line-height: 1.25; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow-wrap: break-word; }
 .topbar { background: var(--panel); padding: 0 36px; gap: 20px; min-width: 0; border-bottom: 1px solid var(--line-strong); }
 .topbar__title { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
 .topbar__title strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 15px; font-weight: 700; letter-spacing: -.015em; }
