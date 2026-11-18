@@ -1,0 +1,260 @@
+<section id="d2">
+
+<h2>1. Bu site nedir, ne işe yarar?</h2>
+
+<p><strong>Basınçlı kap</strong>, içindeki akışkanı (sıvı ya da gaz) çevre basıncından farklı bir basınçta tutan kapalı bir kaptır. Günlük hayattan örnekler: kompresörün hava tankı, bir binanın kalorifer kazanı, doğal gaz hattındaki seperatör (gazı sıvıdan ayıran kap), sanayideki buhar kazanı. Bu kapların içinde basınç olduğu için cidarları (et kalınlığı) sürekli bir kuvvet taşır; yeterince kalın olmazsa kap patlayabilir, yaralanma ve büyük hasar olabilir.</p>
+
+<p>Bu yüzden basınçlı bir kabın cidar kalınlığı, hangi basınca ve sıcaklığa dayanacağı, nereden delinip boru bağlanacağı gibi her ayrıntı önceden hesaplanır. Bu hesaplar dünyada yaygın olarak <strong>ASME VIII-1</strong> (Amerikan makine mühendisleri birliğinin basınçlı kap standardının birinci bölümü) veya <strong>EN 13445</strong> (Avrupa basınçlı kap standardı) gibi standartlara göre yapılır. Standart, hesabın nasıl yapılacağını ve hangi güvenlik paylarının kullanılacağını tarif eder.</p>
+
+<p><strong>Vessela (zeyslabs-vessela)</strong>, bu hesapları adım adım yapmanızı sağlayan bir web uygulamasıdır. Amacı; bir basınçlı kabın tasarım koşullarını, geometrisini ve malzemesini girerek gerekli et kalınlıklarını, izin verilen en yüksek çalışma basıncını, test basıncını, nozul (boru bağlantı ağzı) takviyesini, mesnet (kap taşıyıcısı) kontrollerini ve kütle/maliyet listesini tek bir yerde görmektir. Kime hitap eder? Basınçlı kap hesabını yeni öğrenen mühendis adaylarına, tasarımı ön boyutlandırmak isteyen mühendislere ve sonuçları anlamak isteyen teknik personele.</p>
+
+<p>Vessela'nın <strong>YAPMADIĞI</strong> şeyler de en az yaptıkları kadar önemlidir. Uygulama resmî onay vermez, ASME damgası (yetkili imalat belgesi) üretmez, PED/CE uygunluk kararı yerine geçmez ve imalata esas tasarım raporu sayılmaz. Sonuçlar her zaman yetkin bir mühendisin kontrolünden geçmelidir. Ayrıca uygulama; yorulma (tekrarlı yük), sünme (yüksek sıcaklıkta zamanla uzama), nozula gelen harici boru yükleri, rüzgâr/deprem yük üretimi, ceketli veya çok odalı kaplar gibi konuları kapsamaz. Bu sınırların tam listesi <em>docs/limitations.md</em> dosyasındadır; kapsam ve her hesabın güncel durumu için <em>docs/calculation-coverage.md</em> okunmalıdır.</p>
+
+<div class="uyari">Vessela bir <strong>ön boyutlandırma ve mühendis incelemeli prototip</strong> aracıdır. Sonuçları imalat, satın alma veya güvenlik kararı için tek başına kullanmayın; mutlaka bir mühendise doğrulatın.</div>
+
+<h2>2. Neyi bulmak için hesap yapıyoruz?</h2>
+
+<p>Aşağıdaki her çıktı, kabın güvenli ve imal edilebilir olup olmadığını anlamak için ayrı bir soruya cevap verir.</p>
+
+<ul>
+<li><strong>Gerekli et kalınlığı:</strong> Basıncı taşımak için cidarın en az ne kadar kalın olması gerektiğidir. Sonuç, "bu basınç altında cidar en az bu kadar kalın olmalı" demektir.</li>
+<li><strong>Nominal kalınlık:</strong> Sipariş edilecek sacın (plakanın) kalınlığıdır. Gerekli kalınlığa korozyon payı ve üretim kayıpları eklenip sac toleransı hesaba katılarak bulunur. Sonuç, "imalatçıya bu kalınlıkta sac sipariş et" anlamına gelir.</li>
+<li><strong>MAWP (kabın taşıyabileceği en yüksek çalışma basıncı):</strong> Mevcut kalınlık ve malzemeyle kabın güvenle çalışabileceği en yüksek basınçtır. Sonuç, isim plakasındaki ve emniyet vanası ayarındaki basıncın üst sınırını verir.</li>
+<li><strong>Hidrostatik test basıncı:</strong> Kabın imalat sonrası suyla doldurulup test edileceği basınçtır. Sonuç, "testte bu basınca kadar çıkarılacak" demektir; basınç, MAWP'nin üzerinde bir güvenlik kontrolüdür.</li>
+<li><strong>Nozul/açıklık takviyesi:</strong> Kap cidarında boru bağlamak için açılan deliğin etrafındaki malzemenin yeterli olup olmadığıdır. Sonuç, "delik cidarı zayıflattı; takviye pedi (destek plakası) gerekiyor mu?" sorusunu cevaplar.</li>
+<li><strong>Mesnet/ayak kontrolü:</strong> Kabı taşıyan eyer, etek veya ayakların ağırlık ve momentler altında zorlanmasını inceler. Sonuç, "taşıyıcı yeterince güvenli mi, ankraj/taban plakası yeterli mi?" demektir.</li>
+<li><strong>Kütle/maliyet (BOM):</strong> Kabın parçalarının listesi, ağırlığı ve yaklaşık maliyetidir. Sonuç, satın alma ve teklif için malzeme/işçilik fikri verir.</li>
+</ul>
+
+<h2>3. Hesap nasıl yapılır? (sade anlatım)</h2>
+
+<p>Et kalınlığı hesabının mantığı dört temel büyüklüğe dayanır: <strong>basınç</strong> (içerideki kuvvet), <strong>çap</strong> (kuvvetin etki ettiği genişlik), <strong>malzeme dayanımı</strong> (malzemenin ne kadar gerilmeye dayandığı) ve <strong>kaynak verimi</strong> (kaynaklı birleşimin ne kadar sağlam sayıldığı). Buna ek olarak <strong>korozyon payı</strong> (paslanma/aşınma için eklenen kalınlık) ve <strong>sac toleransı</strong> (sacın sipariş edilenden biraz ince gelebilmesi) hesaba katılır.</p>
+
+<p>Kodda doğrulanan silindirik gövde formülü (ASME VIII-1 UG-27(c)(1)), çevresel gerilme için:</p>
+
+<p><strong>t = P × R / (S × E − 0,6 × P)</strong></p>
+
+<p>Burada <em>t</em> gerekli kalınlık (mm), <em>P</em> tasarım basıncı (MPa), <em>R</em> iç yarıçap (mm), <em>S</em> izin verilen gerilme (MPa) ve <em>E</em> kaynak verimidir. Boyuna gerilme için kod ayrıca <strong>t = P × R / (2 × S × E + 0,4 × P)</strong> formülünü kullanır; iki sonuçtan büyük olan geçerlidir. Kaynak: <em>packages/code-asme-viii-1/src/code_asme_viii_1/formulas.py</em>.</p>
+
+<p>Bombe (kabın kubbeli ucu) için 2:1 elipsoidal bombe formülü (UG-32(d), K = 1):</p>
+
+<p><strong>t = P × D / (2 × S × E − 0,2 × P)</strong></p>
+
+<p>Burada <em>D</em> bombe iç çapıdır. Torisferik ve yarım küresel bombeler için kodda ayrı formüller vardır. EN 13445 seçilirse silindir ve bombe için ayrı (ve dar kapsamlı) bir hesap rotası çalışır; EN seçeneği "tam EN tasarımı" anlamına gelmez ve bu rotada nozul, destek gibi bazı kontroller yoktur.</p>
+
+<p>Gerekli kalınlık bulunduktan sonra sipariş edilecek nominal kalınlık şu şekilde hesaplanır (kodda <em>shell_required_nominal_thickness</em>):</p>
+
+<p><strong>t_nominal = (t_gerekli + C + şekillendirme_incelmesi) / sac_tolerans_faktörü</strong></p>
+
+<p>Burada <em>C</em> korozyon payıdır. Sac toleransı %12,5 ise faktör 0,875 alınır; yani sac en kötü durumda sipariş edilenin %87,5'i kadar kalın gelebilir. Bu yüzden paylar bölmenin içinde tutulur.</p>
+
+<p><strong>Örnek hesap 1 — silindirik gövde.</strong> Golden test dosyasındaki (<em>tests/golden_cases/test_hand_calc_ug27_ug32.py</em>) değerlerle: iç çap 1800 mm olduğu için R = 900 mm, tasarım basıncı P = 2,5 MPa, izin verilen gerilme S = 138 MPa, kaynak verimi E = 1,0 ve korozyon payı C = 0 alınıyor.</p>
+
+<ul>
+<li>Pay (bölünen): P × R = 2,5 × 900 = <strong>2250</strong></li>
+<li>Payda: S × E − 0,6 × P = 138 × 1,0 − 0,6 × 2,5 = 138 − 1,5 = <strong>136,5</strong></li>
+<li>t = 2250 / 136,5 = <strong>16,4835 mm → 16,484 mm</strong></li>
+<li>Boyuna kontrol: 2250 / (2 × 138 + 0,4 × 2,5) = 2250 / 277 = <strong>8,123 mm</strong>; bu daha küçük olduğu için çevresel sonuç belirleyicidir.</li>
+</ul>
+
+<p><strong>Örnek hesap 2 — 2:1 elipsoidal bombe.</strong> İç çap D = 2000 mm, tasarım basıncı P = 2,0 MPa, S = 138 MPa, E = 1,0, C = 0:</p>
+
+<ul>
+<li>Pay: P × D = 2,0 × 2000 = <strong>4000</strong></li>
+<li>Payda: 2 × S × E − 0,2 × P = 276 − 0,4 = <strong>275,6</strong></li>
+<li>t = 4000 / 275,6 = <strong>14,5138 mm → 14,514 mm</strong></li>
+</ul>
+
+<p>Bu iki sayı, test dosyasındaki beklenen değerlerle birebir aynıdır. Dikkat: bu örneklerde korozyon payı sıfır alınmıştır; gerçek projede korozyon payı ve sac toleransı eklendiğinde sipariş edilecek nominal kalınlık daha büyük çıkar.</p>
+
+<p>MAWP hesabı, aynı silindir formülünün tersine çevrilmiş hâlidir. Kodda <em>mawp_from_shell</em> şunu kullanır: <strong>P = S × E × t / (R + 0,6 × t)</strong>. Burada <em>t</em>, nominal kalınlıktan korozyon payı düşüldükten sonra kalan kalınlıktır. Hidrostatik test basıncı ise ASME UG-99(b) yaklaşımıyla <strong>1,3 × MAWP × LSR</strong> olarak hesaplanır; LSR, test sıcaklığındaki izin verilen gerilmenin tasarım sıcaklığındaki gerilmeye oranıdır. Pnömatik testte katsayı 1,1'dir (UG-100).</p>
+
+<div class="ipucu">İzin verilen gerilme (S), akma ve çekme dayanımı gibi malzeme değerleri telifli standart tablolarında yer alır. Bu değerleri uygulamadan veya bu kılavuzdan almayın; malzeme sertifikanızdan ya da elinizdeki lisanslı standarttan kendiniz girin.</div>
+
+<h2>4. Siteyi kullanma akışı (6 adım)</h2>
+
+<p>Uygulama soldaki menüde altı adım izler. Her adımın alanları ayrı bir bölümde ayrıntılı anlatılır; burada yalnız amacı özetlenir (bkz. alan anlatımı).</p>
+
+<figure><img src="img/01-acilis.png" alt="Vessela açılış ekranı: sol adım menüsü, kayıtlı projeler ve başlangıç şablonları"><figcaption>Şekil: Açılış ekranı — altı adımlı menü, kayıtlı projeler ve hazır şablonlar.</figcaption></figure>
+
+<ol>
+<li><strong>Yeni Proje:</strong> Projeye numara, ad, müşteri ve revizyon verilir; hesap standardı (ASME VIII-1 veya EN 13445) ve kabın yatay/dikey yönelimi seçilir. Hazır şablonlar (hava tankı, vakumlu tank, seperatör) başlangıç için geometri ve koşulları doldurabilir.</li>
+<li><strong>Tasarım Koşulları:</strong> Çalışma/tasarım basıncı ve sıcaklığı, korozyon payı, dış basınç/vakum ve akışkan bilgileri girilir. Bu değerler bütün hesapların temelini oluşturur.</li>
+<li><strong>Kap Geometrisi:</strong> Gövde zinciri (silindir/koni), bombeler, nozullar, manşonlar ve mesnetler tanımlanır; malzeme ve kaynak birleşimleri seçilir. Sağdaki 3D önizleme girdileri canlı gösterir.</li>
+<li><strong>Hesap Sonuçları:</strong> Kalınlık, MAWP, test basıncı, nozul takviyesi, destek ve BOM sonuçları durum etiketleriyle listelenir. Her satır açılarak ara değerler, uyarılar ve varsayımlar görülebilir.</li>
+<li><strong>3D Model:</strong> Girilen geometri üç boyutlu olarak incelenir, kesit alınabilir ve model dışa aktarılabilir (STEP/STL). CAD görsel amaçlıdır; hesabın kaynağı değildir.</li>
+<li><strong>Rapor &amp; Çıktı:</strong> Sonuçlar HTML rapor olarak üretilir; PDF/STEP çıktısı ve açınım (imalat şablonu) seçenekleri sunulur. Rapor, mühendis incelemesi için okunabilir bir özet sağlar.</li>
+</ol>
+
+<figure><img src="img/02-yeni-proje.png" alt="Yeni Proje adımı: proje kimliği, hesap rotası, şablonlar ve teknik önizleme"><figcaption>Şekil: Adım 1 — Yeni Proje ekranı ve hesap rotası seçimi.</figcaption></figure>
+
+<figure><img src="img/09-geometri-31-govde.png" alt="Kap geometrisi adımı: gövde zinciri, ana ölçüler ve 3D önizleme"><figcaption>Şekil: Adım 3 — Kap geometrisi, gövde zinciri ve 3D önizleme.</figcaption></figure>
+
+<figure><img src="img/43-3d-model.png" alt="3D Model adımı: STL görüntüleyici ve ana ölçüler paneli"><figcaption>Şekil: Adım 5 — 3D Model görünümü.</figcaption></figure>
+
+<figure><img src="img/45-rapor-sayfa.png" alt="Rapor ve Çıktı adımı: rapor özeti ve PDF/STEP düğmeleri"><figcaption>Şekil: Adım 6 — Rapor &amp; Çıktı ekranı.</figcaption></figure>
+
+<h2>5. Sonuçları nasıl okurum?</h2>
+
+<p>Her hesap satırı bir <strong>durum</strong> taşır. <strong>PASS (geçti)</strong>, girilen değerlerle kontrolün sağlandığını gösterir. <strong>FAIL (kalmadı)</strong>, bir sınırın aşıldığını gösterir; kalınlık artırılmalı veya tasarım değiştirilmelidir. <strong>REVIEW_REQUIRED (inceleme gerekli)</strong>, hesabın çalıştığını ama sonucun tek başına yeterli olmadığını, bir mühendisin bakması gerektiğini anlatır. Bazı durumlarda sonuç <strong>BLOCKED (engelli)</strong> olur; bu, gerekli bir girdinin (örneğin malzeme gerilmesi veya lisanslı tablo değeri) eksik olduğu anlamına gelir ve sayısal sonuç yayımlanmaz.</p>
+
+<p>Sonuç ekranında ayrıca <strong>uyarılar (notices)</strong> ve <strong>varsayımlar</strong> listesi bulunur. Uyarılar; eksik veri, emniyetsiz yönde yapılmış bir varsayım veya mühendis kararı gerektiren bir durumu bildirir. Varsayımlar ise programın sizin yerinize kabul ettiği değerlerdir (örneğin sac toleransının %12,5 alınması, su yoğunluğunun 1000 kg/m³ kabul edilmesi). Bu listeyi mutlaka okuyun; çünkü sonucun hangi kabuller üzerine kurulduğunu gösterir.</p>
+
+<figure><img src="img/40-sonuc-ozet.png" alt="Hesap Sonuçları ekranı: yayın öncesi doğrulama ve KPI satırı (MAWP, hidrotest, hacim, ağırlık)"><figcaption>Şekil: Hesap Sonuçları — durum etiketleri ve özet göstergeler.</figcaption></figure>
+
+<p><strong>Ne zaman mühendise danışmalı?</strong> Şu durumlarda sonucu tek başınıza yorumlamayın: REVIEW_REQUIRED veya BLOCKED satırı varsa; malzeme gerilmesini emin olmadan girdiyseniz; nozul eğik veya büyük açıklık söz konusuysa; destek hesabında katsayıları (Zick K değerleri gibi) elle girdiyseniz; sonuçlar imalat veya güvenlik kararı için kullanılacaksa. Ayrıca iki farklı hesap yolu birbiriyle çelişiyorsa (örneğin kalınlık ve MAWP yolu farklı bombe oranı varsayıyorsa) mühendis değerlendirmesi gerekir.</p>
+
+<h2>6. Önemli uyarılar</h2>
+
+<div class="uyari">
+<p><strong>Küçük açıklık muafiyeti (UG-36(c)(3)) sizin sorumluluğunuzdadır.</strong> Nozul ayrıntıları ekranındaki üç onay kutusu (kap hızlı basınç dalgalanmasına maruz değil, komşu açıklık aralığı koşulları sağlanıyor, bağlantı kaynaklı) kullanıcı beyanıdır. Üçü de işaretlenmeden muafiyet uygulanmaz; uygulansa bile nozul boyun et kalınlığı kontrol edilir. Bu beyanların doğruluğundan siz sorumlusunuz.</p>
+</div>
+
+<div class="uyari">
+<p><strong>Malzeme gerilmeleri şablonlarda boştur.</strong> Hazır şablonlar yalnız geometri ve tasarım koşullarını doldurur; izin verilen gerilme (S), akma ve çekme dayanımlarını girmez. Bu değerler girilmeden hesap hata verir veya engellenir. Değerleri malzeme sertifikasından ya da lisanslı standarttan kendiniz girin.</p>
+</div>
+
+<div class="uyari">
+<p><strong>Sonuç bir mühendis tarafından doğrulanmalıdır.</strong> Vessela resmî onay, ASME damgası veya PED/CE uygunluk kararı vermez. Sonuçlar ön boyutlandırma amaçlıdır; imalata esas tasarım, bağımsız mühendis kontrolü ve gerekiyorsa onaylanmış kuruluş süreci ile tamamlanmalıdır. Kapsam dışı konular (yorulma, sünme, harici boru yükleri vb.) ayrıca değerlendirilmelidir.</p>
+</div>
+
+<h2>7. Sözlük</h2>
+
+<dl>
+<dt>Basınç</dt>
+<dd>Bir yüzeye birim alana etki eden kuvvettir; burada genellikle MPa (megapaskal) ile ifade edilir.</dd>
+
+<dt>Çalışma basıncı</dt>
+<dd>Kabın normal işletme sırasında içinde bulunan basınçtır.</dd>
+
+<dt>Tasarım basıncı</dt>
+<dd>Hesaplarda kullanılan, çalışma basıncından daha yüksek seçilen güvenli basınç değeridir.</dd>
+
+<dt>Tasarım sıcaklığı</dt>
+<dd>Kabın tasarım ömrü boyunca görebileceği en yüksek (ve ayrıca en düşük) sıcaklıktır; malzeme dayanımı sıcaklıkla değişir.</dd>
+
+<dt>MAWP</dt>
+<dd>Maximum Allowable Working Pressure; kabın mevcut kalınlığı ve malzemesiyle güvenle çalışabileceği en yüksek basınçtır.</dd>
+
+<dt>İzin verilen gerilme (S)</dt>
+<dd>Malzemenin güvenlik payı uygulanmış hâlde taşıyabileceği gerilme değeridir; standart tablosundan veya sertifikadan alınır ve kullanıcı tarafından girilir.</dd>
+
+<dt>Akma dayanımı</dt>
+<dd>Malzemenin kalıcı olarak şekil değiştirmeye başladığı gerilme seviyesidir.</dd>
+
+<dt>Çekme dayanımı</dt>
+<dd>Malzemenin kopmadan önce taşıyabildiği en yüksek gerilmedir.</dd>
+
+<dt>Et kalınlığı</dt>
+<dd>Kabın cidarının (sacın) kalınlığıdır; milimetre cinsinden ifade edilir.</dd>
+
+<dt>Gerekli kalınlık</dt>
+<dd>Basıncı taşımak için cidarın en az sahip olması gereken kalınlıktır.</dd>
+
+<dt>Nominal kalınlık</dt>
+<dd>Sac üreticisinden sipariş edilen, gerekli kalınlığa paylar eklenmiş kalınlıktır.</dd>
+
+<dt>Korozyon payı</dt>
+<dd>Kabın ömrü boyunca paslanma ve aşınma nedeniyle kaybolacak metal için baştan eklenen kalınlıktır (C).</dd>
+
+<dt>Sac (mill) toleransı</dt>
+<dd>Sacın sipariş edilen kalınlıktan izin verilen ölçüde ince gelebilmesidir; %12,5 tolerans, sacın en kötü durumda nominalin %87,5'i kadar olabileceği anlamına gelir.</dd>
+
+<dt>Şekillendirme incelmesi</dt>
+<dd>Sacın bombe gibi biçimlere bükülürken incelmesidir; kalınlık hesabına eklenir.</dd>
+
+<dt>Kaynak verimi (E)</dt>
+<dd>Kaynaklı birleşimin, kaynaksız malzemeye göre ne kadar dayanım taşıdığını gösteren 0 ile 1 arası katsayıdır; muayene (NDT) arttıkça genellikle yükselir.</dd>
+
+<dt>NDT</dt>
+<dd>Non-Destructive Testing; kaynağın içini bozmadan yapılan muayene yöntemleridir (örneğin radyografi, ultrason).</dd>
+
+<dt>Silindirik gövde (kabuk)</dt>
+<dd>Kabın boru biçimindeki ana gövde parçasıdır; basıncın büyük kısmını taşır.</dd>
+
+<dt>Bombe</dt>
+<dd>Kabın silindir gövdesinin ucunu kapatan kubbeli parçadır (elipsoidal, torisferik, yarım küresel veya düz kapak olabilir).</dd>
+
+<dt>Elipsoidal bombe</dt>
+<dd>Elips biçiminde kubbeli bombedir; en yaygın olanı yükseklik/çap oranı 2:1 olan tiptir.</dd>
+
+<dt>Torisferik bombe</dt>
+<dd>Ortası geniş yarıçaplı, kenarı küçük yarıçapla bükülmüş bombe tipidir; "flanged and dished" olarak da bilinir.</dd>
+
+<dt>Düz kapak</dt>
+<dd>Kubbe yerine düz plakayla kapatılan uçtur; basınç altında eğilmeye çalışır ve ayrı bir katsayıyla hesaplanır.</dd>
+
+<dt>Konik bölüm</dt>
+<dd>Çapı bir uçtan diğerine değişen koni biçimindeki gövde parçasıdır; daraltma veya genişletme için kullanılır.</dd>
+
+<dt>Nozul</dt>
+<dd>Kabın cidarına boru bağlamak için yapılan ağızdır; genellikle flanşlı bir boru parçasıdır.</dd>
+
+<dt>Manşon</dt>
+<dd>Küçük çaplı ölçüm/alet bağlantıları için cidara kaynaklanan kısa boru parçasıdır.</dd>
+
+<dt>Flanş</dt>
+<dd>İki boru veya ekipmanı cıvatalarla birleştirmeye yarayan disk biçimli bağlantı elemanıdır.</dd>
+
+<dt>Takviye (ped)</dt>
+<dd>Nozul deliğinin etrafına eklenen, açıklığın zayıflattığı cidarı güçlendiren plakadır.</dd>
+
+<dt>Açıklık takviyesi</dt>
+<dd>Bir deliğin cidarda kaldırdığı malzemenin yerine, delik çevresinde yeterli alan sağlanması hesabıdır (UG-37/UG-40 yaklaşımı).</dd>
+
+<dt>Mesnet</dt>
+<dd>Kabı taşıyan ve zemine/çelik yapıya bağlayan destek elemanıdır.</dd>
+
+<dt>Eyer</dt>
+<dd>Yatay kapların altına oturtulan, kabı iki noktadan taşıyan eyer biçimli mesnettir; Zick yöntemiyle kontrol edilir.</dd>
+
+<dt>Etek</dt>
+<dd>Dikey kapların altına silindirik bir etek gibi bağlanan mesnettir; kabı çevreleyerek taşır.</dd>
+
+<dt>Ayak</dt>
+<dd>Dikey kabı birkaç noktadan taşıyan boru veya profil biçimindeki desteklerdir.</dd>
+
+<dt>Hidrostatik test (hidrotest)</dt>
+<dd>Kabın suyla doldurulup tasarım basıncının üzerinde bir basınçla sızdırmazlık ve dayanım açısından denendiği testtir.</dd>
+
+<dt>Pnömatik test</dt>
+<dd>Su yerine hava/gaz ile yapılan basınç testidir; enerji depolama riski nedeniyle genellikle daha düşük katsayı ve özel önlemler gerektirir.</dd>
+
+<dt>LSR</dt>
+<dd>Test sıcaklığındaki izin verilen gerilmenin tasarım sıcaklığındaki gerilmeye oranıdır; test basıncını ölçeklemek için kullanılır.</dd>
+
+<dt>Statik kafa</dt>
+<dd>Kabın içindeki sıvı yüksekliğinin tabana uyguladığı ek basınçtır; yoğunluk ve sıvı seviyesi girilerek hesaplanır.</dd>
+
+<dt>BOM</dt>
+<dd>Bill of Materials; kabı oluşturan parçaların listesi, kütlesi ve yaklaşık maliyetidir.</dd>
+
+<dt>PASS / FAIL</dt>
+<dd>Geçti / kalmadı durum etiketleridir; FAIL bir sınırın aşıldığını, PASS kontrolün sağlandığını gösterir.</dd>
+
+<dt>REVIEW_REQUIRED</dt>
+<dd>İnceleme gerekli; hesabın çalıştığını ancak sonucun bir mühendis tarafından doğrulanması gerektiğini gösterir.</dd>
+
+<dt>BLOCKED</dt>
+<dd>Engelli; gerekli bir girdi veya lisanslı veri eksik olduğu için sayısal sonuç üretilmediğini gösterir.</dd>
+
+<dt>Varsayım</dt>
+<dd>Programın kullanıcı yerine kabul ettiği değer veya kabuldür; sonuç ekranında açıkça listelenir.</dd>
+
+<dt>ASME VIII-1</dt>
+<dd>Basınçlı kapların tasarımı için yaygın kullanılan Amerikan standardıdır (Boiler and Pressure Vessel Code, Section VIII, Division 1).</dd>
+
+<dt>EN 13445</dt>
+<dd>Basınçlı kaplar için Avrupa standardıdır; Vessela'da dar kapsamlı bir hesap rotası olarak sunulur.</dd>
+
+<dt>UG-27 / UG-32</dt>
+<dd>ASME VIII-1 içinde sırasıyla silindirik gövde iç basınç kalınlığı ve bombe kalınlığı hesaplarını tarif eden maddelerdir.</dd>
+
+<dt>UG-36(c)(3)</dt>
+<dd>Belirli koşulları sağlayan küçük açıklıkların takviye hesabından muaf tutulabildiği ASME maddesidir; muafiyet beyanı kullanıcıya aittir.</dd>
+
+<dt>UG-99 / UG-100</dt>
+<dd>ASME VIII-1 içinde sırasıyla hidrostatik ve pnömatik test basıncını tarif eden maddelerdir.</dd>
+</dl>
+
+</section>
