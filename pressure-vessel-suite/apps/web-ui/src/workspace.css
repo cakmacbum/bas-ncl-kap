@@ -10,7 +10,6 @@ button, input, select { -webkit-tap-highlight-color: transparent; }
 .brand__mark::after { display: none; content: none; }
 .brand__name { font-size: 15px; font-weight: 700; letter-spacing: -.02em; line-height: 1.2; white-space: nowrap; }
 .brand__sub { color: var(--nav-dim); font-size: 9px; letter-spacing: .06em; margin-top: 3px; line-height: 1.2; white-space: nowrap; }
-.brand__by { font-size: 9.5px; color: var(--nav-dim); text-transform: none; margin-top: 3px; line-height: 1.2; white-space: nowrap; }
 .topbar { background: var(--panel); padding: 0 36px; gap: 20px; min-width: 0; border-bottom: 1px solid var(--line-strong); }
 .topbar__title { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
 .topbar__title strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 15px; font-weight: 700; letter-spacing: -.015em; }

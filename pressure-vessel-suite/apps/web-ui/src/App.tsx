@@ -140,7 +140,6 @@ export function App() {
         <div>
           <div className="brand__name">Basınçlı Kap Suite</div>
           <div className="brand__sub">MÜHENDİSLİK ÇALIŞMA ALANI</div>
-          <div className="brand__by">Yusuf Sağlamcı tarafından oluşturuldu</div>
         </div>
       </div>
 
