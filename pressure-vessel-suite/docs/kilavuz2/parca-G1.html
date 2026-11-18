@@ -13,6 +13,7 @@
 <h3>Başlangıç Şablonları</h3>
 <p>Tüm ölçüleri sıfırdan girmek yerine endüstride yaygın olarak kullanılan standart kap tiplerini tek tıkla yükleyebilirsiniz. Başlangıç şablonları temel kap geometrisini ve çalışma şartlarını otomatik doldurarak hesaplama sürecinizi hızlandırır.</p>
 <figure><img src="img/03-yeni-proje-sablon-hava-tanki.png" alt="Başlangıç Şablonları Ekranı"><figcaption>Şekil: Yatay hava tankı ve diğer hazır başlangıç şablonlarının seçildiği ekran.</figcaption></figure>
+<figure><img src="img/04-yeni-proje-sablon-vakum-tanki.png" alt="Vakum şablonu"><figcaption>Şekil: Vakum şablonu uygulandığında çıkan "girmeniz gerekenler" notlarına (malzeme S değerleri, dış basınç UG-28) bakın.</figcaption></figure>
 <dl>
 <dt>Şablonu Uygula (düğme)</dt>
 <dd>Seçtiğiniz hazır kap modelinin geometri ve tasarım şartlarını çalışma alanına aktaran düğmelerdir. Menüde üç farklı seçenek bulunur: <strong>Yatay Hava Tankı</strong> (kompresör sistemlerinde basınçlı hava depolamak için kullanılan standart yatay kap), <strong>Vakumlu Proses Tankı</strong> (içindeki hava boşaltılarak vakum uygulanan dikey kimyasal proses kabı) ve <strong>Dikey Seperatör</strong> (sıvı ve gaz fazlarını birbirinden ayrıştırmak için kullanılan dikey proses kabı). Bu şablonlar temel boyutları doldurur ancak malzeme dayanım değerlerini sıfır bırakır; bu nedenle malzeme değerlerini sertifikanızdan sizin girmeniz gerekir.</dd>
@@ -151,6 +152,8 @@
 
 <h3>Önizleme ve Görselleştirme</h3>
 <p>Tasarımı yapılan kabın üç boyutlu katı modelini, ölçülendirilmiş iki boyutlu teknik kesitini ve basınç altındaki renkli gerilme dağılımını canlı olarak inceleyebilirsiniz.</p>
+<figure><img src="img/21-onizleme-olculu-kesit.png" alt="Ölçülü Kesit sekmesi"><figcaption>Şekil: Ölçülü Kesit sekmesinde z, t, Ø ve teğet boyu ölçülerine bakın; bir alana tıklayınca ilgili ölçü vurgulanır.</figcaption></figure>
+<figure><img src="img/22-onizleme-kesin-model.png" alt="Kesin Model sekmesi"><figcaption>Şekil: Kesin Model sekmesi imalat geometrisini gösterir; seçili destek (ayaklar) mavi renkte görünür.</figcaption></figure>
 <figure><img src="img/20-onizleme-3d.png" alt="3D Önizleme Görünümü"><figcaption>Şekil: Canlı 3D model önizlemesi ve kamera kontrolleri.</figcaption></figure>
 <figure><img src="img/23-onizleme-gerilme.png" alt="Gerilme Analizi Önizlemesi"><figcaption>Şekil: Gerilme sekmesi ve analitik/FEA gerilme dağılımı haritası.</figcaption></figure>
 <figure><img src="img/24-onizleme-disa-aktar-menu.png" alt="Dışa Aktar Menüsü"><figcaption>Şekil: 3D model ve çizim dışa aktarma menüsü.</figcaption></figure>
@@ -167,8 +170,8 @@
 
 <h3>3.1 Gövde Zinciri</h3>
 <p>Gövde zinciri, basınçlı kabın silindirik veya konik gövde parçalarını uç uca bağlayarak ana silindiri kurmanızı sağlar. Tek veya farklı çaplardaki birden fazla gövde halkası bu şerit üzerinden yönetilir.</p>
-<figure><img src="img/10-geometri-31-govde-form.png" alt="3.1 Gövde Formu"><figcaption>Şekil: Seçili silindirik gövde halkasının ana ölçüleri ve ayrıntılar formu.</figcaption></figure>
-<figure><img src="img/11-geometri-31-uc-ekle-koni-form.png" alt="3.1 Uç Ekleme Paneli"><figcaption>Şekil: Gövde zincirine yeni silindir veya koni ekleme paneli.</figcaption></figure>
+<figure class="uzun"><img src="img/10-geometri-31-govde-form-a.png" alt="3.1 Gövde Formu"><figcaption>Şekil: Seçili silindirik gövde halkasının ana ölçüleri ve ayrıntılar formu.</figcaption></figure>
+<figure class="uzun"><img src="img/11-geometri-31-uc-ekle-koni-form-a.png" alt="3.1 Uç Ekleme Paneli"><figcaption>Şekil: Gövde zincirine yeni silindir veya koni ekleme paneli.</figcaption></figure>
 <dl>
 <dt>Zincir halkası seçimi (şerit)</dt>
 <dd>Gövdeyi meydana getiren parçalardan hangisinin aktif olduğunu gösteren seçim şerididir (örneğin SHELL-01, SHELL-02 veya koni halkaları). Ölçülerini değiştirmek istediğiniz halkanın üzerine tıklayarak veya 3D modelde parçayı seçerek düzenleme formunu açabilirsiniz. Yanlış halka seçilirse istenmeyen parçanın boyutları değiştirilebilir.</dd>
@@ -223,7 +226,8 @@
 <h3>3.2 Bombeler</h3>
 <p>Bombeler, silindirik gövdenin iki ucunu emniyetle kapatan derin kavisli veya düz kapaklardır. Basınç altında iç gerilmelerin en yoğunlaştığı bölgeler olduğundan geometrik formları büyük dikkat gerektirir.</p>
 <figure><img src="img/12-geometri-32-bombe.png" alt="3.2 Bombe Genel Ekranı"><figcaption>Şekil: Sol/alt ve sağ/üst bombe seçim kartları ve bombe tipleri.</figcaption></figure>
-<figure><img src="img/13-geometri-32-bombe-form.png" alt="3.2 Bombe Formu"><figcaption>Şekil: Bombe formu, çap ilişkisi, et kalınlığı ve ayrıntılar paneli.</figcaption></figure>
+<figure class="uzun"><img src="img/13-geometri-32-bombe-form-a.png" alt="3.2 Bombe Formu"><figcaption>Şekil: Bombe formu, çap ilişkisi, et kalınlığı ve ayrıntılar paneli.</figcaption></figure>
+<figure class="uzun"><img src="img/13-geometri-32-bombe-form-b.png" alt="3.2 Bombe Formu"><figcaption>Şekil: Bombe formu, çap ilişkisi, et kalınlığı ve ayrıntılar paneli (devam)</figcaption></figure>
 <dl>
 <dt>Bombe tipi</dt>
 <dd>Uç kapatma kapağının geometrik kesitini belirler; <strong>Elipsoidal (2:1)</strong> (derinliği çapın dörtte biri olan ve en sık kullanılan mukavim bombe), <strong>Torisferik</strong> (küre kubbeli ve mafsal kıvrımlı bombe, Klöpper/Korbogen), <strong>Yarım küresel</strong> (iç basınca en dayanıklı tam yarım küre bombe) ve <strong>Düz kapak</strong> (flanşlı veya kaynaklı kalın düz plaka) seçenekleri yer alır. Seçilen tip basınç gerilme formüllerini ve gerekli et kalınlığını tamamen değiştirir.</dd>

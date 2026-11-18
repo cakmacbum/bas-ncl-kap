@@ -8,7 +8,7 @@
 
 <p><strong>Vessela (zeyslabs-vessela)</strong>, bu hesapları adım adım yapmanızı sağlayan bir web uygulamasıdır. Amacı; bir basınçlı kabın tasarım koşullarını, geometrisini ve malzemesini girerek gerekli et kalınlıklarını, izin verilen en yüksek çalışma basıncını, test basıncını, nozul (boru bağlantı ağzı) takviyesini, mesnet (kap taşıyıcısı) kontrollerini ve kütle/maliyet listesini tek bir yerde görmektir. Kime hitap eder? Basınçlı kap hesabını yeni öğrenen mühendis adaylarına, tasarımı ön boyutlandırmak isteyen mühendislere ve sonuçları anlamak isteyen teknik personele.</p>
 
-<p>Vessela'nın <strong>YAPMADIĞI</strong> şeyler de en az yaptıkları kadar önemlidir. Uygulama resmî onay vermez, ASME damgası (yetkili imalat belgesi) üretmez, PED/CE uygunluk kararı yerine geçmez ve imalata esas tasarım raporu sayılmaz. Sonuçlar her zaman yetkin bir mühendisin kontrolünden geçmelidir. Ayrıca uygulama; yorulma (tekrarlı yük), sünme (yüksek sıcaklıkta zamanla uzama), nozula gelen harici boru yükleri, rüzgâr/deprem yük üretimi, ceketli veya çok odalı kaplar gibi konuları kapsamaz. Bu sınırların tam listesi <em>docs/limitations.md</em> dosyasındadır; kapsam ve her hesabın güncel durumu için <em>docs/calculation-coverage.md</em> okunmalıdır.</p>
+<p>Vessela'nın <strong>YAPMADIĞI</strong> şeyler de en az yaptıkları kadar önemlidir. Uygulama resmî onay vermez, ASME damgası (yetkili imalat belgesi) üretmez, PED (Avrupa Birliği Basınçlı Ekipman Yönetmeliği) ve CE uygunluk kararı yerine geçmez ve imalata esas tasarım raporu sayılmaz. Sonuçlar her zaman yetkin bir mühendisin kontrolünden geçmelidir. Ayrıca uygulama; yorulma (tekrarlı yük), sünme (yüksek sıcaklıkta zamanla uzama), nozula gelen harici boru yükleri, rüzgâr/deprem yük üretimi, ceketli veya çok odalı kaplar gibi konuları kapsamaz. Bu sınırların tam listesi <em>docs/limitations.md</em> dosyasındadır; kapsam ve her hesabın güncel durumu için <em>docs/calculation-coverage.md</em> okunmalıdır.</p>
 
 <div class="uyari">Vessela bir <strong>ön boyutlandırma ve mühendis incelemeli prototip</strong> aracıdır. Sonuçları imalat, satın alma veya güvenlik kararı için tek başına kullanmayın; mutlaka bir mühendise doğrulatın.</div>
 
@@ -23,6 +23,11 @@
 <li><strong>Hidrostatik test basıncı:</strong> Kabın imalat sonrası suyla doldurulup test edileceği basınçtır. Sonuç, "testte bu basınca kadar çıkarılacak" demektir; basınç, MAWP'nin üzerinde bir güvenlik kontrolüdür.</li>
 <li><strong>Nozul/açıklık takviyesi:</strong> Kap cidarında boru bağlamak için açılan deliğin etrafındaki malzemenin yeterli olup olmadığıdır. Sonuç, "delik cidarı zayıflattı; takviye pedi (destek plakası) gerekiyor mu?" sorusunu cevaplar.</li>
 <li><strong>Mesnet/ayak kontrolü:</strong> Kabı taşıyan eyer, etek veya ayakların ağırlık ve momentler altında zorlanmasını inceler. Sonuç, "taşıyıcı yeterince güvenli mi, ankraj/taban plakası yeterli mi?" demektir.</li>
+<li><strong>Dış basınç/vakum:</strong> Kabın dışarıdan gelen basınca (vakuma) karşı burkulmaya dayanıp dayanmadığıdır (ASME UG-28/UG-33). Sonuç ön kontrol niteliğindedir; gerekli A/B faktörü girilmezse sonuç yayımlanmaz.</li>
+<li><strong>MDMT/gevrek kırılma:</strong> Malzemenin düşük sıcaklıkta gevrekleşip çatlama riskine karşı izin verilen en düşük metal sıcaklığıdır (UCS-66). Sonuç basitleştirilmiş bir ön kontroldür.</li>
+<li><strong>Flanş:</strong> Cıvatalı flanş bağlantısının gerilmelerinin kontrolüdür (Appendix 2). Y, f, W, M gibi değerler girilmezse sonuç yayımlanmaz.</li>
+<li><strong>Basınç tahliye:</strong> Emniyet vanası gibi tahliye elemanının kap için yeterli olup olmadığına dair ön kontroldür (UG-125 ve devamı); boyutlandırma yapmaz.</li>
+<li><strong>Kaynak doğrulama:</strong> Kaynak türü, muayene oranı ve malzeme için standardın kurallarına uyulup uyulmadığının denetimidir (UW-11/UW-12, UCS-56).</li>
 <li><strong>Kütle/maliyet (BOM):</strong> Kabın parçalarının listesi, ağırlığı ve yaklaşık maliyetidir. Sonuç, satın alma ve teklif için malzeme/işçilik fikri verir.</li>
 </ul>
 
@@ -40,9 +45,9 @@
 
 <p><strong>t = P × D / (2 × S × E − 0,2 × P)</strong></p>
 
-<p>Burada <em>D</em> bombe iç çapıdır. Torisferik ve yarım küresel bombeler için kodda ayrı formüller vardır. EN 13445 seçilirse silindir ve bombe için ayrı (ve dar kapsamlı) bir hesap rotası çalışır; EN seçeneği "tam EN tasarımı" anlamına gelmez ve bu rotada nozul, destek gibi bazı kontroller yoktur.</p>
+<p>Burada <em>D</em> bombe iç çapıdır. Torisferik ve yarım küresel bombeler için kodda ayrı formüller vardır. EN 13445 seçilirse silindir, bombe, koni ve düz kapak için ayrı (ve dar kapsamlı) bir hesap rotası çalışır; EN seçeneği "tam EN tasarımı" anlamına gelmez ve bu rotada nozul, destek gibi bazı kontroller yoktur.</p>
 
-<p>Gerekli kalınlık bulunduktan sonra sipariş edilecek nominal kalınlık şu şekilde hesaplanır (kodda <em>shell_required_nominal_thickness</em>):</p>
+<p>Gerekli kalınlık bulunduktan sonra sipariş edilecek nominal kalınlık şu şekilde hesaplanır:</p>
 
 <p><strong>t_nominal = (t_gerekli + C + şekillendirme_incelmesi) / sac_tolerans_faktörü</strong></p>
 
@@ -67,7 +72,7 @@
 
 <p>Bu iki sayı, test dosyasındaki beklenen değerlerle birebir aynıdır. Dikkat: bu örneklerde korozyon payı sıfır alınmıştır; gerçek projede korozyon payı ve sac toleransı eklendiğinde sipariş edilecek nominal kalınlık daha büyük çıkar.</p>
 
-<p>MAWP hesabı, aynı silindir formülünün tersine çevrilmiş hâlidir. Kodda <em>mawp_from_shell</em> şunu kullanır: <strong>P = S × E × t / (R + 0,6 × t)</strong>. Burada <em>t</em>, nominal kalınlıktan korozyon payı düşüldükten sonra kalan kalınlıktır. Hidrostatik test basıncı ise ASME UG-99(b) yaklaşımıyla <strong>1,3 × MAWP × LSR</strong> olarak hesaplanır; LSR, test sıcaklığındaki izin verilen gerilmenin tasarım sıcaklığındaki gerilmeye oranıdır. Pnömatik testte katsayı 1,1'dir (UG-100).</p>
+<p>MAWP hesabı, aynı silindir formülünün tersine çevrilmiş hâlidir. Uygulama şu formülü kullanır: <strong>P = S × E × t / (R + 0,6 × t)</strong>. Burada <em>t</em>, nominal kalınlıktan korozyon payı, sacın eksi toleransı ve şekillendirme incelmesi düşüldükten sonra kalan kalınlıktır (silindir ve bombede MAWP bu düşülmüş kalınlıkla hesaplanır; ayrıntı için hesap notlarına bakın). Hidrostatik test basıncı ise ASME UG-99(b) yaklaşımıyla <strong>1,3 × MAWP × LSR</strong> olarak hesaplanır; LSR, test sıcaklığındaki izin verilen gerilmenin tasarım sıcaklığındaki gerilmeye oranıdır. Sıcaklık arttıkça malzeme zayıflar; test ise daha düşük sıcaklıkta yapıldığı için basınç, bu farkı dengelemek üzere LSR ile artırılır. Pnömatik testte katsayı 1,1'dir (UG-100).</p>
 
 <div class="ipucu">İzin verilen gerilme (S), akma ve çekme dayanımı gibi malzeme değerleri telifli standart tablolarında yer alır. Bu değerleri uygulamadan veya bu kılavuzdan almayın; malzeme sertifikanızdan ya da elinizdeki lisanslı standarttan kendiniz girin.</div>
 
@@ -96,13 +101,13 @@
 
 <h2>5. Sonuçları nasıl okurum?</h2>
 
-<p>Her hesap satırı bir <strong>durum</strong> taşır. <strong>PASS (geçti)</strong>, girilen değerlerle kontrolün sağlandığını gösterir. <strong>FAIL (kalmadı)</strong>, bir sınırın aşıldığını gösterir; kalınlık artırılmalı veya tasarım değiştirilmelidir. <strong>REVIEW_REQUIRED (inceleme gerekli)</strong>, hesabın çalıştığını ama sonucun tek başına yeterli olmadığını, bir mühendisin bakması gerektiğini anlatır. Bazı durumlarda sonuç <strong>BLOCKED (engelli)</strong> olur; bu, gerekli bir girdinin (örneğin malzeme gerilmesi veya lisanslı tablo değeri) eksik olduğu anlamına gelir ve sayısal sonuç yayımlanmaz.</p>
+<p>Her hesap satırı bir <strong>durum</strong> taşır. <strong>PASS (geçti)</strong>, girilen değerlerle kontrolün sağlandığını gösterir. <strong>FAIL (başarısız: bir sınır aşıldı)</strong>, bir sınırın aşıldığını gösterir; kalınlık artırılmalı veya tasarım değiştirilmelidir. <strong>REVIEW_REQUIRED (inceleme gerekli)</strong>, hesabın çalıştığını ama sonucun tek başına yeterli olmadığını, bir mühendisin bakması gerektiğini anlatır. Bazı durumlarda sonuç <strong>BLOCKED (engelli)</strong> olur; bu, gerekli bir girdinin (örneğin malzeme gerilmesi veya lisanslı tablo değeri) eksik olduğu anlamına gelir ve sayısal sonuç yayımlanmaz.</p>
 
 <p>Sonuç ekranında ayrıca <strong>uyarılar (notices)</strong> ve <strong>varsayımlar</strong> listesi bulunur. Uyarılar; eksik veri, emniyetsiz yönde yapılmış bir varsayım veya mühendis kararı gerektiren bir durumu bildirir. Varsayımlar ise programın sizin yerinize kabul ettiği değerlerdir (örneğin sac toleransının %12,5 alınması, su yoğunluğunun 1000 kg/m³ kabul edilmesi). Bu listeyi mutlaka okuyun; çünkü sonucun hangi kabuller üzerine kurulduğunu gösterir.</p>
 
 <figure><img src="img/40-sonuc-ozet.png" alt="Hesap Sonuçları ekranı: yayın öncesi doğrulama ve KPI satırı (MAWP, hidrotest, hacim, ağırlık)"><figcaption>Şekil: Hesap Sonuçları — durum etiketleri ve özet göstergeler.</figcaption></figure>
 
-<p><strong>Ne zaman mühendise danışmalı?</strong> Şu durumlarda sonucu tek başınıza yorumlamayın: REVIEW_REQUIRED veya BLOCKED satırı varsa; malzeme gerilmesini emin olmadan girdiyseniz; nozul eğik veya büyük açıklık söz konusuysa; destek hesabında katsayıları (Zick K değerleri gibi) elle girdiyseniz; sonuçlar imalat veya güvenlik kararı için kullanılacaksa. Ayrıca iki farklı hesap yolu birbiriyle çelişiyorsa (örneğin kalınlık ve MAWP yolu farklı bombe oranı varsayıyorsa) mühendis değerlendirmesi gerekir.</p>
+<p><strong>Ne zaman mühendise danışmalı?</strong> Şu durumlarda sonucu tek başınıza yorumlamayın: REVIEW_REQUIRED veya BLOCKED satırı varsa; malzeme gerilmesini emin olmadan girdiyseniz; nozul eğik veya büyük açıklık söz konusuysa; destek hesabında katsayıları (Zick yöntemindeki K1-K7 gibi; Zick, yatay kaplardaki eyer mesnetlerinde cidar gerilmesini hesaplayan yöntemdir ve K değerleri bu yöntemin tablo katsayılarıdır) elle girdiyseniz; sonuçlar imalat veya güvenlik kararı için kullanılacaksa. Ayrıca iki farklı hesap yolu birbiriyle çelişiyorsa (örneğin kalınlık ve MAWP yolu farklı bombe oranı varsayıyorsa) mühendis değerlendirmesi gerekir.</p>
 
 <h2>6. Önemli uyarılar</h2>
 
@@ -230,7 +235,7 @@
 <dd>Bill of Materials; kabı oluşturan parçaların listesi, kütlesi ve yaklaşık maliyetidir.</dd>
 
 <dt>PASS / FAIL</dt>
-<dd>Geçti / kalmadı durum etiketleridir; FAIL bir sınırın aşıldığını, PASS kontrolün sağlandığını gösterir.</dd>
+<dd>Geçti / başarısız durum etiketleridir; FAIL bir sınırın aşıldığını, PASS kontrolün sağlandığını gösterir.</dd>
 
 <dt>REVIEW_REQUIRED</dt>
 <dd>İnceleme gerekli; hesabın çalıştığını ancak sonucun bir mühendis tarafından doğrulanması gerektiğini gösterir.</dd>

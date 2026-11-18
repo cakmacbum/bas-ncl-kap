@@ -12,6 +12,7 @@ h2{font-size:17pt;border-bottom:2px solid #12304d;padding-bottom:3px;margin-top:
 h3{font-size:13pt;margin-top:1.1em;break-after:avoid}h4{font-size:11pt;break-after:avoid}
 p{margin:.5em 0;orphans:3;widows:3}
 img{max-width:100%;height:auto;display:block;margin:.6em auto;break-inside:avoid;max-height:230mm;object-fit:contain;border:1px solid #cfd6de}
+figure.uzun img{max-height:230mm;width:auto;max-width:100%}
 figure{margin:.6em 0;break-inside:avoid}figcaption{font-size:9pt;color:#555;text-align:center}
 table{border-collapse:collapse;width:100%;margin:.6em 0;font-size:9.5pt}
 th,td{border:1px solid #b9c2cc;padding:4px 6px;vertical-align:top;text-align:left}
