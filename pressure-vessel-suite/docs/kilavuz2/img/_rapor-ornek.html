@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Basınçlı Kap Hesap Raporu — KLV-201</title>
+<style>
+body { font-family: Arial, sans-serif; font-size: 11pt; margin: 20mm; color: #222; }
+h1 { font-size: 18pt; color: #1a3a5c; border-bottom: 2px solid #1a3a5c; padding-bottom: 6px; }
+h2 { font-size: 14pt; color: #1a3a5c; margin-top: 24px; }
+h3 { font-size: 12pt; color: #333; }
+table { border-collapse: collapse; width: 100%; margin: 10px 0; }
+th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: left; font-size: 10pt; }
+th { background: #f0f4f8; font-weight: bold; }
+.cover { text-align: center; margin-top: 80px; }
+.cover h1 { font-size: 24pt; border: none; }
+.traceability { background: #f9f9f9; margin-top: 30px; }
+.traceability th { background: #e8edf2; }
+.status-pass { color: green; font-weight: bold; }
+.status-fail { color: red; font-weight: bold; }
+.status-nc { color: orange; font-weight: bold; }
+.section { page-break-inside: avoid; margin-bottom: 16px; }
+.warning { background: #fff3cd; border: 1px solid #ffc107; padding: 8px; margin: 6px 0; }
+.footer { font-size: 9pt; color: #666; margin-top: 40px; border-top: 1px solid #ccc; padding-top: 8px; }
+.u1a-note { font-size: 9pt; color: #555; }
+.u1a th { width: 34%; }
+@page { size: A4; margin: 15mm 12mm 18mm 12mm; }
+@media print {
+  html, body { background: #fff !important; color: #000 !important; }
+  body { margin: 0; font-size: 10pt; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  h1, h2, h3 { break-after: avoid; page-break-after: avoid; }
+  h2 { margin-top: 14px; }
+  table { break-inside: auto; page-break-inside: auto; }
+  thead { display: table-header-group; }
+  tfoot { display: table-footer-group; }
+  tr, img, svg { break-inside: avoid; page-break-inside: avoid; }
+  th, td { font-size: 9pt; padding: 4px 6px; }
+  .section { page-break-inside: auto; break-inside: auto; }
+  .cover { margin-top: 40mm; break-after: page; page-break-after: always; }
+  .u1a-page { break-before: page; page-break-before: always; }
+  .warning { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<div class="cover">
+<h1>BASINÇLI KAP HESAP RAPORU</h1>
+<h2>Dikey ayaklı tank (örnek)</h2>
+<p>Proje No: KLV-201</p>
+<p>Revizyon: A</p>
+<p>Müşteri: Basincli QA</p>
+<p>Hesap Standardı: ASME VIII-1 — 2025</p>
+</div>
+
+<div class="section">
+<h2>2. Proje ve Revizyon Bilgileri</h2>
+<table>
+<thead><tr><th>Özellik</th><th>Değer</th></tr></thead>
+<tr><td>Proje Numarası</td><td>KLV-201</td></tr>
+<tr><td>Proje Adı</td><td>Dikey ayaklı tank (örnek)</td></tr>
+<tr><td>Müşteri</td><td>Basincli QA</td></tr>
+<tr><td>Revizyon</td><td>A</td></tr>
+<tr><td>Hesap Standardı</td><td>ASME VIII-1</td></tr>
+<tr><td>Standart Sürümü</td><td>2025</td></tr>
+<tr><td>Birim Sistemi</td><td>SI</td></tr>
+<tr><td>Yön</td><td>vertical</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>3. Kullanılan Standartlar ve Sürümleri</h2>
+<table>
+<thead><tr><th>Standart</th><th>Sürüm</th></tr></thead>
+<tr><td>ASME VIII-1</td><td>2025</td></tr>
+<tr><td>ASME Section II (Malzeme)</td><td>2025</td></tr>
+</table>
+<p><em>Not: Standart metinleri telif hakları nedeniyle bu raporda yer almamaktadır (K6).
+Yalnızca madde referansları ve formül sonuçları gösterilmiştir.</em></p>
+</div>
+
+<div class="section">
+<h2>4. Tasarım Temeli</h2>
+<table>
+<thead><tr><th>Parametre</th><th>Değer</th></tr></thead>
+<tr><td>Çalışma Basıncı</td><td>1.0 MPa</td></tr>
+<tr><td>Tasarım Basıncı</td><td>1.2 MPa</td></tr>
+<tr><td>Azami İzin Verilen Basınç (PS)</td><td>1.5 MPa</td></tr>
+<tr><td>Çalışma Sıcaklığı</td><td>150.0 °C</td></tr>
+<tr><td>Tasarım Sıcaklığı</td><td>200.0 °C</td></tr>
+<tr><td>Asgari Tasarım Sıcaklığı</td><td>-10.0 °C</td></tr>
+<tr><td>İç Korozyon Payı</td><td>2.0 mm</td></tr>
+<tr><td>Dış Korozyon Payı</td><td>0.0 mm</td></tr>
+<tr><td>Hidrotest Sıcaklığı</td><td>20.0 °C</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>5. Akışkan ve Çalışma Koşulları</h2>
+<p><em>Akışkan bilgisi tanımlanmamış.</em></p>
+</div>
+
+<div class="section">
+<h2>6. PED Kapsam ve Kategori Hesabı</h2>
+<p><em>PED sınıflandırması bu rapor için çalıştırılmadı (ASME VIII-1 rotası).
+PED değerlendirmesi için projeyi PED sınıflandırma motoruyla çalıştırın.</em></p>
+</div>
+
+<div class="section">
+<h2>7. Malzeme Listesi</h2>
+<table>
+<thead><tr><th>ID</th><th>Malzeme</th><th>Ürün Formu</th><th>İzin Verilen Gerilme</th>
+<th>Akma</th><th>Çekme</th><th>Kaynak</th></tr></thead>
+
+<tr><td>M1</td><td>SA-516 Gr.70</td>
+<td>plate</td><td>138.0 MPa</td>
+<td>260.0 MPa</td><td>485.0 MPa</td>
+<td>ASME II-D Table 1A</td></tr>
+<tr><td>M2</td><td>SA-516 Gr.60</td>
+<td>plate</td><td>120.0 MPa</td>
+<td>220.0 MPa</td><td>415.0 MPa</td>
+<td>ASME II-D Table 1A</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>8. Ana Geometri</h2>
+<h3>Gövde Kesitleri</h3>
+<table>
+<thead><tr><th>ID</th><th>İç Çap (mm)</th><th>Dış Çap (mm)</th><th>Uzunluk (mm)</th>
+<th>Kalınlık (mm)</th><th>Korozyon Payı (mm)</th></tr></thead>
+
+<tr><td>SHELL-01</td><td>1000.0</td>
+<td>—</td><td>2000.0</td>
+<td>12.0</td><td>2.0</td></tr>
+</table>
+<h3>Bombeler</h3>
+<table>
+<thead><tr><th>ID</th><th>Tip</th><th>İç Çap (mm)</th><th>Kalınlık (mm)</th><th>Düz Flanş (mm)</th></tr></thead>
+
+<tr><td>HEAD-L</td><td>elliptical</td><td>1000.0</td>
+<td>12.0</td><td>40.0</td></tr>
+<tr><td>HEAD-R</td><td>elliptical</td><td>1000.0</td>
+<td>10.0</td><td>40.0</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>9. Gövde Hesapları</h2>
+<table>
+<thead><tr><th>Bileşen</th><th>Madde Ref.</th><th>Gerekli Kalınlık</th>
+<th>Seçilen Kalınlık</th><th>Kullanım</th><th>Durum</th></tr></thead>
+
+<tr><td>SHELL-01</td><td>UG-27(c)(1)</td>
+<td>7.30 mm</td>
+<td>12.00 mm</td>
+<td>60.8%</td>
+<td class="status-pass">PASS</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>10. Bombe Hesapları</h2>
+<table>
+<thead><tr><th>Bileşen</th><th>Madde Ref.</th><th>Gerekli Kalınlık</th>
+<th>Seçilen Kalınlık</th><th>Kullanım</th><th>Durum</th></tr></thead>
+
+<tr><td>HEAD-L</td><td>UG-32(d)</td>
+<td>7.28 mm</td>
+<td>12.00 mm</td>
+<td>60.7%</td>
+<td class="status-pass">PASS</td></tr>
+<tr><td>HEAD-R</td><td>UG-32(d)</td>
+<td>9.04 mm</td>
+<td>10.00 mm</td>
+<td>90.4%</td>
+<td class="status-pass">PASS</td></tr>
+</table>
+</div>
+
+
+<div class="section">
+<h2>11. Nozul ve Açıklık Hesapları</h2>
+
+<h3>Nozul N1 — Takviye Alan Analizi (UG-37/UG-40)</h3>
+<table>
+<thead><tr><th>Kalem</th><th>Açıklama</th><th>Alan</th></tr></thead>
+<tr><td><strong>Gerekli alan</strong></td><td>A_required = d × t_required</td>
+<td style="text-align:right"><strong>230.4 mm²</strong></td></tr>
+
+<tr><td>A1</td><td>Gövde/bombe fazlası: (2×52.5 − 52.5) × (1.00×10.00 − 4.39)</td>
+<td style="text-align:right">294.6 mm²</td></tr>
+<tr><td>A2</td><td>Nozul boynu (dışa): 2 × 9.8 × (3.90 − 0.23) × 1.00</td>
+<td style="text-align:right">71.6 mm²</td></tr>
+<tr><td>A3</td><td>Nozul boynu (içe): 2 × 0.0 × 3.90 × 1.00</td>
+<td style="text-align:right">0.0 mm²</td></tr>
+<tr><td>A4</td><td>Kaynak metali: yok</td>
+<td style="text-align:right">0.0 mm²</td></tr>
+<tr><td><strong>Toplam mevcut</strong></td><td>A1+A2+A3+A4</td>
+<td style="text-align:right"><strong>366.2 mm²</strong></td></tr>
+<tr><td colspan="2">Kullanım / Sonuç</td>
+<td style="text-align:right" class="status-pass">159.0% — PASS</td></tr>
+</table>
+<div class='warning'>⚠ K4: E1=1 varsayıldı (açıklık kaynak dikişinden geçmiyor kabulü, UG-37(a)); dikişten geçiyorsa opening_weld_joint_efficiency girilmeli.</div>
+</div>
+
+<div class="section">
+<h2>12. Kaynak ve NDT Özeti</h2>
+<table>
+<thead><tr><th>ID</th><th>Tip</th><th>Kategori</th><th>Verim (E)</th><th>NDE Yöntemi</th><th>NDE Kapsamı</th></tr></thead>
+
+<tr><td>WJ-01</td><td>longitudinal</td><td>A</td>
+<td>1.0</td><td>RT-1</td>
+<td>100%</td></tr>
+<tr><td>WJ-02</td><td>circumferential</td><td>B</td>
+<td>0.85</td><td>RT-2</td>
+<td>spot</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>13. MAWP (Azami İzin Verilen Çalışma Basıncı)</h2>
+<table>
+<thead><tr><th>Bileşen</th><th>Tip</th><th>Madde Ref.</th><th>MAWP (MPa)</th></tr></thead>
+
+<tr><td>SHELL-01</td><td>shell</td>
+<td>UG-27(c)(1)</td><td>2.313 MPa</td></tr>
+<tr><td>HEAD-L</td><td>head</td>
+<td>UG-32(d)</td><td>2.333 MPa</td></tr>
+<tr><td>HEAD-R</td><td>head</td>
+<td>UG-32(d)</td><td>1.370 MPa</td></tr>
+</table>
+<p><strong>Global MAWP = 1.370 MPa</strong> (en düşük değer)</p>
+</div>
+
+<div class="section">
+<h2>14. Hidrostatik Test Basıncı</h2>
+<table>
+<thead><tr><th>Parametre</th><th>Değer</th></tr></thead>
+<tr><td>Referans</td><td>UG-99(b)</td></tr>
+<tr><td>Tasarım Basıncı</td><td>1.2 MPa</td></tr>
+<tr><td>Test Basıncı</td><td>1.781 MPa</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>15. Basınç Tahliye Sistemi (UG-125–136)</h2>
+<table><thead><tr><th>Cihaz</th><th>Ayar/kopma basıncı</th><th>Durum</th></tr></thead><tr><td>RELIEF-SYSTEM</td><td>—</td><td>OUT OF SCOPE</td></tr></table>
+<p><em>Bu bölüm cihaz seçimi ve kapasite sertifikasının yerine geçmez; REVIEW_REQUIRED sonuçlar yetkin mühendis incelemesi ister.</em></p>
+</div>
+
+<div class="section">
+<h2>15. Ağırlık ve Hacim</h2>
+<table>
+<thead><tr><th>Parametre</th><th>Değer</th></tr></thead>
+<tr><td>İç Hacim (Akışkan)</td><td>1879.3 litre (1.879 m³)</td></tr>
+<tr><td>Toplam Metal Hacmi</td><td>112935087 mm³</td></tr>
+<tr><td>Toplam Metal Ağırlığı</td><td>886.5 kg</td></tr>
+</table>
+<h3>Bileşen Bazında</h3>
+<table>
+<thead><tr><th>Bileşen</th><th>Tip</th><th>İç Hacim (mm³)</th><th>Metal Hacmi (mm³)</th></tr></thead>
+<tr><td>HEAD-L</td><td>head</td><td>160500274</td><td>12994189</td></tr><tr><td>SHELL-01</td><td>shell</td><td>1558255089</td><td>88844240</td></tr><tr><td>HEAD-R</td><td>head</td><td>160500274</td><td>11096658</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>16. Nozul Schedule</h2>
+<table>
+<thead><tr><th>Etiket</th><th>Tip</th><th>Eksenel Konum</th><th>Çevresel Açı</th>
+<th>Dış Çap</th><th>İç Çap</th><th>Boyun Kalınlığı</th></tr></thead>
+
+<tr><td>N1</td><td>flanged</td><td>1000.0 mm</td>
+<td>0.0°</td><td>60.3 mm</td>
+<td>52.5 mm</td><td>3.9 mm</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>17. Kaynak Haritası ve Doğrulama</h2>
+<table>
+<thead><tr><th>Bağlantı</th><th>Tip</th><th>Kategori</th><th>Verim (E)</th>
+<th>NDE (yöntem/kapsam)</th><th>Doğrulama</th><th>Not</th></tr></thead>
+
+<tr><td>WJ-01</td><td>longitudinal</td><td>A</td>
+<td>1.0</td><td>RT-1 / 100%</td>
+<td><span class="">REVIEW REQUIRED</span></td><td>—</td></tr>
+<tr><td>WJ-02</td><td>circumferential</td><td>B</td>
+<td>0.85</td><td>RT-2 / spot</td>
+<td><span class="">REVIEW REQUIRED</span></td><td>—</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>18. İsim Plakası Bilgileri</h2>
+<table>
+<thead><tr><th>Alan</th><th>Değer</th></tr></thead>
+<tr><td>Tasarım Basıncı</td><td>1.2 MPa</td></tr>
+<tr><td>Azami İzin Verilen Basınç (PS)</td><td>1.5 MPa</td></tr>
+<tr><td>Tasarım Sıcaklığı</td><td>200.0 °C</td></tr>
+<tr><td>Hesap Standardı</td><td>ASME VIII-1 2025</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>19. PED Temel Güvenlik Gereklilikleri Matrisi</h2>
+<p><em>ESR matrisi bu rapor için sağlanmadı. PED/CE değerlendirmesi için compliance
+modülünden bir ESR matrisi geçirin.</em></p>
+</div>
+
+<div class="section">
+<h2>20. Uyarılar ve Kapsam Dışı Kontroller</h2>
+<div class="warning">ℹ [SHELL-01] K4: Allowable stress S=138.0 MPa entered manually for SA-516 Gr.70 at 200.0°C</div>
+<div class="warning">ℹ [HEAD-L] K4: Allowable stress S=138.0 MPa entered manually for SA-516 Gr.70 at 200.0°C</div>
+<div class="warning">ℹ [HEAD-R] K4: Allowable stress S=120.0 MPa entered manually for SA-516 Gr.60 at 200.0°C</div>
+<div class="warning">⚠ [N1] K4: E1=1 varsayıldı (açıklık kaynak dikişinden geçmiyor kabulü, UG-37(a)); dikişten geçiyorsa opening_weld_joint_efficiency girilmeli.</div>
+<div class="warning">⚠ [N1] [nozzle_weld_proximity] Nozul N1 ile kaynak dikişi WJ-01 arası kenar mesafesi (-30.1 mm) minimum (25.0 mm) altında. Mühendis incelemesi gerekli.</div>
+<div class="warning">ℹ [system] UG-46: iç çap 1000 mm &gt; 610 mm eşiğinin üstünde ve tanımlı bir adam deliği (manway) yok. Not: tam Tablo UG-46 kontrolü (basınç/hizmete göre) burada yapılmadı (K6) — muayene açıklığı gereksinimini ayrıca doğrulayın.</div>
+<div class="warning">ℹ [WJ-01] [wps_pqr] Eksik kaynak prosedür bilgisi: WPS, PQR. Mühendis incelemesi gerekli.</div>
+<div class="warning">ℹ [WJ-01] [welder_qualification] Kaynakçı yeterlilik referansı girilmemiş. Mühendis incelemesi gerekli.</div>
+<div class="warning">ℹ [WJ-02] [wps_pqr] Eksik kaynak prosedür bilgisi: WPS, PQR. Mühendis incelemesi gerekli.</div>
+<div class="warning">ℹ [WJ-02] [welder_qualification] Kaynakçı yeterlilik referansı girilmemiş. Mühendis incelemesi gerekli.</div>
+<div class="warning">ℹ [SHELL-01] K4: Allowable stress S=138.0 MPa entered manually for SA-516 Gr.70 at 200.0°C</div>
+<div class="warning">ℹ [SHELL-01] Akışkan yoğunluğu girilmedi (0 kg/m³) — statik sıvı sütunu basıncı MAWP&#x27;ye YANSITILMADI. Sıvı dolu işletmede alt bileşenler bu değerden daha yüksek basınç görür.</div>
+<div class="warning">ℹ [HEAD-L] K4: Allowable stress S=138.0 MPa entered manually for SA-516 Gr.70 at 200.0°C</div>
+<div class="warning">ℹ [HEAD-L] Akışkan yoğunluğu girilmedi (0 kg/m³) — statik sıvı sütunu basıncı MAWP&#x27;ye YANSITILMADI. Sıvı dolu işletmede alt bileşenler bu değerden daha yüksek basınç görür.</div>
+<div class="warning">ℹ [HEAD-R] K4: Allowable stress S=120.0 MPa entered manually for SA-516 Gr.60 at 200.0°C</div>
+<div class="warning">ℹ [HEAD-R] Akışkan yoğunluğu girilmedi (0 kg/m³) — statik sıvı sütunu basıncı MAWP&#x27;ye YANSITILMADI. Sıvı dolu işletmede alt bileşenler bu değerden daha yüksek basınç görür.</div>
+<div class="warning">⚠ [system] Test gerilmesi eksik (M1, M2): tasarım sıcaklığı 200.0 °C, test sıcaklığı 20.0 °C. S_test/S_design normalde ≥ 1&#x27;dir; LSR=1 test basıncını olması gerekenden DÜŞÜK verebilir (emniyetsiz yön). Malzemede &#x27;Test sıcaklığında S&#x27; değerini girin.</div>
+<div class="warning">ℹ [system] K4: Test sıcaklığındaki izin verilen gerilme girilmedi; LSR=1.0 yedek değer olarak kullanıldı (belirleyici malzeme M2).</div>
+<div class="warning">ℹ [system] Test sıcaklığındaki izin verilen gerilme girilmedi; LSR=1 varsayımı test basıncını olması gerekenden düşük verebilir.</div>
+<div class="warning">ℹ [SHELL-01] Hidrotest: kap su ile tamamen dolu, ρ_su=1000 kg/m³, g=9.81 m/s², test kurulu konumda (yönelim) yapılır; P_test kabın tepesinde ölçülür.</div>
+<div class="warning">ℹ [SHELL-01] Sistem test basıncı REVIEW_REQUIRED (LSR/MAWP tabanı eksik); bileşen sonucu da gözden geçirilmeli.</div>
+<div class="warning">ℹ [HEAD-L] Hidrotest: kap su ile tamamen dolu, ρ_su=1000 kg/m³, g=9.81 m/s², test kurulu konumda (yönelim) yapılır; P_test kabın tepesinde ölçülür.</div>
+<div class="warning">ℹ [HEAD-L] Sistem test basıncı REVIEW_REQUIRED (LSR/MAWP tabanı eksik); bileşen sonucu da gözden geçirilmeli.</div>
+<div class="warning">ℹ [HEAD-R] Hidrotest: kap su ile tamamen dolu, ρ_su=1000 kg/m³, g=9.81 m/s², test kurulu konumda (yönelim) yapılır; P_test kabın tepesinde ölçülür.</div>
+<div class="warning">ℹ [HEAD-R] Sistem test basıncı REVIEW_REQUIRED (LSR/MAWP tabanı eksik); bileşen sonucu da gözden geçirilmeli.</div>
+<div class="warning">⚠ [system] Test gerilmesi eksik (M1, M2): tasarım sıcaklığı 200.0 °C, test sıcaklığı 20.0 °C. S_test/S_design normalde ≥ 1&#x27;dir; LSR=1 test basıncını olması gerekenden DÜŞÜK verebilir (emniyetsiz yön). Malzemede &#x27;Test sıcaklığında S&#x27; değerini girin.</div>
+<div class="warning">ℹ [system] K4: Test sıcaklığındaki izin verilen gerilme girilmedi; LSR=1.0 yedek değer olarak kullanıldı (belirleyici malzeme M2).</div>
+<div class="warning">ℹ [system] Test sıcaklığındaki izin verilen gerilme girilmedi; LSR=1 varsayımı test basıncını olması gerekenden düşük verebilir.</div>
+<div class="warning">⚠ [HEAD-L] UCS-66 coincident stress ratio girilmedi; gerilme oranı azaltması uygulanmadı (konservatif: oran = 1.0 varsayıldı).</div>
+<div class="warning">⚠ [HEAD-L] Minimum design temperature (-10.0°C) &gt;= MDMT limit (-29.0°C). Charpy V-notch impact testi gerekli.</div>
+<div class="warning">ℹ [HEAD-L] K4: UCS-66 kalınlık düzeltmesi basitleştirilmiş doğrusal yaklaşımla hesaplanıyor ((t − 38 mm) × 0.5). Gerçek UCS-66 eğrileri doğrusal değildir; sonuç Şekil UCS-66&#x27;dan okunan değerle doğrulanmalıdır.</div>
+<div class="warning">ℹ [HEAD-L] Impact test temperature not specified. Charpy V-notch test required per UCS-66.</div>
+<div class="warning">ℹ [HEAD-L] Approximate UCS-66 result; verify against the applicable code curve and rules.</div>
+<div class="warning">⚠ [SHELL-01] UCS-66 coincident stress ratio girilmedi; gerilme oranı azaltması uygulanmadı (konservatif: oran = 1.0 varsayıldı).</div>
+<div class="warning">⚠ [SHELL-01] Minimum design temperature (-10.0°C) &gt;= MDMT limit (-29.0°C). Charpy V-notch impact testi gerekli.</div>
+<div class="warning">ℹ [SHELL-01] K4: UCS-66 kalınlık düzeltmesi basitleştirilmiş doğrusal yaklaşımla hesaplanıyor ((t − 38 mm) × 0.5). Gerçek UCS-66 eğrileri doğrusal değildir; sonuç Şekil UCS-66&#x27;dan okunan değerle doğrulanmalıdır.</div>
+<div class="warning">ℹ [SHELL-01] Impact test temperature not specified. Charpy V-notch test required per UCS-66.</div>
+<div class="warning">ℹ [SHELL-01] Approximate UCS-66 result; verify against the applicable code curve and rules.</div>
+<div class="warning">⚠ [HEAD-R] UCS-66 coincident stress ratio girilmedi; gerilme oranı azaltması uygulanmadı (konservatif: oran = 1.0 varsayıldı).</div>
+<div class="warning">⚠ [HEAD-R] Minimum design temperature (-10.0°C) &gt;= MDMT limit (-29.0°C). Charpy V-notch impact testi gerekli.</div>
+<div class="warning">ℹ [HEAD-R] K4: UCS-66 kalınlık düzeltmesi basitleştirilmiş doğrusal yaklaşımla hesaplanıyor ((t − 38 mm) × 0.5). Gerçek UCS-66 eğrileri doğrusal değildir; sonuç Şekil UCS-66&#x27;dan okunan değerle doğrulanmalıdır.</div>
+<div class="warning">ℹ [HEAD-R] Impact test temperature not specified. Charpy V-notch test required per UCS-66.</div>
+<div class="warning">ℹ [HEAD-R] Approximate UCS-66 result; verify against the applicable code curve and rules.</div>
+<div class="warning">ℹ [MDMT-GOVERNING] Governing MDMT is the highest component UCS-66 limit; all component checks remain traceable above.</div>
+<div class="warning">ℹ [MDMT-GOVERNING] Governing MDMT envelope is preliminary until UCS-66 chart verification is completed.</div>
+<div class="warning">ℹ [LEGS] Yükselme kontrolü boş kap ağırlığıyla (8694 N), basma kontrolü 27123 N ile yapıldı.</div>
+<div class="warning">ℹ [LEGS] Simplified leg checks do not establish support layout, shell-local load transfer, or foundation capacity. Independent engineering review is required; this result is not a final PASS.</div>
+<div class="warning">ℹ [LEGS] K4: Destek yükü iki ağırlık durumundan türetildi: boş metal 887 kg ve hidrotest (metal + su, rho=1000 kg/m3, iç hacim 1.879 m3 -&gt; 1879 kg su). Basma kontrolü hidrotest ağırlığıyla, kaldırma/uplift boş ağırlıkla ilgilidir; işletme sıvısı, izolasyon ve iç ekipman ağırlıkları dahil DEĞİL.</div>
+<div class="warning">ℹ [LEGS] Devirme momenti girilmedi (0 N·mm) — rüzgâr ve deprem yükleri destek gerilmesine YANSITILMADI.</div>
+<div class="warning">⚠ [RELIEF-SYSTEM] Pressure relief system is not configured for this project.</div>
+
+</div>
+
+<div class="section">
+<h2>21. 2D Görünüşler</h2>
+<p><em>2D görünüş diyagramları ileride eklenecektir.</em></p>
+</div>
+
+<div class="section">
+<h2>22. 3D Model Görünümleri</h2>
+<p><em>3D model görüntüleri ileride eklenecektir.</em></p>
+</div>
+
+<div class="section">
+<h2>23. Hesap Onay ve İmza</h2>
+<table>
+<thead><tr><th>Görev</th><th>İsim</th><th>Tarih</th><th>İmza</th></tr></thead>
+<tr><td>Hazırlayan</td><td></td><td></td><td></td></tr>
+<tr><td>Kontrol Eden</td><td></td><td></td><td></td></tr>
+<tr><td>Onaylayan</td><td></td><td></td><td></td></tr>
+</table>
+</div>
+
+<div class="section">
+<h2>24. Yöneten Sonuç ve Eksiklik Listesi</h2>
+<h3>Yöneten bileşenler</h3>
+<table><thead><tr><th>Bileşen</th><th>Hesap</th><th>Sonuç</th><th>Durum</th><th>Madde</th></tr></thead>
+<tr><td>HEAD-R</td><td>mawp</td><td>1.3696722534440742 MPa</td><td>PASS</td><td>UG-32(d)</td></tr><tr><td>MDMT-GOVERNING</td><td>mdmt_check</td><td>-29.0 °C</td><td>REVIEW REQUIRED</td><td>UCS-66</td></tr></table>
+<h3>İnceleme / kapatma gerektirenler</h3><ul><li>N1: REVIEW REQUIRED</li><li>system: REVIEW REQUIRED</li><li>WJ-01: REVIEW REQUIRED</li><li>WJ-02: REVIEW REQUIRED</li><li>system: REVIEW REQUIRED</li><li>SHELL-01: REVIEW REQUIRED</li><li>HEAD-L: REVIEW REQUIRED</li><li>HEAD-R: REVIEW REQUIRED</li><li>system: REVIEW REQUIRED</li><li>HEAD-L: REVIEW REQUIRED</li><li>SHELL-01: REVIEW REQUIRED</li><li>HEAD-R: REVIEW REQUIRED</li><li>MDMT-GOVERNING: REVIEW REQUIRED</li><li>LEGS: REVIEW REQUIRED</li><li>RELIEF-SYSTEM: OUT OF SCOPE</li></ul>
+        </div>
+
+<div class="section">
+<h2>25. Yöneten MDMT, Junction ve Bileşen Bazlı Applicability</h2>
+<table>
+<thead><tr><th>Yöneten MAWP</th><th>Yöneten MDMT</th></tr></thead>
+<tr><td>HEAD-R — 1.370 MPa</td><td>-29.0 °C — HEAD-L (SA-516 Gr.70); REVIEW REQUIRED</td></tr>
+</table>
+<h3>Junction özeti</h3>
+<table><thead><tr><th>Junction</th><th>Tip</th><th>Bağlanan bileşenler</th><th>Uygulama durumu</th></tr></thead><tr><td>WJ-01</td><td>longitudinal</td><td>A</td><td>REVIEW REQUIRED</td></tr><tr><td>WJ-02</td><td>circumferential</td><td>B</td><td>REVIEW REQUIRED</td></tr></table>
+<h3>Bileşen bazlı applicability</h3>
+<table><thead><tr><th>Bileşen</th><th>Tip</th><th>Sonuç sayısı</th><th>Applicability</th></tr></thead><tr><td>SHELL-01</td><td>shell</td><td>4</td><td>Uygulanabilir / hesaplandı</td></tr><tr><td>HEAD-L</td><td>head</td><td>4</td><td>Uygulanabilir / hesaplandı</td></tr><tr><td>HEAD-R</td><td>head</td><td>4</td><td>Uygulanabilir / hesaplandı</td></tr><tr><td>N1</td><td>nozzle</td><td>2</td><td>Uygulanabilir / hesaplandı</td></tr><tr><td>system</td><td>system</td><td>3</td><td>Uygulanabilir / hesaplandı</td></tr><tr><td>WJ-01</td><td>weld</td><td>1</td><td>Uygulanabilir / hesaplandı</td></tr><tr><td>WJ-02</td><td>weld</td><td>1</td><td>Uygulanabilir / hesaplandı</td></tr><tr><td>MDMT-GOVERNING</td><td>system</td><td>1</td><td>Uygulanabilir / hesaplandı</td></tr><tr><td>LEGS</td><td>support</td><td>1</td><td>Uygulanabilir / hesaplandı</td></tr><tr><td>RELIEF-SYSTEM</td><td>system</td><td>1</td><td>Uygulanmadı / veri eksik</td></tr></table>
+</div>
+
+<div class="section u1a u1a-page">
+<h2>26. U-1A biçiminde özet — resmî form değildir</h2>
+<p class="u1a-note">ASME U-1A Manufacturer's Data Report düzenine benzer özet. Alanlar yalnız proje verisinden
+doldurulur; projede bulunmayan alan "—" gösterilir. Bu sayfa kayıtlı bir Authorized Inspector onaylı belge değildir.</p>
+<table>
+<thead><tr><th>Alan</th><th>Değer</th></tr></thead>
+<tr><th>1. Üretici</th><td>—</td></tr>
+<tr><th>2. Müşteri / satın alan</th><td>Basincli QA</td></tr>
+<tr><th>3. Proje no / ad</th><td>KLV-201 / Dikey ayaklı tank (örnek)</td></tr>
+<tr><th>4. Revizyon</th><td>A</td></tr>
+<tr><th>5. Tasarım kodu</th><td>ASME VIII-1 — 2025</td></tr>
+<tr><th>6. Seri no / Ulusal Kurul no</th><td>—</td></tr>
+<tr><th>7. Yıl</th><td>—</td></tr>
+<tr><th>8. Kap yönü</th><td>vertical</td></tr>
+<tr><th>9. İç çap (mm)</th><td>1000</td></tr>
+<tr><th>10. Gövde toplam boyu (mm)</th><td>2000</td></tr>
+<tr><th>11. Gövde malzemesi</th><td>SA-516 Gr.70</td></tr>
+<tr><th>12. Gövde nominal kalınlık (mm)</th><td>12</td></tr>
+<tr><th>13. Bombe malzemesi</th><td>SA-516 Gr.60, SA-516 Gr.70</td></tr>
+<tr><th>14. Bombe nominal kalınlık (mm)</th><td>12, 10</td></tr>
+<tr><th>15. Korozyon payı, iç (mm)</th><td>2.0</td></tr>
+<tr><th>16. Birleşim verimi (E)</th><td>0.85, 1</td></tr>
+<tr><th>17. Radyografi / NDT kapsamı</th><td>100%, spot</td></tr>
+<tr><th>18. PWHT</th><td>—</td></tr>
+<tr><th>19. Tasarım basıncı (MPa)</th><td>1.2</td></tr>
+<tr><th>20. Azami izin verilen basınç PS (MPa)</th><td>1.5</td></tr>
+<tr><th>21. Hesaplanan MAWP</th><td>1.370 MPa</td></tr>
+<tr><th>22. Tasarım sıcaklığı (°C)</th><td>200.0</td></tr>
+<tr><th>23. Asgari tasarım sıcaklığı MDMT (°C)</th><td>-10.0</td></tr>
+<tr><th>24. Hidrostatik test basıncı</th><td>1.781 MPa</td></tr>
+<tr><th>25. İç hacim</th><td>1879.3 L</td></tr>
+<tr><th>26. Nozullar</th><td>N1</td></tr>
+<tr><th>27. Sertifikalı kişi / imza / tarih</th><td>—</td></tr>
+</table>
+</div>
+<div class="footer">
+<table class="traceability">
+<tr><th colspan="2">İzlenebilirlik Bilgileri</th></tr>
+<tr><td><strong>Yazılım Sürümü</strong></td><td>0.1.0</td></tr>
+<tr><td><strong>Hesap Motoru Sürümü</strong></td><td>0.1.0</td></tr>
+<tr><td><strong>Standart Paket Sürümü</strong></td><td>ASME VIII-1 2025</td></tr>
+<tr><td><strong>Malzeme Veritabanı Sürümü</strong></td><td>manual-v1</td></tr>
+<tr><td><strong>Proje Revizyonu</strong></td><td>A</td></tr>
+<tr><td><strong>Hesap Tarihi</strong></td><td>2026-11-18 17:25:25 UTC</td></tr>
+<tr><td><strong>Girdi Dosyası Hash</strong></td><td></td></tr>
+<tr><td><strong>Rapor Hash</strong></td><td>6c5bc9b722ab2c57...</td></tr>
+</table>
+
+</div>
+</body>
+</html>
