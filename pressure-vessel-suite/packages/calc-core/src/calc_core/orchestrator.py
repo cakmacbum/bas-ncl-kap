@@ -57,7 +57,7 @@ class OrchestratorResult:
         """Belirli bir bileşenin tüm sonuçlarını getir."""
         return [r for r in self.results if r.component_id == component_id]
 
-    def get_global_mawp(self) -> Optional[float]:
+    def get_global_mawp(self, design_pressure: Optional[float] = None) -> Optional[float]:
         """Global MAWP = min(tüm MAWP sonuçları).
 
         §19: Eksik/geçersiz bileşen varsa global MAWP None döner (sessizce min'e katılmaz).
@@ -87,6 +87,14 @@ class OrchestratorResult:
         for r in mawp_results:
             r.governing = False
         governing_result.governing = True
+
+        if design_pressure is not None and design_pressure > 0:
+            if governing_result.final_result < design_pressure:
+                util = (design_pressure / governing_result.final_result) if governing_result.final_result > 0 else None
+                governing_result.set_fail(util)
+                warning_msg = f"MAWP ({governing_result.final_result:.4f} MPa) tasarım basıncının ({design_pressure:.4f} MPa) altında"
+                if not any(warning_msg in w for w in governing_result.warnings):
+                    governing_result.add_warning(warning_msg)
 
         return governing_result.final_result
 
@@ -291,7 +299,7 @@ class CalculationOrchestrator:
 
         # F) Test basıncı — taban global MAWP (UG-99(b)); MAWP yoksa design_code
         # endnote muafiyetine düşer ve varsayımı kaydeder.
-        global_mawp = result.get_global_mawp()
+        global_mawp = result.get_global_mawp(project.design_conditions.design_pressure)
         try:
             r = self.design_code.calculate_hydrotest_pressure({
                 "project": project,
@@ -365,7 +373,7 @@ class CalculationOrchestrator:
 
         # J) Basınç tahliye sistemi (ASME VIII-1 UG-125--136).
         try:
-            for r in self.design_code.check_pressure_relief(project, result.get_global_mawp()):
+            for r in self.design_code.check_pressure_relief(project, result.get_global_mawp(project.design_conditions.design_pressure)):
                 result.add(r)
         except Exception as e:
             result.add_error(f"Pressure relief check error: {e}")
@@ -503,6 +511,17 @@ class CalculationOrchestrator:
                     mawp_r.set_fail(0.0)
                 else:
                     mawp_r.final_result = corrected_mawp
+                    P = getattr(dc, "design_pressure", None) or 0.0
+                    if P > 0 and corrected_mawp < P:
+                        mawp_r.set_fail(P / corrected_mawp if corrected_mawp > 0 else None)
+                        mawp_r.add_warning(
+                            f"MAWP ({corrected_mawp:.4f} MPa) tasarım basıncının ({P:.4f} MPa) altında"
+                        )
+                    elif P > 0 and corrected_mawp > 0:
+                        if mawp_r.status == CalculationStatus.PASS:
+                            mawp_r.set_pass(P / corrected_mawp)
+                        else:
+                            mawp_r.utilization_ratio = P / corrected_mawp
             elif level_below:
                 mawp_r.add_assumption(
                     f"Sıvı seviyesi ({liquid_level} mm) bileşen taban kotunun altında: "

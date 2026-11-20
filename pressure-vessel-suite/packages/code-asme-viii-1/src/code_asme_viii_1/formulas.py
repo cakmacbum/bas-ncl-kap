@@ -565,11 +565,15 @@ def flat_head_mawp(
 
     Burada:
     t_corr = nominal kalınlık - korozyon payı
-    d = kapak çapı (mm)
+    d = kapak çapı (korozyonlu koşulda, mm)
     C_attach = bağlantı katsayısı
 
+    Not (A1): CA yalnızca et kalınlığından düşülür (t_corr = t_actual - CA).
+    Çap 'd', çağıran (design_code.calculate_mawp) tarafından korozyonlu iç çap olarak
+    geçirilir; bu fonksiyonda çapa tekrar CA uygulanmaz (çift korozyon düşme/ekleme yok).
+
     Args:
-        d: Kapak çapı (mm).
+        d: Kapak korozyonlu çapı (mm).
         t_actual: Nominal et kalınlığı (mm).
         S: İzin verilen gerilme (MPa).
         E: Kaynak verimi.

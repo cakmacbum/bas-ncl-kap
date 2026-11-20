@@ -1437,7 +1437,7 @@ class TestExternalCorrosionAllowanceOtherHeads:
         r0 = self._mawp(asme_code, sample_project, hd.model_copy(update={"external_corrosion_allowance": 0.0}))
         r3 = self._mawp(asme_code, sample_project, hd.model_copy(update={"external_corrosion_allowance": self.CA_O}))
         S, E, ca_i, t_act, D = self._common(sample_project, hd)
-        d = D - 2 * ca_i
+        d = D  # A1: D zaten korozyonlu ic cap; ikinci kez dusulmez
         t = t_act - ca_i - self.CA_O
         assert r3 == pytest.approx(S * E * (t / d) ** 2 / 0.33, rel=1e-9)
         assert r3 < r0

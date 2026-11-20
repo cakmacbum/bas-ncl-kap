@@ -697,7 +697,14 @@ class EN13445DesignCode(DesignCode):
 
         result.final_result = mawp
         result.final_result_unit = "MPa"
-        result.set_pass()
+        P = getattr(dc, "design_pressure", None) or 0.0
+        if P > 0 and mawp < P:
+            util = (P / mawp) if mawp > 0 else None
+            result.set_fail(util)
+            result.add_warning(f"MAWP ({mawp:.4f} MPa) tasarım basıncının ({P:.4f} MPa) altında")
+        else:
+            util = (P / mawp) if (P > 0 and mawp > 0) else None
+            result.set_pass(util)
         if flat_review:
             self._cap_unverified(result, "EN 13445-3, 10")
         if elliptical_review:
@@ -1280,7 +1287,14 @@ class EN13445DesignCode(DesignCode):
             "Koni MAWP yalnız membran denklemidir; uç birleşim sınırları (7.6.6/7.6.8) bu değere katılmadı."
         )
         result.final_result, result.final_result_unit = mawp, "MPa"
-        result.set_pass()
+        P = getattr(dc, "design_pressure", None) or 0.0
+        if P > 0 and mawp < P:
+            util = (P / mawp) if mawp > 0 else None
+            result.set_fail(util)
+            result.add_warning(f"MAWP ({mawp:.4f} MPa) tasarım basıncının ({P:.4f} MPa) altında")
+        else:
+            util = (P / mawp) if (P > 0 and mawp > 0) else None
+            result.set_pass(util)
         self._cap_unverified(result, "EN 13445-3, 7.6.4")
         self._apply_material_data_check(result, mat, dc, t)
         return result

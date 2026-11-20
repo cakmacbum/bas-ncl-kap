@@ -760,13 +760,18 @@ class ASMEVIII1DesignCode(DesignCode):
                     mawp = formulas.mawp_from_hemispherical_head(R, t_actual, S, E, C_wall)
                 elif head.type == HeadType.FLAT:
                     result.clause_reference = "UG-34(c)(2)"
+                    if getattr(head, "flat_z_factor", None) is not None:
+                        result.set_not_calculated(
+                            "UG-34(c)(3): Dairesel olmayan düz kapak için MAWP hesabı henüz desteklenmiyor."
+                        )
+                        return result
                     C_attach = head.flat_attachment_factor
                     if C_attach is None:
                         result.set_blocked_missing_input(
                             "UG-34 bağlantı katsayısı C girilmemiş. MAWP hesaplanamaz."
                         )
                         return result
-                    d = D - 2 * C  # korozyona uğramış çap
+                    d = D  # korozyona uğramış çap (D = inside_diameter + 2 * C)
                     mawp = formulas.flat_head_mawp(d, t_actual, S, E, C_attach, CA=C_wall)
                     result.add_intermediate("C_attach", C_attach, "-", "UG-34 attachment factor")
                     result.add_intermediate("d_corroded", d, "mm", "Corroded diameter")
@@ -788,7 +793,14 @@ class ASMEVIII1DesignCode(DesignCode):
 
         result.final_result = mawp
         result.final_result_unit = "MPa"
-        result.set_pass()
+        P = getattr(dc, "design_pressure", None) or 0.0
+        if P > 0 and mawp < P:
+            util = (P / mawp) if mawp > 0 else None
+            result.set_fail(util)
+            result.add_warning(f"MAWP ({mawp:.4f} MPa) tasarım basıncının ({P:.4f} MPa) altında")
+        else:
+            util = (P / mawp) if (P > 0 and mawp > 0) else None
+            result.set_pass(util)
         self._apply_material_data_check(result, mat, dc, t_nominal)
         result.material_properties_used = {
             "designation": mat.material_designation,
