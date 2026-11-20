@@ -41,3 +41,6 @@ pressure-vessel-suite/docs/validation/sources/
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# --- Üretilen TypeScript önbelleği ---
+*.tsbuildinfo

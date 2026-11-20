@@ -40,3 +40,8 @@ Satır durumu daima o satırın kontrollerinden türetilir. Nozul takviye `utili
 ## DEC-009 — Kot uydurma yok (2026-10-17)
 Statik kafa için bileşen kotu güvenilir hesaplanamıyorsa (`component_sequence` yok, yatayda koni, çözülemeyen torisferik) kot atanmaz;
 "Statik kafa uygulanmadı" uyarısı kalır (K4).
+
+## DEC-010 — Her ajan paketinden önce GitHub'a dönüş noktası (2026-11-20, Yusuf)
+Karar: Şef (Claude) her Gemini/Codex/Sonnet paketinden ÖNCE `bash pressure-vessel-suite/tools/donus/nokta.sh al "<paket>"` çalıştırır
+(`donus/<tarih>-<ad>` etiketi origin'e itilir). Ajanlar commit/push atmaz. Beğenilmeyen sonuç: `git restore --source=<etiket> -- <yol>` veya `git revert`.
+Gerekçe: değişikliği beğenmezsek tek komutla eski hale dönmek. node_modules/.venv/dist git'e girmez (.gitignore); `npm ci` ile yeniden kurulur.

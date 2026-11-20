@@ -155,3 +155,8 @@ UG-34, MAWP, global MAWP, UG-99(b), UG-100. Nozul, koni, EN 13445 yok.
 İlk kıyas: elips + yarım küre 12/12 ✅; **T-01** torisferik L/r korozyonsuz (site %0.67 emniyetli), **T-02** düz kapak MAWP'de
 d korozyonsuz (site %0.8 emniyetsiz), **T-03** düz kapak mawp satırı PASS (MAWP ≪ P). Kayıt: `tools/test-ortami/BULGULAR.md`. Düzeltilmedi.
 Ders: agy P02'de değişiklik üretmedi (çıkış 4) → Sonnet'e döndü. Alt-ajan worktree'leri yine origin/main'den açıldı → cherry-pick.
+
+## 2026-11-10 — Rakip kıyası sonrası acil liste
+Site, PV Elite/COMPRESS hedefiyle kıyaslandı: ASME iç basınç çekirdeği sağlam, ürün "tamamlayıcı" (ön boyutlandırma + imalatçı çıktıları + PED ön hazırlık); önce çekirdek (A1–A7 emniyet/doğruluk, B1–B7 güven temeli) kapanacak.
+Ayrıntı: .project-ai/durum-notlari/2026-11-10/ACIL-YAPILACAKLAR.md
+Kural: P0–P1 bitene kadar yeni özellik yok.

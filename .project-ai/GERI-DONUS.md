@@ -44,3 +44,21 @@ Windows Git Bash'te `/api/...` gibi yollar bozulursa önce `export MSYS_NO_PATHC
 - Vercel, rollback sonrası domain'lerin yeni üretim deploy'larına otomatik bağlanmasını durdurabilir (Vercel belgesine göre; doğrulanmadı). Sonraki bir `deploy --prod` canlıya yansımazsa `npx --yes vercel@latest promote <dpl>` gerekebilir.
 - Dağıtım git push ile otomatik değildir; elle `vercel deploy --prod` ile yapılır.
 - Etiket GitHub'da (`origin`) da durur; yerel kopya kaybolsa bile oradan alınır.
+
+---
+
+# Kod için dönüş noktası (git etiketi, GitHub'da)
+
+Canlı site dönüşü yukarıdadır (Vercel). Bu bölüm **kaynak kod** içindir. node_modules/.venv/dist depoda yok; geri dönünce gerekirse `npm ci`.
+
+```bash
+bash pressure-vessel-suite/tools/donus/nokta.sh al "paket-adi"   # etiket koy + GitHub'a it
+bash pressure-vessel-suite/tools/donus/nokta.sh liste            # son dönüş noktaları
+bash pressure-vessel-suite/tools/donus/nokta.sh don donus/2026-11-20-1200-paket-adi   # onayla, yedek/* ile korur
+```
+
+Elle geri alma (güvenli → sert):
+1. **Tek dosya:** `git restore --source=donus/<etiket> -- <yol>` (diğer işlere dokunmaz)
+2. **Geçmiş silinmeden:** `git revert <kötü-commit>` ya da `git revert donus/<etiket>..HEAD`
+3. **Sert (yalnız push edilmemişse):** `git reset --hard donus/<etiket>` — push edildiyse force-push yerine 2. yolu kullan.
+Kural: DEC-010 (her ajan paketinden önce `al`).
